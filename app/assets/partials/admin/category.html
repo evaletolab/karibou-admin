@@ -1,0 +1,103 @@
+
+<section id="content" ng-controller="CategoryCtrl" class="container">
+  <header>
+    <h1 id="section-header">Account Shops</h1>
+    <div ng-show="FormErrors" class="alert alert-error">
+      {{FormErrors}}
+    </div>    
+    <div ng-show="FormInfos" class="alert alert-info">
+      {{FormInfos}}
+    </div>
+  </header>
+  <div class="row">
+    <div class="span3">
+      <div ng-include="'/partials/account/nav.html'"></div>&nbsp;
+    </div>
+    <section id="section-content">
+      <div class="span8">
+        <form nonvalidate name="form" class="form form-horizontal">
+          <fieldset class="control-group">
+
+            <h3>Choisir une catégorie</h3>        
+            <!-- SELECT -->
+            <div class="control-group">
+              <div class="controls">
+                <select ui-select2 ng-model="categoryslug"  ng-change="selectCategory()" 
+                  data-placeholder="Choisir une catégorie" style="width:300px">
+                  <option></option>
+                  <option ng-repeat="cat in categories" value="{{cat.slug}}">{{cat.name}}</option>
+                </select>      
+              </div>
+            </div>
+            <div ng-show="categoryslug">
+              <h3>Editer une catégorie</h3>        
+              <!-- NAME -->
+              <div class="control-group">
+                <label for="name" class="control-label"><b>Nom</b>&nbsp;</label>
+                <div class="controls">
+                  <input name="name" ng-model="selected.name" type="text" required="true"  class="span6"/>          
+                </div>  
+              </div>
+
+              <!-- GROUP -->
+              <div class="control-group">
+                <label for="name" class="control-label"><b>Groupe</b>&nbsp;</label>
+                <div class="controls">
+                  <input name="name" ng-model="selected.group" type="text"   class="span6"/>          
+                </div>  
+              </div>
+              <!-- GROUP -->
+              <div class="control-group">
+                <label for="name" class="control-label"><b>Description</b>&nbsp;</label>
+                <div class="controls">
+                  <input name="name" ng-model="selected.description" type="text"   class="span11"/>          
+                </div>  
+              </div>
+
+              <div class="form-actions">
+                <input type="button" ng-click="categoryslug=null" value="Annuler" class="btn  btn-large"/>
+                <input type="button" ng-click="delete(selected)" value="Suppprimer" class="btn  btn-large"/>
+                <input type="submit" ng-click="save(selected)" value="Enregister" class="btn btn-success btn-large"/>
+              </div>              
+            </div>
+          </fieldset>
+        </form>
+        <div ng-hide="categoryslug">
+          <h3>Ajouter une catégorie</h3>        
+          <form nonvalidate name="form" class="form form-horizontal">
+              <!-- NAME -->
+              
+              <div class="control-group">
+                <label for="name" class="control-label"><b>Nom</b>&nbsp;</label>
+                <div class="controls">
+                  <input name="name" ng-model="category.name" type="text" required="true"  class="span6"/>          
+                </div>  
+              </div>
+
+              <!-- GROUP -->
+              <div class="control-group">
+                <label for="name" class="control-label"><b>Groupe</b>&nbsp;</label>
+                <div class="controls">
+                  <input name="name" ng-model="category.group" type="text"  class="span6"/>          
+                </div>  
+              </div>
+              <!-- GROUP -->
+              <div class="control-group">
+                <label for="name" class="control-label"><b>Description</b>&nbsp;</label>
+                <div class="controls">
+                  <input name="name" ng-model="category.description" type="text"   class="span11"/>          
+                </div>  
+              </div>
+
+              <div class="form-actions">
+                <input type="submit" ng-click="create(category)" value="Ajouter" class="btn btn-success btn-large"/>
+              </div>              
+            </div>
+
+          </form>
+        </div>
+          
+      </div>
+    </section>
+  </div>
+</section>

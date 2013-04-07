@@ -1,0 +1,20 @@
+
+<section id="content" ng-controller="AccountCtrl" class="container">
+    <h2 class="text-center sexy" id="section-header">Account Overview</h2>
+    <br/>
+    <div ng-include="'/partials/account/navigation.html'"></div>
+    <div class="frame frame-white">
+      <div class="span1"><img width="160px" src="{{user.photo}}" class="round-corner"/></div>
+      <div class="span10">
+        <h4>{{ user.display() }}</h4>
+        <p><a href="/account/profile">Edit Profile</a></p>
+      </div>
+      <section>
+        <h3>Services</h3>
+        <dl>
+          <dt>Delete Account</dt>
+          <dd><a ng-click="deleteUser(user)">Close account and delete all services and info associated with it</a></dd>
+        </dl>
+      </section>
+    </div>
+</section>

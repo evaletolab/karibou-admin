@@ -1,0 +1,62 @@
+
+<section id="content" ng-controller="AccountCtrl" class="container">
+  <header>
+    <h1 id="section-header">Account Shops</h1>
+  </header>
+  <div class="row">
+    <div class="span3">
+      <div ng-include="'/partials/account/nav.html'"></div>&nbsp;
+    </div>
+    <section id="section-content">
+      <div class="span8">
+        <ul ng-repeat="shop in user.shops">
+          <li>
+            <h3><a href="/shop/{{shop.urlpath}}">{{shop.name}}</a> [Valid {{shop.status == true}}]</h3>
+            <p><span ng-bind-html-unsafe="shop.description"></span><input type="submit" ng-click="shop.remove()" value="Remove" class="btn"/></p>
+            
+          </li>
+        </ul>
+        <hr/>
+        <div >
+          <p>You don't have a shop or you want a new one?</p>
+          <blockquote class=>
+            <b>This is the rules of our community marketplace ...</b>
+            <ol>
+              <li>Vous êtes producteur d'aliment<pre>
+                ...
+              </pre></li>
+              <li>Vous êtes revendeur d'aliment<pre>
+                ...
+              </pre></li>
+              <li>Vous êtes artisan<pre>
+                ...
+              </pre></li>
+              <li>Vous offrez vos services<pre>
+                ...
+              </pre></li>
+            </ol>
+            <small>Delphine S.A.</small>
+          </blockquote>
+        </div>
+         <form nonvalidate name="form" class="form">
+           <fieldset class="control-group">
+              <div class="control-group">
+                <label for="name" class="control-label"><b>Your shop name</b>&nbsp;
+                  <input name="name" ng-model="name" type="text" required="true"  class="span4"/>          
+                </label>  
+              </div>
+              <div class="control-group">
+                <label for="cc" class="control-label small">I have read and I agree with the rules&nbsp;
+                  <input id="cc" name="cc" type="checkbox" required="true" value="0" class="btn"/>
+                </label>  
+              </div>
+            <div class="form-actions">
+              <input type="submit" ng-click="createShop({name:name})" value="Create a new shop" class="btn btn-success btn-large"/>
+            </div>              
+            </fieldset>
+          </form>
+        
+      </div>
+    </section>
+  </div>
+</section>

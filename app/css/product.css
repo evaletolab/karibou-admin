@@ -1,0 +1,111 @@
+
+/* products
+-------------------------------------------------- */
+
+.drop-photo{
+  border: 2px dashed #DDD;
+  border-radius: 15px;
+}
+.drop-photo button{
+  margin:15px;
+  margin-left:30%;
+  margin-right:30%;
+}
+
+.row-fluid [class*="layout-item"] {
+    min-height: 30px;
+}
+
+.items-header h2{
+    border-bottom: 1px solid #DEDEDE;
+    margin: 0 5% 15px;
+    text-align: center;
+    padding:10px;
+    color:#888;
+}
+
+.thumbnail-owner{
+  border: 5px solid white;
+  -webkit-box-shadow: 1px 1px 3px 0 rgba(0, 0, 0, 0.4);
+  box-shadow: 1px 1px 3px 0 rgba(0, 0, 0, 0.4);
+}
+
+.layout-item{
+  float:left;
+  background-color: #fff;
+  border-bottom: 1px solid #efefef;
+  border: 1px solid #eee;
+  border-color:#EAE9E9 #D4D2D3 #B2B1B1;
+  -border-radius: 9px ;
+  box-shadow: 1px 1px 2px 0 rgba(0, 0, 0, 0.05);
+  -box-shadow: 0 1px 1px rgba(0, 0, 0, 0.25) inset;
+  -box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.1);
+  margin-bottom: 25px;
+  min-height: 20px;
+  overflow-:hidden;
+  min-height:300px;
+}
+.layout-item .body{
+  padding: 4px 4px 0px 4px;  
+}
+
+.layout-item .footer{
+  padding: 8px;  
+  background-color:#FeFeFa;
+  margin-bottom:0px;
+}
+
+.layout-item.c1{
+  width: 28%;
+  width-: 220px;
+  margin:0.338em 0.338em 0.338em 1.8em;
+}
+
+.layout-item.c2{
+  width: 45%;
+  width-: 320px;
+  margin:0.338em 0.338em 0.338em 1.8em;
+}
+
+.layout-item:hover{
+  -box-shadow: 0 1px 5px rgba(0, 0, 0, 0.25) ;
+}
+
+.layout-item img{
+  cursor:pointer;
+  cursor:-Moz-Zoom-In;
+}
+
+@media only screen and ( max-width: 1024px ) /* 640px */{  
+	.layout-item.c1{
+		width: 28%; /* 305px */
+    border: 1px solid #E3E3E3;    margin:0.438em;
+		margin-bottom: 0.938em; /* 15px */
+	}
+
+	.layout-item.c2{
+		width: 44%; /* 305px */
+    border: 1px solid #E3E3E3;    margin:0.438em;
+		margin-bottom: 0.938em; /* 15px */
+	}
+	
+}
+ 
+@media only screen and ( max-width: 320px ) /* 320px */{
+
+	.layout-item.c1, .layout-item.c2{
+		width-: 100%;
+    border: 1px solid #E3E3E3;
+    margin:0.238em;
+	}
+
+}
+
+
+@media screen and (orientation:portrait) {
+}
+@media screen and (orientation:landscape) {
+}
+
+
+

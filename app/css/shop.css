@@ -1,0 +1,53 @@
+
+/* Shop
+-------------------------------------------------- */
+
+
+
+.docs-container{
+  margin-left: 41.6809%;
+  float:left;
+}
+
+.docs-sidebar{
+  position:fixed;
+  box-shadow:1px 1px 0px rgba(0, 0, 0, 0.5);
+  float:left;
+}
+
+
+@media only screen and ( max-width: 1024px ) /* 640px */{
+  .docs-container{
+    width:100%;
+    float:left;
+  }
+
+  .docs-sidebar{
+    margin-top:48px;
+    box-shadow:1px 1px 0px rgba(0, 0, 0, 0.5);
+    float:left;
+    position:relative;
+  }
+  .docs-sidebar.span5{
+    width:100%;
+  }
+    
+  .docs-container{
+    margin-left: inherit;
+    float:inherit;
+  }	
+}
+@media screen and (orientation:portrait) {
+}
+@media screen and (orientation:landscape) {
+}
+ 
+@media only screen and ( max-width: 320px ) /* 320px */{
+
+
+}
+
+
+
+
+

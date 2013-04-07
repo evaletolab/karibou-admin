@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en" >
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="open marketplace for food.">
+    <meta name="author" content="Olivier Evalet">
+    <title ng-bind-template="{{title}}"></title>
+
+    <!--[if lte IE 7]>
+      <script src="http://cdnjs.cloudflare.com/ajax/libs/json2/20110223/json2.js"></script>
+    <![endif]-->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <link rel="stylesheet" href="/css/vendor.css">
+    <link rel="stylesheet" href="/css/app.css">
+
+    <script type="text/javascript">
+      (function(a){if(window.filepicker){return}var b=a.createElement("script");b.type="text/javascript";b.async=!0;b.src=("https:"===a.location.protocol?"https:":"http:")+"//api.filepicker.io/v1/filepicker.js";var c=a.getElementsByTagName("script")[0];c.parentNode.insertBefore(b,c);var d={};d._queue=[];var e="pick,pickMultiple,pickAndStore,read,write,writeUrl,export,convert,store,storeUrl,remove,stat,setKey,constructWidget,makeDropPane".split(",");var f=function(a,b){return function(){b.push([a,arguments])}};for(var g=0;g<e.length;g++){d[e[g]]=f(e[g],d._queue)}window.filepicker=d})(document); 
+    </script>
+
+
+  </head>
+
+  <body ng-controller="AppCtrl" class="preview fill" data-spy="scroll" data-target=".subnav" data-offset="90">
+  <!-- background fader for popup-->
+  <div id="backfader">
+   <div class="popupcontent" id="popup">
+      <h1>Content details here!</h1>
+   </div>
+  </div>
+
+  <!-- Navbar
+    ================================================== -->
+    <div class="navbar navbar-fixed-top" style="opacity: 0.95;position:fixed">
+     <div class="navbar-inner">
+       <div class="container">
+         <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+           <span class="icon-bar"></span>
+           <span class="icon-bar"></span>
+           <span class="icon-bar"></span>
+         </a>
+         <a class="brand" href="/"><i class="icon-home"></i></a> 
+         <div class="nav-collapse collapse" id="main-menu">
+          <ul class="nav" id="main-menu-left">
+            <li class="dropdown">
+              <a class="dropdown-toggle" data-toggle="dropdown" href="#"><i class="icon-th-list"></i> <b class="caret"></b></a>
+              <ul class="dropdown-menu" id="swatch-menu">
+                <li><a href="#">La sélection des marchands</a></li>
+                <li><a href="#">La sélection des clients</a></li>
+                <li class="divider"></li>
+                <li><a href="#">Laiterie</a></li>
+                <li><a href="#">Yogourt</a></li>
+                <li><a href="#">Fruit</a></li>
+                <li><a href="#">Légume</a></li>
+                <li><a href="#">Viande</a></li>
+                <li><a href="#">Boisson</a></li>
+                <li><a href="#">Vin</a></li>
+                <li><a href="#">Petit déjeuné</a></li>
+                <li><a href="#">Saucisse</a></li>
+                <li><a href="#">Charcuterie</a></li>
+                <li><a href="#">Pain</a></li>
+                <li><a href="#">Conserve</a></li>
+                <li><a href="#">Ménage</a></li>
+                <li><a href="#">Cuisine</a></li>
+              </ul>
+            </li>
+            <form action="" class="navbar-search ">
+              <input type="text" placeholder="Search" class=" span2">
+            </form>    
+
+          </ul>
+          <ul class="nav pull-right" id="main-menu-right" ng-include="'/partials/account/menu.html'">
+          </ul>
+         </div>
+       </div>
+     </div>
+    </div>
+    <div ng-include="'/partials/product/product.html'"></div>
+
+    <div class="fill row-fluid ng-view" >&nbsp;
+    </div>
+
+    
+
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    
+    <script src="/js/vendor.js"></script>
+    <script src="/js/app.js"></script>
+    <script>
+      window.brunch = window.brunch || {};
+      window.brunch['auto-reload'] = {
+        enabled: true
+      };
+    </script>
+    
+    <script>
+    $(function(){
+      var $window = $(window)
+
+      // Disable certain links in docs
+      $('section [href^=#]').click(function (e) {
+        e.preventDefault()
+      })
+
+      // side bar
+      $('.kb-sidebar').affix({
+        offset: {
+          top: function () { 
+            var t=$window.width() <= 980 ? 470 : 340;
+            return t; 
+          }
+        , bottom: 70
+        }
+      });
+        
+      
+    });
+    
+    
+    </script>
+    
+  </body>    
+</html>
+

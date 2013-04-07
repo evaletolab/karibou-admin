@@ -1,0 +1,169 @@
+<div id="product-edit" class="modal hide " style="width:800px;">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" ara-hidden="true">&times;</button>
+    <h3>Ajouter/modifier un produit</h3>
+  </div>
+  <div class="modal-body">
+    <form class="form-horizontal-" >
+      <div class="row-fluid">
+        <!-- 1 COLUMN -->
+        <div class="span7">
+          <fieldset>
+            <!-- Photo -->
+            <div class="control-group drop-photo">
+              <!-- <label class="control-label small">Photo</label> -->
+              <div class="controls">
+                <button id="image" name="image" class="btn btn-info">choisir une photo</button>
+              </div>
+            </div>
+
+            <!-- details alimentaire -->
+            <div class="control-group">
+              <label class="control-label small">Alimentaire</label>
+              <div class="controls">
+                <label class="checkbox inline">
+                  <input type="checkbox" name="details" value="BIO">
+                  BIO
+                </label>
+                <label class="checkbox inline">
+                  <input type="checkbox" name="details" value="sans gluten">
+                  <span >sans gluten</span>
+                </label>
+                <label class="checkbox inline">
+                  <input type="checkbox" name="details" value="sans lactose">
+                  <span >sans lactose</span>
+                </label>
+              </div>
+            </div>
+
+            <!-- details non alimentaire -->
+            <div class="control-group">
+              <label class="control-label small">Non alimentaire</label>
+              <div class="controls">
+                <label class="checkbox inline">
+                  <input type="checkbox" name="details" value="biodégradable">
+                  100% dégradable
+                </label>
+              </div>
+            </div>
+
+            <!-- options -->
+            <div class="control-group">
+              <label class="control-label small">Options</label>
+              <div class="controls">
+                <label class="checkbox inline">
+                  <input type="checkbox" name="attributes" value="indisponible">
+                  indisponible
+                </label>
+                <label class="checkbox inline">
+                  <input type="checkbox" name="attributes" value="offre spéciale">
+                  offre spéciale
+                </label>
+                <label class="checkbox inline">
+                  <input type="checkbox" name="attributes" value="commentaire">
+                  commentaires
+                </label>
+              </div>
+            </div>
+
+            <!-- shop -->
+            <div class="control-group">
+              <label class="control-label small">Boutique</label> 
+              <div class="controls">
+                <select id="category" name="category" class="input-xlarge" >
+                  <option ng-repeat="shop in user.shops" value="{{shop.urlpath}}">{{shop.name}}</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- category -->
+            <div class="control-group">
+              <label class="control-label small">Catégorie</label> 
+              <div class="controls">
+                <select id="category" name="category" class="input-xlarge" >
+                  <option>Fruit</option>
+                  <option>Légume</option>
+                </select>
+              </div>
+            </div>
+            
+          </fieldset>
+        </div>
+        <! -- 2 COLUMN -->
+        <div class="span5">
+          <fieldset>
+            <!-- title-->
+            <div class="control-group">
+              <!-- <label class="control-label">Title</label> -->
+              <div class="controls">
+                <input id="comment" name="comment" type="text" placeholder="Titre du produit" class="input-xlarge" required="">
+                <p class="help-block"></p>
+              </div>
+            </div>
+
+            <!-- description -->
+            <div class="control-group">
+              <!-- <label class="control-label">Description</label> -->
+              <div class="controls">                     
+                <div id="desciption" name="desciption" class="textarea">
+                  <textarea rows="4" class="span12"  placeholder="Description du produit"></textarea>
+                </div>
+              </div>
+            </div>
+
+            <!-- comments-->
+            <div class="control-group">
+              <!--<label class="control-label">Note</label> -->
+              <div class="controls">
+                <input id="comment" name="comment" type="text" placeholder="Informations supplémentaires" class="input-xlarge" required="">
+                <p class="help-block"></p>
+              </div>
+            </div>
+
+
+            <!-- price -->
+            <div class="control-group">
+              <!--<label class="control-label">Prix</label> -->
+              <div class="controls">
+                <input id="price" name="price" type="text" placeholder="CHF 10,50.-" class="input-xlarge" required="">
+                <p class="help-block"></p>
+              </div>
+            </div>
+
+            <!-- discount price -->
+            <div class="control-group">
+              <!--<label class="control-label">Prix</label> -->
+              <div class="controls">
+                <input id="price" name="discount" type="text" placeholder="CHF 8,00.- (promotion)" class="input-xlarge" required="">
+                <p class="help-block"></p>
+              </div>
+            </div>
+
+            <!-- portion -->
+            <div class="control-group">
+              <!--<label class="control-label">Portion</label> -->
+              <div class="controls">
+                <input id="part" name="part" type="text" placeholder="en portion, 100gr / 3 pce" class="input-xlarge">
+                <p class="help-block"></p>
+              </div>
+            </div>
+
+            <!-- stock-->
+            <div class="control-group">
+              <!-- <label class="control-label">Qte disponible</label> -->
+              <div class="controls">
+                <input id="stock" name="stock" type="text" placeholder="Qte disponible, 10" class="input-xlarge" required="">
+                <p class="help-block"></p>
+              </div>
+            </div>
+
+          </fieldset>
+        </div>        
+      </div>        
+
+  </div>
+  <div class="modal-footer">
+    <a href="#" class="btn" >Fermer</a>
+    <a href="#" class="btn btn-primary" >Enregistrer</a>
+  </div>
+</div>

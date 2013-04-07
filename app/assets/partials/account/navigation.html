@@ -1,0 +1,16 @@
+<div class="navbar">
+  <div class="navbar-inner">
+    <ul class="nav">
+      <li ng-class="getClass('/account/overview')"><a ng-href="/account/overview"></i>Account</a></li>
+      <li ng-class="getClass('/account/profile')"><a ng-href="/account/profile">Profile</a></li>
+      <li ng-class="getClass('/account/email')"><a ng-href="/account/email">Email</a></li>
+      <li ng-class="getClass('/account/password')"><a ng-href="/account/password">Password</a></li>
+      <li ng-class="getClass('/account/shop')"><a ng-href="/account/shop">Mes boutiques</a></li>
+      <li ng-show="user.isAdmin()"  class="divider-vertical"></li>      
+      <li ng-class="getClass('/admin/category')" ng-show="user.isAdmin()" ><a ng-href="/admin/category">Manage category</a></li>
+      <li ng-class="getClass('/admin/role')" ng-show="user.isAdmin()" ><a ng-href="/admin/role">Manage role</a></li>
+    </ul>
+  </div>
+</div>
+
+

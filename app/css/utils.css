@@ -1,0 +1,162 @@
+
+/* 
+-------------------------------------------------- */
+
+h1.sexy, h2.sexy, h3.sexy {
+  color: rgba(21, 21, 21, 0.8);
+  text-shadow:1px 2px 4px #E3E3E3,0 0 0 black,1px 2px 4px #E3E3E3,0 1px 0 white;
+  margin:30px 0px 20px 0px;
+}
+
+.round-corner{
+  border-radius:5px;
+}
+
+.text-center{
+  text-align: center;
+
+}
+
+.navbar-inner{
+  min-height-:40px;
+}
+
+ul.nav li{
+  line-height-:30px;
+}
+
+.navbar .nav .dropdown-toggle .caret {
+    margin-top-: 13px;
+}
+
+.fill{
+  height:100%;
+}
+
+.affix{
+  margin-top:-340px;
+}
+
+.shadow{
+  text-align: left;
+  text-shadow: 0 0px 2px #444;
+}
+
+
+.noscroll {
+    overflow: hidden !important;
+}
+
+.strike{
+  text-decoration:line-through;
+}
+
+.small {
+  font-size: 85%;
+  line-height:80%;
+}
+
+label, input, button, select, textarea {
+    font-size: 18px;
+    line-height: 1.4em;
+}
+
+.frame{
+    border-radius: 4px 4px 4px 4px;
+    box-shadow: 0 0px 1px rgba(0, 0, 0, 0.25) ;
+    margin-bottom: 20px;
+    min-height: 20px;
+    padding: 19px;
+}    
+
+.popover-form{
+  margin-top:20px;
+  width:320px!important;
+}
+
+.popover-form label, .popover-form input, .popover-form button, .popover-form select, .popover-form textarea {
+    font-size: 14px;
+    line-height: 1.2em;
+}
+
+.white{
+  color:white!important;
+}
+
+.bgblack{
+  background-color:#111;
+}
+
+.headline{
+  background:none repeat scroll 0 0 rgba(0, 0, 0, 0.6);
+}
+
+
+
+
+.elem{
+  padding: 4px;  
+}
+
+.textshadow {
+    text-align: left;
+    text-shadow: 0 1px 2px #fff;
+}
+
+
+/* Sections
+-------------------------------------------------- */
+
+/* padding for in-page bookmarks and fixed navbar */
+section {
+  padding-top: 30px;
+}
+section > .page-header,
+section > .lead {
+  color: #5a5a5a;
+}
+section > ul li {
+  margin-bottom: 5px;
+}
+
+
+/* Faded out hr */
+hr.soften {
+  height: 1px;
+  margin: 70px 0;
+  background-image: -webkit-linear-gradient(left, rgba(0,0,0,0), rgba(0,0,0,.1), rgba(0,0,0,0));
+  background-image:    -moz-linear-gradient(left, rgba(0,0,0,0), rgba(0,0,0,.1), rgba(0,0,0,0));
+  background-image:     -ms-linear-gradient(left, rgba(0,0,0,0), rgba(0,0,0,.1), rgba(0,0,0,0));
+  background-image:      -o-linear-gradient(left, rgba(0,0,0,0), rgba(0,0,0,.1), rgba(0,0,0,0));
+  border: 0;
+}
+
+
+
+
+/* Utility classes table
+------------------------- */
+.responsive-utilities th small {
+  display: block;
+  font-weight: normal;
+  color: #999;
+}
+.responsive-utilities tbody th {
+  font-weight: normal;
+}
+.responsive-utilities td {
+  text-align: center;
+}
+.responsive-utilities td.is-visible {
+  color: #468847;
+  background-color: #dff0d8 !important;
+}
+.responsive-utilities td.is-hidden {
+  color: #ccc;
+  background-color: #f9f9f9 !important;
+}
+
+
+
+
+

@@ -1,0 +1,93 @@
+
+/* home class
+------------------------- */
+
+
+#overview{
+  height: 350px;
+  position: relative;
+}
+
+
+.shop-home:nth-child(odd){
+  background-color: #EEEEEE;
+}
+
+.shop-home:nth-child(even){
+  background-color: #fff;
+}
+
+
+.jumbotron {
+  position: relative;
+  padding: 20px 0;
+  color: #black;
+  text-align-: center;
+  text-shadow: 0 1px 3px rgba(0,0,0,.4), 0 0 30px rgba(0,0,0,.075);
+}
+
+.jumbotron.subhead {
+	padding-bottom: 0;
+	margin-bottom: 9px;
+}
+
+.jumbotron h1 {
+  font-size: 70px;
+  font-weight: bold;
+  letter-spacing: -1px;
+  line-height: 1.4;
+}
+
+.jumbotron.subhead h1 {
+	font-size: 54px;
+}
+
+.jumbotron p {
+  font-size: 28px;
+  font-weight: 300;
+  line-height: 1.25;
+  margin-bottom: 30px;
+}
+
+/* Link styles (used on .masthead-links as well) */
+.jumbotron a {
+  color: #fff;
+  color: rgba(255,255,255,.5);
+  -webkit-transition: all .2s ease-in-out;
+     -moz-transition: all .2s ease-in-out;
+          transition: all .2s ease-in-out;
+}
+.jumbotron a:hover {
+  color: #fff;
+  text-shadow: 0 0 10px rgba(255,255,255,.25);
+}
+
+
+
+@media only screen and ( max-width: 1024px ) /* 640px */{  	
+	#overview{
+    height: 250px;
+    padding:20px;
+    margin-top:0px;
+  }
+  
+  #overview h1{
+    font-size: 95%;
+    line-height:100%;
+  }
+}
+@media screen and (orientation:portrait) {
+}
+@media screen and (orientation:landscape) {
+}
+ 
+@media only screen and ( max-width: 320px ) /* 320px */{
+	#overview{
+    height: 150px;
+  }
+
+}
+
+
+
+

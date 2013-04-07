@@ -1,0 +1,70 @@
+
+/* forms 
+-------------------------------------------------- */
+
+
+label, input, button, select, textarea {
+    font-size: 18px;
+    line-height: 1.4em;
+}
+
+.frame{
+    border-radius: 4px 4px 4px 4px;
+    box-shadow: 0 0px 1px rgba(0, 0, 0, 0.25) ;
+    margin-bottom: 20px;
+    min-height: 20px;
+    padding: 19px;
+}    
+
+.frame-white{
+  background-color:white;
+}
+
+.popover-form{
+  margin-top:20px;
+  width:320px!important;
+}
+
+.popover-form label, .popover-form input, .popover-form button, .popover-form select, .popover-form textarea {
+    font-size: 14px;
+    line-height: 1.2em;
+}
+
+.modal-header{
+  background-color: #3A3A3A;
+  background-image: -moz-linear-gradient(center top , #585858 0px, #3A3A3A 100%);
+  background-repeat: repeat-x;
+  border: 1px solid #333333;
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.2) inset;
+  cursor: default;
+  position: relative;
+  z-index: 3002;
+  color:#dedede;
+}
+
+.modal-body{
+  max-height:500px;
+}
+
+.modal-footer{
+  background-color: #3A3A3A;
+  background-image: -moz-linear-gradient(center top , #585858 0px, #3A3A3A 100%);
+  background-repeat: repeat-x;
+}
+
+@media only screen and ( max-width: 1024px ) /* 640px */{
+
+}
+ 
+@media only screen and ( max-width: 320px ) /* 320px */{
+
+}
+
+@media screen and (orientation:portrait) {
+}
+@media screen and (orientation:landscape) {
+}
+
+
+
+

@@ -1,0 +1,50 @@
+
+<section ng-controller="AccountCtrl" class="container">
+  <header>
+    <h2>Login</h2>
+  </header>
+  <div class="aeauth-form row">
+    <div ng-show="FormErrors" class="alert alert-error">
+      {{FormErrors}}
+    </div>
+    <div class="span5">
+      <header>
+        <h4>To get started, login with one of your existing accounts.</h4>
+      </header>
+      <ul class="inline">
+        <li ng-repeat="p in providers" class="provider-btn">
+          <button ng-click="authenticate(p)" class="btn btn-large"><img ng-src="/img/auth/{{p.name}}.png"/></button>
+        </li>
+      </ul>
+    </div>
+    <div class="span4">
+      <header>
+        <h4>Or create a new one.</h4>
+      </header>
+      <div class="password-form form-horizontal">
+        <form nonvalidate name="form" class="form">
+          <fieldset class="control-group">
+            <label for="email" class="control-label"><strong>Email</strong></label>
+            <div class="controls">
+              <input id="email" required ng-model="email" type="email" name="email"/><span ng-hide="form.email.$invalid" class="help-inline"><i class="icon-ok"></i></span>
+            </div>
+          </fieldset>
+          <fieldset class="control-group">
+            <label for="password" class="control-label"><strong>Password</strong></label>
+            <div class="controls">
+              <input id="password" required pattern=".{2,31}" ng-model="password" type="password" name="password"/>
+            </div>
+          </fieldset>
+          <fieldset class="form-actions">
+            <input type="submit" ng-click="login(email, password)" ng-disabled="form.$invalid || WaitText" value="{{WaitText || 'Login'}}" class="btn btn-success btn-large"/>
+          </fieldset>
+          <fieldset class="control-group">
+            <div class="controls">
+              <p><small><a href="/account/recovery">Can't access your account?</a></small></p>
+            </div>
+          </fieldset>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
