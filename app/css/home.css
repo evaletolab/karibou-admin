@@ -4,7 +4,7 @@
 
 
 #overview{
-  height: 350px;
+  height: 450px;
   position: relative;
 }
 
@@ -19,6 +19,7 @@
 
 
 .jumbotron {
+  margin-top:75px;
   position: relative;
   padding: 20px 0;
   color: #black;
@@ -32,15 +33,12 @@
 }
 
 .jumbotron h1 {
-  font-size: 70px;
+  font-size: 74px;
   font-weight: bold;
   letter-spacing: -1px;
   line-height: 1.4;
 }
 
-.jumbotron.subhead h1 {
-	font-size: 54px;
-}
 
 .jumbotron p {
   font-size: 28px;

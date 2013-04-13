@@ -30,13 +30,14 @@ function init($scope, elem, shop){
   ); 
 
   $('#toggle-shop-edit').toggle(function(){
-    $("#shop-edit").fadeIn();
+    $("#shop-edit").slideDown();
   },function(){
-    $("#shop-edit").fadeOut();
+    $("#shop-edit").slideUp();
   });
   
   $('input.btn.undo').click(function(){
     $('#toggle-shop-edit').click();  
+    return false;
   });
   
   
@@ -129,11 +130,6 @@ function init($scope, elem, shop){
   //
   // save settings
   $('#shopctrl form.profile').unbind().submit(function(){
-    var owner=elem.find('img.photo-owner').attr("src");
-    var photo=$('div.backstretch img')[0].src;
-    if (photo)shop.photo.fg=photo;
-//    if (owner)shop.photo.owner=owner;
-    shop.description=$("#content-edit").val();
     $scope.save(shop);
     return false;
   });        
@@ -193,7 +189,7 @@ angular.module('app.shop.ui', [
 
       setTimeout(function () {
         elm.freshereditor(options);
-        elm.freshereditor("edit", true);
+        elm.freshereditor("edit", false);
       });
     }
   };

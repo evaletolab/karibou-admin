@@ -26,14 +26,14 @@
     </script>
     
     <div id="overview" class="fill">
-      <div class="container fill" >
+      <div class="container fill " >
 
         <!-- Masthead
         ================================================== -->        
         
         <header class="jumbotron subhead" >
           <div class="row-fluid">
-            <div class="span6 textshadow">
+            <div class="span7 textshadow">
               <h1 >Votre marché</h1>
               <p class="lead">Le marché, c'est vous qui le faites</p>
             </div>
@@ -53,9 +53,10 @@
         </div>
         <!-- SPLIT -->
         <div class="span12 page-header shop-home" ng-repeat="shop in shops" style="margin:0px;padding:50px">
-          <div class="offset span5" style="position:relative">
-            <img src="{{shop.photo.fg}}/convert?w=400&h=280&fit=crop" class="img-polaroid pull-right">
-            <img src="{{shop.photo.owner | placehold:'80x80' }}"  class="thumbnail-owner " style="position:absolute;right:20px;bottom:20px;width:80px">
+          <div class="offset span5" style="position:relative" serialized="{{shop}}">
+            <!-- ///convert?w=400&h=280&fit=crop    -->
+            <img src="{{shop.photo.fg | placehold:'400x280'}}" class="img-polaroid pull-right" style="width:560px;height:350px">
+            <img src="{{shop.photo.owner | placehold:'80x80' }}"  class="thumbnail-owner stick-bl" style="width:80px">
             
           </div>
           <div class="span6 ">
@@ -63,8 +64,9 @@
               <h4 class=" pull-right" style="border-bottom: 1px solid rgb(221, 221, 221); padding: 5px;margin-bottom:30px;">
                 <a href="/shop/{{shop.urlpath}}">Les produits </a>
               </h4>
-              <h2>{{shop.name}} <a ng-show="user.isAuthenticated()" ng-click="shop.remove(user);shops.pop(shop)" href="" title="quick delete for dev only"><i class="icon-remove"></i></a></h2>
+              <h2>{{shop.name}} </h2>
               <p><i class="icon-comment"></i>&nbsp;<span ng-bind-html-unsafe="shop.description"></span></p>
+              <p ng-show="shop.info.active" ><i class="icon-fire"></i> {{shop.info.comment}}</p>
               <p><i class="icon-user"></i>&nbsp;<span >{{shop.location}}</span>  - <a ng-show="shop.url"  href="{{shop.url}}" >{{shop.url}}</a></p>
               <p><i class="icon-map-marker"></i>&nbsp;<span ng-repeat="market in shop.marketplace"><span class="badge badge-inverse">{{market}}</span>&nbsp;</span></p>
                 

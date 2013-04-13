@@ -14,18 +14,30 @@ angular.module('app.root', [
   '$rootScope',
   '$location',
   'config',
+  'api',
   'user',
+  'category',
 
-  function ($scope, $rootScope, $location, config, user) {
+  function ($scope, $rootScope, $location, config, api, user, category) {
 
+
+    var cb_error=api.error($scope);
 
     $scope.user = user;
+    $scope.categories = [];
 
     //
     // check and init the session    
     user.me(function(u){
       $scope.user = u;
     });
+    
+    //
+    // get categories
+    category.select({},function(categories){
+      $scope.categories=categories;
+    },cb_error);
+
     
     
     //
@@ -76,6 +88,13 @@ angular.module('app.root', [
       });
     };
     
+    $scope.createProduct=function(p){
+      console.log("create",p)
+    };
+    
+    $scope.saveProduct=function(p){
+      console.log("save",p)
+    };
   }
 ]);
 

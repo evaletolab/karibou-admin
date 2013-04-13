@@ -1,20 +1,39 @@
 
 <section id="content" ng-controller="AccountCtrl" class="container">
-    <h2 class="text-center sexy" id="section-header">Account Overview</h2>
+    <h2 class="text-center sexy" id="section-header">Aperçu de votre compte</h2>
     <br/>
     <div ng-include="'/partials/account/navigation.html'"></div>
-    <div class="frame frame-white">
-      <div class="span1"><img width="160px" src="{{user.photo}}" class="round-corner"/></div>
-      <div class="span10">
-        <h4>{{ user.display() }}</h4>
-        <p><a href="/account/profile">Edit Profile</a></p>
+    <div class="frame frame-white container">
+      <div class="span12 box">
+        <div class="span1"><img width="160px" src="{{user.photo}}" class="round-corner"/></div>
+        <div class="span10">
+          <h4>{{ user.display() }}</h4>
+          <p><a href="/account/profile">Editer votre profile</a></p>
+        </div>
       </div>
-      <section>
+      <div class="span12">
         <h3>Services</h3>
         <dl>
-          <dt>Delete Account</dt>
+          <dt class="red">Supprimer votre compte</dt>
           <dd><a ng-click="deleteUser(user)">Close account and delete all services and info associated with it</a></dd>
         </dl>
-      </section>
+      </div>
+    </div>
+    
+    <!-- SHOP LIST -->
+    <div class="frame frame-white container">
+      <div ng-show="user.shops.length" >
+      <h3 class="box span12">Vos boutiques</h3>
+      <ul ng-repeat="shop in user.shops" class="unstyled ">
+        <li class="block span12">              
+          <p class="well-small">
+            <i class="icon-fire"></i>
+            <a href="/shop/{{shop.urlpath}}">{{shop.name}}</a><span ng-hide="shop.status == true" class="help-inline"><i class="icon-ok"></i>&nbsp;</span>
+            <span ng-bind-html-unsafe="shop.description"></span>&nbsp;
+            <input type="submit" ng-click="shop.remove()" value="Remove" class="btn"/>
+          </p>
+          
+        </li>
+      </ul>
     </div>
 </section>

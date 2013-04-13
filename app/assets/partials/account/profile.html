@@ -1,41 +1,45 @@
-
-<section id="content" ng-controller="AccountCtrl"  class="container">
-  <header>
-    <h1 id="section-header">Account Profile</h1>
-  </header>
-  <div class="row">
-    <div class="span3">
-      <div ng-include="'/partials/account/nav.html'"></div>&nbsp;
-    </div>
-    <section id="section-content">
-      <div class="span6">
-        <div ng-show="FormErrors" class="alert alert-error">
-          {{FormErrors}}
-        </div>
-        <div ng-show="FormInfos" class="alert alert-info">
-          {{FormInfos}}
-        </div>
-        <form name="form" novalidate="novalidate" class="form-horizontal">
-          <fieldset>
-            <div class="control-group">
-              <label for="email" class="control-label"><strong>Name</strong></label>
-              <div class="controls">
-                <input required ng-model="user.name.givenName" placeholder="First" type="text" name="firstname" class="input-small"/>
-                <input required ng-model="user.name.familyName" placeholder="Last" type="text" name="lastname" class="input-small"/>
-              </div>
-            </div>
-            <div class="control-group">
-              <label for="email" class="control-label"><strong>Email</strong></label>
-              <div class="controls">
-                <input id="email" required ng-model="user.email.address" type="email" name="email"/><span ng-hide="form.email.$invalid || EmailError" class="help-inline"><i class="icon-ok"></i></span>
-              </div>
-            </div>
-            <div class="form-actions">
-              <input type="submit" ng-click="save(user)" ng-disabled="form.$invalid || WaitText" value="{{WaitText || 'Update'}}" class="btn btn-success btn-large"/>
-            </div>
-          </fieldset>
-        </form>
+<section id="content" ng-controller="AccountCtrl" class="container">
+    <h2 class="text-center sexy" id="section-header">Gérer votre profile</h2>
+    <br/>
+    <div ng-include="'/partials/account/navigation.html'"></div>
+    <div class="frame frame-white container">
+      <div ng-show="FormErrors" class="alert alert-error">
+        {{FormErrors}}
       </div>
-    </section>
-  </div>
+      <div ng-show="FormInfos" class="alert alert-info">
+        {{FormInfos}}
+      </div>
+    
+      <form name="form" novalidate="novalidate" class="form-horizontal">
+        <fieldset>
+          <h4 class="box ">Vos données personnelles</h4>        
+        
+          <!-- NAME FIRSTNAME -->        
+          <div class="control-group ">
+            <label class="control-label"><strong>Nom</strong></label>
+            <div class="controls">
+              <input required ng-model="user.name.givenName" placeholder="Prénom" type="text" name="firstname" class="input-small"/>
+              <input required ng-model="user.name.familyName" placeholder="Nom" type="text" name="lastname" class="input-small"/>
+            </div>
+          </div>
+
+          <!-- EMAIL & VALIDATION -->        
+          <div class="control-group ">
+            <label class="control-label"><strong>Email</strong></label>
+            <div class="controls">
+              <input id="email" required ng-model="user.email.address" type="email" name="email" class="input-xlarge"/><span ng-hide="form.email.$invalid || EmailError" class="help-inline"><i class="icon-ok"></i></span>
+              <p class="help-block">
+                <span ng-hide="user.email.status == true">vous devez valider votre email pour finaliser votre profile</span>
+                <span ng-show="user.email.status == true">cet email est valide</span>
+              </p>
+            </div>
+          </div>
+          <div class="control-group actions">
+            <input type="submit" ng-hide="user.email.status == true" ng-click="verify(user)" value="Valider" class="btn btn-large"/>
+            <input type="submit" ng-click="save(user)" ng-disabled="form.$invalid || WaitText" value="{{WaitText || 'Enregistrer'}}" class="btn btn-success btn-large"/>
+          </div>
+        </fieldset>
+      </form>      
+      
+    </div>
 </section>

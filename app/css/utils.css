@@ -5,16 +5,24 @@
 h1.sexy, h2.sexy, h3.sexy {
   color: rgba(21, 21, 21, 0.8);
   text-shadow:1px 2px 4px #E3E3E3,0 0 0 black,1px 2px 4px #E3E3E3,0 1px 0 white;
-  margin:30px 0px 20px 0px;
+  margin:15px 0px 25px 0px;
 }
 
 .round-corner{
   border-radius:5px;
 }
 
+.boder-bottom{
+  border-bottom:1px solid #eee;
+}
+
 .text-center{
   text-align: center;
 
+}
+
+.text-right{
+  text-align: right;
 }
 
 .navbar-inner{
@@ -56,31 +64,12 @@ ul.nav li{
   line-height:80%;
 }
 
-label, input, button, select, textarea {
-    font-size: 18px;
-    line-height: 1.4em;
-}
-
-.frame{
-    border-radius: 4px 4px 4px 4px;
-    box-shadow: 0 0px 1px rgba(0, 0, 0, 0.25) ;
-    margin-bottom: 20px;
-    min-height: 20px;
-    padding: 19px;
-}    
-
-.popover-form{
-  margin-top:20px;
-  width:320px!important;
-}
-
-.popover-form label, .popover-form input, .popover-form button, .popover-form select, .popover-form textarea {
-    font-size: 14px;
-    line-height: 1.2em;
-}
-
 .white{
   color:white!important;
+}
+
+.gray{
+  color:#999;
 }
 
 .bgblack{
@@ -91,7 +80,12 @@ label, input, button, select, textarea {
   background:none repeat scroll 0 0 rgba(0, 0, 0, 0.6);
 }
 
-
+.stick-bl{
+  position: absolute;
+  right: 20px;
+  bottom: 20px;
+  -width: 80px;
+}
 
 
 .elem{

@@ -2,10 +2,12 @@
 /* Shop
 -------------------------------------------------- */
 
-
+.shop-container{
+  margin-top:0px;
+}
 
 .docs-container{
-  margin-left: 41.6809%;
+  margin-left: 40.5009%;
   float:left;
 }
 
@@ -15,6 +17,22 @@
   float:left;
 }
 
+.shop-message{
+  margin:0px!important;
+  background-color: #FCF8E3;
+  border: 1px solid #FBEED5;
+  padding: 8px 35px 8px 14px;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);  
+}
+.shop-message.label-info{
+  background-color: #D9EDF7;
+  border-color: #BCE8F1;
+  color: #3A87AD;
+}
+
+.shop-rice-paper{
+  background-image:url(/img/rice-paper.jpg);
+}
 
 @media only screen and ( max-width: 1024px ) /* 640px */{
   .docs-container{

@@ -51,27 +51,21 @@ Category.controller('CategoryCtrl',[
     };
   
     $scope.save=function(category){
-      $scope.FormInfos=false;
-      $scope.FormErrors=false;
       category.save(function(s){
-          $scope.FormInfos="Successfully updated!";
+          api.info($scope,"Successfully updated!");
       },cb_error);
     };
     
     $scope.create=function(cat){
-      $scope.FormInfos=false;
-      $scope.FormErrors=false;
       category.create(cat,function(s){
-          $scope.FormInfos="Successfully updated!";
-          $scope.categories.push(cat);
+          api.info($scope,"Successfully updated!");
+          $scope.categories.push(s);
       },cb_error);
     };
     $scope.delete=function(category){
-      $scope.FormInfos=false;
-      $scope.FormErrors=false;
       $scope.categoryslug=false;
       category.remove(function(s){
-          $scope.FormInfos="Successfully updated!";
+          api.info($scope,"Successfully updated!");
           $scope.categories.pop(category);
       },cb_error);
     };

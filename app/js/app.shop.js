@@ -46,7 +46,7 @@ Shop.controller('ShopCtrl',[
     $scope.save=function(shop){
       //console.log("controller",shop.photo)
       shop.save(function(s){
-          $scope.FormInfos="Your shop is successfully updated!";
+          api.info($scope,"Votre boutique a été enregistrée!");
       },cb_error);
     };
     

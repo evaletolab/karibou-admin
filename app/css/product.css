@@ -25,7 +25,7 @@
 }
 
 .thumbnail-owner{
-  border: 5px solid white;
+  border: 2px solid white;
   -webkit-box-shadow: 1px 1px 3px 0 rgba(0, 0, 0, 0.4);
   box-shadow: 1px 1px 3px 0 rgba(0, 0, 0, 0.4);
 }
