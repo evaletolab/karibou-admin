@@ -1,0 +1,30 @@
+  <div class="block span12 "  >
+      <div class="span5">
+        <div class="span12 shop-label" style="">
+          <ul class="thumbnails">
+      			<li><img ng-show="wideproduct.details.bio" src="/img/shop/bio.png" style="width:20px;"/>&nbsp;
+      			    <img ng-show="wideproduct.details.gluten" src="/img/shop/gluten-free.png" style="width:20px;"/>
+      			    <img ng-show="wideproduct.details.lactose" src="/img/shop/lactose.png" style="width:20px;"/>
+      			    <img ng-show="wideproduct.details.local" src="/img/shop/local.png" style="width:20px;"/>
+      			</li>
+          </ul>
+        </div>
+        <a href="#" ng-click="openProductEditor('#editor',product)">
+          <img ng-show="wideproduct.photo" src="{{wideproduct.photo}}/convert?w=400&h=320&fit=crop" >
+          <img ng-hide="wideproduct.photo" src="{{false  | placehold:'400x320'}}" >
+        </a>
+      </div>
+      <div class="span7">
+        <div class="body">
+          <div class="row-fluid " style="padding:5px 0px 5px 0px">
+            <div class=" elem" >
+	              <span class="small">{{wideproduct.title}}</span>
+            	  <span class="pull-right green small"><div>Fr {{wideproduct.pricing.price| number:2}}</div><div class="small em">{{wideproduct.pricing.part}}</div></span>
+            	  <div ng-show="wideproduct.urlshop" ><a class="gray small" href="/shop/{{wideproduct.urlshop}}">{{wideproduct.urlshop}}</a></div>
+            	  <div ng-show="wideproduct.vendor" ><a class="gray small" href="/shop/{{wideproduct.vendor.urlpath}}">{{wideproduct.vendor.name}}</a></div>
+            </div>
+          </div>
+        </div>
+      </div>
+  </div>
+

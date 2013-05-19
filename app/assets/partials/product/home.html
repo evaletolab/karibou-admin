@@ -1,0 +1,24 @@
+
+
+    
+    <!-- SHOPS -->
+    <div ng-controller="HomeCtrl" class="row " style="position:relative">
+        <!-- SPLIT -->
+        <div class="shop-row">
+          <div class="container" >
+            <p class="lead"><br/>Prochaines livraisons les mercredi 34 mai et samedi 38 mai! </p>
+          </div>
+        </div>
+        <div class="shop-row" ng-repeat="(group, _products) in products">          
+          <div class="container" ng-show="_products.length">
+            <h2 class=" sexy">{{category.constructor.find({_id:group}).name}}</h2>
+            <div  ng-include="'/partials/product/product.html'"  ng-repeat="product in _products"></div>              
+          </div>
+        </div>
+      
+
+    </div>
+
+    <div class="" ng-include="'/footer.html'">
+    </div>
+      

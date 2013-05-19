@@ -1,0 +1,33 @@
+    <div class="shop-row">
+      <div class="container" >
+        <p class="lead"><br/>Prochaines livraisons les mercredi 34 mai et samedi 38 mai! </p>
+      </div>
+    </div> 
+
+    <!-- SHOPS -->
+    <div ng-controller="HomeCtrl" class="row " style="position:relative">
+        <!-- SPLIT -->
+        <div class="container" ng-hide="shops.length" style="height:400px">
+          <h2 class="sexy">{{group}}</h2>
+          <p>Désolé, il n'y a pas encore de boutique disponnible dans cette rubrique! </p>
+        </div>          
+        <div class="container" ng-show="shops.length">
+          <h2 class=" sexy"><i class="icon-fire red"></i> {{group}}</h2>
+          <div  ng-include="'/partials/shop/shop.html'"  ng-repeat="shop in shops"></div>              
+        </div>
+      
+        <!--
+        <div class="shop-row">
+          <div class="container">
+            <h2 class=" sexy"><i class="icon-wrench red"></i> Les ingénieurs</h2>
+            <p>Désolé, il n'y a pas de boutique disponnible pour cette rubrique! </p>
+          </div>
+        </div>
+        -->
+        
+    </div>
+
+    <br/><br/>
+    <div class="" ng-include="'/footer.html'">
+    </div>
+      

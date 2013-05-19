@@ -1,0 +1,68 @@
+    <script type="text/javascript">
+    $(function(){
+      var $window = $(window);
+
+      $('.layout-item').hover(function(){
+        $(this).find('.actions').show();
+      },function(){
+        $(this).find('.actions').hide();
+      }).find('img').click(function(e) {
+        $('#backfader').show();
+        $('#popup').show();
+        $("body").addClass('noscroll');
+	    });
+	    
+    });      
+    </script>
+    
+    <div id="overview" class="fill" backstretch="img/localfood.jpg" ng-hide="user.isAuthenticated()">
+      <div class="container fill " >
+
+        <!-- Masthead
+        ================================================== -->        
+        
+        <header class="jumbotron subhead" >
+          <div class="row-fluid">
+            <div class="span12 textshadow">
+              <h1>Karibou</h1>
+              <p class="lead">Des artisants, des producteurs, des clients.<br/>Le marché, c'est vous qui le faites. Vous êtes curieux?</p>
+              <button type="input" class="btn btn-large btn-success">Plus d'informations</button>
+            </div>
+            <div class="span6">
+            </div>
+          </div>
+        </header>
+      </div>
+    </div><!-- overview -->
+    
+    <!-- SHOPS -->
+    <div ng-controller="HomeCtrl" class="row " style="position:relative">
+        <!-- SPLIT -->
+        <div class="shop-row">
+          <div class="container" >
+            <p class="lead"><br/>Prochaines livraisons les mercredi 34 mai et samedi 38 mai! </p>
+          </div>
+        </div>
+        <div class="shop-row" ng-repeat="(group, _shops) in shops">
+          
+          <div class="container" >
+            <h2 class=" sexy"><i class="icon-fire red"></i> {{group}}</h2>
+            <div  ng-include="'/partials/shop/shop.html'"  ng-repeat="shop in _shops"></div>              
+          </div>
+        </div>
+      
+
+    </div>
+
+    <!-- PRODUCTS --><!--
+    <div class="row " style="position:relative">
+      <div class="container" >
+        <h2 class=" sexy"><i class="icon-fire red"></i>Quelques produits</h2>
+        <div  ng-include="'/partials/articles.html'"  ></div>              
+      </div>
+    </div> -->
+
+
+    <div class="" ng-include="'/footer.html'">
+    </div>
+      
