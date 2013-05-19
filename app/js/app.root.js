@@ -17,8 +17,9 @@ angular.module('app.root', [
   'api',
   'user',
   'category',
+  'product',
 
-  function ($scope, $rootScope, $location, config, api, user, category) {
+  function ($scope, $rootScope,  $location, config, api, user, category, product) {
 
 
     var cb_error=api.error($scope);
@@ -35,7 +36,7 @@ angular.module('app.root', [
     //
     // get categories
     category.select({},function(categories){
-      $scope.categories=categories;
+      $scope.category=category;
     },cb_error);
 
     
@@ -71,12 +72,11 @@ angular.module('app.root', [
     //  getClass('/products'); // returns 'active'
     //  getClass('/orders'); // returns ''
     $scope.getClass = function (id) {
-      if ($scope.activeNavId.substring(0, id.length) === id) {
+      if ($scope.activeNavId&&$scope.activeNavId.substring(0, id.length) === id && id.length === $scope.activeNavId.length) {
         return 'active';
       }
       return '';
     };
-   
    
     
     //
@@ -87,14 +87,14 @@ angular.module('app.root', [
         $location.url('/');
       });
     };
+
+
+
     
-    $scope.createProduct=function(p){
-      console.log("create",p)
-    };
+    $scope.openProductEditor = function(id){
+      $scope.$broadcast("edit-product",id);
+    }
     
-    $scope.saveProduct=function(p){
-      console.log("save",p)
-    };
   }
 ]);
 

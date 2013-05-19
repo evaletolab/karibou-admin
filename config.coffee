@@ -13,24 +13,26 @@ exports.config =
         'test/scenarios.js': /^test(\/|\\)e2e/
       order:
         before: [
-          'vendor/scripts/jquery.min.js'
-          'vendor/scripts/select2.min.js'
-          'vendor/scripts/shortcut.js'
-          'vendor/scripts/freshereditor.min.js'
-          'vendor/scripts/bootstrap.min.js'
-          'vendor/scripts/angular-1.1.3.min.js'
-          'vendor/scripts/angular-cookies.min.js'
-          'vendor/scripts/angular-resource.min.js'
+          'vendor/scripts/jquery.min.js',
+          'vendor/scripts/select2.js',
+          'vendor/scripts/bootstrap.min.js',
+          'vendor/scripts/angular.js',
+          'vendor/scripts/angular-loader.js',
+          'vendor/scripts/angular-cookies.js',
+          'vendor/scripts/angular-resource.js',
           'vendor/scripts/jquery.backstretch.min.js'
         ]
 
     stylesheets:
       joinTo:
-        'css/app.css': /^app/
         'css/vendor.css': /^vendor/
+        'css/app.css': /^app/
       order:
         before: [
-          'app/css/fonts.css'
+          'vendor/styles/booostrap.css'
+        ]
+        after: [
+          'vendor/styles/bootstrap-responsive.css'
         ]
         
     templates:

@@ -47,12 +47,15 @@ Category.controller('CategoryCtrl',[
     
     $scope.selectCategory=function(e,v){
       if(!$scope.categoryslug)return;
-      $scope.selected=category.get($scope.categoryslug);
+      category.get($scope.categoryslug,function(c){
+        $scope.selected=c;        
+      });
     };
   
     $scope.save=function(category){
       category.save(function(s){
           api.info($scope,"Successfully updated!");
+          $scope.categoryslug=null;
       },cb_error);
     };
     
@@ -66,7 +69,7 @@ Category.controller('CategoryCtrl',[
       $scope.categoryslug=false;
       category.remove(function(s){
           api.info($scope,"Successfully updated!");
-          $scope.categories.pop(category);
+          $scope.categories.pop(s);
       },cb_error);
     };
 
@@ -92,8 +95,9 @@ Category.factory('category', [
   '$rootScope',
   '$route',
   '$resource',
+  'api',
 
-  function (config, $location, $rootScope, $route,$resource) {
+  function (config, $location, $rootScope, $route,$resource, api) {
 
  
     var defaultCategory = {
@@ -111,24 +115,21 @@ Category.factory('category', [
     var Category = function(data) {
       angular.extend(this, defaultCategory, data);
     }
-
-    Category.prototype.copy = function(data) {
-        angular.extend(this,defaultCategory, data);
+    
+    Category.findNameBySlug = function(slug){
+      var cat=this.find({slug:slug});
+      if (cat) return cat.name; else return "Inconnu";      
     };
 
-
-    //
-    // REST api wrapper
-    //
-
+    Category.findBySlug = function(slug){
+      return this.find({slug:slug});
+    };
 
     Category.prototype.select = function(filter,cb,err) {
       if(!err) err=onerr;
       var categories=[];
       var c=$resource(config.API_SERVER+'/v1/category').query(filter, function() {
-        c.forEach(function(cat){
-          categories.push(_share(cat));
-        });
+        categories=Category.load(c);
         if(cb)cb(categories);
       },err);
       return categories;
@@ -137,13 +138,16 @@ Category.factory('category', [
 
     Category.prototype.get = function(slug,cb,err) {
       if(!err) err=onerr;
-      if (_all[slug])return _all[slug];
-      var c=$resource(config.API_SERVER+'/v1/category/:category',{category:slug}).get( function() {
-        _share(c);        
-        _category.copy(c);
-        if(cb)cb(_category);
+      var loaded=Category.find({slug:slug});if (loaded){
+        if(cb)cb(loaded);
+        return loaded;
+      }
+      
+      var category=this, c=$resource(config.API_SERVER+'/v1/category/:category',{category:slug}).get( function() {
+        category.share(s,true);
+        if(cb)cb(category);
       },err);
-      return _category;
+      return category;
     };
 
 
@@ -151,44 +155,31 @@ Category.factory('category', [
       //console.log("model",this.photo)
 
       if(!err) err=onerr;
-      //return _category;
-      var s=$resource(config.API_SERVER+'/v1/category/:category',{category:this.slug}).save(this, function() {
-        _share(s);        
-        _category.copy(s);
-        if(cb)cb(_category);
+      var category=this, s=$resource(config.API_SERVER+'/v1/category/:category',{category:this.slug}).save(this, function() {
+        category.share(s,true);
+        if(cb)cb(category);
       },err);
-      return _category;
+      return category;
     };
 
     Category.prototype.create=function(cat, cb,err){
       if(!err) err=function(){};
-      var s = $resource(config.API_SERVER+'/v1/category').save(cat, function() {
-        _share(s);        
-        _category.copy(s);
-        if(cb)cb(_category);
+      var category=this, s = $resource(config.API_SERVER+'/v1/category').save(cat, function() {
+        category=category.share(s,true);
+        if(cb)cb(category);
       },err);
-      return _category;
+      return category;
     };    
     
     Category.prototype.remove=function(cb,err){
       if(!err) err=function(){};
-      var s = $resource(config.API_SERVER+'/v1/category/:category',{category:this.slug}).delete(function() {
-        if(cb)cb(_category);
+      var category=this, s = $resource(config.API_SERVER+'/v1/category/:category',{category:this.slug}).delete(function() {
+        if(cb)cb(category);
       },err);
-      return _category;
+      return category;
     };    
    
-    function _share(cat){
-      if(!_all[cat.slug])_all[cat.slug]=new Category();
-      _all[cat.slug].copy(cat);
-      return _all[cat.slug];
-    }
-    
-    //
-    //default singleton for category  
-    var     _category=new Category({});
-    var     _all={};
-    return _category;  
+    return api.wrapDomain(Category,'slug', 'category', defaultCategory, onerr);  
 
 
   }

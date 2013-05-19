@@ -64,6 +64,9 @@ ul.nav li{
   line-height:80%;
 }
 
+.green{
+  color:green!important;
+}
 .white{
   color:white!important;
 }
@@ -93,7 +96,7 @@ ul.nav li{
 }
 
 .textshadow {
-    text-align: left;
+    text-align-: left;
     text-shadow: 0 1px 2px #fff;
 }
 
@@ -125,6 +128,9 @@ hr.soften {
   border: 0;
 }
 
+.pattern-dark{
+    background:url("/img/pattern-dark1.jpg") repeat scroll 0 0 #F7F5F5;
+}
 
 
 

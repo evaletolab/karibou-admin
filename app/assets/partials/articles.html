@@ -21,6 +21,33 @@
     			<li><i class="icon-tag"></i>&nbsp;BIO, sans gluten</li>
     	</ul>
   </div>
+  <!-- ITEM -->
+  <div class="block layout-item c1 "  style="min-height:210px">
+      <div class="body">
+        <div class="span12 shop-label" style="">
+          <ul class="thumbnails">
+      			<li><img n-g-show="product.details.bio" src="/img/shop/bio.png" style="width:16px;"/>&nbsp;
+      			    <img n-g-show="product.details.gluten" src="/img/shop/gluten-free.png" style="width:16px;"/>
+      			    <img n-g-show="product.details.lactose" src="/img/shop/lactose.png" style="width:16px;"/>
+      			    <img n-g-show="product.details.local" src="/img/shop/local.png" style="width:16px;"/>
+      			</li>
+          </ul>
+        </div>
+        <a href="#">
+          <img ng-show="product.photo" src="{{product.photo}}/convert?w=220&h=150&fit=crop" style="height:175px;">
+          <img ng-hide="product.photo" src="{{false  | placehold:'220x150'}}" style="height:175px;">
+        </a>
+        <div class="row-fluid " style="padding:5px 0px 5px 0px">
+          <div class=" elem" >
+	            <span class="gray small">{{product.title}}titre</span>
+          	  <span class=" pull-right green small"><div>Fr {{product.pricing.price}}2.50</div><div class="small em">{{product.pricing.part}}100gr</div></span>
+          	  <div>{{product.urlshop}} </div>
+          </div>
+        </div>
+      </div>
+
+  </div>
+
 
   <! --ITEM -->            
   <div class="block layout-item c1  " >

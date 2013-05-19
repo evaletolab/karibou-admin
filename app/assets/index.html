@@ -1,10 +1,11 @@
 <!DOCTYPE html>
-<html lang="en" >
+<html lang="en" ng-controller="AppCtrl"  >
   <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="open marketplace for food.">
-    <meta name="author" content="Olivier Evalet">
+    <meta name="viewport"     content="width=device-width, initial-scale=1.0">
+    <meta name="description"  content="open marketplace for food.">
+    <meta name="author"       content="Olivier Evalet">
+    <meta name="fragment"     content="!" />    
     <title ng-bind-template="{{title}}"></title>
 
     <!--[if lte IE 7]>
@@ -21,16 +22,9 @@
       (function(a){if(window.filepicker){return}var b=a.createElement("script");b.type="text/javascript";b.async=!0;b.src=("https:"===a.location.protocol?"https:":"http:")+"//api.filepicker.io/v1/filepicker.js";var c=a.getElementsByTagName("script")[0];c.parentNode.insertBefore(b,c);var d={};d._queue=[];var e="pick,pickMultiple,pickAndStore,read,write,writeUrl,export,convert,store,storeUrl,remove,stat,setKey,constructWidget,makeDropPane".split(",");var f=function(a,b){return function(){b.push([a,arguments])}};for(var g=0;g<e.length;g++){d[e[g]]=f(e[g],d._queue)}window.filepicker=d})(document); 
     </script>
 
-
   </head>
 
-  <body ng-controller="AppCtrl" class="preview fill" data-spy="scroll" data-target=".subnav" data-offset="90">
-  <!-- background fader for popup-->
-  <div id="backfader">
-   <div class="popupcontent" id="popup">
-      <h1>Content details here!</h1>
-   </div>
-  </div>
+  <body class="preview fill" data-spy="scroll" data-target=".subnav" data-offset="90">
 
   <!-- Navbar
     ================================================== -->
@@ -42,49 +36,88 @@
            <span class="icon-bar"></span>
            <span class="icon-bar"></span>
          </a>
-         <a class="brand" href="/"><i class="icon-home"></i></a> 
-         <div class="nav-collapse collapse" id="main-menu">
+         <a class="brand" href="/"><i class="icon-home"></i>K<sub>aribou</sub></a> 
           <ul class="nav" id="main-menu-left">
+            <li ng-class="">
+              <a  class="" href="/">Les marchands</a> 
+            </li>
+            <li ng-class="getClass('/products')">
+              <a  href="/products">Les produits</a> 
+            </li>
             <li class="dropdown">
               <a class="dropdown-toggle" data-toggle="dropdown" href="#"><i class="icon-th-list"></i> <b class="caret"></b></a>
-              <ul class="dropdown-menu" id="swatch-menu">
-                <li><a href="#">La sélection des marchands</a></li>
-                <li><a href="#">La sélection des clients</a></li>
+              <ul class="dropdown-menu" id="swatch-menu" style="width:300px;">              
+                <li class="nav-header">Les produits</li>
+                <li ng-repeat="category in category.constructor.findAll()|filter:{type:'Category'}"><a href="/products/category/{{category.slug}}">{{category.name}}</a></li>
                 <li class="divider"></li>
-                <li ng-repeat="category in categories"><a href="/products/{{category.slug}}">{{category.name}}</a></li>
+                <li class="nav-header">Les marchands</li>
+                <li ng-repeat="category in category.constructor.findAll()|filter:{type:'Catalog'}"><a href="/shops/category/{{category.slug}}">{{category.name}}</a></li>
                 <!--
                 <li class="divider"></li>
                 <li><a href="#">Laiterie</a></li>
-                <li><a href="#">Yogourt</a></li>
-                <li><a href="#">Fruit</a></li>
-                <li><a href="#">Légume</a></li>
-                <li><a href="#">Viande</a></li>
-                <li><a href="#">Boisson</a></li>
-                <li><a href="#">Vin</a></li>
-                <li><a href="#">Petit déjeuné</a></li>
-                <li><a href="#">Saucisse</a></li>
-                <li><a href="#">Charcuterie</a></li>
-                <li><a href="#">Pain</a></li>
-                <li><a href="#">Conserve</a></li>
-                <li><a href="#">Ménage</a></li>
-                <li><a href="#">Cuisine</a></li>
                 -->
               </ul>
             </li>
+            <!--
             <form action="" class="navbar-search ">
               <input type="text" placeholder="Search" class=" span2">
-            </form>    
+            </form>
+            -->    
 
           </ul>
+         <div class="nav-collapse collapse" id="main-menu">
           <ul class="nav pull-right" id="main-menu-right" ng-include="'/partials/account/menu.html'">
           </ul>
          </div>
        </div>
      </div>
     </div>
-    <div ng-include="'/partials/product/product.html'"></div>
+    <div ng-controller="ProductCtrl">
+      <div nview="modal">
+      
+      </div>
+      <div backfader="products\/[0-9]+$" ng-show="product.sku" class="backfader hide">
+         <div class="popupcontent" id="popup">
+            <div class="pattern-dark row-fluid">
+              <div class="span8">
+                <img ng-show="product.photo" src="{{product.photo}}/convert?w=400&h=320&fit=crop" >
+                <img ng-hide="product.photo" src="{{false  | placehold:'400x320'}}" >
+              </div>
+              <div class="span4">
+                <br/>
+                <h2 class="white">Fr {{product.pricing.price| number:2}}<div class="small em">{{product.pricing.part}}</div></h2>
+                <p>
+                  <button type="input" class="btn btn-large btn-danger"><i class="icon-star-empty"></i>&nbsp;J'aime</button> 
+                </p><p>
+                  <button type="input" class="btn btn-large btn-primary"><i class="icon-ok"></i>&nbsp;J'achète</button>
+                </p>                
+              </div>
+            </div>
+            <h3>{{product.title}} <span ng-hide="product.details.bio">(bio)</span></h3>
+            <div class="content" >
+              {{product.details.description}}
+            </div>
+            <div class="shop" >
+              <ul class="thumbnails">
+                <li class="span1" ng-show="product.vendor.photo.owner" style="width:120px">
+                  <img src="{{product.vendor.photo.owner | placehold:'160x160&text=l`équipe'}}"  alt="160x160" class="thumbnail-owner photo-owner">
+                </li>
+                <li class="span1" ng-show="product.vendor.photo.fg&&!product.vendor.photo.owner" style="width:120px">
+                  <img src="{{product.vendor.photo.fg | placehold:'160x160&text=l`équipe'}}"  alt="160x160" class="thumbnail-owner photo-owner">
+                </li>
+                <li class="span4">
+                  <strong>{{product.vendor.name}}</strong>&nbsp;|&nbsp;{{product.vendor.description}}<br/>
+                  <a href="/shop/{{product.vendor.urlpath}}"> Visiter la boutique</a>
+                </li>
+              </ul>          
+            </div>
+          </div>
+        </div>
+      </div>
 
-    <div class="fill row-fluid ng-view" >&nbsp;
+      <div ng-include="'/partials/product/create.html'"></div>
+
+      <div class="fill row-fluid ng-view" >&nbsp;
     </div>
 
     
@@ -93,6 +126,7 @@
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
     
+    <script src="http://maps.googleapis.com/maps/api/js?sensor=false&language=en"></script>
     <script src="/js/vendor.js"></script>
     <script src="/js/app.js"></script>
     <script>

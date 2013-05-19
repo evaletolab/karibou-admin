@@ -35,7 +35,7 @@ function init($scope, elem, shop){
     $("#shop-edit").slideUp();
   });
   
-  $('input.btn.undo').click(function(){
+  $('input.btn.undo').unbind().click(function(){
     $('#toggle-shop-edit').click();  
     return false;
   });
@@ -46,9 +46,9 @@ function init($scope, elem, shop){
     $(this).tab('show');
   });
 
-  if (!$('div.backstretch')[0])
+  if (shop.photo.fg)
     $('#bgshop').backstretch(shop.photo.fg);
-
+  // console.log($('#bgshop'), shop.photo.fg);
   // on pick foreground shop img file		    
   $('button.onpickfile',elem).unbind().click(function(){
     filepicker.pick({

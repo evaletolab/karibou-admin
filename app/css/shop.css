@@ -4,11 +4,14 @@
 
 .shop-container{
   margin-top:0px;
+  padding-top:40px;
 }
+
 
 .docs-container{
   margin-left: 40.5009%;
   float:left;
+  width:59%;
 }
 
 .docs-sidebar{
@@ -16,7 +19,72 @@
   box-shadow:1px 1px 0px rgba(0, 0, 0, 0.5);
   float:left;
 }
+.docs-sidebar div#bgshop{
+  height:68%;
+}
 
+.shop-title{
+  padding:20px 0px 0px 20px;
+  position: absolute;  
+  bottom: 0px;
+  left:0px;
+  margin:0px!important;
+  background:none repeat scroll 0 0 rgba(0, 0, 0, 0.6);
+  min-height:100px;
+}
+.shop-home .shop-title{
+  bottom: 17px;  
+  left:3px;
+  padding:4px;
+}
+.shop-home .shop-title h3{
+  line-height:20px;
+  margin-top:0px;
+}
+.shop-home .shop-title .small{
+  font-size:80%;
+}
+
+.shop-home .shop-column{
+  margin-left:60px!important;
+}
+
+.shop-home:nth-child(4n+1){
+  background-color: #fff;
+}
+
+.shop-row{
+  padding-top:20px;
+  padding-bottom:60px;
+}
+.shop-row:nth-child(even){
+  background-color: #eee;
+  border-bottom:1px solid #ccc;
+}
+
+.shop-row:nth-child(odd){
+  border-bottom:1px solid #ddd;
+}
+
+.shop-home:nth-child(4n){
+  background-color: #fff;
+}
+.shop-home div.card{
+  width: 500px;
+}
+.-shop-home div.card{
+  position: relative;
+  width: 600px;
+  padding: 3px;
+  background-color: white;
+  border: 1px solid #AAA;
+}
+
+.shop-label{
+  position: absolute;  
+  top: 10px;
+  left:10px;
+}
 .shop-message{
   margin:0px!important;
   background-color: #FCF8E3;
@@ -34,31 +102,63 @@
   background-image:url(/img/rice-paper.jpg);
 }
 
-@media only screen and ( max-width: 1024px ) /* 640px */{
+
+
+/* Desktop large
+------------------------- */
+@media (min-width: 1200px) {
+
+}
+
+
+/* Desktop
+------------------------- */
+@media (max-width: 980px) {
+}
+
+/* Tablet to desktop
+------------------------- */
+@media (min-width: 768px) and (max-width: 979px) {
+  .shop-container{
+    margin-top:-20px;
+    padding-top:0px;
+  }
+  
   .docs-container{
     width:100%;
-    float:left;
+    margin-left: inherit;
+    float:inherit;
   }
 
   .docs-sidebar{
-    margin-top:48px;
+    margin-top:00px;
     box-shadow:1px 1px 0px rgba(0, 0, 0, 0.5);
     float:left;
     position:relative;
+  }
+  
+  .docs-sidebar div#bgshop{
+    min-height:500px;
   }
   .docs-sidebar.span5{
     width:100%;
   }
     
-  .docs-container{
-    margin-left: inherit;
-    float:inherit;
-  }	
+
 }
-@media screen and (orientation:portrait) {
+
+/* Tablet
+------------------------- */
+@media (max-width: 767px) {
+
 }
-@media screen and (orientation:landscape) {
+
+/* Landscape phones
+------------------------- */
+@media (max-width: 480px) {
+
 }
+
  
 @media only screen and ( max-width: 320px ) /* 320px */{
 

@@ -22,6 +22,15 @@
     
     <!-- SHOP LIST -->
     <div class="frame frame-white container">
+      <div>
+        <div ng-show="FormErrors" class="alert alert-error">
+          {{FormErrors}}
+        </div>    
+        <div ng-show="FormInfos" class="alert alert-info">
+          {{FormInfos}}
+        </div>
+      </div>
+    
       <div ng-show="user.shops.length" >
       <h3 class="box span12">Vos boutiques</h3>
       <ul ng-repeat="shop in user.shops" class="unstyled ">
@@ -30,7 +39,7 @@
             <i class="icon-fire"></i>
             <a href="/shop/{{shop.urlpath}}">{{shop.name}}</a><span ng-hide="shop.status == true" class="help-inline"><i class="icon-ok"></i>&nbsp;</span>
             <span ng-bind-html-unsafe="shop.description"></span>&nbsp;
-            <input type="submit" ng-click="shop.remove()" value="Remove" class="btn"/>
+            <input type="submit" ng-click="deleteShop(shop)" value="Remove" class="btn"/>
           </p>
           
         </li>

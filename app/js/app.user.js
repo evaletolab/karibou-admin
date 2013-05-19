@@ -3,7 +3,7 @@
 //
 // Define the User module (app.user)  for controllers, services and models
 // the app.user module depend on app.config and take resources in account/*.html 
-var User=angular.module('app.user', ['app.config']);
+var User=angular.module('app.user', ['app.config', 'google-maps']);
 
 //
 // define all routes for user api
@@ -49,9 +49,9 @@ User.controller('AccountCtrl',[
   'user',
   'shop',
   '$timeout',
-  '$resource',
+  '$http',
   
-  function (config, $scope, $location, api, user, shop, $timeout, $resource) {
+  function (config, $scope, $location, api, user, shop, $timeout, $http) {
     $scope.FormErrors=false;
     $scope.user=user;
     $scope.providers=config.providers;
@@ -73,19 +73,11 @@ User.controller('AccountCtrl',[
     //
     // login action
     $scope.login= function(email,password){
-        user.login({ email: email, password:password, provider:'local' },function(u){          
+      user.login({ email: email, password:password, provider:'local' },function(u){          
         $location.url('/account');
       }, cb_error);
     };
 
-    //
-    // save action
-    $scope.save=function(u){
-      user.save(u,function(){
-        $scope.FormErrors="";
-        $scope.FormInfos="Saved!";
-      },cb_error);
-    };
 
     //
     // create a new account
@@ -99,8 +91,9 @@ User.controller('AccountCtrl',[
       };
       
       user.register(r,function(){
-        $scope.FormInfos="Successfully registered! Please login";
-        $location.url('/login');
+        api.info($scope,"Votre compte à été créé! Vous pouvez vous connecter dès maintenant",function(){
+          $location.url('/login');
+        });
       },cb_error);
     };
     
@@ -108,7 +101,25 @@ User.controller('AccountCtrl',[
     // create a new shop
     $scope.createShop=function(s){
       shop.create(user,s,function(){
-          $scope.FormInfos="Successfully created";
+          api.info($scope,"Votre boutique à été crée ",function(){
+            if ($scope.activeNavId==='/account/shop')
+              $location.url('/account/overview');
+          });
+      },cb_error);
+    };
+
+    $scope.deleteShop=function(shop){
+      shop.remove(user,function(){
+          api.info($scope,"Votre boutique à été supprimée");
+      },cb_error);
+    };
+    
+    
+    //
+    // save action
+    $scope.save=function(u){
+      user.save(user,function(){
+        api.info($scope,"Profile enregistré");
       },cb_error);
     };
     
@@ -126,6 +137,58 @@ User.controller('AccountCtrl',[
       
     };
 
+
+    $scope.updateMap=function(address){
+      if (address.streetAdress===undefined||address.postalCode===undefined)
+        return;
+      // google format: Route de Chêne 34, 1208 Genève, Suisse
+      var fulladdress=address.streetAdress+","+address.postalCode+", Suisse";//"34+route+de+chêne,+Genève,+Suisse";
+      var url="http://maps.googleapis.com/maps/api/geocode/json?address="+fulladdress+"&sensor=false" ;
+      
+      /* */
+      $http.get(url,{withCredentials:false}).success(function(geo,status,header,config){
+        if(!geo.results.length||!geo.results[0].geometry){
+          return;
+        }
+
+        //
+        //update data
+        address.location={};
+        address.location.lat=geo.results[0].geometry.location.lat;
+        address.location.lng=geo.results[0].geometry.location.lng;
+        //
+        user.gmap(address);
+        //
+        // map init
+        angular.extend($scope, {
+
+          /** the initial center of the map */
+          centerProperty: {
+            latitude:geo.results[0].geometry.location.lat,
+            longitude:geo.results[0].geometry.location.lng
+          },
+
+          /** the initial zoom level of the map */
+          zoomProperty: 16,
+
+          /** list of markers to put in the map */
+          markersProperty: [ {
+	            latitude: geo.results[0].geometry.location.lat,
+	            longitude:geo.results[0].geometry.location.lng
+            }],
+
+          // These 2 properties will be set when clicking on the map
+          clickedLatitudeProperty: null,	
+          clickedLongitudeProperty: null,
+        });
+
+
+      }).error(function(geo, status, headers, config){
+         alert("error on address lookup :"+status);
+      }); 
+
+
+    }
 
     // Functions
     // Open a popup to authenticate users with Auth, and redirect to account page on success
@@ -157,10 +220,42 @@ User.controller('AccountCtrl',[
       $timeout(tick, 3000);
 
     };
+
+    //
+    // map init
+    angular.extend($scope, {
+
+      /** the initial center of the map */
+      centerProperty: {
+        latitude:0,
+        longitude:0
+      },
+
+      /** the initial zoom level of the map */
+      zoomProperty: 8,
+
+      /** list of markers to put in the map */
+      markersProperty: [ {
+          latitude: 34,
+          longitude:-34
+        }],
+
+      // These 2 properties will be set when clicking on the map
+      clickedLatitudeProperty: null,	
+      clickedLongitudeProperty: null,
+    });
     
     
   }  
 ]);
+
+User.filter("primary",function(){
+  return function(primary,user){
+    if (primary)return primary;
+    console.log(user.addresses.length)
+    return (user.addresses.length==1)?'true':'false';
+  }
+});
 
 
 /**
@@ -174,8 +269,9 @@ User.factory('user', [
   '$rootScope',
   '$route',
   '$resource',
+  'shop',
 
-  function (config, $location, $rootScope, $route, $resource) {
+  function (config, $location, $rootScope, $route, $resource, shop) {
     
     
     var defaultUser = {
@@ -189,6 +285,7 @@ User.factory('user', [
       roles: [],
       provider: '',
       url: '',
+      addresses:[]
     };
     
     //
@@ -200,9 +297,22 @@ User.factory('user', [
     var User = function(data) {
       angular.extend(this, defaultUser, data);
     }
+    
+    User.prototype.gmap=function(address){
+      address.gmap={};
+      address.gmaps=[];
+      address.gmaps.push(address.gmap);
+      address.gmap.latitude=address.location.lat;
+      address.gmap.longitude=address.location.lng;
+    }
 
     User.prototype.copy = function(data) {
         angular.extend(this, data);
+        //
+        // formating properties for the widget
+        for (var i in this.addresses){          
+          this.gmap(this.addresses[i]);
+        }
     };
 
 
@@ -249,8 +359,9 @@ User.factory('user', [
 
     User.prototype.me = function(cb,err) {
       if(!err) err=onerr;
-      var u=$resource(config.API_SERVER+'/v1/users/me').get( function() {
+      var _user=this,u=$resource(config.API_SERVER+'/v1/users/me').get( function() {
         _user.copy(u);
+        _user.shops=shop.map(_user.shops);
         if(cb)cb(_user);
       },err);
       return u;
@@ -267,7 +378,8 @@ User.factory('user', [
 
     User.prototype.save = function(user, cb, err){
       if(!err) err=onerr;
-      var u=$resource(config.API_SERVER+'/v1/users/:id',{id:_user.id}).save(user, function() {
+      console.log(this,user);
+      var _user=this,u=$resource(config.API_SERVER+'/v1/users/:id',{id:_user.id}).save(user, function() {
         _user.copy(u);
         if(cb)cb(_user);
       },err);
@@ -275,7 +387,7 @@ User.factory('user', [
     };
 
     User.prototype.logout=function(cb){
-      var u = $resource(config.API_SERVER+'/logout').get( function() {
+      var _user=this,u = $resource(config.API_SERVER+'/logout').get( function() {
         _user.copy(defaultUser);
         if(cb)cb(_user);
       });
@@ -284,7 +396,7 @@ User.factory('user', [
 
     User.prototype.register=function (user, cb,err){
       if(!err) var err=function(){};
-      var u = $resource(config.API_SERVER+'/register').save(user, function() {
+      var _user=this,u = $resource(config.API_SERVER+'/register').save(user, function() {
         if(cb)cb(_user);
       },err);
       return u;
@@ -292,7 +404,7 @@ User.factory('user', [
 
     User.prototype.login=function (data, cb,err){
       if(!err) var err=onerr;
-      var u = $resource(config.API_SERVER+'/login').save(data, function() {
+      var _user=this,u = $resource(config.API_SERVER+'/login').save(data, function() {
         _user.copy(u);
         if(cb)cb(_user);
       },err);
@@ -301,7 +413,7 @@ User.factory('user', [
     
     User.prototype.createShop=function(shop,cb,err){
       if(!err) var err=function(){};
-      var s = $resource(config.API_SERVER+'/v1/shops').save(shop, function() {
+      var _user=this,s = $resource(config.API_SERVER+'/v1/shops').save(shop, function() {
         _user.shops.push(s);
         if(cb)cb(_user);
       },err);
