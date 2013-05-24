@@ -110,7 +110,7 @@
 
                 // Record the last element to trigger pageslide
                 _lastCaller = $self[0];
-            }       
+            }  
         });                   
 	};
 	
@@ -118,10 +118,10 @@
      * Default settings 
      */
     $.fn.pageslide.defaults = {
-        speed:      200,        // Accepts standard jQuery effects speeds (i.e. fast, normal or milliseconds)
+        speed:      400,        // Accepts standard jQuery effects speeds (i.e. fast, normal or milliseconds)
         direction:  'right',    // Accepts 'left' or 'right'
         modal:      false,      // If set to true, you must explicitly close pageslide using $.pageslide.close();
-        iframe:     true,       // By default, linked pages are loaded into an iframe. Set this to false if you don't want an iframe.
+        iframe:     false,       // By default, linked pages are loaded into an iframe. Set this to false if you don't want an iframe.
         href:       null        // Override the source of the content. Optional in most cases, but required when opening pageslide programmatically.
     };
 	

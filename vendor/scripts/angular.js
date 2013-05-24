@@ -15537,6 +15537,7 @@ var ngViewDirective = ['$http', '$templateCache', '$route', '$anchorScroll', '$c
                        '$controller',
                function($http,   $templateCache,   $route,   $anchorScroll,   $compile,
                         $controller) {
+  var lastMainViewTemplate;
   return {
     restrict: 'ECA',
     terminal: true,
@@ -15582,6 +15583,23 @@ var ngViewDirective = ['$http', '$templateCache', '$route', '$anchorScroll', '$c
           return;
         }
 
+        /**
+         * https://github.com/angular/angular.js/pull/1198
+         * https://github.com/angular-ui/ui-router/tree/gh-pages
+         * make pinterest flow, dont refresh the main view if:
+         * - the previous route specify a modal:true field,
+         * - the ngView is main
+         * - the next view is not named
+         * - the last route (tagerting the main view) != the current route 
+         */ 
+        if (last && last.$route && !attr.ngView && last.$route.modal 
+            && !next.$route.view && next.$route && (lastMainViewTemplate===next.$route.templateUrl)){
+          return;
+        }
+        if (!attr.ngView && next){
+          lastMainViewTemplate=next.$route.templateUrl;
+        }
+          
         if (last && attr.ngView && (last.$route.templateUrl != next.$route.templateUrl || last.$route.view != next.$route.view)) {
           $route.last = last;
         } else {
