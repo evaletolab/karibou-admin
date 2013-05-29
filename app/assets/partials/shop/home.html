@@ -45,9 +45,11 @@
         </div>
         <div class="shop-row" ng-repeat="(group, _shops) in shops">
           
-          <div class="container" >
-            <h2 class=" sexy"><i class="icon-fire red"></i> {{group}}</h2>
-            <div  ng-include="'/partials/shop/shop.html'"  ng-repeat="shop in _shops"></div>              
+          <div id="container-{{$index}}" class="container relative" >
+            <h2 class=" sexy"><i class="{{category.constructor.find({name:group}).image||''}} {{category.constructor.find({name:group}).color||gray}}"></i> {{group}}</h2>
+            <div masonry -infinitecarousel>
+                <div ng-include="'/partials/shop/shop.html'"  ng-repeat="shop in _shops" ></div>              
+            </div>
           </div>
         </div>
       

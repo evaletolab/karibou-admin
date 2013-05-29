@@ -4,6 +4,6 @@
 <!-- signed -->
 <li ng-class="getClass('/account')"><a ng-show="user.isAuthenticated()" href="/account/"><span  ng-show="user.isAdmin()"><b>Admin, </b></span><span ng-bind="user.display()"></span></a></li>
 <li><a ng-show="user.isAuthenticated()" href="" ng-click="logout()">logout</a></li>
-<li><a ng-show="user.shops.length" ng-click="openProductEditor('#editor')" href="" role="button"><i class="icon-plus-"></i>&nbsp;ajouter</a></li>
+<li><a ng-show="user.shops.length"  href="/products/create" role="button"><i class="icon-plus-"></i>&nbsp;ajouter</a></li>
 
 

@@ -1,4 +1,4 @@
-  <div class="block layout-item c1 "  id="product-{{product.sku}}">
+  <div class="block layout-item c1 simpleCart_shelfItem"  id="product-{{product.sku}}">
       <div class="body" >
         <div class="span12 shop-label" style="">
           <ul class="thumbnails" fade-on-hover="#product-{{product.sku}}">
@@ -9,14 +9,17 @@
       			</li>
           </ul>
         </div>
-        <a  href="{{shop.urlpath|test:'/shop/':''}}/products/{{product.sku}}" shop="/shop/{{product.vendor.urlpath}}" ngclick_="openProductEditor('#editor',product)">
-          <img ng-show="product.photo" src="{{product.photo}}/convert?w=275&h=205&fit=crop" >
-          <img ng-hide="product.photo" src="{{false  | placehold:'275x205'}}" >
+        <a  href="{{shop.urlpath|test:'/shop/':''}}/products/{{product.sku}}" shop="/shop/{{product.vendor.urlpath}}" >
+          <img ng-cloak ng-show="product.photo" ng-src="{{product.photo}}/convert?w=275&h=205&fit=crop" class="lazy">
+          <img ng-cloak ng-hide="product.photo" src="{{false  | placehold:'275x205'}}" >
+          <img ng-cloak ng-hide="product.attributes.available" ng-src="http://placehold.it/275x205/eeeeee/000000&text=indisponible" class="available">
+          <img ng-cloak ng-hide="product.pricing.stock" ng-src="http://placehold.it/275x205/eeeeee/000000&text=plus+en+stock" class="available">
+          
         </a>
         <div class="row-fluid " style="padding:3px 0px 0px 0px">
           <div class=" elem" >
-	            <span class="small">{{product.title}}</span>
-          	  <span class="pull-right green small"><div>Fr {{product.pricing.price| number:2}}</div><div class="small em">{{product.pricing.part}}</div></span>
+	            <span class="small item_name">{{product.title}} <span ng-show="productDetails()!==''">({{productDetails()}})</span>
+          	  <span class="pull-right green small"><div class="item_price">Fr {{product.pricing.price| number:2}}</div><div class="small em">{{product.pricing.part}}</div></span>
           	  <div ng-show="product.urlshop" ><a class="gray small" href="/shop/{{product.urlshop}}">{{product.urlshop}}</a></div>
           	  <div ng-show="product.vendor" ><a class="gray small" href="/shop/{{product.vendor.urlpath}}">{{product.vendor.name}}</a></div>
           </div>

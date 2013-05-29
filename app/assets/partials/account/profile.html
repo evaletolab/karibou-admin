@@ -30,56 +30,81 @@
           <div class="control-group ">
             <label class="control-label"><strong>Email</strong></label>
             <div class="controls">
-              <input id="email" required ng-model="user.email.address" type="email" name="email" class="input-xlarge"/><span ng-hide="form.email.$invalid || EmailError" class="help-inline"><i ng-show="user.email.status == true" class="icon-ok"></i></span>
+              <input id="email" required ng-model="user.email.address" type="email" name="email" class="input-xlarge"/><span ng-hide="form.email.$invalid || EmailError" class="help-inline"><i ng-show="user.email.status == true" class="icon-ok"></i>
+              </span>
+              <input type="submit" ng-hide="user.email.status == true" ng-click="verify(user)" value="Valider" ng-disabled="form.$invalid" class="btn btn btn-warning"/>
+              
               <p class="help-block">
               </p>
             </div>
           </div>
           <!-- ADDRESS -->
-          <h4 class="box ">Vos addresses de livraison <a href ng-click="user.addresses.push({primary:true})" class="btn btn-small">Ajouter<i class="icon-plus"></i></a></h4>        
-          <div ng-repeat="address in user.addresses">
+          <div class="box ">
+            <h4 >Votre addresse de livraison <a ng-hide="user.addresses.length" href ng-click="user.addresses.push({primary:true})" class="btn btn-small">Ajouter</a></h4>        
+            <p class="help-block gray">
+              Pour recevoir vos produits, indiqué une adresse de livraison.
+            <p>
+            <!-- ADDRESSES -->
+            <div ng-repeat="address in user.addresses">
+              <div class="control-group">
+                  <a href ng-click="user.addresses.splice($index, 1)" class="pull-right"><i class="icon-remove"></i> Effacer</a>
 
-            <div class="control-group">
-                <a href ng-click="user.addresses.splice($index, 1)" class="pull-right"><i class="icon-remove"></i> Effacer</a>
-
-                <label for="type1" class="control-label"><b>A. livraison</b>&nbsp;</label>
+                <!--
+                <label for="type1" class="control-label"><b>Adresse</b>&nbsp;</label>
                 <div class="controls">
                   <label class="radio">
                     <input type="radio" name="type" value="{{address.primary|primary:user}}" ng-model="user.addresses[$index].primary" ng-checked="{{user.addresses.length==1||address.primary}}">
                     Principale
                   </label>
-                </div>  
+                </div> -->
                 
-            
-                <label class="control-label"><strong>Nom complet</strong></label>
-                <div class="controls">
-                    <input id="full-name" value="{{address.type}}" ng-model="user.addresses[$index].type" type="text" placeholder="ex. {{user.displayName}}"
-                    class="input-xlarge" require>
-                    <p class="help-block"></p>
-                    
+                <div>
+                  <label class="control-label"><strong>Nom complet</strong></label>
+                  <div class="controls">
+                      <input id="full-name" value="{{address.type}}" ng-model="user.addresses[$index].type" type="text" placeholder="ex. {{user.displayName}}"
+                      class="input-xlarge" require>
+                      <p class="help-block"></p>
+                      
+                  </div>
                 </div>
 
-                <label class="control-label"><strong>Rue, Numéro</strong></label>
-                <div class="controls">
-                    <input id="address-line1" ng-model="user.addresses[$index].streetAdress" value="{{address.streetAdress}}" type="text" ng-blur="updateMap(user.addresses[$index],user)" placeholder="ex. Route de Chêne 210" class="input-xlarge" require>
-                    <p class="help-block"></p>
+                <div>
+                  <label class="control-label"><strong>Note au livreur</strong></label>
+                  <div class="controls">
+                      <input id="full-name" value="{{address.note}}" ng-model="user.addresses[$index].note" type="text" placeholder="ex. code porte 123456 "
+                      class="input-xlarge" require>
+                      <p class="help-block"></p>
+                      
+                  </div>
                 </div>
 
-                <label class="control-label"><strong>Commune</strong></label>
-                <div class="controls">
-                    <select  class="input-xlarge" ng-model="user.addresses[$index].locality" value="{{address.locality}}" >
-                        <option ng-repeat="l in config.shop.user.location.list" ng-selected="{{l==user.addresses[$index].locality}}" value="{{l}}">{{l}}</option>
-                    </select>
-                    <p class="help-block"></p>
+                <div>
+                  <label class="control-label"><strong>Rue, Numéro</strong></label>
+                  <div class="controls">
+                      <input id="address-line1" ng-model="user.addresses[$index].streetAdress" value="{{address.streetAdress}}" type="text" ng-blur="updateMap(user.addresses[$index],user)" placeholder="ex. Route de Chêne 210" class="input-xlarge" require>
+                      <p class="help-block"></p>
+                  </div>
+                </div>
+
+                <div>
+                  <label class="control-label"><strong>Commune</strong></label>
+                  <div class="controls">
+                      <select  class="input-xlarge" ng-model="user.addresses[$index].locality" value="{{address.locality}}" >
+                          <option ng-repeat="l in config.shop.user.location.list" ng-selected="l==user.addresses[$index].locality" value="{{l}}">{{l}}</option>
+                      </select>
+                      <p class="help-block"></p>
+                  </div>
                 </div>
 
 
-                <label class="control-label"><strong>Code Postal</strong></label>
-                <div class="controls">
-                    <input  ng-model="user.addresses[$index].postalCode" value="{{address.postalCode}}" type="text" placeholder="code postal 1200" ng-blur="updateMap(user.addresses[$index],user)"
-                    class="input-xlarge" require>
-                    <p class="help-block"></p>
-                </div> 
+                <div>
+                  <label class="control-label"><strong>Code Postal</strong></label>
+                  <div class="controls">
+                      <input  ng-model="user.addresses[$index].postalCode" value="{{address.postalCode}}" type="text" placeholder="code postal 1200" ng-blur="updateMap(user.addresses[$index],user)"
+                      class="input-xlarge" require>
+                      <p class="help-block"></p>
+                  </div> 
+                </div>
 
                 <div ng-show="address.location">
                   <label class="control-label"><strong>Carte</strong></label>
@@ -97,16 +122,14 @@
 
                   </div>
                 </div>
+              </div>          
             </div>
-          
-          
           </div>
           <div class="span12">
             
           </div>
           
           <div class="control-group actions">
-            <input type="submit" ng-hide="user.email.status == true" ng-click="verify(user)" value="Valider votre profile" class="btn btn-large btn-warning"/>
             <input type="submit" ng-click="save(user)" ng-disabled="form.$invalid || WaitText" value="{{WaitText || 'Enregistrer'}}" class="btn btn-success btn-large"/>
           </div>
         </fieldset>

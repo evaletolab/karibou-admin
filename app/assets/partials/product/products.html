@@ -8,13 +8,15 @@
     <!-- SHOPS -->
     <div ng-controller="HomeCtrl" class="row " style="position:relative">
         <!-- SPLIT -->
-        <div class="container" ng-hide="products.length" style="height:400px">
+        <div class="container " ng-cloak ng-hide="products.length" style="height:400px">
           <h2 class="sexy">{{group}}</h2>
           <p>Désolé, il n'y a pas encore de produit disponnible dans cette rubrique! </p>
         </div>          
         <div class="container" ng-show="products.length">
-          <h2 class=" sexy">{{group}}</h2>
-          <div  ng-include="'/partials/product/product.html'"  ng-repeat="product in products"></div>              
+          <h2 class=" sexy"><i class="{{category.constructor.find({name:group}).image||''}} {{category.constructor.find({name:group}).color||gray}}"></i>&nbsp;{{group}}</h2>
+          <div masonry>          
+            <div  ng-include="'/partials/product/product.html'"  ng-repeat="product in products"></div>              
+          </div>
         </div>
       
         

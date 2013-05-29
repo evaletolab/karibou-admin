@@ -16,13 +16,13 @@ Home.config([
 
     // List of routes of the application
     $routeProvider
-      .when('/', {title:'welcome to your open community market', templateUrl : '/partials/shop/home.html'})
-      .when('/products', {title:'Les produits ', templateUrl : '/partials/product/home.html'})
-      .when('/products/:sku', {title:'Votre produit ', templateUrl : '/partials/product/home.html'})
-      .when('/products/category/:category', {title:'Les produits ', templateUrl : '/partials/product/products.html'})
-      .when('/shops/category/:catalog', {title:'Les boutiques ', templateUrl : '/partials/shop/shops.html'});
+      .when('/', {title:'welcome to your open community market',  templateUrl : '/partials/shop/home.html'})
+      .when('/products', {title:'Les produits ',  templateUrl : '/partials/product/home.html'})
+      .when('/products/category/:category', {title:'Les produits ',  templateUrl : '/partials/product/products.html'})
+      .when('/shops/category/:catalog', {title:'Les boutiques ',  templateUrl : '/partials/shop/shops.html'});
   }
 ]);
+
 
 //
 // the HomeCtrl is used in home.html (see app/assets/home.html)
@@ -39,15 +39,10 @@ Home.controller('HomeCtrl', [
   'product',
 
   function ($scope, $location, $rootScope, $routeParams, config, api, category, user, shop, product) {
-    var filter={};
+    var filter={sort:'created'};
     $scope.user = user;
     $scope.FormInfos=false;
     $scope.FormErrors=false;
-    
-    
-
-    // redirect to load product
-    $rootScope.$emit(($routeParams.sku)?'on-display-product':'on-hide-product',$routeParams.sku, 'home');    
 
     //
     // list products by category
@@ -67,7 +62,7 @@ Home.controller('HomeCtrl', [
     if($routeParams.catalog){
       $scope.group=category.constructor.findNameBySlug($routeParams.catalog);
       $scope.$parent.title="Les boutiques - "+$scope.group;
-      filter={sort:'location'};
+      filter={sort:'created'};
       
       $scope.shops=shop.findByCatalog($routeParams.catalog,filter,function(shops){
         $scope.shops=shops;
@@ -76,7 +71,7 @@ Home.controller('HomeCtrl', [
     }
     
     if($location.path()==='/products'||$routeParams.sku){
-      filter={sort:'title',group:'categories.name' /*,valid:true*/};
+      filter={sort:'created',group:'categories.name' /*,valid:true*/};
       $scope.products=product.home(null, filter,function(products){
         $scope.products=products;
       });
@@ -85,11 +80,15 @@ Home.controller('HomeCtrl', [
     
     //
     // get shops for the front page
-    filter={sort:'location',group:'catalog.name' /*,valid:true*/};
+    filter={sort:'created',group:'catalog.name' /*,valid:true*/};
     $scope.shops=shop.home(filter,function(shops){
       $scope.shops=shops;
     });
-    
+
+    $scope.getFormat=function(index){
+      
+      return (!index)?"c3":"c2";
+    }    
         
   }
 ]);

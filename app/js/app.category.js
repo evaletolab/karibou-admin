@@ -16,7 +16,7 @@ Category.config([
 
     // List of routes of the application
     $routeProvider
-      .when('/admin/category', {title:'Admin of category ', templateUrl : '/partials/admin/category.html'});
+      .when('/admin/category', {title:'Admin of category ', _view:'main', templateUrl : '/partials/admin/category.html'});
   }
 ]);
 
@@ -44,6 +44,7 @@ Category.controller('CategoryCtrl',[
     $scope.config=config;
   
     $scope.selected;
+    $scope.category=category;
     
     $scope.selectCategory=function(e,v){
       if(!$scope.categoryslug)return;

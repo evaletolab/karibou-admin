@@ -54,20 +54,31 @@ Service.directive('ngBlur', ['$parse', function($parse) {
 
 Service.directive('backstretch', ['$parse', function($parse) {
   return function(scope, element, attr) {
-      console.log("app.service:backstretch", element, attr['backstretch'])
+      //console.log("app.service:backstretch", element, attr['backstretch'])
       $(element).backstretch(attr['backstretch']);
   }
 }]);
 
 Service.directive('backfader', ['$parse','$location', function($parse,$location) {
   return function(scope, element, attr) {
-      console.log("app.service:backfader", element, attr['backfader'])
-      element.removeClass('hide').addClass('noscroll').click(function(e) {
+      //console.log("app.service:backfader", element, attr['backfader'])
+      //angular.element("body").addClass('noscroll');
+      element.removeClass('hide').click(function(e) {
 		    if(e.target === element[0]){
-	       	//element.hide();
-		      //$('#popup').hide();
-          //$("body").removeClass('noscroll');
-          var url=$location.path().replace(/^(.*)\/[0-9]+$/,"$1");
+		      //console.log($location.path())
+          angular.element("body").removeClass('noscroll');
+          //console.log(window.history)
+          //window.history.back();
+          //return;
+
+          //
+          // FIXME place the RegExp() in the template attr['backfader']
+          var url=$location.path().replace(/^(.*\/[0-9]+)\/edit$/,"$1");
+          if (url===$location.path()) url=url.replace(/^(.*)\/[0-9]+$/,"$1");
+          if (url===$location.path()) {
+            window.history.back();
+            return;
+          }
           scope.$apply(function(){
             $location.path(url)
           });
@@ -78,6 +89,61 @@ Service.directive('backfader', ['$parse','$location', function($parse,$location)
 		  });	    
   }
 }]);
+
+//
+// http://dev.dforge.net/projects/sliding-pane/index.html
+// 
+Service.directive('pageslide', ['$parse','$timeout', function($parse , $timeout) {
+  return function(scope, element, attr) {
+    //console.log('lazyload')
+    var o=scope.$eval(attr.pageslide||"{}");
+    element.pageslide(o)
+    //$("img.lazy").show().lazyload();
+  }
+}]);
+
+//
+//
+// http://masonry.desandro.com/docs/intro.html
+Service.directive('lazyload', ['$parse','$timeout', function($parse , $timeout) {
+  return function(scope, element, attr) {
+    //console.log('lazyload')
+    //$("img.lazy").show().lazyload();
+  }
+}]);
+
+Service.directive('hideon', function() {
+    return function(scope, element, attrs) {
+        scope.$watch(attrs.hideon, function(value, oldValue) {
+            if(value) {
+                element.hide();
+            } else {
+                element.show();
+            }
+        }, true);
+    }
+});
+
+
+//
+//
+// http://masonry.desandro.com/docs/intro.html
+Service.directive('masonry', ['$parse','$timeout', function($parse , $timeout) {
+  return function(scope, element, attr) {
+      //console.log("app.service:backstretch", element, attr['backstretch'])
+    var options={itemSelector : '.block', columnWidth : 1}, expression = scope.$eval(attr.mansory||"{}");
+    angular.extend(options, expression);        
+    $timeout(function(){
+      //console.log('masonry',options)
+      element.imagesLoaded(function(){
+        element.masonry(options);
+      });
+
+    },600);
+
+  }
+}]);
+
 
 
 
@@ -93,6 +159,19 @@ Service.directive('fadeOnHover', ['$parse', function($parse) {
       })
             
       element.hide();
+  }
+}]);
+
+Service.directive('infiniteCarousel', ['$parse','$timeout', function($parse , $timeout) {
+  return function(scope, element, attr) {
+    var options={}, expression = scope.$eval(attr.infiniteCarousel||"{}");
+    angular.extend(options, expression);        
+    $timeout(function(){
+       console.log(attr)
+       
+       $(element).addClass("infiniteCarousel").infiniteCarousel(options)
+    },0);
+
   }
 }]);
 
@@ -201,7 +280,7 @@ function ($rootScope, $http, $resource, $timeout, config) {
         _all[instance[key]]=new clazz();
         _all[instance[key]].copy(instance);
       }
-      if (copy)this.copy(_all[instance[key]]);
+      if (copy)this.copy(instance);
       return _all[instance[key]];
     }
     

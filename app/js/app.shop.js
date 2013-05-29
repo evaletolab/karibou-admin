@@ -17,7 +17,6 @@ Shop.config([
     // List of routes of the application
     $routeProvider
       .when('/shop/:shop/products',{redirectTo:'/shop/:shop'})
-      .when('/shop/:shop/products/:sku', {title:'Votre boutique ', templateUrl : '/partials/shop/shop-desktop.html'})
       .when('/shop/:shop', {title:'Votre boutique ', templateUrl : '/partials/shop/shop-desktop.html'});
   }
 ]);
@@ -61,8 +60,6 @@ Shop.controller('ShopCtrl',[
     },cb_error);
     
 
-    // redirect to load product
-    $rootScope.$emit(($routeParams.sku)?'on-display-product':'on-hide-product',$routeParams.sku, 'shop');    
     
     //
     // get products for the front page shop
@@ -173,7 +170,7 @@ Shop.factory('shop', [
     Shop.prototype.save = function( cb, err){
       if(!err) err=onerr;
       var me=this, s=$resource(config.API_SERVER+'/v1/shops/:urlpath',{urlpath:this.urlpath}).save(this, function() {
-        if(cb)cb(me.share(s));
+        if(cb)cb(me.share(s,true));
       },err);
       return this;
     };

@@ -4,7 +4,9 @@
 // Define the application level controllers
 angular.module('app.root', [
   'app.config',
-  'app.user'
+  'app.user',
+  'ui',
+  'ui.bootstrap'
 ])
 
 //
@@ -31,7 +33,12 @@ angular.module('app.root', [
     // check and init the session    
     user.me(function(u){
       $scope.user = u;
+    }, function(){
+        // on error,
+        // if anonymous then redirect to login except for ...
+        if($location.path()==='/admin') $location.path('/login');
     });
+
     
     //
     // get categories
@@ -89,11 +96,6 @@ angular.module('app.root', [
     };
 
 
-
-    
-    $scope.openProductEditor = function(id){
-      $scope.$broadcast("edit-product",id);
-    }
     
   }
 ]);

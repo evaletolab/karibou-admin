@@ -43,7 +43,7 @@
             </div>
             <div  style="background-image:url(/img/rice-paper.jpg);height:30%;text-align:center;font-family:Georgia,'Times New Roman',Times,serif;font-size:18px;
 ">
-              <section class="headline fill" style="padding:20px 0px 0px 20px;">
+              <section class="headline fill" >
                       <p class="white "  ng-bind-html-unsafe="shop.description"></p>
                       <p class="white "><span >{{shop.location}}</span>  - <a ng-show="shop.url" class="white" href="{{shop.url}}" >{{shop.url}}</a></p>
                       <p class="white " style="display:none">Retrouvez nos produits aux marchés :<span  ng-repeat="market in shop.marketplace"> <span class="badge badge-inverse">{{market}}</span>&nbsp;</span>&nbsp;
@@ -118,6 +118,7 @@
                                 <input type="checkbox" ng-model="shop.options.bio" value="des produits Bio">
                                 des produits Bio
                               </label>
+                              <!--
                               <label class="checkbox">
                                 <input type="checkbox" ng-model="shop.options.gluten" value="des produits sans gluten">
                                 des produits sans gluten
@@ -126,6 +127,7 @@
                                 <input type="checkbox" ng-model="shop.options.lactose" value="des produits sans lactose">
                                 des produits sans lactose
                               </label>
+                              -->
                               <label class="checkbox">
                                 <input type="checkbox" ng-model="shop.options.local" value="une production locale">
                                 une production locale
@@ -138,7 +140,8 @@
                             <label class="control-label ">Catalogue</label> 
                             <div class="controls small">
                               <select  ng-model="shop.catalog._id " class="input-xlarge" required="true" >
-                                <option ng-repeat="cat in category.constructor.findAll() | filter:{type:'Catalog'}" value="{{cat._id}}" selected="{{shop.catalog._id==cat._id}}">{{cat.name}}</option>
+                                <option ng-repeat="cat in category.constructor.findAll() | filter:{type:'Catalog'}" value="{{cat._id}}" 
+                                ng-selected="shop.catalog._id==cat._id">{{cat.name}}</option>
                               </select>
                             </div>
                           </div>
@@ -188,7 +191,7 @@
                       </pane>    
 
 
-                      <pane heading="Situation">
+                      <pane heading="Adresse">
                         <fieldset>
                           <!-- URL -->
                           <div class="control-group">
@@ -222,6 +225,11 @@
 
                         </fieldset>
                       </pane>    
+                      <pane heading="Logistique">
+                        <fieldset>
+                        </fieldset>
+                      </pane>
+                            
 
                       <pane heading="FAQ">
                         <h2>Foire aux questions</h2>

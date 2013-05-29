@@ -1,30 +1,53 @@
-  <div class="block span12 "  >
-      <div class="span5">
-        <div class="span12 shop-label" style="">
-          <ul class="thumbnails">
-      			<li><img ng-show="wideproduct.details.bio" src="/img/shop/bio.png" style="width:20px;"/>&nbsp;
-      			    <img ng-show="wideproduct.details.gluten" src="/img/shop/gluten-free.png" style="width:20px;"/>
-      			    <img ng-show="wideproduct.details.lactose" src="/img/shop/lactose.png" style="width:20px;"/>
-      			    <img ng-show="wideproduct.details.local" src="/img/shop/local.png" style="width:20px;"/>
-      			</li>
-          </ul>
+<div backfader="" nhow="product.sku" class="backfader ">
+   <div class="popupcontent simpleCart_shelfItem" id="popup">
+      <div class="pattern-dark row-fluid">
+        <div class="span8">
+          <img ng-cloak ng-show="product.photo" ng-src="{{product.photo}}/convert?w=400&h=320&fit=crop" class="item-image">
+          <img ng-cloak ng-hide="product.photo" ng-src="{{false  | placehold:'400x320'}}" >
+          <img ng-cloak ng-hide="product.attributes.available" ng-src="http://placehold.it/400x320/eeeeee/000000&text=indisponible" class="available">
+          <img ng-cloak ng-hide="product.pricing.stock" ng-src="http://placehold.it/400x320/eeeeee/000000&text=plus+en+stock" class="available">
+
         </div>
-        <a href="#" ng-click="openProductEditor('#editor',product)">
-          <img ng-show="wideproduct.photo" src="{{wideproduct.photo}}/convert?w=400&h=320&fit=crop" >
-          <img ng-hide="wideproduct.photo" src="{{false  | placehold:'400x320'}}" >
-        </a>
-      </div>
-      <div class="span7">
-        <div class="body">
-          <div class="row-fluid " style="padding:5px 0px 5px 0px">
-            <div class=" elem" >
-	              <span class="small">{{wideproduct.title}}</span>
-            	  <span class="pull-right green small"><div>Fr {{wideproduct.pricing.price| number:2}}</div><div class="small em">{{wideproduct.pricing.part}}</div></span>
-            	  <div ng-show="wideproduct.urlshop" ><a class="gray small" href="/shop/{{wideproduct.urlshop}}">{{wideproduct.urlshop}}</a></div>
-            	  <div ng-show="wideproduct.vendor" ><a class="gray small" href="/shop/{{wideproduct.vendor.urlpath}}">{{wideproduct.vendor.name}}</a></div>
-            </div>
-          </div>
+        <div class="span4">
+          <br/>
+          <h2 class="white">Fr <span class="item_price">{{product.pricing.price| number:2}}</span><div class="small em">{{product.pricing.part}}</div></h2>
+          <p>
+            <button type="input" class="btn btn-large btn-danger"><i class="icon-star-empty"></i>&nbsp;J'aime</button> 
+          </p>
+          <p>
+            <a type="input" class="btn btn-large btn-primary item_add" href="javascript:;"><i class="icon-ok"></i>&nbsp;J'achète</a>
+          </p>
+          <p>
+            <div class="label label-info lead">
+               <span class="simpleCart_quantity">0</span> articles <span class="small _simpleCart_total"></span>          
+            </div>                
+          </p>
         </div>
       </div>
+      <div ng-show="user.isOwnerOrAdmin(product.vendor.name)" class="pull-right">
+        <a href="{{shop.urlpath|test:'/shop/':''}}/products/{{product.sku}}/edit" class="btn  btn-small"><i class="icon-edit"></i>&nbsp;Editer le produit</a>
+      </div>                
+      <h3><span class="item_name">{{product.title}}</span> <span ng-show="productDetails()!==''">({{productDetails()}})</span></h3>
+      <div class="content" >
+        {{product.details.description}}
+        
+      </div>
+      <div class="shop" >
+        <ul class="thumbnails">
+          <li class="span1" ng-show="product.vendor.photo.owner" style="width:120px">
+            <img src="{{product.vendor.photo.owner | placehold:'160x160&text=l`équipe'}}"  alt="160x160" class="thumbnail-owner photo-owner">
+          </li>
+          <li class="span1" ng-show="product.vendor.photo.fg&&!product.vendor.photo.owner" style="width:120px">
+            <img src="{{product.vendor.photo.fg | placehold:'160x160&text=l`équipe'}}"  alt="160x160" class="thumbnail-owner photo-owner">
+          </li>
+          <li class="span4">
+            <strong>{{product.vendor.name}}</strong>&nbsp;|&nbsp;{{product.vendor.description}}<br/>
+            <a href="/shop/{{product.vendor.urlpath}}"> Visiter la boutique</a>
+          </li>
+        </ul>          
+      </div>
+      <div id="disqus_thread" ></div>
+    </div>
   </div>
+</div>
 

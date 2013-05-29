@@ -15,13 +15,14 @@
       <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
 
+    <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:600' rel='stylesheet' type='text/css'> 
     <link rel="stylesheet" href="/css/vendor.css">
     <link rel="stylesheet" href="/css/app.css">
 
     <script type="text/javascript">
       (function(a){if(window.filepicker){return}var b=a.createElement("script");b.type="text/javascript";b.async=!0;b.src=("https:"===a.location.protocol?"https:":"http:")+"//api.filepicker.io/v1/filepicker.js";var c=a.getElementsByTagName("script")[0];c.parentNode.insertBefore(b,c);var d={};d._queue=[];var e="pick,pickMultiple,pickAndStore,read,write,writeUrl,export,convert,store,storeUrl,remove,stat,setKey,constructWidget,makeDropPane".split(",");var f=function(a,b){return function(){b.push([a,arguments])}};for(var g=0;g<e.length;g++){d[e[g]]=f(e[g],d._queue)}window.filepicker=d})(document); 
     </script>
-
+    
   </head>
 
   <body class="preview fill" data-spy="scroll" data-target=".subnav" data-offset="90">
@@ -29,6 +30,8 @@
   <!-- Navbar
     ================================================== -->
     <div class="navbar navbar-fixed-top" >
+     <div style="z-index:2000;top:0px;height:2px;right:0px;left:0px;width:100%;background-color:#76CC1E;padding:3px;font-weight:bold;position:fixed" class="text-center white ">&nbsp;
+     </div>
      <div class="navbar-inner navbar-karibou">
        <div class="container">
          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
@@ -36,14 +39,9 @@
            <span class="icon-bar"></span>
            <span class="icon-bar"></span>
          </a>
-         <a class="brand" href="/"><i class="icon-home"></i>K<sub>aribou</sub></a> 
+         <a class="brand" href="/"><i class="icon-home gray"></i>&nbsp;K<sub>aribou</sub></a> 
+        
           <ul class="nav" id="main-menu-left">
-            <li ng-class="">
-              <a  class="" href="/">Les marchands</a> 
-            </li>
-            <li ng-class="getClass('/products')">
-              <a  href="/products">Les produits</a> 
-            </li>
             <li class="dropdown">
               <a class="dropdown-toggle" data-toggle="dropdown" href="#"><i class="icon-th-list"></i> <b class="caret"></b></a>
               <ul class="dropdown-menu" id="swatch-menu" style="width:300px;">              
@@ -58,6 +56,7 @@
                 -->
               </ul>
             </li>
+            <li>
             <!--
             <form action="" class="navbar-search ">
               <input type="text" placeholder="Search" class=" span2">
@@ -65,6 +64,28 @@
             -->    
 
           </ul>
+
+        <div class="nav-collapse collapse" >
+          <ul class="nav" id="main-menu-left">
+            <li ng-class="">
+              <a  class="" href="/">Les marchands</a> 
+            </li>
+            <li ng-class="getClass('/products')">
+              <a  href="/products">Les produits</a> 
+            </li>
+          </ul>
+        </div>
+
+         <ul class="nav pull-right" >
+           <li>
+           
+             <a pageslide="{ direction: 'left', modal: false }" class="pull-right nav-badge" href="#pageslide">
+               <span class="simpleCart_quantity">0</span> articles <span class="small _simpleCart_total"></span>
+             </a>
+           </li>
+         </ul>
+            
+          
          <div class="nav-collapse collapse" id="main-menu">
           <ul class="nav pull-right" id="main-menu-right" ng-include="'/partials/account/menu.html'">
           </ul>
@@ -72,56 +93,31 @@
        </div>
      </div>
     </div>
-    <div ng-controller="ProductCtrl">
-      <div nview="modal">
-      
-      </div>
-      <div backfader="products\/[0-9]+$" ng-show="product.sku" class="backfader hide">
-         <div class="popupcontent" id="popup">
-            <div class="pattern-dark row-fluid">
-              <div class="span8">
-                <img ng-show="product.photo" src="{{product.photo}}/convert?w=400&h=320&fit=crop" >
-                <img ng-hide="product.photo" src="{{false  | placehold:'400x320'}}" >
-              </div>
-              <div class="span4">
-                <br/>
-                <h2 class="white">Fr {{product.pricing.price| number:2}}<div class="small em">{{product.pricing.part}}</div></h2>
-                <p>
-                  <button type="input" class="btn btn-large btn-danger"><i class="icon-star-empty"></i>&nbsp;J'aime</button> 
-                </p><p>
-                  <button type="input" class="btn btn-large btn-primary"><i class="icon-ok"></i>&nbsp;J'achète</button>
-                </p>                
-              </div>
-            </div>
-            <h3>{{product.title}} <span ng-hide="product.details.bio">(bio)</span></h3>
-            <div class="content" >
-              {{product.details.description}}
-            </div>
-            <div class="shop" >
-              <ul class="thumbnails">
-                <li class="span1" ng-show="product.vendor.photo.owner" style="width:120px">
-                  <img src="{{product.vendor.photo.owner | placehold:'160x160&text=l`équipe'}}"  alt="160x160" class="thumbnail-owner photo-owner">
-                </li>
-                <li class="span1" ng-show="product.vendor.photo.fg&&!product.vendor.photo.owner" style="width:120px">
-                  <img src="{{product.vendor.photo.fg | placehold:'160x160&text=l`équipe'}}"  alt="160x160" class="thumbnail-owner photo-owner">
-                </li>
-                <li class="span4">
-                  <strong>{{product.vendor.name}}</strong>&nbsp;|&nbsp;{{product.vendor.description}}<br/>
-                  <a href="/shop/{{product.vendor.urlpath}}"> Visiter la boutique</a>
-                </li>
-              </ul>          
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div ng-include="'/partials/product/create.html'"></div>
-
-      <div class="fill row-fluid ng-view" >&nbsp;
-    </div>
-
     
+    <div ng-controller="ProductCtrl" style="padding-top:40px">
+      <div ng-view="modal">   
+      </div>
 
+      <div class="fill row-fluid " ng-view >
+        &nbsp;
+      </div>
+
+    </div>    
+    <div id="pageslide" class="cart-page" style="left: auto; right: 0px;">
+        <h4 class="text-center">Votre commande</h4>
+        <div class="simpleCart_items"></div>
+        <div id="cartData" class="clearfix">
+						<div class="left"><strong>Articles: </strong><span class="simpleCart_quantity"></span></div>
+						<div class="right"><strong>Livraison: </strong><span class="simpleCart_shipping"></span></div>
+						<div class="right"><strong>Total: </strong><span class="simpleCart_grandTotal"></span></div>
+					</div>
+					<div id="popoverButtons" class="clearfix">
+					  
+						<a href="javascript:simpleCart.empty();" class="simpleCart_empty btn btn ">Vider</a>
+						<a href="javascript:;" class="simpleCart_checkout btn btn-primary pull-right">Checkout</a>
+					</div>
+    </div>
+    
     <!-- Le javascript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->

@@ -2,7 +2,7 @@
 
     
     <!-- SHOPS -->
-    <div ng-controller="HomeCtrl" class="row " style="position:relative">
+    <div ng-controller="HomeCtrl" class="row " lazyload="" style="position:relative">
         <!-- SPLIT -->
         <div class="shop-row">
           <div class="container" >
@@ -11,8 +11,10 @@
         </div>
         <div class="shop-row" ng-repeat="(group, _products) in products">          
           <div class="container" ng-show="_products.length">
-            <h2 class=" sexy">{{category.constructor.find({_id:group}).name}}</h2>
-            <div  ng-include="'/partials/product/product.html'"  ng-repeat="product in _products"></div>              
+            <h2 class=" sexy"><i class="{{category.constructor.find({_id:group}).image||''}} {{category.constructor.find({_id:group}).color||gray}}"></i>&nbsp;{{category.constructor.find({_id:group}).name}}</h2>
+            <div masonry>
+              <div  ng-include="'/partials/product/product.html'"  ng-repeat="product in _products"></div>              
+            </div>
           </div>
         </div>
       

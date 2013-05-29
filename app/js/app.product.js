@@ -3,7 +3,7 @@
 //
 // Define the Product module (app.product)  for controllers, services and models
 // the app.product module depend on app.config and take resources in product/*.html 
-var Product=angular.module('app.product', ['app.config', 'app.api','app.product.ui', 'ui','ui.bootstrap']);
+var Product=angular.module('app.product', ['app.config', 'app.api']);
 
 function ProductCtrl($routeParams, $location) {
   console.log($routeParams, $location)
@@ -19,7 +19,18 @@ Product.config([
 
     // List of routes of the application
     $routeProvider
-      .when('/productss/:sku', {title:'Votre produit ',reloadOnSearch:false, controller:'ProductCtrl',_templateUrl : '/partials/product/home.html'});
+      .when('/products/create', {
+          title:'Créer un nouveau produit ',clear:true, modal:true, view:'modal',controller:'ProductCtrl', templateUrl : '/partials/product/create.html'
+       })
+      .when('/products/:sku', {
+          title:'Votre produit ', modal:true,view:'modal',controller:'ProductCtrl', templateUrl : '/partials/product/product-wide.html'
+       })
+      .when('/products/:sku/edit', {
+          title:'Votre produit ', modal:true,view:'modal',controller:'ProductCtrl', templateUrl : '/partials/product/create.html'
+       })
+      .when('/shop/:shop/products/:sku', {
+          title:'Votre produit ', modal:true,view:'modal',controller:'ProductCtrl', templateUrl : '/partials/product/product-wide.html'
+       });
   }
 ]);
 
@@ -28,17 +39,17 @@ Product.config([
 Product.controller('ProductCtrl',[
   '$scope',
   '$route',
-  '$rootScope',
+  '$location',
   '$routeParams',
   'config',
   'api',
   'product',
 
-  function ($scope,$route, $rootScope, $routeParams, config, api, product) {
+  function ($scope,$route, $location, $routeParams, config, api, product) {
     $scope.FormInfos=false;
     $scope.FormErrors=false;
+    $scope.product=product;
 
-    //console.log($route,$routeParams)
     var cb_error=api.error($scope);
 
     $scope.config=config;
@@ -46,51 +57,37 @@ Product.controller('ProductCtrl',[
     $scope.save=function(product){
       product.save(function(s){
           api.info($scope,"Votre produit a été enregistrée!",2000, function(){
-            $('#close-product-editor').click();
+            $location.path("/products/"+product.sku)
           });
       },cb_error);
     };
     
+    if($route.current&&$route.current.$route.clear){
+      $scope.product={};
+    }
+    
+    
     $scope.create=function(shop,p){
-      if (!shop ||!p){
-        return api.info($scope,"Ooops");
+      if (!shop){
+        return api.info($scope,"Vous devez préciser la boutique");
       }
       product.create(shop,p,function(product){
-          api.info($scope,"Votre produit à été crée ",2000, function(){
-            $('#close-product-editor').click();
-          });
+          $location.path("/products/"+product.sku)
+          $scope.product=product;
+      },cb_error);
+      
+    };
+
+    $scope.remove=function(product){
+      product.remove(function(){
+          $location.path("/products")
           $scope.product={};
       },cb_error);
       
     };
 
     
-    // init
-    /**
-    product.get($routeParams.product,function(product){
-      $scope.product=product;
-      $rootScope.title=product.sku+' - '+product.name;
-    },cb_error);
-    */
-    
 
-    $scope.$on("edit-product",function(e,id,p){
-      $scope.openProductEditor(id,p);
-    });
-    
-    
-    $scope.openProductEditor = function(id,p){
-      var options = {
-        backdrop: true,
-        keyboard: true,
-        backdropClick: true,
-        templateUrl:  "/partials/product/create.html", 
-        _controller: 'ProductCtrl'
-      };
-
-      $rootScope.product=(p)?p:product;
-      $(id).modal('show');
-    };
 
     $scope.uploadImage=function(product, imgKey){
       api.uploadfile({},function(err,fpfile){
@@ -104,23 +101,51 @@ Product.controller('ProductCtrl',[
       return false;
     }
     
-    //$rootScope.product=product;
+    $scope.productDetails=function(){
+      var detail="", coma;
+      if (product.details.bio) {
+        coma=detail="bio";        
+      }
+      /**
+      if (product.details.gluten){ 
+        if(coma)detail+=", "
+        detail+="sans gluten";
+      }
+      */
+      return detail;
+    }    
     
-    $rootScope.$on('on-hide-product',function(e,sku,from){
-      $rootScope.product={};
-    });
     
-    $rootScope.$on('on-display-product',function(e,sku,from){
-      product.get(sku,function(product){
-        $rootScope.title='/products/'+product.sku+' - '+product.title;
-        $rootScope.product=product;
+    
+
+    if($routeParams.sku){
+      product.get($routeParams.sku,function(product){
+        $scope.title='products '+product.sku+' - '+product.title;
+        $scope.product=product;
+        //loadDisqus($location.path());
       },cb_error);
-
-    });
-
-    //console.log($routeParams)
+    }          
     
-    
+          
+    function loadDisqus(currentPageId) {
+      // http://docs.disqus.com/help/2/
+      window.disqus_shortname = 'karibou';
+      window.disqus_identifier = currentPageId;
+
+      if ($location.host() == 'localhost') {
+        window.disqus_developer = 1;
+      }
+
+      // http://docs.disqus.com/developers/universal/
+      (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = 'http://karibou.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      })();
+
+      angular.element(document.getElementById('disqus_thread')).html('');
+    }    
+      
   }  
 ]);
 
@@ -144,13 +169,17 @@ Product.factory('product', [
     var defaultProduct = {
       image:'',
       categories:[],
-      details:{}
+      details:{},
+      attributes:{
+        available:true
+      }
     };
     
     //
     // default behavior on error
     var onerr=function(data,config){
-      _product.copy(defaultProduct);
+      //FIXME on error reset product
+      //_product.copy(defaultProduct);
     };
     
     var Product = function(data) {
@@ -219,7 +248,7 @@ Product.factory('product', [
     Product.prototype.save = function( cb, err){
       if(!err) err=onerr;
       var product=this, s=$resource(config.API_SERVER+'/v1/products/:sku',{sku:this.sku}).save(this, function() {
-        if(cb)cb(product.share(s));
+        if(cb)cb(product.share(s,true));
       },err);
       return this;
     };
@@ -233,7 +262,7 @@ Product.factory('product', [
       return this;
     };    
     
-    Product.prototype.remove=function(user,cb,err){
+    Product.prototype.remove=function(cb,err){
       if(!err) err=function(){};
       var product=this, s = $resource(config.API_SERVER+'/v1/products/:sku',{sku:this.sku}).delete(function() {
         if(cb)cb(product);
