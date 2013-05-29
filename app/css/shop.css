@@ -58,7 +58,7 @@
   padding-bottom:60px;
 }
 .shop-row:nth-child(even){
-  background-color: #eee;
+  background-color: #EEF2EA;
   border-bottom:1px solid #ccc;
 }
 
@@ -142,6 +142,10 @@
   }
   .docs-sidebar.span5{
     width:100%;
+  }
+  
+  .docs-sidebar section.headline{
+    padding:40px 0px 40px 20px;
   }
     
 

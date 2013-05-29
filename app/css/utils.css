@@ -1,11 +1,19 @@
 
 /* 
 -------------------------------------------------- */
+/* 
+  Allow angular.js to be loaded in body, hiding cloaked elements until 
+  templates compile.  The !important is important given that there may be 
+  other selectors that are more specific or come later and might alter display.  
+ */
+[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak{
+  display: none !important;
+}
 
 h1.sexy, h2.sexy, h3.sexy {
   color: rgba(21, 21, 21, 0.8);
   text-shadow:1px 2px 4px #E3E3E3,0 0 0 black,1px 2px 4px #E3E3E3,0 1px 0 white;
-  margin:15px 0px 25px 0px;
+  margin:15px 0px 25px 25px;
 }
 
 .round-corner{
@@ -64,8 +72,15 @@ ul.nav li{
   line-height:80%;
 }
 
+.lazy {
+  -display: none;
+}
+
+.red{
+  color:red!important;
+}
 .green{
-  color:green!important;
+  color:#76CC1E!important;
 }
 .white{
   color:white!important;
@@ -132,7 +147,10 @@ hr.soften {
     background:url("/img/pattern-dark1.jpg") repeat scroll 0 0 #F7F5F5;
 }
 
-
+.opacity{
+  opacity:0.3;
+  filter:alpha(opacity=30);
+}
 
 /* Utility classes table
 ------------------------- */

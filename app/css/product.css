@@ -6,7 +6,7 @@
 }
 
 .products-row:nth-child(odd){
-  background-color: #eee;
+  background-color: #EEF2EA;
   border-bottom:1px solid #ccc;
   padding: 5px 0 30px 0;
 }
@@ -50,13 +50,9 @@
   border-bottom: 1px solid #efefef;
   border: 1px solid #eee;
   border-color:#EAE9E9 #D4D2D3 #B2B1B1;
-  -border-radius: 9px ;
   box-shadow: 1px 1px 2px 0 rgba(0, 0, 0, 0.05);
-  -box-shadow: 0 1px 1px rgba(0, 0, 0, 0.25) inset;
-  -box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.1);
   margin-bottom: 25px;
   min-height: 20px;
-  overflow-:hidden;
   min-height:300px;
   position:relative;
   
@@ -80,21 +76,35 @@
 }
 
 .layout-item.c1{
-  -width: 22%;
-  max-width: 275px;
-  min-height:210px;
+  width: 275px;
+  min-height:200px;
   margin:0.338em 0.338em 0.338em 1.8em;
 }
 
+.shop-container .layout-item.c1{
+	width: 240px; /* 305px */
+}
+
+
 .layout-item.c2{
-  width: 30%;
-  max-width: 405px;
-  margin:0.338em 0.338em 0.338em 1.8em;
-  min-height:350px;
+  width: 375px;
+  margin:0.338em 0.238em 0.338em 1.75em;
+  -min-height:350px;
 }
 
 .layout-item.c2 div.elem{
   padding-left:10px;
+  height: 120px;
+  overflow: hidden;
+}
+
+.layout-item.c3{
+  width: 780px;
+  margin:0.338em 0.238em 0.338em 1.75em;
+  -min-height:350px;
+}
+.layout-item.c3 img{
+  width:100%;
 }
 
 .layout-item:hover{
@@ -105,6 +115,15 @@
   cursor:pointer;
   cursor:-Moz-Zoom-In;
   border-radius:3px 3px 0 0;
+  overlay:hidden;
+}
+
+.layout-item img.available, .backfader img.available{
+  position:absolute;
+  left:0;
+  top:0;
+  opacity:0.6;
+  filter:alpha(opacity=60);
 }
 
 @media only screen and ( max-width: 1024px ) /* 640px */{  
@@ -143,34 +162,53 @@
 
 	.layout-item.c1{
 		width: 210px; /* 305px */
-		width: 30%; 
+		-width: 30%; 
     border: 1px solid #E3E3E3;    margin:0.438em;
 		margin-bottom: 0.938em; /* 15px */
 		font-size:16px;
 	}
 
+
 	.layout-item.c2{
-		width: 320px; /* 305px */
-		width: 47%; /* 305px */
-		min-height:370px;
+		width: 330px; /* 305px */
     border: 1px solid #E3E3E3;    margin:0.438em;
 		margin-bottom: 0.938em; /* 15px */
 		font-size:14px;
 	}
   
-  
+  .layout-item.c3{
+    width: 675px;
+    border: 1px solid #E3E3E3;    margin:0.438em;
+		margin-bottom: 0.938em; /* 15px */
+		font-size:14px;
+  }
+  .layout-item.c3 img{
+    width:100%;
+  }  
 }
 
 /* Tablet
 ------------------------- */
 @media (max-width: 767px) {
 
+	.layout-item.c2{
+		width: 46%; /* 305px */
+    border: 1px solid #E3E3E3;    margin:0.438em;
+		margin-bottom: 0.938em; /* 15px */
+		font-size:14px;
+	}
 
 }
 
 /* Landscape phones
 ------------------------- */
 @media (max-width: 480px) {
+	.layout-item.c2{
+		width: 90%; /* 305px */
+    border: 1px solid #E3E3E3;    margin:0.438em;
+		margin-bottom: 0.938em; /* 15px */
+		font-size:14px;
+	}
 
 }
 

@@ -30,18 +30,25 @@ body > .navbar a:hover > i {
 	opacity: 1;
 }
 
+.nav-badge{
+  background-color: #ddd;
+  color:#222!important;
+  border-radius: 4px;
+  padding: 5px!important;
+  margin-top: 6px;
+}
 
-.navbar-karibou-{
-  background: linear-gradient(top, white 0%, rgba(250, 250, 250, 0.9) 100%);
+.navbar-karibou{
+  -background: linear-gradient(top, white 0%, rgba(250, 250, 250, 0.9) 100%);
   padding: 20px 0 10px 0;
-  background: -webkit-gradient(linear, left top, left bottom, color-stop(0, white), color-stop(1, rgba(250, 250, 250, 0.9)));
-  background: -webkit-linear-gradient(top, white 0%, rgba(250, 250, 250, 0.9) 100%);
-  background: -moz-linear-gradient(top, white 0%, rgba(250, 250, 250, 0.9) 100%);
-  background: -o-linear-gradient(top, white 0%, rgba(250, 250, 250, 0.9) 100%);
-  background: -ms-linear-gradient(top, white 0%, rgba(250, 250, 250, 0.9) 100%);
-  background: linear-gradient(top, white 0%, rgba(250, 250, 250, 0.9) 100%);
+  -background: -webkit-gradient(linear, left top, left bottom, color-stop(0, white), color-stop(1, rgba(250, 250, 250, 0.9)));
+  -background: -webkit-linear-gradient(top, white 0%, rgba(250, 250, 250, 0.9) 100%);
+  -background: -moz-linear-gradient(top, white 0%, rgba(250, 250, 250, 0.9) 100%);
+  -background: -o-linear-gradient(top, white 0%, rgba(250, 250, 250, 0.9) 100%);
+  -background: -ms-linear-gradient(top, white 0%, rgba(250, 250, 250, 0.9) 100%);
+  -background: linear-gradient(top, white 0%, rgba(250, 250, 250, 0.9) 100%);
   border: none;
-  font-size: 16px;
+  -font-size: 16px;
 }
 
 /* Sidenav for shops
@@ -135,6 +142,16 @@ body > .navbar a:hover > i {
 /* Desktop
 ------------------------- */
 @media (max-width: 980px) {
+  .navbar-fixed-top .navbar-inner, .navbar-fixed-bottom .navbar-inner {  
+    position: fixed;
+    width: 100%;
+    z-index: 1050;
+    top: 0px;
+    left:0px;
+    right:0px;
+    padding:5px;
+  }
+
 }
 
 /* Tablet to desktop
@@ -153,6 +170,7 @@ body > .navbar a:hover > i {
   .bs-docs-sidenav.affix {
     top: 0;
   }
+  
 }
 
 /* Tablet
