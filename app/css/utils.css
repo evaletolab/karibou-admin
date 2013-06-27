@@ -7,7 +7,27 @@
   other selectors that are more specific or come later and might alter display.  
  */
 [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak{
-  display: none !important;
+  display: none!important;
+}
+
+.animate, .fadein-setup, .fadeout-setup {
+  -webkit-transition:all linear .2s;
+  -moz-transition:all linear .2s;
+  -ms-transition:all linear .2s;
+  -o-transition:all linear .2s;
+  transition:all linear .2s;
+}
+
+.fadein-setup{
+  opacity:1;  
+}
+
+.fadeout-setup{
+  opacity:0;  
+}
+
+.no-space[class*="span"] {
+    margin-left: 0;
 }
 
 h1.sexy, h2.sexy, h3.sexy {
@@ -56,6 +76,10 @@ ul.nav li{
 .shadow{
   text-align: left;
   text-shadow: 0 0px 2px #444;
+}
+
+.box-shadow{
+  box-shadow: 0 10px 35px rgba(0, 0, 0, 0.25) ;
 }
 
 

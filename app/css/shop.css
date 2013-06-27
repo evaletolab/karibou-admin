@@ -1,27 +1,58 @@
-
-/* Shop
+/* Shop layout
 -------------------------------------------------- */
 
-.shop-container{
+.shop-page{
   margin-top:0px;
-  padding-top:40px;
+  padding-top:30px;
+  height:100%;
+  width:100%;
+}
+
+.shop-container{
+  width:60%;
+  position: absolute;
+  min-height: 100%;
+  right: 0;
+  padding-bottom: 100px;
+  border-left: 1px solid #c6c6c5;
+  overflow: hidden;
+  margin-right:-1px;
+  top: 38px;
 }
 
 
-.docs-container{
-  margin-left: 40.5009%;
-  float:left;
-  width:59%;
-}
 
-.docs-sidebar{
+.shop-sidebar{
+  width:40%;
+  height:100%;
+  top: 60px;
+  bottom: 100px;  
   position:fixed;
   box-shadow:1px 1px 0px rgba(0, 0, 0, 0.5);
   float:left;
 }
-.docs-sidebar div#bgshop{
-  height:68%;
+
+.shop-sidebar>div:nth-child(1){
+  height:70%;
 }
+.shop-sidebar>div:nth-child(2){
+  height:30%;
+}
+.shop-sidebar>section{
+  height:100%;
+  text-align:center;
+  font-family:Georgia,'Times New Roman',Times,serif;
+  font-size:18px;
+}
+.shop-sidebar fieldset.control-group{
+  position:absolute;
+  top:25%;
+  left:15%;
+  width:250px;
+}
+
+/* Shop details
+-------------------------------------------------- */
 
 .shop-title{
   padding:20px 0px 0px 20px;
@@ -59,6 +90,7 @@
 }
 .shop-row:nth-child(even){
   background-color: #EEF2EA;
+  background-color: #EFEFEF;
   border-bottom:1px solid #ccc;
 }
 
@@ -71,13 +103,6 @@
 }
 .shop-home div.card{
   width: 500px;
-}
-.-shop-home div.card{
-  position: relative;
-  width: 600px;
-  padding: 3px;
-  background-color: white;
-  border: 1px solid #AAA;
 }
 
 .shop-label{
@@ -119,34 +144,46 @@
 /* Tablet to desktop
 ------------------------- */
 @media (min-width: 768px) and (max-width: 979px) {
-  .shop-container{
-    margin-top:-20px;
+
+  .shop-page{
+    margin-top:-60px;
     padding-top:0px;
+    height:100%;
+    width:100%;
   }
-  
-  .docs-container{
+
+  .shop-container{
     width:100%;
     margin-left: inherit;
     float:inherit;
+    position:relative;
   }
 
-  .docs-sidebar{
-    margin-top:00px;
+
+  .shop-sidebar{
+    width:100%;
+    margin-top:-10px;
     box-shadow:1px 1px 0px rgba(0, 0, 0, 0.5);
     float:left;
     position:relative;
   }
-  
-  .docs-sidebar div#bgshop{
-    min-height:500px;
-  }
-  .docs-sidebar.span5{
-    width:100%;
-  }
-  
-  .docs-sidebar section.headline{
+    
+    
+  .shop-sidebar section.headline{
     padding:40px 0px 40px 20px;
   }
+  
+  .shop-sidebar>div:nth-child(1){
+    min-height:540px;
+  }
+  .shop-sidebar>section{  
+    min-height:200px;
+  }
+
+  .shop-sidebar fieldset.control-group{
+    left:20%;
+  }
+}
     
 
 }
@@ -160,7 +197,10 @@
 /* Landscape phones
 ------------------------- */
 @media (max-width: 480px) {
-
+  .shop-row{
+    padding-top:0px;
+    padding-bottom:0px;
+  }
 }
 
  

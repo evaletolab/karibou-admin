@@ -2,7 +2,7 @@
 
 //
 // Define the Home module (app.home)  for controllers, services and models
-var Home=angular.module('app.home', ['app.config','app.user','app.shop', 'app.api']);
+var Home=angular.module('app.home', ['app.config','app.user','app.shop', 'app.api', 'ui']);
 
 
 //
@@ -49,7 +49,7 @@ Home.controller('HomeCtrl', [
     if ($routeParams.category){
       $scope.group=category.constructor.findNameBySlug($routeParams.category);
       $scope.$parent.title="Les produits - "+$scope.group;
-      filter={sort:'title'};
+      filter={sort:'title'/**,status:true*/};
       
       $scope.products=product.findByCategory($routeParams.category,filter,function(products){
         $scope.products=products;
@@ -71,7 +71,7 @@ Home.controller('HomeCtrl', [
     }
     
     if($location.path()==='/products'||$routeParams.sku){
-      filter={sort:'created',group:'categories.name' /*,valid:true*/};
+      filter={sort:'created',group:'categories.name'/**,status:true*/};
       $scope.products=product.home(null, filter,function(products){
         $scope.products=products;
       });
@@ -80,15 +80,11 @@ Home.controller('HomeCtrl', [
     
     //
     // get shops for the front page
-    filter={sort:'created',group:'catalog.name' /*,valid:true*/};
+    filter={sort:'created',group:'catalog.name' /**,status:true*/};
     $scope.shops=shop.home(filter,function(shops){
       $scope.shops=shops;
     });
 
-    $scope.getFormat=function(index){
-      
-      return (!index)?"c3":"c2";
-    }    
         
   }
 ]);

@@ -2,13 +2,43 @@
 
     
     <!-- SHOPS -->
-    <div ng-controller="HomeCtrl" class="row " lazyload="" style="position:relative">
+    <div ng-controller="HomeCtrl" class="row " style="position:relative">
         <!-- SPLIT -->
         <div class="shop-row">
           <div class="container" >
             <p class="lead"><br/>Prochaines livraisons les mercredi 34 mai et samedi 38 mai! </p>
           </div>
         </div>
+        
+        <!-- NAVIGATION -->
+        <div ng-hide="true" style="position:relative;height:80px" data-spy="affix" data-offset-top="100" >
+          <div class="navbar navbar-fixed-top"  style="position:absolute">
+            <div class="navbar-inner navbar-sub-karibou">
+             <div class="container">
+               <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                 <span class="icon-bar"></span>
+                 <span class="icon-bar"></span>
+                 <span class="icon-bar"></span>
+               </a>
+              
+               <!-- MENU -->
+               <div class="nav-collapse collapse" >
+                <ul class="nav" id="main-menu-left">
+                  <li ng-repeat="category in category.constructor.findAll()|filter:{type:'Category'}">
+                    <a href="/products/category/{{category.slug}}">
+                      <i class="{{category.image||''}} {{category.color||gray}}"></i>&nbsp;
+                      {{category.name}}
+                    </a>
+                  </li>
+                </ul>
+               </div>
+               <!-- MENU -->
+             </div>
+            </div>
+          </div>
+        </div>
+        <!-- NAVIGATION -->
+        
         <div class="shop-row" ng-repeat="(group, _products) in products">          
           <div class="container" ng-show="_products.length">
             <h2 class=" sexy"><i class="{{category.constructor.find({_id:group}).image||''}} {{category.constructor.find({_id:group}).color||gray}}"></i>&nbsp;{{category.constructor.find({_id:group}).name}}</h2>

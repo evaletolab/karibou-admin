@@ -1,7 +1,7 @@
 <div backfader=""  class="backfader ">
    <div class="popupcontent" id="popup">
 
-    <form class="form-horizontal- nomargin" name="formProduct" >
+    <form class=" nomargin"  >
     <div class="modal-header">
       <button type="button" class="close" data-dismiss="modal" ara-hidden="true">&times;</button>
       <h3 ng-show="product.sku">Modifier le produit {{product.sku}}</h3>
@@ -19,27 +19,24 @@
             <pane heading="Informations du produit">
 
               <!-- 1 COLUMN -->
-              <div class="span7">        
                 <fieldset>
 
-                  <!-- details alimentaire -->
-                  <div class="control-group span12">
-                    <label class="control-label small">Alimentaire</label>
+                  <!-- title-->
+                  <div class="control-group">
+                    <label class="control-label ">Titre et description (<span class="_help-block small gray">description formaté selon <a href="http://fr.wikipedia.org/wiki/Markdown">markdown</a></span>)</label> 
                     <div class="controls">
-                      <label class="checkbox inline " style="width:200px">
-                        <input type="checkbox" name="details" value="BIO" ng-model="product.details.bio">
-                        <img src="/img/shop/bio.png" title="Cette boutique offre des produits BIO" style="width:36px"> <b>Bio</b>
-                      </label>
-                      <!--
-                      <label class="checkbox inline " style="width:20%">
-                        <input type="checkbox" name="details" value="sans gluten" ng-model="product.details.gluten">
-                        <span >sans gluten</span>
-                      </label>
-                      <label class="checkbox inline" style="width:30%">
-                        <input type="checkbox" name="details" value="sans lactose" ng-model="product.details.lactose">
-                        <span >sans lactose</span>
-                      </label>
-                      -->
+                      <input  type="text" placeholder="Titre du produit" class="input-xlarge span11" ng-model="product.title" required>
+                      <p class="help-block"></p>
+                    </div>
+                  </div>
+
+                  <!-- description -->
+                  <div class="control-group">
+                    <!-- <label class="control-label">Description</label> -->
+                    <div class="controls">                     
+                      <div id="desciption"  class="textarea" >
+                          <textarea rows="3" class="span11"  placeholder="Description du produit" ng-model="product.details.description" required></textarea>
+                      </div>
                     </div>
                   </div>
 
@@ -56,101 +53,146 @@
                   </div>
                   -->
 
-                  <!-- options -->
-                  <div class="control-group">
-                      <!--
-                    <label class="control-label small">Options</label>
-                    <div class="controls">
-                                            
-                      <label class="checkbox inline" style="width:30%">
-                        <input type="checkbox" name="attributes" value="offre spéciale" ng-model="product.attributes.discount">
-                        offre spéciale
-                      </label>
-                      <!-- <label class="checkbox inline">
-                        <input type="checkbox" name="attributes" value="commentaire" ng-model="product.attributes.comment">
-                        les commentaires
-                      </label>
-                    </div>    
-                    -->                
-                  </div>
 
-                  <!-- shop -->
-                  <!-- DISPLAY ONLY ON CREATION -->
-                  <div class="control-group" ng-hide="product.sku">
-                    <label class="control-label small">Boutique</label> 
-                    <div class="controls">
-                      <select  ng-model="product.urlshop" class="input-xlarge" required>
-                        <option ng-repeat="shop in user.shops" value="{{shop.urlpath}}">{{shop.name}}</option>
-                      </select>
-                    </div>
-                  </div>
-                  <!-- DISPLAY ONLY WHEN USER IS OWNER AND PRODUCT EXIST -->
-                  <div class="control-group" ng-show="user.isOwner(product.vendor.name) && product.sku">
-                    <label class="control-label small">Boutique</label> 
-                    <div class="controls">
-                      <select  ng-model="product.vendor._id" class="input-xlarge" required>
-                        <option ng-repeat="shop in user.shops" value="{{shop._id}}" ng-selected="product.vendor._id==shop._id">{{shop.name}}</option>
-                      </select>
-                    </div>
-                  </div>
-                  <!-- DISPLAY ONLY WHEN USER IS ADMIN AND NOT OWNER -->
-                  <div class="control-group" ng-show="!user.isOwner(product.vendor.name) && user.isAdmin() && product.sku">
-                    <label class="control-label small">Boutique</label> 
-                    <div class="controls">
-                      <strong>{{product.vendor.name}}</strong>
-                    </div>
-                  </div>
                   
-                  <!-- category -->
-                  <div class="control-group">
-                    <label class="control-label small">Catégorie</label> 
-                    <div class="controls small">
+                  <div class="span5 no-space">
+                    <!-- shop -->
+                    <!-- DISPLAY ONLY ON CREATION -->
+                    <div class="control-group" ng-hide="product.sku">
+                      <label class="control-label ">Boutique</label> 
+                      <div class="controls">
+                        <select  ng-model="product.urlshop" class="input-xlarge" required>
+                          <option ng-repeat="shop in user.shops" value="{{shop.urlpath}}">{{shop.name}}</option>
+                        </select>
+                      </div>
+                    </div>
+                    <!-- DISPLAY ONLY WHEN USER IS OWNER AND PRODUCT EXIST -->
+                    <div class="control-group" ng-show="user.isOwner(product.vendor.name) && product.sku">
+                      <label class="control-label ">Boutique</label> 
+                      <div class="controls">
+                        <select  ng-model="product.vendor._id" class="input-xlarge" required>
+                          <option ng-repeat="shop in user.shops" value="{{shop._id}}" ng-selected="product.vendor._id==shop._id">{{shop.name}}</option>
+                        </select>
+                      </div>
+                    </div>
+                    <!-- DISPLAY ONLY WHEN USER IS ADMIN AND NOT OWNER -->
+                    <div class="control-group" ng-show="!user.isOwner(product.vendor.name) && user.isAdmin() && product.sku">
+                      <label class="control-label ">Boutique</label> 
+                      <div class="controls">
+                        <strong>{{product.vendor.name}}</strong>
+                      </div>
+                    </div>
+                    
+                    <!-- category -->
+                    <div class="control-group">
+                      <label class="control-label ">Catégorie </label> 
+                      <div class="controls small">
 
-                      <select  ng-model="product.categories " class="input-xlarge" required multiple>
-                        <option ng-repeat="cat in category.constructor.findAll()| filter:{type:'Category'}" value="{{cat._id}}" >{{cat.name}}</option>
-                      </select>
+                        <select  ng-model="product.categories " class="input-xlarge" required multiple>
+                          <option ng-repeat="cat in category.constructor.findAll()| filter:{type:'Category'}" 
+                                  ng-selected="product.categories[0]==cat._id" value="{{cat._id}}" >{{cat.name}}</option>
+                        </select>
+                      </div>
                     </div>
+
                   </div>
+    
                   
-                  
-                  <!-- discount price -->
-                  <div class="control-group">
-                    <div class="controls">
-                      <p class="_help-block gray">Proposer un tarif de promotion en CHF<br/> et activer le quand c'est nécessaire.</p>
-                      <div class="input-prepend ">
-                        <span class="add-on">
-                          <label class="checkbox">
-                            <input type="checkbox" ng-model="product.attributes.discount">
-                          </label>
-                        </span>
-                        <input class="" type="text" ng-model="product.pricing.discount" ngMinlength="5" placeholder="prix lors d'une promotion"/>
+                  <div class="span7">
+                    <div class="control-group">
+                      <label class="control-label">Ingrédients </label> 
+                      <div class="controls">
+                        <label class="checkbox inline " style="width:80px;margin-bottom:15px">
+                          <input type="checkbox" name="details" value="BIO" ng-model="product.details.bio">
+                          <b>Bio</b>
+                        </label>                    
+                        <label class="checkbox inline " style="width:80px;margin-bottom:15px">
+                          <input type="checkbox" name="details" value="Locale" ng-model="product.details.local">
+                          <b>Locale</b>
+                        </label>                    
+                        <p class="_help-block gray">Provenance des ingrédients votre produit</p>
+                        <textarea rows="3" class="span11"  placeholder="ex, olive(Grèce), pâte(Italie)... " ng-model="product.details.origin" required></textarea>
                       </div>
                     </div>
                   </div>
                   
                 </fieldset>
+                
+            </pane>
+            <pane heading="Prix et aperçu">
+              <div class="span6">
+                <fieldset>
+                  <!-- Photo -->
+                  <div class="control-group drop-photo">
+                    <div class="controls">
+                      <button type="button" id="image" name="image" class=" btn btn-info btn-large" ng-disabled="!product" ng-click="uploadImage(product,'front')">choisir une photo qui fonctionne avec différentes tailles</button>
+                    </div>
+                  </div>
+                  
+                  <!-- price -->
+                  <!-- <label class="control-label">Prix, promotion, portion </label> -->
+                  <div style="border: 2px dashed #ddd;border-radius: 5px;padding: 5px;">
+                  <div class="control-group">
+                      <div class="span5">
+                      <div class="controls">
+                        <p class="_help-block gray">Le prix en CHF</p>
+                        <input name="price" type="text" placeholder="10.50" class="input-xlarge span10" ng-model="product.pricing.price" required>
+                      </div>
+                    </div>
+                    <div class="span7">
+                      <!-- discount price -->
+                      <div class="controls">
+                        <p class="_help-block gray">activer la promotion</p>
+                        <div class="input-prepend ">
+                          <span class="add-on">
+                            <label class="checkbox">
+                              <input type="checkbox" ng-model="product.attributes.discount">
+                            </label>
+                          </span>
+                          <input class="span4" type="text" ng-model="product.pricing.discount" ngMinlength="5" placeholder="prix lors d'une promotion"/>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- portion -->
+                  <div class="control-group">
+                    <div class="controls">
+                      <p class="_help-block gray">Quantité pour une portion de CHF {{product.pricing.price| number:2}} <br/><b>100gr/1botte/0.75L/1pce</b></p>
+                      <input name="part" type="text" placeholder="3pce" class="input-xlarge span8" ng-model="product.pricing.part" required>
+                    </div>
+                  </div>
+
+                  <!-- stock-->
+                  <div class="control-group">
+                    <!-- <label class="control-label">Qte disponible</label> -->
+                    <div class="controls">
+                      <p class="_help-block gray">Stock disponible</p>
+                      <input  name="stock" type="text" placeholder="ex: 10" class="input-xlarge span8" ng-model="product.pricing.stock" required>
+                    </div>
+                  </div>
+                  
+                  <!-- show comments-->
+                  <div class="control-group">
+                    <!-- <label class="control-label">Qte disponible</label> -->
+                    <div class="controls">
+                      <p class="_help-block gray">Afficher les commentaires</p>
+                      <label class="checkbox">
+                        <input type="checkbox" ng-model="product.attributes.comment" />
+                        Vous activer le suivit d'une discussion concernant ce produit
+                      </label>
+                      
+                    </div>
+                  </div>
+                  </div>
+                  
+
+                  
+                </fieldset>          
               </div>
               <! -- 2 COLUMN -->
               <div class="span5">
                 <fieldset>
-                  <!-- title-->
-                  <div class="control-group">
-                    <!-- <label class="control-label">Title</label> -->
-                    <div class="controls">
-                      <input  type="text" placeholder="Titre du produit" class="input-xlarge" ng-model="product.title" required>
-                      <p class="help-block"></p>
-                    </div>
-                  </div>
-
-                  <!-- description -->
-                  <div class="control-group">
-                    <!-- <label class="control-label">Description</label> -->
-                    <div class="controls">                     
-                      <div id="desciption"  class="textarea" >
-                        <textarea rows="4" class="span12"  placeholder="Description du produit" ng-model="product.details.description" required></textarea>
-                      </div>
-                    </div>
-                  </div>
 
                   <!-- comments-->
                   <!--
@@ -162,63 +204,14 @@
                   </div>
                   -->
 
-                  <!-- price -->
-                  <div class="control-group">
-                    <div class="controls">
-                      <p class="_help-block gray">Le prix en CHF</p>
-                      <input name="price" type="text" placeholder="10.50" class="input-xlarge" ng-model="product.pricing.price" required>
-                    </div>
-                  </div>
+                  <!-- overview -->
+                  <div  ng-include="'/partials/product/product.html'"  class="span12"></div>              
 
-
-                  <!-- portion -->
-                  <div class="control-group">
-                    <div class="controls">
-                      <p class="_help-block gray">Quantité pour une portion de CHF {{product.pricing.price| number:2}} <br/><b>100gr/1botte/0.75L/1pce</b></p>
-                      <input name="part" type="text" placeholder="3pce" class="input-xlarge" ng-model="product.pricing.part" required>
-                    </div>
-                  </div>
-
-                  <!-- stock-->
-                  <div class="control-group">
-                    <!-- <label class="control-label">Qte disponible</label> -->
-                    <div class="controls">
-                      <p class="_help-block gray">Stock disponible</p>
-                      <input  name="stock" type="text" placeholder="ex: 10" class="input-xlarge" ng-model="product.pricing.stock" required>
-                    </div>
-                  </div>
 
                 </fieldset>          
-              </div>                  
+              </div>                
             </pane>
-            <pane heading="Photos">
-
-              <fieldset>
-                <!-- Photo -->
-                <div class="control-group drop-photo">
-                  <!-- <label class="control-label small">Photo</label> -->
-                  <div class="controls">
-                    <button type="button" id="image" name="image" class=" btn btn-info" ng-disabled="!product" ng-click="uploadImage(product,'front')">choisir une photo qui fonctionne avec différentes tailles</button>
-                  </div>
-                </div>
-
-                <div class="block layout-item c1 "  style="min-height:320px">
-                  <div>
-                    <img ng-show="product.photo" src="{{product.photo}}/convert?w=255&fit=scale" >
-                    <img ng-hide="product.photo" src="{{false  | placehold:'255x175'}}" >
-                  </div>
-                </div>              
-                <div class="block layout-item c2 "  style="min-height:210px">
-                  <div>
-                    <img ng-show="product.photo" src="{{product.photo}}/convert?w=400&h=300&fit=crop" >
-                    <img ng-hide="product.photo" src="{{false  | placehold:'400x300'}}" >
-                  </div>
-                </div>                                          
-                
-              </fieldset>          
-            </pane>
-            <pane heading="Aperçu">
-              <div  ng-include="'/partials/product/product.html'"  class="span12"></div>              
+            <pane heading="Help">
             </pane>
           </tabs>
         </div>        
@@ -231,9 +224,9 @@
         </label>
       </div>
       <button id="close-product-editor" type="input" class="btn " data-dismiss="modal" aria-hidden="true">Fermer</button>
-      <button type="submit" ng-show="product.sku" ng-disabled="formProduct.$error.required" class="btn btn-danger" ng-click="remove(product);">Supprimer</button>
-      <button type="submit" ng-show="product.sku" ng-disabled="formProduct.$error.required" class="btn btn-primary" ng-click="save(product);">Enregistrer</button>
-      <button type="submit" ng-hide="product.sku" ng-disabled="formProduct.$error.required" class="btn btn-primary" ng-click="create(product.urlshop,product);">Ajouter</button>
+      <button type="submit" ng-show="product.sku" class="btn btn-danger" ng-click="remove(product);">Supprimer</button>
+      <button type="submit" ng-show="product.sku" ng-disabled="form.$invalid || WaitText" class="btn btn-primary" ng-click="save(product);">{{WaitText||'Enregistrer'}}</button>
+      <button type="submit" ng-hide="product.sku" ng-disabled="form.$invalid || WaitText" class="btn btn-primary" ng-click="create(product.urlshop,product);">{{WaitText||'Ajouter'}}</button>
     </div>
     </form>
   </div>

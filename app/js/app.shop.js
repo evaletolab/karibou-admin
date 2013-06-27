@@ -60,10 +60,75 @@ Shop.controller('ShopCtrl',[
     },cb_error);
     
 
+    //
+    // ask for activation
+    $scope.publish=function(){
+      if($scope.waitingStatus())
+        return;
+      shop.publish(function(){
+          api.info($scope,"Une demande d'activation à bien été envoyé! Vous serez contacté dans les plus brefs délais");        
+      },cb_error);
+    }
+
+    //
+    // upload foreground photo 
+    $scope.uploadFgPhoto=function(){
+      api.uploadfile({},function(err,fpfile){
+        if(err){
+          api.info($scope,err.toString());
+          return false;
+        }
+        shop.photo.fg=fpfile.url;
+        shop.save(function(s){
+            api.info($scope,"Votre photo a été enregistrée!");
+            //$('div.backstretch').remove();
+            //$('#bgshop').backstretch(FPFile.url);
+            
+        },cb_error);
+        
+      });
+    }
+        
+    //
+    // upload owner photo 
+    $scope.uploadOwnerPhoto=function(){
+      api.uploadfile({},function(err,fpfile){
+        if(err){
+          api.info($scope,err.toString());
+          return false;
+        }
+        var filter='/convert?w=260&fit=scale';
+        shop.photo.owner=fpfile.url+filter;
+        shop.save(function(s){
+            api.info($scope,"Votre photo a été enregistrée!");            
+            //elem.find('img.photo-owner').attr("src",FPFile.url+filter);
+            
+        },cb_error);
+        
+      });
+    }
+
+
+    //
+    // ask a question
+    $scope.modal=function(target){
+      angular.element('#ask').modal();
+    }
+    $scope.ask=function(content){
+
+      shop.ask(content, function(){
+          api.info($scope,"Votre question à bien été envoyé! Vous serez contacté dans les plus brefs délais");        
+          
+      },cb_error);
+    }
+    
+    $scope.waitingStatus=function(){
+      return ((typeof shop.status)==='number')
+    }
     
     //
     // get products for the front page shop
-    var filter={sort:'title',group:'categories.name' /*,valid:true*/};
+    var filter={sort:'created',group:'categories.name'/**,status:true*/};
     $scope.products=product.home($routeParams.shop, filter,function(products){
       $scope.products=products;
     });
@@ -159,13 +224,35 @@ Shop.factory('shop', [
 
     Shop.prototype.get = function(urlpath,cb,err) {
       if(!err) err=onerr;
-      var me=this, s=$resource(config.API_SERVER+'/v1/shops/:urlpath',{urlpath:urlpath}).get( function() {
+      
+      var me=this, loaded=Shop.find(urlpath);if (loaded){
+        me.share(loaded,true)
+        if(cb)cb(loaded);
+        return loaded;
+      };
+      
+      var s=$resource(config.API_SERVER+'/v1/shops/:urlpath',{urlpath:urlpath}).get( function() {
         checkimg(s);
         if(cb)cb(me.share(s,true));
       },err);
       return this;
     };
 
+    Shop.prototype.publish=function(cb,err){
+      if(!err) err=function(){};
+      var me=this, s = $resource(config.API_SERVER+'/v1/shops/:urlpath/status',{urlpath:this.urlpath}).get(function() {
+        if(cb)cb(me);
+      },err);
+      return this;
+    };    
+
+    Shop.prototype.ask=function(content, cb,err){
+      if(!err) err=function(){};
+      var me=this, s = $resource(config.API_SERVER+'/v1/shops/:urlpath/ask',{urlpath:this.urlpath}).save({content:content},function() {
+        if(cb)cb(me);
+      },err);
+      return this;
+    };    
 
     Shop.prototype.save = function( cb, err){
       if(!err) err=onerr;

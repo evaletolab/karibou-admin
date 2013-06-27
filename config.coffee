@@ -29,7 +29,8 @@ exports.config =
         'css/app.css': /^app/
       order:
         before: [
-          'vendor/styles/booostrap.css'
+          'vendor/styles/bootstrap-combined.no-icons.min'
+          'vendor/styles/font-awesome.min.css'
         ]
         after: [
           'vendor/styles/bootstrap-responsive.css'
@@ -43,4 +44,4 @@ exports.config =
       pretty: yes # Adds pretty-indentation whitespaces to output (false by default)
 
   # Enable or disable minifying of result js / css files.
-  # minify: true
+  # minify: true 

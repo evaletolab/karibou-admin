@@ -8,12 +8,53 @@
     z-index: 1000;
     
     /* Specify the width of your pageslide here */
-    width: 350px;
+    width: 340px;
+    padding-top:50px;
     
     /* These styles are optional, and describe how the pageslide will look */
-    background-color: #333;
+    background-color: #fff;
     color: #FFF;
     -webkit-box-shadow: inset 0 0 5px 5px #222;
     -moz-box-shadow: inset 0 0 5px 5px #222;
     box-shadow: inset 0 0 5px 5px #222;
 }
+
+
+
+
+/* Desktop large
+------------------------- */
+@media (min-width: 1200px) {
+
+}
+
+
+/* Desktop
+------------------------- */
+@media (max-width: 980px) {
+
+}
+
+/* Tablet to desktop
+------------------------- */
+@media (min-width: 768px) and (max-width: 979px) {
+
+
+
+}
+
+/* Tablet
+------------------------- */
+@media (max-width: 767px) {
+
+}
+
+/* Landscape phones
+------------------------- */
+@media (max-width: 480px) {
+  #pageslide {
+    width:310px;
+  }
+}
+
+

@@ -5,13 +5,14 @@ var App = angular.module('app', [
   'ngCookies',
   'ngResource',  
   'app.config',
-  'ui',
   'app.api',
+  'app.ui',
   'app.root',
   'app.user',
   'app.shop',
   'app.product',
   'app.category',
+  'app.order',
   'app.home'
 ]);
 
@@ -25,10 +26,28 @@ App.config([
 
   function ($routeProvider, $locationProvider, $httpProvider) {
 
+    var interceptor = ['$rootScope', '$q', function (scope, $q) {
+      function success(response) {
+          scope.WaitText = false;
+          return response;
+      }
+
+      function error(response) {
+          scope.WaitText = false;
+          return $q.reject(response);
+      }
+
+      return function (promise) {
+          scope.WaitText = 'Working...';
+          return promise.then(success, error);
+      }
+    }];
+    $httpProvider.responseInterceptors.push(interceptor);  
+
     //console.log("$httpProvider.defaults",$httpProvider.defaults);
     $httpProvider.defaults.crossDomain=true;
     $httpProvider.defaults.withCredentials=true;
-    
+
     // List of routes of the application
     $routeProvider
       // Pages
@@ -85,8 +104,6 @@ angular.element(document).ready(function () {
   });
 
 	  
-
-  console.log(s)  
 
   angular.bootstrap(document, ['app']);
 });

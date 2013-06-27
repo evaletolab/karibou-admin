@@ -5,9 +5,7 @@
 // the app.product module depend on app.config and take resources in product/*.html 
 var Product=angular.module('app.product', ['app.config', 'app.api']);
 
-function ProductCtrl($routeParams, $location) {
-  console.log($routeParams, $location)
-}
+
 //
 // define all routes for user api
 Product.config([
@@ -122,7 +120,7 @@ Product.controller('ProductCtrl',[
       product.get($routeParams.sku,function(product){
         $scope.title='products '+product.sku+' - '+product.title;
         $scope.product=product;
-        //loadDisqus($location.path());
+        if(product.attributes.comment)loadDisqus($location.path());
       },cb_error);
     }          
     
@@ -238,6 +236,12 @@ Product.factory('product', [
 
     Product.prototype.get = function(sku,cb,err) {
       if(!err) err=onerr;
+      
+      var loaded=Product.find(sku);if (loaded){
+        if(cb)cb(loaded);
+        return loaded;
+      };
+      
       var product=this, s=$resource(config.API_SERVER+'/v1/products/:sku',{sku:sku}).get( function() {
         if(cb)cb(product.share(s,true));
       },err);
@@ -248,6 +252,7 @@ Product.factory('product', [
     Product.prototype.save = function( cb, err){
       if(!err) err=onerr;
       var product=this, s=$resource(config.API_SERVER+'/v1/products/:sku',{sku:this.sku}).save(this, function() {
+        console.log(s)
         if(cb)cb(product.share(s,true));
       },err);
       return this;

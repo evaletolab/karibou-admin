@@ -30,7 +30,11 @@
     function _load( url, useIframe ) {
         // Are we loading an element from the page or a URL?
         if ( url.indexOf("#") === 0 ) {                
-            // Load a page element                
+            // Load a page element
+            if ($(url)[0]===$pageslide[0]){
+              $pageslide.find('div').show();
+              return;
+            }                
             $(url).clone(true).appendTo( $pageslide.empty() ).show();
         } else {
             // Load a URL. Into an iframe?

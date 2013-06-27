@@ -1,17 +1,38 @@
 <div class="block layout-item {{getFormat($index)}} "  >
     <div class="body">
-      <a href="/shop/{{shop.urlpath}}">
-        <img ng-show="shop.photo.fg" src="{{shop.photo.fg}}/convert?w=420&h=300&fit=crop" >
-        <img ng-hide="shop.photo.fg" src="{{false  | placehold:'420x300'}}" >
-      </a>
-      <div style="border-bottom:1px #eee solid;padding-bottom:5px" >
+      <div style="position:relative;">
+        <a href="/shop/{{shop.urlpath}}" >
+          <!-- STATUS -->
+          <ul class="thumbnails"  style="position:absolute;left:0px;top:0px">
+      			<li style="margin:0px;padding:5px" ng-hide="shop.status==true">
+      			  <i class="icon-warning-sign icon-2x red" title="Cette boutique n'est pas encore publique"></i>
+      			</li>
+          </ul>
+          <img ng-show="shop.photo.fg" src="{{shop.photo.fg}}/convert?w=520&h=370&fit=crop" >
+          <img ng-hide="shop.photo.fg" src="{{false  | placehold:'420x300'}}" >
+          
+      
+
+          <!-- COMMENTS -->
+          <div ng-show="shop.available.active" class="span12 " style="position:absolute;bottom:0px;left:0px;padding:5px;margin-left:0px;background:none repeat scroll 0 0 rgba(0, 0, 0, 0.6)">
+            <span class="shadow white" style="text-align:center;"><i class="icon-warning-sign"></i>&nbsp;{{shop.available.comment}}</span>
+          </div>
+
+        </a>
+      </div>
+      <div class="span12 " style="margin-top:-30px;height:30px;margin-left:0px;background:none repeat scroll 0 0 rgba(0, 0, 0, 0.6)">
+        <span class="shadow white" style="text-align:center;">{{shop.name}}</span>
+      </div>
+
+      <section class="footer" >
         <div  class=" elem">
   	        <h5>{{shop.name}}</h5>
   	        <p ng-bind-html-unsafe="shop.description"></p>
         </div>
-      </div>
+      </section>
     </div>
-    <ul class="unstyled small elem footer" style="display:none">                
+    <ul class="unstyled small elem footer" style="display:none">           
+        <i class="icon-exclamation-sign"></i>     
         <li ng-show="shop.info.active" ><i class="icon-fire"></i> {{shop.info.comment}}</li>
   			<li><i class="icon-user"></i>&nbsp;{{shop.location}} <span ng-repeat="market in shop.marketplace"> - <i class="icon-map-marker"></i> <span class="-badge -badge-inverse">{{market}}</span>&nbsp;</span></li>
   			<li></li>

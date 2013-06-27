@@ -35,6 +35,8 @@ User.config([
       .when('/account/password', {auth : true, _view:'main', templateUrl : '/partials/account/password.html'})
       .when('/account/profile', {auth : true, _view:'main', templateUrl : '/partials/account/profile.html'})
       .when('/account/signup', {view:'main', templateUrl : '/partials/account/profile.html'})
+      
+      .when('/admin/user', {title:'Admin of users ', _view:'main', templateUrl : '/partials/admin/user.html'});      
   }
 ]);
 
@@ -54,12 +56,17 @@ User.controller('AccountCtrl',[
   '$http',
   
   function (config, $scope, $location, $routeParams, api, user, shop, $timeout, $http) {
-    $scope.FormErrors=false;
-    $scope.user=user;
+    $scope.user=user;    
+    $scope.users=[];
     $scope.providers=config.providers;
     
     var cb_error=api.error($scope);
 
+    if($location.path()==='/admin/user'){
+      $scope.users=user.query({},function(users){
+        $scope.users=users;
+      })
+    }
 
     if($routeParams.uid&&$routeParams.email){
       user.validate($routeParams,function(msg){
@@ -71,20 +78,15 @@ User.controller('AccountCtrl',[
     // check and init the session    
     user.me(function(u){
       $scope.user = u;
-    }, function(){
-        // on error,
-        // if anonymous then redirect to login except for ...
-        if($location.path()==='/signup'||$location.path()==='/account/recovery')return;
-        $location.path('/login');
     });
 
     //
     // login action
     $scope.login= function(email,password){
       user.login({ email: email, password:password, provider:'local' },function(u){
-
+        api.info($scope,"Merci, vous êtes dès maintenant connecté");
         var home=(u.email&&u.email.status===true)?
-          '/account':'/account/profile'
+          '/products':'/account/profile'
         $location.url(home);
       }, cb_error);
     };
@@ -154,64 +156,22 @@ User.controller('AccountCtrl',[
       user.save(user,function(){
         user.validateEmail(function(validate){
           api.info($scope,"Merci, une confirmation a été envoyé à cette adresse email");
+          if (!user.isAuthenticated())
+            $location.url('/login');
         });
       },cb_error);
+      return;      
+    };
+
+    //
+    // recover user pass
+    $scope.recover=function(email){
+      user.recover({token:'Zz7YkTpPPp5YFQnCprtc7O9',email:email},function(){
+        api.info($scope,"Merci, une information a été envoyé à votre adresse email");
+      });
       return;
       
     };
-
-
-    $scope.updateMap=function(address){
-      if (address.streetAdress===undefined||address.postalCode===undefined)
-        return;
-      // google format: Route de Chêne 34, 1208 Genève, Suisse
-      var fulladdress=address.streetAdress+","+address.postalCode+", Suisse";//"34+route+de+chêne,+Genève,+Suisse";
-      var url="http://maps.googleapis.com/maps/api/geocode/json?address="+fulladdress+"&sensor=false" ;
-      
-      /* */
-      $http.get(url,{withCredentials:false}).success(function(geo,status,header,config){
-        if(!geo.results.length||!geo.results[0].geometry){
-          return;
-        }
-
-        //
-        //update data
-        address.location={};
-        address.location.lat=geo.results[0].geometry.location.lat;
-        address.location.lng=geo.results[0].geometry.location.lng;
-        //
-        user.gmap(address);
-        //
-        // map init
-        angular.extend($scope, {
-
-          /** the initial center of the map */
-          centerProperty: {
-            latitude:geo.results[0].geometry.location.lat,
-            longitude:geo.results[0].geometry.location.lng
-          },
-
-          /** the initial zoom level of the map */
-          zoomProperty: 16,
-
-          /** list of markers to put in the map */
-          markersProperty: [ {
-	            latitude: geo.results[0].geometry.location.lat,
-	            longitude:geo.results[0].geometry.location.lng
-            }],
-
-          // These 2 properties will be set when clicking on the map
-          clickedLatitudeProperty: null,	
-          clickedLongitudeProperty: null,
-        });
-
-
-      }).error(function(geo, status, headers, config){
-         alert("error on address lookup :"+status);
-      }); 
-
-
-    }
 
     // Functions
     // Open a popup to authenticate users with Auth, and redirect to account page on success
@@ -233,7 +193,7 @@ User.controller('AccountCtrl',[
             targetWin.close();
             $scope.FormErrors='';
             var home=(u.email&&u.email.status===true)?
-              '/account':'/account/profile'
+              '/products':'/account/profile'
             $location.url(home);
           },function(e){
             // still not connected
@@ -248,29 +208,68 @@ User.controller('AccountCtrl',[
 
     //
     // map init
-    angular.extend($scope, {
 
+    $scope.updateMap=function(address){
+      if (address.streetAdress===undefined||address.postalCode===undefined)
+       return;
+      // google format: Route de Chêne 34, 1208 Genève, Suisse
+      var fulladdress=address.streetAdress+","+address.postalCode+", Suisse";//"34+route+de+chêne,+Genève,+Suisse
+      var url="http://maps.googleapis.com/maps/api/geocode/json?address="+fulladdress+"&sensor=false" ;
+
+      $http.get(url,{withCredentials:false}).success(function(geo,status,header,config){
+        if(!geo.results.length||!geo.results[0].geometry){
+         return;
+        }
+        //
+        //update data
+        address.location={};
+        address.location.lat=geo.results[0].geometry.location.lat;
+        address.location.lng=geo.results[0].geometry.location.lng;
+        //
+        user.gmap(address);
+        //
+        // map init
+        angular.extend($scope, {
+          /** the initial center of the map */
+          centerProperty: {
+           latitude:geo.results[0].geometry.location.lat,
+           longitude:geo.results[0].geometry.location.lng
+          },
+          /** the initial zoom level of the map */
+          zoomProperty: 16,
+          /** list of markers to put in the map */
+          markersProperty: [ {
+                  latitude: geo.results[0].geometry.location.lat,
+                  longitude:geo.results[0].geometry.location.lng
+           }],
+          // These 2 properties will be set when clicking on the map
+          clickedLatitudeProperty: null,       
+          clickedLongitudeProperty: null,
+        });
+      }).error(function(geo, status, headers, config){
+        alert("error on address lookup :"+status);
+      }); 
+    };
+    
+    angular.extend($scope, {
       /** the initial center of the map */
       centerProperty: {
-        latitude:0,
-        longitude:0
+       latitude:0,
+       longitude:0
       },
-
       /** the initial zoom level of the map */
       zoomProperty: 8,
 
       /** list of markers to put in the map */
       markersProperty: [ {
-          latitude: 34,
-          longitude:-34
-        }],
-
+       latitude: 46.196735,
+       longitude:6.144748
+      }],
+ 
       // These 2 properties will be set when clicking on the map
-      clickedLatitudeProperty: null,	
+      clickedLatitudeProperty: null,   
       clickedLongitudeProperty: null,
     });
-    
-    
   }  
 ]);
 
@@ -330,7 +329,8 @@ User.factory('user', [
       address.gmap.latitude=address.location.lat;
       address.gmap.longitude=address.location.lng;
     }
-
+    
+    
     User.prototype.copy = function(data) {
         angular.extend(this, data);
         //
@@ -391,12 +391,22 @@ User.factory('user', [
 
     User.prototype.me = function(cb,err) {
       if(!err) err=onerr;
-      var u=$resource(config.API_SERVER+'/v1/users/me').get( function() {
+      var u=$resource(config.API_SERVER+'/v1/users/me').get( function(_u,headers) {
         _user.copy(u);
         _user.shops=shop.map(_user.shops);
         if(cb)cb(_user);
       },err);
       return u;
+    };
+
+    User.prototype.query = function(filter,cb,err) {
+      if(!err) err=onerr;
+      var users=[], s,user=this;
+      s=$resource(config.API_SERVER+'/v1/users').query(filter, function() {
+        users=(s);
+        if(cb)cb(users);
+      },err);
+      return users;
     };
 
     User.prototype.validate = function(validation, cb,err) {
@@ -413,6 +423,14 @@ User.factory('user', [
         if(cb)cb(validate);
       },err);
       return validate;
+    };
+
+    User.prototype.recover = function(recover, cb, err){
+      if(!err) err=onerr;
+      var d=$resource(config.API_SERVER+'/v1/recover/:token/:email/password',recover).save(function() {
+        if(cb)cb(d);
+      },err);
+      return d;
     };
 
 

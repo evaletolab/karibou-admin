@@ -6,101 +6,6 @@
 
 function init($scope, elem, shop){
 
-
-/**
-  $('.shop-sidebar2').affix({
-    offset: {
-      top: function () { 
-        var t=$window.width() <= 980 ? 470 : 340;
-        return t; 
-      }
-    , bottom: 70
-    }
-  });
-**/
-  //
-  // hover panel        
-  $('.docs-sidebar',elem).unbind().hover(
-    function(){
-      $('fieldset.actions',elem).show();
-    },
-    function(){
-      $('fieldset.actions',elem).fadeOut();
-    }
-  ); 
-
-  $('#toggle-shop-edit').toggle(function(){
-    $("#shop-edit").slideDown();
-  },function(){
-    $("#shop-edit").slideUp();
-  });
-  
-  $('input.btn.undo').unbind().click(function(){
-    $('#toggle-shop-edit').click();  
-    return false;
-  });
-  
-  
-  $('#shop-edit ul.nav-tabs a').click(function (e) {
-    e.preventDefault();
-    $(this).tab('show');
-  });
-
-  if (shop.photo.fg)
-    $('#bgshop').backstretch(shop.photo.fg);
-  // console.log($('#bgshop'), shop.photo.fg);
-  // on pick foreground shop img file		    
-  $('button.onpickfile',elem).unbind().click(function(){
-    filepicker.pick({
-        mimetypes: ['image/*'],
-        maxSize: 150*1024,
-        services:['COMPUTER', 'FACEBOOK', 'GMAIL', 'INSTAGRAM'],
-      },
-      function(FPFile){
-        //https://www.filepicker.io/api/file/PMaxCDthQd2buSL4lcym
-
-        $('div.backstretch').remove();
-        $('#bgshop').backstretch(FPFile.url);
-        shop.photo.fg=FPFile.url;
-        $scope.save(shop);
-      },
-      function(FPError){
-        //alert(FPError.toString());
-        console.log(FPError)
-      }
-    );
-    return false;
-  });
-
-  // on pick owner shop img file		    
-  $('button.onpickowner',elem).unbind().click(function(){
-    filepicker.pick({
-        mimetypes: ['image/*'],
-        maxSize: 150*1024,
-        services:['COMPUTER', 'FACEBOOK', 'GMAIL', 'INSTAGRAM'],
-      },
-      function(FPFile){
-        var filter='/convert?w=260&fit=scale';
-        elem.find('img.photo-owner').attr("src",FPFile.url+filter);
-        shop.photo.owner=FPFile.url+filter;
-        //console.log("filepicker",shop.photo)
-        $scope.save(shop);
-      },
-      function(FPError){
-        //alert(FPError.toString());
-        console.log(FPError)
-      }
-    );
-    return false;
-  });
-  
-  elem.find('.toggle-next').toggle(function(e){
-    e.preventDefault();
-    $(e.target).parent().next().fadeIn();
-  },function(e){
-    e.preventDefault();
-    $(e.target).parent().next().fadeOut();
-  });
   
   if($scope.user.isOwner(shop.name)){
     // FIXME wysihtml5 is to big ~100k,
@@ -127,12 +32,6 @@ function init($scope, elem, shop){
     });
     **/
   }
-  //
-  // save settings
-  $('#shopctrl form.profile').unbind().submit(function(){
-    $scope.save(shop);
-    return false;
-  });        
         
 }
 

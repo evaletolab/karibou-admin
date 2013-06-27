@@ -33,10 +33,7 @@ angular.module('app.root', [
     // check and init the session    
     user.me(function(u){
       $scope.user = u;
-    }, function(){
-        // on error,
-        // if anonymous then redirect to login except for ...
-        if($location.path()==='/admin') $location.path('/login');
+      // dont use error callback, you will lloose anonymous setting
     });
 
     
@@ -46,23 +43,22 @@ angular.module('app.root', [
       $scope.category=category;
     },cb_error);
 
-    
-    
+
     //
     // get the head title up2date 
     $rootScope.$on('$routeChangeSuccess', function (event, current, previous) {
-        $rootScope.title = (current.$route.title)?current.$route.title:current.$route.templateUrl;
-    });
-
-
-    // 'rpc.status' is a channel used to broadcast messages. It's defined in rpc/services.js
-    $scope.$on('rpc.status', function (e, d) {
-      if (d === 'waiting') {
-        $scope.WaitText = 'Working...';
-      } else {
-        $scope.WaitText = false;
+      if (!user.isAuthenticated()){
+        if(_.find(['/admin'],function(path){
+          return ($location.path().indexOf(path)===0);
+        })){
+          $location.path('/login');
+        }
       }
+
+      $rootScope.title = (current.$route.title)?current.$route.title:current.$route.templateUrl;
     });
+
+
 
     // Uses the url to determine if the selected
     // menu item should have the class active.
@@ -95,6 +91,12 @@ angular.module('app.root', [
       });
     };
 
+    //
+    // the size of shop and product cart
+    $scope.getFormat=function(index){      
+      if (index===undefined) return 'c2';
+      return (!index)?"c3":"c2";
+    }    
 
     
   }

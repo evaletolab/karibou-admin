@@ -16,7 +16,6 @@ label{
 }
 
 .frame{
-    margin:15px;
     border-radius: 8px;
     box-shadow: 0 0px 5px rgba(0, 0, 0, 0.15) ;
     margin-top:20px;
@@ -26,6 +25,10 @@ label{
     width:97%;
     float:left;
 }    
+
+.frame.margin{
+    margin:14px;
+}
 
 .frame.lead{
     padding: 14px;
@@ -111,6 +114,7 @@ form.nomargin{
   background-repeat: repeat-x;
 }
 .modal-body{
+  height:480px;
   max-height:500px!important;
   background-image: -moz-linear-gradient(center top , #fff 0px, #ddd 60%);
   background-image: -webkit-gradient(linear, 0 0, 0 60%, from(white), to(#ddd));

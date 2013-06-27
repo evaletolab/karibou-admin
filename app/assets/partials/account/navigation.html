@@ -7,6 +7,7 @@
       <li ng-class="getClass('/account/shop')"><a ng-href="/account/shop">Nouvelle boutique</a></li>
       <li ng-show="user.isAdmin()"  class="divider-vertical"></li>      
       <li ng-class="getClass('/admin/category')" ng-show="user.isAdmin()" ><a ng-href="/admin/category">Les categories</a></li>
+      <li ng-class="getClass('/admin/user')" ng-show="user.isAdmin()" ><a ng-href="/admin/user">Les utilisateurs</a></li>
     </ul>
   </div>
 </div>

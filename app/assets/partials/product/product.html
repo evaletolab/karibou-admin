@@ -1,7 +1,16 @@
-  <div class="block layout-item c1 simpleCart_shelfItem"  id="product-{{product.sku}}">
+  <div class="block layout-item c1 simpleCart_shelfItem"  id="product{{product.sku}}">
       <div class="body" >
         <div class="span12 shop-label" style="">
-          <ul class="thumbnails" fade-on-hover="#product-{{product.sku}}">
+          <div class="actions" fade-on-hover="#product{{product.sku}}">
+              <p  >
+                <a ng-disabled="!product.attributes.available" 
+                   class="btn btn-danger" ><i class="icon-star-empty"></i>&nbsp;J'aime</a> 
+                <a g-disabled="!product.attributes.available" 
+                   class="btn btn-primary item_add" href="javascript:;"><i class="icon-ok"></i>&nbsp;J'achète</a>
+              </p>
+          </div>
+        
+          <ul class="thumbnails"  fade-on-hover="#product-{{product.sku}}">
       			<li><img ng-show="product.details.bio" src="/img/shop/bio.png" style="width:20px;"/>&nbsp;
       			    <img ng-show="product.details.gluten" src="/img/shop/gluten-free.png" style="width:20px;"/>
       			    <img ng-show="product.details.lactose" src="/img/shop/lactose.png" style="width:20px;"/>
@@ -10,16 +19,25 @@
           </ul>
         </div>
         <a  href="{{shop.urlpath|test:'/shop/':''}}/products/{{product.sku}}" shop="/shop/{{product.vendor.urlpath}}" >
-          <img ng-cloak ng-show="product.photo" ng-src="{{product.photo}}/convert?w=275&h=205&fit=crop" class="lazy">
+          <img ng-cloak ng-show="product.photo" ng-src="{{product.photo}}/convert?w=275&fit=max" class="lazy">
           <img ng-cloak ng-hide="product.photo" src="{{false  | placehold:'275x205'}}" >
           <img ng-cloak ng-hide="product.attributes.available" ng-src="http://placehold.it/275x205/eeeeee/000000&text=indisponible" class="available">
           <img ng-cloak ng-hide="product.pricing.stock" ng-src="http://placehold.it/275x205/eeeeee/000000&text=plus+en+stock" class="available">
           
         </a>
+
         <div class="row-fluid " style="padding:3px 0px 0px 0px">
           <div class=" elem" >
-	            <span class="small item_name">{{product.title}} <span ng-show="productDetails()!==''">({{productDetails()}})</span>
-          	  <span class="pull-right green small"><div class="item_price">Fr {{product.pricing.price| number:2}}</div><div class="small em">{{product.pricing.part}}</div></span>
+	            <span class="small item_name">{{product.title}} <span ng-show="product.details.bio">(bio)</span>
+          	  <span class="pull-right ">
+          	    <div class="">
+          	      <span ng-hide="product.attributes.discount" class="green small item_price">{{product.pricing.price| number:2}}</span>
+          	      <span ng-show="product.attributes.discount" >
+          	        <span class="red strike"> {{product.pricing.price| number:2}}</span>
+          	        <span class="item_price green bold"> {{product.pricing.discount| number:2}}</span>
+          	      </span>
+          	      
+          	    </div><div class="small em">{{product.pricing.part}}</div></span>
           	  <div ng-show="product.urlshop" ><a class="gray small" href="/shop/{{product.urlshop}}">{{product.urlshop}}</a></div>
           	  <div ng-show="product.vendor" ><a class="gray small" href="/shop/{{product.vendor.urlpath}}">{{product.vendor.name}}</a></div>
           </div>

@@ -25,7 +25,7 @@
 ********************************/
 
 
-.cart-page{
+.cartcolumn{
 	position:absolute;
 	width:218px;
 	top:72px;
@@ -67,20 +67,20 @@
 	transform: scale(1.2,.8) translateY(1.5px);
 }
 
-.cart-page .itemRow{
+.cartcolumn .itemRow{
 	border-bottom:1px solid #2B2D2E;
 	border-top:1px solid #434547;
 	padding:10px;
 	height:12px;
 }
-.cart-page .itemRow div{
+.cartcolumn .itemRow div{
 	float:left;
 }
-.cart-page .item-custom{
+.cartcolumn .item-custom{
 	width:35px;
 	margin-right:6px;
 }
-.cart-page .item-custom span{
+.cartcolumn .item-custom span{
 	float:left;
 	height:13px;
 	display:inline-block;
@@ -88,27 +88,27 @@
 	width:23px;
 	text-align:right;
 }
-.cart-page .item-custom div{
+.cartcolumn .item-custom div{
 	float:left;
 	height:13px;
 	margin-left:3px;
 }
-.cart-page .simpleCart_increment,
-.cart-page .simpleCart_decrement{
+.cartcolumn .simpleCart_increment,
+.cartcolumn .simpleCart_decrement{
 	line-height:1;
 	font-size:1px;
 	display:block;
 	height:5px;
 	margin-top:3px;
 }
-.cart-page .item-name{
+.cartcolumn .item-name{
 	float:left;
 	width:190px;
 	white-space: nowrap;
   	overflow: hidden;              
 	text-overflow: ellipsis;
 }
-.cart-page .itemRow .item-total{
+.cartcolumn .itemRow .item-total{
 	float:right;
 }
 #cartData{
@@ -121,7 +121,7 @@
 #popoverButtons{
 	padding:10px;
 }
-.cart-page strong{
+.cartcolumn strong{
 	color:#fff;
 }
 /* Desktop large

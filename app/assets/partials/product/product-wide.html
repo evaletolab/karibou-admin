@@ -10,7 +10,16 @@
         </div>
         <div class="span4">
           <br/>
-          <h2 class="white">Fr <span class="item_price">{{product.pricing.price| number:2}}</span><div class="small em">{{product.pricing.part}}</div></h2>
+          <h2 class="white">Fr
+    	      <span ng-hide="product.attributes.discount" 
+    	            class="small item_price">{{product.pricing.price| number:2}}</span>
+    	      <span ng-show="product.attributes.discount" >
+    	        <span class="red strike small"> {{product.pricing.price| number:2}}</span>
+    	        <span class="item_price  bold"> {{product.pricing.discount| number:2}}</span>
+    	      </span>
+            <div class="small em">{{product.pricing.part}}</div>          
+          
+          </h2>
           <p>
             <button type="input" class="btn btn-large btn-danger"><i class="icon-star-empty"></i>&nbsp;J'aime</button> 
           </p>
@@ -27,7 +36,7 @@
       <div ng-show="user.isOwnerOrAdmin(product.vendor.name)" class="pull-right">
         <a href="{{shop.urlpath|test:'/shop/':''}}/products/{{product.sku}}/edit" class="btn  btn-small"><i class="icon-edit"></i>&nbsp;Editer le produit</a>
       </div>                
-      <h3><span class="item_name">{{product.title}}</span> <span ng-show="productDetails()!==''">({{productDetails()}})</span></h3>
+      <h3><span class="item_name">{{product.title}}</span> <span ng-show="product.details.bio">(bio)</span></h3>
       <div class="content" >
         {{product.details.description}}
         

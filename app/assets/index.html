@@ -56,7 +56,6 @@
                 -->
               </ul>
             </li>
-            <li>
             <!--
             <form action="" class="navbar-search ">
               <input type="text" placeholder="Search" class=" span2">
@@ -76,24 +75,37 @@
           </ul>
         </div>
 
-         <ul class="nav pull-right" >
-           <li>
-           
-             <a pageslide="{ direction: 'left', modal: false }" class="pull-right nav-badge" href="#pageslide">
-               <span class="simpleCart_quantity">0</span> articles <span class="small _simpleCart_total"></span>
-             </a>
-           </li>
-         </ul>
             
           
          <div class="nav-collapse collapse" id="main-menu">
           <ul class="nav pull-right" id="main-menu-right" ng-include="'/partials/account/menu.html'">
           </ul>
          </div>
+
+         <ul class="nav pull-right nav-fix-responsive" >
+           <li>           
+             <a pageslide="{ direction: 'left', modal: false }" class="pull-right nav-badge" href="#pageslide">
+               <span class="simpleCart_quantity">0</span> articles <span class="small _simpleCart_total"></span>
+             </a>
+           </li>
+         </ul>
+
        </div>
      </div>
     </div>
-    
+    <div ng-cloak   class="alert-frame ">
+      <div class="alert alert-info box-shadow" ng-cloak ng-show="FormInfos" 
+            ng-animate="{show: 'fadein', hide: 'fadeout'}">
+        <button type="button" class="close" >&times;</button>
+        {{FormInfos}}
+      </div>
+      <div class="alert alert-error box-shadow" ng-cloak ng-show="FormErrors"
+            ng-animate="{show:'fadein', hide: 'fadeout'}">
+        <button type="button" class="close" >&times;</button>
+        <h4>Ooops</h4> 
+        {{FormErrors}}
+      </div>
+    </div>    
     <div ng-controller="ProductCtrl" style="padding-top:40px">
       <div ng-view="modal">   
       </div>
@@ -103,7 +115,8 @@
       </div>
 
     </div>    
-    <div id="pageslide" class="cart-page" style="left: auto; right: 0px;">
+    <div id="pageslide" class="cartcolumn " style="left: auto; right: 0px;">
+      <div>
         <h4 class="text-center">Votre commande</h4>
         <div class="simpleCart_items"></div>
         <div id="cartData" class="clearfix">
@@ -116,15 +129,15 @@
 						<a href="javascript:simpleCart.empty();" class="simpleCart_empty btn btn ">Vider</a>
 						<a href="javascript:;" class="simpleCart_checkout btn btn-primary pull-right">Checkout</a>
 					</div>
+			</div>
     </div>
     
     <!-- Le javascript
     ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    
-    <script src="http://maps.googleapis.com/maps/api/js?sensor=false&language=en"></script>
+    <!-- Placed at the end of the document so the pages load faster &callback=initCall -->
     <script src="/js/vendor.js"></script>
     <script src="/js/app.js"></script>
+    <script src="http://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
     <script>
       window.brunch = window.brunch || {};
       window.brunch['auto-reload'] = {

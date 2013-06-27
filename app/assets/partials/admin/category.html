@@ -17,7 +17,7 @@
             <!-- SELECT -->
             <div class="control-group">
               <div class="controls">
-                <select ui-select2 ng-model="categoryslug"  ng-change="selectCategory()" 
+                <select  ng-model="categoryslug"  ng-change="selectCategory()" 
                   data-placeholder="Choisir une catégorie" style="width:300px">
                   <option></option>
                   <option ng-repeat="cat in categories" value="{{cat.slug}}">{{cat.name}}</option>

@@ -15,7 +15,7 @@
     });      
     </script>
     
-    <div id="overview" class="fill" backstretch="img/localfood.jpg" ng-hide="user.isAuthenticated()">
+    <div id="overview" class="fill" backstretch="{src:'img/localfood.jpg'}" ng-hide="user.isAuthenticated()">
       <div class="container fill " >
 
         <!-- Masthead
@@ -24,9 +24,16 @@
         <header class="jumbotron subhead" >
           <div class="row-fluid">
             <div class="span12 textshadow">
-              <h1>Karibou</h1>
-              <p class="lead">Des artisants, des producteurs, des clients.<br/>Le marché, c'est vous qui le faites. Vous êtes curieux?</p>
-              <button type="input" class="btn btn-large btn-success">Plus d'informations</button>
+              <h1>K<sub>aribou</sub></h1>
+              <p class="small gray" ><i class="icon-quote-left"></i>&nbsp;&nbsp;des artisants, des producteurs, des artistes <i class="icon-quote-right"></i></p>
+              <p class="lead" style="font-size:19px">
+                <ol>
+                  <li>Login,</li> 
+                  <li>Choisir un jour de livraison, </li>
+                  <li>Faites votre shopping </li>
+                </ol>
+              </p>
+              <a type="input" class="btn btn-large btn-success white" ng-href="/signup">Yahaaa, c'est parti!</a>
             </div>
             <div class="span6">
             </div>
@@ -46,7 +53,7 @@
         <div class="shop-row" ng-repeat="(group, _shops) in shops">
           
           <div id="container-{{$index}}" class="container relative" >
-            <h2 class=" sexy"><i class="{{category.constructor.find({name:group}).image||''}} {{category.constructor.find({name:group}).color||gray}}"></i> {{group}}</h2>
+            <h2 class=" sexy"><i class="{{category.constructor.find({name:group}).image||''}} {{category.constructor.find({name:group}).color||gray}} icon-large"></i> {{group}}</h2>
             <div masonry -infinitecarousel>
                 <div ng-include="'/partials/shop/shop.html'"  ng-repeat="shop in _shops" ></div>              
             </div>

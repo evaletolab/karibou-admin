@@ -75,7 +75,7 @@ div.footer h2{
 @media (max-width: 767px) {
 
   /* Unfloat the back to top link in footer */
-  .footer {
+  div.footer {
     margin-left: -20px;
     margin-right: -20px;
     padding-left: 20px;
@@ -91,7 +91,7 @@ div.footer h2{
 @media (max-width: 480px) {
 
   /* Tighten up footer */
-  .footer {
+  div.footer {
     padding-top: 20px;
     padding-bottom: 20px;
   }
