@@ -6,17 +6,11 @@
       <button type="button" class="close" data-dismiss="modal" ara-hidden="true">&times;</button>
       <h3 ng-show="product.sku">Modifier le produit {{product.sku}}</h3>
       <h3 ng-hide="product.sku">Ajouter un produit</h3>
-      <div ng-show="FormErrors" class="shop-message label-error modal-info">
-        {{FormErrors}}
-      </div>
-      <div ng-show="FormInfos" class="shop-message label-info modal-info">
-        {{FormInfos}}
-      </div>
     </div>
     <div class="modal-body">
         <div class="row-fluid">
-          <tabs>
-            <pane heading="Informations du produit">
+          <div data-fade="1" bs-tabs>
+            <div data-title="Informations du produit">
 
               <!-- 1 COLUMN -->
                 <fieldset>
@@ -87,9 +81,9 @@
                     <div class="control-group">
                       <label class="control-label ">Catégorie </label> 
                       <div class="controls small">
-
                         <select  ng-model="product.categories " class="input-xlarge" required multiple>
-                          <option ng-repeat="cat in category.constructor.findAll()| filter:{type:'Category'}" 
+                        
+                          <option ng-repeat="cat in category.findAll()| filter:{type:'Category'}" 
                                   ng-selected="product.categories[0]==cat._id" value="{{cat._id}}" >{{cat.name}}</option>
                         </select>
                       </div>
@@ -118,8 +112,8 @@
                   
                 </fieldset>
                 
-            </pane>
-            <pane heading="Prix et aperçu">
+            </div>
+            <div data-title="Prix et aperçu">
               <div class="span6">
                 <fieldset>
                   <!-- Photo -->
@@ -131,7 +125,7 @@
                   
                   <!-- price -->
                   <!-- <label class="control-label">Prix, promotion, portion </label> -->
-                  <div style="border: 2px dashed #ddd;border-radius: 5px;padding: 5px;">
+                  <div style="border-radius: 5px;padding: 5px;">
                   <div class="control-group">
                       <div class="span5">
                       <div class="controls">
@@ -210,10 +204,11 @@
 
                 </fieldset>          
               </div>                
-            </pane>
-            <pane heading="Help">
-            </pane>
-          </tabs>
+            </div>
+            <div data-title="Help">
+              TODO
+            </div>
+          </div><!-- TABS-->
         </div>        
     </div>
     <div class="modal-footer">

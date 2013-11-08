@@ -10,11 +10,13 @@ angular.module('app.config', []).factory('config', [
 
     
     var defaultConfig = {
-      API_SERVER: 'http://localhost:4000\:4000',
-      API_SERVER_AUTH:'http://localhost:4000',
+//      API_SERVER: 'http://localhost:4000',
+      //API_SERVER_AUTH:'http://localhost:4000',
       //API_SERVER: 'http://karibou-api.cloudfoundry.com',
-      //API_SERVER: 'http://karibou-evaletolab.rhcloud.com/',
-      //API_SERVER_AUTH: this.API_SERVER,
+      //API_SERVER: 'http://karibou-evaletolab.rhcloud.com',
+      //API_SERVER: 'http://karibou-api.jit.su',
+      API_SERVER:'http://karibou-api.eu01.aws.af.cm',
+      API_SERVER_AUTH: this.API_SERVER,
       API_VERSION: '/v1',
 
       LOG_LEVEL: 'debug',
@@ -34,13 +36,13 @@ angular.module('app.config', []).factory('config', [
       },
 
       providers : [
-        {name: 'twitter',   url: this.API_SERVER_AUTH + '/auth/twitter'}
+        {name: 'twitter',   url: this.API_SERVER + '/auth/twitter'}
       ],
       otherproviders : [
-        {name: 'google+',   url: this.API_SERVER_AUTH + '/auth/google'},
-        {name: 'facebook',  url: this.API_SERVER_AUTH + '/auth/facebook'},
-        {name: 'linkedin',  url: this.API_SERVER_AUTH + '/auth/linkedin'},
-        {name: 'github',    url: this.API_SERVER_AUTH + '/auth/github'}
+        {name: 'google+',   url: this.API_SERVER + '/auth/google'},
+        {name: 'facebook',  url: this.API_SERVER + '/auth/facebook'},
+        {name: 'linkedin',  url: this.API_SERVER + '/auth/linkedin'},
+        {name: 'github',    url: this.API_SERVER + '/auth/github'}
       ]
 
     };

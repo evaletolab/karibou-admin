@@ -4,9 +4,9 @@
 var App = angular.module('app', [
   'ngCookies',
   'ngResource',  
+  'ngRoute',
   'app.config',
   'app.api',
-  'app.ui',
   'app.root',
   'app.user',
   'app.shop',
@@ -29,16 +29,19 @@ App.config([
     var interceptor = ['$rootScope', '$q', function (scope, $q) {
       function success(response) {
           scope.WaitText = false;
+          NProgress.done(500);
           return response;
       }
 
       function error(response) {
           scope.WaitText = false;
+          NProgress.done(500);
           return $q.reject(response);
       }
 
       return function (promise) {
           scope.WaitText = 'Working...';
+          NProgress.start();
           return promise.then(success, error);
       }
     }];
@@ -65,6 +68,30 @@ App.config([
     
   }
 ]);
+
+//
+// boostrap mobile app
+App.factory('cordovaReady', function() {
+  return function (fn) {
+
+    var queue = [];
+
+    var impl = function () {
+      queue.push(Array.prototype.slice.call(arguments));
+    };
+
+    document.addEventListener('deviceready', function () {
+      queue.forEach(function (args) {
+        fn.apply(this, args);
+      });
+      impl = fn;
+    }, false);
+
+    return function () {
+      return impl.apply(this, arguments);
+    };
+  };
+});
 
 // Bootstrap (= launch) application
 angular.element(document).ready(function () {

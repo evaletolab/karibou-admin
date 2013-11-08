@@ -17,10 +17,12 @@
   border-left: 1px solid #c6c6c5;
   overflow: hidden;
   margin-right:-1px;
-  top: 38px;
+  top: 48px;
 }
 
-
+.shop-container .shop-row{
+  padding-left:20px;
+}
 
 .shop-sidebar{
   width:40%;
@@ -41,7 +43,7 @@
 .shop-sidebar>section{
   height:100%;
   text-align:center;
-  font-family:Georgia,'Times New Roman',Times,serif;
+  font-family:Merriweather,serif;
   font-size:18px;
 }
 .shop-sidebar fieldset.control-group{
@@ -51,10 +53,20 @@
   width:250px;
 }
 
+.shop-sidebar h1{
+	color: #fff;
+	text-align: center;
+	margin: 0;
+	text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+	line-height: 1.2em;
+	font-family: 'Merriweather', serif;
+	font-weight: 300;	
+}
+
 /* Shop details
 -------------------------------------------------- */
 
-.shop-title{
+div.shop-sidebar .shop-title{
   padding:20px 0px 0px 20px;
   position: absolute;  
   bottom: 0px;
@@ -84,18 +96,25 @@
   background-color: #fff;
 }
 
-.shop-row{
-  padding-top:20px;
-  padding-bottom:60px;
-}
-.shop-row:nth-child(even){
-  background-color: #EEF2EA;
-  background-color: #EFEFEF;
-  border-bottom:1px solid #ccc;
+.shop-sidebar img.photo-owner{
 }
 
-.shop-row:nth-child(odd){
+
+.shop-row{
+  padding-top:5px;
+  padding-bottom:10px;
+}
+.shop-row:nth-child(even), .products-row:nth-child(even){
+  background-color: #EEF2EA;
+  background-color: #FdFfFd;
+  border-bottom:1px solid #ccc;
+  --background:#eeeeee url(/img/pattern-diamond.png) center;
+}
+
+.shop-row:nth-child(odd), .products-row:nth-child(odd){
   border-bottom:1px solid #ddd;
+  -background:url("/img/paper.jpg") repeat scroll 0 0 #F7F5F5;
+  background:#eeeeee url(/img/pattern-diamond.png) center;
 }
 
 .shop-home:nth-child(4n){
@@ -143,7 +162,7 @@
 
 /* Tablet to desktop
 ------------------------- */
-@media (min-width: 768px) and (max-width: 979px) {
+@media (min-width: 200px) and (max-width: 979px) {
 
   .shop-page{
     margin-top:-60px;
@@ -183,6 +202,12 @@
   .shop-sidebar fieldset.control-group{
     left:20%;
   }
+
+  .shop-sidebar img.photo-owner{
+    width:50%;
+    border-radius:4px;
+    margin-top:5px;
+  }  
 }
     
 
@@ -201,6 +226,11 @@
     padding-top:0px;
     padding-bottom:0px;
   }
+  
+  .shop-sidebar img.photo-owner{
+    width:30%;
+  }  
+
 }
 
  

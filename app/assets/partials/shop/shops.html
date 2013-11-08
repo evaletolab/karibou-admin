@@ -11,10 +11,10 @@
           <h2 class="sexy">{{group}}</h2>
           <p>Désolé, il n'y a pas encore de boutique disponnible dans cette rubrique! </p>
         </div>          
-        <div class="container" ng-show="shops.length">
-          <h2 class=" sexy"><i class="{{category.constructor.find({name:group}).image||''}} {{category.constructor.find({name:group}).color||gray}}"></i>&nbsp;{{group}}</h2>
-          <div masonry>
-            <div  ng-include="'/partials/shop/shop.html'"  ng-repeat="shop in shops"></div>              
+        <div class="container" ng-show="shops.length" >
+          <h2 class=" sexy"><i class="{{category.find({name:group}).image||''}} {{category.find({name:group}).color||gray}}"></i>&nbsp;{{group}}</h2>
+          <div _masonry_>
+            <div  ng-include="'/partials/shop/shop.html'"  ng-repeat="shop in shops" style="padding-left:15px"></div>              
           </div>
         </div>
       

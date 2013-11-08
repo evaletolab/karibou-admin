@@ -11,15 +11,17 @@
                 <th>name</th>
                 <th>mail</th>
                 <th>validate</th>
+                <th>role</th>
                 <th>shops</th>
               </tr>
             </thead>
             <tbody>
               <tr ng-repeat="u in users">
-                <td>{{u.status}}</td>
+                <td><i ng-class="{'icon-check green':u.status===true,'icon-check-empty ':u.status!==true}"></i> </td>
                 <td>{{u.displayName}}</td>
                 <td>{{u.email.address}}</td>
                 <td>{{u.email.status}}</td>
+                <td>{{u.roles}}</td>
                 <td>{{u.shops.length}}</td>
               </tr>
             </tbody>

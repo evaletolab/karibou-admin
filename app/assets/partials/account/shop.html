@@ -40,7 +40,7 @@
             <label class="control-label "><strong>Catalogue</strong></label> 
             <div class="controls small">
               <select  ng-model="shop.catalog " class="input-xlarge" required="true">
-                <option ng-repeat="cat in category.constructor.findAll() | filter:{type:'Catalog'}" value="{{cat._id}}">{{cat.name}}</option>
+                <option ng-repeat="cat in category.findAll() | filter:{type:'Catalog'}" value="{{cat._id}}">{{cat.name}}</option>
               </select>
             </div>
           </div>

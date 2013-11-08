@@ -10,3 +10,21 @@
 <ifmodule mod_deflate.c>
     AddOutputFilterByType DEFLATE text/text text/html text/plain text/xml text/css application/x-javascript application/javascript
 </ifmodule>
+
+# 1 YEAR
+<FilesMatch ".(ico|pdf|flv)$">
+Header set Cache-Control "max-age=29030400, public"
+</FilesMatch>
+# 1 WEEK
+<FilesMatch ".(jpg|jpeg|png|gif|swf)$">
+Header set Cache-Control "max-age=604800, public"
+</FilesMatch>
+# 2 DAYS
+#<FilesMatch ".(xml|txt|css|js|config)$">
+#Header set Cache-Control "max-age=172800, proxy-revalidate"
+#</FilesMatch>
+
+# 3 MIN
+<FilesMatch ".(html|htm|category)$">
+Header set Cache-Control "max-age=180, private, proxy-revalidate"
+</FilesMatch>

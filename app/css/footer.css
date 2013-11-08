@@ -1,8 +1,16 @@
 
 
+.wrapheight{
+  main-height:100%;
+  height:auto!important;
+  height:100%;
+  margin:0 auto -350px;
+}
+
 div.footer {
+    height:350px;
     background: none repeat scroll 0 0 #0B1902;
-    padding:50px 10px;
+    margin:350px 0px 0px 0px;
     width:100%;
     float:left;
     border-top:1px dotted #00aa00;
@@ -76,10 +84,10 @@ div.footer h2{
 
   /* Unfloat the back to top link in footer */
   div.footer {
-    margin-left: -20px;
-    margin-right: -20px;
-    padding-left: 20px;
-    padding-right: 20px;
+    margin-left: 0px;
+    margin-right: 0px;
+    padding-left: 0px;
+    padding-right: 0px;
   }
   .footer p {
     margin-bottom: 9px;

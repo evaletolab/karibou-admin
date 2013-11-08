@@ -10,6 +10,26 @@
   display: none!important;
 }
 
+.vertical-divider>div{
+  padding:8px;
+}
+.vertical-divider.border{
+  border-top:1px solid #eee;
+}
+
+.separator{
+  -webkit-box-shadow: 0 1px #fff;
+     -moz-box-shadow: 0 1px #fff;
+          box-shadow: 0 1px #fff;
+  background: #fff;
+  border: 1px solid #ddd;
+  border-width: 1px 0;
+  height: 1px;
+  margin-top: -20px;
+  margin-left: 10%;
+  margin-right: 10%;  
+}
+
 .animate, .fadein-setup, .fadeout-setup {
   -webkit-transition:all linear .2s;
   -moz-transition:all linear .2s;
@@ -31,17 +51,30 @@
 }
 
 h1.sexy, h2.sexy, h3.sexy {
-  color: rgba(21, 21, 21, 0.8);
+  color: rgba(20, 20, 20, 0.8);
   text-shadow:1px 2px 4px #E3E3E3,0 0 0 black,1px 2px 4px #E3E3E3,0 1px 0 white;
-  margin:15px 0px 25px 25px;
+  -margin:15px 0px 25px 25px;
+  font-family:'Helvetica Neue', Helvetica, Arial, sans-serif;
+  
+	color: #666;
+	text-transform: uppercase;
+	font-weight: 600;
+	letter-spacing: 0.15em;
+	font-family: 'Open Sans', sans-serif;
+	font-weight: 400;
+
 }
 
 .round-corner{
   border-radius:5px;
 }
 
-.boder-bottom{
+.border-bottom{
   border-bottom:1px solid #eee;
+}
+
+.border-green{
+  border:1px solid #0f0!important;
 }
 
 .text-center{
@@ -91,9 +124,13 @@ ul.nav li{
   text-decoration:line-through;
 }
 
+.bold{
+  font-weight:bold;
+}
+
 .small {
-  font-size: 85%;
-  line-height:80%;
+  font-size: 88%;
+  line-height:130%;
 }
 
 .lazy {
@@ -111,7 +148,7 @@ ul.nav li{
 }
 
 .gray{
-  color:#999;
+  color:#777;
 }
 
 .bgblack{
@@ -119,8 +156,13 @@ ul.nav li{
 }
 
 .headline{
-  background:none repeat scroll 0 0 rgba(0, 0, 0, 0.6);
+  background:none repeat scroll 0 0 rgba(0, 0, 0, 0.4);
 }
+
+.padding10{
+  padding:  10px;margin:  -10px;
+}
+
 
 .stick-bl{
   position: absolute;
@@ -129,14 +171,20 @@ ul.nav li{
   -width: 80px;
 }
 
+.absolute{
+  position: absolute;
+}
+
+.relative{
+  position: relative;
+}
 
 .elem{
   padding: 4px;  
 }
 
 .textshadow {
-    text-align-: left;
-    text-shadow: 0 1px 2px #fff;
+    text-shadow: 0 0px 5px rgba(200,200,200,.25);
 }
 
 

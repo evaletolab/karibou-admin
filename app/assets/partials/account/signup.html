@@ -1,45 +1,39 @@
 
-<section ng-controller="AccountCtrl" class="container">
+<section ng-controller="AccountCtrl" class="container login text-center">
   <div class="row">
-    <div class="span3">&nbsp;</div>
-    <div class="span4">
-      <header>
-        <h1>Sign Up</h1>
-      </header>
-      <form nonvalidate name="form" class="form">
-        <div ng-show="FormErrors" class="alert alert-error">
-          {{FormErrors}}
-        </div>
+    <div class="">
+      <form nonvalidate name="form" class="span12 form box">
+        <header>
+          <h3 class="sexy">Créer un compte</h3>
+        </header>
         <fieldset>
-          <div class="well">
+          <div class="">
             <div class="control-group">
-              <label for="name.givenName" class="control-label"><strong>Nom</strong></label>
+                <input required ng-model="user.name.givenName" placeholder="Prénom" type="text" name="name1" class="input-big block" />
+                <span ng-hide="form.name1.$invalid" class="valid"><i class="icon-ok green"></i></span>
+                <input required ng-model="user.name.familyName" placeholder="Nom" type="text" name="name2" class="input-big block"/>
+                <span ng-hide="form.name2.$invalid" class="valid"><i class="icon-ok green"></i></span>
+            </div>
+            <div class="control-group">
               <div class="controls">
-                <input required ng-model="user.name.givenName" placeholder="Prénom" type="text" id="name.givenName" class="input-small"/>
-                <input required ng-model="user.name.familyName" placeholder="Nom" type="text" id="name.familyName" class="input-small"/>
+                <input name="email" placeholder="Email" required ng-model="user.email.address" type="email" class="input-big block"/>
+                <span ng-hide="form.email.$invalid" class="valid"><i class="icon-ok green"></i></span>
               </div>
             </div>
             <div class="control-group">
-              <label for="email" class="control-label"><strong>Email</strong></label>
               <div class="controls">
-                <input id="email" required ng-model="user.email.address" type="email" name="email"/><span ng-hide="form.email.$invalid" class="help-inline"><i class="icon-ok"></i></span>
-              </div>
-            </div>
-            <div class="control-group">
-              <label for="password" class="control-label"><strong>Password</strong></label>
-              <div class="controls">
-                <input id="password" required pattern=".{4,31}" ng-model="user.password.new" type="password" name="password"/>
-                <p class="help-block">Password must be between 4 - 31 characters</p>
+                <input class="input-big block" required pattern=".{4,31}" ng-model="user.password.new" type="password" name="password" 
+                  placeholder="Votre mot de passe"/>
               </div>
             </div>
           </div>
-          <div class="form-actions">
-            <input type="submit" ng-click="createAccount(user)" ng-disabled="form.$invalid || WaitText" value="{{WaitText || 'Signup'}}" class="btn btn-success"/>
+          <hr/>
+          <div >
+            <input type="submit" ng-click="createAccount(user)" ng-disabled="form.$invalid || WaitText" value="{{WaitText || 'Signup'}}" class="btn btn-primary btn-large "/>
           </div>
-          <div class="control-group">
-            <div class="controls">
+          <hr/>
+          <div >
               <p><small><a href="/login">J'ai déjà un compte?</a></small></p>
-            </div>
           </div>
         </fieldset>
       </form>

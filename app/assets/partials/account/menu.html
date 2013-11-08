@@ -1,9 +1,14 @@
+<li ng-hide="user.isAuthenticated()" class="divider-vertical"></li>
 <li><a ng-hide="user.isAuthenticated()" ng-class="getClass('/login')" href="/login">Login</a></li>
-<li><a ng-hide="user.isAuthenticated()" ng-class="getClass('/signup')" href="/signup">Sign Up</a></li>
+<li ng-hide="user.isAuthenticated()" class="divider-vertical hide-responsive"></li>
+<li><a ng-hide="user.isAuthenticated()" ng-class="getClass('/signup') " class="hide-responsive" href="/signup">Sign Up</a></li>
 
 <!-- signed -->
-<li ng-class="getClass('/account')"><a ng-show="user.isAuthenticated()" href="/account/"><span  ng-show="user.isAdmin()"><b>Admin, </b></span><span ng-bind="user.display()"></span></a></li>
+<li ng-show="user.isAuthenticated()" class="divider-vertical"></li>
+<li ng-class="getClass('/account')"><a ng-show="user.isAuthenticated()" href="/account/"><span  ng-show="user.isAdmin()"><b>! </b></span><span ng-bind="user.display()"></span></a></li>
+<li ng-show="user.isAuthenticated()" class="divider-vertical"></li>
 <li><a ng-show="user.isAuthenticated()" href="" ng-click="logout()">logout</a></li>
-<li><a ng-show="user.shops.length"  href="/products/create" role="button"><i class="icon-plus-"></i>&nbsp;ajouter</a></li>
+<li ng-show="user.shops.length" class="divider-vertical"></li>
+<li><a ng-show="user.shops.length"  href="/products/create" role="button"><i class="icon-plus"></i>&nbsp;ajouter</a></li>
 
 

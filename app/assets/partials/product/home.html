@@ -1,49 +1,89 @@
 
 
-    
-    <!-- SHOPS -->
-    <div ng-controller="HomeCtrl" class="row " style="position:relative">
-        <!-- SPLIT -->
-        <div class="shop-row">
-          <div class="container" >
-            <p class="lead"><br/>Prochaines livraisons les mercredi 34 mai et samedi 38 mai! </p>
-          </div>
-        </div>
+      <div id="overview" class=" fill " backstretch="{src:'img/localfood.jpg'}" ng-hide="user.isAuthenticated()">
+    <div  class=" container fill" >
+
+        <!-- Masthead
+        ================================================== -->        
         
-        <!-- NAVIGATION -->
-        <div ng-hide="true" style="position:relative;height:80px" data-spy="affix" data-offset-top="100" >
-          <div class="navbar navbar-fixed-top"  style="position:absolute">
-            <div class="navbar-inner navbar-sub-karibou">
-             <div class="container">
-               <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-                 <span class="icon-bar"></span>
-                 <span class="icon-bar"></span>
-                 <span class="icon-bar"></span>
-               </a>
-              
-               <!-- MENU -->
-               <div class="nav-collapse collapse" >
-                <ul class="nav" id="main-menu-left">
-                  <li ng-repeat="category in category.constructor.findAll()|filter:{type:'Category'}">
-                    <a href="/products/category/{{category.slug}}">
-                      <i class="{{category.image||''}} {{category.color||gray}}"></i>&nbsp;
-                      {{category.name}}
-                    </a>
-                  </li>
-                </ul>
-               </div>
-               <!-- MENU -->
-             </div>
+        <header class="jumbotron subhead" >
+          <div class="row-fluid " style="">
+            <div class="span12">
+              <h1>K<sub>aribou</sub></h1>
+              <div class="lead wraptext">
+                <i class="icon-quote-left"></i>&nbsp;&nbsp;des artisants, des producteurs, des artistes <i class="icon-quote-right"></i>
+              </div>
+              <br/>
+              <div class="wraptext">
+                <ol>
+                  <li>Login,</li> 
+                  <li>Choisir un jour de livraison, </li>
+                  <li>Faites votre shopping </li>
+                </ol>
+                <a class="btn btn-large btn-success btn-block" ng-href="/signup">Yahaaa, c'est parti!</a>
+                <span class="small blue"><a href="/pages/charte">Lisez notre charte.</a></span>
+              </div>
             </div>
           </div>
+        </header>
+      </div>
+    </div><!-- overview -->
+    <!-- SHOPS -->
+    <div ng-controller="HomeCtrl" class="row wrapheight" style="position:relative;margin-top:30px">
+        <!-- SPLIT -->
+        <div class="shop-row shipping pattern-dark" style="maring-top:0px;position:relative;display:none;">
+          <div id="shipping" class="container navbar-inner" style="display:none;padding-top:0px;" >
+            <div class="span12" style="height:60px;">&nbsp;</div>
+            <div class="span5">
+              <p class="lead">
+                <h3>Prochaines livraisons les mercredi 34 mai et samedi 38 mai! </h3>
+                <div><img src="/img/bicycle-180x120.png" /></div>
+              </p>
+            </div>
+            <div class="span6">
+              <div class="google-map" 
+                center="centerProperty"
+                zoom="zoomProperty" 
+                markers="markersProperty"
+                latitude="clickedLatitudeProperty"
+                longitude="clickedLongitudeProperty"
+                mark-click="false"
+                draggable="false">
+              </div>
+            </div>
+          </div>
+
+          <!-- NAVIGATION -->
+          <div class="navbar navbar-shipping-fixed navbar-fixed-top" >
+            <div class="navbar-inner navbar-shipping">
+                <div class="container" >
+                  <a class="brand"  href="#" slide-on-click="#shipping">Pickups & Deliveries in Eaux-Vives</a>
+                  <ul class="nav ">
+                    <li class="divider-vertical"></li>
+                   <!-- MENU -->
+                   <!--
+                    <li ng-repeat="category in category.findAll()|filter:{type:'Category'}">
+                      <a href="/products/category/{{category.slug}}">
+                        <i class="{{category.image||''}} {{category.color||gray}}"></i>&nbsp;
+                        {{category.name}}
+                      </a>
+                    </li>
+                    <li class="divider-vertical"></li>
+                   <!-- MENU -->
+                  </ul>
+                </div>
+              </div>
+          </div>
+
         </div>
         <!-- NAVIGATION -->
-        
-        <div class="shop-row" ng-repeat="(group, _products) in products">          
-          <div class="container" ng-show="_products.length">
-            <h2 class=" sexy"><i class="{{category.constructor.find({_id:group}).image||''}} {{category.constructor.find({_id:group}).color||gray}}"></i>&nbsp;{{category.constructor.find({_id:group}).name}}</h2>
-            <div masonry>
-              <div  ng-include="'/partials/product/product.html'"  ng-repeat="product in _products"></div>              
+        <!-- ng-repeat with no sort ?? -->
+        <div class="shop-row" ng-repeat="group in keys(products)" ng-show="products[group].length"> 
+          <div class="container" ng-show="products[group].length">          
+            <h3 class=" sexy text-center"><i class="{{category.find({name:group}).image||''}} {{category.find({name:group}).color||gray}}"></i>&nbsp;{{group}}</h3>
+
+            <div  style="width:98%;"><!-- MANSORY FIX -->
+              <div  ng-include="'/partials/product/product.html'"  ng-repeat="product in products[group]"></div>              
             </div>
           </div>
         </div>
@@ -51,6 +91,6 @@
 
     </div>
 
-    <div class="" ng-include="'/footer.html'">
+    <div class=" fill" ng-include="'/footer.html'">
     </div>
       

@@ -15,7 +15,9 @@
       <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
 
-    <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:600' rel='stylesheet' type='text/css'> 
+
+    <link href="//fonts.googleapis.com/css?family=Open+Sans:400,300,600|Merriweather:400,300,700" rel="stylesheet" type="text/css">
+    <!-- <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:600' rel='stylesheet' type='text/css'> -->
     <link rel="stylesheet" href="/css/vendor.css">
     <link rel="stylesheet" href="/css/app.css">
 
@@ -26,69 +28,80 @@
   </head>
 
   <body class="preview fill" data-spy="scroll" data-target=".subnav" data-offset="90">
-
+  <!--[if lt IE 7]><p class="browser-support">
+    Unfortunately, this site won't work with your browser. Please upgrade to a modern browser:<br>
+    <a href="http://www.google.com/chrome">Google Chrome</a>
+    <a href="http://www.mozilla.org/firefox">Firefox</a>
+    <a href="http://www.microsoft.com/windows/internet-explorer/">Internet Explorer 9</a>
+  </p><![endif]-->
+  
   <!-- Navbar
     ================================================== -->
     <div class="navbar navbar-fixed-top" >
-     <div style="z-index:2000;top:0px;height:2px;right:0px;left:0px;width:100%;background-color:#76CC1E;padding:3px;font-weight:bold;position:fixed" class="text-center white ">&nbsp;
+     <div style="z-index:2000;top:0px;height:1px;right:0px;left:0px;width:100%;background-color:#96C094;padding:1px;font-weight:bold;position:fixed" class="text-center white ">&nbsp;
      </div>
      <div class="navbar-inner navbar-karibou">
        <div class="container">
-         <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-           <span class="icon-bar"></span>
-           <span class="icon-bar"></span>
-           <span class="icon-bar"></span>
-         </a>
-         <a class="brand" href="/"><i class="icon-home gray"></i>&nbsp;K<sub>aribou</sub></a> 
-        
-          <ul class="nav" id="main-menu-left">
+         <div class="pull-right" >
+         
+           <ul class="nav">
             <li class="dropdown">
-              <a class="dropdown-toggle" data-toggle="dropdown" href="#"><i class="icon-th-list"></i> <b class="caret"></b></a>
-              <ul class="dropdown-menu" id="swatch-menu" style="width:300px;">              
-                <li class="nav-header">Les produits</li>
-                <li ng-repeat="category in category.constructor.findAll()|filter:{type:'Category'}"><a href="/products/category/{{category.slug}}">{{category.name}}</a></li>
-                <li class="divider"></li>
-                <li class="nav-header">Les marchands</li>
-                <li ng-repeat="category in category.constructor.findAll()|filter:{type:'Catalog'}"><a href="/shops/category/{{category.slug}}">{{category.name}}</a></li>
-                <!--
-                <li class="divider"></li>
-                <li><a href="#">Laiterie</a></li>
-                -->
+              <a href="" class="dropdown-toggle"><i class="icon-shopping-cart green"></i>&nbsp;<span class="simpleCart_quantity">0</span> articles <span class="small _simpleCart_total"></span></a>
+              <ul class="dropdown-menu cartcolumn" style="width:400px">
+                <li>
+                  <h4 class="text-center">Votre commande</h4>
+                  <div class="simpleCart_items"></div>
+                  <div id="cartData" class="clearfix">
+						          <div class="left"><strong>Articles: </strong><span class="simpleCart_quantity"></span></div>
+						          <div class="right"><strong>Livraison: </strong><span class="simpleCart_shipping"></span></div>
+						          <div class="right"><strong>Total: </strong><span class="simpleCart_grandTotal"></span></div>
+					          </div>
+					          <div id="popoverButtons" class="clearfix">
+					            
+						          <a href="javascript:simpleCart.empty();" class="simpleCart_empty btn btn ">Vider</a>
+						          <a href="javascript:;" class="simpleCart_checkout btn btn-primary pull-right">Checkout</a>
+					          </div>
+                </li>
               </ul>
             </li>
-            <!--
-            <form action="" class="navbar-search ">
-              <input type="text" placeholder="Search" class=" span2">
-            </form>
-            -->    
+           </ul>
 
-          </ul>
+           <ul class="nav" id="main-menu-right" ng-include="'/partials/account/menu.html'">
+           </ul>
+  
+           <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+             <span class="icon-bar"></span>
+             <span class="icon-bar"></span>
+             <span class="icon-bar"></span>
+           </a>
+
+
+         </div>
+         <a class="brand" href="/"><i class="icon-home green"></i>&nbsp;K<sub>aribou</sub></a> 
+        
 
         <div class="nav-collapse collapse" >
           <ul class="nav" id="main-menu-left">
-            <li ng-class="">
-              <a  class="" href="/">Les marchands</a> 
+            <li class="divider-vertical"></li>
+            <li>
+              <a  class="" href="/shops">Les marchands</a> 
+              <ul>
+                <li class="hide-responsive-desktop" ng-repeat="category in category.findAll()|filter:{type:'Catalog'}"><a href="/shops/category/{{category.slug}}">{{category.name}}</a></li>
+              </ul>
             </li>
+            <li class="divider-vertical"></li>
             <li ng-class="getClass('/products')">
               <a  href="/products">Les produits</a> 
+              <ul>
+                <li class="hide-responsive-desktop" ng-repeat="category in category.findAll()|filter:{type:'Category'}"><a href="/products/category/{{category.slug}}">{{category.name}}</a></li>
+              </ul>
             </li>
+            <li class="divider-vertical"></li>
+            <li class="divider-vertical"></li>
           </ul>
         </div>
 
             
-          
-         <div class="nav-collapse collapse" id="main-menu">
-          <ul class="nav pull-right" id="main-menu-right" ng-include="'/partials/account/menu.html'">
-          </ul>
-         </div>
-
-         <ul class="nav pull-right nav-fix-responsive" >
-           <li>           
-             <a pageslide="{ direction: 'left', modal: false }" class="pull-right nav-badge" href="#pageslide">
-               <span class="simpleCart_quantity">0</span> articles <span class="small _simpleCart_total"></span>
-             </a>
-           </li>
-         </ul>
 
        </div>
      </div>
@@ -106,7 +119,7 @@
         {{FormErrors}}
       </div>
     </div>    
-    <div ng-controller="ProductCtrl" style="padding-top:40px">
+    <div ng-controller="ProductCtrl" style="padding-top:30px" class="fill">
       <div ng-view="modal">   
       </div>
 
@@ -116,28 +129,15 @@
 
     </div>    
     <div id="pageslide" class="cartcolumn " style="left: auto; right: 0px;">
-      <div>
-        <h4 class="text-center">Votre commande</h4>
-        <div class="simpleCart_items"></div>
-        <div id="cartData" class="clearfix">
-						<div class="left"><strong>Articles: </strong><span class="simpleCart_quantity"></span></div>
-						<div class="right"><strong>Livraison: </strong><span class="simpleCart_shipping"></span></div>
-						<div class="right"><strong>Total: </strong><span class="simpleCart_grandTotal"></span></div>
-					</div>
-					<div id="popoverButtons" class="clearfix">
-					  
-						<a href="javascript:simpleCart.empty();" class="simpleCart_empty btn btn ">Vider</a>
-						<a href="javascript:;" class="simpleCart_checkout btn btn-primary pull-right">Checkout</a>
-					</div>
-			</div>
     </div>
     
     <!-- Le javascript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster &callback=initCall -->
+    <!-- <script src="cordova.js"></script> -->
     <script src="/js/vendor.js"></script>
     <script src="/js/app.js"></script>
-    <script src="http://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+    <!-- <script src="http://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script> -->
     <script>
       window.brunch = window.brunch || {};
       window.brunch['auto-reload'] = {

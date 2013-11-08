@@ -5,8 +5,8 @@
                   </div> -->
                   <div class="modal-body" style="min-height:400px;max-height:700px;">
 
-                    <tabs>
-                      <pane heading="Votre boutique">
+                    <tabset type="'tabs'">
+                      <tab heading="Votre boutique">
                         <fieldset>
                           <div ng-show="shop.status!=true" class="items-header ">
                             <p >
@@ -36,31 +36,31 @@
                           <div class="control-group box">
                             <label class="control-label">Photos</label>
                             <div class="controls">
-                              <button type="input" class="btn btn-success" ng-click="uploadFgPhoto()">de la boutique</button>
-                              <button type="input" class="btn btn-primary" ng-click="uploadOwnerPhoto()">de l'équipe</button>
+                              <button type="input" class="btn btn-success" ng-click="uploadFgPhoto(shop)">de la boutique</button>
+                              <button type="input" class="btn btn-primary" ng-click="uploadOwnerPhoto(shop)">de l'équipe</button>
                             </div>
                           </div>
 
-                          <!-- Shop.options -->
+                          <!-- Shop.details -->
                           <div class="control-group box">
                             <label class="control-label">Cette boutique offre</label>
                             <div class="controls">
                               <label class="checkbox">
-                                <input type="checkbox" ng-model="shop.options.bio" value="des produits Bio">
+                                <input type="checkbox" ng-model="shop.details.bio" value="des produits Bio">
                                 des produits Bio
                               </label>
                               <!--
                               <label class="checkbox">
-                                <input type="checkbox" ng-model="shop.options.gluten" value="des produits sans gluten">
+                                <input type="checkbox" ng-model="shop.details.gluten" value="des produits sans gluten">
                                 des produits sans gluten
                               </label>
                               <label class="checkbox">
-                                <input type="checkbox" ng-model="shop.options.lactose" value="des produits sans lactose">
+                                <input type="checkbox" ng-model="shop.details.lactose" value="des produits sans lactose">
                                 des produits sans lactose
                               </label>
                               -->
                               <label class="checkbox">
-                                <input type="checkbox" ng-model="shop.options.local" value="une production locale">
+                                <input type="checkbox" ng-model="shop.details.local" value="une production locale">
                                 une production locale
                               </label>
                             </div>
@@ -71,7 +71,7 @@
                             <label class="control-label ">Catalogue</label> 
                             <div class="controls small">
                               <select  ng-model="shop.catalog " class="input-xlarge" required="true" >
-                                <option ng-repeat="cat in category.constructor.findAll() | filter:{type:'Catalog'}" value="{{cat._id}}" 
+                                <option ng-repeat="cat in category.findAll() | filter:{type:'Catalog'}" value="{{cat._id}}" 
                                 ng-selected="shop.catalog==cat._id">{{cat.name}}</option>
                               </select>
                             </div>
@@ -81,9 +81,9 @@
 
                           </fieldset>
                        
-                      </pane>
+                      </tab>
 
-                      <pane heading="Information">
+                      <tab heading="Information">
                         <fieldset>
 
                           <!-- shop.available.active -->
@@ -121,10 +121,10 @@
                           </div>
 
                         </fieldset>
-                      </pane>    
+                      </tab>    
 
 
-                      <pane heading="Adresse">
+                      <tab heading="Adresse">
                         <fieldset>
                           <!-- URL -->
                           <div class="control-group">
@@ -157,14 +157,14 @@
                           </div>
 
                         </fieldset>
-                      </pane>    
-                      <pane heading="Logistique">
+                      </tab>    
+                      <tab heading="Logistique">
                         <fieldset>
                         </fieldset>
-                      </pane>
+                      </tab>
                             
 
-                      <pane heading="FAQ">
+                      <tab heading="FAQ">
                         <h2>Foire aux questions</h2>
                           <label>Constituez votre liste des questions fréquemment posées.</label>
                           <ul class="unstyled">
@@ -177,13 +177,13 @@
                               <a href ng-click="shop.faq.push({})" class="btn btn-small">Ajouter <i class="icon-plus"></i></a>
                             </li>
                           </ul>
-                      </pane>  
+                      </tab>  
 
-                      <pane heading="Aperçu">
+                      <tab heading="Aperçu">
                           <div  ng-include="'/partials/shop/shop.html'"  ></div>              
-                      </pane>    
+                      </tab>    
                         
-                    </tabs>
+                    </tabset>
                   </div>
                   <div class="modal-footer ">
                     <input type="button"  ng-click="shop.remove(user);shops.pop(shop)" title="depth delete for dev only" value="Supprimer" class="btn btn-large btn-danger pull-left"/>

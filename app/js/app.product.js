@@ -3,7 +3,7 @@
 //
 // Define the Product module (app.product)  for controllers, services and models
 // the app.product module depend on app.config and take resources in product/*.html 
-var Product=angular.module('app.product', ['app.config', 'app.api']);
+var Product=angular.module('app.product', ['app.config', 'app.api','app.ui']);
 
 
 //
@@ -39,18 +39,19 @@ Product.controller('ProductCtrl',[
   '$route',
   '$location',
   '$routeParams',
+  '$anchorScroll',
   'config',
+  'category',
   'api',
   'product',
 
-  function ($scope,$route, $location, $routeParams, config, api, product) {
-    $scope.FormInfos=false;
-    $scope.FormErrors=false;
+  function ($scope,$route, $location, $routeParams, $anchorScroll, config, category, api, product) {
     $scope.product=product;
 
     var cb_error=api.error($scope);
 
     $scope.config=config;
+
   
     $scope.save=function(product){
       product.save(function(s){
@@ -60,7 +61,7 @@ Product.controller('ProductCtrl',[
       },cb_error);
     };
     
-    if($route.current&&$route.current.$route.clear){
+    if($route.current&&$route.current.$$route.clear){
       $scope.product={};
     }
     
@@ -88,12 +89,12 @@ Product.controller('ProductCtrl',[
 
 
     $scope.uploadImage=function(product, imgKey){
-      api.uploadfile({},function(err,fpfile){
+      api.uploadfile($scope, {},function(err,fpfile){
         if(err){
           api.info($scope,err.toString());
           return false;
         }
-        product.photo=fpfile.url;
+        product.photo.url=fpfile.url;
         
       });
       return false;
@@ -117,6 +118,11 @@ Product.controller('ProductCtrl',[
     
 
     if($routeParams.sku){
+      var doc = document.documentElement, body = document.body;
+      var left = (doc && doc.scrollLeft || body && body.scrollLeft || 0);
+      var top = (doc && doc.scrollTop  || body && body.scrollTop  || 0);
+      $scope.scrollTop=top;
+      $scope.scrollLeft=left;
       product.get($routeParams.sku,function(product){
         $scope.title='products '+product.sku+' - '+product.title;
         $scope.product=product;

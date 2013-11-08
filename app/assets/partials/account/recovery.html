@@ -1,22 +1,20 @@
-<section id="content" ng-controller="AccountCtrl" class="container">
+<section id="content" ng-controller="AccountCtrl" class="container login text-center">
     <h2 class="text-center sexy" id="section-header">Account Recovery</h2>
-    <br/>
-    <div ng-show="user.isAuthenticated()" ng-include="'/partials/account/navigation.html'"></div>
-    <div class="frame frame-white container">
+
+    <div class="span12 box container">
 
         <form name="form" novalidate="novalidate">
           <fieldset class="control-group">
-            <p>To reset your password, enter the email address you used when creating your {{ application_title }} account.</p>
-            <label for="email" class="control-label">Email Address</label>
+            <p>To reset your password, enter the email address you used when creating your account.</p>
             <div class="controls">
-              <input required ng-model="email" type="email" name="email"/>
+              <input required ng-model="email" type="email" name="email" class="input-big block" placeholder="Email Address"/>
             </div>
           </fieldset>
           <fieldset class="control-group">
-            <button type="submit" ng-disabled="form.$invalid" ng-click="recover(email)" class="btn btn-success">Submit</button>
-            
+            <button type="submit" ng-disabled="form.$invalid" ng-click="recover(email)" class="btn btn-primary btn-large block" style="width:98%">Submit</button>
+            <hr/>
             <div ng-hide="user.isAuthenticated()">
-              <p><small>If you don't have a {{ App.Title }} account you can <a href="/signup">create one now</a></small></p>
+              <p><small>Vous n'avez pas encore de compte utilisateur, vous pouvez <a href="/signup" >en créer un</a></small></p>
             </div>                      
           </fieldset>          
         </form>

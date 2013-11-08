@@ -3,7 +3,7 @@
 //
 // Define the Order module (app.shop)  for controllers, services and models
 // the app.shop module depend on app.config and take resources in shop/*.html 
-var Order=angular.module('app.order', ['app.config', 'app.api','google-maps', 'ui','ui.bootstrap']);
+var Order=angular.module('app.order', ['app.config', 'app.api']);
 
 //
 // define all routes for user api
@@ -16,7 +16,8 @@ Order.config([
 
     // List of routes of the application
     $routeProvider
-      .when('/shipping', {title:'welcome to your open community market',  templateUrl : '/partials/shipping/home.html'})
+      .when('/logistic/collect', {title:'welcome to your open community market',  templateUrl : '/partials/logistic/collect.html'})
+      .when('/logistic/overview', {title:'welcome to your open community market',  templateUrl : '/partials/logistic/overview.html'})
       .when('/admin/order', {title:'Admin of order ', _view:'main', templateUrl : '/partials/admin/order.html'});
   }
 ]);

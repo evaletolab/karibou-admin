@@ -12,26 +12,26 @@
         <div  class="row-fluid fill shop-page" >
 
           <div  class="shop-sidebar" >
-            <div backstretch="{src:'shop.photo.fg',load:'placehold:\'400x300&text=la boutique\''}" >
+            <div backstretch="{src:'shop.photo.fg',load:'http://placehold.it/400x300&text=la boutique'}" class="relative">
               <div class="span12 shop-label" style="">
                 <ul class="thumbnails">
                   <li class="span3" ng-show="shop.photo.owner">
                   
                       <img src="{{shop.photo.owner | placehold:'160x160&text=l`équipe'}}"  alt="160x160" class="thumbnail-owner photo-owner">
                   </li>
-                  <li ng-show="shop.options.bio" class="span1 ">
+                  <li ng-show="shop.details.bio" class="span1 ">
                       <img src="/img/shop/bio.png" title="Cette boutique offre des produits BIO" >
                   </li>
-                  <li ng-show="shop.options.gluten" class="span1">
+                  <li ng-show="shop.details.gluten" class="span1">
                       <img src="/img/shop/gluten-free.png" title="Cette boutique offre des produits sans gluten" >
                   </li>
-                  <li ng-show="shop.options.lactose" class="span1">
+                  <li ng-show="shop.details.lactose" class="span1">
                       <img src="http://placehold.it/41x41&text=lac" title="Cette boutique offre des produits sans lactose" style="height:47px">
                   </li>
                 </ul>                
               </div>
               <div class="span12 shop-title" >
-                  <h1 class="shadow white" style="text-align:center;">{{shop.name}}</h1>
+                  <h1 class="" >{{shop.name}}</h1>
               </div>
             </div>
             <section class="pattern-dark" >
@@ -93,13 +93,11 @@
                 <div class="span12 layout" ng-include="'/partials/articles.html'"></div>              
               </div> -->
               <div _ngcontroller="ProductCtrl" class="products">
-                <div  class="row-fluid products-row" ng-repeat="(group, _products) in products">
+                <div  class="row-fluid shop-row" ng-repeat="(group, _products) in products">
 
-                  <div class="items-header">
-                    <h2 class="sexy">{{category.constructor.find({_id:group}).name}}</h2>
-                  </div>
+                  <h2 class="sexy">{{group}}</h2>
                   
-                  <div  class="" >
+                  <div  _masonry_ style="width:98%;" >
                     <div  ng-include="'/partials/product/product.html'"  ng-repeat="product in _products"></div>              
                   </div>
                 </div>

@@ -4,9 +4,7 @@
 // Define the application level controllers
 angular.module('app.root', [
   'app.config',
-  'app.user',
-  'ui',
-  'ui.bootstrap'
+  'app.user'
 ])
 
 //
@@ -39,7 +37,7 @@ angular.module('app.root', [
     
     //
     // get categories
-    category.select({},function(categories){
+    category.select({stats:true},function(categories){
       $scope.category=category;
     },cb_error);
 
@@ -51,11 +49,11 @@ angular.module('app.root', [
         if(_.find(['/admin'],function(path){
           return ($location.path().indexOf(path)===0);
         })){
-          $location.path('/login');
+          //$location.path('/login');
         }
       }
 
-      $rootScope.title = (current.$route.title)?current.$route.title:current.$route.templateUrl;
+      $rootScope.title = (current.$$route.title)?current.$$route.title:current.$$route.templateUrl;
     });
 
 

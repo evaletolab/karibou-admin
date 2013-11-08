@@ -81,7 +81,7 @@ function ($rootScope, $http, $resource, $timeout, config) {
   };  
   
   
-  function uploadfile(options, callback){
+  function uploadfile($scope, options, callback){
     filepicker.pick({
         mimetypes: ['image/*'],
         maxSize: 150*1024,
@@ -89,10 +89,19 @@ function ($rootScope, $http, $resource, $timeout, config) {
       },
       function(FPFile){
         //https://www.filepicker.io/api/file/PMaxCDthQd2buSL4lcym
-        callback(null,FPFile);
+               
+        $scope.$apply(function () {
+          filepicker.stat(FPFile, {width: true, height: true},
+            function(metadata){              
+              callback(null,FPFile,metadata, metadata.height/metadata.width);
+
+          });        
+        });
       },
       function(FPError){
-        callback(FPError);
+        $scope.$apply(function () {
+          callback(FPError);
+        });
       }
     );
     return false;      
@@ -133,6 +142,14 @@ function ($rootScope, $http, $resource, $timeout, config) {
       return lst;
     }
 
+    clazz.prototype.findAll=function(where){ 
+      return clazz.findAll(where);
+    }
+
+    clazz.prototype.find=function(where){ 
+      return clazz.find(where);
+    }
+
     clazz.find=function(where,cb){
       if (!where){ 
         return;
@@ -153,7 +170,6 @@ function ($rootScope, $http, $resource, $timeout, config) {
       elems.forEach(function(e){
         list.push(_singleton.share(e));
       });
-      
       return list;
     };
     //

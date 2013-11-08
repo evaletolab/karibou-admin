@@ -3,7 +3,7 @@
 //
 // Define the Category module (app.shop)  for controllers, services and models
 // the app.shop module depend on app.config and take resources in shop/*.html 
-var Category=angular.module('app.category', ['app.config', 'app.api', 'ui','ui.bootstrap']);
+var Category=angular.module('app.category', ['app.config', 'app.api','$strap']);
 
 //
 // define all routes for user api
@@ -35,8 +35,6 @@ Category.controller('CategoryCtrl',[
   '$resource',
 
   function (config, $scope, $rootScope, $routeParams, $location, api, category,$resource) {
-    $scope.FormInfos=false;
-    $scope.FormErrors=false;
 
 
     var cb_error=api.error($scope);
@@ -66,17 +64,51 @@ Category.controller('CategoryCtrl',[
           $scope.categories.push(s);
       },cb_error);
     };
-    $scope.delete=function(category){
-      $scope.categoryslug=false;
+
+    $scope.delete=function(index){
+      var category=$scope.categories[index];
       category.remove(function(s){
           api.info($scope,"Successfully updated!");
-          $scope.categories.pop(s);
+          $scope.categories.splice(index,1);
       },cb_error);
     };
 
+    //
+    //modal
+
+    // default model
+    $scope.modal = {name:'',type:'Category',image:'icon-leaf', weight:0, saved: false};
+
+    
+    $scope.launchModal=function(elem){
+      angular.extend($scope.modal,$scope.categories[elem],{index:elem});
+    }
+    
+    $scope.modalDissmiss=function(){
+      $scope.modal = {name:'',type:'Category',image:'icon-leaf', weight:0, saved: false};
+    }
+
+    $scope.modalSave=function(dismiss){
+      //
+      // check if data are correct
+      if($scope.modal.name.length){
+        angular.extend($scope.categories[$scope.modal.index],$scope.modal);
+        $scope.save($scope.categories[$scope.modal.index]);
+        $scope.modalDissmiss()
+        return
+      }
+    }
+
+    $scope.modalAdd=function(dismiss){
+      //
+      // check if data are correct
+      $scope.create($scope.modal)
+      $scope.modalDissmiss()
+    }
+    
     
     // init
-    category.select({},function(categories){
+    category.select({stats:true},function(categories){
       $scope.categories=categories;
     },cb_error);
     
@@ -103,6 +135,7 @@ Category.factory('category', [
  
     var defaultCategory = {
       name:'',
+      weight:0,
       description:"",
       group:""
     };

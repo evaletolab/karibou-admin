@@ -2,8 +2,8 @@
       <div class="body" >
         <div class="span12 shop-label" style="">
           <div class="actions" fade-on-hover="#product{{product.sku}}">
-              <p  >
-                <a ng-disabled="!product.attributes.available" 
+              <p  ng-hide="!product.attributes.available||!product.pricing.stock" >
+                <a ng-disabled="!product.attributes.available " 
                    class="btn btn-danger" ><i class="icon-star-empty"></i>&nbsp;J'aime</a> 
                 <a g-disabled="!product.attributes.available" 
                    class="btn btn-primary item_add" href="javascript:;"><i class="icon-ok"></i>&nbsp;J'achète</a>
@@ -18,30 +18,58 @@
       			</li>
           </ul>
         </div>
-        <a  href="{{shop.urlpath|test:'/shop/':''}}/products/{{product.sku}}" shop="/shop/{{product.vendor.urlpath}}" >
-          <img ng-cloak ng-show="product.photo" ng-src="{{product.photo}}/convert?w=275&fit=max" class="lazy">
-          <img ng-cloak ng-hide="product.photo" src="{{false  | placehold:'275x205'}}" >
-          <img ng-cloak ng-hide="product.attributes.available" ng-src="http://placehold.it/275x205/eeeeee/000000&text=indisponible" class="available">
-          <img ng-cloak ng-hide="product.pricing.stock" ng-src="http://placehold.it/275x205/eeeeee/000000&text=plus+en+stock" class="available">
+        <a  href="{{shop.urlpath|test:'/shop/':''}}/products/{{product.sku}}" shop="/shop/{{product.vendor.urlpath}}" class="link">
+          <!-- src="{{product.photo.url}}/convert?w=275&fit=max" -->
+          <img ng-cloak ng-show="product.photo.url" ng-src="{{product.photo.url}}/convert?w=275&h=225&fit=crop&cache=true" class="lazy">
+          <img ng-cloak ng-hide="product.photo.url" src="{{false  | placehold:'275x225'}}" >
+          <img ng-cloak ng-hide="product.attributes.available" ng-src="http://placehold.it/275x225/eeeeee/000000&text=indisponible" class="available">
+          <img ng-cloak ng-hide="product.pricing.stock" ng-src="http://placehold.it/275x225/eeeeee/000000&text=plus+en+stock" class="available">
           
         </a>
 
-        <div class="row-fluid " style="padding:3px 0px 0px 0px">
+        <div class="row-fluid vertical-divider" >
           <div class=" elem" >
-	            <span class="small item_name">{{product.title}} <span ng-show="product.details.bio">(bio)</span>
-          	  <span class="pull-right ">
-          	    <div class="">
-          	      <span ng-hide="product.attributes.discount" class="green small item_price">{{product.pricing.price| number:2}}</span>
+	            <div class=" span9 ">
+	              <div class="title item_name" >
+	                {{product.title}} <span ng-show="product.details.bio">(bio)</span>
+	              </div>
+	              <div >
+	                <a class="shop-title " href="/shop/{{product.vendor.urlpath}}">{{product.vendor.name}}</a>
+	              </div>
+	              
+	              
+	            </div>
+	            <!-- PRICE-->
+          	  <div class="price" >
+          	    <div class="" >
+          	      <span ng-hide="product.attributes.discount" class="small green bold  item_price">Fr {{product.pricing.price| number:2}}</span>
           	      <span ng-show="product.attributes.discount" >
-          	        <span class="red strike"> {{product.pricing.price| number:2}}</span>
-          	        <span class="item_price green bold"> {{product.pricing.discount| number:2}}</span>
-          	      </span>
-          	      
-          	    </div><div class="small em">{{product.pricing.part}}</div></span>
-          	  <div ng-show="product.urlshop" ><a class="gray small" href="/shop/{{product.urlshop}}">{{product.urlshop}}</a></div>
-          	  <div ng-show="product.vendor" ><a class="gray small" href="/shop/{{product.vendor.urlpath}}">{{product.vendor.name}}</a></div>
+          	        <span class="red bold strike"> {{product.pricing.price| number:2}}</span>
+          	        <span class="item_price green bold small">Fr {{product.pricing.discount| number:2}}</span>
+          	      </span>          	      
+          	    </div>
+          	    <div class=" em" style="margin-top:-3px;">{{product.pricing.part}}</div>
+          	  </div>
+          	  <!-- PRICE-->
           </div>
         </div>
+        <!-- VENDOR-->
+        <div class="row-fluid vertical-divider border shop hide"  ng-hide="shop.name">
+      	  <div ng-show="product.urlshop" ><a class="gray" href="/shop/{{product.urlshop}}">{{product.urlshop}}</a></div>
+      	  <div ng-show="product.vendor" >
+            <span  ng-show="product.vendor.photo.owner" >
+              <img src="{{product.vendor.photo.owner | placehold:'80x80&text=l`équipe'}}"  alt="160x160" class="shop-owner" >
+            </span>
+            <span  ng-show="product.vendor.photo.fg&&!product.vendor.photo.owner" >
+              <img src="{{product.vendor.photo.fg | placehold:'80x80&text=l`équipe'}}"  alt="160x160" class="shop-owner" >
+            </span>
+      	  
+      	    <span style="color:#bbb;font-weight:bold"  >Vendu par</span>
+      	    <a class="shop-title " href="/shop/{{product.vendor.urlpath}}">{{product.vendor.name}}</a>
+      	  </div>          	  
+      	</div>
+        <!-- VENDOR-->
+       
       </div>
   </div>
 

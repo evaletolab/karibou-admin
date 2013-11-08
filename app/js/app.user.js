@@ -168,7 +168,7 @@ User.controller('AccountCtrl',[
     $scope.recover=function(email){
       user.recover({token:'Zz7YkTpPPp5YFQnCprtc7O9',email:email},function(){
         api.info($scope,"Merci, une information a été envoyé à votre adresse email");
-      });
+      },cb_error);
       return;
       
     };

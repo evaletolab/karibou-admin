@@ -54,11 +54,21 @@ UI.directive('ngBlur', ['$parse', function($parse) {
 
 UI.directive('backstretch', ['$parse', function($parse) {
   return{
-    link:function(scope, element, attr, ctrl) {   
+    link:function(scope, element, attr, ctrl) { 
+      var style={
+        'background-size':'cover',
+        'background-position': 'center center'
+      };    
+      
       function bs(e, path){
-        e.find('div.backstretch').remove();
-        e.backstretch(path);
-        //console.log(e,path)
+        if($.browser.msie && $.browser.version<8){
+          e.find('div.backstretch').remove();
+          e.backstretch(path);
+          return;
+        }
+        style['background-image']='url('+path+')';
+        e.css(style);	
+              
       }
       var options=($parse(attr['backstretch']))();
       scope.$watch(options.src, function(value) {
@@ -74,10 +84,41 @@ UI.directive('backstretch', ['$parse', function($parse) {
   }
 }]);
 
-UI.directive('backfader', ['$parse','$location', function($parse,$location) {
+UI.directive('background', ['$parse', function($parse) {
+  return{
+    link:function(scope, element, attr, ctrl) {   
+      var options=($parse(attr['background']))();
+      var css={
+        'background-size':'100%', 
+        '-webkit-background-size':'100%',
+        'background-repeat':'no-repeat'
+      };      
+      scope.$watch(options.src, function(value) {
+          if (value){
+            css.background='url('+value+')';
+          }else if(options.load){
+            css.background='url('+options.load+')';
+          }else{
+            css.background='url('+options.src+')';
+          }
+          element.css(css);
+       });
+    }
+  }
+}]);
+
+
+UI.directive('backfader', ['$parse','$location','$anchorScroll', function($parse,$location,$anchorScroll) {
   return function(scope, element, attr) {
       //console.log("app.service:backfader", element, attr['backfader'])
-      //angular.element("body").addClass('noscroll');
+      
+      angular.element("body").addClass('noscroll');
+      var i=setInterval(function(){
+        if(!element.is(":visible")){
+          angular.element("body").removeClass('noscroll');
+          clearInterval(i);
+        }
+      },2000);
       element.removeClass('hide').click(function(e) {
 		    if(e.target === element[0]){
 		      //console.log($location.path())
@@ -91,6 +132,7 @@ UI.directive('backfader', ['$parse','$location', function($parse,$location) {
             window.history.back();
             return;
           }
+          window.scrollBy(scope.scrollLeft,scope.scrollTop);
           scope.$apply(function(){
             $location.path(url)
           });
@@ -100,6 +142,17 @@ UI.directive('backfader', ['$parse','$location', function($parse,$location) {
 		  });	    
   }
 }]);
+
+//
+//
+// affix
+UI.directive('appAffix', ['$parse','$timeout', function($parse, $timeout) {
+	  return function(scope, element, attr) {
+	      $timeout(function(){
+	        element.affix({offset: attr['npAffix']});
+	      },0);
+	  }
+	}]);
 
 //
 // http://dev.dforge.net/projects/sliding-pane/index.html
@@ -131,15 +184,19 @@ UI.directive('lazyload', ['$parse','$timeout', function($parse , $timeout) {
 UI.directive('masonry', ['$parse','$timeout', function($parse , $timeout) {
   return function(scope, element, attr) {
       //console.log("app.service:backstretch", element, attr['backstretch'])
-    var options={itemSelector : '.block', columnWidth : 1}, expression = scope.$eval(attr.mansory||"{}");
+    var options={itemSelector : '.block', columnWidth : 1,gutter:1}, expression = scope.$eval(attr.mansory||"{}");
     angular.extend(options, expression);        
+    
     $timeout(function(){
       //console.log('masonry',options)
-      element.imagesLoaded(function(){
-        element.masonry(options);
-      });
+      //console.log(element,element.get(0))
+      new Masonry( element.get(0),options);      
+      
+      //element.imagesLoaded(function(){
+      //  element.masonry(options);
+      //});
 
-    },600);
+    },1000);
 
   }
 }]);
@@ -193,3 +250,10 @@ UI.directive('infiniteCarousel', ['$parse','$timeout', function($parse , $timeou
   }
 }]);
 
+UI.directive('backendUrl', ['$parse','config', function($parse, config) {
+  return function(scope, element, attr) {
+      var name=attr.backendUrl||"href";
+      console.log(name,config.API_SERVER)
+      element.attr(name,config.API_SERVER);
+  }
+}]);

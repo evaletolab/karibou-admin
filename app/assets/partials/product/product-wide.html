@@ -2,15 +2,15 @@
    <div class="popupcontent simpleCart_shelfItem" id="popup">
       <div class="pattern-dark row-fluid">
         <div class="span8">
-          <img ng-cloak ng-show="product.photo" ng-src="{{product.photo}}/convert?w=400&h=320&fit=crop" class="item-image">
-          <img ng-cloak ng-hide="product.photo" ng-src="{{false  | placehold:'400x320'}}" >
+          <img ng-cloak ng-show="product.photo.url" ng-src="{{product.photo.url}}/convert?w=400&h=320&fit=crop" class="item-image">
+          <img ng-cloak ng-hide="product.photo.url" ng-src="{{false  | placehold:'400x320'}}" >
           <img ng-cloak ng-hide="product.attributes.available" ng-src="http://placehold.it/400x320/eeeeee/000000&text=indisponible" class="available">
           <img ng-cloak ng-hide="product.pricing.stock" ng-src="http://placehold.it/400x320/eeeeee/000000&text=plus+en+stock" class="available">
 
         </div>
-        <div class="span4">
+        <div class="span4 smart">
           <br/>
-          <h2 class="white">Fr
+          <h2 class="white popup-price">Fr
     	      <span ng-hide="product.attributes.discount" 
     	            class="small item_price">{{product.pricing.price| number:2}}</span>
     	      <span ng-show="product.attributes.discount" >
@@ -21,10 +21,9 @@
           
           </h2>
           <p>
-            <button type="input" class="btn btn-large btn-danger"><i class="icon-star-empty"></i>&nbsp;J'aime</button> 
-          </p>
-          <p>
-            <a type="input" class="btn btn-large btn-primary item_add" href="javascript:;"><i class="icon-ok"></i>&nbsp;J'achète</a>
+            <button type="input" class="btn btn-large btn-danger " style="margin:3px"><i class="icon-star-empty"></i>&nbsp;J'aime</button> 
+            <a type="input" class="btn btn-large btn-primary item_add " style="margin:3px" href="javascript:;"
+               ng-hide="!product.attributes.available||!product.pricing.stock"><i class="icon-ok"></i>&nbsp;J'achète</a>
           </p>
           <p>
             <div class="label label-info lead">
@@ -36,25 +35,31 @@
       <div ng-show="user.isOwnerOrAdmin(product.vendor.name)" class="pull-right">
         <a href="{{shop.urlpath|test:'/shop/':''}}/products/{{product.sku}}/edit" class="btn  btn-small"><i class="icon-edit"></i>&nbsp;Editer le produit</a>
       </div>                
-      <h3><span class="item_name">{{product.title}}</span> <span ng-show="product.details.bio">(bio)</span></h3>
+      <h3 class="content"><span class="item_name">{{product.title}}</span> <span ng-show="product.details.bio">(bio)</span></h3>
       <div class="content" >
-        {{product.details.description}}
+
+        <blockquote >
+          <p>{{product.details.description}}</p>
+          <span ng-show="product.details.origin" ><small>{{product.details.origin}}</small></span>
+        </blockquote>      
         
       </div>
-      <div class="shop" >
-        <ul class="thumbnails">
-          <li class="span1" ng-show="product.vendor.photo.owner" style="width:120px">
+  	  <!-- VENDOR-->
+      <div class="shop " >
+        <ul class="inline">
+          <li class="" ng-show="product.vendor.photo.owner" style="width:120px;vertical-align:top;">
             <img src="{{product.vendor.photo.owner | placehold:'160x160&text=l`équipe'}}"  alt="160x160" class="thumbnail-owner photo-owner">
           </li>
-          <li class="span1" ng-show="product.vendor.photo.fg&&!product.vendor.photo.owner" style="width:120px">
+          <li class="" ng-show="product.vendor.photo.fg&&!product.vendor.photo.owner" style="width:120px;vertical-align:top;">
             <img src="{{product.vendor.photo.fg | placehold:'160x160&text=l`équipe'}}"  alt="160x160" class="thumbnail-owner photo-owner">
           </li>
-          <li class="span4">
+          <li class="smart">
             <strong>{{product.vendor.name}}</strong>&nbsp;|&nbsp;{{product.vendor.description}}<br/>
             <a href="/shop/{{product.vendor.urlpath}}"> Visiter la boutique</a>
           </li>
         </ul>          
       </div>
+  	  <!-- VENDOR-->
       <div id="disqus_thread" ></div>
     </div>
   </div>

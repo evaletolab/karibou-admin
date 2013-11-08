@@ -8,8 +8,7 @@ body {
   background-color: #fafafa;
   background-image-: url("/img/light_toast.png");
   background:url("/img/paper.jpg") repeat scroll 0 0 #F7F5F5;
-  font-family-: 'ProximaNova','helvetica neue',helvetica,arial,sans-serif;
-  font-family: 'Source Sans','helvetica neue',helvetica,arial,sans-serif;
+  font-family: 'Open Sans', sans-serif;
   font-size:16px;
   height: 100%;
 }
@@ -19,7 +18,26 @@ html{
   -webkit-font-smoothing: antialiased;
 }
 
+.browser-support {
+  margin: 0;
+  background-color: #a94d59;
+  color: #fff;
+  font-weight: bold;
+  padding: 10px;
+  line-height: 1.6em;
+}
 
+
+.affix {
+    position: fixed!important; 
+    top: 40px; 
+    left: 0px;
+    right:0px;    
+    z-index:100;
+}
+.affix-top{
+    z-index:100;  
+}
 
 #disqus_thread{
   font-size:80%;
@@ -46,26 +64,28 @@ html{
   z-index: 9999;
 }
 
-
 .popupcontent{
+  top: 1%;
+  right: 1%;
+  left: 1%;
+  bottom: auto;
+  width: auto !important;
+  height: auto !important;
+  z-index: 4000;
+  box-shadow: 0 3px 18px rgba(34, 25, 25, 0.4);
+  background: #fefefe;
+  max-width: 750px;   
   min-height:550px;
   margin:20px auto;
-  -padding:8px;
-  -padding: 20px 30px 0;
-  -border:solid 2px #ddd;
-  background: #fefefe;
-  position: static;
-  z-index: 4000;
-  /*display: none;*/
-  box-shadow: 0 3px 18px rgba(34, 25, 25, 0.4);
-  font-size: 13px;
-  top: 80px !important;
-  width: 750px; 
-  position:relative;
 }
 
-.popupcontent>h3, .popupcontent>div.content, .popupcontent>div>div>img,.popupcontent>div.shop{
+
+.popupcontent .content, .popupcontent>div>div>img,.popupcontent>div.shop{
   padding-left: 40px;
+}
+
+.popupcontent>div.shop>ul>li.smart{
+  width:70%;
 }
 
 .popupcontent>div.content{
@@ -118,6 +138,12 @@ html{
   /* Remove any padding from the body */
   body {
     padding-top: 0;
+    padding-left:inherit;
+    padding-right:inherit;
+  }
+
+  .popupcontent .content, .popupcontent>div>div>img,.popupcontent>div.shop{
+    padding-left: 10px;
   }
 
 }
@@ -128,7 +154,35 @@ html{
   /* Remove any padding from the body */
   body {
     padding-top: 0;
+    padding-left:inherit;
+    padding-right:inherit;
   }
+  
+  .popupcontent{
+    margin:0px auto;
+  }
+  
+
+  .popupcontent div.smart, .popupcontent .content, .popupcontent>div.shop{
+    padding-left: 20px;
+  }
+
+  .popupcontent>div.shop>ul>li.smart{
+    width:60%;
+  }
+
+  .popupcontent>div.content{
+    font-size:14px;  
+    padding-bottom:5px;
+  }
+  .popupcontent>div.shop{
+    padding-top:10px;
+    font-size:14px;  
+  }
+  .popupcontent>div.shop a{
+    margin-top:10px;
+  }
+
 
 }
 
@@ -138,6 +192,16 @@ html{
   /* Remove padding above jumbotron */
   body {
     padding-top: 0;
+    padding-left-:inherit;
+    padding-right-:inherit;
+    margin-right-: -20px;
+  }
+
+  .popupcontent>div>div>img{
+    padding-left: 0px;
+  }
+  .popupcontent>div.shop>ul>li.smart{
+    width:50%;
   }
 
 }

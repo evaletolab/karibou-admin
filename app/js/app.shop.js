@@ -3,7 +3,7 @@
 //
 // Define the Shop module (app.shop)  for controllers, services and models
 // the app.shop module depend on app.config and take resources in shop/*.html 
-var Shop=angular.module('app.shop', ['app.config', 'app.api','app.shop.ui', 'ui','ui.bootstrap']);
+var Shop=angular.module('app.shop', ['app.config', 'app.api', 'ui.bootstrap']);
 
 //
 // define all routes for user api
@@ -72,12 +72,16 @@ Shop.controller('ShopCtrl',[
 
     //
     // upload foreground photo 
-    $scope.uploadFgPhoto=function(){
-      api.uploadfile({},function(err,fpfile){
+    $scope.uploadFgPhoto=function(shop){
+      api.uploadfile($scope, {},function(err,fpfile){
         if(err){
           api.info($scope,err.toString());
           return false;
         }
+        //
+        // FIXME
+        if(console)console.log("upload fg",shop)
+        if (!shop.photo)shop.photo={};
         shop.photo.fg=fpfile.url;
         shop.save(function(s){
             api.info($scope,"Votre photo a été enregistrée!");
@@ -91,13 +95,17 @@ Shop.controller('ShopCtrl',[
         
     //
     // upload owner photo 
-    $scope.uploadOwnerPhoto=function(){
-      api.uploadfile({},function(err,fpfile){
+    $scope.uploadOwnerPhoto=function(shop){
+      api.uploadfile($scope, {},function(err,fpfile){
         if(err){
           api.info($scope,err.toString());
           return false;
         }
         var filter='/convert?w=260&fit=scale';
+        //
+        // FIXME
+        if(console)console.log("upload ownner",shop)
+        if (!shop.photo)shop.photo={};
         shop.photo.owner=fpfile.url+filter;
         shop.save(function(s){
             api.info($scope,"Votre photo a été enregistrée!");            

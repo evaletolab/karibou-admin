@@ -6,8 +6,12 @@
       <li ng-class="getClass('/account/password')"><a ng-href="/account/password">Sécurité</a></li>
       <li ng-class="getClass('/account/shop')"><a ng-href="/account/shop">Nouvelle boutique</a></li>
       <li ng-show="user.isAdmin()"  class="divider-vertical"></li>      
-      <li ng-class="getClass('/admin/category')" ng-show="user.isAdmin()" ><a ng-href="/admin/category">Les categories</a></li>
-      <li ng-class="getClass('/admin/user')" ng-show="user.isAdmin()" ><a ng-href="/admin/user">Les utilisateurs</a></li>
+      <li ng-class="getClass('/logistic/collect')" ng-show="user.isAdmin()" ><a ng-href="/logistic/collect">Collecte</a></li>
+      <li ng-class="getClass('/logistic/overview')" ng-show="user.isAdmin()" ><a ng-href="/logistic/overview">Livraison</a></li>
+      <li ng-show="user.isAdmin()"  class="divider-vertical"></li>      
+      <li ng-class="getClass('/admin/category')" ng-show="user.isAdmin()" ><a ng-href="/admin/category">Categorie
+      <li ng-class="getClass('/admin/role')" ng-show="user.isAdmin()" ><a ng-href="/admin/role">Rôle</a></li>
+      <li ng-class="getClass('/admin/user')" ng-show="user.isAdmin()" ><a ng-href="/admin/user">Utilisateurs</a></li>
     </ul>
   </div>
 </div>
