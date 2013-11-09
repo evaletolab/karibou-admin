@@ -1,0 +1,99 @@
+
+<div tabindex="-1"  id="null" class="screen-content" ng-controller="ShopCtrl">
+  
+
+  <div class="butter-bar active success " ng-cloak ng-show="shop.info.active">
+    <p class="butter-bar-message" ng-bind="shop.info.comment">
+      
+    </p>
+    <p ng-show="shop.available.active">
+      <p ng-show="shop.available.comment" >
+        <i class="icon-off -icon-white"></i>&nbsp;{{shop.available.comment}}
+      </p>
+    </p>
+  </div>
+
+
+  <aside ng-include="'/partials/shop/cover.html'" class="cover cover-home img-loaded" >
+  </aside>
+
+
+   <section class="wrapper" tabindex="-1">
+      <div class="wrapper-inner">
+
+
+
+        <!--                               -->
+        <!-- TITLE -->
+        <!--                               -->
+                          
+        <div  class="bucket post-bucket homepage-posts" app-affix="30">
+            <div class="bucket-header bucket-header-list show-subtitles-variant">
+               <nav class="bucket-sort">
+                  <h5 class="article-group-title black" >
+                    <span class="bucket-header-title">{{shop.name}}</span> 
+                  </h5>
+               </nav>
+            </div>
+        </div>
+
+        <div ng-include="'/partials/shop/edit.html'"></div>
+
+
+        <article  ng-repeat="(group, _products) in products"  > 
+          <h5 class="article-group-title ">
+            {{group}}
+            <i class="{{category.find({name:group}).image||''}} {{category.find({name:group}).color||gray}}"></i>
+          </h5>
+
+          <div  style="width:98%;"><!-- MANSORY FIX -->
+            <div  ng-include="'/partials/product/product.html'"  ng-repeat="product in _products"></div>              
+          </div>
+        </article>
+            
+
+        <section class="box" >
+        <!-- DIALOG ASK -->
+        <div class="modal hide fade" id="ask"  role="dialog" >
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h3>Contactez la boutique {{shop.name}}</h3>
+          </div>
+          <div class="modal-body">
+              <textarea  style="height:98%" ng-model="askContent" class="span12" placeholder="Votre question..." ></textarea>
+          </div>
+          <div class="modal-footer">
+            <a href="#" class="btn" data-dismiss="modal">Close</a>
+            <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="ask(askContent)">Ask Question</button>
+          </div>
+        </div>
+
+        <!-- FAQ -->
+        <blockquote  >
+          <h2>FAQ</h2>
+          <p>Retrouver les questions les plus fréquentes à propos de la boutique <b>{{shop.name}}</b></p>
+          <ol>
+            <li ng-repeat="faq in shop.faq">
+              <h4><a href="#" slide-on-click="#faq-{{$index}}">{{faq.q}}</a></h4>
+              <p style="display:none" id="faq-{{$index}}">{{faq.a}} <small>Posté le {{faq.updated}}</small></p>
+            </li>
+          </ol>
+          <p>
+          <br/>
+          <button type="button" class="btn btn-large disabled btn-info"  role="button" ng-click="modal('#ask')" >Ask Question!</button>
+          </p>
+        </blockquote>          
+        </div>
+
+
+      <!-- FOOTER -->              
+        <footer class="wrapper-footer span12">
+            <a class="wrapper-footer-link" title="View open job positions " href="/jobs">Travailler chez Kariboo</a>
+            <a class="wrapper-footer-link" title="Lire la charte de Kariboo" href="/sharte">Charte</a>
+            <a class="wrapper-footer-link" title="La FAQ de Kariboo" href="/help-center/faq">FAQ</a>
+        </footer>
+      </section>
+   </section>
+</div>
+
+

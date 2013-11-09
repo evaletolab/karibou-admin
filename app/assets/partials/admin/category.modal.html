@@ -1,0 +1,33 @@
+<div class="modal-header">
+  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+  <h3 ng-hide="modal.name.length">Add Category</h3>
+  <h3 ng-show="modal.name.length">Edit category {{modal.name}}</h3>
+</div>
+<div class="modal-body">
+  
+  <form class="form-inline" validate>
+    <p>Define category type and name</p>
+    <div class="input-prepend">
+      <div class="btn-group" ng-model="modal.type" bs-buttons-radio >
+        <button type="button" class="btn " value="Category" >Category</button>
+        <button type="button" class="btn" value="Catalog" >Catalog</button>
+      </div>
+      <input type="text" ng-model="modal.name" class="input-small" placeholder="name" autofocus="autofocus"  required>
+    </div>
+    <hr/>
+    <p>Define icon and color, get all icons from <a href="http://fontawesome.io/icons/" target="_new">fontawesome.io</a> </p>
+    <div class="input-prepend input-append">
+      <span class="add-on"><i class="{{modal.image}}" style="color:{{modal.color}}"></i></span>
+      <input class="span2"  type="text" ng-model="modal.weight" placeholder="specify a number" style="border-color:{{modal.color}};border-right:0px">          
+      <input class="span2"  type="text" ng-model="modal.image" placeholder="awesome icon" style="border-color:{{modal.color}};border-right:0px">          
+      <input class="span2"  type="text" ng-model="modal.color" placeholder="color: #ddd, blue" style="border-color:{{modal.color}};border-left:0px">          
+    </div>
+
+</form> 
+</div>
+<div class="modal-footer">
+  <button class="btn" ng-click="modalDissmiss(dismiss())">Close</button>
+  <button ng-hide="modal.name.length" class="btn btn-primary" ng-click="modal.saved=true;modalAdd(dismiss())" ng-disabled="!modal.name || !modal.type">Add item</button>
+  <button ng-show="modal.name.length" class="btn btn-primary" ng-click="modal.saved=true;modalSave(dismiss())" ng-disabled="!modal.name || !modal.type">Save changes</button>
+</div>
+
