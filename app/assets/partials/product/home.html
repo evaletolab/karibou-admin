@@ -1,96 +1,55 @@
 
+<div tabindex="-1"  id="null" class="screen-content">
+  <aside ng-include="'/partials/cover.html'" class="cover cover-home img-loaded" >
+  </aside>
 
-      <div id="overview" class=" fill " backstretch="{src:'img/localfood.jpg'}" ng-hide="user.isAuthenticated()">
-    <div  class=" container fill" >
 
-        <!-- Masthead
-        ================================================== -->        
-        
-        <header class="jumbotron subhead" >
-          <div class="row-fluid " style="">
-            <div class="span12">
-              <h1>K<sub>aribou</sub></h1>
-              <div class="lead wraptext">
-                <i class="icon-quote-left"></i>&nbsp;&nbsp;des artisants, des producteurs, des artistes <i class="icon-quote-right"></i>
-              </div>
-              <br/>
-              <div class="wraptext">
-                <ol>
-                  <li>Login,</li> 
-                  <li>Choisir un jour de livraison, </li>
-                  <li>Faites votre shopping </li>
-                </ol>
-                <a class="btn btn-large btn-success btn-block" ng-href="/signup">Yahaaa, c'est parti!</a>
-                <span class="small blue"><a href="/pages/charte">Lisez notre charte.</a></span>
-              </div>
+   <section class="wrapper" tabindex="-1">
+      <div class="wrapper-inner">
+
+        <!--                               -->
+        <!-- CATEGORIES PRODUITS/BOUTIQUES -->
+        <!--                               -->
+                          
+         <div  class="bucket post-bucket homepage-posts">
+            <div class="bucket-header bucket-header-list show-subtitles-variant">
+               <nav class="bucket-sort">
+                  <h5 class="bucket-title active" >
+                    <a href="/products" title="Les produits"><span class="bucket-header-title">Les produits</span> </a>
+                  </h5>
+                  <h5 class="bucket-title" >
+                    <a href="/shops" title="Collections"><span class="bucket-header-title">Les boutiques</span> </a>
+                  </h5>
+               </nav>
             </div>
-          </div>
-        </header>
+         </div>
+
+        <!-- PRODUCTS -->
+        <div ng-controller="HomeCtrl" class="row wrapheight" >
+     
+
+            <article  ng-repeat="group in keys(products)"  ng-show="products[group].length"> 
+              <h5 class="article-group-title ">
+                {{group}}
+                <i class="{{category.find({name:group}).image||''}} {{category.find({name:group}).color||gray}}"></i>
+              </h5>
+
+              <div  style="width:98%;"><!-- MANSORY FIX -->
+                <div  ng-include="'/partials/product/product.html'"  ng-repeat="product in products[group]"></div>              
+              </div>
+            </article>
+          
+
+        </div>
+              
+
+        <footer class="wrapper-footer">
+            <a class="wrapper-footer-link" title="View open job positions " href="/jobs">Travailler chez Kariboo</a>
+            <a class="wrapper-footer-link" title="Lire la charte de Kariboo" href="/sharte">Charte</a>
+            <a class="wrapper-footer-link" title="La FAQ de Kariboo" href="/help-center/faq">FAQ</a>
+        </footer>
       </div>
-    </div><!-- overview -->
-    <!-- SHOPS -->
-    <div ng-controller="HomeCtrl" class="row wrapheight" style="position:relative;margin-top:30px">
-        <!-- SPLIT -->
-        <div class="shop-row shipping pattern-dark" style="maring-top:0px;position:relative;display:none;">
-          <div id="shipping" class="container navbar-inner" style="display:none;padding-top:0px;" >
-            <div class="span12" style="height:60px;">&nbsp;</div>
-            <div class="span5">
-              <p class="lead">
-                <h3>Prochaines livraisons les mercredi 34 mai et samedi 38 mai! </h3>
-                <div><img src="/img/bicycle-180x120.png" /></div>
-              </p>
-            </div>
-            <div class="span6">
-              <div class="google-map" 
-                center="centerProperty"
-                zoom="zoomProperty" 
-                markers="markersProperty"
-                latitude="clickedLatitudeProperty"
-                longitude="clickedLongitudeProperty"
-                mark-click="false"
-                draggable="false">
-              </div>
-            </div>
-          </div>
+   </section>
+</div>
 
-          <!-- NAVIGATION -->
-          <div class="navbar navbar-shipping-fixed navbar-fixed-top" >
-            <div class="navbar-inner navbar-shipping">
-                <div class="container" >
-                  <a class="brand"  href="#" slide-on-click="#shipping">Pickups & Deliveries in Eaux-Vives</a>
-                  <ul class="nav ">
-                    <li class="divider-vertical"></li>
-                   <!-- MENU -->
-                   <!--
-                    <li ng-repeat="category in category.findAll()|filter:{type:'Category'}">
-                      <a href="/products/category/{{category.slug}}">
-                        <i class="{{category.image||''}} {{category.color||gray}}"></i>&nbsp;
-                        {{category.name}}
-                      </a>
-                    </li>
-                    <li class="divider-vertical"></li>
-                   <!-- MENU -->
-                  </ul>
-                </div>
-              </div>
-          </div>
 
-        </div>
-        <!-- NAVIGATION -->
-        <!-- ng-repeat with no sort ?? -->
-        <div class="shop-row" ng-repeat="group in keys(products)" ng-show="products[group].length"> 
-          <div class="container" ng-show="products[group].length">          
-            <h3 class=" sexy text-center"><i class="{{category.find({name:group}).image||''}} {{category.find({name:group}).color||gray}}"></i>&nbsp;{{group}}</h3>
-
-            <div  style="width:98%;"><!-- MANSORY FIX -->
-              <div  ng-include="'/partials/product/product.html'"  ng-repeat="product in products[group]"></div>              
-            </div>
-          </div>
-        </div>
-      
-
-    </div>
-
-    <div class=" fill" ng-include="'/footer.html'">
-    </div>
-      

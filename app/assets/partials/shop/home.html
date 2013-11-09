@@ -1,105 +1,59 @@
-    
-    <div id="overview" class="fill" backstretch="{src:'img/localfood.jpg'}" ng-hide="user.isAuthenticated()">
-      <div class="container fill " >
+<div tabindex="-1"  id="null" class="screen-content">
+  <aside class="cover cover-home img-loaded" >
+    <div class="cover-body">
+        <!-- HOME -->
+         <div  class="cover-body-inner black">
+            <h1  class="cover-title">Kariboo</h1>
+            <p class="cover-description ">Une meilleure place pour l'alimentation. <a href="/page/sharte" class="" title="Learn more about Medium">Learn more</a>. <br><br>Read our <a  href="/about" class="">les dernières nouvelles du mois</a>.
+            </p>
+            <div class="cover-actions "><a href="/signup" class="btn btn-primary btn-new-post"><span class="icons icons-new-post"></span>Sign up</a><span class="">ou <a href="login">Login</a></span></div>
+         </div>
+      </div>
 
-        <!-- Masthead
-        ================================================== -->        
+  </aside>
+
+
+   <section class="wrapper" tabindex="-1">
+      <div class="wrapper-inner">
+
+
+        <!--                               -->
+        <!-- CATEGORIES PRODUITS/BOUTIQUES -->
+        <!--                               -->
+                          
+         <div  class="bucket post-bucket homepage-posts">
+            <div class="bucket-header bucket-header-list show-subtitles-variant">
+               <nav class="bucket-sort">
+                  <h5 class="bucket-title " >
+                    <a href="/products" title="Les produits"><span class="bucket-header-title">Les produits</span> </a>
+                  </h5>
+                  <h5 class="bucket-title active">
+                    <a href="/shops" title="Collections"><span class="bucket-header-title">Les boutiques</span> </a>
+                  </h5>
+               </nav>
+            </div>
+         </div>
         
-        <header class="jumbotron subhead" >
-          <div class="row-fluid " style="">
-            <div class="span12">
-              <h1>K<sub>aribou</sub></h1>
-              <div class="lead wraptext">
-                <i class="icon-quote-left"></i>&nbsp;&nbsp;des artisants, des producteurs, des artistes <i class="icon-quote-right"></i>
-              </div>
-              <br/>
-              <div class="wraptext">
-                <ol>
-                  <li>Login,</li> 
-                  <li>Choisir un jour de livraison, </li>
-                  <li>Faites votre shopping </li>
-                </ol>
-                <a class="btn btn-large btn-success btn-block" ng-href="/signup">Yahaaa, c'est parti!</a>
-                <span class="small blue"><a href="/pages/charte">Lisez notre charte.</a></span>
-              </div>
-            </div>
-          </div>
-        </header>
+        <!-- SHOPS -->
+        <div ng-controller="HomeCtrl" class="row wrapheight" >
 
-      </div>
-    </div><!-- overview -->
-    
-    <!-- SHOPS -->
-    <div ng-controller="HomeCtrl" class="row " style="position:relative;margin-top:30px">
-       <!-- SPLIT -->
-        <div class="shop-row shipping pattern-dark" style="maring-top:0px;position:relative;display:none;">
-          <div id="shipping" class="container navbar-inner" style="display:none;padding-top:0px;" >
-            <div class="span12" style="height:60px;">&nbsp;</div>
-            <div class="span5">
-              <p class="lead">
-                <h2>Prochaines livraisons les mercredi 34 mai et samedi 38 mai! </h2>
-                <div><img src="/img/bicycle-180x120.png" /></div>
-              </p>
-            </div>
-            <div class="span6">
-              <div class="google-map" 
-                center="centerProperty"
-                zoom="zoomProperty" 
-                markers="markersProperty"
-                latitude="clickedLatitudeProperty"
-                longitude="clickedLongitudeProperty"
-                mark-click="false"
-                draggable="false">
-              </div>
-            </div>
-          </div>
+            <article  ng-repeat="(group, _shops) in shops" > 
+              <h5 class="article-group-title ">
+                {{group}}
+                <i class="{{category.find({name:group}).image||''}} {{category.find({name:group}).color||gray}} icon-large"></i>
+              </h5>
 
-          <!-- NAVIGATION -->
-          <div class="navbar navbar-shipping-fixed navbar-fixed-top" >
-            <div class="navbar-inner navbar-shipping">
-                <div class="container" >
-                  <a class="brand"  href="#" slide-on-click="#shipping">Pickups & Deliveries in Eaux-Vives</a>
-                  <ul class="nav ">
-                    <li class="divider-vertical"></li>
-                   <!-- MENU -->
-                   <!--
-                    <li ng-repeat="category in category.findAll()|filter:{type:'Category'}">
-                      <a href="/products/category/{{category.slug}}">
-                        <i class="{{category.image||''}} {{category.color||gray}}"></i>&nbsp;
-                        {{category.name}}
-                      </a>
-                    </li>
-                    <li class="divider-vertical"></li>
-                   <!-- MENU -->
-                  </ul>
-                </div>
+              <div  style="width:98%;"><!-- MANSORY FIX -->
+                <div  ng-include="'/partials/shop/shop.html'"  ng-repeat="shop in _shops"></div>              
               </div>
-          </div>
-
+            </article>
         </div>
-        <!-- NAVIGATION -->
-        <div class="shop-row" ng-repeat="(group, _shops) in shops">
-          
-          <div id="container-{{$index}}" class="container relative" >
-            <h3 class=" sexy"><i class="{{category.find({name:group}).image||''}} {{category.find({name:group}).color||gray}} icon-large"></i> {{group}}</h3>
-            <div _masonry_ >
-                <div ng-include="'/partials/shop/shop.html'"  ng-repeat="shop in _shops" ></div>              
-            </div>
-          </div>
-        </div>
-      
 
-    </div>
-
-    <!-- PRODUCTS --><!--
-    <div class="row " style="position:relative">
-      <div class="container" >
-        <h2 class=" sexy"><i class="icon-fire red"></i>Quelques produits</h2>
-        <div  ng-include="'/partials/articles.html'"  ></div>              
+        <footer class="wrapper-footer">
+            <a class="wrapper-footer-link" title="View open job positions " href="/jobs">Travailler chez Kariboo</a>
+            <a class="wrapper-footer-link" title="Lire la charte de Kariboo" href="/sharte">Charte</a>
+            <a class="wrapper-footer-link" title="La FAQ de Kariboo" href="/help-center/faq">FAQ</a>
+        </footer>
       </div>
-    </div> -->
-
-
-    <div class="" ng-include="'/footer.html'">
-    </div>
-      
+   </section>
+</div>

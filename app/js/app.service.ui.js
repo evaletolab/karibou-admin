@@ -28,6 +28,26 @@ UI.filter('test', function () {
 });
 
 
+
+//
+// Declare global directives here
+UI.directive('toggleSidebar', ['$parse', function($parse) {
+  return function(scope, element, attr) {
+    var sb = $parse(attr['toggleSidebar']);
+    $('button.site-nav-logo').click(function(){
+        $("body").addClass("site-nav-transition site-nav-drawer-open");
+        //$("button.site-nav-logo").hide();
+      })
+    $("a.site-nav-list-item-btn").click(function(){
+        $("body").removeClass(" site-nav-drawer-open");  
+        $("button.site-nav-logo").show();
+    })
+
+
+  }
+}]);
+
+
 //
 // Declare global directives here
 UI.directive('ngFocus', ['$parse', function($parse) {
@@ -149,8 +169,8 @@ UI.directive('backfader', ['$parse','$location','$anchorScroll', function($parse
 UI.directive('appAffix', ['$parse','$timeout', function($parse, $timeout) {
 	  return function(scope, element, attr) {
 	      $timeout(function(){
-	        element.affix({offset: attr['npAffix']});
-	      },0);
+	        element.affix({offset: parseInt(attr['appAffix'])});
+	      },200);
 	  }
 	}]);
 

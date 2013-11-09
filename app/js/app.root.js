@@ -72,8 +72,12 @@ angular.module('app.root', [
     //  // current url is '/products/1'
     //  getClass('/products'); // returns 'active'
     //  getClass('/orders'); // returns ''
-    $scope.getClass = function (id) {
-      if ($scope.activeNavId&&$scope.activeNavId.substring(0, id.length) === id && id.length === $scope.activeNavId.length) {
+    $scope.getClass = function (id, or) {
+      if (!$scope.activeNavId)return '';
+      if ($scope.activeNavId.substring(0, id.length) === id) {
+        return 'active';
+      }
+      if (or && $scope.activeNavId.substring(0, or.length) === or) {
         return 'active';
       }
       return '';

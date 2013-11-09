@@ -14,7 +14,6 @@ exports.config =
       order:
         before: [
           'vendor/scripts/jquery.min.js',
-          'vendor/scripts/select2.js',
           'vendor/scripts/bootstrap.min.js',
           'vendor/scripts/angular.js',
           'vendor/scripts/angular-loader.js',

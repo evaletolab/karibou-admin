@@ -17,7 +17,7 @@ Shop.config([
     // List of routes of the application
     $routeProvider
       .when('/shop/:shop/products',{redirectTo:'/shop/:shop'})
-      .when('/shop/:shop', {title:'Votre boutique ', templateUrl : '/partials/shop/shop-desktop.html'});
+      .when('/shop/:shop', {title:'Votre boutique ', templateUrl : '/partials/shop/shop-content.html'});
   }
 ]);
 
@@ -120,7 +120,7 @@ Shop.controller('ShopCtrl',[
     //
     // ask a question
     $scope.modal=function(target){
-      angular.element('#ask').modal();
+      angular.element('#ask').modal({backdrop:false});
     }
     $scope.ask=function(content){
 

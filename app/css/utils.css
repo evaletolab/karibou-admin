@@ -102,8 +102,20 @@ ul.nav li{
   height:100%;
 }
 
-.affix{
-  margin-top:-340px;
+
+.affix {
+    position: fixed!important;
+    top: 00px;
+    left: 00px;
+    right: 0px;
+    z-index: 100;
+    background-color: white;
+    width: 90%;
+    padding-left: 80px;
+}
+
+.affix-top{
+    z-index:100;  
 }
 
 .shadow{
@@ -147,8 +159,16 @@ ul.nav li{
   color:white!important;
 }
 
+.black{
+  color:black!important;
+}
+
 .gray{
-  color:#777;
+  color:#777!important;
+}
+
+.pink{
+  color:#ff0985!important;
 }
 
 .bgblack{
@@ -193,16 +213,29 @@ ul.nav li{
 
 /* padding for in-page bookmarks and fixed navbar */
 section {
-  padding-top: 30px;
+  -padding-top: 30px;
 }
 section > .page-header,
 section > .lead {
   color: #5a5a5a;
 }
+
 section > ul li {
   margin-bottom: 5px;
 }
 
+section.box{
+  margin:0;
+  margin-bottom: 30px;
+  float:left;
+  width:100%;
+}
+
+section.box blockquote{
+  margin:0;
+  float:left;
+  width:100%;
+}
 
 /* Faded out hr */
 hr.soften {

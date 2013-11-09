@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" ng-controller="AppCtrl"  >
+<html lang="en" ng-controller="AppCtrl" class="screen-scroll" >
   <head>
     <meta charset="utf-8">
     <meta name="viewport"     content="width=device-width, initial-scale=1.0">
@@ -7,6 +7,20 @@
     <meta name="author"       content="Olivier Evalet">
     <meta name="fragment"     content="!" />    
     <title ng-bind-template="{{title}}"></title>
+
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" user-scalable="no">
+    <link rel="canonical" href="http://karibou.evaletolab.ch/">
+    <meta name="title" content="Kariboo">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="k.png">
+    <meta property="og:title" content="Kariboo">
+    <meta property="og:description" content="Kariboo" >
+    <meta property="og:site_name" content="Kariboo">
+    <meta property="og:url" content="http://Karibou.evaletolab.ch/">
+    <meta property="fb:app_id" content="012345">
+    <meta name="twitter:site" content="@kariboo">
+
 
     <!--[if lte IE 7]>
       <script src="http://cdnjs.cloudflare.com/ajax/libs/json2/20110223/json2.js"></script>
@@ -27,150 +41,108 @@
     
   </head>
 
-  <body class="preview fill" data-spy="scroll" data-target=".subnav" data-offset="90">
-  <!--[if lt IE 7]><p class="browser-support">
-    Unfortunately, this site won't work with your browser. Please upgrade to a modern browser:<br>
-    <a href="http://www.google.com/chrome">Google Chrome</a>
-    <a href="http://www.mozilla.org/firefox">Firefox</a>
-    <a href="http://www.microsoft.com/windows/internet-explorer/">Internet Explorer 9</a>
-  </p><![endif]-->
-  
-  <!-- Navbar
-    ================================================== -->
-    <div class="navbar navbar-fixed-top" >
-     <div style="z-index:2000;top:0px;height:1px;right:0px;left:0px;width:100%;background-color:#96C094;padding:1px;font-weight:bold;position:fixed" class="text-center white ">&nbsp;
-     </div>
-     <div class="navbar-inner navbar-karibou">
-       <div class="container">
-         <div class="pull-right" >
+   <body class=" site-nav-transition  ">
+      <!--[if lt IE 7]><p class="browser-support">
+        Unfortunately, this site won't work with your browser. Please upgrade to a modern browser:<br>
+        <a href="http://www.google.com/chrome">Google Chrome</a>
+        <a href="http://www.mozilla.org/firefox">Firefox</a>
+        <a href="http://www.microsoft.com/windows/internet-explorer/">Internet Explorer 9</a>
+      </p><![endif]-->
+
+      <nav class="site-nav" tabindex="-1" toggle-sidebar>
+         <button class="site-nav-logo " >
+            <span class=""><i class="icon-reorder white icon-2"></i><span class="bold white hide">K<sub>ariboo</sub></span></span>
+         </button>
+         <div  class="site-nav-scrollable-container">
+            
+      <!--            -->
+      <!-- NAVIGATION -->
+      <!--            -->
+
+            <ul class="site-nav-list">
+              <li class="site-nav-list-item navigable-list-item site-nav-list-item-home">
+                <span class=""><a class="site-nav-list-item-btn" title="Go home" href="/" tabindex="-1"><span class="icons icons-logo-m"></span>Home</a></span>
+              </li>
+
+              <li class="site-nav-list-item">
+                <a ng-hide="user.isAuthenticated()" ng-class="getClass('/login')" class="site-nav-list-item-btn" href="/login">Login</a>
+              </li>
+              <li class="site-nav-list-item">
+                <a ng-hide="user.isAuthenticated()" ng-class="getClass('/signup') " class="site-nav-list-item-btn" href="/signup">Sign Up</a>
+              </li>
+
+              <!-- SIGNED -->
+              <li ng-class="getClass('/account')" class="site-nav-list-item">
+                <a ng-show="user.isAuthenticated()" class="site-nav-list-item-btn" href="/account/"><span  ng-show="user.isAdmin()"><b>! </b></span><span ng-bind="user.display()"></span></a>
+              </li>
+              <li class="site-nav-list-item">
+                <a ng-show="user.isAuthenticated()" class="site-nav-list-item-btn" href="" ng-click="logout()">logout</a>
+              </li>
+              <li class="site-nav-list-item">
+                <a ng-show="user.shops.length" class="site-nav-list-item-btn" href="/products/create" role="button"><i class="icon-plus"></i>&nbsp;ajouter</a>
+              </li>
+
+
+              <!-- MENU -->
+
+              <li class="site-nav-list-item ">
+                <a class="site-nav-list-item-btn" ng-class="getClass('/products')" title="Les produits" href="/products" tabindex="-1">Les produits</a>
+              </li>
+
+              <li class="site-nav-list-item " ng-repeat="category in category.findAll()|filter:{type:'Category'}">
+                <a class="site-nav-list-item-btn white " title="{{category.name}}" href="/products/category/{{category.slug}}" tabindex="-1">{{category.name}}</a>
+              </li>
+
+            </ul>
+         </div>
+      </nav>
+
+      <div class="site-nav-overlay"></div>
+      <div class="container" id="container">
+
+      <!--          -->
+      <!-- FLASH    -->
+      <!--          -->
+         <div class="butter-bar active success " ng-cloak ng-show="FormInfos" 
+            ng-animate="{show: 'fadein', hide: 'fadeout'}">
+            <p class="butter-bar-message">
+              {{FormInfos}}
+            </p>
+         </div>
+         <div class="butter-bar active error " ng-cloak ng-show="FormErrors" 
+            ng-animate="{show: 'fadein', hide: 'fadeout'}">
+            <p class="butter-bar-message">
+              {{FormErrors}}
+            </p>
+         </div>
+
+
          
-           <ul class="nav">
-            <li class="dropdown">
-              <a href="" class="dropdown-toggle"><i class="icon-shopping-cart green"></i>&nbsp;<span class="simpleCart_quantity">0</span> articles <span class="small _simpleCart_total"></span></a>
-              <ul class="dropdown-menu cartcolumn" style="width:400px">
-                <li>
-                  <h4 class="text-center">Votre commande</h4>
-                  <div class="simpleCart_items"></div>
-                  <div id="cartData" class="clearfix">
-						          <div class="left"><strong>Articles: </strong><span class="simpleCart_quantity"></span></div>
-						          <div class="right"><strong>Livraison: </strong><span class="simpleCart_shipping"></span></div>
-						          <div class="right"><strong>Total: </strong><span class="simpleCart_grandTotal"></span></div>
-					          </div>
-					          <div id="popoverButtons" class="clearfix">
-					            
-						          <a href="javascript:simpleCart.empty();" class="simpleCart_empty btn btn ">Vider</a>
-						          <a href="javascript:;" class="simpleCart_checkout btn btn-primary pull-right">Checkout</a>
-					          </div>
-                </li>
-              </ul>
-            </li>
-           </ul>
+      <!--                       -->
+      <!-- OVERVIEW LEFT SIDEBAR -->
+      <!--                       -->
+         <div  class="surface" ng-controller="ProductCtrl" >
 
-           <ul class="nav" id="main-menu-right" ng-include="'/partials/account/menu.html'">
-           </ul>
-  
-           <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-             <span class="icon-bar"></span>
-             <span class="icon-bar"></span>
-             <span class="icon-bar"></span>
-           </a>
+      <!-- CONTENT -->
+            
+          <div ng-view="modal">   
+          </div>
 
+          <div class="fill row-fluid " ng-view >
+            &nbsp;
+          </div>
+      <!-- CONTENT -->
 
          </div>
-         <a class="brand" href="/"><i class="icon-home green"></i>&nbsp;K<sub>aribou</sub></a> 
-        
-
-        <div class="nav-collapse collapse" >
-          <ul class="nav" id="main-menu-left">
-            <li class="divider-vertical"></li>
-            <li>
-              <a  class="" href="/shops">Les marchands</a> 
-              <ul>
-                <li class="hide-responsive-desktop" ng-repeat="category in category.findAll()|filter:{type:'Catalog'}"><a href="/shops/category/{{category.slug}}">{{category.name}}</a></li>
-              </ul>
-            </li>
-            <li class="divider-vertical"></li>
-            <li ng-class="getClass('/products')">
-              <a  href="/products">Les produits</a> 
-              <ul>
-                <li class="hide-responsive-desktop" ng-repeat="category in category.findAll()|filter:{type:'Category'}"><a href="/products/category/{{category.slug}}">{{category.name}}</a></li>
-              </ul>
-            </li>
-            <li class="divider-vertical"></li>
-            <li class="divider-vertical"></li>
-          </ul>
-        </div>
-
-            
-
-       </div>
-     </div>
-    </div>
-    <div ng-cloak   class="alert-frame ">
-      <div class="alert alert-info box-shadow" ng-cloak ng-show="FormInfos" 
-            ng-animate="{show: 'fadein', hide: 'fadeout'}">
-        <button type="button" class="close" >&times;</button>
-        {{FormInfos}}
       </div>
-      <div class="alert alert-error box-shadow" ng-cloak ng-show="FormErrors"
-            ng-animate="{show:'fadein', hide: 'fadeout'}">
-        <button type="button" class="close" >&times;</button>
-        <h4>Ooops</h4> 
-        {{FormErrors}}
-      </div>
-    </div>    
-    <div ng-controller="ProductCtrl" style="padding-top:30px" class="fill">
-      <div ng-view="modal">   
-      </div>
+      <div class="loading-bar"></div>
+      <div></div>
+   </body>
 
-      <div class="fill row-fluid " ng-view >
-        &nbsp;
-      </div>
+  <!-- Placed at the end of the document so the pages load faster &callback=initCall -->
+  <!-- <script src="cordova.js"></script> -->
+  <script src="/js/vendor.js"></script>
+  <script src="/js/app.js"></script>
 
-    </div>    
-    <div id="pageslide" class="cartcolumn " style="left: auto; right: 0px;">
-    </div>
-    
-    <!-- Le javascript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster &callback=initCall -->
-    <!-- <script src="cordova.js"></script> -->
-    <script src="/js/vendor.js"></script>
-    <script src="/js/app.js"></script>
-    <!-- <script src="http://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script> -->
-    <script>
-      window.brunch = window.brunch || {};
-      window.brunch['auto-reload'] = {
-        enabled: true
-      };
-    </script>
-    
-    <script>
-    $(function(){
-      var $window = $(window)
-
-      // Disable certain links in docs
-      $('section [href^=#]').click(function (e) {
-        e.preventDefault()
-      })
-
-      // side bar
-      $('.kb-sidebar').affix({
-        offset: {
-          top: function () { 
-            var t=$window.width() <= 980 ? 470 : 340;
-            return t; 
-          }
-        , bottom: 70
-        }
-      });
-        
-      
-    });
-    
-    
-    </script>
-    
-  </body>    
 </html>
 

@@ -5,12 +5,18 @@
   position:relative;
 }
 
-.products-row:nth-child(odd){
+article:nth-child(odd){
   padding: 5px 0 30px 0;
+  -border-bottom:1px solid #ddd;
+  -background:url("/img/paper.jpg") repeat scroll 0 0 #F7F5F5;
+  -background:#eeeeee url(/img/pattern-diamond.png) center;
+
 }
 
-.products-row:nth-child(even){
+article:nth-child(even){
   padding: 5px 0 30px 0;
+  -border-bottom:1px solid #ddd;
+  --background:#eeeeee url(/img/pattern-diamond.png) center;
 }
 
 .drop-photo{
@@ -40,7 +46,8 @@
   background-color: #fff;
   border: 0px solid #eee;
   border-color:#EAE9E9 #D4D2D3 #B2B1B1;
-  box-shadow: 0 1px 5px 0 rgba(0, 0, 0, 0.33);
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.23);
+  box-shadow-: 0 1px 5px 0 rgba(0, 0, 0, 0.13);
   box-shadow-: 0 0px 6px 1px rgba(0, 0, 0, 0.12);
   margin-bottom: 25px;
   min-height: 20px;
@@ -70,7 +77,7 @@
   display: block;
   vertical-align:middle;
   background-color-:#eee;
-  padding:3px;
+  padding:0px;
   overflow:hidden;
   position:relative;
 }
@@ -231,12 +238,12 @@ form .layout-item.c1{
 
 
   
-  .layout-item.c3, .layout-item.c2{
+  .layout-item.c5, .layout-item.c2{
     margin:0.338em 0.238em 0.338em .76em;
 
     width: 220px;
     height:220px;
-    margin:0 30px 30px ;
+    margin:0 30px 30px 0;
     text-align:center;
     border-radius:0px 0px 2px 2px;
 

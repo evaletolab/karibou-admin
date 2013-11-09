@@ -14,20 +14,20 @@ label, input, button, select, textarea {
 }
 label{
     font-size: 16px;
-    color:#777;
+    color:#666;
+    text-shadow: 0px 1px 0px rgba(255,255,255,0.8);
 }
 .form-horizontal .control-label{
     text-align:left;
 }
 
 .frame{
-    border-radius: 8px;
-    box-shadow: 0 0px 5px rgba(0, 0, 0, 0.15) ;
-    margin-top:20px;
+    box-shadow: 0 0px 1px rgba(0, 0, 0, 0.75) ;
+    margin-top:0px;
     margin-bottom: 10px;
     min-height: 20px;
     overflow:hidden;
-    width:97%;
+    width:100%;
     float:left;
 }    
 
@@ -122,17 +122,16 @@ form.nomargin{
   height:480px;
   max-height:500px!important;
   background-image: -moz-linear-gradient(center top , #fff 0px, #ddd 60%);
-  background-image: -webkit-gradient(linear, 0 0, 0 60%, from(white), to(#ddd));
-  background-image: -webkit-linear-gradient(center top, white, #ddd);
-  background-image: -o-linear-gradient(center top, white, #ddd);
-  background-image: linear-gradient(to top, white, #ddd);
+  background-image: -webkit-gradient(linear, 0 0, 0 60%, from(#eee), to(#ddd));
+  background-image: -webkit-linear-gradient(center top, #eee, #ddd);
+  background-image: -o-linear-gradient(center top, #eee, #ddd);
+  -background-image: linear-gradient(to top, #eee, #ddd);
   
 }
 
 .modal-footer{
   background-repeat: repeat-x;
   border-radius:0px!important;
-  border-bottom:1px solid #aaa;
 }
 
 .modal-footer-dark{

@@ -1,7 +1,7 @@
-<section id="content" ng-controller="AccountCtrl" class="container login text-center">
-    <h2 class="text-center sexy" id="section-header">Account Recovery</h2>
+<section id="content" ng-controller="AccountCtrl" 
+  class="container login text-center" >
 
-    <div class="span12 box container">
+    <div class="span12 box ">
 
         <form name="form" novalidate="novalidate">
           <fieldset class="control-group">
@@ -16,6 +16,8 @@
             <div ng-hide="user.isAuthenticated()">
               <p><small>Vous n'avez pas encore de compte utilisateur, vous pouvez <a href="/signup" >en créer un</a></small></p>
             </div>                      
+
+
           </fieldset>          
         </form>
     </div>

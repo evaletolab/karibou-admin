@@ -1,0 +1,22 @@
+article{
+	font-family: "freight-sans-pro","Myriad Pro","Lucida Grande","Lucida Sans Unicode","Lucida Sans",Geneva,Verdana,sans-serif;
+	transition: color .1s linear;
+	height: auto;
+	float:left;
+	width:100%;	
+}
+.article-group-title{
+	padding-left: 0px;
+	padding-bottom: 12px;
+	padding-top: 12px;
+	font-size: 12px;
+	letter-spacing: 2px;
+	text-transform: uppercase;
+	color: #b3b3b1;
+	-webkit-transition: color .1s linear;
+	-moz-transition: color .1s linear;
+	-ms-transition: color .1s linear;
+	-o-transition: color .1s linear;
+	margin-bottom: 20px;
+	border-bottom: 1px solid #eee;
+}

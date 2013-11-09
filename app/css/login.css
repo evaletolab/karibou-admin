@@ -3,7 +3,7 @@
 -------------------------------------------------- */
 .login{
   margin:0 auto;
-  margin-top: 80px;
+  margin-top: 40px;
   width:390px;
   position:relative;
 }
@@ -93,7 +93,7 @@
 
   .login{
     width:98%;
-    padding:20px;
+    padding:2px;
   }
 
   .login h2{
