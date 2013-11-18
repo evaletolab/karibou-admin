@@ -1,39 +1,45 @@
+<div tabindex="-1"  id="null" class="screen-content" >
+  <aside ng-include="'/partials/cover.html'" class="cover cover-home img-loaded" >
+  </aside>
 
-    <div class="shop-row">
-      <div class="container" >
-        <p class="lead"><br/>Prochaines livraisons les mercredi 34 mai et samedi 38 mai! </p>
-      </div>
-    </div>
-   
 
-    
-    
-    
-    <!-- SHOPS -->
-    <div ng-controller="HomeCtrl" class="row " style="position:relative">
-        <!-- SPLIT -->
-        <div class="container " ng-cloak ng-hide="products.length" style="height:400px">
-          <h2 class="sexy textcenter">{{group}}</h2>
-          <hr class="separator"/>
-          <p>Désolé, il n'y a pas encore de produit disponnible dans cette rubrique! </p>
-        </div>          
-        <div class="container" ng-show="products.length">
-          <h2 class=" sexy textcenter"><i class="{{category.find({name:group}).image||''}} {{category.find({name:group}).color||gray}}"></i>&nbsp;{{group}}</h2>
-          <hr class="separator"/>
-          <div _masonry_>          
-            <div  ng-include="'/partials/product/product.html'"  ng-repeat="product in products"></div>              
-          </div>
+   <section class="wrapper" tabindex="-1" ng-controller="HomeCtrl">
+      <div class="wrapper-inner">
+
+        <!--                               -->
+        <!-- TITLE -->
+        <!--                               -->
+                          
+        <div  class="bucket post-bucket homepage-posts" app-affix="30">
+            <div class="bucket-header bucket-header-list show-subtitles-variant">
+               <nav class="bucket-sort">
+                  <h5 class="article-group-title list black" >
+                    <span class="bucket-header-title">{{group}}</span> 
+                  </h5>
+                  <h5 class="bucket-title " >
+                    <a href="/products" title="Les produits"><span class="bucket-header-title">Les produits</span> </a>
+                  </h5>
+               </nav>
+            </div>
         </div>
-        
-        
-      
-        
-    </div>
-
-    <!-- PRODUCTS -->
 
 
-    <br/><br/>
-    <div class="" ng-include="'/footer.html'">
-    </div>
-      
+        <!-- PRODUCTS -->
+        <div  class="row wrapheight" >
+     
+            <article>
+              <div  style="width:100%;"><!-- MANSORY FIX -->
+                <div  ng-include="'/partials/product/product.html'"  ng-repeat="product in products"></div>              
+              </div>
+            </article>
+          
+
+        </div>
+              
+
+        <footer class="wrapper-footer" ng-include="'/footer.html'"></footer>
+      </div>
+   </section>
+</div>
+
+   

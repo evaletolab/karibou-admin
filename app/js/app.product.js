@@ -44,13 +44,15 @@ Product.controller('ProductCtrl',[
   'category',
   'api',
   'product',
+  'cart',
 
-  function ($scope,$route, $location, $routeParams, $anchorScroll, config, category, api, product) {
+  function ($scope,$route, $location, $routeParams, $anchorScroll, config, category, api, product, cart) {
     $scope.product=product;
 
     var cb_error=api.error($scope);
 
     $scope.config=config;
+    $scope.cart=cart;
 
   
     $scope.save=function(product){

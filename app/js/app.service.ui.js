@@ -31,19 +31,25 @@ UI.filter('test', function () {
 
 //
 // Declare global directives here
-UI.directive('toggleSidebar', ['$parse', function($parse) {
+UI.directive('toggleSidebar', ['$parse','$timeout', function($parse, $timeout) {
   return function(scope, element, attr) {
     var sb = $parse(attr['toggleSidebar']);
     $('button.site-nav-logo').click(function(){
         $("body").addClass("site-nav-transition site-nav-drawer-open");
-        //$("button.site-nav-logo").hide();
+        $("button.site-nav-logo").css('opacity',0);
       })
-    $("a.site-nav-list-item-btn").click(function(){
-        $("body").removeClass(" site-nav-drawer-open");  
-        $("button.site-nav-logo").show();
-    })
+    $timeout(function(){
+      function hide(){
+          $("body").removeClass(" site-nav-drawer-open");  
+          $timeout(function(){
+            $("button.site-nav-logo").css('opacity',1);
+            //$("body").removeClass(" site-nav-transition ");  
+          },800);        
+      }
+      $(".site-nav-overlay").click(hide);
+      $("a.site-nav-list-item-btn").click(hide)
 
-
+    },1000)
   }
 }]);
 
@@ -86,6 +92,7 @@ UI.directive('backstretch', ['$parse', function($parse) {
           e.backstretch(path);
           return;
         }
+        if (path.indexOf('http')==-1)path='/'+path;
         style['background-image']='url('+path+')';
         e.css(style);	
               

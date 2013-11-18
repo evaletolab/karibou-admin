@@ -49,9 +49,12 @@
         <a href="http://www.microsoft.com/windows/internet-explorer/">Internet Explorer 9</a>
       </p><![endif]-->
 
-      <nav class="site-nav" tabindex="-1" toggle-sidebar>
+      <nav class="site-nav" tabindex="-1" toggle-sidebar ng-controller="OrderCtrl">
          <button class="site-nav-logo " >
-            <span class=""><i class="icon-reorder white icon-2"></i><span class="bold white hide">K<sub>ariboo</sub></span></span>
+            <span class=""><i class="icon-reorder white icon-2"></i>
+              &nbsp;<i class="icon-shopping-cart green small"></i>&nbsp;<span class="simpleCart_quantity green small"></span>
+              <span class="bold white hide">K<sub>ariboo</sub></span>
+            </span>
          </button>
          <div  class="site-nav-scrollable-container">
             
@@ -59,7 +62,7 @@
       <!-- NAVIGATION -->
       <!--            -->
 
-            <ul class="site-nav-list">
+            <ul class="site-nav-list fill">
               <li class="site-nav-list-item navigable-list-item site-nav-list-item-home">
                 <span class=""><a class="site-nav-list-item-btn" title="Go home" href="/" tabindex="-1"><span class="icons icons-logo-m"></span>Home</a></span>
               </li>
@@ -73,26 +76,58 @@
 
               <!-- SIGNED -->
               <li ng-class="getClass('/account')" class="site-nav-list-item">
-                <a ng-show="user.isAuthenticated()" class="site-nav-list-item-btn" href="/account/"><span  ng-show="user.isAdmin()"><b>! </b></span><span ng-bind="user.display()"></span></a>
+                <a ng-show="user.isAuthenticated()" class="site-nav-list-item-btn" href="/account/">@<span ng-bind="user.display()"></span></a>
+                <a ng-show="user.shops.length" class="site-nav-list-item-btn-secondary" href="/products/create" title="Ajouter un nouvel article"><i class="icon-plus gray"></i></a>                
               </li>
               <li class="site-nav-list-item">
                 <a ng-show="user.isAuthenticated()" class="site-nav-list-item-btn" href="" ng-click="logout()">logout</a>
               </li>
-              <li class="site-nav-list-item">
-                <a ng-show="user.shops.length" class="site-nav-list-item-btn" href="/products/create" role="button"><i class="icon-plus"></i>&nbsp;ajouter</a>
+
+              <!-- ADMIN-->
+              <li class="site-nav-list-item" ng-class="getClass('/logistic/collect')" ng-show="user.isAdmin()" >
+                <a class="site-nav-list-item-btn green" ng-href="/logistic/collect">Collecte</a>
               </li>
+              <li class="site-nav-list-item" ng-class="getClass('/logistic/overview')" ng-show="user.isAdmin()" >
+                <a class="site-nav-list-item-btn green" ng-href="/logistic/livraison">livraison</a>
+              </li>
+              <li class="site-nav-list-item" ng-class="getClass('/admin/category')" ng-show="user.isAdmin()" >
+                <a class="site-nav-list-item-btn green" ng-href="/admin/category">Categorie</a>
+              </li>
+              <li class="site-nav-list-item" ng-class="getClass('/admin/role')" ng-show="user.isAdmin()" >
+                <a class="site-nav-list-item-btn green" ng-href="/admin/role">Rôle</a>
+              </li>
+              <li class="site-nav-list-item" ng-class="getClass('/admin/user')" ng-show="user.isAdmin()" >
+                <a class="site-nav-list-item-btn green" ng-href="/admin/user">Utilisateurs</a>
+              </li>
+
 
 
               <!-- MENU -->
 
               <li class="site-nav-list-item ">
-                <a class="site-nav-list-item-btn" ng-class="getClass('/products')" title="Les produits" href="/products" tabindex="-1">Les produits</a>
+                <a class="site-nav-list-item-btn white" ng-class="getClass('/products')" title="Les produits" href="/products" tabindex="-1">Les produits</a>
               </li>
 
               <li class="site-nav-list-item " ng-repeat="category in category.findAll()|filter:{type:'Category'}">
                 <a class="site-nav-list-item-btn white " title="{{category.name}}" href="/products/category/{{category.slug}}" tabindex="-1">{{category.name}}</a>
               </li>
 
+              <!-- CART -->
+              <li class="site-nav-list-item " ng-repeat="item in cart.items">
+                <a class="site-nav-list-item-btn pink"  href="/products/{{item.get('id')}}" tabindex="-1">{{item.get('name')}}</a>
+              </li>
+
+              <li class="site-nav-list-item ">
+                <a class="site-nav-list-item-btn pink"  href="" tabindex="-1">TOTAL {{cart.total| number:2}} CHF</a>
+              </li>
+
+              <li class="site-nav-list-item ">
+                <a class="btn btn-inverse "  href="" ng-click="cart.empty()"><i class=" icon-remove"></i>&nbsp;Clear</a>
+                <a class="site-nav-list-item-btn-secondary btn btn-primary" href=""><i class=" icon-ok"></i>&nbsp;Checkout</a>                
+
+              </li>
+
+              
             </ul>
          </div>
       </nav>

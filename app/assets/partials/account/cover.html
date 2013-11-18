@@ -1,0 +1,41 @@
+<div class="cover-table cover-user site-user-sidebar">
+  <div class="cover-row">
+    <div class="cover-img" backstretch="{src:'user.background',load:'http://placehold.it/400x300&text=Photo'}"></div>
+
+    <!-- FOR ADMIN -->
+    <div class="cover-actions-top" fade-on-hover=".site-user-sidebar" >
+        <a  href="/account/profile"  class=" btn btn-large btn-primary btn-block ">Modifier données personnelles</a>
+        <a ng-hide="user.email.status == true"  class="btn btn-primary btn-large btn-block " >
+          Terminer l'activation de votre compte
+        </a>
+
+    </div>
+
+  </div>
+  <div class="cover-row">
+    <div class="cover-body">
+      <div class="cover-body-inner">
+        <span class="cover-avatar">
+          <span><img ng-src="{{user.photo | placehold:'160x160&text=Avatar'}}"  ></span>
+        </span>
+        <h1 class="cover-title">{{user.display()}}</h1>
+        <div class="cover-resume">
+              <div class="cover-resume-col">
+                <b>{{user.shops.length}}</b><br/>
+                <small>BOUTIQUES</small>
+              </div>
+              <div class="cover-resume-col"><b>5</b><br/><small>COMMANDES</small></div>
+              <div class="cover-resume-col"><b>50</b><br/><small>LOVES</small></div>
+        </div>
+
+        <!--
+        <div class="cover-actions" >
+        </div> -->
+
+      </div>
+    </div>
+  </div>
+</div>
+
+
+

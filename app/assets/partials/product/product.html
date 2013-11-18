@@ -4,9 +4,9 @@
           <div class="actions" fade-on-hover="#product{{product.sku}}">
               <p  ng-hide="!product.attributes.available||!product.pricing.stock" >
                 <a ng-disabled="!product.attributes.available " 
-                   class="btn btn-danger" ><i class="icon-star-empty"></i>&nbsp;J'aime</a> 
+                   class="btn btn-danger" ng-click="cart.love(product)"><i class="icon-star-empty"></i>&nbsp;J'aime</a> 
                 <a g-disabled="!product.attributes.available" 
-                   class="btn btn-primary item_add" href="javascript:;"><i class="icon-ok"></i>&nbsp;J'achète</a>
+                   class="btn btn-primary " ng-click="cart.add(product)"><i class="icon-ok"></i>&nbsp;J'achète</a>
               </p>
           </div>
         
@@ -24,12 +24,26 @@
           <img ng-cloak ng-hide="product.photo.url" src="{{false  | placehold:'275x225'}}" >
           <img ng-cloak ng-hide="product.attributes.available" ng-src="http://placehold.it/275x225/eeeeee/000000&text=indisponible" class="available">
           <img ng-cloak ng-hide="product.pricing.stock" ng-src="http://placehold.it/275x225/eeeeee/000000&text=plus+en+stock" class="available">
+
+          <!-- PRICE-->
+          <div class="price" >
+            <div class="" >
+              <span ng-hide="product.attributes.discount" class="small green bold  item_price">Fr {{product.pricing.price| number:2}}</span>
+              <span ng-show="product.attributes.discount" >
+                <span class="red bold strike"> {{product.pricing.price| number:2}}</span>
+                <span class="item_price green bold small">Fr {{product.pricing.discount| number:2}}</span>
+              </span>                 
+            </div>
+            <div class=" em" style="margin-top:-3px;">{{product.pricing.part}}</div>
+          </div>
+          <!-- PRICE-->
+
           
         </a>
 
         <div class="row-fluid vertical-divider" >
           <div class=" elem" >
-	            <div class=" span9 ">
+	            <div class=" span12 ">
 	              <div class="title item_name" >
 	                {{product.title}} <span ng-show="product.details.bio">(bio)</span>
 	              </div>
@@ -39,18 +53,6 @@
 	              
 	              
 	            </div>
-	            <!-- PRICE-->
-          	  <div class="price" >
-          	    <div class="" >
-          	      <span ng-hide="product.attributes.discount" class="small green bold  item_price">Fr {{product.pricing.price| number:2}}</span>
-          	      <span ng-show="product.attributes.discount" >
-          	        <span class="red bold strike"> {{product.pricing.price| number:2}}</span>
-          	        <span class="item_price green bold small">Fr {{product.pricing.discount| number:2}}</span>
-          	      </span>          	      
-          	    </div>
-          	    <div class=" em" style="margin-top:-3px;">{{product.pricing.part}}</div>
-          	  </div>
-          	  <!-- PRICE-->
           </div>
         </div>
         <!-- VENDOR-->

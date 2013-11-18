@@ -20,3 +20,8 @@ article{
 	margin-bottom: 20px;
 	border-bottom: 1px solid #eee;
 }
+.article-group-title.list{
+	float:left;
+	padding-right: 15px;
+	
+}

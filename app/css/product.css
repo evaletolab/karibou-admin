@@ -117,8 +117,11 @@ article:nth-child(even){
 .layout-item .price{
     overflow: visible;
     position: absolute;
-    right: 3px;
-    bottom:10px;
+    right: 0px;
+    bottom:0px;
+    padding:5px;
+    background:none repeat scroll 0 0 rgba(0, 0, 0, 0.6);
+    color:white;
 }
 
 .layout-item .shop{
@@ -231,8 +234,8 @@ form .layout-item.c1{
 
 
 	.layout-item.c1{
-		width: 200px; /* 305px */
-    margin:0 20px 20px 0;
+		width: 30%; /* 305px */
+    margin:0 3% 3% 0;
 	}
 
 
@@ -265,8 +268,15 @@ form .layout-item.c1{
 ------------------------- */
 @media (max-width: 767px) {
 	.layout-item.c1{
-		width: 30%; /* 305px */
-    margin:0.338em .238em .238em .760em;
+    width: 47%;
+    margin: 0 2.5% 5% 0;
+  }
+
+  .layout-item.c1:nth-child(odd){
+
+  }
+  .layout-item.c1:nth-child(even){
+    
   }
   
 	.layout-item.c2{
@@ -285,7 +295,6 @@ form .layout-item.c1{
 ------------------------- */
 @media (max-width: 480px) {
 	.layout-item.c1{
-		width: 45%;
 	}
 
 	.layout-item.c2, .layout-item.c3{
@@ -305,7 +314,7 @@ form .layout-item.c1{
 
 @media (max-width: 280px) {
 	.layout-item.c1, .layout-item.c2, .layout-item.c3{
-		width: 92%; /* 305px */
+		width: 98%; /* 305px */
 	}
 
   .layout-item{

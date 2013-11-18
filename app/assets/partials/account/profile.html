@@ -1,22 +1,40 @@
-<section id="content" ng-controller="AccountCtrl" class="container" backstretch="{src:'img/welcome-wide.jpg'}">
-    <h2 class="text-center sexy" id="section-header">Gérer votre profile</h2>
-    <br/>
-    <div ng-include="'/partials/account/navigation.html'"></div>
-    <div class="frame frame-white container">
-      <div ng-show="FormErrors" class="alert alert-error">
-        {{FormErrors}}
-      </div>
-      <div ng-show="FormInfos" class="alert alert-info">
-        {{FormInfos}}
-      </div>
-    
-      <form name="form" novalidate="novalidate" class="form-horizontal">
+<div tabindex="-1" class="screen-content" ng-controller="AccountCtrl">
+  
+
+  <div class="butter-bar active success back" ng-cloak ng-show="user.email.status !== true" >
+    <p class="butter-bar-message">
+      Vous devez valider votre profile pour finaliser votre inscription.
+    </p>
+  </div>
+
+
+  <aside ng-include="'/partials/account/cover.html'" class="cover cover-home img-loaded" >
+  </aside>
+
+
+   <section class="wrapper" tabindex="-1">
+      <div class="wrapper-inner">
+
+
+
+      <!--                               -->
+      <!-- NAVIGATION -->
+      <!--                               -->                          
+      <div  class="bucket post-bucket homepage-posts" ng-include="'/partials/account/navigation.html'"></div>
+
+
+      <!--                               -->
+      <!-- CONTENT                       -->
+      <!--                               -->                          
+ 
+
+
+      <form name="form" novalidate="novalidate" class="form-horizontal well well-small">
         <fieldset>
-          <h4 class="box ">Vos données personnelles</h4>        
-          <p class="lead bold text-center">
-            <span ng-hide="user.email.status == true">Vous devez valider votre profile pour finaliser votre inscription.</span>
-            <span ng-show="user.email.status == true">Votre profile est valide</span>          
-          </p>        
+          <h5 class="article-group-title " >
+            <span class="bucket-header-title">Vos données personnelles</span> 
+          </h5>          
+
           <!-- NAME FIRSTNAME -->        
           <div class="control-group ">
             <label class="control-label"><strong>Nom</strong></label>
@@ -38,9 +56,14 @@
               </p>
             </div>
           </div>
+          <br>
           <!-- ADDRESS -->
           <div class="box ">
-            <h4 >Votre addresse de livraison <a ng-hide="user.addresses.length" href ng-click="user.addresses.push({primary:true})" class="btn btn-small">Ajouter</a></h4>        
+            <h5 class="article-group-title " >
+              <span class="bucket-header-title">
+                Votre addresse de livraison <a ng-hide="user.addresses.length" href ng-click="user.addresses.push({primary:true})" class="btn btn-small">Ajouter</a>
+              </span> 
+            </h5>          
             <p class="help-block gray">
               Pour recevoir vos produits, indiqué une adresse de livraison.
             <p>
@@ -134,10 +157,14 @@
           </div>
         </fieldset>
       </form>      
-      
-    </div>
-</section>
 
 
+
+      <!-- FOOTER -->              
+        <footer class="wrapper-footer" ng-include="'/footer.html'"></footer>
+
+      </section>
+   </section>
+</div>
 
 

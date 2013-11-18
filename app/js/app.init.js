@@ -99,36 +99,6 @@ angular.element(document).ready(function () {
   // set api key
   filepicker.setKey("At5GnUxymT4WKHOWpTg5iz");
   
-  // http://wojodesign.com/simpleCart/
-  // <a href="#" 
-  //    onclick="simpleCart.add('quantity=1','name=Black Gold','price=58','image=images/thumbs/blackGold.jpg');return false;"> 
-  //    add to cart
-  // </a>
-  var s=simpleCart({
-      cartColumns: [
-	      //A custom cart column for putting the quantity and increment and decrement items in one div for easier styling.
-	      { view: function(item, column){
-		      return	"<span>"+item.get('quantity')+"</span>" + 
-				      "<div>" +
-					      "<a href='javascript:;' class='simpleCart_increment'><img src='/img/cart/increment.png' title='+1' alt='arrow up'/></a>" +
-					      "<a href='javascript:;' class='simpleCart_decrement'><img src='/img/cart/decrement.png' title='-1' alt='arrow down'/></a>" +
-				      "</div>";
-	      }, attr: 'custom' },
-	      //Name of the item
-	      { attr: "name" , label: false },
-	      //Subtotal of that row (quantity of that item * the price)
-	      { view: 'currency', attr: "total" , label: false  }
-      ],
-
-      checkout: { 
-          type: "PayPal" , 
-          email: "evaleto@gmail.com" 
-      },
-      cartStyle:'div',
-      shippingFlatRate: 7,
-      tax:        0.01,
-      currency:   "CHF"
-  });
 
 	  
 

@@ -33,19 +33,20 @@ angular.module('app.config', []).factory('config', [
           owner:"http://placehold.it/80x80&text=owner",
           bg:''
         }
-      },
-
-      providers : [
-        {name: 'twitter',   url: this.API_SERVER + '/auth/twitter'}
-      ],
-      otherproviders : [
-        {name: 'google+',   url: this.API_SERVER + '/auth/google'},
-        {name: 'facebook',  url: this.API_SERVER + '/auth/facebook'},
-        {name: 'linkedin',  url: this.API_SERVER + '/auth/linkedin'},
-        {name: 'github',    url: this.API_SERVER + '/auth/github'}
-      ]
+      }
 
     };
+    defaultConfig.providers = [
+      {name: 'twitter',   url: defaultConfig.API_SERVER + '/auth/twitter'}
+    ];
+
+    defaultConfig.otherproviders = [
+      {name: 'google+',   url: defaultConfig.API_SERVER + '/auth/google'},
+      {name: 'facebook',  url: defaultConfig.API_SERVER + '/auth/facebook'},
+      {name: 'linkedin',  url: defaultConfig.API_SERVER + '/auth/linkedin'},
+      {name: 'github',    url: defaultConfig.API_SERVER + '/auth/github'}
+    ];
+
     
     //
     // get server side config

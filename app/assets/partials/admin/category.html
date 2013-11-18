@@ -1,48 +1,67 @@
-<section id="content" ng-controller="CategoryCtrl" class="container">
-    <h2 class="text-center sexy" id="section-header">Gestion des catégories</h2>
-    <br/>
-    <div ng-include="'/partials/account/navigation.html'"></div>
-      <div class="frame frame-white container" >
+<div tabindex="-1" class="screen-content" ng-controller="CategoryCtrl">
+  
+
+
+
+   <section class="wrapper" tabindex="-1">
+      <div class="wrapper-inner">
+
+
+
+      <!--                               -->
+      <!-- NAVIGATION -->
+      <!--                               -->                          
+
+      <!--                               -->
+      <!-- CONTENT                       -->
+      <!--                               -->                          
+ 
+
+
+      <div class="well well-small" >
+        <h5 class="article-group-title " >
+          <span class="bucket-header-title">Gestion des catégories</span> 
+        </h5>         
+
         <div style="padding:20px">
-        <table  class="table table-condensed table-hover" >
-            <thead>
-              <tr>
-                <th>Nom</th>
-                <th>Liens</th>
-                <th>Poid</th>
-                <th>Type</th>
-                <th>Image</th>
+          <table  class="table table-condensed table-hover" >
+              <thead>
+                <tr>
+                  <th>Nom</th>
+                  <th>Liens</th>
+                  <th>Poid</th>
+                  <th>Type</th>
+                  <th>Image</th>
+                </tr>
+              </thead>
+
+              <tr  ng-repeat="c in categories" >
+                  <td>{{c.name}} </td>
+                  <td title="{{c.usedBy}}">{{c.usedBy.length}} </td>
+                  <td>{{c.weight}} </td>
+                  <td class="small" ng-class="{ 'green bold': c.type === 'Category','blue bold': c.type === 'Catalog' }">{{c.type}}</td>
+                  <td>
+                      <i class="{{c.image}}" style="color:{{c.color}}"></i>
+                      <span>{{c.image}}</span>
+                  </td>
+                  <td  style="width:60px;height:25px">
+                    <div fade-on-hover=".table">
+                    <button ng-hide="c.usedBy.length" ng-click="delete($index)" class="btn btn-mini"><i class="icon-remove"></i> </button>                  
+                    <button  class="btn btn-mini" bs-modal="'/partials/admin/category.modal.html'" ng-click="launchModal($index)"><i class="icon-edit"></i> </button>                  
+                    </div>
+                  </td>
               </tr>
-            </thead>
-
-            <tr  ng-repeat="c in categories" >
-                <td>{{c.name}} </td>
-                <td title="{{c.usedBy}}">{{c.usedBy.length}} </td>
-                <td>{{c.weight}} </td>
-                <td class="small" ng-class="{ 'green bold': c.type === 'Category','blue bold': c.type === 'Catalog' }">{{c.type}}</td>
-                <td>
-                    <i class="{{c.image}}" style="color:{{c.color}}"></i>
-                    <span>{{c.image}}</span>
-                </td>
-                <td  style="width:60px;height:25px">
-                  <div fade-on-hover=".table">
-                  <button ng-hide="c.usedBy.length" ng-click="delete($index)" class="btn btn-mini"><i class="icon-remove"></i> </button>                  
-                  <button  class="btn btn-mini" bs-modal="'/partials/admin/category.modal.html'" ng-click="launchModal($index)"><i class="icon-edit"></i> </button>                  
-                  </div>
-                </td>
-            </tr>
-        </table> 
-        <hr/>
-        <button type="button" class="btn btn-large btn-primary" bs-modal="'/partials/admin/category.modal.html'">Click to add category</button>
+          </table> 
+          <hr/>
+          <button type="button" class="btn btn-large btn-primary" bs-modal="'/partials/admin/category.modal.html'">Click to add category
+          </button>
         </div>
-      
-
-    </div>
-</section>
-
-        </div>
-          
       </div>
-    </section>
-  </div>
-</section>
+
+      <!-- FOOTER -->              
+        <footer class="wrapper-footer" ng-include="'/footer.html'"></footer>
+      </section>
+   </section>
+</div>
+
+

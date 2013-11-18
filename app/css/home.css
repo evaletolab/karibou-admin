@@ -163,6 +163,7 @@ html,body,.container {
     background-color:#fff;
     -webkit-overflow-scrolling:touch;
     padding-top: 0px;
+    margin-top: 20px;
 }
 
 .wrapper-inner {
@@ -202,7 +203,7 @@ html,body,.container {
 
 @media all and (max-width:500px) {
     .wrapper-inner {
-    padding:30px 5%}
+    padding:30px 2%}
 
 }
 
@@ -235,7 +236,8 @@ body {
 
 h1,h2,h3,h4 {
     font-family:"freight-sans-pro","Myriad Pro","Lucida Grande","Lucida Sans Unicode","Lucida Sans",Geneva,Verdana,sans-serif;
-    font-weight:700
+    font-weight:500;
+    padding-bottom: 10px;
 }
 
 p {
@@ -337,7 +339,9 @@ a {
     width:100%;
     -webkit-box-sizing:border-box;
     -moz-box-sizing:border-box;
-    box-sizing:border-box}
+    box-sizing:border-box;
+    background:none repeat scroll 0 0 rgba(0, 0, 0, 0.4);
+}
 
 .cover-title {
     font-size:32px;
@@ -415,7 +419,8 @@ a {
 
 .cover-body .cover-body-inner {
     position:relative;
-    z-index:100}
+    z-index:100;
+}
 
 .cover-bestof .cover-body-inner {
     text-align:center}
@@ -508,7 +513,9 @@ a {
     position:relative;
     left:-1px;
     margin:0;
-    padding:65px 5% 30px}
+    padding:65px 5% 30px;
+    background:none repeat scroll 0 0 rgba(0, 0, 0, 0.25);
+}
 
 .cover-title {
     font-size:24px;
@@ -528,6 +535,7 @@ a {
     line-height:32px}
 
 }
+
 
 .cover-table {
     display:table;
@@ -627,6 +635,23 @@ a {
     -webkit-box-shadow:inset -1px 0 0 #dededc;
     -moz-box-shadow:inset -1px 0 0 #dededc;
     box-shadow:inset -1px 0 0 #dededc}
+
+.cover-resume{
+    border-top: 1px solid #eee;
+    width: 100%;
+    float: left;
+    margin-top: 10px;
+    font-size: 80%
+}
+.cover-resume .cover-resume-col{
+    border-right: 1px solid #eee;
+    width: 30%;
+    float: left;
+    padding: 4px;
+}
+.cover-resume .cover-resume-col:last-child{
+    border-right: inherit;
+}
 
 @media all and (max-width:1000px) {
     .cover-user {
@@ -755,7 +780,7 @@ a {
 
 .bucket {
     position:relative;
-    padding-bottom:50px;
+    padding-bottom:25px;
     *zoom:1}
 
 .bucket:before,.bucket:after {
@@ -943,7 +968,7 @@ a {
     width:58%;
     max-width:640px;
     margin-left:36%;
-    z-index:800;
+    z-index:99800;
     text-align:center;
     -webkit-transition:top .7s,opacity .7s;
     -moz-transition:top .7s,opacity .7s;
@@ -961,6 +986,10 @@ a {
     -khtml-opacity:1;
     -moz-opacity:1;
     opacity:1}
+
+.butter-bar.back{
+    z-index:700;
+}
 
 .butter-bar-message {
     display:inline-block;
@@ -1128,9 +1157,9 @@ a {
     position:absolute;
     top:10px;
     left:10px;
-    width:44px;
+    width:84px;
     height:44px;
-    z-index:900;
+    z-index:1000;
     background-color:#333332;
     text-align:center;
     border:0;
@@ -1142,7 +1171,8 @@ a {
     -moz-transition:top .2s linear,left .2s linear,opacity .2s linear;
     -ms-transition:top .2s linear,left .2s linear,opacity .2s linear;
     -o-transition:top .2s linear,left .2s linear,opacity .2s linear;
-    transition:top .2s linear,left .2s linear,opacity .2s linear}
+    transition:top .2s linear,left .2s linear,opacity .2s linear
+}
 
 .site-nav-logo .icons {
     display:block;
@@ -1199,6 +1229,10 @@ a {
 .site-nav-list-item:last-child {
     margin-bottom:10px}
 
+.site-nav-list-item .btn{
+    margin:0 30px 0 42px;
+}
+
 .site-nav-list-item-btn {
     font-family:"freight-sans-pro","Myriad Pro","Lucida Grande","Lucida Sans Unicode","Lucida Sans",Geneva,Verdana,sans-serif;
     font-weight:700;
@@ -1226,6 +1260,13 @@ a {
     width:20px;
     text-align:center}
 
+.site-nav-list-item-btn-secondary {
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    padding: 5px 10px 0 6px;
+}
 
 .site-nav-transition .site-nav-scrollable-container {
     display:block;
@@ -1302,6 +1343,7 @@ a {
 
 .site-nav-search-inner {
     text-align:right}
+
 
 .site-nav-list-item-btn-secondary .icons-search:before {
     font-size:18px;
@@ -1541,7 +1583,12 @@ a {
     border-top:1px solid #f2f2f0;
     font-family:"freight-sans-pro","Myriad Pro","Lucida Grande","Lucida Sans Unicode","Lucida Sans",Geneva,Verdana,sans-serif;
     font-weight:400;
-    font-size:14px
+    font-size:14px;
+}
+.wrapper-footer.bottom{
+    position: absolute;
+    bottom: 0;
+    -left: 0;    
 }
 
 .wrapper-footer-link {

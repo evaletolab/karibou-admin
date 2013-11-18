@@ -1,40 +1,57 @@
-<section id="content" ng-controller="AccountCtrl" class="container">
-    <h2 class="text-center sexy" id="section-header">Ajouter une nouvelle boutique</h2>
-    <br/>
-    <div ng-include="'/partials/account/navigation.html'"></div>
-    <div class="frame frame-white container">
-       <div class="box ">
-          <p>You don't have a shop or you want a new one?</p>
-          <blockquote >
-            <b>This is the rules of our community marketplace ...</b>
-            <ol>
-              <li>Vous êtes producteur d'aliment<pre>
-                ...
-              </pre></li>
-              <li>Vous êtes revendeur d'aliment<pre>
-                ...
-              </pre></li>
-              <li>Vous êtes artisan<pre>
-                ...
-              </pre></li>
-              <li>Vous offrez vos services<pre>
-                ...
-              </pre></li>
-            </ol>
-            <small>Delphine S.A.</small>
-          </blockquote>
-        </div>        
-       <form name="form" class="form-horizontal container">
-         <div>
-          <div ng-show="FormErrors" class="alert alert-error">
-            {{FormErrors}}
-          </div>    
-          <div ng-show="FormInfos" class="alert alert-info">
-            {{FormInfos}}
-          </div>
-         </div>
 
-         <fieldset>
+  
+<div tabindex="-1"  id="null" class="screen-content" ng-controller="AccountCtrl">
+  
+
+  <div class="butter-bar active success back " ng-cloak ng-hide="user.shops.length">
+    <p class="butter-bar-message">
+      Vous n'avez pas encore crée votre boutique. Vous pouvez démarrer votre boutique après avoir lu la <a href="/charte" >charte</a>
+    </p>
+  </div>
+
+
+  <aside ng-include="'/partials/account/cover.html'" class="cover cover-home img-loaded" >
+  </aside>
+
+
+   <section class="wrapper" tabindex="-1">
+      <div class="wrapper-inner">
+
+
+
+      <!--                               -->
+      <!-- NAVIGATION -->
+      <!--                               -->                          
+      <div  class="bucket post-bucket homepage-posts" ng-include="'/partials/account/navigation.html'"></div>
+
+
+      <!--                               -->
+      <!-- CONTENT                       -->
+      <!--                               -->                          
+
+      <h5 class="article-group-title " >
+        <span class="bucket-header-title box">Ajouter une nouvelle boutique</span> 
+      </h5>
+
+      <div class=""  style="margin-bottom:40px;">
+        <blockquote >
+          <b>This is the rules of our community marketplace ...</b>
+          <ol>
+            <li>Vous êtes producteur d'aliment<pre>
+              ...
+            </pre></li>
+            <li>Vous êtes revendeur d'aliment<pre>
+              ...
+            </pre></li>
+            <li>Vous êtes un artisan<pre>
+              ...
+            </pre></li>
+          </ol>
+          <small>Kariboo </small>
+        </blockquote>
+      </div>        
+      <form name="form" class="form-horizontal well well-small" style="margin-bottom:80px;">
+        <fieldset>
           <!-- catalog -->
           <div class="control-group">
             <label class="control-label "><strong>Catalogue</strong></label> 
@@ -66,6 +83,12 @@
           </div>              
         </fieldset>
       </form>
-    </div>
-</section>
+
+
+      <!-- FOOTER -->              
+        <footer class="wrapper-footer" ng-include="'/footer.html'"></footer>
+
+      </section>
+   </section>
+</div>
 

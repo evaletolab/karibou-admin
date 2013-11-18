@@ -46,7 +46,7 @@
             <i class="{{category.find({name:group}).image||''}} {{category.find({name:group}).color||gray}}"></i>
           </h5>
 
-          <div  style="width:98%;"><!-- MANSORY FIX -->
+          <div  style="width:100%;"><!-- MANSORY FIX -->
             <div  ng-include="'/partials/product/product.html'"  ng-repeat="product in _products"></div>              
           </div>
         </article>
@@ -87,11 +87,7 @@
 
 
       <!-- FOOTER -->              
-        <footer class="wrapper-footer span12">
-            <a class="wrapper-footer-link" title="View open job positions " href="/jobs">Travailler chez Kariboo</a>
-            <a class="wrapper-footer-link" title="Lire la charte de Kariboo" href="/sharte">Charte</a>
-            <a class="wrapper-footer-link" title="La FAQ de Kariboo" href="/help-center/faq">FAQ</a>
-        </footer>
+        <footer class="wrapper-footer" ng-include="'/footer.html'"></footer>
       </section>
    </section>
 </div>

@@ -150,12 +150,12 @@ Category.factory('category', [
       angular.extend(this, defaultCategory, data);
     }
     
-    Category.findNameBySlug = function(slug){
+    Category.prototype.findNameBySlug = function(slug){
       var cat=this.find({slug:slug});
       if (cat) return cat.name; else return "Inconnu";      
     };
 
-    Category.findBySlug = function(slug){
+    Category.prototype.findBySlug = function(slug){
       return this.find({slug:slug});
     };
 

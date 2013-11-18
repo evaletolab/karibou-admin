@@ -1,53 +1,90 @@
 
-<section id="content" ng-controller="AccountCtrl" class="container">
-    <h2 class="text-center sexy" id="section-header">Aperçu de votre compte</h2>
-    <br/>
-    <div ng-include="'/partials/account/navigation.html'"></div>
-    <div class="frame frame-white container">
-      <div class="span12 box">
-        <div class="span1"><img width="160px" src="{{user.photo}}" class="round-corner"/></div>
-        <div class="span10">
-          <h4>{{ user.display() }}</h4>
-          <p><a href="/account/profile">Editer votre profile</a></p>
+<div tabindex="-1"  id="null" class="screen-content" ng-controller="AccountCtrl">
+  
+
+  <div class="butter-bar active success back " ng-cloak ng-show="user.email.status !== true">
+    <p class="butter-bar-message">
+      Vous devez valider votre profile pour finaliser votre inscription.
+    </p>
+  </div>
+
+
+  <aside ng-include="'/partials/account/cover.html'" class="cover cover-home img-loaded" >
+  </aside>
+
+
+   <section class="wrapper" tabindex="-1">
+      <div class="wrapper-inner">
+
+
+
+      <!--                               -->
+      <!-- NAVIGATION -->
+      <!--                               -->                          
+      <div  class="bucket post-bucket homepage-posts" ng-include="'/partials/account/navigation.html'"></div>
+
+
+      <!--                               -->
+      <!-- CONTENT                       -->
+      <!--                               -->                          
+
+      <!-- ORDERS -->
+      <div class="well well-small " style="width:100%;float:left;">
+        <div ng-hide="user.orders.length" class="span12">
+          <h5 class="article-group-title ">
+            <span class="bucket-header-title">Vous n'avez pas de commande enregistré.</span>
+          </h5>
         </div>
-      </div>
-      <div class="span12">
-        <h3>Services</h3>
-        <dl>
-          <dt class="red">Supprimer votre compte</dt>
-          <dd><a ng-click="deleteUser(user)">Close account and delete all services and info associated with it</a></dd>
-        </dl>
-      </div>
-    </div>
-    
-    <!-- SHOP LIST -->
-    <div class="frame frame-white container">
-      <div>
-        <div ng-show="FormErrors" class="alert alert-error">
-          {{FormErrors}}
-        </div>    
-        <div ng-show="FormInfos" class="alert alert-info">
-          {{FormInfos}}
-        </div>
-      </div>
-    
-      <div ng-hide="user.shops.length" class="span12">
-        <h5 class="span12">
-          Vous n'avez pas de boutique enregistré.
+        
+        <h5 ng-show="user.orders.length" class="article-group-title " >
+          <span class="bucket-header-title">Vos commandes</span> 
         </h5>
+      </div>          
+
+      <!-- LOVE -->
+      <div  class="well well-small " style="width:100%;float:left;">
+        <div ng-hide="user.likes.length" class="span12">
+          <h5 class="article-group-title ">
+            <span class="bucket-header-title">Vous n'avez pas de produits préférés.</span>
+          </h5>
+        </div>
+        
+        <h5 ng-show="user.likes.length" class="article-group-title " >
+          <span class="bucket-header-title">Vos coups de coeur</span> 
+        </h5>
+      </div>          
+    
+      <!-- SHOP LIST -->
+      <div class="well well-small " style="width:100%;float:left;margin-bottom:100px">
+        <div ng-hide="user.shops.length" class="span12">
+          <h5 class="article-group-title ">
+            Vous n'avez pas de boutique enregistré.
+          </h5>
+        </div>
+        
+        <h5 class="article-group-title " >
+          <span class="bucket-header-title">Vos boutiques</span> 
+        </h5>
+
+          <ul ng-repeat="shop in user.shops" class="-unstyled " ng-show="user.shops.length" >
+            <li class="block span12">              
+              <p class="-well-small">
+                <i class="icon-fire"></i>
+                <a href="/shop/{{shop.urlpath}}">{{shop.name}}</a><span ng-hide="shop.status == true" class="help-inline"><i class="icon-ok"></i>&nbsp;</span>
+                <span ng-bind-html-unsafe="shop.description"></span>&nbsp;
+                <input type="submit" ng-click="deleteShop(shop)" value="Supprimer" class="btn btn-small"/>
+              </p>
+              
+            </li>
+          </ul>
       </div>
-      <div ng-show="user.shops.length" >
-      <h3 class="box span12">Vos boutiques</h3>
-      <ul ng-repeat="shop in user.shops" class="unstyled ">
-        <li class="block span12">              
-          <p class="well-small">
-            <i class="icon-fire"></i>
-            <a href="/shop/{{shop.urlpath}}">{{shop.name}}</a><span ng-hide="shop.status == true" class="help-inline"><i class="icon-ok"></i>&nbsp;</span>
-            <span ng-bind-html-unsafe="shop.description"></span>&nbsp;
-            <input type="submit" ng-click="deleteShop(shop)" value="Supprimer" class="btn btn-small"/>
-          </p>
-          
-        </li>
-      </ul>
-    </div>
-</section>
+ 
+
+
+
+      <!-- FOOTER -->              
+        <footer class="wrapper-footer" ng-include="'/footer.html'"></footer>
+
+      </section>
+   </section>
+</div>

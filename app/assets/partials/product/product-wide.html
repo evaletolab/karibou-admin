@@ -21,13 +21,13 @@
           
           </h2>
           <p>
-            <button type="input" class="btn btn-large btn-danger " style="margin:3px"><i class="icon-star-empty"></i>&nbsp;J'aime</button> 
-            <a type="input" class="btn btn-large btn-primary item_add " style="margin:3px" href="javascript:;"
-               ng-hide="!product.attributes.available||!product.pricing.stock"><i class="icon-ok"></i>&nbsp;J'achète</a>
+            <button type="input" class="btn btn-large btn-danger " style="margin:3px" ng-click="cart.love(product)"><i class="icon-star-empty"></i>&nbsp;J'aime</button> 
+            <button type="input" class="btn btn-large btn-primary  " style="margin:3px" ng-click="cart.add(product)"
+               ng-hide="!product.attributes.available||!product.pricing.stock"><i class="icon-ok"></i>&nbsp;J'achète</button>
           </p>
           <p>
             <div class="label label-info lead">
-               <span class="simpleCart_quantity">0</span> articles <span class="small _simpleCart_total"></span>          
+               <span>{{cart.quantity}}</span> articles <span class="small _simpleCart_total"></span>          
             </div>                
           </p>
         </div>
