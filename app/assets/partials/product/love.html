@@ -15,10 +15,10 @@
             <div class="bucket-header bucket-header-list show-subtitles-variant">
                <nav class="bucket-sort">
                   <h5 class="bucket-title active" >
-                    <a href="/products" title="Les produits"><span class="bucket-header-title">Les produits</span> </a>
+                    <a href="/account/love" title="Mes produits"><span class="bucket-header-title"><i class="icon-heart pink"></i> Mes produits</span> </a>
                   </h5>
                   <h5 class="bucket-title" >
-                    <a href="/shops" title="Collections"><span class="bucket-header-title">Les boutiques</span> </a>
+                    <a href="/products" title="Collections"><span class="bucket-header-title">Tous les produits</span> </a>
                   </h5>
                </nav>
             </div>
@@ -28,14 +28,9 @@
         <div ng-controller="HomeCtrl" class="row wrapheight" >
      
 
-            <article  ng-repeat="group in keys(products)"  ng-show="products[group].length"> 
-              <h5 class="article-group-title ">
-                {{group}}
-                <i class="{{category.find({name:group}).image||''}} {{category.find({name:group}).color||gray}}"></i>
-              </h5>
-
+            <article>
               <div  style="width:100%;"><!-- MANSORY FIX -->
-                <div  ng-include="'/partials/product/product.html'"  ng-repeat="product in products[group]"></div>              
+                <div  ng-include="'/partials/product/product.html'"  ng-repeat="product in products"></div>              
               </div>
             </article>
           

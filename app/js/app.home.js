@@ -31,6 +31,7 @@ Home.config([
 // the HomeCtrl is used in home.html (see app/assets/home.html)
 Home.controller('HomeCtrl', [
   '$scope',
+  '$route',
   '$location',
   '$rootScope',
   '$routeParams',
@@ -41,10 +42,16 @@ Home.controller('HomeCtrl', [
   'shop',
   'product',
 
-  function ($scope, $location, $rootScope, $routeParams, config, api, category, user, shop, product) {
+  function ($scope, $route, $location, $rootScope, $routeParams, config, api, category, user, shop, product) {
     var filter={sort:'created'};
     $scope.user = user;
     
+    if($route.current.$$route.love){
+      user.me(function(u){
+        $scope.products=product.map(u.likes);
+      });
+      return;      
+    }
 
     //
     // list products by category

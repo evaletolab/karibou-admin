@@ -42,11 +42,12 @@ Product.controller('ProductCtrl',[
   '$anchorScroll',
   'config',
   'category',
+  'user',
   'api',
   'product',
   'cart',
 
-  function ($scope,$route, $location, $routeParams, $anchorScroll, config, category, api, product, cart) {
+  function ($scope,$route, $location, $routeParams, $anchorScroll, config, category, user, api, product, cart) {
     $scope.product=product;
 
     var cb_error=api.error($scope);
@@ -68,6 +69,16 @@ Product.controller('ProductCtrl',[
     }
     
     
+    $scope.love=function(product){
+      if(!user.isAuthenticated()){
+          api.info($scope,"Vous devez vous connecter pour utiliser cette fonctionalité");
+          return;
+      }
+      user.love(product,function(u){
+          api.info($scope,"Votre produit a été enregistrée!");
+      })
+    }
+
     $scope.create=function(shop,p){
       if (!shop){
         return api.info($scope,"Vous devez préciser la boutique");

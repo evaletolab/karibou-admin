@@ -5,6 +5,8 @@ var App = angular.module('app', [
   'ngCookies',
   'ngResource',  
   'ngRoute',
+  'ngTouch',
+  'ngSanitize',
   'app.config',
   'app.api',
   'app.root',
@@ -27,15 +29,17 @@ App.config([
   function ($routeProvider, $locationProvider, $httpProvider) {
 
     var interceptor = ['$rootScope', '$q', function (scope, $q) {
-      function success(response) {
+      function success(response, config) {
           scope.WaitText = false;
-          NProgress.done(500);
+          NProgress.done();
+          // console.log(response.headers(), response.config.url)
+
           return response;
       }
 
       function error(response) {
           scope.WaitText = false;
-          NProgress.done(500);
+          NProgress.done();
           return $q.reject(response);
       }
 
@@ -95,9 +99,14 @@ App.factory('cordovaReady', function() {
 
 // Bootstrap (= launch) application
 angular.element(document).ready(function () {
+
+
   //
-  // set api key
-  filepicker.setKey("At5GnUxymT4WKHOWpTg5iz");
+  // loading leafletjs and the directive
+  // $script(["//cdn.leafletjs.com/leaflet-0.7/leaflet.js",
+  //      "//rawgithub.com/tombatossals/angular-leaflet-directive/master/dist/angular-leaflet-directive.min.js"],
+  //      "leaflet");
+  
   
 
 	  

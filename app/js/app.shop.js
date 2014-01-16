@@ -3,7 +3,7 @@
 //
 // Define the Shop module (app.shop)  for controllers, services and models
 // the app.shop module depend on app.config and take resources in shop/*.html 
-var Shop=angular.module('app.shop', ['app.config', 'app.api', 'ui.bootstrap']);
+var Shop=angular.module('app.shop', ['app.config', 'app.api']);
 
 //
 // define all routes for user api
@@ -46,6 +46,7 @@ Shop.controller('ShopCtrl',[
     $scope.shop=shop;
     
     $scope.save=function(shop){
+      console.log(shop)
       shop.save(function(s){
           api.info($scope,"Votre boutique a été enregistrée!");
       },cb_error);

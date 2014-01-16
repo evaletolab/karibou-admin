@@ -13,7 +13,7 @@ exports.config =
         'test/scenarios.js': /^test(\/|\\)e2e/
       order:
         before: [
-          'vendor/scripts/jquery.min.js',
+          'vendor/scripts/jquery.2.0.0.js',
           'vendor/scripts/bootstrap.min.js',
           'vendor/scripts/angular.js',
           'vendor/scripts/angular-loader.js',

@@ -105,12 +105,11 @@ ul.nav li{
 
 .affix {
     position: fixed!important;
-    top: 00px;
+    top: 0px;
     left: 00px;
     right: 0px;
     z-index: 100;
     background-color: white;
-    width: 90%;
     padding-left: 80px;
 }
 
@@ -169,6 +168,10 @@ ul.nav li{
 
 .pink{
   color:#ff0985!important;
+}
+
+.pink1{
+  color:pink!important;
 }
 
 .bg-black{

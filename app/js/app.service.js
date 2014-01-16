@@ -63,7 +63,15 @@ function ($rootScope, $http, $resource, $timeout, config) {
       if(typeof err.responseText === 'string')
         return err.responseText;
       if(typeof err.data === 'string')
-        return err.data;                
+        return err.data;       
+      console.log(err)
+      if(err.data.length){
+        var msg=""
+        err.data.forEach(function(e){
+          msg=msg+"<p>"+e+"</p>";
+        })
+        return msg;
+      }         
       return "Undefined error!";
   };
 
@@ -82,28 +90,37 @@ function ($rootScope, $http, $resource, $timeout, config) {
   
   
   function uploadfile($scope, options, callback){
-    filepicker.pick({
-        mimetypes: ['image/*'],
-        maxSize: 150*1024,
-        services:['COMPUTER', 'FACEBOOK', 'GMAIL', 'INSTAGRAM'],
-      },
-      function(FPFile){
-        //https://www.filepicker.io/api/file/PMaxCDthQd2buSL4lcym
-               
-        $scope.$apply(function () {
-          filepicker.stat(FPFile, {width: true, height: true},
-            function(metadata){              
-              callback(null,FPFile,metadata, metadata.height/metadata.width);
+    //
+    // load filepicker and set api key
+    $script("//api.filepicker.io/v1/filepicker.js",function(){
+      console.log("load fp")
+      filepicker.setKey("At5GnUxymT4WKHOWpTg5iz");
 
-          });        
-        });
-      },
-      function(FPError){
-        $scope.$apply(function () {
-          callback(FPError);
-        });
-      }
-    );
+      filepicker.pick({
+          mimetypes: ['image/*'],
+          maxSize: 150*1024,
+          services:['COMPUTER', 'FACEBOOK', 'GMAIL', 'INSTAGRAM'],
+        },
+        function(FPFile){
+          //https://www.filepicker.io/api/file/PMaxCDthQd2buSL4lcym
+                 
+          $scope.$apply(function () {
+            filepicker.stat(FPFile, {width: true, height: true},
+              function(metadata){              
+                callback(null,FPFile,metadata, metadata.height/metadata.width);
+
+            });        
+          });
+        },
+        function(FPError){
+          $scope.$apply(function () {
+            callback(FPError);
+          });
+        }
+      );
+
+    })
+
     return false;      
   }
   

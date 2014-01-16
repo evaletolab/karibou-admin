@@ -81,7 +81,7 @@
                     <div class="control-group">
                       <label class="control-label ">Catégorie </label> 
                       <div class="controls small">
-                        <select  ng-model="product.categories " class="input-xlarge" required multiple>
+                        <select  ng-model="product.categories " class="input-xlarge" required >
                         
                           <option ng-repeat="cat in category.findAll()| filter:{type:'Category'}" 
                                   ng-selected="product.categories[0]==cat._id" value="{{cat._id}}" >{{cat.name}}</option>
@@ -166,25 +166,14 @@
                     </div>
                   </div>
                   
-                  <!-- show comments-->
-                  <div class="control-group">
-                    <!-- <label class="control-label">Qte disponible</label> -->
-                    <div class="controls">
-                      <p class="_help-block gray">Afficher les commentaires</p>
-                      <label class="checkbox">
-                        <input type="checkbox" ng-model="product.attributes.comment" />
-                        Vous activer le suivit d'une discussion concernant ce produit
-                      </label>
-                      
-                    </div>
-                  </div>
+
                   </div>
                   
 
                   
                 </fieldset>          
               </div>
-              <! -- 2 COLUMN -->
+              <!-- 2 COLUMN -->
               <div class="span5">
                 <fieldset>
 
@@ -200,7 +189,18 @@
 
                   <!-- overview -->
                   <div  ng-include="'/partials/product/product.html'"  class="span12"></div>              
-
+                  <!-- show comments-->
+                  <div class="control-group">
+                    <!-- <label class="control-label">Qte disponible</label> -->
+                    <div class="controls">
+                      <p class="_help-block gray">Afficher les commentaires</p>
+                      <label class="checkbox">
+                        <input type="checkbox" ng-model="product.attributes.comment" />
+                        Vous activer le suivit d'une discussion concernant ce produit
+                      </label>
+                      
+                    </div>
+                  </div>
 
                 </fieldset>          
               </div>                

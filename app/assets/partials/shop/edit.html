@@ -1,12 +1,12 @@
-                <div  id="shop-edit" class="frame frame-white " style="display:none;">
-                  <form id="tab" class="form-horizontal" >
+                <div  id="shop-edition" class="frame frame-white " style="display:none;">
+                  <form  class="form-horizontal" >
                   <!-- <div class="modal-header">
                     <h3 class="gray">Editer votre boutique</h3>
                   </div> -->
                   <div class="modal-body" style="min-height:400px;max-height:700px;">
 
-                    <tabset type="'tabs'">
-                      <tab heading="Votre boutique">
+                    <div data-fade="1" bs-tabs>
+                      <div data-title="Votre boutique">
                         <fieldset>
                           <div ng-show="shop.status!=true" class="items-header ">
                             <p >
@@ -81,9 +81,9 @@
 
                           </fieldset>
                        
-                      </tab>
+                      </div> <!-- TAB -->
 
-                      <tab heading="Information">
+                      <div data-title="Information">
                         <fieldset>
 
                           <!-- shop.available.active -->
@@ -121,32 +121,64 @@
                           </div>
 
                         </fieldset>
-                      </tab>    
+                      </div> <!-- TAB -->    
 
 
-                      <tab heading="Adresse">
+                      <div data-title="Adresse de logistique">
+
                         <fieldset>
                           <!-- URL -->
                           <div class="control-group">
-                            <label class="control-label">URL</label>
+                            <label class="control-label"><strong>URL</strong></label>
                             <div class="controls">
                               <input type="url" class="span10" ng-model="shop.url" ngMinlength="20" placeholder="Votre site internet"/>                        
                               <p class="help-block"></p>
                             </div>
                           </div>
 
-                          <!-- location -->
+
+                        <div class="control-group">                  
+                          <label class="control-label"><strong>Nom complet</strong></label>
+                          <div class="controls">
+                              <input   ng-model="shop.address.name" type="text" placeholder="ex. {{user.displayName}}"
+                              class="input-xlarge" require>
+                              <p class="help-block"></p>
+                              
+                          </div>
+                        </div>
+                          <!-- street & floor -->
                           <div class="control-group">
-                            <label class="control-label">Lieux</label>
+                            <label class="control-label"><strong>Rue, Numéro /étage</strong></label>
                             <div class="controls">
-                              <select name="location" class="input-xlarge" ng-model="shop.location" >
-                                  <option ng-repeat="location in config.shop.location.list" >{{location}}</option>
+                                <input  ng-model="shop.address.streetAdress"  type="text"  placeholder="ex. Route de Chêne 210" class="input-xlarge inline" require>
+                                <input  ng-model="shop.address.floor" type="text" placeholder="étage" class="input-small inline" require>
+
+                                <p class="help-block">Addresse de collecte de la marchandise.</p>
+                            </div>
+                          </div>
+                          <!-- postal -->
+                          <div class="control-group">
+                            <label class="control-label"><strong>Code Postal</strong></label>
+                            <div class="controls">
+                                <input  ng-model="shop.address.postalCode"  type="text" placeholder="code postal 1200" 
+                                class="input-xlarge" require>
+                                <p class="help-block"></p>
+                            </div> 
+                          </div>
+                          <!-- commune -->
+                          <div class="control-group">
+                            <label class="control-label"><strong>Commune</strong></label>
+                            <div class="controls">
+                              <select class="input-xlarge" ng-model="shop.address.location"  
+                                       data-ng-options="l for l in config.shop.user.location.list" >
+                                  <option value="">-- Choisissez  --</option>
                               </select>
                             </div>
                           </div>
 
+
                           <!-- Marketplace -->
-                          <div class="control-group">
+<!--                           <div class="control-group">
                             <label class="control-label">Mes marchés</label>
                             <div class="controls">
                               <select class="input-xlarge" multiple="multiple" ng-model="shop.marketplace" >    
@@ -155,16 +187,12 @@
                               <p class="help-block">Je propose mes produits sur les marchés suivant</p>
                             </div>
                           </div>
-
+ -->
                         </fieldset>
-                      </tab>    
-                      <tab heading="Logistique">
-                        <fieldset>
-                        </fieldset>
-                      </tab>
+                      </div> <!-- TAB -->    
                             
 
-                      <tab heading="FAQ">
+                      <div data-title="FAQ">
                         <h2>Foire aux questions</h2>
                           <label>Constituez votre liste des questions fréquemment posées.</label>
                           <ul class="unstyled">
@@ -177,18 +205,18 @@
                               <a href ng-click="shop.faq.push({})" class="btn btn-small">Ajouter <i class="icon-plus"></i></a>
                             </li>
                           </ul>
-                      </tab>  
+                      </div> <!-- TAB -->  
 
-                      <tab heading="Aperçu">
+                      <div data-title="Aperçu">
                           <div  ng-include="'/partials/shop/shop.html'"  ></div>              
-                      </tab>    
+                      </div> <!-- TAB -->    
                         
-                    </tabset>
+                    </div>
                   </div>
                   <div class="modal-footer ">
                     <input type="button"  ng-click="shop.remove(user);shops.pop(shop)" title="depth delete for dev only" value="Supprimer" class="btn btn-large btn-danger pull-left"/>
                     <input type="button"  ng-click="save(shop);" value="{{WaitText || 'Enregistrer'}}" class="save btn btn-primary btn-large"/>
-                    <input type="button"  value="Annuler" class="undo btn btn-large "/>
+                    <input type="button"  value="Annuler" class="undo btn btn-large " hide-on-click="#shop-edition" />
                   </div>
 
                   </form>

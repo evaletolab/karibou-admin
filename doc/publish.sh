@@ -6,5 +6,5 @@
 }
 ./node_modules/.bin/brunch build -m
 cp htaccess build/.htaccess
-cd build && rsync -avu --delete -e 'ssh -p2222' . evaleto@gelux.ch:www/localshop.gelux.ch/
+cd build && rsync -avu --delete -e 'ssh -p22' . evaleto@evaletolab.ch:www/www.kariboo.ch/
 

@@ -142,7 +142,7 @@ svg:not(:root) {
 .wf-sans-i4,.wf-sans-i7,.wf-serif-i4,.wf-serif-i7 {
     font-style:italic}
 
-html,body,.container {
+html,body,.main {
     height:100%}
 
 .surface {
@@ -162,8 +162,9 @@ html,body,.container {
     bottom:0;
     background-color:#fff;
     -webkit-overflow-scrolling:touch;
+    overflow-y:auto;
     padding-top: 0px;
-    margin-top: 20px;
+    margin-top: 0px;
 }
 
 .wrapper-inner {
@@ -175,7 +176,7 @@ html,body,.container {
     padding:30px 85px;
 }
 
-.container {
+.main {
     -webkit-transition:-webkit-transform .2s cubic-bezier(0.2,0.3,0.25,0.9);
     -moz-transition:-moz-transform .2s cubic-bezier(0.2,0.3,0.25,0.9);
     -o-transition:-o-transform .2s cubic-bezier(0.2,0.3,0.25,0.9);
@@ -185,8 +186,8 @@ html,body,.container {
     outline:0}
 
 @media not print {
-    .screen-scroll,.screen-scroll>body,.screen-scroll .container {
-    overflow:hidden}
+    .screen-scroll,.screen-scroll>body,.screen-scroll .main {
+    overflow:auto}
 
 }
 
@@ -196,14 +197,15 @@ html,body,.container {
     position:relative}
 
 .wrapper-inner {
-    padding:40px 8%;
+    padding:40px 108px;
     max-width:100%}
 
 }
 
 @media all and (max-width:500px) {
     .wrapper-inner {
-    padding:30px 2%}
+        padding:3px 2% 0 4%;
+    }
 
 }
 
@@ -230,7 +232,7 @@ body {
     line-height:1.4
 }
 
-.container {
+.main {
     background:#fff
 }
 
@@ -377,6 +379,7 @@ a {
     top:30%;
     left:10%;
     width: 80%;
+    text-align: center;
 }
 
 .cover-actions .btn {
@@ -480,7 +483,7 @@ a {
     position:relative!important;
     width:100%;
     max-width:none;
-    height:576px}
+    height:576px;}
 
 .cover-body {
     width:100%;
@@ -500,11 +503,11 @@ a {
 
 @media all and (max-width:500px) {
     .cover {
-    height:350px}
+    height:auto}
 
 .cover-bestof,.cover-home,.cover-collection {
-    min-height:350px;
-    height:auto;
+    min-height:250px;
+    -height:auto;
     display:table}
 
 .cover-body {
@@ -534,6 +537,9 @@ a {
     margin-left:0;
     line-height:32px}
 
+.cover-actions-top {
+    top:10%;
+    }
 }
 
 
@@ -693,7 +699,7 @@ a {
     background-position:center 90px}
 
 .cover-user .cover-img {
-    height:240px}
+    height:340px}
 
 .cover-user .cover-body {
     padding-left:5%;
@@ -879,7 +885,8 @@ a {
     margin-bottom:30px}
 
 .bucket-header-title {
-    max-width:220px;
+    line-height:12px;
+    max-width:420px;
     display:inline-block;
     overflow:hidden;
     white-space:nowrap;
@@ -1154,11 +1161,11 @@ a {
     background-color:#232322}
 
 .site-nav-logo {
-    position:absolute;
-    top:10px;
-    left:10px;
-    width:84px;
-    height:44px;
+    position:fixed;
+    top:40px;
+    left:0px;
+    width:93px;
+    height:38px;
     z-index:1000;
     background-color:#333332;
     text-align:center;
@@ -1205,8 +1212,8 @@ a {
 
 .site-nav-scrollable-container {
     display:none;
-    overflow:auto;
     -webkit-overflow-scrolling:touch;
+    overflow-y:auto;
     height:100%;
     -webkit-box-shadow:inset -1px 0 3px rgba(0,0,0,0.3);
     -moz-box-shadow:inset -1px 0 3px rgba(0,0,0,0.3);
@@ -1575,7 +1582,7 @@ a {
 }
 
 .wrapper-footer {
-    margin:0 auto;
+    margin:10px 25px;
     padding:10px 0 25px;
     -webkit-box-sizing:border-box;
     -moz-box-sizing:border-box;
@@ -1584,6 +1591,7 @@ a {
     font-family:"freight-sans-pro","Myriad Pro","Lucida Grande","Lucida Sans Unicode","Lucida Sans",Geneva,Verdana,sans-serif;
     font-weight:400;
     font-size:14px;
+    float: left;
 }
 .wrapper-footer.bottom{
     position: absolute;

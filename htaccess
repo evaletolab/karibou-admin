@@ -1,3 +1,8 @@
+#
+# do some test
+# time wget -S -q http://karibou-api.eu01.aws.af.cm/v1/config
+# time wget -S -q http://karibou-api.evaletolab.ch/v1/config
+
 # html5 pushstate (history) support:
 <ifModule mod_rewrite.c>
     RewriteEngine On
@@ -11,18 +16,22 @@
     AddOutputFilterByType DEFLATE text/text text/html text/plain text/xml text/css application/x-javascript application/javascript
 </ifmodule>
 
+<IfModule mod_headers.c>
+Header set Access-Control-Allow-Origin "*"
+</IfModule>
+
 # 1 YEAR
 <FilesMatch ".(ico|pdf|flv)$">
 Header set Cache-Control "max-age=29030400, public"
 </FilesMatch>
 # 1 WEEK
 <FilesMatch ".(jpg|jpeg|png|gif|swf)$">
-Header set Cache-Control "max-age=604800, public"
+Header set Cache-Control "max-age=6604800, public"
 </FilesMatch>
 # 2 DAYS
-#<FilesMatch ".(xml|txt|css|js|config)$">
-#Header set Cache-Control "max-age=172800, proxy-revalidate"
-#</FilesMatch>
+<FilesMatch ".(xml|txt|css|js|config)$">
+Header set Cache-Control "max-age=172800, proxy-revalidate"
+</FilesMatch>
 
 # 3 MIN
 <FilesMatch ".(html|htm|category)$">

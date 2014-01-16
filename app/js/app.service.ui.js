@@ -40,9 +40,9 @@ UI.directive('toggleSidebar', ['$parse','$timeout', function($parse, $timeout) {
       })
     $timeout(function(){
       function hide(){
-          $("body").removeClass(" site-nav-drawer-open");  
+          $("body").removeClass("site-nav-transition site-nav-drawer-open");  
           $timeout(function(){
-            $("button.site-nav-logo").css('opacity',1);
+            $("button.site-nav-logo").css({opacity:1,'z-index':1000});
             //$("body").removeClass(" site-nav-transition ");  
           },800);        
       }
@@ -87,7 +87,7 @@ UI.directive('backstretch', ['$parse', function($parse) {
       };    
       
       function bs(e, path){
-        if($.browser.msie && $.browser.version<8){
+        if($.browser && $.browser.msie && $.browser.version<8){
           e.find('div.backstretch').remove();
           e.backstretch(path);
           return;
@@ -234,14 +234,36 @@ UI.directive('slideOnClick', ['$parse','$timeout', function($parse, $timeout) {
       $timeout(function(){
         var e=angular.element(attr['slideOnClick']);
         if(e.length){
-          element.toggle(function(){
+
+          element.click(function(){
             e.slideDown();
-          },
-          function(){
-            e.slideUp();
-          })
+          });
         }
-      },500);
+      },0);
+  }
+}]);
+UI.directive('showOnClick', ['$parse','$timeout', function($parse, $timeout) {
+  return function(scope, element, attr) {
+      $timeout(function(){
+        var e=angular.element(attr['showOnClick']);
+        if(e.length){
+          element.click(function(){
+            e.slideDown();
+          });
+        }
+      },0);
+  }
+}]);
+UI.directive('hideOnClick', ['$parse','$timeout', function($parse, $timeout) {
+  return function(scope, element, attr) {
+      $timeout(function(){
+        var e=angular.element(attr['hideOnClick']);
+        if(e.length){
+          element.click(function(){
+            e.slideUp();
+          });
+        }
+      },0);
   }
 }]);
 
@@ -280,7 +302,68 @@ UI.directive('infiniteCarousel', ['$parse','$timeout', function($parse , $timeou
 UI.directive('backendUrl', ['$parse','config', function($parse, config) {
   return function(scope, element, attr) {
       var name=attr.backendUrl||"href";
-      console.log(name,config.API_SERVER)
       element.attr(name,config.API_SERVER);
   }
 }]);
+
+UI.directive('acceptCookie', ['$parse','config','$cookies','$timeout', 
+  function($parse, config, $cookies, $timeout) {
+  return function(scope, element, attr) {
+    $timeout(function(){
+      console.log($cookies, navigator.userAgent)
+      if ($cookies['session.sid']){
+        return;        
+      }
+      element.attr("src",config.ACCEPT_COOKIE);
+      element.attr("style","height:100px;width:100%");
+
+    },2000);
+
+  }
+}]);
+
+UI.directive('lazySrc', ['$document', '$parse', function($document, $parse) {
+        return {
+            restrict: 'A',
+            link: function(scope, elem, attr) {
+                function setLoading(elm) {
+                    if (loader) {
+                        elm.html('');
+                        elm.append(loader);
+                        elm.css({
+                            'background-image': null
+                        });
+                    }
+                }
+                var loader = null;
+                if (angular.isDefined(attr.lazyLoader)) {
+                    loader = angular.element($document[0].querySelector(attr.lazyLoader)).clone();
+                }
+                var bgModel = $parse(attr.lazySrc);
+                scope.$watch(bgModel, function(newValue) {
+                    setLoading(elem);
+                    var src = bgModel(scope);
+                    var img = $document[0].createElement('img');
+                    img.onload = function() {
+                        if (loader) {
+                            loader.remove();
+                        }
+                        if (angular.isDefined(attr.lazyLoadingClass)) {
+                            elem.removeClass(attr.lazyLoadingClass);
+                        }
+                        if (angular.isDefined(attr.lazyLoadedClass)) {
+                            elem.addClass(attr.lazyLoadedClass);
+                        }
+                        elem.css({
+                            'background-image': 'url(' + this.src + ')'
+                        });
+                    };
+                    img.onerror= function() {
+                        //console.log('error');
+                    };
+                    img.src = src;
+                });
+            }
+        };
+    }]);
+

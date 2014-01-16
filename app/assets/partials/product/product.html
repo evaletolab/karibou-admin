@@ -4,26 +4,18 @@
           <div class="actions" fade-on-hover="#product{{product.sku}}">
               <p  ng-hide="!product.attributes.available||!product.pricing.stock" >
                 <a ng-disabled="!product.attributes.available " 
-                   class="btn btn-danger" ng-click="cart.love(product)"><i class="icon-star-empty"></i>&nbsp;J'aime</a> 
+                   class="btn btn-danger" ng-click="love(product)"><i class="icon-star-empty"></i>&nbsp;J'aime</a> 
                 <a g-disabled="!product.attributes.available" 
                    class="btn btn-primary " ng-click="cart.add(product)"><i class="icon-ok"></i>&nbsp;J'achète</a>
               </p>
-          </div>
-        
-          <ul class="thumbnails"  fade-on-hover="#product-{{product.sku}}">
-      			<li><img ng-show="product.details.bio" src="/img/shop/bio.png" style="width:20px;"/>&nbsp;
-      			    <img ng-show="product.details.gluten" src="/img/shop/gluten-free.png" style="width:20px;"/>
-      			    <img ng-show="product.details.lactose" src="/img/shop/lactose.png" style="width:20px;"/>
-      			    <img ng-show="product.details.local" src="/img/shop/local.png" style="width:20px;"/>
-      			</li>
-          </ul>
+          </div>        
         </div>
         <a  href="{{shop.urlpath|test:'/shop/':''}}/products/{{product.sku}}" shop="/shop/{{product.vendor.urlpath}}" class="link">
           <!-- src="{{product.photo.url}}/convert?w=275&fit=max" -->
-          <img ng-cloak ng-show="product.photo.url" ng-src="{{product.photo.url}}/convert?w=275&h=225&fit=crop&cache=true" class="lazy">
-          <img ng-cloak ng-hide="product.photo.url" src="{{false  | placehold:'275x225'}}" >
+          <img ng-cloak ng-show="product.photo.url" bn-lazy-src="{{product.photo.url}}/convert?w=275&h=225&fit=crop&cache=true" class="lazy">
           <img ng-cloak ng-hide="product.attributes.available" ng-src="http://placehold.it/275x225/eeeeee/000000&text=indisponible" class="available">
           <img ng-cloak ng-hide="product.pricing.stock" ng-src="http://placehold.it/275x225/eeeeee/000000&text=plus+en+stock" class="available">
+
 
           <!-- PRICE-->
           <div class="price" >
@@ -49,6 +41,7 @@
 	              </div>
 	              <div >
 	                <a class="shop-title " href="/shop/{{product.vendor.urlpath}}">{{product.vendor.name}}</a>
+                  <i class=" love" ng-class="{true:'icon-heart pink1',false:'icon-heart-empty'}[user.hasLike(product)]"></i>
 	              </div>
 	              
 	              

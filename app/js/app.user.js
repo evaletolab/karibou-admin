@@ -3,7 +3,7 @@
 //
 // Define the User module (app.user)  for controllers, services and models
 // the app.user module depend on app.config and take resources in account/*.html 
-var User=angular.module('app.user', ['app.config', 'google-maps']);
+var User=angular.module('app.user', ['app.config','app.ui.map']);
 
 //
 // define all routes for user api
@@ -28,6 +28,8 @@ User.config([
       .when('/account', {title:'Votre profile', _view:'main',redirectTo : '/account/overview'})
       .when('/account/', {title:'Votre profile', _view:'main', redirectTo : '/account/overview'})
       .when('/account/recovery', { _view:'main', templateUrl : '/partials/account/recovery.html'})
+      .when('/account/love', {_view:'main', love:true, templateUrl : '/partials/product/love.html'})
+      .when('/account/order', {_view:'main', templateUrl : '/partials/account/overview.html'})
       .when('/account/shop', {_view:'main', templateUrl : '/partials/account/shop.html'})
       .when('/account/email', {auth : true, _view:'main', templateUrl : '/partials/account/email.html'})
       .when('/account/overview', {auth : true, _view:'main', templateUrl : '/partials/account/overview.html'})
@@ -51,11 +53,12 @@ User.controller('AccountCtrl',[
   '$routeParams',
   'api',
   'user',
+  'Map',
   'shop',
   '$timeout',
   '$http',
   
-  function (config, $scope, $location, $routeParams, api, user, shop, $timeout, $http) {
+  function (config, $scope, $location, $routeParams, api, user, Map, shop, $timeout, $http) {
     $scope.user=user;    
     $scope.users=[];
     $scope.providers=config.providers;
@@ -76,8 +79,19 @@ User.controller('AccountCtrl',[
 
     //
     // check and init the session    
-    user.me(function(u){
+    user.me(function(u){      
       $scope.user = u;
+      u.geo=new Map()
+
+      user.addresses.forEach(function(address,i){
+        user.geo.addMarker(i,{
+          lat:address.geo.lat,
+          lng:address.geo.lng, 
+          message:address.streetAdress+'/'+address.postalCode
+        });        
+      })
+
+      angular.extend($scope,user.geo.getMap());      
     });
 
     //
@@ -207,69 +221,45 @@ User.controller('AccountCtrl',[
     };
 
     //
-    // map init
+    // geomap init
 
     $scope.updateMap=function(address){
       if (address.streetAdress===undefined||address.postalCode===undefined)
        return;
-      // google format: Route de Chêne 34, 1208 Genève, Suisse
-      var fulladdress=address.streetAdress+","+address.postalCode+", Suisse";//"34+route+de+chêne,+Genève,+Suisse
-      var url="http://maps.googleapis.com/maps/api/geocode/json?address="+fulladdress+"&sensor=false" ;
 
-      $http.get(url,{withCredentials:false}).success(function(geo,status,header,config){
+      user.geo.geocode(address.streetAdress, address.postalCode, function(geo){
         if(!geo.results.length||!geo.results[0].geometry){
          return;
         }
         //
         //update data
-        address.location={};
-        address.location.lat=geo.results[0].geometry.location.lat;
-        address.location.lng=geo.results[0].geometry.location.lng;
-        //
-        user.gmap(address);
+        address.geo={};
+        address.geo.lat=geo.results[0].geometry.location.lat;
+        address.geo.lng=geo.results[0].geometry.location.lng;
         //
         // map init
-        angular.extend($scope, {
-          /** the initial center of the map */
-          centerProperty: {
-           latitude:geo.results[0].geometry.location.lat,
-           longitude:geo.results[0].geometry.location.lng
-          },
-          /** the initial zoom level of the map */
-          zoomProperty: 16,
-          /** list of markers to put in the map */
-          markersProperty: [ {
-                  latitude: geo.results[0].geometry.location.lat,
-                  longitude:geo.results[0].geometry.location.lng
-           }],
-          // These 2 properties will be set when clicking on the map
-          clickedLatitudeProperty: null,       
-          clickedLongitudeProperty: null,
-        });
-      }).error(function(geo, status, headers, config){
-        alert("error on address lookup :"+status);
-      }); 
+        var fullAddress=address.streetAdress+'/'+address.postalCode;
+        user.geo.addMarker(user.addresses.length, {lat:address.geo.lat,lng:address.geo.lng, message:fullAddress});
+        angular.extend($scope,user.geo.getMap());
+
+      })
+      //.error(function(geo, status, headers, config){
+      //  alert("error on address lookup :"+status);
+      //}); 
     };
     
-    angular.extend($scope, {
-      /** the initial center of the map */
-      centerProperty: {
-       latitude:0,
-       longitude:0
-      },
-      /** the initial zoom level of the map */
-      zoomProperty: 8,
 
-      /** list of markers to put in the map */
-      markersProperty: [ {
-       latitude: 46.196735,
-       longitude:6.144748
-      }],
- 
-      // These 2 properties will be set when clicking on the map
-      clickedLatitudeProperty: null,   
-      clickedLongitudeProperty: null,
-    });
+    if(user.geo && user.addresses){
+
+      user.addresses.forEach(function(address,i){
+        user.geo.addMarker(i,{
+          lat:address.geo.lat,
+          lng:address.geo.lng, 
+          message:address.streetAdress+'/'+address.postalCode
+        });        
+      })
+      angular.extend($scope,user.geo.getMap());      
+    } else angular.extend($scope,new Map().getMap());      
   }  
 ]);
 
@@ -322,13 +312,13 @@ User.factory('user', [
       angular.extend(this, defaultUser, data);
     }
     
-    User.prototype.gmap=function(address){
-      address.gmap={};
-      address.gmaps=[];
-      address.gmaps.push(address.gmap);
-      address.gmap.latitude=address.location.lat;
-      address.gmap.longitude=address.location.lng;
-    }
+    // User.prototype.gmap=function(address){
+    //   address.gmap={};
+    //   address.gmaps=[];
+    //   address.gmaps.push(address.gmap);
+    //   address.gmap.latitude=address.geo.lat;
+    //   address.gmap.longitude=address.geo.lng;
+    // }
     
     
     User.prototype.copy = function(data) {
@@ -336,7 +326,7 @@ User.factory('user', [
         //
         // formating properties for the widget
         for (var i in this.addresses){          
-          this.gmap(this.addresses[i]);
+          //this.gmap(this.addresses[i]);
         }
     };
 
@@ -381,6 +371,13 @@ User.factory('user', [
     User.prototype.hasRole= function (role) {
         for (var i in this.roles){
           if (this.roles[i]===role) return true;
+        }
+        return false;
+    };
+
+    User.prototype.hasLike= function (product) {
+        for (var i in this.likes){
+          if (this.likes[i].sku==product.sku) return true;
         }
         return false;
     };
@@ -472,6 +469,7 @@ User.factory('user', [
       if(!err) var err=onerr;
       var u = $resource(config.API_SERVER+'/login').save(data, function() {
         _user.copy(u);
+
         if(cb)cb(_user);
       },err);
       return u;
@@ -486,6 +484,15 @@ User.factory('user', [
       return s;
     };    
 
+
+    User.prototype.love=function(product,cb,err){
+      if(!err) var err=function(){};
+      var u = $resource(config.API_SERVER+'/v1/users/:id/like/:sku',{id:_user.id,sku:product.sku}).save( function() {
+        _user.copy(u);
+        if(cb)cb(_user);
+      },err);
+      return u;
+    };    
 
    
     //

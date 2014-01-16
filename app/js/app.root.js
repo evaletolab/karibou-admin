@@ -26,6 +26,7 @@ angular.module('app.root', [
 
     $scope.user = user;
     $scope.categories = [];
+    $scope.config=config;
 
     //
     // check and init the session    
@@ -84,6 +85,25 @@ angular.module('app.root', [
     };
    
     
+    $scope.getCover=function(){
+      if(user.isAuthenticated())
+        return '/partials/account/cover.html';
+      return '/partials/cover.html';
+    }
+
+    $scope.showOverview=function(){
+      $location.path('/account/overview')
+    }
+
+    $scope.showOrder=function(){
+      $location.path('/account/order')
+
+    }
+
+    $scope.showLove=function(){
+      $location.path('/account/love')
+    }
+
     //
     // logout (global function)
     $scope.logout=function(){

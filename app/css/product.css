@@ -57,29 +57,34 @@ article:nth-child(even){
   font-family:Merriweather,serif;
   font-weight:300;
   font-size:13px;
+
+  border-radius:4px;
 }
 
 .layout-item img{
   cursor:pointer;
   cursor:-Moz-Zoom-In;
-  border-radius-:3px 3px 0 0;
   overlay:hidden;
   min-height:140px;
   margin-top:auto;
   margin-bottom:auto;
   vertical-align:middle;
   display: block;
+  background: none repeat scroll 0 0 #A05A07;
 
+  border-radius:4px;
 }
 
 .layout-item a.link{
   min-height-: 160px;
   display: block;
   vertical-align:middle;
-  background-color-:#eee;
   padding:0px;
   overflow:hidden;
   position:relative;
+  background: none repeat scroll 0 0 #A05A07;
+
+  border-radius:4px;
 }
 
 .layout-item img.available, .backfader img.available{
@@ -112,6 +117,16 @@ article:nth-child(even){
   text-overflow: ellipsis;
   white-space: nowrap;
   font-size:90%;
+}
+
+.layout-item .love{
+    overflow: visible;
+    position: absolute;
+    right: 0px;
+    bottom:3px;
+    padding:5px;
+    background-:none repeat scroll 0 0 rgba(0, 0, 0, 0.3);
+    color:#ddd;
 }
 
 .layout-item .price{
