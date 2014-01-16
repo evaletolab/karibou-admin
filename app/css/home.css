@@ -1162,7 +1162,7 @@ a {
 
 .site-nav-logo {
     position:fixed;
-    top:40px;
+    top:0px;
     left:0px;
     width:93px;
     height:38px;
@@ -1228,7 +1228,10 @@ a {
     font-weight:400}
 
 .site-nav-list-item {
-    position:relative}
+    position:relative;
+    border-bottom: 1px solid #333;
+    padding: 2px 0px;    
+}
 
 .site-nav-list-item.site-nav-list-item-home {
     margin-top:5px}
@@ -1247,10 +1250,13 @@ a {
     padding:0 10px 0 32px;
     height:33px;
     line-height:33px;
-    font-size:13px;
+    font-size:12px;
     border:0;
     background:rgba(0,0,0,0);
-    text-align:left}
+    text-align:left;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
 
 .site-nav-list-item-btn,.site-nav-list-item-btn .icons:before {
     color:#b3b3b1}

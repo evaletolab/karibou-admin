@@ -38,7 +38,7 @@
     
   </head>
 
-   <body class="-site-nav-transition  ">
+   <body class="">
 
       <!--[if lt IE 7]><p class="browser-support">
         Unfortunately, this site won't work with your browser. Please upgrade to a modern browser:<br>
@@ -67,20 +67,23 @@
                 <span class=""><a class="site-nav-list-item-btn" title="Go home" href="/" tabindex="-1"><span class="icons icons-logo-m"></span>Home</a></span>
               </li>
 
-              <li class="site-nav-list-item">
-                <a ng-hide="user.isAuthenticated()" ng-class="getClass('/login')" class="site-nav-list-item-btn" href="/login">Login</a>
+              <li class="site-nav-list-item" ng-hide="user.isAuthenticated()">
+                <a ng-class="getClass('/login')" class="site-nav-list-item-btn" href="/login">Login</a>
               </li>
-              <li class="site-nav-list-item">
-                <a ng-hide="user.isAuthenticated()" ng-class="getClass('/signup') " class="site-nav-list-item-btn" href="/signup">Sign Up</a>
+              <li class="site-nav-list-item" ng-hide="user.isAuthenticated()">
+                <a ng-class="getClass('/signup') " class="site-nav-list-item-btn" href="/signup">Sign Up</a>
               </li>
 
               <!-- SIGNED -->
-              <li ng-class="getClass('/account')" class="site-nav-list-item">
-                <a ng-show="user.isAuthenticated()" class="site-nav-list-item-btn" href="/account/">@<span ng-bind="user.display()"></span></a>
+              <li ng-class="getClass('/account')" class="site-nav-list-item" ng-show="user.isAuthenticated()">
+                <a class="site-nav-list-item-btn" href="/account/">@<span ng-bind="user.display()"></span></a>
+              </li>
+              <li ng-class="getClass('/account')" class="site-nav-list-item" ng-show="user.isAuthenticated()">
                 <a ng-show="user.shops.length" class="site-nav-list-item-btn-secondary" href="/products/create" title="Ajouter un nouvel article"><i class="icon-plus gray"></i></a>                
               </li>
-              <li class="site-nav-list-item">
-                <a ng-show="user.isAuthenticated()" class="site-nav-list-item-btn" href="" ng-click="logout()">logout</a>
+
+              <li class="site-nav-list-item" ng-show="user.isAuthenticated()">
+                <a  class="site-nav-list-item-btn" href="" ng-click="logout()">logout</a>
               </li>
 
               <!-- ADMIN-->

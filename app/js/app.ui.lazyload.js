@@ -135,6 +135,7 @@ LZ.directive("bnLazySrc",['$window','$document', function( $window, $document ) 
           // be rendered.
           function checkImages() {
  
+
             // Log here so we can see how often this
             // gets called during page activity.
             //console.log( "Checking for visible images..." );
@@ -225,6 +226,7 @@ LZ.directive("bnLazySrc",['$window','$document', function( $window, $document ) 
             // Listen for window changes.
             win.on( "resize.bnLazySrc", windowChanged );
             win.on( "scroll.bnLazySrc", windowChanged );
+            $('section.wrapper').on("scroll.bnLazySrc" ,windowChanged );
             //$("#container").on( "scroll.bnLazySrc", windowChanged );
 
             // Set up a timer to watch for document-height changes.
