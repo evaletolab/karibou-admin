@@ -10,7 +10,8 @@
   </div>
 
 
-  <aside ng-include="'/partials/account/cover.html'" class="cover cover-home img-loaded" >
+  <aside ng-include="'/partials/account/cover.html'" 
+         class="cover cover-home img-loaded" ng-class="{'session':user.isAuthenticated()}">
   </aside>
 
 
@@ -50,11 +51,11 @@
           <small>Kariboo </small>
         </blockquote>
       </div>        
-      <form name="form" class="form-horizontal well well-small" style="margin-bottom:80px;">
+      <form name="form" class="-form-horizontal well well-small" style="margin-bottom:80px;">
         <fieldset>
           <!-- catalog -->
           <div class="control-group">
-            <label class="control-label "><strong>Catalogue</strong></label> 
+            <label class="control-label ">Catalogue</label> 
             <div class="controls small">
               <select  ng-model="shop.catalog " class="input-xlarge" required="true" >
                 <option ng-repeat="cat in category.findAll() | filter:{type:'Catalog'}" value="{{cat._id}}">{{cat.name}}</option>
@@ -64,22 +65,28 @@
 
           <!-- SHOP NAME -->
           <div class="control-group">
-            <label for="name" class="control-label"><strong>Le nom de votre boutique</strong></label>
+            <label for="name" class="control-label">Le nom de votre boutique</label>
             <div class="controls">
-                <input  ng-model="shop.name" type="text" required="true"  class="span6"/>          
-                <p class="control-help">
-                  <label for="cc" >I have read and I agree with the rules
+                <input  ng-model="shop.name" type="text" required="true"  class="span8 input-big" placeholder="..."/>
+                <p class="help-block ">Le nom de votre boutique est définitif et ne peut être modifié.<br/></p>          
+                <p class="small" ng-hide="user.email.status == true ">Pour créer une boutique vous devez avoir une <a href="/account/profile">adresse email valide</a>.</p>
+            </div>
+          </div>
+
+          <div class="control-group">
+            <div class="controls ">
+                <p class="control-label">
+                  <label for="cc" >J'ai lu et j'accepte les conditions générales.
                   <input id="cc" name="cc" type="checkbox" required="true"  ng-model="checked" class="btn"/></label>
                 </p>
-                <p class="small" ng-hide="user.email.status == true ">Pour créer une boutique vous devez avoir une <a href="/account/profile">adresse email valide</a>.</p>
             </div>
           </div>
           
           
 
           <!-- ACTIONS -->          
-          <div class="control-group actions">
-            <input type="submit" ng-disabled="form.$error.required || !checked" ng-click="createShop(shop)" value="Create a new shop" class="btn btn-success btn-large"/>
+          <div class="control-group">
+            <input type="submit" ng-disabled="form.$error.required || !checked" ng-click="createShop(shop)" value="Create a new shop" class="btn btn-primary btn-large"/>
           </div>              
         </fieldset>
       </form>

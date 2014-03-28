@@ -24,7 +24,7 @@ Product.config([
           title:'Votre produit ', modal:true,view:'modal',controller:'ProductCtrl', templateUrl : '/partials/product/product-wide.html'
        })
       .when('/products/:sku/edit', {
-          title:'Votre produit ', modal:true,view:'modal',controller:'ProductCtrl', templateUrl : '/partials/product/create.html'
+          title:'Votre produit ', modal:true, edit:true, view:'modal',controller:'ProductCtrl', templateUrl : '/partials/product/create.html'
        })
       .when('/shop/:shop/products/:sku', {
           title:'Votre produit ', modal:true,view:'modal',controller:'ProductCtrl', templateUrl : '/partials/product/product-wide.html'
@@ -55,7 +55,13 @@ Product.controller('ProductCtrl',[
     $scope.config=config;
     $scope.cart=cart;
 
-  
+
+    $scope.showActionOnSwipe=function(id){
+      // $(id).css({opacity:1,'z-index':1000});
+      $(id).fadeIn();
+
+    }
+
     $scope.save=function(product){
       product.save(function(s){
           api.info($scope,"Votre produit a été enregistrée!",2000, function(){
@@ -68,6 +74,10 @@ Product.controller('ProductCtrl',[
       $scope.product={};
     }
     
+    if($route.current&&$route.current.$$route.edit){
+      $scope.product_edit=true;
+    }
+
     
     $scope.love=function(product){
       if(!user.isAuthenticated()){
@@ -103,10 +113,12 @@ Product.controller('ProductCtrl',[
 
     $scope.uploadImage=function(product, imgKey){
       api.uploadfile($scope, {},function(err,fpfile){
+        console.log(fpfile)
         if(err){
           api.info($scope,err.toString());
           return false;
         }
+        if(!product.photo)product.photo={}
         product.photo.url=fpfile.url;
         
       });
@@ -130,6 +142,9 @@ Product.controller('ProductCtrl',[
     
     
 
+    /***
+     * DISQUS
+     */
     if($routeParams.sku){
       var doc = document.documentElement, body = document.body;
       var left = (doc && doc.scrollLeft || body && body.scrollLeft || 0);
@@ -189,7 +204,9 @@ Product.factory('product', [
       details:{},
       attributes:{
         available:true
-      }
+      },
+      pricing:{},
+      photo:{}
     };
     
     //
@@ -203,6 +220,25 @@ Product.factory('product', [
       angular.extend(this, defaultProduct, data);
     }
 
+
+    Product.prototype.getPrice=function(){
+      if(this.attributes.discount && this.pricing.discount)
+        return this.pricing.discount;
+      return this.pricing.price;
+    };    
+
+    Product.prototype.isDiscount=function(){
+      return(this.attributes.discount && this.pricing.discount)
+    };    
+
+    Product.prototype.isAvailableForOrder = function() {
+      // console.log(this.attributes.available,
+      //         this.vendor.status===true,
+      //         !this.vendor.available.active)
+      return (this.attributes.available && this.vendor &&
+              this.vendor.status===true &&
+              !this.vendor.available.active)
+    }
 
 
     //

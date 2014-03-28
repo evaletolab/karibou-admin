@@ -13,13 +13,14 @@ angular.module('app.root', [
   '$scope',
   '$rootScope',
   '$location',
+  '$templateCache',
   'config',
   'api',
   'user',
   'category',
   'product',
 
-  function ($scope, $rootScope,  $location, config, api, user, category, product) {
+  function ($scope, $rootScope,  $location, $templateCache, config, api, user, category, product) {
 
 
     var cb_error=api.error($scope);
@@ -27,6 +28,7 @@ angular.module('app.root', [
     $scope.user = user;
     $scope.categories = [];
     $scope.config=config;
+
 
     //
     // check and init the session    
@@ -42,6 +44,12 @@ angular.module('app.root', [
       $scope.category=category;
     },cb_error);
 
+
+    //
+    // clear cache
+    $rootScope.$on('$viewContentLoaded', function() {
+      $templateCache.removeAll();
+    });
 
     //
     // get the head title up2date 
@@ -62,9 +70,13 @@ angular.module('app.root', [
     // Uses the url to determine if the selected
     // menu item should have the class active.
     $scope.$location = $location;
-    $scope.$watch('$location.path()', function (path) {
+    $rootScope.$watch(function(){return $location.path();}, function (path, old) {
       $scope.activeNavId = path || '/';
+      //
+      // save the referer
+      $scope.referrer=(path!== old)?old:undefined;
     });
+
 
     // getClass compares the current url with the id.
     // If the current url starts with the id it returns 'active'

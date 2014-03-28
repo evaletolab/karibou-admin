@@ -44,7 +44,7 @@ Order.controller('OrderCtrl',[
     $scope.cart=cart;
     
 
-    //console.log(order)
+    // console.log(cart.total())
   }  
 ]);
 
@@ -57,17 +57,14 @@ Order.factory('cart', [
   'config',
   '$timeout',
   '$rootScope',
+  '$window',
   'api',
 
-  function (config, $timeout,$rootScope, api) {
+  function (config, $timeout,$rootScope,$window, api) {
 
 
-    // http://wojodesign.com/simpleCart/
-    // <a href="#" 
-    //    onclick="simpleCart.add('quantity=1','name=Black Gold','price=58','image=images/thumbs/blackGold.jpg');return false;"> 
-    //    add to cart
-    // </a>
-    var defaultCart=simpleCart({
+    var defaultCart={
+        namespace:"kariboo_cart",
         cartColumns: [
           //A custom cart column for putting the quantity and increment and decrement items in one div for easier styling.
           { view: function(item, column){
@@ -79,6 +76,7 @@ Order.factory('cart', [
           }, attr: 'custom' },
           //Name of the item
           { attr: "name" , label: false },
+          { attr: "part" , label: true },
           //Subtotal of that row (quantity of that item * the price)
           { view: 'currency', attr: "total" , label: false  }
         ],
@@ -92,91 +90,124 @@ Order.factory('cart', [
         shippingFlatRate: 10,
         tax:        0.015,
         currency:   "CHF"
-    });
+    };
 
-    function simpleCart_sync() {
-      $timeout(function(){
-        _cart.quantity  = simpleCart.quantity();
-        _cart.total     = simpleCart.total();
-        _cart.grandTotal= simpleCart.grandTotal();
-        _cart.shipping  = simpleCart.shipping();      
 
-      },0)
-    }
-
-    //
-    // get the cart ready to use
-    simpleCart.bind( 'load' , function(){
-      if (_cart.items===null){
-        return _cart.items=[];
-      }
-      simpleCart.each(function( item , x , attr){
-          _cart.items.push( item);
-      });      
-      simpleCart_sync()
-    });
-
-    // see if a new item has been added, or updated
-    simpleCart.bind( "afterAdd" , function( item , isNew ){
-      if( isNew ){
-        _cart.items.push(item);
-      }
-      simpleCart_sync()
-    });
-
-    simpleCart.bind( 'beforeRemove' , function( item ){
-      simpleCart_sync()
-    });
-
+    var localStorage=$window['localStorage'];
 
     
     //
     // default behavior on error
     var onerr=function(data,config){
-      _cart.copy(defaultCart);
     };
     
     var Cart = function(data) {
-      this.quantity=0;
-      this.items = null;
-      this.total=0;
-      this.grandTotal=0;
-      this.shipping; 
-      this.isReady = false;
-      this.defaultCart=defaultCart;
-
-      angular.extend(this, data);
+      this.items = [];
     }
+
+    Cart.prototype.remove=function(product){
+      for(var i=0;i<this.items.length;i++){
+        if(this.items[i].sku===product.sku){
+          this.items[i].quantity--;
+          if(this.items[i].quantity===0){
+            this.items=this.items.splice(i,1)
+          }
+          return this.items;
+        }
+      }
+
+    }
+
 
     Cart.prototype.add=function(product){
       // console.log("add", product)
       api.info($rootScope,product.pricing.part+", "+product.title+" a été ajouté dans le panier",4000);
 
-      return simpleCart.add({
-        name:product.title+" ("+product.pricing.part+")",
-        id:product.sku,
+      for(var i=0;i<this.items.length;i++){
+        if(this.items[i].sku===product.sku){
+          this.items[i].quantity++;
+          return this.items;
+        }
+      }
+
+
+      this.items.push({
+        name:product.title,
+        sku:product.sku,
         thumb:product.photo.url,
-        price:product.pricing.price,
+        price:product.getPrice(),
+        discount:product.isDiscount(),
+        part:product.pricing.part,
         quantity:1
       });
+      return this.save();
     }
 
-    Cart.prototype.love=function(value){
-      console.log("love", value)
-      // return simpleCart.add(value);
+    Cart.prototype.quantity=function(){
+      var quantity = 0;
+      this.items.forEach(function (item) {
+        quantity += item.quantity;
+      });
+      return quantity;
+    }
+
+    Cart.prototype.total=function(){
+      var total = 0;
+      this.items.forEach(function (item) {
+        total += item.price;
+      });
+      return total;
+    }
+
+    Cart.prototype.grandTotal=function(){
+      this.total() + this.tax() + this.shipping();
+    }
+
+    Cart.prototype.shipping=function(){
+      return defaultCart.shippingFlatRate;
+    }
+
+    Cart.prototype.tax=function(){
+      return defaultCart.tax;
     }
 
     Cart.prototype.checkout=function(){
-      return simpleCart.checkout();
+      alert("Oooops ça marche pas encore...")
     }
+
+
 
     Cart.prototype.empty=function(){
-      simpleCart.empty();
-      this.items=[];
-      return simpleCart_sync()
+      this.items=[];      
+      this.save()
     }
 
-    var _cart=new Cart();
+
+      // storage
+    Cart.prototype.save=function () {
+      if(!this.items||!localStorage) return;
+      // save all the items
+      // sessionStorage[defaultCart.namespace]=angular.toJson(items)
+      localStorage.setItem(defaultCart.namespace, angular.toJson(this.items));
+      return this;
+    }
+
+    Cart.prototype.load= function () {
+      if(!localStorage)return;
+      try {
+        // this.items=angular.fromJson(sessionStorage[defaultCart.namespace])        
+        this.items = angular.fromJson(localStorage.getItem(defaultCart.namespace ));
+      } catch (e){
+        api.error( "Votre ancien caddie n'a pas pu être retrouvé: " + e );
+      }
+
+      if (!this.items) {
+        this.items=[]
+      }
+      return this;
+    }
+
+    var _cart=new Cart().load();
     return _cart;
   }
 ]);

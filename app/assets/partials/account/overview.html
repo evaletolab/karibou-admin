@@ -9,7 +9,9 @@
   </div>
 
 
-  <aside ng-include="'/partials/account/cover.html'" class="cover cover-home img-loaded" >
+  <aside ng-include="'/partials/account/cover.html'" 
+         class="cover cover-home img-loaded" 
+         ng-class="{'session':user.isAuthenticated()}">
   </aside>
 
 

@@ -1,127 +1,3 @@
-/**
- * GENERAL CSS
- */
-
-article,aside,details,figcaption,figure,footer,header,hgroup,nav,section,summary {
-    display:block}
-
-audio,canvas,video {
-    display:inline-block;
-    *display:inline;
-    *zoom:1}
-
-audio:not([controls]) {
-    display:none}
-
-[hidden] {
-    display:none}
-
-html {
-    font-size:100%;
-    -webkit-text-size-adjust:100%;
-    -ms-text-size-adjust:100%}
-
-button,input,select,textarea {
-    font-family:sans-serif}
-
-body {
-    margin:0}
-
-a:focus {
-    outline:thin dotted}
-
-a:hover,a:active {
-    outline:0}
-
-h1,h2,h3,h4,h5,h6 {
-    margin:0;
-}
-h5{
-    line-height: 16px;
-}
-
-abbr[title] {
-    border-bottom:1px dotted}
-
-b,strong {
-    font-weight:bold}
-
-blockquote {
-    margin:0}
-
-dfn {
-    font-style:italic}
-
-mark {
-    background:#ff0;
-    color:#000}
-
-p,pre {
-    margin:0}
-
-pre,code,kbd,samp {
-    font-family:monospace,serif;
-    _font-family:'courier new',monospace;
-    font-size:1em}
-
-pre {
-    white-space:pre;
-    white-space:pre-wrap;
-    word-wrap:break-word}
-
-q {
-    quotes:none}
-
-q:before,q:after {
-    content:'';
-    content:none}
-
-small {
-    font-size:75%}
-
-sub,sup {
-    font-size:75%;
-    line-height:0;
-    position:relative;
-    vertical-align:baseline}
-
-sup {
-    top:-0.5em}
-
-sub {
-    bottom:-0.25em}
-
-dl,menu,ol,ul {
-    margin:0}
-
-dd {
-    margin:0}
-
-menu,ol,ul {
-    padding:0;
-    list-style:none;
-    list-style-image:none}
-
-img {
-    -ms-interpolation-mode:bicubic}
-
-a img {
-    border:0}
-
-svg:not(:root) {
-    overflow:hidden}
-
-
-
-.clearfix {
-    *zoom:1}
-
-.clearfix:before,.clearfix:after {
-    display:table;
-    content:" "}
-
-.clearfix:after {
-    clear:both}
 
 /**
  * FONTS
@@ -249,7 +125,7 @@ h1 {
     letter-spacing:-1px}
 
 a {
-    color:#000;
+    -color:#000;
     text-decoration:none}
 
 @media screen and (max-device-width:1000px) {
@@ -367,7 +243,10 @@ a {
     text-decoration:underline;
 }
 
-
+ul.cover-list li {
+    color:#fff;
+    line-height: 20px;
+}
 .cover-actions {
     padding-top:20px;
     margin-top:20px;
@@ -483,7 +362,11 @@ a {
     position:relative!important;
     width:100%;
     max-width:none;
-    height:576px;}
+    height:576px;    
+}
+.cover.session {
+    height:auto;
+}
 
 .cover-body {
     width:100%;
@@ -503,10 +386,10 @@ a {
 
 @media all and (max-width:500px) {
     .cover {
-    height:auto}
+    height:500px}
 
 .cover-bestof,.cover-home,.cover-collection {
-    min-height:250px;
+    min-height:550px;
     -height:auto;
     display:table}
 
@@ -565,7 +448,7 @@ a {
     display:table-cell;
     position:relative;
     text-align:center;
-    background-color:#fff;
+    background-color:transparent;
     -webkit-box-shadow:inset -1px 0 0 rgba(0,0,0,0.3);
     -moz-box-shadow:inset -1px 0 0 rgba(0,0,0,0.3);
     box-shadow:inset -1px 0 0 rgba(0,0,0,0.3)}
@@ -668,7 +551,7 @@ a {
     width:100%}
 
 .cover-user .cover-img {
-    height:350px}
+    height:360px}
 
 .cover-user .cover-body {
     padding:40px 20% 0}
@@ -696,10 +579,13 @@ a {
 @media all and (max-width:500px) {
     .cover-user {
     height:auto;
-    background-position:center 90px}
+    background-position:center 90px;
+    background-color: #f6f6f6 !important;
+    padding-bottom: 10px;
+}
 
 .cover-user .cover-img {
-    height:340px}
+    height:350px}
 
 .cover-user .cover-body {
     padding-left:5%;
@@ -1213,7 +1099,7 @@ a {
 .site-nav-scrollable-container {
     display:none;
     -webkit-overflow-scrolling:touch;
-    overflow-y:auto;
+    overflow-y:none;
     height:100%;
     -webkit-box-shadow:inset -1px 0 3px rgba(0,0,0,0.3);
     -moz-box-shadow:inset -1px 0 3px rgba(0,0,0,0.3);
@@ -1250,13 +1136,14 @@ a {
     padding:0 10px 0 32px;
     height:33px;
     line-height:33px;
-    font-size:12px;
+    font-size:14px;
     border:0;
     background:rgba(0,0,0,0);
     text-align:left;
     text-overflow: ellipsis;
     white-space: nowrap;
 }
+
 
 .site-nav-list-item-btn,.site-nav-list-item-btn .icons:before {
     color:#b3b3b1}
@@ -1279,6 +1166,65 @@ a {
     top: 0;
     bottom: 0;
     padding: 5px 10px 0 6px;
+}
+
+.site-nav-list-item-text {
+    height:43px;
+    line-height:43px;
+    border:0;
+    background:rgba(0,0,0,0);
+    text-align:left;
+    white-space: nowrap;
+    margin:10px 0;
+    padding:0 10px 0 12px;
+}
+
+.site-nav-list-item-content {
+    display:block;
+    padding:0 10px 0 12px;
+    height:43px;
+    line-height:33px;
+    font-size:16px;
+    border:0;
+    background:rgba(0,0,0,0);
+    text-align:left;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.site-nav-list-item-cart {
+    font-family:"freight-sans-pro","Myriad Pro","Lucida Grande","Lucida Sans Unicode","Lucida Sans",Geneva,Verdana,sans-serif;
+    font-weight:700;
+    display:block;
+    padding:0 10px 0 12px;
+    height:46px;
+    -line-height:33px;
+    font-size:14px;
+    border:0;
+    background:rgba(0,0,0,0);
+    text-align:left;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.site-nav-list-item-cart span{
+    display: block;
+    font-size: 10px;
+}
+
+.site-nav-list-item.basket-top {
+    background-color: whitesmoke;
+    border-bottom: rgb(226, 238, 231) 1px solid;
+    border-top: 20px rgb(67, 180, 90) solid;
+}
+.site-nav-list-item.basket-bottom {
+    background-color: whitesmoke;
+    height: 200px;
+}
+
+.site-nav-list-item.basket {
+    background-color: white;
+    border-bottom: rgb(226, 238, 231) 1px solid;
+    border-right: rgb(226, 238, 231) 1px solid;
 }
 
 .site-nav-transition .site-nav-scrollable-container {

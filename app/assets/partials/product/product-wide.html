@@ -1,63 +1,82 @@
 <div backfader="" nhow="product.sku" class="backfader ">
-   <div class="popupcontent simpleCart_shelfItem" id="popup">
+   <div class="popupcontent" id="popup">
       <div class="pattern-dark row-fluid">
-        <div class="span8">
-          <img ng-cloak ng-show="product.photo.url" ng-src="{{product.photo.url}}/convert?w=400&h=320&fit=crop" class="item-image">
-          <img ng-cloak ng-hide="product.photo.url" ng-src="{{false  | placehold:'400x320'}}" >
-          <img ng-cloak ng-hide="product.attributes.available" ng-src="http://placehold.it/400x320/eeeeee/000000&text=indisponible" class="available">
-          <img ng-cloak ng-hide="product.pricing.stock" ng-src="http://placehold.it/400x320/eeeeee/000000&text=plus+en+stock" class="available">
+        <div class="span8 relative" style="overflow:hidden">
+          <!-- DISPLAY PHOTO -->
+          <img ng-cloak ng-show="product.photo.url" ng-src="{{product.photo.url}}/convert?w=400&h=320&fit=crop" class="item-image" style="width:100%">
+
+          <!-- DISPLAY DEFAULT PHOTO -->
+          <img ng-cloak ng-hide="product.photo.url" ng-src="{{false|placehold:'400x320'}}" >
+
+          <!-- NOT AVAILABLE -->
+          <img ng-cloak ng-show="!product.isAvailableForOrder()" ng-src="http://placehold.it/400x320/eeeeee/000000&text=indisponible" class="available" style="height:100%">
+
+          <!-- NOT IN STOCK -->
+          <img ng-cloak ng-hide="product.pricing.stock" ng-src="http://placehold.it/400x320/eeeeee/000000&text=plus+en+stock" class="available" style="height:100%">
 
         </div>
-        <div class="span4 smart">
-          <br/>
-          <h2 class="white popup-price">Fr
-    	      <span ng-hide="product.attributes.discount" 
-    	            class="small item_price">{{product.pricing.price| number:2}}</span>
-    	      <span ng-show="product.attributes.discount" >
-    	        <span class="red strike small"> {{product.pricing.price| number:2}}</span>
-    	        <span class="item_price  bold"> {{product.pricing.discount| number:2}}</span>
-    	      </span>
-            <div class="small em">{{product.pricing.part}}</div>          
-          
-          </h2>
-          <p>
-            <button type="input" class="btn btn-large btn-danger " style="margin:3px" ng-click="cart.love(product)"><i class="icon-star-empty"></i>&nbsp;J'aime</button> 
-            <button type="input" class="btn btn-large btn-primary  " style="margin:3px" ng-click="cart.add(product)"
-               ng-hide="!product.attributes.available||!product.pricing.stock"><i class="icon-ok"></i>&nbsp;J'achète</button>
-          </p>
-          <p>
-            <div class="label label-info lead">
-               <span>{{cart.quantity}}</span> articles <span class="small _simpleCart_total"></span>          
-            </div>                
-          </p>
+        <div class="span4" style="padding:20px 5px;">
+          <!-- PRICE-->
+          <div class="price" 
+               style="color:white;font-size:200%;font-weight:bold;padding-bottom:10px">
+
+            <!-- REGULAR -->
+            <span ng-hide="product.attributes.discount" class="small green bold ">Fr {{product.pricing.price| number:2}}</span>
+
+            <!-- DISCOUNT -->
+            <span ng-show="product.attributes.discount" >
+              <span class="red bold strike"> {{product.pricing.price| number:2}}</span>
+              <span class="green bold small">Fr {{product.pricing.discount| number:2}}</span>
+            </span>                 
+
+            <!-- SHOULD BE INLINED IN PHONE -->
+            <div class=" em" style="margin-top:-3px;">{{product.pricing.part}}</div>
+
+          </div>
+
+          <!-- ACTIONS -->
+          <button class="btn btn-danger btn-large " ng-click="love(product)">
+            <i class="icon-star-empty "></i>&nbsp;J'aime
+          </button> 
+
+          <button class="btn btn-primary btn-large" ng-click="cart.add(product)" ng-hide="!product.isAvailableForOrder()||!product.pricing.stock">
+            <i class="icon-ok"></i>&nbsp;J'achète
+          </button>            
+
+          <!-- CART QUANTITY -->
+          <div class="sexy white " ng-show="cart.quantity" style="margin:10px 0;padding:5px">
+             {{cart.quantity}} articles dans votre panier</span>          
+          </div>                
         </div>
       </div>
+
+      <!-- ADMIN OR OWNER -->
       <div ng-show="user.isOwnerOrAdmin(product.vendor.name)" class="pull-right">
         <a href="{{shop.urlpath|test:'/shop/':''}}/products/{{product.sku}}/edit" class="btn  btn-small"><i class="icon-edit"></i>&nbsp;Editer le produit</a>
       </div>                
-      <h3 class="content"><span class="item_name">{{product.title}}</span> <span ng-show="product.details.bio">(bio)</span></h3>
-      <div class="content" >
 
-        <blockquote >
-          <p>{{product.details.description}}</p>
-          <span ng-show="product.details.origin" ><small>{{product.details.origin}}</small></span>
-        </blockquote>      
+      <!-- TITLE -->
+      <h2 class="" style="padding: 15px 20px;">
+        {{product.title}} <span class="green " ng-show="product.details.bio">(bio)</span>
+      </h2>
+
+
+      <!-- DESCRIPTION -->
+      <blockquote >
+        <p>{{product.details.description}}</p>
+        <span ng-show="product.details.origin" ><small>{{product.details.origin}}</small></span>
+      </blockquote>      
         
-      </div>
   	  <!-- VENDOR-->
       <div class="shop " >
-        <ul class="inline">
-          <li class="" ng-show="product.vendor.photo.owner" style="width:120px;vertical-align:top;">
-            <img src="{{product.vendor.photo.owner | placehold:'160x160&text=l`équipe'}}"  alt="160x160" class="thumbnail-owner photo-owner">
-          </li>
-          <li class="" ng-show="product.vendor.photo.fg&&!product.vendor.photo.owner" style="width:120px;vertical-align:top;">
-            <img src="{{product.vendor.photo.fg | placehold:'160x160&text=l`équipe'}}"  alt="160x160" class="thumbnail-owner photo-owner">
-          </li>
-          <li class="smart">
-            <strong>{{product.vendor.name}}</strong>&nbsp;|&nbsp;{{product.vendor.description}}<br/>
-            <a href="/shop/{{product.vendor.urlpath}}"> Visiter la boutique</a>
-          </li>
-        </ul>          
+            <img ng-show="product.vendor.photo.owner"
+              src="{{product.vendor.photo.owner | placehold:'160x160&text=l`équipe'}}"  align="left"
+              alt="160x160" class="thumbnail-owner photo-owner" >
+            <img ng-show="product.vendor.photo.fg&&!product.vendor.photo.owner" align="left"
+              src="{{product.vendor.photo.fg | placehold:'160x160&text=l`équipe'}}"  
+              alt="160x160" class="thumbnail-owner photo-owner">
+
+            <strong>{{product.vendor.name}}</strong>&nbsp;|&nbsp;{{product.vendor.description}} <a  href="/shop/{{product.vendor.urlpath}}">Visiter la boutique</a>
       </div>
   	  <!-- VENDOR-->
       <div id="disqus_thread" ></div>

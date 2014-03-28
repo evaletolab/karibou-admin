@@ -2,9 +2,22 @@
   <div class="cover-row">
     <div class="cover-img" backstretch="{src:'shop.photo.fg',load:'http://placehold.it/400x300&text=la boutique'}"></div>
 
+    <!-- MESSAGES -->
+    <div class="shop-info-bar active success " ng-cloak 
+         ng-show="shop.info.active">
+      <p ng-bind="shop.info.comment"></p>
+    </div>
+
+
+    <div class="shop-info-bar active warning " ng-cloak 
+         ng-show="shop.available.active">
+      <p ng-bind="shop.available.comment" >        </p>
+    </div>
+
+
     <!-- FOR ADMIN -->
     <div class="cover-actions-top" ng-show="user.isOwner(shop.name)" fade-on-hover=".site-shop-sidebar" >
-        <input show-on-click="#shop-edition" type="button"  value="Editer votre boutique" class=" btn btn-large btn-primary btn-block " />
+        <a href="/shop/{{shop.urlpath}}/edit" class=" btn btn-large btn-primary btn-block ">Editer votre boutique</a>
         <a ng-show="shop.status!=true"  class="btn btn-primary btn-large btn-block {{waitingStatus() && 'disabled'}}" ng-click="publish()">Demander la publication de votre boutique</a>
 
     </div>

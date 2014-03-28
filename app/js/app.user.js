@@ -252,6 +252,7 @@ User.controller('AccountCtrl',[
     if(user.geo && user.addresses){
 
       user.addresses.forEach(function(address,i){
+        if (address.geo)
         user.geo.addMarker(i,{
           lat:address.geo.lat,
           lng:address.geo.lng, 

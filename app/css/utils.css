@@ -38,6 +38,10 @@
   transition:all linear .2s;
 }
 
+.nomargin{
+  margin: 0px!important;
+}
+
 .fadein-setup{
   opacity:1;  
 }
@@ -152,7 +156,7 @@ ul.nav li{
   color:red!important;
 }
 .green{
-  color:#76CC1E!important;
+  color:#6EB823!important;
 }
 .white{
   color:white!important;

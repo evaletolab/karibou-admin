@@ -5,6 +5,16 @@
   position:relative;
 }
 
+
+.product-create .nav-tabs>.active>a, .nav-tabs>.active>a:hover, .nav-tabs>.active>a:focus {
+  color: #555555;
+  background-color: transparent;
+  border:inherit;
+  border-right: 1px solid #ddd;
+  border-bottom-color: transparent;
+  cursor: default;
+}
+
 article:nth-child(odd){
   padding: 5px 0 30px 0;
   -border-bottom:1px solid #ddd;
@@ -17,15 +27,6 @@ article:nth-child(even){
   padding: 5px 0 30px 0;
   -border-bottom:1px solid #ddd;
   --background:#eeeeee url(/img/pattern-diamond.png) center;
-}
-
-.drop-photo{
-  border-: 2px dashed #DDD;
-  border-radius: 15px;
-}
-.drop-photo button{
-  margin-left:10px;
-  margin-right:10px;
 }
 
 .row-fluid [class*="layout-item"] {
@@ -99,8 +100,7 @@ article:nth-child(even){
 .layout-item h1, .layout-item h2, .layout-item h3, .layout-item h4{
 }
 
-.layout-item .body{
-}
+
 
 .layout-item .shop-owner{
   min-height:inherit;
@@ -163,16 +163,11 @@ form .layout-item.c1{
 
 
 .layout-item.c2{
-  width: 27.2%;
-  margin:0.338em 0.238em 0.338em .76em;
-  -min-height:350px;
-
   width: 220px;
   height:220px;
   margin:0 30px 30px 0;
   text-align:center;
   border-radius:0px 0px 2px 2px;
-
 }
 
 .layout-item.c2 div.elem{
@@ -182,9 +177,6 @@ form .layout-item.c1{
 }
 
 .layout-item.c3{
-  width: 56%;
-  margin:0.338em 0.238em 0.338em .75em;
-
   width: 470px;
   height:470px;
   margin:0 30px 30px 0;
@@ -192,28 +184,18 @@ form .layout-item.c1{
   overflow:hidden;
   border-radius:0px 0px 2px 2px;
 }
+
+
 .layout-item.c3 h5, .layout-item.c2 h5{
   margin:5px 0px;
   text-transform: capitalize;
   color:#222;
   font-weight:300;
-}
-.layout-item.c3 h5{
-  margin:15px 0px;
-  font-size:18px;
+  font-size:16px;
 }
 
-.layout-item.c3 section, .layout-item.c2 section{
-  padding-top:0px;
-}
 
-.layout-item.c3 img{
-  width:100%;
-}
 
-.layout-item:hover{
-  -box-shadow: 0 1px 5px rgba(0, 0, 0, 0.25) ;
-}
 
 
 .layout-item .actions{
@@ -253,29 +235,25 @@ form .layout-item.c1{
     margin:0 3% 3% 0;
 	}
 
-
+  .layout-item.c3{
+    width: 440px;
+    height:440px;
+    margin:0 20px 20px 0;
+  }
 
   
   .layout-item.c5, .layout-item.c2{
     margin:0.338em 0.238em 0.338em .76em;
 
-    width: 220px;
-    height:220px;
-    margin:0 30px 30px 0;
+    width: 210px;
+    height:210px;
+    margin:0 20px 20px 0;
     text-align:center;
     border-radius:0px 0px 2px 2px;
 
   }
 
-  .layout-item.c3 div.elem, .layout-item.c2 div.elem{
-    padding-left:10px;
-    max-height: 120px;
-    overflow: hidden;
-  }
-  
-  .layout-item.c2 h5, .layout-item.c3 h5{
-    font-size:14px;
-  }
+
   
 }
 
@@ -294,15 +272,11 @@ form .layout-item.c1{
     
   }
   
-	.layout-item.c2{
-		width: 98%; /* 305px */
-		font-size:13px;
-	}
-	
-	.popup-price{
-	  float:right;
-	  margin-right:15px;
-	}
+  .layout-item.c2, .layout-item.c3{
+    width: 95%; /* 305px */
+    height: inherit;
+  }
+
 
 }
 

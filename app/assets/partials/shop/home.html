@@ -1,15 +1,5 @@
 <div tabindex="-1"  id="null" class="screen-content">
-  <aside class="cover cover-home img-loaded" >
-    <div class="cover-body">
-        <!-- HOME -->
-         <div  class="cover-body-inner black">
-            <h1  class="cover-title">Kariboo</h1>
-            <p class="cover-description ">Une meilleure place pour l'alimentation. <a href="/page/sharte" class="" title="Learn more about Medium">Learn more</a>. <br><br>Read our <a  href="/about" class="">les dernières nouvelles du mois</a>.
-            </p>
-            <div class="cover-actions "><a href="/signup" class="btn btn-primary btn-new-post"><span class="icons icons-new-post"></span>Sign up</a><span class="">ou <a href="login">Login</a></span></div>
-         </div>
-      </div>
-
+  <aside ng-include="getCover()" class="cover cover-home img-loaded" ng-class="{'session':user.isAuthenticated()}">
   </aside>
 
 

@@ -1,224 +1,289 @@
-                <div  id="shop-edition" class="frame frame-white " style="display:none;">
-                  <form  class="form-horizontal" >
-                  <!-- <div class="modal-header">
-                    <h3 class="gray">Editer votre boutique</h3>
-                  </div> -->
-                  <div class="modal-body" style="min-height:400px;max-height:700px;">
 
-                    <div data-fade="1" bs-tabs>
-                      <div data-title="Votre boutique">
-                        <fieldset>
-                          <div ng-show="shop.status!=true" class="items-header ">
-                            <p >
-                              <span class="gray"></span>
-                            </p>
-                          </div>
-                          <div ng-show="user.isAdmin()" class="control-group box">
-                            <label class="control-label">Status</label>
-                            <div class="controls">
-                              <label class="checkbox">
-                                <input type="checkbox" ng-model="shop.status" >
-                                Publier la boutique 
-                              </label>
-                            </div>
-                          </div>                          
+<div tabindex="-1"  id="null" class="screen-content" ng-controller="ShopCtrl">
+  
 
-                          <!-- Description -->
-                          <div class="control-group box">
-                            <label class="control-label">Description</label>
-                            <div class="controls">                     
-                              <div ng-show="user.isOwner(shop.name)" id="toolbar" ></div>
-                              <textarea  rows="4" ng-model="shop.description" no-ui-freshereditor="{toolbar_selector: '#toolbar'}"   class="span10" placeholder="Votre boutique..." >{{shop.description }}</textarea>
-                            </div>
-                          </div>
-
-                          <!-- Photos -->
-                          <div class="control-group box">
-                            <label class="control-label">Photos</label>
-                            <div class="controls">
-                              <button type="input" class="btn btn-success" ng-click="uploadFgPhoto(shop)">de la boutique</button>
-                              <button type="input" class="btn btn-primary" ng-click="uploadOwnerPhoto(shop)">de l'équipe</button>
-                            </div>
-                          </div>
-
-                          <!-- Shop.details -->
-                          <div class="control-group box">
-                            <label class="control-label">Cette boutique offre</label>
-                            <div class="controls">
-                              <label class="checkbox">
-                                <input type="checkbox" ng-model="shop.details.bio" value="des produits Bio">
-                                des produits Bio
-                              </label>
-                              <!--
-                              <label class="checkbox">
-                                <input type="checkbox" ng-model="shop.details.gluten" value="des produits sans gluten">
-                                des produits sans gluten
-                              </label>
-                              <label class="checkbox">
-                                <input type="checkbox" ng-model="shop.details.lactose" value="des produits sans lactose">
-                                des produits sans lactose
-                              </label>
-                              -->
-                              <label class="checkbox">
-                                <input type="checkbox" ng-model="shop.details.local" value="une production locale">
-                                une production locale
-                              </label>
-                            </div>
-                          </div>
-
-                          <!-- catalog -->
-                          <div class="control-group">
-                            <label class="control-label ">Catalogue</label> 
-                            <div class="controls small">
-                              <select  ng-model="shop.catalog " class="input-xlarge" required="true" >
-                                <option ng-repeat="cat in category.findAll() | filter:{type:'Catalog'}" value="{{cat._id}}" 
-                                ng-selected="shop.catalog==cat._id">{{cat.name}}</option>
-                              </select>
-                            </div>
-                          </div>
+  <aside ng-include="getCover()" 
+         class="cover cover-home img-loaded" ng-class="{'session':user.isAuthenticated()}">
+  </aside>
 
 
 
-                          </fieldset>
-                       
-                      </div> <!-- TAB -->
+   <section class="wrapper" tabindex="-1">
+      <div class="wrapper-inner">
 
-                      <div data-title="Information">
-                        <fieldset>
-
-                          <!-- shop.available.active -->
-                          <div class="control-group box">                        
-                            <label class="control-label">Ma boutique est fermé</label>
-                            <div class="controls">
-                              
-                              <div class="input-prepend span11">
-                                <span class="add-on">
-                                  <label class="checkbox">
-                                    <input type="checkbox" ng-model="shop.available.active">
-                                  </label>
-                                </span>
-                                <input class="span11" type="text" ng-model="shop.available.comment" ngMinlength="5" placeholder="Pour quelle raison"/>
-                              </div>
-                              <p class="help-block span10">Tous les produits liés à votre boutique seront invalidés le temps de la fermeture.</p>
-                            </div>
-                          </div>
-
-                          <!-- shop.info.active -->
-                          <div class="control-group">                        
-                            <label class="control-label">Laisser un message</label>
-                            <div class="controls">
-                              
-                              <div class="input-prepend span11">
-                                <span class="add-on">
-                                  <label class="checkbox">
-                                    <input type="checkbox" ng-model="shop.info.active">
-                                  </label>
-                                </span>
-                                <input class="span11" type="text" ng-model="shop.info.comment" ngMinlength="5" placeholder="Laisser un message sur votre boutique"/>
-                              </div>
-                              <p class="help-block span10">Proposer ici une offre spéciale, ou laisser un message à vos clients.</p>
-                            </div>
-                          </div>
-
-                        </fieldset>
-                      </div> <!-- TAB -->    
+        <!--                      -->
+        <!-- EDITION              -->
+        <!--                      -->
 
 
-                      <div data-title="Adresse de logistique">
 
-                        <fieldset>
-                          <!-- URL -->
-                          <div class="control-group">
-                            <label class="control-label"><strong>URL</strong></label>
-                            <div class="controls">
-                              <input type="url" class="span10" ng-model="shop.url" ngMinlength="20" placeholder="Votre site internet"/>                        
-                              <p class="help-block"></p>
-                            </div>
-                          </div>
+          <div>
+            <form class="kariboo" novalidate>
+            <!-- <div class="modal-header">
+              <h3 class="gray">Editer votre boutique</h3>
+            </div> -->
+            <div class="-modal-body">
 
+              <div data-fade="1" bs-tabs>
+                <div data-title="Votre boutique">
 
-                        <div class="control-group">                  
-                          <label class="control-label"><strong>Nom complet</strong></label>
-                          <div class="controls">
-                              <input   ng-model="shop.address.name" type="text" placeholder="ex. {{user.displayName}}"
-                              class="input-xlarge" require>
-                              <p class="help-block"></p>
-                              
-                          </div>
+                    <div style="float:left;width:100%;margin:10px 0">
+                     <!-- URL -->
+                      <div class="control-group">
+                        <label class="control-label">Votre boutique sur Internet</label>
+                        <div class="controls">
+                          <input type="url" class="input-big input-xlarge" ng-model="shop.url"  placeholder="Votre site internet"/>                        
+                          <p class="help-block">L'adresse Internet de votre boutique.</p>
                         </div>
-                          <!-- street & floor -->
-                          <div class="control-group">
-                            <label class="control-label"><strong>Rue, Numéro /étage</strong></label>
-                            <div class="controls">
-                                <input  ng-model="shop.address.streetAdress"  type="text"  placeholder="ex. Route de Chêne 210" class="input-xlarge inline" require>
-                                <input  ng-model="shop.address.floor" type="text" placeholder="étage" class="input-small inline" require>
+                      </div>
+                   
 
-                                <p class="help-block">Addresse de collecte de la marchandise.</p>
-                            </div>
+                      <!-- Description -->
+                      <div class="control-group ">
+                        <label class="control-label">Description</label>
+                        <div class="controls">                     
+                          <textarea name="description" required rows="4" ng-model="shop.description"  class="span10" placeholder="Votre boutique..." >{{shop.description }}</textarea>
+                        </div>
+                        <p ng-show="form.description.$invalid && !form.description.$pristine" class="help-block">La description est obligatoire.</p>                        
+                      </div>
+
+                      <hr/>
+                     <!-- Photos -->
+                      <div class="control-group relative">
+                        <label class="control-label">Photos de votre boutique</label>
+                        <div class="controls">
+                          <button type="input" class="btn btn-success btn-large" ng-click="uploadFgPhoto(shop)">de la boutique</button>
+
+                        </div>
+
+                        <div class="controls">
+                          <button type="input" class="btn btn-primary btn-large" ng-click="uploadOwnerPhoto(shop)">de l'équipe</button>
+                        </div>
+                        <div style="position:absolute;right:10px;top:0%;width:60%;">
+                          <div class="span5 " style="padding:10px">
+                            <img ng-src="{{shop.photo.fg| placehold:'160x160&text=la boutique'}}" class="img-polaroid">
                           </div>
-                          <!-- postal -->
-                          <div class="control-group">
-                            <label class="control-label"><strong>Code Postal</strong></label>
-                            <div class="controls">
-                                <input  ng-model="shop.address.postalCode"  type="text" placeholder="code postal 1200" 
-                                class="input-xlarge" require>
-                                <p class="help-block"></p>
-                            </div> 
-                          </div>
-                          <!-- commune -->
-                          <div class="control-group">
-                            <label class="control-label"><strong>Commune</strong></label>
-                            <div class="controls">
-                              <select class="input-xlarge" ng-model="shop.address.location"  
-                                       data-ng-options="l for l in config.shop.user.location.list" >
-                                  <option value="">-- Choisissez  --</option>
-                              </select>
-                            </div>
+                          <div class="span5 " style="padding:10px">
+                            <span class="cover-avatar" >
+                              <img src="{{shop.photo.owner | placehold:'160x160&text=l`équipe'}}"  class="img-polaroid" style="max-height:100px"/>
+                            </span>
                           </div>
 
+                        </div>  
+                      </div> 
+                      <hr/>
+                    </div>
+                    <div class="span5 nomargin">
+                      <!-- catalog -->
+                      <div class="control-group">
+                        <label class="control-label ">Catalogue</label> 
+                        <div class="controls small">
+                          <select  ng-model="shop.catalog " class="input-xlarge" required="true" >
+                            <option ng-repeat="cat in category.findAll() | filter:{type:'Catalog'}" value="{{cat._id}}" 
+                            ng-selected="shop.catalog==cat._id">{{cat.name}}</option>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="span6">
+                      <!-- Shop.details -->
+                      <div class="control-group box">
+                        <label class="control-label">Cette boutique offre</label>
+                        <div class="controls">
+                          <label class="checkbox">
+                            <input type="checkbox" ng-model="shop.details.bio" value="des produits Bio">
+                            des produits Bio
+                          </label>
+                          <!--
+                          <label class="checkbox">
+                            <input type="checkbox" ng-model="shop.details.gluten" value="des produits sans gluten">
+                            des produits sans gluten
+                          </label>
+                          <label class="checkbox">
+                            <input type="checkbox" ng-model="shop.details.lactose" value="des produits sans lactose">
+                            des produits sans lactose
+                          </label>
+                          -->
+                          <label class="checkbox">
+                            <input type="checkbox" ng-model="shop.details.local" value="une production locale">
+                            une production locale
+                          </label>
+                        </div>
+                      </div>
+                    </div>
+           
 
-                          <!-- Marketplace -->
-<!--                           <div class="control-group">
-                            <label class="control-label">Mes marchés</label>
-                            <div class="controls">
-                              <select class="input-xlarge" multiple="multiple" ng-model="shop.marketplace" >    
-                                <option ng-repeat="market in config.shop.marketplace.list" ng-selected="market == config.shop.marketplace.default">{{market}}</option>
-                              </select>    
-                              <p class="help-block">Je propose mes produits sur les marchés suivant</p>
-                            </div>
+
+
+
+
+                 
+                </div> <!-- TAB -->
+
+                <div data-title="Information">
+           
+                    <div class="control-group ">                        
+                      <label class="control-label">Ma boutique est fermé
+                        <input type="checkbox" ng-model="shop.available.active">
+                      </label>
+                      <div class="controls">
+                        
+                        <input class="input-big span11" type="text" ng-model="shop.available.comment" ng-minlength="5" placeholder="Pour quelle raison"/>
+                        <p class="help-block ">Tous les produits liés à votre boutique seront indisponibles le temps de la fermeture.</p>
+                      </div>
+                    </div>
+
+                    <hr/>
+                    <!-- shop.info.active -->
+                    <div class="control-group">                        
+                      <label class="control-label">Laisser un message sur votre boutique
+                        <input type="checkbox" ng-model="shop.info.active"></label>
+                      <div class="controls">
+                        
+                        <input class="input-big span11" type="text" ng-model="shop.info.comment" ng-minlength="5" placeholder="Laisser un message sur votre boutique"/>
+                        <p class="help-block">Proposer ici une offre spéciale, ou laisser un message à vos clients.</p>
+                      </div>
+                      <hr/>
+                    </div>
+
+                    <div ng-show="user.isAdmin()" class="admin-box">
+                      <div class="span5" >
+                        <div  class="control-group ">
+                          <label class="control-label">Status</label>
+                          <div class="controls">
+                            <label class="checkbox">
+                              <input type="checkbox" ng-model="shop.status" >
+                              Publier la boutique 
+                            </label>
+
                           </div>
- -->
-                        </fieldset>
-                      </div> <!-- TAB -->    
-                            
+                        </div>                          
+                      </div>
+                      <div class="span7">
+                        <div class="control-group ">
+                          <label class="control-label">Business model</label>
+                          <div class="controls">
 
-                      <div data-title="FAQ">
-                        <h2>Foire aux questions</h2>
-                          <label>Constituez votre liste des questions fréquemment posées.</label>
-                          <ul class="unstyled">
-                            <li ng-repeat="faq in shop.faq">
-                              <input type="text" value="{{faq.q}}" ng-model="shop.faq[$index].q" placeholder="Enter a new question" class="input-xlarge span10">
-                              <textarea  rows="3" class="input-xlarge span10" ng-model="shop.faq[$index].a" placeholder="Enter the answer">{{faq.a}}</textarea>
-                              <a href ng-click="shop.faq.splice($index, 1)"><i class="icon-remove"></i></a>
-                            </li>
-                            <li>
-                              <a href ng-click="shop.faq.push({})" class="btn btn-small">Ajouter <i class="icon-plus"></i></a>
-                            </li>
-                          </ul>
-                      </div> <!-- TAB -->  
+                            <label class="radio inline">
+                              <input type="radio" name="type" ng-model="shop.bm" value="minima" checked="checked">
+                              minima
+                            </label>                              
+                            <label class="radio inline">
+                              <input type="radio" name="type" ng-model="shop.bm" value="medium" checked="checked">
+                              medium
+                            </label>                              
+                            <label class="radio inline ">
+                              <input type="radio" name="type" ng-model="shop.bm" value="max" checked="checked">
+                              max
+                            </label>                              
+                          </div>
+                        </div>                          
+                      </div>
+                    </div>          
 
-                      <div data-title="Aperçu">
-                          <div  ng-include="'/partials/shop/shop.html'"  ></div>              
-                      </div> <!-- TAB -->    
+                </div> <!-- TAB -->    
+
+
+                <div data-title="Adresse de logistique">
+
+
+
+                  <div class="control-group">                  
+                    <label class="control-label">Nom complet</label>
+                    <div class="controls">
+                        <input   ng-model="shop.address.name" type="text" placeholder="{{user.displayName}}"
+                        class="input-xlarge input-big " require>
+                        <p class="help-block"></p>
                         
                     </div>
                   </div>
-                  <div class="modal-footer ">
-                    <input type="button"  ng-click="shop.remove(user);shops.pop(shop)" title="depth delete for dev only" value="Supprimer" class="btn btn-large btn-danger pull-left"/>
-                    <input type="button"  ng-click="save(shop);" value="{{WaitText || 'Enregistrer'}}" class="save btn btn-primary btn-large"/>
-                    <input type="button"  value="Annuler" class="undo btn btn-large " hide-on-click="#shop-edition" />
-                  </div>
+                    <!-- street & floor -->
+                    <div class="control-group">
+                      <label class="control-label">Rue, Numéro /étage</label>
+                      <div class="controls">
+                          <input  ng-model="shop.address.streetAdress"  type="text"  placeholder="Route de Chêne 210" class="input-big input-xlarge inline" require>
+                          <input  ng-model="shop.address.floor" type="text" placeholder="étage" class="input-big input-small inline" require>
 
-                  </form>
-                </div>              
+                          <p class="help-block">Addresse de collecte de la marchandise.</p>
+                      </div>
+
+
+                      <!-- postal -->
+                      <div class="control-group">
+                        <label class="control-label">Code Postal</label>
+                        <div class="controls">
+                            <input  ng-model="shop.address.postalCode"  type="text" placeholder="code postal 1200" 
+                            class="input-big input-xlarge" require>
+                            <p class="help-block"></p>
+                        </div> 
+                      </div>
+
+                      <!-- commune -->
+                      <div class="control-group">
+                        <label class="control-label">Commune</label>
+                        <div class="controls">
+                          <select class="input-big input-xlarge" ng-model="shop.address.location"  
+                                   data-ng-options="l for l in config.shop.user.location.list" >
+                              <option value="">-- Choisissez  --</option>
+                          </select>
+                        </div>
+                      </div>
+
+                    </div>
+
+
+                    <!-- Marketplace -->
+          <!--                           <div class="control-group">
+                      <label class="control-label">Mes marchés</label>
+                      <div class="controls">
+                        <select class="input-xlarge" multiple="multiple" ng-model="shop.marketplace" >    
+                          <option ng-repeat="market in config.shop.marketplace.list" ng-selected="market == config.shop.marketplace.default">{{market}}</option>
+                        </select>    
+                        <p class="help-block">Je propose mes produits sur les marchés suivant</p>
+                      </div>
+                    </div>
+          -->
+                </div> <!-- TAB -->    
+                      
+
+                <div data-title="FAQ">
+                    <label>Constituez votre liste des questions fréquemment posées.</label>
+                    <ul class="unstyled" >
+                        <a class="pull-right btn btn-inverse" href ng-click="shop.faq.splice($index, 1)"><i class="icon-remove"></i></a>
+                      <li ng-repeat="faq in shop.faq" style="border-bottom:1px dotted #ddd">
+                        <input type="text" value="{{faq.q}}" ng-model="shop.faq[$index].q" placeholder="Une question fréquente" class="input-big input-xlarge span10">
+                        <textarea  rows="3" class="input-xlarge span10" ng-model="shop.faq[$index].a" placeholder="Votre commentaire">{{faq.a}}</textarea>
+                      </li>
+                      <li>
+                        <a href ng-click="shop.faq.push({})" class="btn btn-primary pull-right">Ajouter <i class="icon-plus"></i></a>
+                      </li>
+                    </ul>
+                </div> <!-- TAB -->  
+
+                <div data-title="Aperçu">
+                  <div  ng-include="'/partials/shop/shop.html'"  ></div>
+
+                </div> <!-- TAB -->    
+                  
+              </div>
+            </div>
+            <div class="modal-footer ">
+              <input type="button"  ng-click="shop.remove(user);shops.pop(shop)" title="depth delete for dev only" value="Supprimer" class="btn btn-large btn-danger pull-left"/>
+              <a ng-disabled="form.$invalid" href ng-click="save(shop);"  class="save btn btn-primary btn-large">{{WaitText || 'Enregistrer'}}</a>
+              <a href="/shop/{{shop.urlpath}}" class="undo btn btn-large ">Annuler</a>
+            </div>
+
+            </form>
+          </div>              
+
+        <!--                      -->
+        <!--                      -->
+        </div>
+
+
+        <!-- FOOTER -->              
+        <footer class="wrapper-footer" ng-include="'/footer.html'"></footer>
+      </section>
+   </section>
+</div>
 

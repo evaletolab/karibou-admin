@@ -2,16 +2,6 @@
 <div tabindex="-1"  id="null" class="screen-content" ng-controller="ShopCtrl">
   
 
-  <div class="butter-bar active success " ng-cloak ng-show="shop.info.active">
-    <p class="butter-bar-message" ng-bind="shop.info.comment">
-      
-    </p>
-    <p ng-show="shop.available.active">
-      <p ng-show="shop.available.comment" >
-        <i class="icon-off -icon-white"></i>&nbsp;{{shop.available.comment}}
-      </p>
-    </p>
-  </div>
 
 
   <aside ng-include="'/partials/shop/cover.html'" class="cover cover-home img-loaded" >
@@ -38,7 +28,7 @@
         </div>
         -->
 
-        <div ng-include="'/partials/shop/edit.html'"></div>
+        <!-- <div ng-include="'/partials/shop/edit.html'"></div> -->
 
 
         <article  ng-repeat="(group, _products) in products"  > 
@@ -58,10 +48,10 @@
         <div class="modal hide fade" id="ask"  role="dialog" >
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-            <h3>Contactez la boutique {{shop.name}}</h3>
+            <h4 class="white">Contactez: {{shop.name}}</h4>
           </div>
           <div class="modal-body">
-              <textarea  style="height:98%" ng-model="askContent" class="span12" placeholder="Votre question..." ></textarea>
+              <textarea  style="height:98%" ng-model="askContent" class="span12 " placeholder="Votre question..." ></textarea>
           </div>
           <div class="modal-footer">
             <a href="#" class="btn" data-dismiss="modal">Close</a>
@@ -81,7 +71,7 @@
           </ol>
           <p>
           <br/>
-          <button type="button" class="btn btn-large disabled btn-info"  role="button" ng-click="modal('#ask')" >Ask Question!</button>
+          <button type="button" class="btn btn-large disabled btn-info"  role="button" ng-click="modal('#ask')" >Une question?</button>
           </p>
         </blockquote>          
         </div>

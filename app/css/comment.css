@@ -6,3 +6,7 @@
 .dsq-comment {
   font-size:80%;
 }   
+
+#disqus_thread #footer{
+	display: none;
+}

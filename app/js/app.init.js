@@ -55,6 +55,11 @@ App.config([
     $httpProvider.defaults.crossDomain=true;
     $httpProvider.defaults.withCredentials=true;
 
+    //
+    // clear the cache
+    //$httpProvider.defaults.headers.common['Cache-Control']='no-cache';
+    //$templateCache.removeAll()
+
     // List of routes of the application
     $routeProvider
       // Pages
@@ -112,6 +117,6 @@ angular.element(document).ready(function () {
 	  
 
   angular.bootstrap(document, ['app']);
-});
 
+});
 

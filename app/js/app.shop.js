@@ -17,6 +17,7 @@ Shop.config([
     // List of routes of the application
     $routeProvider
       .when('/shop/:shop/products',{redirectTo:'/shop/:shop'})
+      .when('/shop/:shop/edit',{title:'Editer votre boutique ', templateUrl : '/partials/shop/edit.html'})
       .when('/shop/:shop', {title:'Votre boutique ', templateUrl : '/partials/shop/shop-content.html'});
   }
 ]);
@@ -46,9 +47,10 @@ Shop.controller('ShopCtrl',[
     $scope.shop=shop;
     
     $scope.save=function(shop){
-      console.log(shop)
       shop.save(function(s){
-          api.info($scope,"Votre boutique a été enregistrée!");
+          api.info($scope,"Votre boutique a été enregistrée!",1000,function(){
+            $location.url('/shop/'+shop.urlpath);            
+          });
       },cb_error);
     };
     

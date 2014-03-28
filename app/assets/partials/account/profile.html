@@ -8,7 +8,9 @@
   </div>
 
 
-  <aside ng-include="'/partials/account/cover.html'" class="cover cover-home img-loaded" >
+  <aside ng-include="'/partials/account/cover.html'" 
+         class="cover cover-home img-loaded" 
+         ng-class="{'session':user.isAuthenticated()}">
   </aside>
 
 
@@ -28,14 +30,14 @@
       <!--                               -->                          
 
 
-      <form name="form" novalidate="novalidate" class="form-horizontal well- well-small">
+      <form name="form" novalidate="novalidate" class="form-horizontal well well-small">
           <h5 class="article-group-title " >
             Vos données personnelles
           </h5>          
 
 
           <!-- NAME FIRSTNAME -->        
-          <div class="well">
+          <div class="">
             <div class="form-group ">
               <label>Nom</label>
                 <input required ng-model="user.name.givenName" placeholder="Prénom" type="text" name="firstname" class="input-small input-big"/>
@@ -44,14 +46,15 @@
 
             <!-- PHONES -->        
             <div class="form-group " >
-              <label >Téléphone&nbsp;</label>
+              <label >Téléphone&nbsp;
+                <a href="" ng-click="user.phoneNumbers.push({})" 
+                     class="small gray offset1"> <i class="icon-plus"></i>Ajouter </a>
+              </label>
               <div ng-repeat="phone in user.phoneNumbers">
                 <input type="text"  ng-model="user.phoneNumbers[$index].what" placeholder="principale" class="input-small input-big">
                 <input type="text"  ng-model="user.phoneNumbers[$index].number" placeholder="022 321.23.24" class="input-medium input-big">
                 <a href ng-click="user.phoneNumbers.splice($index, 1)"><i class="icon-remove"></i></a>
               </div>
-                <a href="" ng-click="user.phoneNumbers.push({})" 
-                     class="small gray offset1"> <i class="icon-plus"></i> Ajouter un numéro</a>
             </div>
 
             <!-- EMAIL & VALIDATION -->        
@@ -75,7 +78,7 @@
 
           <!-- ADDRESSES -->
 
-          <div class="well" ng-class="{'border-green':user.addresses[$index].primary}" ng-repeat="address in user.addresses" >
+          <div class="" ng-class="{'primary-content':user.addresses[$index].primary}" ng-repeat="address in user.addresses" >
               <a href ng-click="user.addresses.splice($index, 1)" 
               class="pull-right btn btn-small btn-inverse"><i class="icon-remove"></i> </a>
 

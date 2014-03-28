@@ -2,6 +2,43 @@
 /* forms 
 -------------------------------------------------- */
 
+
+/* item is currently valid based on the rules you placed. */
+.kariboo .ng-valid{
+
+}
+/* form/input has *not* been used yet. */
+.ng-pristine{
+}
+/* form/input has been used yet. */
+.kariboo  .ng-dirty{
+  border:1px solid orange!important;
+}
+
+/* item is currently invalid based on the rules you placed. */
+.kariboo  .ng-invalid{
+  border:1px solid red!important;
+}
+
+
+.admin-box{
+  border: 2px dashed #fdd;
+  float: left;
+  width: 90%;
+  border-radius: 6px;
+  padding: 5px;  
+}
+
+
+.tab-content>.tab-pane, .pill-content>.pill-pane {
+  min-height: 400px;
+}
+
+.primary-content{
+  border-left: 4px solid #eee!important;
+  padding-left: 8px;  
+}
+
 .input-big {
   height: 39px!important;
   line-height: 28px!important;
@@ -12,12 +49,43 @@
 label, input, button, select, textarea {
     font-size: 18px;
     line-height: 1.4em;
+    vertical-align: baseline;
 }
+
+input[type="text"], input[type="password"], input[type="email"], textarea, select {
+    background-color: #fafafa!important;
+    border-width: 1px!important;
+    box-shadow: none!important;
+    margin-bottom:5px;
+}
+
+.input-prepend input, .input-append input{
+   border-width: 1px!important; 
+}
+
 label{
-    font-size: 16px;
-    color:#666;
-    text-shadow: 0px 1px 0px rgba(255,255,255,0.8);
+  color: #398bce;
+  text-shadow: 0px 1px 0px rgba(255,255,255,0.8);
+  font-weight: 300;
+  font-style: italic;
 }
+
+label.checkbox{
+  color: inherit;
+}
+
+.help-block {
+  display: block;
+  margin-bottom: 1px;
+  margin-top: -10px!important;
+  font-size: 80%;
+  -color: #398bce;
+  color:bbb;
+  text-shadow: 0px 1px 0px rgba(255,255,255,0.8);
+  font-weight: 300;
+}
+
+
 .form-horizontal .control-label{
     text-align:left;
 }
@@ -53,8 +121,9 @@ label{
 form.nomargin{
   margin-bottom:0px;
 }
-.controls p{
+.controls{
   margin-top:5px;
+  margin-bottom:20px;
 }
 
 .control-group:last-child{
@@ -116,23 +185,50 @@ form.nomargin{
 
 .modal-header{
   border-top:1px solid #aaa;
-  background-image:url(/img/rice-paper.jpg);  
+  background-image:url(/img/pattern-dark1.jpg);  
   background-repeat: repeat-x;
+  height: 40px;
+  margin: 0;
+  padding: 5px;
+  border-radius: 5px 5px 0 0;  
+
+  background-image: -webkit-linear-gradient(top,#585858 0,#3a3a3a 100%);
+  background-image: linear-gradient(top,#585858 0,#3a3a3a 100%);
+  -webkit-box-shadow: inset 0 1px 0 rgba(255,255,255,.2);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.2);  
 }
+
+.modal-header .close{
+  height: 37px;
+  padding: 0 14px;
+  border-left: 1px solid #222;  
+}
+
+.modal-header h4{
+  color: #fff;
+  font-size: 14px;
+  text-shadow: 0 -1px 0 #000;  
+  padding: 10px;
+  text-align: center;  
+}
+
 .modal-body{
-  height:480px;
+  min-height:480px;
   max-height:500px!important;
-  background-image: -moz-linear-gradient(center top , #fff 0px, #ddd 60%);
-  background-image: -webkit-gradient(linear, 0 0, 0 60%, from(#eee), to(#ddd));
-  background-image: -webkit-linear-gradient(center top, #eee, #ddd);
-  background-image: -o-linear-gradient(center top, #eee, #ddd);
-  -background-image: linear-gradient(to top, #eee, #ddd);
-  
 }
+.modal-body.gradient{
+  background-image: -moz-linear-gradient(center top , #eee 0px, #efefef 60%);
+  background-image: -webkit-gradient(linear, 0 0, 0 15%, from(#eee), to(#efefef));
+  background-image: -webkit-linear-gradient(center top, #eee, #efefef);
+  background-image: -o-linear-gradient(center top, #eee, #efefef);
+
+}
+
 
 .modal-footer{
   background-repeat: repeat-x;
   border-radius:0px!important;
+  background-color:white;
 }
 
 .modal-footer-dark{
