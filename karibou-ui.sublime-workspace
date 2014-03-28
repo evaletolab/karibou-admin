@@ -1,0 +1,1631 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"p",
+				"photo"
+			],
+			[
+				"co",
+				"color"
+			],
+			[
+				"ma",
+				"margin"
+			],
+			[
+				"pad",
+				"padding-left"
+			],
+			[
+				"di",
+				"display"
+			],
+			[
+				"font-",
+				"font-weight"
+			],
+			[
+				"bor",
+				"border"
+			],
+			[
+				"pro",
+				"product"
+			],
+			[
+				"a",
+				"addresses"
+			],
+			[
+				"u",
+				"user"
+			],
+			[
+				"l",
+				"log"
+			],
+			[
+				"con",
+				"console"
+			],
+			[
+				"for",
+				"forEach"
+			],
+			[
+				"dis",
+				"displayName"
+			],
+			[
+				"ge",
+				"geo"
+			],
+			[
+				"d",
+				"draggable"
+			],
+			[
+				"fo",
+				"focus"
+			],
+			[
+				"mar",
+				"markers"
+			],
+			[
+				"def",
+				"defaultMap"
+			],
+			[
+				"fn",
+				"function"
+			],
+			[
+				"fun",
+				"function"
+			],
+			[
+				"win",
+				"window"
+			],
+			[
+				"do",
+				"document"
+			],
+			[
+				"tim",
+				"timer"
+			],
+			[
+				"margin",
+				"margin"
+			],
+			[
+				"pric",
+				"pricing"
+			],
+			[
+				"prot",
+				"prototype"
+			],
+			[
+				"is",
+				"isReady"
+			],
+			[
+				"sh",
+				"shipping"
+			],
+			[
+				"padd",
+				"padding"
+			],
+			[
+				"de",
+				"defaultOrder"
+			],
+			[
+				"e",
+				"element"
+			],
+			[
+				"padding",
+				"padding-top"
+			],
+			[
+				"marg",
+				"margin-top"
+			],
+			[
+				"exp",
+				"express"
+			],
+			[
+				"lo",
+				"log"
+			],
+			[
+				"roo",
+				"rootPath"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "app/assets/index.html",
+			"settings":
+			{
+				"buffer_size": 8621,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "app/assets/partials/account/cover.html",
+			"settings":
+			{
+				"buffer_size": 787,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "app/css/overlay.css",
+			"settings":
+			{
+				"buffer_size": 2654,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "app/css/comment.css",
+			"settings":
+			{
+				"buffer_size": 134,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "app/js/app.config.js",
+			"settings":
+			{
+				"buffer_size": 1773,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "app/assets/partials/product/create.html",
+			"settings":
+			{
+				"buffer_size": 10130,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "app/assets/partials/product/product.html",
+			"settings":
+			{
+				"buffer_size": 2729,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "app/js/app.product.js",
+			"settings":
+			{
+				"buffer_size": 8725,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "app/assets/partials/product/product-wide.html",
+			"settings":
+			{
+				"buffer_size": 3910,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "app/js/app.shop.js",
+			"settings":
+			{
+				"buffer_size": 7889,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "app/assets/partials/shop/shop-content.html",
+			"settings":
+			{
+				"buffer_size": 3020,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "app/assets/partials/shop/home.html",
+			"settings":
+			{
+				"buffer_size": 2127,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "app/assets/partials/shop/shop.html",
+			"settings":
+			{
+				"buffer_size": 1497,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "app/assets/partials/account/shop.html",
+			"settings":
+			{
+				"buffer_size": 3730,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "app/assets/partials/product/home.html",
+			"settings":
+			{
+				"buffer_size": 1854,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "app/assets/partials/account/overview.html",
+			"settings":
+			{
+				"buffer_size": 3214,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "app/css/shop2.css",
+			"settings":
+			{
+				"buffer_size": 644,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "app/css/header.css",
+			"settings":
+			{
+				"buffer_size": 2182,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "app/css/product.css",
+			"settings":
+			{
+				"buffer_size": 5285,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "app/css/form.css",
+			"settings":
+			{
+				"buffer_size": 5896,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "app/css/utils.css",
+			"settings":
+			{
+				"buffer_size": 4552,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "app/css/shop.css",
+			"settings":
+			{
+				"buffer_size": 3013,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "app/assets/partials/shop/edit.html",
+			"settings":
+			{
+				"buffer_size": 14008,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "app/css/home.css",
+			"settings":
+			{
+				"buffer_size": 38438,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "app/js/app.root.js",
+			"settings":
+			{
+				"buffer_size": 3024,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "app/assets/partials/shop/cover.html",
+			"settings":
+			{
+				"buffer_size": 1570,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "app/js/app.init.js",
+			"settings":
+			{
+				"buffer_size": 2908,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "app/assets/partials/account/profile.html",
+			"settings":
+			{
+				"buffer_size": 7343,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "app/assets/partials/account/password.html",
+			"settings":
+			{
+				"buffer_size": 3035,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "app/js/app.user.js",
+			"settings":
+			{
+				"buffer_size": 14601,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "app/assets/partials/product/love.html",
+			"settings":
+			{
+				"buffer_size": 1605,
+				"line_ending": "Unix"
+			}
+		}
+	],
+	"build_system": "",
+	"command_palette":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"console":
+	{
+		"height": 0.0
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/home/evaleto/nodejs/karibou-mockup/vendor/scripts/angular-route.js",
+		"/home/evaleto/nodejs/karibou-mockup/vendor/scripts/angular-route-new.js",
+		"/home/evaleto/nodejs/karibou-mockup/vendor/scripts/angular-routeew.js",
+		"/home/evaleto/nodejs/karibou-mockup/vendor/scripts/leaflet.js",
+		"/home/evaleto/nodejs/karibou-mockup/app/js/app.order.js",
+		"/home/evaleto/nodejs/karibou-mockup/app/css/footer.css",
+		"/home/evaleto/nodejs/karibou-mockup/app/css/home.css",
+		"/home/evaleto/nodejs/karibou-mockup/app/js/app.home.js",
+		"/home/evaleto/nodejs/karibou-mockup/app/js/app.user.js",
+		"/home/evaleto/nodejs/karibou-mockup/app/js/app.root.js",
+		"/home/evaleto/nodejs/karibou-mockup/app/assets/partials/product/love.html",
+		"/home/evaleto/nodejs/karibou-mockup/app/assets/partials/account/navigation.html",
+		"/home/evaleto/nodejs/karibou-mockup/vendor/scripts/angular-sanitize.js",
+		"/home/evaleto/nodejs/karibou-mockup/package.json",
+		"/home/evaleto/nodejs/karibou-mockup/app/assets/partials/account/profile.html",
+		"/home/evaleto/nodejs/karibou-mockup/app/js/app.service.ui.js",
+		"/home/evaleto/nodejs/karibou-mockup/app/js/app.ui.lazyload.js",
+		"/home/evaleto/nodejs/karibou-mockup/app/assets/partials/product/products.html",
+		"/home/evaleto/nodejs/karibou-mockup/htaccess",
+		"/home/evaleto/nodejs/karibou-mockup/app/js/app.product.js",
+		"/home/evaleto/nodejs/karibou-mockup/app/assets/partials/product/product-wide.html",
+		"/home/evaleto/nodejs/karibou-mockup/vendor/scripts/simpleCart.js",
+		"/home/evaleto/nodejs/karibou-mockup/app/js/app.service.js",
+		"/home/evaleto/nodejs/karibou-mockup/app/assets/partials/account/password.html",
+		"/home/evaleto/nodejs/karibou-mockup/app/assets/partials/shop/home.html",
+		"/home/evaleto/nodejs/karibou-mockup/app/js/moment.fr.js",
+		"/home/evaleto/nodejs/karibou-mockup/app/assets/footer.html",
+		"/home/evaleto/nodejs/karibou-mockup/app/assets/partials/account/login.html",
+		"/home/evaleto/nodejs/karibou-mockup/app/assets/partials/account/signup.html",
+		"/home/evaleto/nodejs/karibou-mockup/app/assets/partials/account/recovery.html",
+		"/home/evaleto/nodejs/karibou-mockup/app/js/app.ui.map.js",
+		"/home/evaleto/nodejs/karibou-mockup/app/assets/partials/shop/edit.html",
+		"/home/evaleto/nodejs/karibou-mockup/app/js/app.category.js",
+		"/home/evaleto/nodejs/karibou-mockup/app/js/app.shop.js",
+		"/home/evaleto/nodejs/karibou-mockup/app/css/bootstrap-white_css",
+		"/home/evaleto/nodejs/karibou-mockup/app/assets/partials/account/overview.html",
+		"/home/evaleto/nodejs/karibou-mockup/app/assets/partials/account/shop.html",
+		"/home/evaleto/nodejs/karibou-mockup/config.coffee",
+		"/home/evaleto/nodejs/karibou-mockup/app/assets/partials/logistic/collect.html",
+		"/home/evaleto/nodejs/karibou-mockup/app/assets/partials/logistic/overview.html",
+		"/home/evaleto/nodejs/karibou-mockup/app/js/app.init.js",
+		"/home/evaleto/nodejs/karibou-mockup/app/assets/partials/product/product.html",
+		"/home/evaleto/nodejs/karibou-mockup/app/assets/partials/shop/shop-content.html",
+		"/home/evaleto/nodejs/karibou-mockup/app/assets/partials/shop/shops.html",
+		"/home/evaleto/nodejs/karibou-mockup/app/assets/partials/admin/user.html",
+		"/home/evaleto/nodejs/karibou-mockup/app/assets/partials/admin/category.html",
+		"/home/evaleto/nodejs/karibou-mockup/app/assets/partials/shop/cover.html",
+		"/home/evaleto/nodejs/karibou-mockup/app/css/utils.css",
+		"/home/evaleto/nodejs/karibou-mockup/vendor/scripts/angular-cookies.js",
+		"/home/evaleto/nodejs/karibou-mockup/app/css/cart.css",
+		"/home/evaleto/nodejs/karibou-mockup/app/css/navigation.css",
+		"/home/evaleto/nodejs/karibou-mockup/app/css/shop.css",
+		"/home/evaleto/nodejs/karibou-mockup/app/assets/partials/admin/category.modal.html",
+		"/home/evaleto/nodejs/karibou-mockup/vendor/scripts/nprogress.js",
+		"/home/evaleto/nodejs/karibou-mockup/app/css/form.css",
+		"/home/evaleto/nodejs/karibou-mockup/app/assets/partials/cover.html",
+		"/home/evaleto/nodejs/karibou-mockup/app/css/fonts.css",
+		"/home/evaleto/nodejs/karibou-mockup/vendor/scripts/bootstrap.js",
+		"/home/evaleto/nodejs/karibou-mockup/app/css/login.css",
+		"/home/evaleto/nodejs/karibou-mockup/app/assets/partials/account/menu.html",
+		"/home/evaleto/nodejs/karibou-mockup/app/js/simpleCart.js",
+		"/home/evaleto/nodejs/karibou-mockup/app/css/nprogress.css",
+		"/home/evaleto/nodejs/git/karibou-api/app/config.js",
+		"/home/evaleto/nodejs/git/karibou-api/app/models.js",
+		"/home/evaleto/nodejs/git/karibou-api/test/users.likes.js",
+		"/home/evaleto/nodejs/git/karibou-api/test/api.category.js",
+		"/home/evaleto/nodejs/git/karibou-api/test/api.users.js",
+		"/home/evaleto/nodejs/git/karibou-api/test/api.emails.validation.js",
+		"/home/evaleto/nodejs/git/karibou-api/test/api.products.find.sort.js",
+		"/home/evaleto/nodejs/git/karibou-api/test/api.products.find.js",
+		"/home/evaleto/nodejs/git/karibou-api/test/api.products.status.find.js",
+		"/home/evaleto/nodejs/git/karibou-api/test/api.products.js",
+		"/home/evaleto/nodejs/git/karibou-api/test/api.users.status.js",
+		"/home/evaleto/nodejs/git/karibou-api/test/api.products.error.js",
+		"/home/evaleto/nodejs/git/karibou-api/test/fixtures.js",
+		"/home/evaleto/nodejs/git/karibou-api/test/products.find.js",
+		"/home/evaleto/nodejs/git/karibou-api/test/api.shops.js",
+		"/home/evaleto/nodejs/git/karibou-api/test/api.users.create.js",
+		"/home/evaleto/nodejs/git/karibou-api/test/users.js",
+		"/home/evaleto/nodejs/git/karibou-api/test/category.js",
+		"/home/evaleto/nodejs/git/karibou-api/test/products.create.js",
+		"/home/evaleto/nodejs/git/karibou-api/test/system.js",
+		"/home/evaleto/nodejs/git/karibou-api/test/products.js",
+		"/home/evaleto/nodejs/git/karibou-api/test/db.maintain.js",
+		"/home/evaleto/nodejs/git/karibou-api/test/api.shops.admin.js",
+		"/home/evaleto/nodejs/git/karibou-api/test/shops.js",
+		"/home/evaleto/nodejs/git/karibou-api/app/express.js",
+		"/home/evaleto/nodejs/git/karibou-api/views/500.jade",
+		"/home/evaleto/nodejs/git/karibou-api/app/passport.js",
+		"/home/evaleto/nodejs/git/karibou-api/models/users.js",
+		"/home/evaleto/nodejs/git/karibou-api/app/routes.js",
+		"/home/evaleto/nodejs/git/karibou-api/node_modules/passport/lib/passport/middleware/initialize.js:",
+		"/home/evaleto/nodejs/git/karibou-api/app/db.maintain.js"
+	],
+	"find":
+	{
+		"height": 35.0
+	},
+	"find_in_files":
+	{
+		"height": 0.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"control",
+			"help",
+			"boutique</strong></",
+			"</strong>",
+			"<strong>",
+			"\"><strong>Le",
+			"<strong>",
+			"portion",
+			"</strong>",
+			"complet</strong></",
+			"</strong>",
+			"<strong>",
+			"<strong",
+			"fieldset",
+			"elem",
+			"576px",
+			"photo-owner",
+			"own",
+			"div>img",
+			"fieldset",
+			"form.",
+			"placehold",
+			"div.shop a",
+			"optimizeLegibility",
+			"popup",
+			"body",
+			"site-nav-list-item-btn",
+			"item_price",
+			"item_",
+			".body",
+			"\\.block",
+			"sit-nav-list",
+			"checkImages",
+			"startRenderTimer",
+			"windowChanged",
+			"site-nav-logo ",
+			".wrapper-inner",
+			".container",
+			"container",
+			".cover",
+			".cover-user .cover-img",
+			".cover-actions-top",
+			".cover",
+			"90%",
+			"nav-logo",
+			"\\.wrapper",
+			".cover",
+			"site-nav-logo",
+			"site-nav-drawer-open",
+			"site-nav-transition",
+			"overflow",
+			"webkit-overflow",
+			"overflow-",
+			"overflow",
+			"webkit-overflow",
+			"flow-",
+			"y-o",
+			"class=\"controls\"",
+			"class=\"control-label\"",
+			"</strong>",
+			"<strong>",
+			"Current",
+			"\"><strong>Current",
+			"<strong>",
+			"input-large",
+			"</strong>",
+			"<strong>",
+			".cover-user .cover-img",
+			"input-xlarge",
+			"span12",
+			"shop-edit",
+			"headin",
+			"title",
+			"heading",
+			"/tab",
+			"tab heading",
+			"Information",
+			"tab heading=\"",
+			"tab heading=",
+			"slide",
+			"border-",
+			"fullAddress",
+			"user.address.length",
+			"addMarker",
+			"user.addresses",
+			"user.addres",
+			"user.",
+			"defaultMap",
+			"updateMap",
+			"address.location",
+			"location",
+			"address.location",
+			".location",
+			"gmap",
+			"wrapper-in",
+			"bnLazySrc",
+			"console",
+			"startRenderTimer",
+			"windowChanged",
+			"clearRenderTimer",
+			"scroll\\.",
+			"scroll.",
+			"windowChanged",
+			".on",
+			"on",
+			"on(",
+			"LazyImage",
+			"windowChanged",
+			"clearRenderTimer",
+			"isVisible",
+			"renderDelay",
+			"checkImages",
+			"rnLazy",
+			"iElement",
+			"iAttrs",
+			"isUndefined",
+			"rootScope",
+			"Order",
+			"defaultOrder",
+			"Order",
+			"_order",
+			"order",
+			"Order",
+			"image",
+			"Item",
+			"simpleCart has",
+			"sc_items",
+			"add:"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": true,
+		"replace_history":
+		[
+			"userName:\"Olivier Evalet\", note:\"code entrée 12345\", status:",
+			"",
+			"li class=\"site-nav-list-item\""
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 7,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "app/assets/index.html",
+					"settings":
+					{
+						"buffer_size": 8621,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								4211,
+								4211
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/HTML/HTML.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 1146.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "app/assets/partials/account/cover.html",
+					"settings":
+					{
+						"buffer_size": 787,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								742,
+								742
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/HTML/HTML.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "app/css/overlay.css",
+					"settings":
+					{
+						"buffer_size": 2654,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1035,
+								1035
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/CSS/CSS.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 1995.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "app/css/comment.css",
+					"settings":
+					{
+						"buffer_size": 134,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								132,
+								132
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/CSS/CSS.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "app/js/app.config.js",
+					"settings":
+					{
+						"buffer_size": 1773,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								573,
+								573
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "app/assets/partials/product/create.html",
+					"settings":
+					{
+						"buffer_size": 10130,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								4880,
+								4880
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/HTML/HTML.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 1224.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 6,
+					"file": "app/assets/partials/product/product.html",
+					"settings":
+					{
+						"buffer_size": 2729,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1228,
+								1228
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/HTML/HTML.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 7,
+					"file": "app/js/app.product.js",
+					"settings":
+					{
+						"buffer_size": 8725,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								5590,
+								5590
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 2850.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 8,
+					"file": "app/assets/partials/product/product-wide.html",
+					"settings":
+					{
+						"buffer_size": 3910,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								924,
+								924
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/HTML/HTML.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 90.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 9,
+					"file": "app/js/app.shop.js",
+					"settings":
+					{
+						"buffer_size": 7889,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1280,
+								1280
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 3078.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 10,
+					"file": "app/assets/partials/shop/shop-content.html",
+					"settings":
+					{
+						"buffer_size": 3020,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								107,
+								107
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/HTML/HTML.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 11,
+					"file": "app/assets/partials/shop/home.html",
+					"settings":
+					{
+						"buffer_size": 2127,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								144,
+								144
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/HTML/HTML.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 12,
+					"file": "app/assets/partials/shop/shop.html",
+					"settings":
+					{
+						"buffer_size": 1497,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								12,
+								12
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/HTML/HTML.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 13,
+					"file": "app/assets/partials/account/shop.html",
+					"settings":
+					{
+						"buffer_size": 3730,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								364,
+								364
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/HTML/HTML.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 14,
+					"file": "app/assets/partials/product/home.html",
+					"settings":
+					{
+						"buffer_size": 1854,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								134,
+								134
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/HTML/HTML.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 15,
+					"file": "app/assets/partials/account/overview.html",
+					"settings":
+					{
+						"buffer_size": 3214,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								418,
+								418
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/HTML/HTML.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				}
+			]
+		},
+		{
+			"selected": 6,
+			"sheets":
+			[
+				{
+					"buffer": 16,
+					"file": "app/css/shop2.css",
+					"settings":
+					{
+						"buffer_size": 644,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								252,
+								252
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/CSS/CSS.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 17,
+					"file": "app/css/header.css",
+					"settings":
+					{
+						"buffer_size": 2182,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								84,
+								84
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/CSS/CSS.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 18,
+					"file": "app/css/product.css",
+					"settings":
+					{
+						"buffer_size": 5285,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								3564,
+								3564
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/CSS/CSS.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 1881.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 19,
+					"file": "app/css/form.css",
+					"settings":
+					{
+						"buffer_size": 5896,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								633,
+								633
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/CSS/CSS.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 225.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 20,
+					"file": "app/css/utils.css",
+					"settings":
+					{
+						"buffer_size": 4552,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1661,
+								1661
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/CSS/CSS.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 745.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 21,
+					"file": "app/css/shop.css",
+					"settings":
+					{
+						"buffer_size": 3013,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								786,
+								786
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/CSS/CSS.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 171.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 22,
+					"file": "app/assets/partials/shop/edit.html",
+					"settings":
+					{
+						"buffer_size": 14008,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2716,
+								2716
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/HTML/HTML.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 225.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 23,
+					"file": "app/css/home.css",
+					"settings":
+					{
+						"buffer_size": 38438,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								7796,
+								7796
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/CSS/CSS.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 5747.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 24,
+					"file": "app/js/app.root.js",
+					"settings":
+					{
+						"buffer_size": 3024,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1558,
+								1558
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 1440.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 25,
+					"file": "app/assets/partials/shop/cover.html",
+					"settings":
+					{
+						"buffer_size": 1570,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								400,
+								400
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/HTML/HTML.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 26,
+					"file": "app/js/app.init.js",
+					"settings":
+					{
+						"buffer_size": 2908,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1154,
+								1154
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 360.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 27,
+					"file": "app/assets/partials/account/profile.html",
+					"settings":
+					{
+						"buffer_size": 7343,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								3384,
+								3384
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/HTML/HTML.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 810.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 28,
+					"file": "app/assets/partials/account/password.html",
+					"settings":
+					{
+						"buffer_size": 3035,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								499,
+								499
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/HTML/HTML.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 29,
+					"file": "app/js/app.user.js",
+					"settings":
+					{
+						"buffer_size": 14601,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								8302,
+								8302
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 3220.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 30,
+					"file": "app/assets/partials/product/love.html",
+					"settings":
+					{
+						"buffer_size": 1605,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								179,
+								179
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/HTML/HTML.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 0.0
+	},
+	"input":
+	{
+		"height": 34.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			],
+			[
+				1,
+				0,
+				2,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			0.458035225367,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"replace":
+	{
+		"height": 64.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 345.0,
+	"status_bar_visible": true
+}
