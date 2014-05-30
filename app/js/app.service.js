@@ -32,7 +32,7 @@ Service.factory('api', [
   '$timeout',
   'config',
 function ($rootScope, $http, $resource, $timeout, config) {  
-  var _categories=[];
+  var _categories=[], promise;
 
   /**
    * get category object
@@ -49,9 +49,11 @@ function ($rootScope, $http, $resource, $timeout, config) {
       if(ms === undefined){ var ms=6000; }
       else if ((typeof ms)==='function'){ var cb=ms;ms=6000; }
       $rootScope.FormInfos=msg;
-      $timeout(function(){
+      $timeout.cancel(promise);
+      promise=$timeout(function(){
         $rootScope.FormInfos=false;
         if (cb) cb($scope);
+        promise=false;
       }, ms);
   };
 

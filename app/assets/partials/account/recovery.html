@@ -1,24 +1,28 @@
-<section id="content" ng-controller="AccountCtrl" 
-  class="container login text-center" >
+<section  ng-controller="AccountCtrl" >
+  <div class="row">
+    <form class="form-account mg-btm" novalidate name="form">
+      <h3 class="heading-desc">
+        Réinitialisez votre mot de passe.
+      </h3>
 
-    <div class="span12 box ">
+      <div class="main-account">          
+        <input type="email" class="form-control input-lg"  autofocus ng-class="{'border-red': form.email.$invalid, 'border-green': form.email.$valid}"
+            required ng-model="email" type="email" name="email" placeholder="Email utilisé pour votre compte Kariboo">
+      </div>
 
-        <form name="form" novalidate="novalidate">
-          <fieldset class="control-group">
-            <p>To reset your password, enter the email address you used when creating your account.</p>
-            <div class="controls">
-              <input required ng-model="email" type="email" name="email" class="input-big block" placeholder="Email Address"/>
-            </div>
-          </fieldset>
-          <fieldset class="control-group">
-            <button type="submit" ng-disabled="form.$invalid" ng-click="recover(email)" class="btn btn-primary btn-large block" style="width:98%">Submit</button>
-            <hr/>
-            <div ng-hide="user.isAuthenticated()">
-              <p><small>Vous n'avez pas encore de compte utilisateur, vous pouvez <a href="/signup" >en créer un</a></small></p>
-            </div>                      
+      <div class="account-footer">
+        <div class="row">
+          <div class="col-xs-6 col-md-6">
+              <div class="left-section" ng-hide="user.isAuthenticated()">
+                <a href="/signup">Créer un compte?</a>
+              </div>
+          </div>
+          <div class="col-xs-6 col-md-6 pull-right">
+              <button type="submit" ng-disabled="form.$invalid" ng-click="recover(email)"  class="btn btn-lg btn-success pull-right  ">Submit</button>
 
-
-          </fieldset>          
-        </form>
-    </div>
+          </div>
+        </div>    
+      </div>
+    </form>
+  </div>    
 </section>

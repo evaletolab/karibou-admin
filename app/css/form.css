@@ -23,28 +23,20 @@
 
 .admin-box{
   border: 2px dashed #fdd;
-  float: left;
-  width: 90%;
+  width: 100%;
   border-radius: 6px;
   padding: 5px;  
+  margin-left: 0px;
+  float: left;
 }
 
 
-.tab-content>.tab-pane, .pill-content>.pill-pane {
-  min-height: 400px;
-}
 
 .primary-content{
-  border-left: 4px solid #eee!important;
-  padding-left: 8px;  
+  -border-left: 4px solid #eee!important;
+  -padding-left: 8px;  
 }
 
-.input-big {
-  height: 39px!important;
-  line-height: 28px!important;
-  font-size: 20.5px!important;
-  margin-bottom:15px!important
-}
 
 label, input, button, select, textarea {
     font-size: 18px;
@@ -52,42 +44,49 @@ label, input, button, select, textarea {
     vertical-align: baseline;
 }
 
-input[type="text"], input[type="password"], input[type="email"], textarea, select {
-    background-color: #fafafa!important;
-    border-width: 1px!important;
-    box-shadow: none!important;
-    margin-bottom:5px;
+.accout-field-valid{
+  margin-top: -38px;
+  position: absolute;
+  right: 20px;
 }
 
-.input-prepend input, .input-append input{
-   border-width: 1px!important; 
-}
 
 label{
-  color: #398bce;
   text-shadow: 0px 1px 0px rgba(255,255,255,0.8);
-  font-weight: 300;
-  font-style: italic;
+  font-weight: 400;
 }
 
 label.checkbox{
   color: inherit;
 }
 
+.nav-tabs > li > a {
+  color: #44a;
+}
+
 .help-block {
-  display: block;
-  margin-bottom: 1px;
-  margin-top: -10px!important;
   font-size: 80%;
-  -color: #398bce;
-  color:bbb;
   text-shadow: 0px 1px 0px rgba(255,255,255,0.8);
   font-weight: 300;
 }
 
+.form-background{
+  background-color: #fff;
+  padding: 10px;  
+  float: left;
+  width: 100%;
+  font-weight: 350;
+}
 
-.form-horizontal .control-label{
-    text-align:left;
+.form-group {
+    clear: both;
+    float: left;
+    margin-bottom: 15px;
+    width: 100%;
+}
+.form-group.bottom{
+    padding-left: 20px;
+    margin-top: 10px
 }
 
 .frame{
@@ -108,22 +107,9 @@ label.checkbox{
     padding: 14px;
 }
 
-.frame .box, .frame .control-group {
-    padding: 14px;
-    margin-bottom:0px;
-    border-bottom:1px solid #ddd;
-    float:left;
-    width:100%;
-    -moz-box-sizing:border-box;
-         box-sizing:border-box;    
-}
 
 form.nomargin{
   margin-bottom:0px;
-}
-.controls{
-  margin-top:5px;
-  margin-bottom:20px;
 }
 
 .control-group:last-child{
@@ -184,12 +170,9 @@ form.nomargin{
 }
 
 .modal-header{
-  border-top:1px solid #aaa;
   background-image:url(/img/pattern-dark1.jpg);  
   background-repeat: repeat-x;
-  height: 40px;
-  margin: 0;
-  padding: 5px;
+  padding: 8px;
   border-radius: 5px 5px 0 0;  
 
   background-image: -webkit-linear-gradient(top,#585858 0,#3a3a3a 100%);
@@ -199,22 +182,19 @@ form.nomargin{
 }
 
 .modal-header .close{
-  height: 37px;
-  padding: 0 14px;
-  border-left: 1px solid #222;  
+  padding: 6px;
+}
+.modal-header h3,.modal-header h4, .modal-header h5{
+  padding-top: 3px;
+  padding-left: 10px;
+  color: white;
 }
 
-.modal-header h4{
-  color: #fff;
-  font-size: 14px;
-  text-shadow: 0 -1px 0 #000;  
-  padding: 10px;
-  text-align: center;  
-}
+
 
 .modal-body{
   min-height:480px;
-  max-height:500px!important;
+  max-height:550px!important;
 }
 .modal-body.gradient{
   background-image: -moz-linear-gradient(center top , #eee 0px, #efefef 60%);
@@ -256,20 +236,14 @@ form.nomargin{
 /* Tablet to desktop
 ------------------------- */
 @media (min-width: 768px) and (max-width: 979px) {
-  .modal{
-    left:35%;
-    top:0%;
-  }
+
 
 }
 
 /* Tablet
 ------------------------- */
 @media (max-width: 767px) {
-  .input-large, .input-xlarge{
-    width:90%;
-    box-sizing:inherit;
-  }
+
 }
 
 /* Landscape phones

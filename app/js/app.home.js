@@ -41,11 +41,46 @@ Home.controller('HomeCtrl', [
   'user',
   'shop',
   'product',
+  'Map',
 
-  function ($scope, $route, $location, $rootScope, $routeParams, config, api, category, user, shop, product) {
+  function ($scope, $route, $location, $rootScope, $routeParams, config, api, category, user, shop, product,Map) {
     var filter={sort:'created'};
     $scope.user = user;
+    $scope.map=new Map()
     
+
+    //
+    // this is an helper for avoid the default sorting by ng-repeat
+    $scope.keys=function(map){
+      if(!map)return [];
+      return Object.keys(map);
+    }
+
+
+    $scope.shopsAddress=function(shops){
+      //
+      // 
+      if(!shops)return 
+      var addresses=[]
+      for (var i in shops){
+        // for arrays
+        if(shops[i].address&&shops[i].address.geo){
+          addresses.push(shops[i].address)
+          continue;
+        }
+
+        // for groups
+        for (var j in shops[i]){
+          if(shops[i][j].address&&shops[i][j].address.geo){
+            addresses.push(shops[i][j].address)
+          }
+        }
+      }
+      //
+      // 
+      return addresses
+    }
+
     if($route.current.$$route.love){
       user.me(function(u){
         $scope.products=product.map(u.likes);
@@ -75,6 +110,7 @@ Home.controller('HomeCtrl', [
       
       $scope.shops=shop.findByCatalog($routeParams.catalog,filter,function(shops){
         $scope.shops=shops;
+        $scope.addresses=$scope.shopsAddress(shops)
       });
       return;
     }
@@ -86,6 +122,7 @@ Home.controller('HomeCtrl', [
       filter={sort:'created',group:'catalog.name' };
       $scope.shops=shop.home(filter,function(shops){
         $scope.shops=shops;
+        $scope.addresses=$scope.shopsAddress(shops)
       });
       return;
     } 
@@ -95,12 +132,8 @@ Home.controller('HomeCtrl', [
       $scope.products=products;
     });
 
-    //
-    // this is an helper for avoid the default sorting by ng-repeat
-    $scope.keys=function(map){
-      if(!map)return [];
-      return Object.keys(map);
-    }
+
+
 
 /**    
     if($location.path()==='/products'||$routeParams.sku){

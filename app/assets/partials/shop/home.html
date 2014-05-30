@@ -1,10 +1,10 @@
 <div tabindex="-1"  id="null" class="screen-content">
-  <aside ng-include="getCover()" class="cover cover-home img-loaded" ng-class="{'session':user.isAuthenticated()}">
+  <aside ng-include="getCover()" class="products cover cover-home img-loaded" ng-class="{'session':user.isAuthenticated()}">
   </aside>
 
 
    <section class="wrapper" tabindex="-1">
-      <div class="wrapper-inner">
+      <div class="wrapper-inner rows">
 
 
         <!--                               -->
@@ -25,7 +25,7 @@
          </div>
         
         <!-- SHOPS -->
-        <div ng-controller="HomeCtrl" class="row wrapheight" >
+        <div ng-controller="HomeCtrl" class="row wrapheight " style="padding:0">
 
             <article  ng-repeat="(group, _shops) in shops" > 
               <h5 class="article-group-title ">
@@ -37,7 +37,15 @@
                 <div  ng-include="'/partials/shop/shop.html'"  ng-repeat="shop in _shops"></div>              
               </div>
             </article>
-        </div>
+<!--             <article>              
+              <div class=" layout-item c3 "  >
+                <div style="position:relative;overflow:hidden;height:auto">          
+                  <img src="{{map.resolveStaticmap(addresses)}}" 
+                  style="width:100%"/>
+                </div>
+                </div>
+            </article>
+ -->        </div>
 
         <footer class="wrapper-footer">
             <a class="wrapper-footer-link" title="View open job positions " href="/jobs">Travailler chez Kariboo</a>

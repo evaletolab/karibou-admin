@@ -32,11 +32,11 @@ html,body,.main {
 .wrapper {
     outline:0;
     position:absolute;
-    left:30%;
+    left:38%;
     right:0;
     top:0;
     bottom:0;
-    background-color:#fff;
+    background-color:#f8f8f8;
     -webkit-overflow-scrolling:touch;
     overflow-y:auto;
     padding-top: 0px;
@@ -49,7 +49,33 @@ html,body,.main {
     -moz-box-sizing:border-box;
     box-sizing:border-box;
     max-width:1024px;
-    padding:30px 85px;
+    padding:0px 80px;
+    margin-top: 5px
+}
+.wrapper-inner.rows{
+    padding:0px;    
+}
+
+.wrapper-inner.rows>div:nth-child(odd),
+.wrapper-inner.rows article:nth-child(odd),
+.wrapper-inner.rows>section:nth-child(even),
+.wrapper-inner.rows>footer:nth-child(odd)
+{
+    padding:15px 80px;
+    background-color: #fff;
+    float: left;
+    width: 100%;
+}
+.wrapper-inner.rows>div:nth-child(even),
+.wrapper-inner.rows article:nth-child(even),
+.wrapper-inner.rows>section:nth-child(odd),
+.wrapper-inner.rows>footer:nth-child(even)
+{
+    background-color: #fafafa;
+    padding:15px 80px;
+    float: left;
+    width: 100%;
+    background:linear-gradient(#ffffff,#fafbfa)    
 }
 
 .main {
@@ -73,24 +99,46 @@ html,body,.main {
     position:relative}
 
 .wrapper-inner {
-    padding:40px 108px;
-    max-width:100%}
+    padding:0px 108px;
+    max-width:100%;
+    margin-top: 5px
 
 }
 
-@media all and (max-width:500px) {
+}
+
+@media all and (max-width:550px) {
     .wrapper-inner {
         padding:3px 2% 0 4%;
     }
-
+    .wrapper-inner.rows>div:nth-child(odd),
+    .wrapper-inner.rows article:nth-child(odd),
+    .wrapper-inner.rows>section:nth-child(even),
+    .wrapper-inner.rows>footer:nth-child(odd)
+    {
+        padding:15px 10px;
+        background-color: #fff;
+        float: left;
+        width: 100%;
+    }
+    .wrapper-inner.rows>div:nth-child(even),
+    .wrapper-inner.rows article:nth-child(even),
+    .wrapper-inner.rows>section:nth-child(odd),
+    .wrapper-inner.rows>footer:nth-child(even)
+    {
+        background-color: #fafafa;
+        padding:15px 10px;
+        float: left;
+        width: 100%;
+        background:linear-gradient(#ffffff,#fafbfa)    
+    }
 }
 
 @media all and (min-width:1666px) {
     .wrapper {
-    left:500px}
+    left:600px}
 
 .wrapper-inner {
-    padding-left-:185px;
     max-width:1024px}
 
 .system-page .wrapper-inner {
@@ -182,12 +230,17 @@ a {
     z-index:100;
     top:0;
     left:0;
-    width:30%;
+    width:38%;
     height:100%;
-    max-width:500px}
+    max-width:600px}
+
+.cover.session {
+    overflow-y:auto;
+    overflow-x:hidden; 
+}    
 
 .cover.img-loaded {
-    -background:#000}
+    background-color:#f7f7f7;}
 
 .body-scroll .cover {
     position:fixed}
@@ -362,10 +415,13 @@ ul.cover-list li {
     position:relative!important;
     width:100%;
     max-width:none;
-    height:576px;    
+    min-height:576px;        
 }
 .cover.session {
     height:auto;
+    min-height:inherit;
+    background: linear-gradient(#ffffff,#fafbfa)    ;
+    box-shadow: 0 0 0px 1px #ddd;
 }
 
 .cover-body {
@@ -437,6 +493,9 @@ ul.cover-list li {
 .cover-user .cover-row {
     display:table-row}
 
+.cover-user .cover-row.shop {
+    background-color: white}
+
 .cover-user .cover-img {
     display:table-cell;
     vertical-align:middle;
@@ -465,7 +524,7 @@ ul.cover-list li {
     font-style:italic;
     text-shadow:none;
     text-overflow:ellipsis;
-    overflow:hidden;
+    overflow-:hidden;
     padding-bottom:.5em;
     margin-bottom:-0.5em}
 
@@ -540,6 +599,24 @@ ul.cover-list li {
 }
 .cover-resume .cover-resume-col:last-child{
     border-right: inherit;
+}
+
+
+.cover-resume.cart {
+    visibility: hidden;    
+    margin-top: 50px;
+    background-color: white;
+    border-radius: 4px;
+    border: 1px solid #eee;
+    padding: 5px;
+}
+.cover-resume.cart> div{
+    max-width: 400px;
+    text-align: left;
+    margin:0 auto;
+}
+.products .cover-resume.cart {
+    visibility: visible;    
 }
 
 @media all and (max-width:1000px) {
@@ -669,11 +746,12 @@ ul.cover-list li {
  * TOP MENU-SELECTION
  */
 
-
 .bucket {
     position:relative;
     padding-bottom:25px;
-    *zoom:1}
+    padding-top:10px;
+    *zoom:1;
+}
 
 .bucket:before,.bucket:after {
     display:table;
@@ -721,7 +799,9 @@ ul.cover-list li {
     -moz-transition:color .1s linear;
     -ms-transition:color .1s linear;
     -o-transition:color .1s linear;
-    transition:color .1s linear}
+    transition:color .1s linear;
+    text-decoration: inherit;
+}
 
 .bucket-title:hover a {
     color:#666665}
@@ -755,7 +835,7 @@ ul.cover-list li {
 @media all and (max-width:1000px) {
     .bucket-title a,.bucket-title .no-link {
     font-size:11px;
-    padding-bottom:13px}
+    padding-bottom:11px}
 
 
 .empty-bucket {
@@ -1048,9 +1128,11 @@ ul.cover-list li {
 
 .site-nav-logo {
     position:fixed;
-    top:0px;
-    left:0px;
-    width:93px;
+    top:10px;
+    left:10px;
+    padding-left:9px;
+    padding-right: 0px;
+    width:38px;
     height:38px;
     z-index:1000;
     background-color:#333332;
@@ -1065,6 +1147,10 @@ ul.cover-list li {
     -ms-transition:top .2s linear,left .2s linear,opacity .2s linear;
     -o-transition:top .2s linear,left .2s linear,opacity .2s linear;
     transition:top .2s linear,left .2s linear,opacity .2s linear
+}
+
+.site-nav-logo.large{
+    width:93px;    
 }
 
 .site-nav-logo .icons {
@@ -1115,8 +1201,12 @@ ul.cover-list li {
 
 .site-nav-list-item {
     position:relative;
-    border-bottom: 1px solid #333;
+    -border-bottom: 1px solid #333;
     padding: 2px 0px;    
+}
+
+.site-nav-list-item.divider {
+    border-bottom:1px solid #333333;
 }
 
 .site-nav-list-item.site-nav-list-item-home {
@@ -1126,7 +1216,7 @@ ul.cover-list li {
     margin-bottom:10px}
 
 .site-nav-list-item .btn{
-    margin:0 30px 0 42px;
+    margin: 5px;
 }
 
 .site-nav-list-item-btn {
@@ -1166,6 +1256,9 @@ ul.cover-list li {
     top: 0;
     bottom: 0;
     padding: 5px 10px 0 6px;
+}
+.site-nav-list-item-btn-bootstrap{
+    margin-left: 30px!important;
 }
 
 .site-nav-list-item-text {
@@ -1534,7 +1627,7 @@ ul.cover-list li {
 }
 
 .wrapper-footer {
-    margin:10px 25px;
+    margin:10px 0px;
     padding:10px 0 25px;
     -webkit-box-sizing:border-box;
     -moz-box-sizing:border-box;

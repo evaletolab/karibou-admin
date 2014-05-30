@@ -1,0 +1,67 @@
+
+/* tab color */
+/*
+.nav-tabs>li>a {
+  background-color: #333333; 
+  color:#fff;
+  border-radius:0px;
+  margin:0px;
+  border:0px;
+}
+
+/* active tab color */
+/*
+.nav-tabs>li.active>a, .nav-tabs>li.active>a:hover, .nav-tabs>li.active>a:focus {
+  color: #fff;
+  background-color: #666;
+  border: 0px solid #888888;
+}
+
+/* hover tab color */
+/*
+.nav-tabs>li>a:hover {
+  border-color: #000000;
+  background-color: blue;
+  
+}
+
+/* Desktop large
+------------------------- */
+@media (min-width: 1200px) {
+
+}
+
+
+/* Desktop
+------------------------- */
+@media (max-width: 980px) {
+}
+
+/* Tablet to desktop
+------------------------- */
+@media (min-width: 768px) and (max-width: 979px) {
+
+}
+
+/* Tablet
+------------------------- */
+@media (max-width: 767px) {
+
+}
+
+/* Landscape phones
+------------------------- */
+@media (max-width: 480px) {
+
+}
+
+ 
+@media only screen and ( max-width: 320px ) /* 320px */{
+
+
+}
+
+
+
+
+

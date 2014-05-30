@@ -2,6 +2,7 @@
 
 var $strap=angular.module('$strap',[]);
 
+
 $strap.factory('$modal', [
   '$rootScope', 
   '$compile', 
@@ -23,10 +24,11 @@ $strap.factory('$modal', [
       .then(function onSuccess(template) {
 
         // Build modal object
-        var id = templateUrl.replace('.html', '').replace(/[\/|\.|:]/g, '-') + '-' + scope.$id;
-        var $modal = $('<div class="modal hide" tabindex="-1"></div>').attr('id', id).addClass('fade').html(template);
-        if(options.modalClass) $modal.addClass(options.modalClass);
+        var id = templateUrl.replace('.html', '').replace(/[\/|\.|:]/g, '-') + '-'  +scope.$id;
 
+        var $modal = $('<div class="modal " tabindex="-1"></div>').attr('id', id).addClass('fade').html(template);
+        if(options.modalClass) $modal.addClass(options.modalClass);
+        //$('#'+id).remove();
         $('body').append($modal);
 
         // Compile modal content
@@ -106,6 +108,9 @@ $strap.directive('bsModal', [
 
       $q.when($modal(options)).then(function onSuccess(modal) {
         iElement.attr('data-target', '#' + modal.attr('id')).attr('data-toggle', 'modal');
+        // iElement.on('click',function(){
+        //   $('#' + modal.attr('id')).modal();
+        // })
       });
 
     }
@@ -171,7 +176,7 @@ $strap.directive('bsTabs', [
   '$compile',
   '$timeout',
   function ($parse, $compile, $timeout) {
-    var template = '<div class="tabs">' + '<ul class="nav nav-tabs">' + '<li ng-repeat="pane in panes" ng-class="{active:pane.active}">' + '<a data-target="#{{pane.id}}" data-index="{{$index}}" data-toggle="tab">{{pane.title}}</a>' + '</li>' + '</ul>' + '<div class="tab-content" ng-transclude>' + '</div>';
+    var template = '<div class="tabs">' + '<ul class="nav nav-tabs nav-justified">' + '<li ng-repeat="pane in panes" ng-class="{active:pane.active}">' + '<a data-target="#{{pane.id}}" data-index="{{$index}}" data-toggle="tab">{{pane.title}}</a>' + '</li>' + '</ul>' + '<div class="tab-content" ng-transclude>' + '</div>';
     return {
       restrict: 'A',
       require: '?ngModel',

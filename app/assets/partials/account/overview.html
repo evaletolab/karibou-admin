@@ -31,8 +31,8 @@
       <!--                               -->                          
 
       <!-- ORDERS -->
-      <div class="well well-small " style="width:100%;float:left;">
-        <div ng-hide="user.orders.length" class="span12">
+      <div class="well well-small white " style="width:100%;float:left;">
+        <div ng-hide="user.orders.length" class="col-md-12">
           <h5 class="article-group-title ">
             <span class="bucket-header-title">Vous n'avez pas de commande enregistré.</span>
           </h5>
@@ -44,8 +44,8 @@
       </div>          
 
       <!-- LOVE -->
-      <div  class="well well-small " style="width:100%;float:left;">
-        <div ng-hide="user.likes.length" class="span12">
+      <div  class="well well-small white" style="width:100%;float:left;">
+        <div ng-hide="user.likes.length" class="col-md-12">
           <h5 class="article-group-title ">
             <span class="bucket-header-title">Vous n'avez pas de produits préférés.</span>
           </h5>
@@ -57,8 +57,8 @@
       </div>          
     
       <!-- SHOP LIST -->
-      <div class="well well-small " style="width:100%;float:left;margin-bottom:100px">
-        <div ng-hide="user.shops.length" class="span12">
+      <div class="well well-small white" style="width:100%;float:left;margin-bottom:100px">
+        <div ng-hide="user.shops.length" class="col-md-12">
           <h5 class="article-group-title ">
             Vous n'avez pas de boutique enregistré.
           </h5>
@@ -69,12 +69,11 @@
         </h5>
 
           <ul ng-repeat="shop in user.shops" class="-unstyled " ng-show="user.shops.length" >
-            <li class="block span12">              
+            <li class="block col-md-12">              
               <p class="-well-small">
                 <i class="icon-fire"></i>
                 <a href="/shop/{{shop.urlpath}}">{{shop.name}}</a><span ng-hide="shop.status == true" class="help-inline"><i class="icon-ok"></i>&nbsp;</span>
-                <span ng-bind-html-unsafe="shop.description"></span>&nbsp;
-                <input type="submit" ng-click="deleteShop(shop)" value="Supprimer" class="btn btn-small"/>
+                <span ng-bind-html-unsafe="shop.description"></span><i ng-show="shop.status==true" class="icon-ok green"></i>
               </p>
               
             </li>

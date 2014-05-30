@@ -28,11 +28,10 @@ App.config([
 
   function ($routeProvider, $locationProvider, $httpProvider) {
 
-    var interceptor = ['$rootScope', '$q', function (scope, $q) {
+    var interceptor = ['$rootScope', '$q','$location', function (scope, $q, $location) {
       function success(response, config) {
           scope.WaitText = false;
           NProgress.done();
-          // console.log(response.headers(), response.config.url)
 
           return response;
       }
@@ -40,6 +39,10 @@ App.config([
       function error(response) {
           scope.WaitText = false;
           NProgress.done();
+          if (response.status === 0) {
+            $location.path('/the-site-is-currently-down-for-maintenance-reasons');
+          }
+
           return $q.reject(response);
       }
 
@@ -63,8 +66,8 @@ App.config([
     // List of routes of the application
     $routeProvider
       // Pages
+      .when('/the-site-is-currently-down-for-maintenance-reasons', {title:'the site is currently down for maintenance reasons',templateUrl : '/partials/errors/down.html'})
       .when('/about', {title:'about',templateUrl : '/partials/about.html'})
-      .when('/pages/charte', {title:'about',templateUrl : '/partials/charte.html'})
 
       // 404
       .when('/404', {title:'404',templateUrl : '/partials/errors/404.html'})
@@ -77,6 +80,9 @@ App.config([
     
   }
 ]);
+
+
+
 
 //
 // boostrap mobile app
@@ -112,6 +118,8 @@ angular.element(document).ready(function () {
   //      "//rawgithub.com/tombatossals/angular-leaflet-directive/master/dist/angular-leaflet-directive.min.js"],
   //      "leaflet");
   
+
+  $script(["https://login.persona.org/include.js"],"persona");
   
 
 	  

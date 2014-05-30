@@ -18,7 +18,7 @@
  
 
 
-      <div class="well well-small" >
+      <div class="well well-xs white" >
         <h5 class="article-group-title " >
           <span class="bucket-header-title">Gestion des catégories</span> 
         </h5>         
@@ -46,14 +46,14 @@
                   </td>
                   <td  style="width:60px;height:25px">
                     <div fade-on-hover=".table">
-                    <button ng-hide="c.usedBy.length" ng-click="delete($index)" class="btn btn-mini"><i class="icon-remove"></i> </button>                  
-                    <button  class="btn btn-mini" bs-modal="'/partials/admin/category.modal.html'" ng-click="launchModal($index)"><i class="icon-edit"></i> </button>                  
+                    <button ng-hide="c.usedBy.length" confirm-delete="delete($index,password)" class="btn btn-default btn-xs"><i class="icon-remove"></i> </button>
+                    <button  class="btn btn-default btn-xs" bs-modal="'/partials/admin/category.modal.html'" ng-click="launchModal($index)"><i class="icon-edit"></i> </button>                  
                     </div>
                   </td>
               </tr>
           </table> 
           <hr/>
-          <button type="button" class="btn btn-large btn-primary" bs-modal="'/partials/admin/category.modal.html'">Click to add category
+          <button type="button" class="btn btn-lg btn-primary" bs-modal="'/partials/admin/category.modal.html'">Ajouter une catégorie
           </button>
         </div>
       </div>

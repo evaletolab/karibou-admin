@@ -4,42 +4,40 @@
   "description": "Karibou is an open-source projects aim to help the creation of a online community marketplace",
   "version": "0.0.1",
   "homepage": "https://github.com/evaletolab/karibou",
-
   "private": true,
-
   "engines": {
     "node": "0.8.x",
-    "npm":  "1.1.x"
+    "npm": "1.1.x"
   },
   "scripts": {
     "start": "node app",
     "test": "node_modules/.bin/testacular start test/testacular.conf.js"
   },
   "dependencies": {
-    "brunch": ">= 1.4 < 1.5",
-    "javascript-brunch": ">= 1.0 < 1.5",
-    "coffee-script-brunch": ">= 1.0 < 1.5",
-    "css-brunch": ">= 1.0 < 1.5",
-    "less-brunch": ">= 1.4 < 1.5",
-    "stylus-brunch": ">= 1.0 < 1.5",
-    "auto-reload-brunch": ">= 1.3 < 1.5",
-    "jade-brunch": ">= 1.3 < 1.5",
-    "static-jade-brunch": ">= 1.4 < 1.5",
-    "uglify-js-brunch": ">= 1.0 < 1.5",
-    "clean-css-brunch": ">= 1.0 < 1.5",
-
+    "brunch": ">= 1.4",
+    "javascript-brunch": "~1.7.1",
+    "coffee-script-brunch": ">= 1.0 ",
+    "css-brunch": "~1.7.0",
+    "less-brunch": ">= 1.4",
+    "stylus-brunch": "~1.8.0",
+    "auto-reload-brunch": ">= 1.3",
+    "jade-brunch": "~1.8.1",
+    "static-jade-brunch": ">= 1.4",
+    "uglify-js-brunch": "~1.7.7",
+    "clean-css-brunch": "~1.7.1",
     "express": "3.x.x",
     "email-templates": "0.0.5",
     "ejs": "*",
     "marked": "0.2.x",
-    "nodemailer": "0.3.x"
+    "nodemailer": "0.3.x",
+    "ngmin-uglify-js-brunch": "~1.7.13",
+    "uglify-js": "~2.4.13",
+    "brunch-signature": "~1.0.1"
   },
-  
   "devDependencies": {
     "karma": "~0.10",
-    "karma-junit-reporter":"0.*",
-    "karma-story-reporter":"0.*",
+    "karma-junit-reporter": "0.*",
+    "karma-story-reporter": "0.*",
     "karma-ng-scenario": "~0.1"
-  } 
-
+  }
 }

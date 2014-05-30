@@ -5,16 +5,55 @@
         <h1 class="cover-title">{{user.display()}}</h1>
         <div class="cover-resume">
               <div class="cover-resume-col" ng-click="showOverview()">
-                <b>{{user.shops.length}}</b><br/>
-                <small>BOUTIQUES</small>
+                -<br/>
+                <small>PROFIL</small>
               </div>
               <div class="cover-resume-col" ng-click="showOrder()"><b>5</b><br/><small>COMMANDES</small></div>
               <div class="cover-resume-col" ng-click="showLove()"><b>{{user.likes.length}}</b><br/><small>LOVES</small></div>
         </div>
 
-        <!--
-        <div class="cover-actions" >
-        </div> -->
+
+      <!-- CART -->        
+        <div class="cover-resume cart visible-md visible-lg" ng-controller="OrderCtrl" >
+<!--                 <h2 class="article-group-title black">VOTRE PANIER</h2>
+ -->
+              <div class="row" ng-show="cart.items.length ">
+
+                  <table class="table ">
+                      <thead>
+                          <tr>
+                              <th>Produit</th>
+                              <th>Qty</th>
+                              <th class="text-center">Total</th>
+                          </tr>
+                      </thead>
+                      <tbody>
+                        <tr  ng-repeat="item in cart.items" >
+                          <td class="col-md-8"><em><a href="/products/{{item.sku}}" >{{item.part}} - {{item.name}}</a></td>
+                          <td class="col-md-1" style="text-align: center"><a href="" ng-click="updateItem($index)">{{item.quantity}}</a></td>
+                          <td class="col-md-2 text-center">{{item.price*item.quantity|number:2}}</td>
+                        </tr>
+                          <tr>
+                              <td>   </td>
+                              <td class="text-right">
+                                <p><strong>Subtotal: </strong></p>
+                              <td class="text-center">
+                                <p><strong>{{cart.total()|number:2}} </strong></p>
+                              </td>
+                          </tr>
+
+                      </tbody>
+                  </table>
+                  <a  href="/order" class="btn btn-success btn-lg btn-block">
+                    Valider la commande
+                  </a>
+                  <button type="button" class="btn btn-default btn-lg btn-block" ng-click="cart.empty()">
+                      Vider le panier
+                  </button>                                
+
+              </div>
+        </div> 
+      <!-- CART -->
 
       </div>
     </div>

@@ -106,7 +106,6 @@ angular.module('app.shop.ui', [
           template: '<div class="popover '+cl+'"><div class="arrow"></div><div class="popover-inner "><h3 class="popover-title"></h3><div class="popover-content"><p></p></div></div></div>'        
         });
         
-        console.log(popup)
       });      
       
       elm.bind('click', function(e) {

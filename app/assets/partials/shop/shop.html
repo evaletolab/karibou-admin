@@ -1,6 +1,5 @@
 <div class=" layout-item {{getFormat($index)}} "  >
-    <div class="body">
-      <div style="position:relative;">
+      <div style="position:relative;overflow:hidden;height:auto">
         <a href="/shop/{{shop.urlpath}}" >
           <!-- STATUS -->
           <ul class="thumbnails"  style="position:absolute;left:0px;top:0px">
@@ -14,13 +13,13 @@
       
 
           <!-- COMMENTS -->
-          <div ng-show="shop.available.active" class="span12 " style="position:absolute;bottom:0px;left:0px;padding:15px;margin-left:0px;background:none repeat scroll 0 0 rgba(0, 0, 0, 0.3)">
+          <div ng-show="shop.available.active" class="col-md-12 " style="position:absolute;bottom:0px;left:0px;padding:15px;margin-left:0px;background:none repeat scroll 0 0 rgba(0, 0, 0, 0.3)">
             <span class="shadow white" style="text-align:center;">{{shop.available.comment}}</span>
           </div>
 
         </a>
       </div>
-      <div class="span12 " style="margin-top:-30px;height:30px;margin-left:0px;background:none repeat scroll 0 0 rgba(0, 0, 0, 0.3)">
+      <div class="col-md-12 " style="margin-top:-30px;height:30px;margin-left:0px;background:none repeat scroll 0 0 rgba(0, 0, 0, 0.3)">
         <span class="shadow white" style="text-align:center;">{{shop.name}}</span>
       </div>
 
@@ -30,7 +29,6 @@
   	        <p class="hide" ng-bind-html-unsafe="shop.description"></p>
         </div>
       </section>
-    </div>
 
 </div>
 

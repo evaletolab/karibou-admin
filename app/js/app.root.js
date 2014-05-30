@@ -53,16 +53,20 @@ angular.module('app.root', [
 
     //
     // get the head title up2date 
-    $rootScope.$on('$routeChangeSuccess', function (event, current, previous) {
-      if (!user.isAuthenticated()){
-        if(_.find(['/admin'],function(path){
-          return ($location.path().indexOf(path)===0);
-        })){
-          //$location.path('/login');
+    $rootScope.$on('$routeChangeStart', function (event, current, previous) {
+      var longpath=$location.path();
+      user.finally(function(){
+        if (!user.isAuthenticated()){
+          if(_.find(config.loginPath,function(path){
+            return (longpath.indexOf(path)!==-1);
+          })){
+            $location.path('/login');
+          }
         }
-      }
 
-      $rootScope.title = (current.$$route.title)?current.$$route.title:current.$$route.templateUrl;
+        $rootScope.title = (current.$$route.title)?current.$$route.title:current.$$route.templateUrl;
+
+      })
     });
 
 
@@ -84,7 +88,6 @@ angular.module('app.root', [
     //
     //  // current url is '/products/1'
     //  getClass('/products'); // returns 'active'
-    //  getClass('/orders'); // returns ''
     $scope.getClass = function (id, or) {
       if (!$scope.activeNavId)return '';
       if ($scope.activeNavId.substring(0, id.length) === id) {
@@ -104,11 +107,11 @@ angular.module('app.root', [
     }
 
     $scope.showOverview=function(){
-      $location.path('/account/overview')
+      $location.path('/account/profile')
     }
 
     $scope.showOrder=function(){
-      $location.path('/account/order')
+      $location.path('/account/orders')
 
     }
 

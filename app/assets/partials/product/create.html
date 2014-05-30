@@ -6,42 +6,43 @@
       <h4 ng-show="product.sku">Modifier le produit {{product.sku}}</h4>
       <h4 ng-hide="product.sku">Ajouter un produit</h4>
     </div>
-    <div class="modal-body row-fluid">
+    <div class="modal-body">
           <div data-fade="1" bs-tabs style="min-height:450px">
-            <div data-title="Informations du produit">
+            <div data-title="Informations du produit" class="form-background">
 
               <!-- 1 COLUMN -->
 
                   <!-- title-->
                   <!-- description -->
-                  <div class="control-group">
+                  <div class="form-group">
                     <label class="control-label ">Titre et description </label> 
-                    <div class="controls">
-                      <input  type="text" placeholder="Titre du produit" class="input-big input-xlarge span11" ng-model="product.title" required>
-
-                      <textarea rows="3" class="span11 textarea"  placeholder="Description du produit" ng-model="product.details.description" required></textarea>
+                    <div class="">
+                      <input  type="text" placeholder="Titre du produit" class="input-lg  form-control" ng-model="product.title" required>
+                      <p class="help-block"></p>
+                      <textarea rows="3" class="form-control input-lg"  placeholder="Description du produit" ng-model="product.details.description" required></textarea>
 
                     </div>
+
                   </div>
 
-                     <div class="control-group">
+                     <div class="form-group">
                       <label class="control-label">Ingrédients 
                       </label> 
-                      <span class="small" style="margin-top:-25px;margin-right:100px;position: absolute;right: 10px;">
+                      <span class="control-label" >
                         <input type="checkbox" name="details" value="BIO" ng-model="product.details.bio">Bio 
                         <input type="checkbox" name="details" value="Locale" ng-model="product.details.local">Locale 
                       </span>
-                      <div class="controls">
-                        <textarea name="origin" rows="2" class="span11 textarea"  placeholder="ex, olive(Grèce), pâte(Italie)... " ng-model="product.details.origin" required></textarea>
+                      <div class="">
+                        <textarea name="origin" rows="2" class="form-control input-lg"  placeholder="ex, olive(Grèce), pâte(Italie)... " ng-model="product.details.origin" required></textarea>
                       </div>
                     </div>
 
 
                   <!-- details non alimentaire -->
                   <!--
-                  <div class="control-group" >
+                  <div class="form-group" >
                     <label class="control-label small">Non alimentaire</label>
-                    <div class="controls">
+                    <div class="">
                       <label class="checkbox inline" style="width:30%">
                         <input type="checkbox" name="details" value="biodégradable" ng-model="product.details.biodegradable">
                         100% dégradable
@@ -50,45 +51,45 @@
                   </div>
                   -->
 
-
-                  
-                  <div class="span5 no-space">
+                <!-- TWO COLUMNS -->
+                <div class="row">  
+                  <div class="col-xs-5 ">
                     <!-- shop -->
                     <!-- DISPLAY ONLY ON CREATION -->
-                    <div class="control-group" ng-hide="product.sku">
+                    <div class="form-group" ng-hide="product.sku">
                       <label class="control-label ">Boutique</label> 
-                      <div class="controls">
-                        <select  ng-model="product.urlshop" class="input-xlarge" required>
+                      <div class="">
+                        <select  ng-model="product.urlshop" class="form-control input-lg" required>
                           <option ng-repeat="shop in user.shops" value="{{shop.urlpath}}">{{shop.name}}</option>
                         </select>
                       </div>
                     </div>
                     <!-- DISPLAY ONLY WHEN USER IS OWNER AND PRODUCT EXIST -->
-                    <div class="control-group" ng-show="user.isOwner(product.vendor.name) && product.sku">
+                    <div class="form-group" ng-show="user.isOwner(product.vendor.name) && product.sku">
                       <label class="control-label ">Boutique</label> 
-                      <div class="controls">
-                        <select  ng-model="product.vendor._id" class="input-xlarge" required>
+                      <div class="">
+                        <select  ng-model="product.vendor._id" class="form-control input-lg" required>
                           <option ng-repeat="shop in user.shops" value="{{shop._id}}" ng-selected="product.vendor._id==shop._id">{{shop.name}}</option>
                         </select>
                       </div>
                     </div>
                     <!-- DISPLAY ONLY WHEN USER IS ADMIN AND NOT OWNER -->
-                    <div class="control-group" ng-show="!user.isOwner(product.vendor.name) && user.isAdmin() && product.sku">
+                    <div class="form-group" ng-show="!user.isOwner(product.vendor.name) && user.isAdmin() && product.sku">
                       <label class="control-label ">Boutique</label> 
-                      <div class="controls">
-                        <strong>{{product.vendor.name}}</strong>
-                      </div>
+                      <p class="form-control-static">
+                        {{product.vendor.name}}
+                      </p>
                     </div>
 
                   </div>
     
                   
-                  <div class="span7">
+                  <div class="col-xs-7">
                     <!-- category -->
-                    <div class="control-group">
+                    <div class="form-group">
                       <label class="control-label ">Catégorie </label> 
-                      <div class="controls small">
-                        <select  ng-model="product.categories " class="input-xlarge" required >
+                      <div class=" small">
+                        <select  ng-model="product.categories " class="form-control input-lg" required >
                         
                           <option ng-repeat="cat in category.findAll()| filter:{type:'Category'}" 
                                   ng-selected="product.categories._id==cat._id" value="{{cat._id}}" >{{cat.name}}</option>
@@ -96,106 +97,96 @@
                       </div>
                     </div>
                   </div>
-                  
+                </div>
+                <!-- END TWO COLUMNS -->
                 
             </div>
-            <div data-title="Prix et quantité">
-                <div>
-                  <div class="span5">
+            <div data-title="Prix et quantité" class="form-background">
+                <div class="row">
+                  <div class="col-xs-5">
                     <!-- prix-->
-                    <div class="control-group">
+                    <div class="form-group">
                       <label class="control-label">Prix</label>
-                      <div class="controls ">                      
-                        <input name="price" type="text" placeholder="10.50" class="input-big input-large " ng-model="product.pricing.price" required>                      
+                      <div class=" ">                      
+                        <input name="price" type="text" placeholder="10.50" class="input-lg form-control " ng-model="product.pricing.price" required>                      
                         <p class="help-block gray">Le prix en CHF</p>
                       </div>
                     </div>
 
 
                     <!-- stock-->
-                    <div class="control-group">
+                    <div class="form-group">
                       <label class="control-label">Qte disponible</label>
-                      <div class="controls">
-                        <input  name="stock" type="text" placeholder="ex: 10" class="input-big  green" ng-model="product.pricing.stock" required>
+                      <div class="">
+                        <input  name="stock" type="text" placeholder="ex: 10" class="input-lg form-control  green" ng-model="product.pricing.stock" required>
                       </div>
                     </div>
 
                   </div>            
-                  <div class="span7">
+                  <div class="col-xs-7">
                     <!-- prix promo-->
-                    <div class="control-group">
-                      <label class="control-label" title="activer la promotion">Activer la promotion
+                    <div class="form-group">
+                      <label class="control-label" title="activer la promotion">Tarif promotion
                         <input type="checkbox" ng-model="product.attributes.discount">
                       </label>
-                      <div class="controls ">                      
-                          <input  type="text" ng-model="product.pricing.discount"  placeholder="2.50" class="input-big red" >
+                      <div class=" ">                      
+                          <input  type="text" ng-model="product.pricing.discount"  placeholder="2.50" class="input-lg form-control red" >
                           <p class="help-block gray"> Le prix promotionnel</p>
                       </div>
                     </div>
 
                     <!-- portion -->
-                    <div class="control-group">
-                      <div class="controls">
+                    <div class="form-group">
+                      <div class="">
                         <label class="control-label">Une portion  </label>
-                        <input name="part" type="text" placeholder="3pce" pattern="([0-9]+pce|[0-9]+gr|[\d.]+kg|1botte|[0-9]+bottes|[\d.]+L)" class="input-big " ng-model="product.pricing.part" required>
+                        <input name="part" type="text" placeholder="3pce" pattern="([0-9]+pce|[0-9]+gr|[\d.]+kg|1botte|[0-9]+bottes|[\d.]+L)" class="input-lg form-control " ng-model="product.pricing.part" required>
                         <p class="help-block gray">100gr/1botte/0.75L/1pce</p>
                       </div>                      
                     </div>                    
                   </div>        
                 </div>    
             </div>
-            <div data-title="Photo et aperçu ">
-
-              <div class="span6">
-                <!-- Photo -->
-                <div class="control-group ">
-                  <label class="control-label">Photo</label>
-                  <div class="controls">
-                    <button type="button" id="image" name="image" class=" btn btn-info btn-large" ng-disabled="!product" ng-click="uploadImage(product,'front')">choisir une photo qui fonctionne avec différentes tailles</button>
-                  </div>
-                </div>                  
-              </div>
-              <!-- 2 COLUMN -->
-              <div class="span6">                
-
+            <div data-title="Photo et aperçu " class="form-background row">
+              <div class="col-xs-12" style="margin-left:20%">
                 <!-- overview -->
-                <div class="control-group">
-                  <label class="control-label">Aperçu</label>
-                  <div class="controls" ng-include="'/partials/product/product.html'">
+                  <div class="" ng-include="'/partials/product/product.html'">
                   </div>
-                </div>
-
-              </div>                
-
-                <!-- show comments-->
-                <div class="control-group">
-                  <label class="control-label">Commentaires</label>
-                  <div class="controls">
-                    <label class="checkbox">
-                      <input type="checkbox" ng-model="product.attributes.comment" />
-                      Afficher les commentaires pour ce produit
-                    </label>                        
-                  </div>
-                </div>
+              </div>
                   
 
-
+              <div class="col-xs-12" style="margin-left:20%">
+                <!-- Photo -->
+                    <button type="button" id="image" name="image" class=" btn btn-info btn-lg " ng-disabled="!product" ng-click="uploadImage(product,'front')" style="width:210px">Choisir une photo</button>
+              </div>
+              
 
             </div>
           </div><!-- TABS-->
     </div>
     <div class="modal-footer">
-      <div class="controls pull-left ">
-        <label class="checkbox inline  " style="text-align:left;width:400px">
-         <input checked type="checkbox" name="attributes" value="indisponible" ng-model="product.attributes.available">
-          <span ng-class="{true:'red'}[!product.attributes.available]">ce produit est disponible</span>
-        </label>
+      <div class=" pull-left ">
+        <!-- ENABLE PRODUCT -->
+        <div class="text-left">
+          <label class="checkbox inline  " style="text-align:left;width:400px">
+             <input checked type="checkbox" name="attributes" value="indisponible" ng-model="product.attributes.available">
+              <span ng-class="{true:'red'}[!product.attributes.available]">ce produit est disponible</span>
+          </label>
+        </div>
+
+        <!-- ENABLE COMMENT -->
+        <div class="text-left">
+          <label class="">
+            <input type="checkbox" ng-model="product.attributes.comment" />
+            Autoriser les commentaires pour ce produit
+          </label>                        
+        </div>
+
       </div>
-      <a id="close-product-editor"  class="btn " href="{{referrer}}">Fermer</a>
-      <button type="submit" ng-show="product.sku" class="btn btn-danger" ng-click="remove(product);">Supprimer</button>
+      <a id="close-product-editor"  class="btn  " href="{{referrer}}">Fermer</a>
+      <button type="submit" ng-show="product.sku" class="btn  btn-danger" confirm-delete="remove(product,password);">Supprimer</button>
 
       <button type="submit" ng-show="product.sku" ng-disabled="f_product.$invalid || WaitText" 
-              class="btn btn-primary" ng-click="save(product);">
+              class="btn  btn-primary" ng-click="save(product);">
               {{WaitText||'Enregistrer'}}
       </button>
       <button type="submit" ng-hide="product.sku" ng-disabled="f_product.$invalid || WaitText" 

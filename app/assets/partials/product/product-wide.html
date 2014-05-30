@@ -1,7 +1,7 @@
 <div backfader="" nhow="product.sku" class="backfader ">
    <div class="popupcontent" id="popup">
-      <div class="pattern-dark row-fluid">
-        <div class="span8 relative" style="overflow:hidden">
+      <div class="pattern-dark row">
+        <div class="col-md-8 relative" style="overflow:hidden;padding:0px">
           <!-- DISPLAY PHOTO -->
           <img ng-cloak ng-show="product.photo.url" ng-src="{{product.photo.url}}/convert?w=400&h=320&fit=crop" class="item-image" style="width:100%">
 
@@ -15,7 +15,7 @@
           <img ng-cloak ng-hide="product.pricing.stock" ng-src="http://placehold.it/400x320/eeeeee/000000&text=plus+en+stock" class="available" style="height:100%">
 
         </div>
-        <div class="span4" style="padding:20px 5px;">
+        <div class="col-md-4" style="padding:20px 5px;">
           <!-- PRICE-->
           <div class="price" 
                style="color:white;font-size:200%;font-weight:bold;padding-bottom:10px">
@@ -35,17 +35,17 @@
           </div>
 
           <!-- ACTIONS -->
-          <button class="btn btn-danger btn-large " ng-click="love(product)">
+          <button class="btn btn-danger btn-lg " ng-click="love(product)">
             <i class="icon-star-empty "></i>&nbsp;J'aime
           </button> 
 
-          <button class="btn btn-primary btn-large" ng-click="cart.add(product)" ng-hide="!product.isAvailableForOrder()||!product.pricing.stock">
+          <button class="btn btn-primary btn-lg" ng-click="cart.add(product)" ng-hide="!product.isAvailableForOrder()||!product.pricing.stock">
             <i class="icon-ok"></i>&nbsp;J'achète
           </button>            
 
           <!-- CART QUANTITY -->
           <div class="sexy white " ng-show="cart.quantity" style="margin:10px 0;padding:5px">
-             {{cart.quantity}} articles dans votre panier</span>          
+             {{cart.quantity()}} articles dans votre panier</span>          
           </div>                
         </div>
       </div>

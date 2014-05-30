@@ -1,45 +1,65 @@
 
 <section ng-controller="AccountCtrl" class="" >
-  <div class="aeauth-form row login">
-    <div class="box text-center">
-      <header class=" ">
-          <h3 class="sexy">Connectez-vous chez Kariboo</h3>
-      </header>
-      <div class="password-form form-horizontal ">
-        <form nonvalidate name="form" class="form">
-          <fieldset class="control-group">
-            <div class="controls-">
-              <input class="input-big block" ng-class="{'border-red': form.email.$invalid, 'border-green': !form.email.$invalid}"
-                     required ng-model="email" type="email" name="email" placeholder="Votre email"/>                     
+  <!--
+    <ul class="inline">
+      <li ng-repeat="p in providers" class="provider-btn">
+        <button ng-click="authenticate(p)" class="btn btn-large btn-block"><img ng-src="/img/auth/{{p.name}}.png"
+      </li>
+    </ul>
+  -->  
+  <div class="row">
+    <form class="form-account mg-btm" novalidate name="form">
+      <h3 class="heading-desc">
+        Connectez-vous chez Kariboo
+      </h3>
+      <div class="social-box">
+        <!-- PERSONA -->
+        <div class="row mg-btm">
+            <div class="col-md-12">
+              <a href="#" ng-click="persona(providers[2])" class="btn btn-primary btn-block">
+                  <i class="icon-user"></i>    Login with persona
+              </a>
             </div>
-          </fieldset>
-          <fieldset class="control-group">
-            <div >
-              <input class="input-big block" required pattern=".{2,31}" ng-model="password" type="password" name="password" placeholder="Votre password"/>
+        </div>
+<!--
+        <div class="row mg-btm">
+            <div class="col-md-12">
+              <a href="#" ng-click="authenticate(providers[1])" class="btn btn-primary btn-block">
+                  <i class="icon-google"></i>    Login with google
+              </a>
             </div>
-          </fieldset>
-          <fieldset class="control-group">
-            <div class="span6">
-              <input type="submit" ng-click="login(email, password)" ng-disabled="form.$invalid || WaitText" value="{{WaitText || 'Login'}}" class="btn btn-primary btn-large  " style="width:100%"/>
-            </div>              
-            <div class="span6">
-              <a href="/signup" class="btn  btn-large btn-block gray" style="width:100%">Create an Account?</a>
-            </div>              
-          </fieldset>
-          <fieldset class="control-group">
-              <p><small><a href="/account/recovery">Can't access your account?</a></small></p>
-          </fieldset>
-        </form>
-        <hr/>
-        <h4 class="gray">Or you can login using:</h4>
-        <ul class="inline">
-          <li ng-repeat="p in providers" class="provider-btn">
-            <button ng-click="authenticate(p)" class="btn btn-large btn-block"><img ng-src="/img/auth/{{p.name}}.png"/></button>
-          </li>
-        </ul>
+        </div>
+-->        
+        <div class="row">
+          <div class="col-md-12">
+            <a href="#" ng-click="authenticate(providers[0])" class="btn btn-info btn-block" >
+                <i class="icon-twitter"></i>    Login with Twitter
+            </a>
+          </div>
+        </div>
       </div>
-      
-      
-    </div>
+      <div class="main-account">          
+        <input type="email" class="form-control input-lg login"  autofocus ng-class="{'border-red': form.email.$invalid, 'border-green': form.email.$valid}"
+            required ng-model="email" type="email" name="email" placeholder="Votre email">
+        <input type="password" class="form-control input-lg login" required pattern=".{6,31}" ng-model="password" name="password" placeholder="Votre password">
+          <a class="small" href="/account/recovery"  >Avez-vous oublié votre mot de passe? </a>
+          <span class="clearfix"></span>  
+      </div>
+
+      <div class="account-footer">
+        <div class="row">
+          <div class="col-xs-6 col-md-6">
+              <div class="left-section">
+                <a href="/signup">Créer un compte?</a>
+              </div>
+          </div>
+          <div class="col-xs-6 col-md-6 pull-right">
+              <button type="submit" ng-click="login(email, password)" ng-disabled="form.$invalid || WaitText"  class="btn btn-lg btn-success pull-right  ">{{WaitText || 'Login'}}</button>
+
+          </div>
+        </div>    
+      </div>
+    </form>
   </div>
+
 </section>

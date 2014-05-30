@@ -34,22 +34,22 @@
                 <p class="help-block"></p>
             </div>
 
-            <label class="control-label"><strong>Commune</strong></label>
+            <label class="control-label"><strong>Code Postal</strong></label>
             <div class="controls">
-                <select  class="input-xlarge" ng-model="address.locality" >
-                    <option ng-repeat="location in config.shop.location.list" ng-selected="{{location=='Genève-Ville'}}">{{location}}</option>
+                <select  class="input-xlarge" ng-model="address.postalCode" 
+                         ng-options="postal in config.shop.location.list">
                 </select>
                 <p class="help-block"></p>
             </div>
 
 
-            <label class="control-label"><strong>Code Postal</strong></label>
+<!--             <label class="control-label"><strong>Code Postal</strong></label>
             <div class="controls">
                 <input  ng-model="address.postalCode" type="text" placeholder="code postal 1200" ng-blur="updateMap(address)"
                 class="input-xlarge" require>
                 <p class="help-block"></p>
             </div> 
-            primary
+ -->
 
             <label class="control-label"><strong>Carte</strong></label>
             <div class="controls">

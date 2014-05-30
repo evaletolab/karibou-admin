@@ -30,12 +30,11 @@
   min-height:550px;
   margin:20px auto;
   border-radius: 5px;
+  overflow:hidden;
+  font-weight: 300;
 }
 
 
-.popupcontent .content, .popupcontent>div>div>img,.popupcontent>div.shop{
-  padding-left: 40px;
-}
 
 .popupcontent>div.shop>ul>li.smart{
   width:70%;
@@ -48,10 +47,10 @@
   padding-bottom:10px;
 }
 .popupcontent>div.shop{
-  padding-top:20px;
+  border-top:dotted 2px #ddd;
+  padding: 10px 20px;
   font-size:16px;  
   position:relative;
-  font-weight: 300;
 }
 
 
@@ -83,8 +82,12 @@
 
   .popupcontent>div>div>img{
     padding-left: 0px; 
-    height: 390px;
   }
+
+  .pattern-dark.row {
+    margin-right: 0px;
+    margin-left: 0px;
+  }  
 }
 
 /* Tablet
@@ -121,6 +124,10 @@
     margin-top: 20px;
   }
 
+  .pattern-dark.row {
+    margin-right: 0px;
+    margin-left: 0px;
+  }  
 
 }
 
@@ -137,7 +144,6 @@
 
   .popupcontent>div>div>img{
     padding-left: 0px;
-    height: 330px;
   }
   .popupcontent>div.shop>ul>li.smart{
     width:50%;

@@ -14,14 +14,14 @@
       <a  href="{{shop.urlpath|test:'/shop/':''}}/products/{{product.sku}}" shop="/shop/{{product.vendor.urlpath}}" class="link">
 
           <!-- PHOTO -->
-          <img ng-cloak ng-show="product.photo.url&&!product_edit" bn-lazy-src="{{product.photo.url}}/convert?w=275&h=225&fit=crop&cache=true" class="lazy">
-          <img ng-cloak ng-show="product_edit" src="{{product.photo.url}}/convert?w=275&h=225&fit=crop&cache=true" >
+          <img ng-cloak ng-show="product.photo.url&&!product_edit" bn-lazy-src="{{product.photo.url}}/convert?w=275&h=215&fit=crop&cache=true" class="lazy">
+          <img ng-cloak ng-show="product_edit" src="{{product.photo.url}}/convert?w=275&h=215&fit=crop&cache=true" >
 
           <!-- NOT AVAILABLE -->
-          <img ng-cloak ng-hide="product.isAvailableForOrder()" ng-src="http://placehold.it/275x225/eeeeee/000000&text=indisponible" class="available">
+          <img ng-cloak ng-hide="product.isAvailableForOrder()" ng-src="http://placehold.it/275x215/eeeeee/000000&text=indisponible" class="available">
 
           <!-- NOT IN STOCK -->
-          <img ng-cloak ng-hide="product.pricing.stock" ng-src="http://placehold.it/275x225/eeeeee/000000&text=plus+en+stock" class="available">
+          <img ng-cloak ng-hide="product.pricing.stock" ng-src="http://placehold.it/275x215/eeeeee/000000&text=plus+en+stock" class="available">
 
 
           <!-- PRICE-->

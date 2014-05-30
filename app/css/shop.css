@@ -1,30 +1,6 @@
 /* Shop layout
 -------------------------------------------------- */
 
-.shop-page{
-  margin-top:0px;
-  padding-top:30px;
-  height:100%;
-  width:100%;
-}
-
-.shop-container{
-  width:60%;
-  position: absolute;
-  min-height: 100%;
-  right: 0;
-  padding-bottom: 100px;
-  border-left: 1px solid #c6c6c5;
-  overflow: hidden;
-  margin-right:-1px;
-  top: 48px;
-}
-
-.shop-container .shop-row{
-  padding-left:20px;
-}
-
-
 /* Shop details
 -------------------------------------------------- */
 
@@ -42,7 +18,7 @@
 }
 
 .shop-info-bar.success{
-  top: 40px;
+  top: 60px;
   color: greenyellow;
 }
 
@@ -52,26 +28,6 @@
   color: white;
 }
 
-.shop-home .shop-title{
-  bottom: 17px;  
-  left:3px;
-  padding:4px;
-}
-.shop-home .shop-title h3{
-  line-height:20px;
-  margin-top:0px;
-}
-.shop-home .shop-title .small{
-  font-size:80%;
-}
-
-.shop-home .shop-column{
-  margin-left:60px!important;
-}
-
-.shop-home:nth-child(4n+1){
-  background-color: #fff;
-}
 
 img.photo-owner{
   width:120px;
@@ -80,6 +36,19 @@ img.photo-owner{
   margin-right: 10px;
 }
 
+img.shop{
+  width: 400px;
+  margin: 0 auto;
+  display: block;
+  padding: 5px;  
+}
+img.owner{
+  margin: 0 auto;
+  width:120px;
+  padding:5px;
+  display: block;
+  border: 2px solid #ddd;  
+}
 
 .shop-row{
   padding-top:5px;
@@ -96,31 +65,6 @@ img.photo-owner{
   border-bottom:1px solid #ddd;
   -background:url("/img/paper.jpg") repeat scroll 0 0 #F7F5F5;
   background:#eeeeee url(/img/pattern-diamond.png) center;
-}
-
-.shop-home:nth-child(4n){
-  background-color: #fff;
-}
-.shop-home div.card{
-  width: 500px;
-}
-
-.shop-label{
-  position: absolute;  
-  top: 10px;
-  left:10px;
-}
-.shop-message{
-  margin:0px!important;
-  background-color: #FCF8E3;
-  border: 1px solid #FBEED5;
-  padding: 8px 35px 8px 14px;
-  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);  
-}
-.shop-message.label-info{
-  background-color: #D9EDF7;
-  border-color: #BCE8F1;
-  color: #3A87AD;
 }
 
 .shop-rice-paper{
@@ -151,14 +95,6 @@ img.photo-owner{
     height:100%;
     width:100%;
   }
-
-  .shop-container{
-    width:100%;
-    margin-left: inherit;
-    float:inherit;
-    position:relative;
-  }
-
 
 }
     

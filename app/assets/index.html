@@ -1,23 +1,24 @@
 <!DOCTYPE html>
-<html lang="en" ng-controller="AppCtrl" class="-screen-scroll" >
+<html lang="fr" ng-controller="AppCtrl" class="-screen-scroll" >
   <head>
     <meta charset="utf-8">
     <meta name="viewport"     content="width=device-width, initial-scale=1.0">
     <meta name="description"  content="open marketplace for food.">
     <meta name="author"       content="Olivier Evalet">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">    
     <meta name="fragment"     content="!" />    
     <title ng-bind-template="{{title}}"></title>
 
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" user-scalable="no">
-    <link rel="canonical" href="http://karibou.evaletolab.ch/">
+    <link rel="canonical" href="http://kariboo.ch/">
     <meta name="title" content="Kariboo">
     <meta property="og:type" content="website">
     <meta property="og:image" content="k.png">
     <meta property="og:title" content="Kariboo">
     <meta property="og:description" content="Kariboo" >
     <meta property="og:site_name" content="Kariboo">
-    <meta property="og:url" content="http://Karibou.evaletolab.ch/">
+    <meta property="og:url" content="http://Kariboo.ch/">
     <meta property="fb:app_id" content="012345">
     <meta name="twitter:site" content="@kariboo">
 
@@ -50,9 +51,11 @@
       </iframe> 
  -->
       <nav class="site-nav" tabindex="-1" toggle-sidebar ng-controller="OrderCtrl">
-         <button class="site-nav-logo " >
+         <button class="site-nav-logo " ng-cloak ng-class="{large:cart.quantity()}">
             <span class=""><i class="icon-reorder white icon-2"></i>
-              &nbsp;<i class="icon-shopping-cart green small"></i>&nbsp;<span class=" green small">{{cart.quantity()}}</span>
+              &nbsp;<span ng-show="cart.items.length">
+                <i class="icon-shopping-cart green small"></i>&nbsp;<span class=" green small">{{cart.quantity()}}</span>
+              </span>
               <span class="bold white hide">K<sub>ariboo</sub></span>
             </span>
          </button>
@@ -63,15 +66,38 @@
       <!--            -->
 
             <ul class="site-nav-list fill">
-              <li class="site-nav-list-item navigable-list-item site-nav-list-item-home">
-                <span class=""><a class="site-nav-list-item-btn" title="Go home" href="/" tabindex="-1"><span class="icons icons-logo-m"></span>Home</a></span>
+
+              <!-- CART 
+              <li class="site-nav-list-item basket-top" ng-show="cart.items.length">
+                <span  class="site-nav-list-item-text" >
+                  <i class="icon-shopping-cart green "></i>  Votre panier
+                </span>
+              </li>
+              <li class="site-nav-list-item basket" ng-repeat="item in cart.items" ng-show="cart.items.length">
+                <a class="site-nav-list-item-cart green"  href="/products/{{item.sku}}" tabindex="-1">{{item.quantity}}x {{item.name}}<span>{{item.part}}</span></a>
               </li>
 
+              <li class="site-nav-list-item basket" ng-show="cart.items.length">
+                <span class="site-nav-list-item-cart  green"  href="" tabindex="-1">TOTAL {{cart.total()| number:2}} CHF</span>
+                <a type="button" class="btn btn-success btn-lg btn-block" href="/order">
+                    Valider votre commande
+                </a>
+                <button type="button" class="btn  btn-lg btn-block" ng-click="cart.empty()">
+                    Effacer
+                </button>                                
+              </li>
+
+              <!-- HOME -->              
+              <li class="site-nav-list-item navigable-list-item site-nav-list-item-home">
+                <span class=""><a class="site-nav-list-item-btn" title="Go home" href="/" tabindex="-1"><span class="icon-home"></span>Home</a></span>
+              </li>
+
+
               <li class="site-nav-list-item" ng-hide="user.isAuthenticated()">
-                <a ng-class="getClass('/login')" class="site-nav-list-item-btn" href="/login">Login</a>
+                <a ng-class="getClass('/login')" class="site-nav-list-item-btn" href="/login"><i class="icon icon-user"></i>Login</a>
               </li>
               <li class="site-nav-list-item" ng-hide="user.isAuthenticated()">
-                <a ng-class="getClass('/signup') " class="site-nav-list-item-btn" href="/signup">Sign Up</a>
+                <a ng-class="getClass('/signup') " class="site-nav-list-item-btn" href="/signup"><i class="icon icon-fire"></i>Sign Up</a>
               </li>
 
               <!-- SIGNED -->
@@ -80,67 +106,58 @@
               </li>
               <li ng-class="getClass('/account')" class="site-nav-list-item" ng-show="user.isAuthenticated()">
                 <a ng-show="user.shops.length" class="site-nav-list-item-btn" href="/products/create" title="Ajouter un nouvel article">
-                  <i class="icon-plus gray"></i> Ajouter un produit
+                  <i class="icon-plus pink"></i> Ajouter un produit
                 </a>                
-              </li>
+              </li>              
 
               <li class="site-nav-list-item" ng-show="user.isAuthenticated()">
                 <a  class="site-nav-list-item-btn" href="" ng-click="logout()">logout</a>
               </li>
 
+              <li class="site-nav-list-item " ng-show="cart.items.length">
+                <a class="btn  btn-xs  btn-success site-nav-list-item-btn-bootstrap" href="/order" tabindex="-1">
+                  <i class="icon-shopping-cart "></i>  Commander
+                </a>
+
+              </li>
+
+              <li class="site-nav-list-item " ng-show="cart.items.length">
+                <button type="button" class="btn  btn-info btn btn-xs site-nav-list-item-btn-bootstrap" ng-click="cart.empty()">
+                    Vider le panier
+                </button>                                
+              </li>              
+
 
 
 
               <!-- MENU -->
-              <li class="site-nav-list-item">
+              <li class="site-nav-list-item divider">
                 <span  class="site-nav-list-item-text" >Le marché</span>
+              </li>
+
+
+              <li class="site-nav-list-item " ng-repeat="category in category.findAll()|filter:{type:'Category'}">
+                <a class="site-nav-list-item-btn  " title="{{category.name}}" href="/products/category/{{category.slug}}" tabindex="-1"><i class="icon icon-angle-right"></i>{{category.name}}</a>
+              </li>
+
+              <li class="site-nav-list-item divider">
+                <span  class="site-nav-list-item-text" >Les commerces</span>
               </li>
 
               <li class="site-nav-list-item ">
                 <a class="site-nav-list-item-btn " ng-class="getClass('/shops')" title="Les boutiques" href="/shops" tabindex="-1">Les boutiques</a>
               </li>
-
-              <li class="site-nav-list-item ">
-                <a class="site-nav-list-item-btn " ng-class="getClass('/products')" title="Les produits" href="/products" tabindex="-1">Les produits</a>
-              </li>
-
-              <li class="site-nav-list-item " ng-repeat="category in category.findAll()|filter:{type:'Category'}">
-                <a class="site-nav-list-item-btn  " title="{{category.name}}" href="/products/category/{{category.slug}}" tabindex="-1">{{category.name}}</a>
-              </li>
               
-             <!-- ADMIN-->
-              <li class="site-nav-list-item" ng-show="user.isAdmin()">
-                <span  class="site-nav-list-item-text" >Administration</span>
-              </li>
-              <li class="site-nav-list-item" ng-class="getClass('/logistic/collect')" ng-show="user.isAdmin()" >
-                <a class="site-nav-list-item-btn " ng-href="/logistic/collect">Collecte</a>
-              </li>
-              <li class="site-nav-list-item" ng-class="getClass('/logistic/overview')" ng-show="user.isAdmin()" >
-                <a class="site-nav-list-item-btn " ng-href="/logistic/livraison">livraison</a>
-              </li>
-              <li class="site-nav-list-item" ng-class="getClass('/admin/category')" ng-show="user.isAdmin()" >
-                <a class="site-nav-list-item-btn " ng-href="/admin/category">Categorie</a>
-              </li>
-              <li class="site-nav-list-item" ng-class="getClass('/admin/role')" ng-show="user.isAdmin()" >
-                <a class="site-nav-list-item-btn " ng-href="/admin/role">Rôle</a>
-              </li>
-              <li class="site-nav-list-item" ng-class="getClass('/admin/user')" ng-show="user.isAdmin()" >
-                <a class="site-nav-list-item-btn " ng-href="/admin/user">Utilisateurs</a>
-              </li>
 
-              <!-- CART -->
-              <li class="site-nav-list-item basket-top" >
-                <span  class="site-nav-list-item-text" >Votre panier</span>
-              </li>
-              <li class="site-nav-list-item basket" ng-repeat="item in cart.items">
-                <a class="site-nav-list-item-cart green"  href="/products/{{item.sku}}" tabindex="-1">{{item.quantity}}x {{item.name}}<span>{{item.part}}</span></a>
-              </li>
 
-              <li class="site-nav-list-item basket">
-                <a class="site-nav-list-item-cart  green"  href="" tabindex="-1">TOTAL {{cart.total()| number:2}} CHF</a>
+              <!-- CART -->     
+<!--               <li class="site-nav-list-item divider">
+                <span  class="site-nav-list-item-text" >Le panier</span>
               </li>
-              <li class="site-nav-list-item basket-bottom"></li>
-            </ul>
+ -->
+
+<!--               <li class="site-nav-list-item basket-bottom"></li>
+ -->            </ul>
          </div>
       </nav>
 
@@ -174,7 +191,7 @@
           <div ng-view="modal">   
           </div>
 
-          <div class="fill row-fluid " ng-view >
+          <div class="fill row " ng-view  ng-animate style="width:100%;margin-left:0px">
             &nbsp;
           </div>
       <!-- CONTENT -->

@@ -1,0 +1,175 @@
+<div class="butter-bar active success back" 
+     ng-cloak ng-hide="user.isAuthenticated()" >
+  <p class="butter-bar-message">
+    <a href="/login" class="link white">Vous devez être enregistré</a> pour finaliser votre commande.      
+  </p>
+</div>
+
+<div tabindex="-1"  id="null" class="screen-content">
+  <aside ng-include="getCover()" class="cover cover-home img-loaded" ng-class="{'session':user.isAuthenticated()}">
+  </aside>
+
+
+   <section class="wrapper" tabindex="-1">
+      <div class="wrapper-inner rows" ng-controller="OrderCtrl">
+
+
+        <!--                               -->
+        <!-- CATEGORIES PRODUITS/BOUTIQUES -->
+        <!--                               -->
+                          
+         <div  class="bucket post-bucket homepage-posts">
+              <h3 class="article-group-title text-center" >
+                Vous allez valider une nouvelle commande
+              </h3>  
+              <div class="stepwizard">
+                  <div class="stepwizard-row">
+                      <div class="stepwizard-step">
+                          <button type="button" class="btn btn-default btn-circle" disabled="disabled">1</button>
+                          <p>Shopping</p>
+                      </div>
+                      <div class="stepwizard-step">
+                          <button type="button" class="btn btn-primary btn-circle">2</button>
+                          <p>Valider</p>
+                      </div>
+                      <div class="stepwizard-step">
+                          <button type="button" class="btn btn-default btn-circle" disabled="disabled">3</button>
+                          <p>Payment</p>
+                      </div> 
+                  </div>
+              </div>
+
+         </div>
+         <div>
+           <div class="alert alert-warning" ng-cloak ng-show="user.email.status !== true" >
+                Vous devez <a href="/account/profile">valider votre addresse email</a> pour passer cette commande.
+           </div>
+         </div>
+         <div ng-show="user.addresses.length">
+           <h5 class="article-group-title ">Choisir la date de livraison</h5>
+            <select class="form-control input-lg" ng-model="order.shipping" ng-options="date.id as date| shippingLabel for date in shipping">
+            </select>
+            <p class="help-block">En choisissant ce créneau horaire, vous confirmez être présent pour la réception de votre commande.</p>
+
+         </div>
+
+         <div ng-hide="user.addresses.length">
+           <div class="alert alert-warning" >
+             <strong>Votre profile est incomplet!</strong> 
+             Pour passer une commande, vous devez indiquer <a href="/account/profile">au moins une adresse de livraison.</a>
+           </div>
+         </div>            
+
+         <div ng-show="user.addresses.length">
+           <h5 class="article-group-title ">Choisir l'adresse de livraison </h5>
+            <select class="form-control input-lg" ng-model="order.address">
+              <option ng-repeat="a in user.addresses" ng-selected="a.primary" ng-value="$index">
+                {{a.name}} - {{a.streetAdress}} {{a.postalCode}}
+              </option>
+            </select>
+         </div>
+         <div ng-show="user.addresses.length">
+           <h5 class="article-group-title ">Choisir le mode de payment</h5>
+            <select class="form-control input-lg" ng-model="order.payment" ng-change="updateGateway()">
+              <option value="">-- Sélection d'un mode de paiement --</option>
+              <option value="{{$index}}" ng-repeat="gateway in config.shop.order.gateway">{{gateway.label}} - supplément de {{gateway.fees*100|number:1}}%</option>
+            </select>           
+         </div>
+
+        <!-- SHOPS -->
+        <div  class="row wrapheight" >
+<!--                
+              <div class="  col-md-12">
+                  <div class="row">
+                      <div class="col-sm-5 col-md-5">
+                          <address>
+                              <strong>O. Evaleto</strong>
+                              <br>
+                              34 rte de la chouille
+                              <br>
+                              1208 Genève
+                              <br>
+                              <abbr title="Phone">M:</abbr> 076 377.77.66
+                          </address>
+                      </div>
+                      <div class="col-sm-6 col-md-6 text-right">
+                          <p>
+                              <em>Livraison: 1st November, 2013</em>
+                          </p>
+                          <p>
+                              <em>Commande #: 34522677W</em>
+                          </p>
+                       </div>
+                  </div>
+-->
+                  <div class="row">
+                      <div class="text-center">
+                          <h2 class="article-group-title">VOTRE COMMANDE</h2>
+                      </div>
+                      </span>
+                      <table class="table table-hover">
+                          <thead>
+                              <tr>
+                                  <th>Produit</th>
+                                  <th>Qty</th>
+                                  <th class="text-center">Prix</th>
+                                  <th class="text-center">Total</th>
+                              </tr>
+                          </thead>
+                          <tbody>
+                            <tr  ng-repeat="item in cart.items" >
+                              <td class="col-md-8"><em>
+                                <a href="/products/{{item.sku}}" >{{item.part}} - {{item.name}}</a></em>
+                                <div class="btn-group btn-group-xs pull-right hidden-xs">
+                                  <button type="button" class="btn btn-default" ng-click="cart.add(item, true)"><i class="icon-plus"></i></button>
+                                  <button type="button" class="btn btn-default" ng-click="cart.remove(item)"><i class="icon-minus"></i></button>
+                                  <button type="button" class="btn btn-default" ng-click="cart.clear(item)"><i class="icon-remove"></i></button>
+                                </div>
+                              </td>
+                              <td class="col-md-1" style="text-align: center">{{item.quantity}}</td>
+                              <td class="col-md-1 text-center">{{item.price|number:2}}</td>
+                              <td class="col-md-2 text-center">{{item.price*item.quantity|number:2}}</td>
+                            </tr>
+                              <tr>
+                                  <td class="text-right" colspan="3">
+                                    <p><strong>Soustotal: </strong></p>
+                                    <p><strong>Paiement {{config.shop.order.gateway[order.payment].label}}: {{cart.tax()*100|number:1}}% </strong>
+                                    </p>
+                                    <p><strong>Livraison: </strong></p>
+                                  </td>
+                                  <td class="text-center">
+                                    <p><strong>{{cart.total()|number:2}} </strong></p>
+                                    <p><strong>{{cart.tax()*cart.total()|number:2}} </strong></p>
+                                    <p><strong>{{cart.shipping()|number:2}} </strong></p>
+                                </td>
+                              </tr>
+                              <tr>
+                                  <td>   </td>
+                                  <td>   </td>
+                                  <td class="text-right"><h4><strong>Total: </strong></h4></td>
+                                  <td class="text-center text-danger"><h4><strong>{{cart.grandTotal()|number:2}} CHF</strong></h4></td>
+                              </tr>
+                          </tbody>
+                      </table>
+
+                      <label>
+                        <input type="checkbox"  value="true" ng-model="cg">
+                        J'ai lu et j'accepte les conditions générales de vente et de livraison.
+                      </label>
+                      <button type="button" class="btn btn-success btn-lg btn-block"
+                              ng-disabled="!cg || !user.isReady() ||!user.hasPrimaryAddress()||!order.payment"  
+                              ng-click="terminateOrder()">
+                          Aller à la caisse  
+                      </button>
+                  </div>
+        </div>
+
+        <footer class="wrapper-footer">
+            <a class="wrapper-footer-link" title="View open job positions " href="/jobs">Travailler chez Kariboo</a>
+            <a class="wrapper-footer-link" title="Lire la charte de Kariboo" href="/sharte">Charte</a>
+            <a class="wrapper-footer-link" title="La FAQ de Kariboo" href="/help-center/faq">FAQ</a>
+            <a href="" backend-url="href">API</a>
+        </footer>
+      </div>
+   </section>
+</div>

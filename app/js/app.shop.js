@@ -35,8 +35,9 @@ Shop.controller('ShopCtrl',[
   'api',
   'shop',
   'product',
+  'Map',
 
-  function (config, $scope, $rootScope, $routeParams, $location, api, shop, product) {
+  function (config, $scope, $rootScope, $routeParams, $location, api, shop, product, Map) {
     $scope.FormInfos=false;
     $scope.FormErrors=false;
 
@@ -45,15 +46,28 @@ Shop.controller('ShopCtrl',[
 
     $scope.config=config;
     $scope.shop=shop;
+    $scope.map=new Map();
     
     $scope.save=function(shop){
       shop.save(function(s){
-          api.info($scope,"Votre boutique a été enregistrée!",1000,function(){
+          //
+          // inform all listeners this has changed
+          $rootScope.$broadcast("update.shop",shop);
+          api.info($scope,"Votre boutique a été modifié!",1000,function(){
             $location.url('/shop/'+shop.urlpath);            
           });
       },cb_error);
     };
     
+
+    $scope.remove=function(user,shops,password){
+      shop.remove(user,password,function(){
+          api.info($scope,"Votre boutique a été définitivement supprimée!",1000,function(){
+            $location.url('/account');  
+            shops.pop(shop)          
+          });
+      },cb_error);
+    }
 
     
     // init
@@ -78,7 +92,7 @@ Shop.controller('ShopCtrl',[
     $scope.uploadFgPhoto=function(shop){
       api.uploadfile($scope, {},function(err,fpfile){
         if(err){
-          api.info($scope,err.toString());
+          api.info($scope,"l'opération à été anullé");
           return false;
         }
         //
@@ -87,10 +101,7 @@ Shop.controller('ShopCtrl',[
         if (!shop.photo)shop.photo={};
         shop.photo.fg=fpfile.url;
         shop.save(function(s){
-            api.info($scope,"Votre photo a été enregistrée!");
-            //$('div.backstretch').remove();
-            //$('#bgshop').backstretch(FPFile.url);
-            
+            api.info($scope,"Votre photo a été enregistrée!");            
         },cb_error);
         
       });
@@ -101,7 +112,7 @@ Shop.controller('ShopCtrl',[
     $scope.uploadOwnerPhoto=function(shop){
       api.uploadfile($scope, {},function(err,fpfile){
         if(err){
-          api.info($scope,err.toString());
+          api.info($scope,"l'opération à été anullé");
           return false;
         }
         var filter='/convert?w=260&fit=scale';
@@ -136,7 +147,44 @@ Shop.controller('ShopCtrl',[
     $scope.waitingStatus=function(){
       return ((typeof shop.status)==='number')
     }
+
+    $scope.activeMarket=function(m){
+      return (shop.marketplace&&(shop.marketplace.indexOf(m)>-1));
+    }
     
+    $scope.toggleMarket=function(m){
+      var idx=shop.marketplace.indexOf(m)
+      if(idx>-1)
+        shop.marketplace.splice(idx,1);
+      else
+        shop.marketplace.push(m)
+    }
+
+
+    //
+    // geomap init
+    $scope.updateMap=function(address){
+      if (address.streetAdress===undefined||address.postalCode===undefined)
+       return;
+
+      $scope.map.geocode(address.streetAdress, address.postalCode, address.country, function(geo){
+        if(!geo.results.length||!geo.results[0].geometry){
+         return;
+        }
+        //
+        //update data
+        address.geo={};
+        address.geo.lat=geo.results[0].geometry.location.lat;
+        address.geo.lng=geo.results[0].geometry.location.lng;
+        //
+        // map init
+        var fullAddress=address.streetAdress+'/'+address.postalCode;
+        $scope.map.addMarker(1, {lat:address.geo.lat,lng:address.geo.lng, message:fullAddress});
+        // angular.extend($scope,map.getMap());
+
+      })
+    };    
+
     //
     // get products for the front page shop
     var filter={sort:'created',group:'categories.name'/**,status:true*/};
@@ -186,6 +234,14 @@ Shop.factory('shop', [
     };    
     
     var Shop = function(data) {
+      //
+      // this is the restfull backend for angular 
+      this.backend=$resource(config.API_SERVER+'/v1/shops/:urlpath',
+            {category:'@id'}, {
+            update: {method:'POST'},
+            delete: {method:'PUT'},
+      });
+
       angular.extend(this, defaultShop, data);
     }
 
@@ -197,7 +253,7 @@ Shop.factory('shop', [
     Shop.prototype.home = function(filter,cb,err) {
       if(!err) err=onerr;
       var shops, s, shop=this;
-      s=$resource(config.API_SERVER+'/v1/shops',{},{cache:true}).get(filter, function() {
+      s=this.backend.get(filter, function() {
         shops={};
         for (var group in s){
           shops[group]=[];
@@ -214,8 +270,9 @@ Shop.factory('shop', [
 
     Shop.prototype.query = function(filter,cb,err) {
       if(!err) err=onerr;
-      var shops, s,shop=this;
-      s=$resource(config.API_SERVER+'/v1/shops/category').query(filter, function() {
+      var shops, s,shop=this, params={};
+      angular.extend(params, filter,{urlpath:'category'})
+      s=this.backend.query(params, function() {
         shops=shop.map(s);
         if(cb)cb(shops);
       },err);
@@ -225,7 +282,8 @@ Shop.factory('shop', [
     Shop.prototype.findByCatalog = function(cat, filter,cb,err) {
       if(!err) err=onerr;
       var shops, s,shop=this;
-      s=$resource(config.API_SERVER+'/v1/shops/category/:category',{category:cat}).query(filter, function() {
+      angular.extend(params, filter,{urlpath:'category/'+cat})      
+      s=this.backend.query(filter, function() {
         shops=shop.map(s);
         if(cb)cb(shops);
       },err);
@@ -242,7 +300,7 @@ Shop.factory('shop', [
         return loaded;
       };
       
-      var s=$resource(config.API_SERVER+'/v1/shops/:urlpath',{urlpath:urlpath}).get( function() {
+      var s=this.backend.get({urlpath:urlpath},function() {
         checkimg(s);
         if(cb)cb(me.share(s,true));
       },err);
@@ -267,7 +325,7 @@ Shop.factory('shop', [
 
     Shop.prototype.save = function( cb, err){
       if(!err) err=onerr;
-      var me=this, s=$resource(config.API_SERVER+'/v1/shops/:urlpath',{urlpath:this.urlpath}).save(this, function() {
+      var me=this, s=this.backend.save({urlpath:this.urlpath},this, function() {
         if(cb)cb(me.share(s,true));
       },err);
       return this;
@@ -275,7 +333,7 @@ Shop.factory('shop', [
 
     Shop.prototype.create=function(user, data,cb,err){
       if(!err) err=function(){};
-      var me=this, s = $resource(config.API_SERVER+'/v1/shops').save(data, function() {
+      var me=this, s = this.backend.save(data, function() {
         var shop=me.share(s,true);
         user.shops.push(shop);
         if(cb)cb(shop);
@@ -283,9 +341,9 @@ Shop.factory('shop', [
       return this;
     };    
     
-    Shop.prototype.remove=function(user,cb,err){
+    Shop.prototype.remove=function(user,password,cb,err){
       if(!err) err=function(){};
-      var me=this, s = $resource(config.API_SERVER+'/v1/shops/:urlpath',{urlpath:this.urlpath}).delete(function() {
+      var me=this, s = this.backend.delete({urlpath:this.urlpath},{password:password},function() {
         user.shops.pop(me);
         if(cb)cb(me);
       },err);

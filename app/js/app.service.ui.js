@@ -27,6 +27,12 @@ UI.filter('test', function () {
    };
 });
 
+UI.filter('clean', function () {
+   return function(input) {
+        if (!input) return "";
+        return  input.replace(/[\.;-]/g, '');
+   };
+});
 
 
 //
@@ -48,12 +54,45 @@ UI.directive('toggleSidebar', ['$parse','$timeout', function($parse, $timeout) {
           },800);        
       }
       $(".site-nav-overlay").click(hide);
-      $("a.site-nav-list-item-btn").click(hide)
+      $("a").click(hide)
 
     },1000)
   }
 }]);
 
+//
+// Declare global directives here
+UI.directive('confirmDelete', ['$parse', function($parse) {
+  //
+  // template
+  var style="width: 300px;position: absolute;border: 2px solid red;padding: 10px;background-color: white;margin-top:-20px;display:none;left:25%;box-shadow:1px 1px 1000px #333"
+  var span='\
+    <form id="passwd-{{$id}}" style="'+style+'" class="form-inline prompt-passwd" validate>\
+      <input type="password" class="form-control" placeholder="valider avec votre mot de passe" required autofocus="true" style="width: 220px;">\
+      <button class="btn btn-primary" ><i class="icon-unlock"></i></button>\
+    </form>\
+  ';
+  return {
+    restrict: 'A',
+    replace: false,
+    scope:{action:"&confirmDelete"},
+    compile: function (element) {
+      var e=element.after(span);
+      return function(scope, element, attr, ctrl) { 
+        element.bind('click', function(event) {
+          angular.element('.prompt-passwd').hide();
+          element.next().show()
+        });
+        element.next().submit(function(){
+          var pwd=element.next().find('input[type=password]').val();
+          scope.action({password:pwd});
+          element.next().hide()
+          return false;
+        })
+      }
+    }
+  }
+}]);
 
 //
 // Declare global directives here
@@ -138,7 +177,6 @@ UI.directive('background', ['$parse', function($parse) {
 
 UI.directive('backfader', ['$parse','$location','$anchorScroll', function($parse,$location,$anchorScroll) {
   return function(scope, element, attr) {
-      //console.log("app.service:backfader", element, attr['backfader'])
       
       angular.element("body").addClass('noscroll');
       var i=setInterval(function(){
@@ -149,7 +187,6 @@ UI.directive('backfader', ['$parse','$location','$anchorScroll', function($parse
       },2000);
       element.removeClass('hide').click(function(e) {
 		    if(e.target === element[0]){
-		      //console.log($location.path())
           angular.element("body").removeClass('noscroll');
 
           //
@@ -187,7 +224,6 @@ UI.directive('appAffix', ['$parse','$timeout', function($parse, $timeout) {
 // 
 UI.directive('pageslide', ['$parse','$timeout', function($parse , $timeout) {
   return function(scope, element, attr) {
-    //console.log('lazyload')
     var o=scope.$eval(attr.pageslide||"{}");
     element.pageslide(o)
     //$("img.lazy").show().lazyload();
@@ -199,7 +235,6 @@ UI.directive('pageslide', ['$parse','$timeout', function($parse , $timeout) {
 // http://masonry.desandro.com/docs/intro.html
 UI.directive('lazyload', ['$parse','$timeout', function($parse , $timeout) {
   return function(scope, element, attr) {
-    //console.log('lazyload')
     //$("img.lazy").show().lazyload();
   }
 }]);
@@ -211,13 +246,10 @@ UI.directive('lazyload', ['$parse','$timeout', function($parse , $timeout) {
 // http://masonry.desandro.com/docs/intro.html
 UI.directive('masonry', ['$parse','$timeout', function($parse , $timeout) {
   return function(scope, element, attr) {
-      //console.log("app.service:backstretch", element, attr['backstretch'])
     var options={itemSelector : '.block', columnWidth : 1,gutter:1}, expression = scope.$eval(attr.mansory||"{}");
     angular.extend(options, expression);        
     
     $timeout(function(){
-      //console.log('masonry',options)
-      //console.log(element,element.get(0))
       new Masonry( element.get(0),options);      
       
       //element.imagesLoaded(function(){
@@ -292,7 +324,6 @@ UI.directive('infiniteCarousel', ['$parse','$timeout', function($parse , $timeou
     var options={}, expression = scope.$eval(attr.infiniteCarousel||"{}");
     angular.extend(options, expression);        
     $timeout(function(){
-       console.log(attr)
        
        $(element).addClass("infiniteCarousel").infiniteCarousel(options)
     },0);
@@ -311,7 +342,6 @@ UI.directive('acceptCookie', ['$parse','config','$cookies','$timeout',
   function($parse, config, $cookies, $timeout) {
   return function(scope, element, attr) {
     $timeout(function(){
-      console.log($cookies, navigator.userAgent)
       if ($cookies['session.sid']){
         return;        
       }

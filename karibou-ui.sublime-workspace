@@ -4,16 +4,132 @@
 		"selected_items":
 		[
 			[
+				"le",
+				"length"
+			],
+			[
+				"pr",
+				"primary"
+			],
+			[
+				"add",
+				"addresses"
+			],
+			[
+				"l",
+				"lng"
+			],
+			[
+				"a",
+				"address"
+			],
+			[
+				"pro",
+				"product"
+			],
+			[
+				"s",
+				"shop"
+			],
+			[
+				"pas",
+				"params"
+			],
+			[
+				"prod",
+				"products"
+			],
+			[
+				"cat",
+				"category"
+			],
+			[
+				"app",
+				"append"
+			],
+			[
+				"pa",
+				"padding-top"
+			],
+			[
+				"ma",
+				"margin-bottom"
+			],
+			[
+				"u",
+				"url"
+			],
+			[
+				"se",
+				"serverSettings"
+			],
+			[
+				"is",
+				"isAuthenticated"
+			],
+			[
+				"te",
+				"text-align"
+			],
+			[
+				"fon",
+				"font-weight"
+			],
+			[
+				"padd",
+				"padding-left"
+			],
+			[
+				"op",
+				"option	Tag"
+			],
+			[
+				"mar",
+				"margin-top"
+			],
+			[
+				"t",
+				"td	Tag"
+			],
+			[
+				"text",
+				"text-decoration"
+			],
+			[
+				"ba",
+				"background-color"
+			],
+			[
+				"marg",
+				"margin-left"
+			],
+			[
+				"local",
+				"localStorage"
+			],
+			[
+				"loca",
+				"localStorage"
+			],
+			[
+				"to",
+				"total"
+			],
+			[
+				"nam",
+				"namespace"
+			],
+			[
+				"an",
+				"angular"
+			],
+			[
 				"p",
 				"photo"
 			],
 			[
 				"co",
 				"color"
-			],
-			[
-				"ma",
-				"margin"
 			],
 			[
 				"pad",
@@ -30,22 +146,6 @@
 			[
 				"bor",
 				"border"
-			],
-			[
-				"pro",
-				"product"
-			],
-			[
-				"a",
-				"addresses"
-			],
-			[
-				"u",
-				"user"
-			],
-			[
-				"l",
-				"log"
 			],
 			[
 				"con",
@@ -70,10 +170,6 @@
 			[
 				"fo",
 				"focus"
-			],
-			[
-				"mar",
-				"markers"
 			],
 			[
 				"def",
@@ -112,16 +208,8 @@
 				"prototype"
 			],
 			[
-				"is",
-				"isReady"
-			],
-			[
 				"sh",
 				"shipping"
-			],
-			[
-				"padd",
-				"padding"
 			],
 			[
 				"de",
@@ -134,10 +222,6 @@
 			[
 				"padding",
 				"padding-top"
-			],
-			[
-				"marg",
-				"margin-top"
 			],
 			[
 				"exp",
@@ -156,58 +240,10 @@
 	"buffers":
 	[
 		{
-			"file": "app/assets/index.html",
+			"file": "app/js/app.service.ui.js",
 			"settings":
 			{
-				"buffer_size": 8621,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "app/assets/partials/account/cover.html",
-			"settings":
-			{
-				"buffer_size": 787,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "app/css/overlay.css",
-			"settings":
-			{
-				"buffer_size": 2654,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "app/css/comment.css",
-			"settings":
-			{
-				"buffer_size": 134,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "app/js/app.config.js",
-			"settings":
-			{
-				"buffer_size": 1773,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "app/assets/partials/product/create.html",
-			"settings":
-			{
-				"buffer_size": 10130,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "app/assets/partials/product/product.html",
-			"settings":
-			{
-				"buffer_size": 2729,
+				"buffer_size": 12125,
 				"line_ending": "Unix"
 			}
 		},
@@ -215,87 +251,26 @@
 			"file": "app/js/app.product.js",
 			"settings":
 			{
-				"buffer_size": 8725,
+				"buffer_size": 10179,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "app/assets/partials/product/product-wide.html",
+			"file": "app/js/app.config.js",
 			"settings":
 			{
-				"buffer_size": 3910,
+				"buffer_size": 1926,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "app/js/app.shop.js",
-			"settings":
-			{
-				"buffer_size": 7889,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "app/assets/partials/shop/shop-content.html",
-			"settings":
-			{
-				"buffer_size": 3020,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "app/assets/partials/shop/home.html",
-			"settings":
-			{
-				"buffer_size": 2127,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "app/assets/partials/shop/shop.html",
-			"settings":
-			{
-				"buffer_size": 1497,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "app/assets/partials/account/shop.html",
-			"settings":
-			{
-				"buffer_size": 3730,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "app/assets/partials/product/home.html",
-			"settings":
-			{
-				"buffer_size": 1854,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "app/assets/partials/account/overview.html",
-			"settings":
-			{
-				"buffer_size": 3214,
-				"line_ending": "Unix"
-			}
-		},
-		{
+			"contents": "article{\n	font-family: \"freight-sans-pro\",\"Myriad Pro\",\"Lucida Grande\",\"Lucida Sans Unicode\",\"Lucida Sans\",Geneva,Verdana,sans-serif;\n	transition: color .1s linear;\n	height: auto;\n	float:left;\n	width:100%;	\n}\n.article-group-title{\n	padding-left: 0px;\n	padding-bottom: 12px;\n	padding-top: 12px;\n	font-size: 12px;\n	letter-spacing: 2px;\n	text-transform: uppercase;\n	color: #b3b3b1;\n	-webkit-transition: color .1s linear;\n	-moz-transition: color .1s linear;\n	-ms-transition: color .1s linear;\n	-o-transition: color .1s linear;\n	margin-bottom: 20px;\n	border-bottom: 1px solid #eee;\n}\n.article-group-title.black{\n	color: black;\n}\n.article-group-title.list{\n	float:left;\n	padding-right: 15px;\n	\n}\n.hours {\n	color: #959ba2;\n	margin: 10px 0 -6px;\n	overflow: hidden;\n	font-weight: 300!important;\n}\n\n.hours-label {\n	clear: both;\n	float: left;\n	width: 100px;\n}\n\n.hours-open {\n	display: block;\n	float: right;\n	text-align: right;\n	white-space: nowrap;\n	width: -webkit-calc(100% - 100px);\n	width: calc(100% - 100px);\n}\n\n.hours-open p{\n	margin-bottom:5px;\n}\n\n.label-or{\n	margin: -45px auto;\n	border-radius: 25px;\n	border: 1px solid #ddd;\n	width: 50px;\n	height: 50px;\n	background-color: white;\n	padding: 11px;\n	z-index: 10;\n	font-weight: bold;\n	margin-bottom: 10px;	\n}\n",
 			"file": "app/css/shop2.css",
+			"file_size": 1254,
+			"file_write_time": 1400225892000000,
 			"settings":
 			{
-				"buffer_size": 644,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "app/css/header.css",
-			"settings":
-			{
-				"buffer_size": 2182,
+				"buffer_size": 1252,
 				"line_ending": "Unix"
 			}
 		},
@@ -303,63 +278,15 @@
 			"file": "app/css/product.css",
 			"settings":
 			{
-				"buffer_size": 5285,
+				"buffer_size": 4878,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "app/css/form.css",
+			"file": "app/css/overlay.css",
 			"settings":
 			{
-				"buffer_size": 5896,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "app/css/utils.css",
-			"settings":
-			{
-				"buffer_size": 4552,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "app/css/shop.css",
-			"settings":
-			{
-				"buffer_size": 3013,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "app/assets/partials/shop/edit.html",
-			"settings":
-			{
-				"buffer_size": 14008,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "app/css/home.css",
-			"settings":
-			{
-				"buffer_size": 38438,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "app/js/app.root.js",
-			"settings":
-			{
-				"buffer_size": 3024,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "app/assets/partials/shop/cover.html",
-			"settings":
-			{
-				"buffer_size": 1570,
+				"buffer_size": 2716,
 				"line_ending": "Unix"
 			}
 		},
@@ -367,23 +294,79 @@
 			"file": "app/js/app.init.js",
 			"settings":
 			{
-				"buffer_size": 2908,
+				"buffer_size": 3347,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "app/assets/partials/account/profile.html",
+			"file": "app/js/app.shop.js",
 			"settings":
 			{
-				"buffer_size": 7343,
+				"buffer_size": 9488,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "app/assets/partials/account/password.html",
+			"file": "app/css/shop.css",
 			"settings":
 			{
-				"buffer_size": 3035,
+				"buffer_size": 2016,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "app/css/home.css",
+			"settings":
+			{
+				"buffer_size": 41171,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "app/assets/partials/shop/shop-content.html",
+			"settings":
+			{
+				"buffer_size": 5980,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "app/assets/partials/order/order.html",
+			"settings":
+			{
+				"buffer_size": 9244,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "app/assets/partials/product/home.html",
+			"settings":
+			{
+				"buffer_size": 1863,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "app/assets/partials/admin/category.modal.html",
+			"settings":
+			{
+				"buffer_size": 3159,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "app/js/app.category.js",
+			"settings":
+			{
+				"buffer_size": 5687,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "app/assets/partials/shop/cover.html",
+			"settings":
+			{
+				"buffer_size": 1576,
 				"line_ending": "Unix"
 			}
 		},
@@ -391,15 +374,63 @@
 			"file": "app/js/app.user.js",
 			"settings":
 			{
-				"buffer_size": 14601,
+				"buffer_size": 15266,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "app/assets/partials/product/love.html",
+			"file": "app/assets/partials/account/profile.html",
 			"settings":
 			{
-				"buffer_size": 1605,
+				"buffer_size": 9481,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "app/js/app.ui.map.js",
+			"settings":
+			{
+				"buffer_size": 4179,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "app/assets/partials/product/product.html",
+			"settings":
+			{
+				"buffer_size": 2762,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "app/assets/index.html",
+			"settings":
+			{
+				"buffer_size": 9112,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "app/js/app.home.js",
+			"settings":
+			{
+				"buffer_size": 4114,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "app/assets/partials/shop/home.html",
+			"settings":
+			{
+				"buffer_size": 2511,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "app/assets/partials/shop/edit.html",
+			"settings":
+			{
+				"buffer_size": 17481,
 				"line_ending": "Unix"
 			}
 		}
@@ -428,65 +459,97 @@
 	},
 	"file_history":
 	[
+		"/home/evaleto/nodejs/karibou-mockup/app/assets/partials/shop/edit.html",
+		"/home/evaleto/nodejs/karibou-mockup/app/js/app.order.js",
+		"/home/evaleto/nodejs/karibou-mockup/app/assets/partials/shop/shops.html",
+		"/home/evaleto/nodejs/karibou-mockup/app/css/form.css",
+		"/home/evaleto/nodejs/karibou-mockup/app/css/utils.css",
+		"/home/evaleto/nodejs/karibou-mockup/app/assets/partials/account/signup.html",
+		"/home/evaleto/nodejs/karibou-mockup/app/assets/partials/account/overview.html",
+		"/home/evaleto/nodejs/karibou-mockup/app/assets/partials/account/recovery.html",
+		"/home/evaleto/nodejs/karibou-mockup/app/css/navigation.css",
+		"/home/evaleto/nodejs/karibou-mockup/app/css/header.css",
+		"/home/evaleto/nodejs/karibou-mockup/app/assets/partials/account/navigation.html",
+		"/home/evaleto/nodejs/karibou-mockup/app/assets/partials/admin/category.html",
+		"/home/evaleto/nodejs/karibou-mockup/app/js/app.service.js",
+		"/home/evaleto/nodejs/karibou-mockup/app/assets/partials/account/cover.html",
+		"/home/evaleto/nodejs/karibou-mockup/app/assets/partials/product/love.html",
+		"/home/evaleto/nodejs/karibou-mockup/app/assets/index.html",
+		"/home/evaleto/nodejs/karibou-mockup/app/css/stepwizard.css",
+		"/home/evaleto/nodejs/karibou-mockup/app/assets/partials/account/address.html",
+		"/home/evaleto/nodejs/karibou-mockup/app/js/app.user.js",
+		"/home/evaleto/nodejs/karibou-mockup/app/assets/partials/product/create.html",
+		"/home/evaleto/nodejs/karibou-mockup/app/assets/partials/shop/home.html",
+		"/home/evaleto/nodejs/karibou-mockup/app/js/app.home.js",
+		"/home/evaleto/nodejs/karibou-mockup/app/assets/partials/account/login.html",
+		"/home/evaleto/nodejs/karibou-mockup/app/assets/partials/cover.html",
+		"/home/evaleto/nodejs/karibou-mockup/app/js/app.ui.strap.js",
+		"/home/evaleto/nodejs/karibou-mockup/app/js/app.category.js",
+		"/home/evaleto/nodejs/karibou-mockup/app/js/app.product.js",
+		"/home/evaleto/nodejs/karibou-mockup/app/assets/partials/product/product.html",
+		"/home/evaleto/nodejs/karibou-mockup/app/assets/partials/account/orders.html",
+		"/home/evaleto/nodejs/karibou-mockup/app/assets/partials/product/products.html",
+		"/home/evaleto/nodejs/karibou-mockup/app/css/cart.css",
+		"/home/evaleto/nodejs/karibou-mockup/app/assets/partials/account/password.html",
+		"/home/evaleto/nodejs/git/karibou-api/node_modules/passport-persona/lib/passport-persona/strategy.js",
+		"/home/evaleto/nodejs/git/karibou-api/node_modules/passport-persona/lib/passport-persona/strategy.js:114:29app.user.js",
+		"/home/evaleto/nodejs/karibou-mockup/app/assets/partials/account/profile.html",
+		"/home/evaleto/nodejs/karibou-mockup/app/css/login.css",
+		"/home/evaleto/nodejs/karibou-mockup/bower.json",
+		"/home/evaleto/nodejs/karibou-mockup/app/js/moment.fr.js",
+		"/home/evaleto/nodejs/karibou-mockup/app/assets/partials/product/product-wide.html",
+		"/home/evaleto/nodejs/karibou-mockup/app/assets/partials/shop/shop.html",
+		"/home/evaleto/nodejs/karibou-mockup/app/css/product.css",
+		"/home/evaleto/nodejs/karibou-mockup/app/css/shop.css",
+		"/home/evaleto/nodejs/karibou-mockup/app/css/home.css",
+		"/home/evaleto/nodejs/karibou-mockup/app/assets/partials/account/shop.html",
+		"/home/evaleto/nodejs/karibou-mockup/config.coffee",
+		"/home/evaleto/nodejs/karibou-mockup/app/assets/partials/shop/cover.html",
+		"/home/evaleto/nodejs/karibou-mockup/app/js/app.config.js",
+		"/home/evaleto/nodejs/karibou-mockup/app/css/comment.css",
+		"/home/evaleto/nodejs/karibou-mockup/app/css/overlay.css",
+		"/home/evaleto/nodejs/karibou-mockup/app/assets/partials/order/order.html",
+		"/home/evaleto/nodejs/karibou-mockup/app/js/app.ui.map.js",
+		"/home/evaleto/nodejs/karibou-mockup/app/js/app.root.js",
+		"/home/evaleto/nodejs/karibou-mockup/app/assets/partials/shop/shop-content.html",
+		"/home/evaleto/nodejs/karibou-mockup/app/assets/partials/product/home.html",
+		"/home/evaleto/nodejs/karibou-mockup/app/css/timeline.css",
+		"/home/evaleto/nodejs/karibou-mockup/build/partials/account/navigation.html",
+		"/home/evaleto/nodejs/karibou-mockup/vendor/scripts/bootstrap.js",
+		"/home/evaleto/nodejs/karibou-mockup/vendor/scripts/angular-animate.js",
+		"/home/evaleto/nodejs/karibou-mockup/doc/cart/simpleCart.js",
+		"/home/evaleto/nodejs/karibou-mockup/vendor/scripts/simpleCart.js",
+		"/home/evaleto/nodejs/karibou-mockup/app/js/app.shop.js",
+		"/home/evaleto/nodejs/karibou-mockup/app/js/app.shop.ui.js",
+		"/home/evaleto/nodejs/karibou-mockup/app/js/app.init.js",
+		"/home/evaleto/nodejs/karibou-mockup/app/css/shop2.css",
+		"/home/evaleto/nodejs/karibou-mockup/build/partials/product/create.html",
+		"/home/evaleto/nodejs/karibou-mockup/app/assets/partials/account/connected.html",
+		"/home/evaleto/nodejs/karibou-mockup/app/assets/partials/charte.html",
+		"/home/evaleto/nodejs/karibou-mockup/app/assets/partials/about.html",
+		"/home/evaleto/nodejs/karibou-mockup/app/assets/partials/product/manufacturer.html",
+		"/home/evaleto/nodejs/karibou-mockup/vendor/styles/bootstrap.css",
+		"/home/evaleto/nodejs/karibou-mockup/index.html",
+		"/home/evaleto/nodejs/karibou-mockup/node_modules/less-brunch/node_modules/less/test/less/errors/import-no-semi.less",
 		"/home/evaleto/nodejs/karibou-mockup/vendor/scripts/angular-route.js",
 		"/home/evaleto/nodejs/karibou-mockup/vendor/scripts/angular-route-new.js",
 		"/home/evaleto/nodejs/karibou-mockup/vendor/scripts/angular-routeew.js",
 		"/home/evaleto/nodejs/karibou-mockup/vendor/scripts/leaflet.js",
-		"/home/evaleto/nodejs/karibou-mockup/app/js/app.order.js",
 		"/home/evaleto/nodejs/karibou-mockup/app/css/footer.css",
-		"/home/evaleto/nodejs/karibou-mockup/app/css/home.css",
-		"/home/evaleto/nodejs/karibou-mockup/app/js/app.home.js",
-		"/home/evaleto/nodejs/karibou-mockup/app/js/app.user.js",
-		"/home/evaleto/nodejs/karibou-mockup/app/js/app.root.js",
-		"/home/evaleto/nodejs/karibou-mockup/app/assets/partials/product/love.html",
-		"/home/evaleto/nodejs/karibou-mockup/app/assets/partials/account/navigation.html",
 		"/home/evaleto/nodejs/karibou-mockup/vendor/scripts/angular-sanitize.js",
 		"/home/evaleto/nodejs/karibou-mockup/package.json",
-		"/home/evaleto/nodejs/karibou-mockup/app/assets/partials/account/profile.html",
 		"/home/evaleto/nodejs/karibou-mockup/app/js/app.service.ui.js",
 		"/home/evaleto/nodejs/karibou-mockup/app/js/app.ui.lazyload.js",
-		"/home/evaleto/nodejs/karibou-mockup/app/assets/partials/product/products.html",
 		"/home/evaleto/nodejs/karibou-mockup/htaccess",
-		"/home/evaleto/nodejs/karibou-mockup/app/js/app.product.js",
-		"/home/evaleto/nodejs/karibou-mockup/app/assets/partials/product/product-wide.html",
-		"/home/evaleto/nodejs/karibou-mockup/vendor/scripts/simpleCart.js",
-		"/home/evaleto/nodejs/karibou-mockup/app/js/app.service.js",
-		"/home/evaleto/nodejs/karibou-mockup/app/assets/partials/account/password.html",
-		"/home/evaleto/nodejs/karibou-mockup/app/assets/partials/shop/home.html",
-		"/home/evaleto/nodejs/karibou-mockup/app/js/moment.fr.js",
 		"/home/evaleto/nodejs/karibou-mockup/app/assets/footer.html",
-		"/home/evaleto/nodejs/karibou-mockup/app/assets/partials/account/login.html",
-		"/home/evaleto/nodejs/karibou-mockup/app/assets/partials/account/signup.html",
-		"/home/evaleto/nodejs/karibou-mockup/app/assets/partials/account/recovery.html",
-		"/home/evaleto/nodejs/karibou-mockup/app/js/app.ui.map.js",
-		"/home/evaleto/nodejs/karibou-mockup/app/assets/partials/shop/edit.html",
-		"/home/evaleto/nodejs/karibou-mockup/app/js/app.category.js",
-		"/home/evaleto/nodejs/karibou-mockup/app/js/app.shop.js",
 		"/home/evaleto/nodejs/karibou-mockup/app/css/bootstrap-white_css",
-		"/home/evaleto/nodejs/karibou-mockup/app/assets/partials/account/overview.html",
-		"/home/evaleto/nodejs/karibou-mockup/app/assets/partials/account/shop.html",
-		"/home/evaleto/nodejs/karibou-mockup/config.coffee",
 		"/home/evaleto/nodejs/karibou-mockup/app/assets/partials/logistic/collect.html",
 		"/home/evaleto/nodejs/karibou-mockup/app/assets/partials/logistic/overview.html",
-		"/home/evaleto/nodejs/karibou-mockup/app/js/app.init.js",
-		"/home/evaleto/nodejs/karibou-mockup/app/assets/partials/product/product.html",
-		"/home/evaleto/nodejs/karibou-mockup/app/assets/partials/shop/shop-content.html",
-		"/home/evaleto/nodejs/karibou-mockup/app/assets/partials/shop/shops.html",
 		"/home/evaleto/nodejs/karibou-mockup/app/assets/partials/admin/user.html",
-		"/home/evaleto/nodejs/karibou-mockup/app/assets/partials/admin/category.html",
-		"/home/evaleto/nodejs/karibou-mockup/app/assets/partials/shop/cover.html",
-		"/home/evaleto/nodejs/karibou-mockup/app/css/utils.css",
 		"/home/evaleto/nodejs/karibou-mockup/vendor/scripts/angular-cookies.js",
-		"/home/evaleto/nodejs/karibou-mockup/app/css/cart.css",
-		"/home/evaleto/nodejs/karibou-mockup/app/css/navigation.css",
-		"/home/evaleto/nodejs/karibou-mockup/app/css/shop.css",
 		"/home/evaleto/nodejs/karibou-mockup/app/assets/partials/admin/category.modal.html",
 		"/home/evaleto/nodejs/karibou-mockup/vendor/scripts/nprogress.js",
-		"/home/evaleto/nodejs/karibou-mockup/app/css/form.css",
-		"/home/evaleto/nodejs/karibou-mockup/app/assets/partials/cover.html",
 		"/home/evaleto/nodejs/karibou-mockup/app/css/fonts.css",
-		"/home/evaleto/nodejs/karibou-mockup/vendor/scripts/bootstrap.js",
-		"/home/evaleto/nodejs/karibou-mockup/app/css/login.css",
 		"/home/evaleto/nodejs/karibou-mockup/app/assets/partials/account/menu.html",
 		"/home/evaleto/nodejs/karibou-mockup/app/js/simpleCart.js",
 		"/home/evaleto/nodejs/karibou-mockup/app/css/nprogress.css",
@@ -538,134 +601,134 @@
 		"case_sensitive": false,
 		"find_history":
 		[
-			"control",
-			"help",
-			"boutique</strong></",
-			"</strong>",
-			"<strong>",
-			"\"><strong>Le",
-			"<strong>",
-			"portion",
-			"</strong>",
-			"complet</strong></",
-			"</strong>",
-			"<strong>",
-			"<strong",
-			"fieldset",
-			"elem",
-			"576px",
-			"photo-owner",
-			"own",
-			"div>img",
-			"fieldset",
-			"form.",
-			"placehold",
-			"div.shop a",
-			"optimizeLegibility",
-			"popup",
-			"body",
-			"site-nav-list-item-btn",
-			"item_price",
-			"item_",
-			".body",
-			"\\.block",
-			"sit-nav-list",
-			"checkImages",
-			"startRenderTimer",
-			"windowChanged",
-			"site-nav-logo ",
-			".wrapper-inner",
-			".container",
-			"container",
-			".cover",
-			".cover-user .cover-img",
-			".cover-actions-top",
-			".cover",
-			"90%",
-			"nav-logo",
-			"\\.wrapper",
-			".cover",
-			"site-nav-logo",
-			"site-nav-drawer-open",
-			"site-nav-transition",
-			"overflow",
-			"webkit-overflow",
-			"overflow-",
-			"overflow",
-			"webkit-overflow",
-			"flow-",
-			"y-o",
-			"class=\"controls\"",
-			"class=\"control-label\"",
-			"</strong>",
-			"<strong>",
-			"Current",
-			"\"><strong>Current",
-			"<strong>",
-			"input-large",
-			"</strong>",
-			"<strong>",
-			".cover-user .cover-img",
-			"input-xlarge",
-			"span12",
-			"shop-edit",
-			"headin",
-			"title",
-			"heading",
-			"/tab",
-			"tab heading",
-			"Information",
-			"tab heading=\"",
-			"tab heading=",
-			"slide",
-			"border-",
-			"fullAddress",
-			"user.address.length",
-			"addMarker",
-			"user.addresses",
-			"user.addres",
-			"user.",
-			"defaultMap",
-			"updateMap",
-			"address.location",
+			"collect",
+			"collect ",
+			"prima",
+			"resolveStaticmap(user.addresses[$index])",
+			"geo=",
+			"geo",
+			"geocode",
+			"anchorScroll",
+			"routeParams",
 			"location",
-			"address.location",
-			".location",
-			"gmap",
-			"wrapper-in",
-			"bnLazySrc",
-			"console",
-			"startRenderTimer",
-			"windowChanged",
-			"clearRenderTimer",
-			"scroll\\.",
-			"scroll.",
-			"windowChanged",
-			".on",
-			"on",
-			"on(",
-			"LazyImage",
-			"windowChanged",
-			"clearRenderTimer",
-			"isVisible",
-			"renderDelay",
-			"checkImages",
-			"rnLazy",
-			"iElement",
-			"iAttrs",
-			"isUndefined",
-			"rootScope",
+			"$route",
+			"routeParams",
+			"'$routeParams",
+			"$route",
+			"routeParams",
+			"route",
+			"backend.product",
+			"remove",
+			"shops",
+			"remove",
+			"backend",
+			"remove",
+			"help",
+			"class=\"site-nav-list-item-btn \"",
+			"class=\"site-nav-list-item\"",
+			"class=\"site-nav-list-item\" ",
+			"class=\"site-nav-list-item\"",
+			"ng",
+			"class=\"site-nav-list-item\" ",
+			"class=\"site-nav-list-item\"",
+			".modal",
+			"controller",
+			"ModalFactory",
+			"ModalFactoryFn",
+			"ModalFactory",
+			"ng-repeat",
+			"m",
+			"location",
+			"route",
+			"resource",
 			"Order",
-			"defaultOrder",
-			"Order",
-			"_order",
 			"order",
 			"Order",
-			"image",
-			"Item",
-			"simpleCart has",
-			"sc_items",
-			"add:"
+			"changer",
+			"indiqué",
+			"profile",
+			"Ma bout",
+			"wrapper.inner ",
+			".site-nav-logo",
+			"site-nav-list-i",
+			"article-group-title",
+			"section",
+			"                          ",
+			"\n                        ",
+			"\n                          ",
+			"\n                      ",
+			"wrapper-inner",
+			"cover.ses",
+			"(odd",
+			"cover-des",
+			".cover",
+			"15px",
+			">\n",
+			"p",
+			"\n         ",
+			"p>\n",
+			"p>",
+			"p",
+			".wrapper",
+			"ion.wrapper",
+			"500px",
+			"div",
+			".popupcontent .content",
+			"shippingFlatRate",
+			"list-style",
+			"ul",
+			"cover.session",
+			"cover.row",
+			"navbar",
+			"info=",
+			"info",
+			"glyphicon",
+			"-backgr",
+			"-back",
+			"    \"angular-sanitize\": \"1.2.15\",\n",
+			"controls",
+			"control-group",
+			"ajouter",
+			"btn-large",
+			"col-md-11",
+			"controls",
+			"control-group",
+			"admin-s",
+			"butt",
+			"data-title",
+			"input-xlarge",
+			"input-xlarge input-big",
+			"input-big",
+			"form-control",
+			"input-big input-xlarge",
+			"control-group",
+			"control-label",
+			"controls",
+			"fieldset",
+			"control",
+			"head",
+			"login",
+			"login-footer",
+			"signin",
+			"form-signin",
+			"/account/recovery",
+			"row",
+			".popupcontent>div>div>img",
+			"bucket-title",
+			"275x225",
+			"225",
+			"          ",
+			"span",
+			"4",
+			"span",
+			"row",
+			"span",
+			"[^<]span",
+			"span",
+			"span12",
+			"span",
+			"span12",
+			"span"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -673,6 +736,7 @@
 		"regex": true,
 		"replace_history":
 		[
+			"",
 			"userName:\"Olivier Evalet\", note:\"code entrée 12345\", status:",
 			"",
 			"li class=\"site-nav-list-item\""
@@ -686,125 +750,71 @@
 	"groups":
 	[
 		{
-			"selected": 7,
+			"selected": 2,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "app/assets/index.html",
+					"file": "app/js/app.service.ui.js",
 					"settings":
 					{
-						"buffer_size": 8621,
+						"buffer_size": 12125,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								4211,
-								4211
+								854,
+								854
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/HTML/HTML.tmLanguage",
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
 							"tab_size": 2,
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 1146.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
 					"buffer": 1,
-					"file": "app/assets/partials/account/cover.html",
+					"file": "app/js/app.product.js",
 					"settings":
 					{
-						"buffer_size": 787,
+						"buffer_size": 10179,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								742,
-								742
+								2883,
+								2883
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/HTML/HTML.tmLanguage",
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
 							"tab_size": 2,
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 1224.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
 					"buffer": 2,
-					"file": "app/css/overlay.css",
-					"settings":
-					{
-						"buffer_size": 2654,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1035,
-								1035
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/CSS/CSS.tmLanguage",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 1995.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 3,
-					"file": "app/css/comment.css",
-					"settings":
-					{
-						"buffer_size": 134,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								132,
-								132
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/CSS/CSS.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 4,
 					"file": "app/js/app.config.js",
 					"settings":
 					{
-						"buffer_size": 1773,
+						"buffer_size": 1926,
 						"regions":
 						{
 						},
@@ -828,54 +838,25 @@
 					"type": "text"
 				},
 				{
-					"buffer": 5,
-					"file": "app/assets/partials/product/create.html",
+					"buffer": 3,
+					"file": "app/css/shop2.css",
 					"settings":
 					{
-						"buffer_size": 10130,
+						"buffer_size": 1252,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								4880,
-								4880
+								690,
+								690
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/HTML/HTML.tmLanguage",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 1224.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 6,
-					"file": "app/assets/partials/product/product.html",
-					"settings":
-					{
-						"buffer_size": 2729,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1228,
-								1228
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/HTML/HTML.tmLanguage",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
+							"syntax": "Packages/CSS/CSS.tmLanguage",
+							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
@@ -884,19 +865,75 @@
 					"type": "text"
 				},
 				{
-					"buffer": 7,
-					"file": "app/js/app.product.js",
+					"buffer": 4,
+					"file": "app/css/product.css",
 					"settings":
 					{
-						"buffer_size": 8725,
+						"buffer_size": 4878,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								5590,
-								5590
+								4276,
+								4276
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/CSS/CSS.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 4033.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "app/css/overlay.css",
+					"settings":
+					{
+						"buffer_size": 2716,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								935,
+								935
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/CSS/CSS.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 408.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 6,
+					"file": "app/js/app.init.js",
+					"settings":
+					{
+						"buffer_size": 3347,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1213,
+								1213
 							]
 						],
 						"settings":
@@ -906,63 +943,97 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 2850.0,
+						"translation.y": 612.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 7,
+					"file": "app/js/app.shop.js",
+					"settings":
+					{
+						"buffer_size": 9488,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								5333,
+								5333
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 2519.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
 					"buffer": 8,
-					"file": "app/assets/partials/product/product-wide.html",
+					"file": "app/css/shop.css",
 					"settings":
 					{
-						"buffer_size": 3910,
+						"buffer_size": 2016,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								924,
-								924
+								389,
+								389
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/HTML/HTML.tmLanguage",
+							"syntax": "Packages/CSS/CSS.tmLanguage",
 							"tab_size": 2,
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 90.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
-				},
+				}
+			]
+		},
+		{
+			"selected": 1,
+			"sheets":
+			[
 				{
 					"buffer": 9,
-					"file": "app/js/app.shop.js",
+					"file": "app/css/home.css",
 					"settings":
 					{
-						"buffer_size": 7889,
+						"buffer_size": 41171,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1280,
-								1280
+								5061,
+								5061
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
-							"tab_size": 2,
+							"syntax": "Packages/CSS/CSS.tmLanguage",
+							"tab_size": 4,
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 3078.0,
+						"translation.y": 3665.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -972,15 +1043,15 @@
 					"file": "app/assets/partials/shop/shop-content.html",
 					"settings":
 					{
-						"buffer_size": 3020,
+						"buffer_size": 5980,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								107,
-								107
+								1251,
+								1251
 							]
 						],
 						"settings":
@@ -990,25 +1061,25 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 255.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
 					"buffer": 11,
-					"file": "app/assets/partials/shop/home.html",
+					"file": "app/assets/partials/order/order.html",
 					"settings":
 					{
-						"buffer_size": 2127,
+						"buffer_size": 9244,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								144,
-								144
+								2618,
+								2618
 							]
 						],
 						"settings":
@@ -1018,25 +1089,25 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 597.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
 					"buffer": 12,
-					"file": "app/assets/partials/shop/shop.html",
+					"file": "app/assets/partials/product/home.html",
 					"settings":
 					{
-						"buffer_size": 1497,
+						"buffer_size": 1863,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								12,
-								12
+								95,
+								95
 							]
 						],
 						"settings":
@@ -1046,25 +1117,25 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 306.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
 					"buffer": 13,
-					"file": "app/assets/partials/account/shop.html",
+					"file": "app/assets/partials/admin/category.modal.html",
 					"settings":
 					{
-						"buffer_size": 3730,
+						"buffer_size": 3159,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								364,
-								364
+								2436,
+								2436
 							]
 						],
 						"settings":
@@ -1081,46 +1152,46 @@
 				},
 				{
 					"buffer": 14,
-					"file": "app/assets/partials/product/home.html",
+					"file": "app/js/app.category.js",
 					"settings":
 					{
-						"buffer_size": 1854,
+						"buffer_size": 5687,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								134,
-								134
+								3516,
+								3516
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/HTML/HTML.tmLanguage",
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
 							"tab_size": 2,
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 2193.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
 					"buffer": 15,
-					"file": "app/assets/partials/account/overview.html",
+					"file": "app/assets/partials/shop/cover.html",
 					"settings":
 					{
-						"buffer_size": 3214,
+						"buffer_size": 1576,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								418,
-								418
+								629,
+								629
 							]
 						],
 						"settings":
@@ -1134,194 +1205,189 @@
 						"zoom_level": 1.0
 					},
 					"type": "text"
-				}
-			]
-		},
-		{
-			"selected": 6,
-			"sheets":
-			[
+				},
 				{
 					"buffer": 16,
-					"file": "app/css/shop2.css",
+					"file": "app/js/app.user.js",
 					"settings":
 					{
-						"buffer_size": 644,
+						"buffer_size": 15266,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								252,
-								252
+								12036,
+								12036
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/CSS/CSS.tmLanguage",
-							"translate_tabs_to_spaces": false
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 6351.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
 					"buffer": 17,
-					"file": "app/css/header.css",
+					"file": "app/assets/partials/account/profile.html",
 					"settings":
 					{
-						"buffer_size": 2182,
+						"buffer_size": 9481,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								84,
-								84
+								8301,
+								8301
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/CSS/CSS.tmLanguage",
+							"syntax": "Packages/HTML/HTML.tmLanguage",
 							"tab_size": 2,
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 2703.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
 					"buffer": 18,
-					"file": "app/css/product.css",
+					"file": "app/js/app.ui.map.js",
 					"settings":
 					{
-						"buffer_size": 5285,
+						"buffer_size": 4179,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								3564,
-								3564
+								3696,
+								3696
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/CSS/CSS.tmLanguage",
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
 							"tab_size": 2,
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 1881.0,
+						"translation.y": 1890.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
 					"buffer": 19,
-					"file": "app/css/form.css",
+					"file": "app/assets/partials/product/product.html",
 					"settings":
 					{
-						"buffer_size": 5896,
+						"buffer_size": 2762,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								633,
-								633
+								1838,
+								1838
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/CSS/CSS.tmLanguage",
+							"syntax": "Packages/HTML/HTML.tmLanguage",
 							"tab_size": 2,
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 225.0,
+						"translation.y": 255.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
 					"buffer": 20,
-					"file": "app/css/utils.css",
+					"file": "app/assets/index.html",
 					"settings":
 					{
-						"buffer_size": 4552,
+						"buffer_size": 9112,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1661,
-								1661
+								8438,
+								8438
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/CSS/CSS.tmLanguage",
+							"syntax": "Packages/HTML/HTML.tmLanguage",
 							"tab_size": 2,
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 745.0,
+						"translation.y": 2958.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
 					"buffer": 21,
-					"file": "app/css/shop.css",
+					"file": "app/js/app.home.js",
 					"settings":
 					{
-						"buffer_size": 3013,
+						"buffer_size": 4114,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								786,
-								786
+								3101,
+								3101
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/CSS/CSS.tmLanguage",
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
 							"tab_size": 2,
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 171.0,
+						"translation.y": 1564.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
 					"buffer": 22,
-					"file": "app/assets/partials/shop/edit.html",
+					"file": "app/assets/partials/shop/home.html",
 					"settings":
 					{
-						"buffer_size": 14008,
+						"buffer_size": 2511,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								2716,
-								2716
+								1685,
+								1685
 							]
 						],
 						"settings":
@@ -1331,81 +1397,25 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 225.0,
+						"translation.y": 204.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
 					"buffer": 23,
-					"file": "app/css/home.css",
+					"file": "app/assets/partials/shop/edit.html",
 					"settings":
 					{
-						"buffer_size": 38438,
+						"buffer_size": 17481,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								7796,
-								7796
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/CSS/CSS.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 5747.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 24,
-					"file": "app/js/app.root.js",
-					"settings":
-					{
-						"buffer_size": 3024,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1558,
-								1558
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 1440.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 25,
-					"file": "app/assets/partials/shop/cover.html",
-					"settings":
-					{
-						"buffer_size": 1570,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								400,
-								400
+								89,
+								89
 							]
 						],
 						"settings":
@@ -1415,147 +1425,7 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 26,
-					"file": "app/js/app.init.js",
-					"settings":
-					{
-						"buffer_size": 2908,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1154,
-								1154
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 360.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 27,
-					"file": "app/assets/partials/account/profile.html",
-					"settings":
-					{
-						"buffer_size": 7343,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								3384,
-								3384
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/HTML/HTML.tmLanguage",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 810.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 28,
-					"file": "app/assets/partials/account/password.html",
-					"settings":
-					{
-						"buffer_size": 3035,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								499,
-								499
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/HTML/HTML.tmLanguage",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 29,
-					"file": "app/js/app.user.js",
-					"settings":
-					{
-						"buffer_size": 14601,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								8302,
-								8302
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 3220.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 30,
-					"file": "app/assets/partials/product/love.html",
-					"settings":
-					{
-						"buffer_size": 1605,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								179,
-								179
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/HTML/HTML.tmLanguage",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 1938.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -1591,7 +1461,7 @@
 		"cols":
 		[
 			0.0,
-			0.458035225367,
+			0.452503686649,
 			1.0
 		],
 		"rows":
@@ -1611,6 +1481,182 @@
 		"height": 0.0,
 		"selected_items":
 		[
+			[
+				"app.us",
+				"app/js/app.user.js"
+			],
+			[
+				"app.",
+				"app/js/app.category.js"
+			],
+			[
+				"form",
+				"app/css/form.css"
+			],
+			[
+				"navi",
+				"app/assets/partials/account/navigation.html"
+			],
+			[
+				"orde",
+				"app/assets/partials/account/orders.html"
+			],
+			[
+				"nav",
+				"app/assets/partials/account/navigation.html"
+			],
+			[
+				"app",
+				"app/js/app.config.js"
+			],
+			[
+				"head",
+				"app/css/header.css"
+			],
+			[
+				"shop",
+				"app/assets/partials/shop/shop.html"
+			],
+			[
+				"",
+				"app/assets/partials/account/navigation.html"
+			],
+			[
+				"navig",
+				"app/css/navigation.css"
+			],
+			[
+				"hom",
+				"app/css/home.css"
+			],
+			[
+				"home",
+				"app/css/home.css"
+			],
+			[
+				"app.c",
+				"app/js/app.config.js"
+			],
+			[
+				"app.con",
+				"app/js/app.config.js"
+			],
+			[
+				"ord",
+				"app/assets/partials/account/orders.html"
+			],
+			[
+				"sig",
+				"app/assets/partials/account/signup.html"
+			],
+			[
+				"log",
+				"app/assets/partials/account/login.html"
+			],
+			[
+				"sign",
+				"app/assets/partials/account/signup.html"
+			],
+			[
+				"login",
+				"app/assets/partials/account/login.html"
+			],
+			[
+				"lo",
+				"app/assets/partials/account/login.html"
+			],
+			[
+				"pro",
+				"app/assets/partials/account/profile.html"
+			],
+			[
+				"prod",
+				"app/assets/partials/product/product-wide.html"
+			],
+			[
+				"prof",
+				"app/assets/partials/account/profile.html"
+			],
+			[
+				"ed",
+				"app/assets/partials/shop/edit.html"
+			],
+			[
+				"wide",
+				"app/assets/partials/product/product-wide.html"
+			],
+			[
+				"man",
+				"app/assets/partials/product/manufacturer.html"
+			],
+			[
+				"abou",
+				"app/assets/partials/about.html"
+			],
+			[
+				"chart",
+				"app/assets/partials/charte.html"
+			],
+			[
+				"creat",
+				"app/assets/partials/product/create.html"
+			],
+			[
+				"conn",
+				"app/assets/partials/account/connected.html"
+			],
+			[
+				"reco",
+				"app/assets/partials/account/recovery.html"
+			],
+			[
+				"overv",
+				"app/assets/partials/account/overview.html"
+			],
+			[
+				"shop-c",
+				"app/assets/partials/shop/shop-content.html"
+			],
+			[
+				"edit",
+				"app/assets/partials/shop/edit.html"
+			],
+			[
+				"index",
+				"app/assets/index.html"
+			],
+			[
+				"crea",
+				"build/partials/product/create.html"
+			],
+			[
+				"sim",
+				"doc/cart/simpleCart.js"
+			],
+			[
+				"simple",
+				"vendor/scripts/simpleCart.js"
+			],
+			[
+				"order",
+				"app/js/app.order.js"
+			],
+			[
+				"ind",
+				"app/assets/index.html"
+			],
+			[
+				"inde",
+				"app/assets/index.html"
+			],
+			[
+				"app/css/uti",
+				"app/css/utils.css"
+			],
+			[
+				"in",
+				"index.html"
+			]
 		],
 		"width": 0.0
 	},
@@ -1626,6 +1672,6 @@
 	"show_open_files": false,
 	"show_tabs": true,
 	"side_bar_visible": true,
-	"side_bar_width": 345.0,
+	"side_bar_width": 230.0,
 	"status_bar_visible": true
 }

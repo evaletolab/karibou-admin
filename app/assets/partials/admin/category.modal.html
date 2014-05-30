@@ -1,0 +1,68 @@
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <!-- START MODAL CONTENT -->
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3 ng-hide="modal.name.length">Add Category</h3>
+        <h3 ng-show="modal.name.length">Edit category {{modal.name}}</h3>
+      </div>
+      <div class="modal-body">
+        
+        <form class="" validate>
+          <div class="container">
+            <div class="info-icons" style="color:{{modal.color}}">
+              <i class="{{modal.image}} icon-6"></i>&nbsp;&nbsp;
+            </div>
+            <h1 style="color:{{modal.color}}">
+              {{modal.image}}
+              <small>color:{{modal.color}}, sort weight:{{modal.weight}}</small>
+            </h1>
+          </div>
+
+          <hr/>
+
+
+          <div class="form-group ">
+            <label class="control-label" for="i0">Specify the name</label>
+            <input type="text" ng-model="modal.name" class="form-control " placeholder="Label" autofocus="autofocus"  required id="i0">
+          </div>
+
+          <div class="radio">
+            <label >
+              <input type="radio" name="cattype" value="Category" ng-model="modal.type">{{modal.name}} is used to organise items
+            </label>
+          </div>            
+          <div class="radio">
+            <label >
+              <input type="radio" name="cattype" value="Catalog" ng-model="modal.type">{{modal.name}} is used to organise shops
+            </label>          
+          </div>
+
+          
+
+          <div class="form-group">
+            <label class="control-label" for="i2">Specify a sort weight</label>
+            <input type="text" class="form-control " id="i2" ng-model="modal.weight" placeholder="0..N">
+          </div>
+
+          <div class="form-group ">
+            <label class="control-label" for="i3">Define an icon</label>
+            <input type="text" class="form-control " id="i3" ng-model="modal.image" placeholder="one of the awesome icon">
+            <p class="help-block">Complete list of icons here <a href="http://fortawesome.github.io/Font-Awesome/3.2.1/icons/" target="_new">fontawesome.io 3.2.1</a></p>
+          </div>
+
+          <div class="form-group ">
+            <label class="control-label" for="i4">Define a color</label>
+            <input type="text" class="form-control " id="i4" ng-model="modal.color" placeholder="color: #ddd, blue">
+<!--             <span class="glyphicon glyphicon-ok form-control-feedback"></span>
+ -->          </div>
+      </form> 
+      </div>
+      <div class="modal-footer">
+        <button class="btn" ng-click="modalDissmiss(dismiss())">Close</button>
+        <button ng-hide="modal.index" class="btn btn-primary" ng-click="modal.saved=true;modalAdd(dismiss())" ng-disabled="!modal.name || !modal.type">Add item</button>
+        <button ng-show="modal.index" class="btn btn-primary" ng-click="modal.saved=true;modalSave(dismiss())" ng-disabled="!modal.name || !modal.type">Save changes</button>
+      </div>
+      <!-- END MODAL CONTENT -->
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->

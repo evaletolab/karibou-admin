@@ -37,9 +37,9 @@ Product.config([
 Product.controller('ProductCtrl',[
   '$scope',
   '$route',
+  '$rootScope',
   '$location',
   '$routeParams',
-  '$anchorScroll',
   'config',
   'category',
   'user',
@@ -47,7 +47,7 @@ Product.controller('ProductCtrl',[
   'product',
   'cart',
 
-  function ($scope,$route, $location, $routeParams, $anchorScroll, config, category, user, api, product, cart) {
+  function ($scope,$route,$rootScope, $location, $routeParams, config, category, user, api, product, cart) {
     $scope.product=product;
 
     var cb_error=api.error($scope);
@@ -64,6 +64,11 @@ Product.controller('ProductCtrl',[
 
     $scope.save=function(product){
       product.save(function(s){
+
+          //
+          // this product as changed
+          $rootScope.$broadcast("update.product",s);
+
           api.info($scope,"Votre produit a été enregistrée!",2000, function(){
             $location.path("/products/"+product.sku)
           });
@@ -85,7 +90,11 @@ Product.controller('ProductCtrl',[
           return;
       }
       user.love(product,function(u){
-          api.info($scope,"Votre produit a été enregistrée!");
+          //
+          // this product as changed
+          $rootScope.$broadcast("update.product",product);
+
+          api.info($scope,"Le produit a été placé dans vos préférences!");
       })
     }
 
@@ -100,8 +109,8 @@ Product.controller('ProductCtrl',[
       
     };
 
-    $scope.remove=function(product){
-      product.remove(function(){
+    $scope.remove=function(product,password){
+      product.remove(password,function(){
           $location.path("/products")
           $scope.product={};
       },cb_error);
@@ -190,14 +199,25 @@ Product.controller('ProductCtrl',[
 
 Product.factory('product', [
   'config',
-  '$location',
-  '$route',
+  '$rootScope',
   '$resource',
   'api',
 
-  function (config, $location, $route,$resource,api) {
+  function (config, $rootScope,$resource,api) {
+    var _products;
 
- 
+    //
+    // update the products that bellongs to this shop    
+    $rootScope.$on("update.shop",function(e,shop){      
+      var p=_products.findAll();
+      for (var i in p)if(p[i].vendor.urlpath===shop.urlpath){
+        p[i].vendor=shop;
+        _products.share(shop)
+      }      
+    });
+
+
+
     var defaultProduct = {
       image:'',
       categories:[],
@@ -217,6 +237,28 @@ Product.factory('product', [
     };
     
     var Product = function(data) {
+      //
+      // this is the restfull backend for angular 
+      this.backend={};
+      this.backend.products=$resource(config.API_SERVER+'/v1/products/:sku',
+            {sku:'@sku'}, {
+            get:{method:'GET',isArray:false},
+            update: {method:'POST'},
+            delete: {method:'PUT'},
+      });
+
+      this.backend.category=$resource(config.API_SERVER+'/v1/products/category/:category',
+            {category:'@id'}, {
+            update: {method:'POST'},
+            delete: {method:'PUT'},
+      });
+
+      this.backend.shop=$resource(config.API_SERVER+'/v1/shops/:shopname/products',
+            {shopname:'@shopname'}, {
+            update: {method:'POST'},
+            delete: {method:'PUT'},
+      });
+
       angular.extend(this, defaultProduct, data);
     }
 
@@ -232,12 +274,9 @@ Product.factory('product', [
     };    
 
     Product.prototype.isAvailableForOrder = function() {
-      // console.log(this.attributes.available,
-      //         this.vendor.status===true,
-      //         !this.vendor.available.active)
       return (this.attributes.available && this.vendor &&
               this.vendor.status===true &&
-              !this.vendor.available.active)
+              this.vendor.available.active!=true)
     }
 
 
@@ -247,12 +286,14 @@ Product.factory('product', [
     
     Product.prototype.home = function(shop,filter,cb,err) {
       if(!err) err=onerr;
-      var products, s, product=this, path='/v1/shops/:shopname/products', params={shopname:shop};
-      if(!shop){
-        path='/v1/products';
-        params={}
-      }
-      s=$resource(config.API_SERVER+path,params,{cache:true}).get(filter, function() {
+      var products, 
+          s, 
+          product=this, 
+          params=(shop)?{shopname:shop}:{}, 
+          backend=(shop)?this.backend.shop:this.backend.products;
+
+      angular.extend(params,filter)
+      s=backend.get(params, function() {
         products={};
         for (var group in s){
           products[group]=[];
@@ -271,7 +312,7 @@ Product.factory('product', [
     Product.prototype.query = function(filter,cb,err) {
       if(!err) err=onerr;
       var products, s,product=this;
-      s=$resource(config.API_SERVER+'/v1/products/category').query(filter, function() {
+      s=this.backend.category.query(filter, function() {
         products=product.map(s);
         if(cb)cb(products);
       },err);
@@ -280,8 +321,10 @@ Product.factory('product', [
 
     Product.prototype.findByCategory = function(cat, filter,cb,err) {
       if(!err) err=onerr;
-      var products, s,product=this;
-      s=$resource(config.API_SERVER+'/v1/products/category/:category',{category:cat}).query(filter, function() {
+      var products, s,product=this, params={};
+      angular.extend(params,{category:cat},filter)
+
+      s=this.backend.category.query(params, function() {
         products=product.map(s);
         if(cb)cb(products);
       },err);
@@ -297,7 +340,7 @@ Product.factory('product', [
         return loaded;
       };
       
-      var product=this, s=$resource(config.API_SERVER+'/v1/products/:sku',{sku:sku}).get( function() {
+      var product=this, s=this.backend.products.get({sku:sku},function() {
         if(cb)cb(product.share(s,true));
       },err);
       return this;
@@ -306,8 +349,7 @@ Product.factory('product', [
 
     Product.prototype.save = function( cb, err){
       if(!err) err=onerr;
-      var product=this, s=$resource(config.API_SERVER+'/v1/products/:sku',{sku:this.sku}).save(this, function() {
-        console.log(s)
+      var product=this, s=this.backend.products.save({sku:this.sku},this, function() {
         if(cb)cb(product.share(s,true));
       },err);
       return this;
@@ -315,22 +357,23 @@ Product.factory('product', [
 
     Product.prototype.create=function(shop, p,cb,err){
       if(!err) err=function(){};
-      var product=this, s = $resource(config.API_SERVER+'/v1/shops/:shopname/products',{shopname:shop}).save(p, function() {
+      var product=this, s = this.backend.shop.save({shopname:shop},p, function() {
         product.share(s,true);
         if(cb)cb(product);
       },err);
       return this;
     };    
     
-    Product.prototype.remove=function(cb,err){
+    Product.prototype.remove=function(password,cb,err){
       if(!err) err=function(){};
-      var product=this, s = $resource(config.API_SERVER+'/v1/products/:sku',{sku:this.sku}).delete(function() {
+      var product=this, s = this.backend.products.delete({sku:this.sku},{password:password},function() {
         if(cb)cb(product);
       },err);
       return this;
     };    
    
-    return api.wrapDomain(Product, 'sku', 'products', defaultProduct, onerr);  
+    _products=api.wrapDomain(Product, 'sku', 'products', defaultProduct, onerr);  
+    return _products;
   }
 ]);
 

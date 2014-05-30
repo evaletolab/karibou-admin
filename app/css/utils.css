@@ -10,12 +10,17 @@
   display: none!important;
 }
 
+[ng-view]{
+  background-color: #f7f7f7;
+}
+
 .vertical-divider>div{
   padding:8px;
 }
 .vertical-divider.border{
   border-top:1px solid #eee;
 }
+
 
 .separator{
   -webkit-box-shadow: 0 1px #fff;
@@ -40,6 +45,10 @@
 
 .nomargin{
   margin: 0px!important;
+}
+
+.nopadding{
+  padding: 0px!important;
 }
 
 .fadein-setup{
@@ -190,6 +199,13 @@ ul.nav li{
   padding:  10px;margin:  -10px;
 }
 
+.col-padleft-0 {
+  padding-left: 0px!important;
+}
+
+.link{
+  border-bottom: 1px dotted;
+}
 
 .stick-bl{
   position: absolute;
@@ -214,6 +230,14 @@ ul.nav li{
     text-shadow: 0 0px 5px rgba(200,200,200,.25);
 }
 
+address{
+  font-weight: 300;
+}
+
+.well.white{
+  background-color: white;
+  color: inherit!important;
+}
 
 /* Sections
 -------------------------------------------------- */

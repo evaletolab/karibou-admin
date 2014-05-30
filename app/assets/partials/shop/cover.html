@@ -16,14 +16,14 @@
 
 
     <!-- FOR ADMIN -->
-    <div class="cover-actions-top" ng-show="user.isOwner(shop.name)" fade-on-hover=".site-shop-sidebar" >
-        <a href="/shop/{{shop.urlpath}}/edit" class=" btn btn-large btn-primary btn-block ">Editer votre boutique</a>
-        <a ng-show="shop.status!=true"  class="btn btn-primary btn-large btn-block {{waitingStatus() && 'disabled'}}" ng-click="publish()">Demander la publication de votre boutique</a>
+    <div class="cover-actions-top" ng-show="user.isOwnerOrAdmin(shop.name)" fade-on-hover=".site-shop-sidebar" >
+        <a href="/shop/{{shop.urlpath}}/edit" class=" btn btn-lg btn-primary btn-block ">Editer votre boutique</a>
+        <a ng-show="shop.status!=true"  class="btn btn-primary btn-lg btn-block {{waitingStatus() && 'disabled'}}" ng-click="publish()">Demander la publication de votre boutique</a>
 
     </div>
 
   </div>
-  <div class="cover-row">
+  <div class="cover-row shop">
     <div class="cover-body">
       <div class="cover-body-inner">
         <span class="cover-avatar">
@@ -31,9 +31,6 @@
         </span>
         <h1 class="cover-title">{{shop.name}}</h1>
         <p class="cover-description" ng-bind="shop.description"></p>
-        <p class="text-center " ng-show="shop.location||shop.url">
-          {{shop.location}} - <a ng-show="shop.url"  href="{{shop.url}}" >{{shop.url}}</a>
-        </p>
 
       </div>
     </div>

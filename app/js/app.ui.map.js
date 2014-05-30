@@ -19,7 +19,7 @@ map.factory('Map', [
   function (config, $location, $rootScope, $route, $http, api) {
 
   	// init icon
-  	var icons;
+  	var icons, statickey="AIzaSyD5w46BmWX6hX-uJ2yMycS_cRb2HRvDXQU";
 
     //
     // make leaflet loading asynchrone
@@ -100,16 +100,20 @@ map.factory('Map', [
 
     //
     // get address
-    Map.prototype.geocode=function(street,postal,cb){
+    Map.prototype.geocode=function(street,postal,region, cb){
       //
       // google format: Route de Chêne 34, 1208 Genève, Suisse
-      var fulladdress=street+","+postal+", Suisse";//"34+route+de+chêne,+Genève,+Suisse
+      if(!region)region="Suisse";
+      var fulladdress=street+","+postal+", "+region;//"34+route+de+chêne,+Genève,+Suisse
       var url="http://maps.googleapis.com/maps/api/geocode/json?address="+fulladdress+"&sensor=false" ;
       $http.get(url,{withCredentials:false}).success(function(geo,status,header,config){
       	cb(geo,status);
       })
     }
 
+
+
+    
 
     //
     // map contains {legend:{labels:['Mon addresse']}, markers}
@@ -122,7 +126,35 @@ map.factory('Map', [
     Map.prototype.getIcons=function(){
     	return icons;
     }
-    
+
+    //
+    // generate a static map to replace interactive map
+    Map.prototype.resolveStaticmap=function(address, label){
+      // no address, no map
+      if(!address) return;
+
+      //
+      var marker="", 
+          center=(Array.isArray(address))?"":"center="+address.region+"&",
+          url="http://maps.googleapis.com/maps/api/staticmap?"+center,
+          opt="maptype=roadmap&zoom=12&size=600x300",
+          id="&key="+statickey;
+
+      function makeMarker(address){
+        if (address.geo&&address.geo.lat&&address.geo.lng)
+          return "&markers=color:green%7Xlabel:%7C"+address.geo.lat+","+address.geo.lng;
+        return ""
+      }
+
+      if(Array.isArray(address)){
+
+        for(var i in address)
+          marker+=makeMarker(address[i])
+      }else{
+        marker=makeMarker(address)
+      }
+      return url+opt+marker+id;
+    }    
 
     
     return Map;

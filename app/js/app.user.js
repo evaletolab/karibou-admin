@@ -29,8 +29,8 @@ User.config([
       .when('/account/', {title:'Votre profile', _view:'main', redirectTo : '/account/overview'})
       .when('/account/recovery', { _view:'main', templateUrl : '/partials/account/recovery.html'})
       .when('/account/love', {_view:'main', love:true, templateUrl : '/partials/product/love.html'})
-      .when('/account/order', {_view:'main', templateUrl : '/partials/account/overview.html'})
       .when('/account/shop', {_view:'main', templateUrl : '/partials/account/shop.html'})
+      .when('/account/orders', {_view:'main', templateUrl : '/partials/account/orders.html'})
       .when('/account/email', {auth : true, _view:'main', templateUrl : '/partials/account/email.html'})
       .when('/account/overview', {auth : true, _view:'main', templateUrl : '/partials/account/overview.html'})
       .when('/account/connected', {auth : true, _view:'main', templateUrl : '/partials/account/connected.html'})
@@ -99,9 +99,23 @@ User.controller('AccountCtrl',[
     $scope.login= function(email,password){
       user.login({ email: email, password:password, provider:'local' },function(u){
         api.info($scope,"Merci, vous êtes dès maintenant connecté");
-        var home=(u.email&&u.email.status===true)?
-          '/products':'/account/profile'
-        $location.url(home);
+
+        //
+        // if referer is in protected path?
+        if($scope.referrer&&_.find(config.loginPath,function(path){
+            return ($scope.referrer.indexOf(path)!==-1)})){
+          return $location.url($scope.referrer);  
+        }
+
+        // 
+        // if user profile is not ready?
+        if(!user.isReady()||user.hasPrimaryAddress()){
+          return $location.url('/account/profile');  
+        }
+
+        //
+        // else goto '/'
+        $location.url('/');
       }, cb_error);
     };
 
@@ -135,11 +149,6 @@ User.controller('AccountCtrl',[
       },cb_error);
     };
 
-    $scope.deleteShop=function(shop){
-      shop.remove(user,function(){
-          api.info($scope,"Votre boutique à été supprimée");
-      },cb_error);
-    };
     
     
     //
@@ -182,10 +191,30 @@ User.controller('AccountCtrl',[
     $scope.recover=function(email){
       user.recover({token:'Zz7YkTpPPp5YFQnCprtc7O9',email:email},function(){
         api.info($scope,"Merci, une information a été envoyé à votre adresse email");
+          if (!user.isAuthenticated())
+            $location.url('/login');
+          else
+            $location.url('/account/profile');
+
       },cb_error);
       return;
       
     };
+    $scope.persona=function(provider){
+      navigator.id.get(function (assertion) {      
+        $http.post(provider.url, {assertion:assertion})
+          .then(function (responce) {
+            user.me(function(u){
+              $scope.FormErrors='';
+              var home=(u.email&&u.email.status===true)?
+                '/products':'/account/profile'
+              $location.url(home);
+            })
+         },function(error){
+          api.info($scope,error);          
+         });      
+      });
+    }
 
     // Functions
     // Open a popup to authenticate users with Auth, and redirect to account page on success
@@ -222,12 +251,11 @@ User.controller('AccountCtrl',[
 
     //
     // geomap init
-
     $scope.updateMap=function(address){
       if (address.streetAdress===undefined||address.postalCode===undefined)
        return;
 
-      user.geo.geocode(address.streetAdress, address.postalCode, function(geo){
+      user.geo.geocode(address.streetAdress, address.postalCode, address.country, function(geo){
         if(!geo.results.length||!geo.results[0].geometry){
          return;
         }
@@ -240,14 +268,12 @@ User.controller('AccountCtrl',[
         // map init
         var fullAddress=address.streetAdress+'/'+address.postalCode;
         user.geo.addMarker(user.addresses.length, {lat:address.geo.lat,lng:address.geo.lng, message:fullAddress});
-        angular.extend($scope,user.geo.getMap());
+        //angular.extend($scope,user.geo.getMap());
 
       })
-      //.error(function(geo, status, headers, config){
-      //  alert("error on address lookup :"+status);
-      //}); 
     };
     
+
 
     if(user.geo && user.addresses){
 
@@ -264,6 +290,9 @@ User.controller('AccountCtrl',[
   }  
 ]);
 
+/**
+ * this should be usefull to help the display of the primary address 
+ */
 User.filter("primary",function(){
   return function(primary,user){
     if (primary)return primary;
@@ -283,10 +312,11 @@ User.factory('user', [
   '$rootScope',
   '$route',
   '$resource',
+  '$q',
   'shop',
 
-  function (config, $location, $rootScope, $route, $resource, shop) {
-    
+  function (config, $location, $rootScope, $route, $resource, $q, shop) {
+    var deferred = $q.defer();
     
     var defaultUser = {
       id: '',
@@ -302,15 +332,17 @@ User.factory('user', [
       url: '',
       addresses:[]
     };
-    
+
+
     //
     // default behavior on error
     var onerr=function(data,config){
+       deferred.reject(data)
       _user.copy(defaultUser);
     };
     
     var User = function(data) {
-      angular.extend(this, defaultUser, data);
+      angular.extend(this, defaultUser, data, deferred.promise);
     }
     
     // User.prototype.gmap=function(address){
@@ -368,6 +400,10 @@ User.factory('user', [
     User.prototype.isAdmin= function () {
       return this.hasRole('admin');
     };
+
+    User.prototype.isReady=function(){
+      return (this.email.status == true) 
+    }
     
     User.prototype.hasRole= function (role) {
         for (var i in this.roles){
@@ -383,18 +419,27 @@ User.factory('user', [
         return false;
     };
 
+    User.prototype.hasPrimaryAddress= function () {
+        for (var i in this.addresses){
+          if (this.addresses[i].primary===true)
+            return i;
+        }
+        return false;
+    }
+
     //
     // REST api wrapper
     //
 
     User.prototype.me = function(cb,err) {
-      if(!err) err=onerr;
+      if(!err) err=onerr,_user=this;
       var u=$resource(config.API_SERVER+'/v1/users/me').get( function(_u,headers) {
-        _user.copy(u);
+        _user.copy(_u);
         _user.shops=shop.map(_user.shops);
-        if(cb)cb(_user);
+        deferred.resolve(_u)
+        if(cb)cb(_user);        
       },err);
-      return u;
+      return this;
     };
 
     User.prototype.query = function(filter,cb,err) {

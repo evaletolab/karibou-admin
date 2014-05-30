@@ -65,9 +65,11 @@ Category.controller('CategoryCtrl',[
       },cb_error);
     };
 
-    $scope.delete=function(index){
+    $scope.delete=function(index, password){
       var category=$scope.categories[index];
-      category.remove(function(s){
+
+      
+      category.remove(password, function(s){
           api.info($scope,"Successfully updated!");
           $scope.categories.splice(index,1);
       },cb_error);
@@ -91,7 +93,7 @@ Category.controller('CategoryCtrl',[
     $scope.modalSave=function(dismiss){
       //
       // check if data are correct
-      if($scope.modal.name.length){
+      if($scope.modal.index){
         angular.extend($scope.categories[$scope.modal.index],$scope.modal);
         $scope.save($scope.categories[$scope.modal.index]);
         $scope.modalDissmiss()
@@ -131,7 +133,6 @@ Category.factory('category', [
   'api',
 
   function (config, $location, $rootScope, $route,$resource, api) {
-
  
     var defaultCategory = {
       name:'',
@@ -145,8 +146,16 @@ Category.factory('category', [
     var onerr=function(data,config){
       _category.copy(defaultCategory);
     };
-    
+
+
     var Category = function(data) {
+      //
+      // this is the restfull backend for angular 
+      this.backend=$resource(config.API_SERVER+'/v1/category/:category',
+            {category:'@id'}, {
+            update: {method:'POST'},
+            delete: {method:'PUT'},
+      });
       angular.extend(this, defaultCategory, data);
     }
     
@@ -162,7 +171,7 @@ Category.factory('category', [
     Category.prototype.select = function(filter,cb,err) {
       if(!err) err=onerr;
       var categories=[];
-      var c=$resource(config.API_SERVER+'/v1/category').query(filter, function() {
+      var c=this.backend.query(filter, function() {
         categories=Category.load(c);
         if(cb)cb(categories);
       },err);
@@ -177,7 +186,7 @@ Category.factory('category', [
         return loaded;
       }
       
-      var category=this, c=$resource(config.API_SERVER+'/v1/category/:category',{category:slug}).get( function() {
+      var category=this, c=this.backend.get({category:slug},function() {
         category.share(s,true);
         if(cb)cb(category);
       },err);
@@ -189,7 +198,7 @@ Category.factory('category', [
       //console.log("model",this.photo)
 
       if(!err) err=onerr;
-      var category=this, s=$resource(config.API_SERVER+'/v1/category/:category',{category:this.slug}).save(this, function() {
+      var category=this, s=this.backend.save({category:this.slug},this, function() {
         category.share(s,true);
         if(cb)cb(category);
       },err);
@@ -198,16 +207,16 @@ Category.factory('category', [
 
     Category.prototype.create=function(cat, cb,err){
       if(!err) err=function(){};
-      var category=this, s = $resource(config.API_SERVER+'/v1/category').save(cat, function() {
+      var category=this, s = this.backend.save(cat, function() {
         category=category.share(s,true);
         if(cb)cb(category);
       },err);
       return category;
     };    
     
-    Category.prototype.remove=function(cb,err){
+    Category.prototype.remove=function(password, cb,err){
       if(!err) err=function(){};
-      var category=this, s = $resource(config.API_SERVER+'/v1/category/:category',{category:this.slug}).delete(function() {
+      var category=this, s = this.backend.delete({category:this.slug},{password:password},function() {
         if(cb)cb(category);
       },err);
       return category;

@@ -1,11 +1,6 @@
 <div tabindex="-1" class="screen-content" ng-controller="AccountCtrl">
   
 
-  <div class="butter-bar active success back" ng-cloak ng-show="user.email.status !== true" >
-    <p class="butter-bar-message">
-      Vous devez valider votre profile pour finaliser votre inscription.
-    </p>
-  </div>
 
 
   <aside ng-include="'/partials/account/cover.html'" 
@@ -30,69 +25,101 @@
       <!--                               -->                          
 
 
-      <form name="form" novalidate="novalidate" class="form-horizontal well well-small">
+      <form name="form" novalidate="novalidate" class="form-horizontal ">
+        <div class="form-background well white">
           <h5 class="article-group-title " >
             Vos données personnelles
           </h5>          
 
 
           <!-- NAME FIRSTNAME -->        
-          <div class="">
-            <div class="form-group ">
-              <label>Nom</label>
-                <input required ng-model="user.name.givenName" placeholder="Prénom" type="text" name="firstname" class="input-small input-big"/>
-                <input required ng-model="user.name.familyName" placeholder="Nom" type="text" name="lastname" class="input-medium input-big"/>
+          <div class="form-group">
+            <label class="col-sm-2 control-label">Prénom</label>
+            <div class="col-sm-10 ">
+                <input required ng-model="user.name.givenName" placeholder="Prénom" type="text" name="firstname" class="form-control input-lg"/>
             </div>                
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 control-label">Nom</label>
+            <div class="col-sm-10 ">
+                <input required ng-model="user.name.familyName" placeholder="Nom" type="text" name="lastname" class="form-control input-lg"/>
+            </div>                
+          </div>
+          
+          <!-- PHONES --> 
+          <div class="form-group">
+            <label class="col-sm-2 control-label">Téléphone</label>
+            <div class="col-sm-10">
+              <div ng-repeat="phone in user.phoneNumbers" class="row nomargin">
+                <div class="col-xs-4 nopadding">
+                  <input type="text"  ng-model="user.phoneNumbers[$index].what" placeholder="principale" 
+                  class="form-control input-lg ">
+                </div>
+                <div class="col-xs-6 nopadding">
+                  <input type="text"  ng-model="user.phoneNumbers[$index].number" placeholder="022 321.23.24" 
+                  class="form-control input-lg">
+                </div>
+                <div class="col-xs-1 nopadding">                
+                  <a class="btn btn-default btn-lg" href ng-click="user.phoneNumbers.splice($index, 1)"><i class="icon-remove"></i></a>
+                </div>
 
-            <!-- PHONES -->        
-            <div class="form-group " >
-              <label >Téléphone&nbsp;
-                <a href="" ng-click="user.phoneNumbers.push({})" 
-                     class="small gray offset1"> <i class="icon-plus"></i>Ajouter </a>
-              </label>
-              <div ng-repeat="phone in user.phoneNumbers">
-                <input type="text"  ng-model="user.phoneNumbers[$index].what" placeholder="principale" class="input-small input-big">
-                <input type="text"  ng-model="user.phoneNumbers[$index].number" placeholder="022 321.23.24" class="input-medium input-big">
-                <a href ng-click="user.phoneNumbers.splice($index, 1)"><i class="icon-remove"></i></a>
               </div>
-            </div>
+              <hr ng-show="user.phoneNumbers.length"/>
 
-            <!-- EMAIL & VALIDATION -->        
-            <div class="form-group ">
-              <label>Email</label>
-              <div>
-                <input id="email" required ng-model="user.email.address" type="email" name="email" class="input-xlarge input-big"/><span ng-hide="form.email.$invalid || EmailError" class="help-inline"><i ng-show="user.email.status == true" class="icon-ok green"></i>
-                </span>
-                <input type="submit" ng-hide="user.email.status == true" ng-click="verify(user)" value="Valider" ng-disabled="form.$invalid" class="btn btn btn-warning"/>
-                
-                <p class="help-block">
-                </p>
+              <div class="">
+                  <a ng-click="user.phoneNumbers.push({})" ng-class="!user.phoneNumbers.length? 'btn-lg':'btn-xs'"
+                     class="btn btn-info  btn-block"> Ajouter un téléphone</a>
               </div>
             </div>
           </div>
+                 
 
+          <!-- EMAIL & VALIDATION -->   
+          <div class="col-xs-12  ">
+            <div class="alert alert-warning" ng-cloak ng-show="user.email.status !== true" >
+                Vous devez valider votre addresse email.
+            </div>
+          </div>
+
+          <div class="form-group ">
+            <label class="col-sm-2 control-label">Email</label>
+            <div class="col-sm-offset-2 row ">
+              <div class="col-xs-9">                
+                <input id="email" required ng-model="user.email.address" type="email" name="email" class="form-control input-lg"/><span ng-hide="form.email.$invalid || EmailError" class="accout-field-valid"><i ng-show="user.email.status == true" class="icon-ok green"></i>
+                </span>
+
+              </div>              
+              <div class="col-xs-1">                
+                <input type="submit" ng-hide="user.email.status == true" ng-click="verify(user)" value="Valider" ng-disabled="form.$invalid" class="btn btn-lg btn-warning"/>
+              </div>              
+              
+            </div>
+          </div>
+        </div>
           <!-- ADDRESS -->
-          <h5 class="article-group-title " >
-              Pour recevoir vos produits, indiqué au moins une adresse de livraison.
-          </h5>          
 
           <!-- ADDRESSES -->
+        <div class="alert alert-warning" ng-hide="user.addresses.length">
+          <strong>Votre profile est incomplet!</strong> 
+          Pour passer une commande, vous devez indiquer au moins une adresse de livraison.
+        </div>
 
-          <div class="" ng-class="{'primary-content':user.addresses[$index].primary}" ng-repeat="address in user.addresses" >
+        <div class="nomargin row well white" ng-class="{'primary-content':user.addresses[$index].primary}" ng-repeat="address in user.addresses" >
               <a href ng-click="user.addresses.splice($index, 1)" 
               class="pull-right btn btn-small btn-inverse"><i class="icon-remove"></i> </a>
 
 
             <h5 class="article-group-title black" >
-                Addresse N°{{$index}}# {{user.addresses[$index].name}} 
+                Adresse N°{{$index}}# {{user.addresses[$index].name}} 
             </h5>          
+            <div class="form-background">
 
             <!-- NOM -->
             <div class="form-group">                  
-              <label class="">Nom complet</label>
-              <div class="">
+              <label class="col-sm-2 control-label">Nom complet</label>
+              <div class="col-sm-10">
                   <input id="full-name"  ng-model="user.addresses[$index].name" type="text" placeholder="ex. {{user.displayName}}"
-                  class="input-xlarge input-big" require>
+                  class="form-control input-lg" require>
                   <p class="help-block"></p>
                   
               </div>
@@ -100,55 +127,69 @@
 
             <!-- NOTE -->
             <div class="form-group">
-              <label class="">Note au livreur</label>
-              <div class="">
+              <label class="col-sm-2 control-label">Note au livreur</label>
+              <div class="col-sm-10">
                   <input id="full-name"  ng-model="user.addresses[$index].note" type="text" placeholder="ex. code porte 123456 "
-                  class="input-xlarge input-big" require>
+                  class="form-control input-lg" require>
               </div>
             </div>
 
             <!-- RUE/N°/ETAGE -->
             <div class="form-group">
-              <label class="">Rue, Numéro</label>
-              <div class="">
-                  <input id="address-line1" ng-model="user.addresses[$index].streetAdress"  type="text" ng-blur="updateMap(user.addresses[$index],user)" placeholder="ex. Route de Chêne 210" class="input-xlarge input-big" require>
-                  <input id="floor1" ng-model="user.addresses[$index].floor" type="text" placeholder="Étage" class="input-mini input-big" require>
+              <label class="col-sm-2 control-label">Rue, Numéro et l'étage</label>
+              <div class="col-sm-offset-2 row ">
+                <div class="col-xs-9">                
+                  <input id="address-line1" ng-model="user.addresses[$index].streetAdress"  type="text" ng-blur="updateMap(user.addresses[$index],user)" placeholder="ex. Route de Chêne 210" class="form-control input-lg" require>
+                </div>
+                <div class="col-xs-2 nopadding">                
+                  <input id="floor1" ng-model="user.addresses[$index].floor" type="text" placeholder="Étage" class="form-control input-lg" require>
+                </div>
 
               </div>
             </div>
 
-            <!-- COMMUNE -->
+            <!-- POSTAL -->
             <div class="form-group">
-              <label class="">Commune</label>
-              <div class="">
-                  <select class="input-xlarge input-big" ng-model="user.addresses[$index].location"  
-                           data-ng-options="l for l in config.shop.user.location.list" >
+              <label class="col-sm-2 control-label">Code Postal</label>
+              <div class="col-sm-10">
+                  <select class="form-control input-lg" ng-model="user.addresses[$index].postalCode"  
+                           data-ng-options="l for l in config.shop.user.location.list" 
+                           ng-change="updateMap(user.addresses[$index],user)">
                       <option value="">-- Choisissez  --</option>
                   </select>
               </div>
             </div>
 
-
-            <!-- POSTAL -->
+            <!-- REGION -->
             <div class="form-group">
-              <label class="">Code Postal</label>
-              <div class="">
-                  <input  ng-model="user.addresses[$index].postalCode"  type="text" placeholder="code postal 1200" ng-blur="updateMap(user.addresses[$index],user)"
-                  class="input-xlarge input-big" require>
-                  <p class="help-block"></p>
-              </div> 
+              <label class="col-sm-2 control-label">Region</label>
+              <div class="col-sm-10">
+                  <select class="form-control input-lg" ng-model="user.addresses[$index].region"  
+                           data-ng-options="l for l in config.shop.user.region.list" 
+                           ng-change="updateMap(user.addresses[$index],user)">
+                      <option value="">-- Choisissez  --</option>
+                  </select>
+              </div>
             </div>
 
-            <div class="form-group">
-              <label for="check-primary">Pricinpale</label>
-              <input class="" id="check-primary" type="checkbox"   ng-model="user.addresses[$index].primary" >              
+            <!-- GEO MAP -->
+            <div class="form-group" ng-show="user.addresses[$index].geo">
+              <label  class="col-sm-2 control-label">Position sur la carte</label>
+              <div class="col-sm-10">
+                <img src="{{user.geo.resolveStaticmap(user.addresses[$index],user.addresses[$index].note)}}" style="width:100%"/>
+              </div>
             </div>
+
+            <!-- SELECT MAIN ADDRESS -->
+            <div class="form-group">
+              <label  class="col-sm-2 control-label">Pricinpale</label>
+              <div class="col-sm-10">
+                <label class="form-control-static"><input class=""  type="checkbox"   ng-model="user.addresses[$index].primary" _disabled="user.hasPrimaryAddress()!=$index">&nbsp;Adresse principale de livraison</label>
+              </div>
+            </div>
+          </div>
           </div>          
-          <h5 class="article-group-title " >
-            <span class="bucket-header-title">
-              Ajouter une addresse de livraison <a  href ng-click="user.addresses.push({primary:true})" class="btn btn-small btn-inverse"><i class="icon-plus"></i></a>
-            </span> 
-          </h5>          
+          
           <!--     -->
           <!-- MAP -->
           <!--     -->
@@ -157,10 +198,16 @@
           </leaflet>        
   -->
 
-          <div class="control-group ">
-            <input type="submit" ng-click="save(user)" ng-disabled="form.$invalid || WaitText" value="{{WaitText || 'Enregistrer'}}" class="btn btn-success btn-large"/>
-          </div>
+          <div class="form-group bottom">
+            <input type="submit" ng-click="save(user)" ng-disabled="form.$invalid || WaitText" value="{{WaitText || 'Enregistrer'}}" class="col-sm-offset btn btn-success btn-lg"/>
+            <button class="btn btn-lg pull-right"
+                    ng-class="{'btn-warning':!user.addresses.length,'btn-default':user.addresses.length,}" 
+                    ng-click="user.addresses.push({primary:true})">
+              Ajouter une addresse de livraison 
+            </button> 
+          </div>          
       </form>      
+
 
 
 

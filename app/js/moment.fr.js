@@ -3,7 +3,7 @@
 // author : John Fischer : https://github.com/jfroffice
 
 (function (factory) {
-    factory(moment);
+    if(window.moment)factory(moment);
 }(function (moment) {
     return moment.lang('fr', {
         months : "janvier_février_mars_avril_mai_juin_juillet_août_septembre_octobre_novembre_décembre".split("_"),

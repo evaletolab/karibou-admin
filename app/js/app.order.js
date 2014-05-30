@@ -18,6 +18,7 @@ Order.config([
     $routeProvider
       .when('/logistic/collect', {title:'welcome to your open community market',  templateUrl : '/partials/logistic/collect.html'})
       .when('/logistic/livraison', {title:'welcome to your open community market',  templateUrl : '/partials/logistic/overview.html'})
+      .when('/order', {title:'Valider votre commande',  templateUrl : '/partials/order/order.html'})
       .when('/admin/order', {title:'Admin of order ', _view:'main', templateUrl : '/partials/admin/order.html'});
   }
 ]);
@@ -41,12 +42,32 @@ Order.controller('OrderCtrl',[
 
     $scope.config=config;
     $scope.order=order;
+    $scope.shipping=order.nextsShippingDate();
     $scope.cart=cart;
     
 
-    // console.log(cart.total())
+
+    $scope.updateGateway=function(){
+      cart.setTax(config.shop.order.gateway[order.payment].fees)   
+    }
+
+
+    $scope.terminateOrder=function(){
+      console.log("order")
+      console.log("payment",config.shop.order.gateway[order.payment])
+      console.log("shipping",$scope.shipping[$scope.order.shipping])
+      console.log("items",$scope.cart.items)
+    }
+
   }  
 ]);
+
+Order.filter('shippingLabel', function () {
+   return function(shipping) {
+        if (!shipping) return "";
+        return  "Le "+moment(shipping.when).format('dddd DD MMM YYYY', 'fr')+" entre "+shipping.time;
+   };
+});
 
 /**
  * app.order provides a model for interacting with Order.
@@ -88,7 +109,7 @@ Order.factory('cart', [
         },
         cartStyle:'div',
         shippingFlatRate: 10,
-        tax:        0.015,
+        tax:        0.00,
         currency:   "CHF"
     };
 
@@ -105,6 +126,15 @@ Order.factory('cart', [
       this.items = [];
     }
 
+    Cart.prototype.clear=function(product){
+      for(var i=0;i<this.items.length;i++){
+        if(this.items[i].sku===product.sku){
+          this.items=this.items.splice(i,1)
+          return this.items;
+        }
+      }
+    }
+
     Cart.prototype.remove=function(product){
       for(var i=0;i<this.items.length;i++){
         if(this.items[i].sku===product.sku){
@@ -117,14 +147,33 @@ Order.factory('cart', [
       }
 
     }
+    Cart.prototype.addList=function(products){
+      var total=0;
+      for(var i in products){
+        if(products[i].isAvailableForOrder()){
+          this.add(products[i], true);
+          total++;
+        }
+      }
+      if(total)
+        api.info($rootScope,total+" produits de la liste ont été ajoutés dans le panier.",4000);      
+      else
+        api.info($rootScope," Seul les produits disponibles peuvent être ajoutés dans le panier.",4000);      
+    }
 
-
-    Cart.prototype.add=function(product){
+    Cart.prototype.add=function(product, silent){
       // console.log("add", product)
-      api.info($rootScope,product.pricing.part+", "+product.title+" a été ajouté dans le panier",4000);
+      if(!silent)api.info($rootScope,product.pricing.part+", "+product.title+" a été ajouté dans le panier",4000);
 
       for(var i=0;i<this.items.length;i++){
         if(this.items[i].sku===product.sku){
+
+          //
+          // check availability
+          if(product.pricing&&product.pricing.stock<=this.items[i].quantity){
+            return api.info($rootScope,"La commande maximum pour ce produit à été atteintes.",4000);                        
+          }
+
           this.items[i].quantity++;
           return this.items;
         }
@@ -154,13 +203,14 @@ Order.factory('cart', [
     Cart.prototype.total=function(){
       var total = 0;
       this.items.forEach(function (item) {
-        total += item.price;
+        total += (item.price*item.quantity);
       });
       return total;
     }
 
     Cart.prototype.grandTotal=function(){
-      this.total() + this.tax() + this.shipping();
+      var total=this.total();
+      return (total + this.tax()*total + this.shipping());
     }
 
     Cart.prototype.shipping=function(){
@@ -170,6 +220,10 @@ Order.factory('cart', [
     Cart.prototype.tax=function(){
       return defaultCart.tax;
     }
+
+    Cart.prototype.setTax=function(tax){
+      defaultCart.tax=tax;
+    }    
 
     Cart.prototype.checkout=function(){
       alert("Oooops ça marche pas encore...")
@@ -221,12 +275,31 @@ Order.factory('cart', [
 Order.factory('order', [
   'config',
   '$resource',
+  '$q',
+  'user',
   'api',
 
-  function (config, $resource, api) {
+  function (config, $resource, $q, user, api) {
 
-    var defaultOrder={}
+    var defaultOrder={
+      shipping:0,
+      address:undefined,
+    }
 
+    //
+    // shop config is a promise
+    config.shop.then(function(){
+
+    })
+
+    //
+    // user is a promise
+    user.then(function(){
+      var p=user.hasPrimaryAddress();
+      if(p==-1) p=0;
+      _order.address=defaultOrder.address=p;      
+    })
+      
 
     //
     // default behavior on error
@@ -238,53 +311,57 @@ Order.factory('order', [
       angular.extend(this, defaultOrder, data);
     }
 
-    
-    Order.findNameBySlug = function(slug){
-      var cat=this.find({slug:slug});
-      if (cat) return cat.name; else return "Inconnu";      
-    };
+    Order.prototype.nextsShippingDate=function(){
+      var date=[], next, order=this;
+      var deferred=$q.defer();
+      config.shop.then(function(){
+        while(date.length<4){
+          next=order.findNextShippingDay(next);
+//          date.push(next)
+          if(!config.shop.order.shippingtimes){
+            throw new Error("Votre application doit être reloadé.")
+          }
+          for(var k in config.shop.order.shippingtimes){
+            next.setHours(k)
+            date.push({id:date.length||0,when:next,time:config.shop.order.shippingtimes[k]});
+          }
+        }
+        return date
+      })
 
-    Order.findBySlug = function(slug){
-      return this.find({slug:slug});
-    };
+      return date
+    }
 
-    Order.prototype.select = function(filter,cb,err) {
-      if(!err) err=onerr;
-      var categories=[];
-      var c=$resource(config.API_SERVER+'/v1/order').query(filter, function() {
-        categories=Order.load(c);
-        if(cb)cb(categories);
-      },err);
-      return categories;
-    };
-
-
-
-    Order.prototype.get = function(slug,cb,err) {
-      if(!err) err=onerr;
-      var loaded=Order.find({slug:slug});if (loaded){
-        if(cb)cb(loaded);
-        return loaded;
+    Order.prototype.findNextShippingDay=function(date){
+      // 86400000[ms] = 24 * 60² * 1000
+      if(date === undefined){
+        var date=new Date()
       }
-      
-      var order=this, c=$resource(config.API_SERVER+'/v1/order/:order',{order:slug}).get( function() {
-        order.share(s,true);
-        if(cb)cb(order);
-      },err);
-      return order;
-    };
+      var next=new Date(date.getTime()+config.shop.order.timelimit*3600000);
+      while(config.shop.order.weekdays.indexOf(next.getDay())<0){
+        next=new Date(next.getTime()+86400000)
+      }
+      next.setMinutes(0,0,0)
+      next.setHours(6)
+
+      return next;
+    }
+
+     Order.prototype.findShippingDayFromDate=function(date, jump) {
+      // 86400000[ms] = 24 * 60² * 1000
+      if(date === undefined){
+        var date=new Date(), jump=date.getDay()
+      }
+      var nextday=((jump-date.getDay())%7)
+      var week=(nextday>=0)?0:7*86400000;
+      var r=new Date(+date.getTime()+nextday*86400000+week)
+      r.setMinutes(0,0,0)
+      r.setHours(12)
+      return r;
+
+    }
 
 
-    Order.prototype.save = function(cb, err){
-      //console.log("model",this.photo)
-
-      if(!err) err=onerr;
-      var order=this, s=$resource(config.API_SERVER+'/v1/order/:order',{order:this.slug}).save(this, function() {
-        order.share(s,true);
-        if(cb)cb(order);
-      },err);
-      return order;
-    };
 
     Order.prototype.create=function(cat, cb,err){
       if(!err) err=function(){};
@@ -295,15 +372,10 @@ Order.factory('order', [
       return order;
     };    
     
-    Order.prototype.remove=function(cb,err){
-      if(!err) err=function(){};
-      var order=this, s = $resource(config.API_SERVER+'/v1/order/:order',{order:this.slug}).delete(function() {
-        if(cb)cb(order);
-      },err);
-      return order;
-    };    
+
     var _order=api.wrapDomain(Order,'slug', 'order', defaultOrder, onerr); 
-    return _order; 
+    return _order;       
+
 
 
   }

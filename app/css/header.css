@@ -127,7 +127,7 @@ dl,menu,ol,ul {
 dd {
     margin:0}
 
-menu,ol,ul {
+menu,ul {
     padding:0;
     list-style:none;
     list-style-image:none}

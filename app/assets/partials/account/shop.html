@@ -3,12 +3,12 @@
 <div tabindex="-1"  id="null" class="screen-content" ng-controller="AccountCtrl">
   
 
-  <div class="butter-bar active success back " ng-cloak ng-hide="user.shops.length">
+<!--   <div class="butter-bar active success back " ng-cloak ng-hide="user.shops.length">
     <p class="butter-bar-message">
       Vous n'avez pas encore crée votre boutique. Vous pouvez démarrer votre boutique après avoir lu la <a href="/charte" >charte</a>
     </p>
   </div>
-
+ -->
 
   <aside ng-include="'/partials/account/cover.html'" 
          class="cover cover-home img-loaded" ng-class="{'session':user.isAuthenticated()}">
@@ -34,59 +34,72 @@
         <span class="bucket-header-title box">Ajouter une nouvelle boutique</span> 
       </h5>
 
-      <div class=""  style="margin-bottom:40px;">
-        <blockquote >
-          <b>This is the rules of our community marketplace ...</b>
+      <div class="well well-xs white"  style="margin-bottom:40px;">
+          <b>Vous trouverez ici <a href="#">les règles</a> complètes pour participer à notre place de marché. En voici les éléments fondateurs.</b>
           <ol>
-            <li>Vous êtes producteur d'aliment<pre>
-              ...
-            </pre></li>
-            <li>Vous êtes revendeur d'aliment<pre>
-              ...
-            </pre></li>
-            <li>Vous êtes un artisan<pre>
-              ...
-            </pre></li>
+            <li>Vous êtes producteur d'aliment
+            <p>
+             Votre production est si possible biologique mais dans tous les cas respectueuse de l'environnement, de la nature et de l'animal. 
+            </p>
+            </li>
+            <li>Vous êtes revendeur d'aliment
+            <p>
+             Vous êtes un petit commerce qui proposez des produits de haute qualité. Les provenances et les ingrédients utilisés sont indiqués clairement.
+            </p>
+            </li>
+            <li>Vous êtes un artisan
+            <p>
+              Vous fabriquez manuellement vos préparations et vous n'utilisez pas d'additifs de synthèse. Les ingrédients utilisés sont indiqués clairement.
+            </p>
+          </li>
           </ol>
           <small>Kariboo </small>
-        </blockquote>
       </div>        
-      <form name="form" class="-form-horizontal well well-small" style="margin-bottom:80px;">
+      <form name="form" class="-form-horizontal well well-xs white" style="margin-bottom:80px;">
         <fieldset>
           <!-- catalog -->
-          <div class="control-group">
-            <label class="control-label ">Catalogue</label> 
-            <div class="controls small">
-              <select  ng-model="shop.catalog " class="input-xlarge" required="true" >
+          <div class="form-group">
+            <label class="control-label ">Votre boutique figure dans le catalogue</label> 
+            <div class=" small">
+              <select  ng-model="shop.catalog " class="form-control input-lg" required="true" >
                 <option ng-repeat="cat in category.findAll() | filter:{type:'Catalog'}" value="{{cat._id}}">{{cat.name}}</option>
               </select>
             </div>
           </div>
 
           <!-- SHOP NAME -->
-          <div class="control-group">
+          <div class="form-group">
             <label for="name" class="control-label">Le nom de votre boutique</label>
-            <div class="controls">
-                <input  ng-model="shop.name" type="text" required="true"  class="span8 input-big" placeholder="..."/>
-                <p class="help-block ">Le nom de votre boutique est définitif et ne peut être modifié.<br/></p>          
-                <p class="small" ng-hide="user.email.status == true ">Pour créer une boutique vous devez avoir une <a href="/account/profile">adresse email valide</a>.</p>
+            <div class="">
+                <input  ng-model="shop.name" type="text" required="true"  class="form-control input-lg" placeholder="..."/>
+                <p class="help-block ">Le nom de votre boutique est définitif et ne pas être modifié par la suite.<br/></p>          
             </div>
           </div>
 
-          <div class="control-group">
-            <div class="controls ">
+          <!-- Description -->
+          <div class="form-group">
+            <label class="control-label">Description</label>
+            <div class="">                     
+              <textarea name="description" required rows="4" ng-model="shop.description"  class="form-control" placeholder="Votre boutique..." >{{shop.description }}</textarea>
+            </div>
+            <p ng-show="form.description.$invalid && !form.description.$pristine" class="help-block">La description est obligatoire.</p>                        
+          </div>
+
+          <div class="form-group">
+            <div class=" ">
                 <p class="control-label">
                   <label for="cc" >J'ai lu et j'accepte les conditions générales.
                   <input id="cc" name="cc" type="checkbox" required="true"  ng-model="checked" class="btn"/></label>
                 </p>
+                <p class="small" ng-hide="user.email.status == true ">Pour créer une boutique vous devez avoir une <a href="/account/profile">adresse email valide</a>.</p>
             </div>
           </div>
           
           
 
           <!-- ACTIONS -->          
-          <div class="control-group">
-            <input type="submit" ng-disabled="form.$error.required || !checked" ng-click="createShop(shop)" value="Create a new shop" class="btn btn-primary btn-large"/>
+          <div class="form-group">
+            <input type="submit" ng-disabled="form.$error.required || !checked" ng-click="createShop(shop)" value="Create a new shop" class="btn btn-primary btn-lg"/>
           </div>              
         </fieldset>
       </form>
