@@ -55,7 +55,7 @@ angular.module('app.root', [
     // get the head title up2date 
     $rootScope.$on('$routeChangeStart', function (event, current, previous) {
       var longpath=$location.path();
-      user.finally(function(){
+      user.$promise.finally(function(){
         if (!user.isAuthenticated()){
           if(_.find(config.loginPath,function(path){
             return (longpath.indexOf(path)!==-1);

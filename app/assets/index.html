@@ -74,7 +74,7 @@
                 </span>
               </li>
               <li class="site-nav-list-item basket" ng-repeat="item in cart.items" ng-show="cart.items.length">
-                <a class="site-nav-list-item-cart green"  href="/products/{{item.sku}}" tabindex="-1">{{item.quantity}}x {{item.name}}<span>{{item.part}}</span></a>
+                <a class="site-nav-list-item-cart green"  href="/products/{{item.sku}}" tabindex="-1">{{item.quantity}}x {{item.title}}<span>{{item.part}}</span></a>
               </li>
 
               <li class="site-nav-list-item basket" ng-show="cart.items.length">
@@ -116,7 +116,7 @@
 
               <li class="site-nav-list-item " ng-show="cart.items.length">
                 <a class="btn  btn-xs  btn-success site-nav-list-item-btn-bootstrap" href="/order" tabindex="-1">
-                  <i class="icon-shopping-cart "></i>  Commander
+                  <i class="icon-shopping-cart "></i>  Commander  {{cart.items.length}}
                 </a>
 
               </li>

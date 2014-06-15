@@ -81,11 +81,16 @@ Home.controller('HomeCtrl', [
       return addresses
     }
 
-    if($route.current.$$route.love){
-      user.me(function(u){
-        $scope.products=product.map(u.likes);
+    $scope.findAllUserLoves=function(){
+      $scope.products=[]
+      product.findLove(function(products){
+        $scope.products=products
       });
-      return;      
+    }
+
+    if($route.current.$$route.love){
+      // TODO REMOVE THIS
+      return;
     }
 
     //

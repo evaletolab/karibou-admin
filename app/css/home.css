@@ -240,7 +240,9 @@ a {
 }    
 
 .cover.img-loaded {
-    background-color:#f7f7f7;}
+    -background-color:#f7f7f7;
+    background: linear-gradient(#f5f5f5 20%, #44a182 );
+}
 
 .body-scroll .cover {
     position:fixed}
@@ -421,7 +423,7 @@ ul.cover-list li {
     height:auto;
     min-height:inherit;
     background: linear-gradient(#ffffff,#fafbfa)    ;
-    box-shadow: 0 0 0px 1px #ddd;
+    box-shadow: 0 0 0px 3px #eee;
 }
 
 .cover-body {
@@ -585,15 +587,15 @@ ul.cover-list li {
     box-shadow:inset -1px 0 0 #dededc}
 
 .cover-resume{
-    border-top: 1px solid #eee;
+    border-top: 3px solid #eee;
     width: 100%;
     float: left;
     margin-top: 10px;
     font-size: 80%
 }
 .cover-resume .cover-resume-col{
-    border-right: 1px solid #eee;
-    width: 30%;
+    border-right: 3px solid #eee;
+    width: 33%;
     float: left;
     padding: 4px;
 }
@@ -609,6 +611,7 @@ ul.cover-list li {
     border-radius: 4px;
     border: 1px solid #eee;
     padding: 5px;
+    display: none!important;
 }
 .cover-resume.cart> div{
     max-width: 400px;
@@ -617,6 +620,7 @@ ul.cover-list li {
 }
 .products .cover-resume.cart {
     visibility: visible;    
+    display: inherit!important;
 }
 
 @media all and (max-width:1000px) {
@@ -631,7 +635,7 @@ ul.cover-list li {
     height:360px}
 
 .cover-user .cover-body {
-    padding:40px 20% 0}
+    padding:44px 20%}
 
 .cover-user .cover-title {
     margin-top:30px;
@@ -970,7 +974,7 @@ ul.cover-list li {
     color:#fff;
     padding:12px 25px;
     margin-bottom:0;
-    font-size:14px;
+    font-size:15px;
     -webkit-box-shadow:0 2px 0 rgba(0,0,0,0.1);
     -moz-box-shadow:0 2px 0 rgba(0,0,0,0.1);
     box-shadow:0 2px 0 rgba(0,0,0,0.1);

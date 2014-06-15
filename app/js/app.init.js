@@ -119,6 +119,9 @@ angular.element(document).ready(function () {
   //      "leaflet");
   
 
+
+  //
+  // firefox security
   $script(["https://login.persona.org/include.js"],"persona");
   
 

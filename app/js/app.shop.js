@@ -227,11 +227,6 @@ Shop.factory('shop', [
           s.photo={fg:config.shop.photo.fg};
         }
     }    
-    //
-    // default behavior on error
-    var onerr=function(data,config){
-      _shop.copy(defaultShop);
-    };    
     
     var Shop = function(data) {
       //
@@ -245,22 +240,25 @@ Shop.factory('shop', [
       angular.extend(this, defaultShop, data);
     }
 
+    //
+    // default behavior on error
+    Shop.prototype.onerr=function(data,config){
+      this.copy(defaultShop);
+    };    
     
 
     //
     // REST api wrapper
     //
     Shop.prototype.home = function(filter,cb,err) {
-      if(!err) err=onerr;
-      var shops, s, shop=this;
+      if(!err) err=this.onerr;
+      var shops, s, self=this;
       s=this.backend.get(filter, function() {
         shops={};
         for (var group in s){
           shops[group]=[];
           if (Array.isArray(s[group]) && typeof s[group][0]==="object"){
-            s[group].forEach(function(inst){
-              shops[group].push(shop.share(inst));
-            });          
+            shops[group]=self.wrapArray(s[group])
           }
         }
         if(cb)cb(shops);
@@ -269,22 +267,22 @@ Shop.factory('shop', [
     };
 
     Shop.prototype.query = function(filter,cb,err) {
-      if(!err) err=onerr;
-      var shops, s,shop=this, params={};
+      if(!err) err=this.onerr;
+      var shops, s,self=this, params={};
       angular.extend(params, filter,{urlpath:'category'})
       s=this.backend.query(params, function() {
-        shops=shop.map(s);
+        shops=self.wrapArray(s);
         if(cb)cb(shops);
       },err);
       return shops;
     };
 
     Shop.prototype.findByCatalog = function(cat, filter,cb,err) {
-      if(!err) err=onerr;
-      var shops, s,shop=this;
+      if(!err) err=this.onerr;
+      var shops, s,self=this;
       angular.extend(params, filter,{urlpath:'category/'+cat})      
       s=this.backend.query(filter, function() {
-        shops=shop.map(s);
+        shops=self.wrapArrayp(s);
         if(cb)cb(shops);
       },err);
       return shops;
@@ -292,17 +290,17 @@ Shop.factory('shop', [
 
 
     Shop.prototype.get = function(urlpath,cb,err) {
-      if(!err) err=onerr;
+      if(!err) err=this.onerr;
       
       var me=this, loaded=Shop.find(urlpath);if (loaded){
-        me.share(loaded,true)
+        me.wrap(loaded)
         if(cb)cb(loaded);
         return loaded;
       };
       
       var s=this.backend.get({urlpath:urlpath},function() {
         checkimg(s);
-        if(cb)cb(me.share(s,true));
+        if(cb)cb(me.wrap(s));
       },err);
       return this;
     };
@@ -324,9 +322,9 @@ Shop.factory('shop', [
     };    
 
     Shop.prototype.save = function( cb, err){
-      if(!err) err=onerr;
+      if(!err) err=this.onerr;
       var me=this, s=this.backend.save({urlpath:this.urlpath},this, function() {
-        if(cb)cb(me.share(s,true));
+        if(cb)cb(me.wrap(s));
       },err);
       return this;
     };
@@ -334,7 +332,7 @@ Shop.factory('shop', [
     Shop.prototype.create=function(user, data,cb,err){
       if(!err) err=function(){};
       var me=this, s = this.backend.save(data, function() {
-        var shop=me.share(s,true);
+        var shop=me.wrap(s);
         user.shops.push(shop);
         if(cb)cb(shop);
       },err);
@@ -350,7 +348,7 @@ Shop.factory('shop', [
       return this;
     };    
    
-    return api.wrapDomain(Shop, 'urlpath', 'shops', defaultShop, onerr);  
+    return api.wrapDomain(Shop, 'urlpath', defaultShop);  
   }
 ]);
 

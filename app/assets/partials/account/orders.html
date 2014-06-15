@@ -1,21 +1,12 @@
 
   
 <div tabindex="-1"  id="null" class="screen-content" ng-controller="AccountCtrl">
-  
-
-  <div class="butter-bar active success back " ng-cloak ng-hide="user.shops.length">
-    <p class="butter-bar-message">
-      Vous n'avez pas encore crée votre boutique. Vous pouvez démarrer votre boutique après avoir lu la <a href="/charte" >charte</a>
-    </p>
-  </div>
-
-
   <aside ng-include="'/partials/account/cover.html'" 
          class="cover cover-home img-loaded" ng-class="{'session':user.isAuthenticated()}">
   </aside>
 
 
-   <section class="wrapper" tabindex="-1">
+   <section class="wrapper" tabindex="-1" ng-controller="OrderCtrl">
       <div class="wrapper-inner">
 
 
@@ -47,65 +38,84 @@
         <span class="bucket-header-title box">Vos dernières commandes</span> 
       </h5>
 
-    <ul class="timeline">
-        <li>
+
+    <ul class="timeline" ng-init="findOrderByUser()" ng-show="orders.length">
+        <li ng-repeat="order in orders" ng-class="{'timeline-inverted':$odd}">
+          <!-- timeline start -->
           <div class="timeline-badge success"><i class="icon icon-leaf"></i></div>
           <div class="timeline-panel">
             <div class="timeline-heading">
-              <h4 class="timeline-title">Livrée 14 avril 2013, CHF 120.-</h4>
-              <p><small class="text-muted"><i class="icon icon-time"></i>commandé le 12 avril, N° #10020335</small></p>
+              <h4 class="timeline-title">{{order.getTitle()}}</h4>
+              <p><small class="text-muted"><i class="icon icon-time"></i>Créer {{order.created|dateLabel}}, N° {{order.oid}}</small>
+
+              </p>
             </div>
             <div class="timeline-body">
-              <table class="table table-condensed small">
-                <thead>
-                  <tr><th>Produit</th><th>Qté</th><th>CHF</th></tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td title="La Bergerie de Satigny">Fromage de brebis aux truffes</td>
-                    <td>5</td>
-                    <td>25.-</td>
-                  </tr>
-                  <tr>
-                    <td title="La Boucherie de Chêne">Cuisses de poulet fermier <span class="gree">(bio)</span></td>
-                    <td>4</td>
-                    <td>50.-</td>
-                  </tr>
-                  <tr >
-                    <td title="Vins de Genève">Stellar Cabernet Sauvignon 2007 <span class="gree">(bio)</span></td>
-                    <td>1</td>
-                    <td>25.-</td>
-                  </tr>
+              <h5 style="margin-bottom:5px" class="text-muted">Status de la commande</h5>
+              <div class="progress">
+                <div class="progress-bar  " role="progressbar" order-progress="order" 
+                  ng-class="{'progress-bar-danger':order.fulfillments.status=='failure', 
+                             'progress-bar-success':order.fulfillments.status!=='failure'}">
+                  <span class="sr-only-">{{order.fulfillments.status}}</span>
+                </div>
+              </div>              
 
-                  <tr>
-                    <td colspan="2">paypal (1.8%)</td><td >0.90</td>
-                  </tr>
-                  <tr>
-                    <td colspan="2">livraison</td><td >12.-</td>
-                  </tr>
-                  <tr class="bold">
-                    <td colspan="2">TOTAL</td><td >100.-</td>
-                  </tr>
-                </tbody>
-              </table>
+              <div class="panel panel-default">
+                <!-- Default panel contents -->
+                <div class="panel-heading smallx"><a href="" toggle-on-click="#detail-{{order.oid}}">Voir le détail</a></div>
+                <div class="">
+                  <div class="cart">
+                    {{order.payment.status}}<br/>
+                    <span>ordre {{order.payment.gateway}}</span>
+                  </div>
+                  <div class="cart">
+                    {{order|orderTotal}}<br/>
+                    <span>total</span>
+                  </div>
+
+                </div>
+
+                <!-- ITEMS DETAILS-->
+                <table class="table table-condensed smallx " id="detail-{{order.oid}}" style="display:none">
+                  <thead>
+                    <tr><th>Produit</th><th>Qté</th><th>CHF</th></tr>
+                  </thead>
+                  <tbody>
+                    <tr ng-repeat="i in order.items">
+                      <td title="{{i.vendor}}">{{i.title}}</td>
+                      <td>{{i.quantity}}</td>
+                      <td>{{i.finalprice*i.quantity|number:''}} CHF</td>
+                    </tr>
+                    <!-- info -->
+                    <tr>
+                      <td colspan="2">{{order.payment.gateway}}</td><td>{{order.payment.status}}</td>
+                    </tr>
+                    <tr class="bold">
+                      <td colspan="2">TOTAL</td><td >{{order|orderTotal}}</td>
+                    </tr>
+
+                  </tbody>
+                </table>
+
+              </div>
 
 
-              <hr>
-              <div class="btn-group">
+<!--               <div class="btn-group">
                 <button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown">
                   <i class="icon icon-cog"></i> <span class="caret"></span>
                 </button>
                 <ul class="dropdown-menu" role="menu">
-                  <li><a href="#">Copier cette commande</a></li>
-                  <li><a href="#">Envoyer pas mail</a></li>
+                  <li><a href="#" ng-click="cart.addList(order.items)" ng-disabled="!order.items.length">Copier cette commande</a></li>
                   <li class="divider"></li>
                   <li><a href="#">Signaler un problème</a></li>
                 </ul>
-              </div>  
+              </div>   -->
 
             </div>
           </div>
+          <!-- timeline end -->
         </li>
+<!--
         <li class="timeline-inverted">
           <div class="timeline-badge warning"><i class="icon icon-credit-card"></i></div>
           <div class="timeline-panel">
@@ -231,7 +241,7 @@
           </div>
         </li>
     </ul>
-
+-->
 
       <!-- FOOTER -->              
         <footer class="wrapper-footer" ng-include="'/footer.html'"></footer>

@@ -212,7 +212,6 @@ Product.factory('product', [
       var p=_products.findAll();
       for (var i in p)if(p[i].vendor.urlpath===shop.urlpath){
         p[i].vendor=shop;
-        _products.share(shop)
       }      
     });
 
@@ -290,17 +289,15 @@ Product.factory('product', [
           s, 
           product=this, 
           params=(shop)?{shopname:shop}:{}, 
-          backend=(shop)?this.backend.shop:this.backend.products;
+          rest=(shop)?this.backend.shop:this.backend.products;
 
       angular.extend(params,filter)
-      s=backend.get(params, function() {
+      s=rest.get(params, function() {
         products={};
         for (var group in s){
           products[group]=[];
           if (Array.isArray(s[group]) && typeof s[group][0]==="object"){
-            s[group].forEach(function(inst){
-              products[group].push(product.share(inst));
-            });          
+            products[group]=product.wrapArray(s[group])
           }
         }
         if(cb)cb(products);
@@ -313,10 +310,21 @@ Product.factory('product', [
       if(!err) err=onerr;
       var products, s,product=this;
       s=this.backend.category.query(filter, function() {
-        products=product.map(s);
+        products=product.wrapArray(s);
         if(cb)cb(products);
       },err);
       return products;
+    };
+
+
+    Product.prototype.findLove = function(cb,err) {
+      if(!err) err=onerr;
+      
+      var self=this, s=this.backend.products.query({sku:'love'},function() {
+        if(cb)cb(self.wrapArray(s));
+        return self
+      },err);
+      return self;
     };
 
     Product.prototype.findByCategory = function(cat, filter,cb,err) {
@@ -325,7 +333,7 @@ Product.factory('product', [
       angular.extend(params,{category:cat},filter)
 
       s=this.backend.category.query(params, function() {
-        products=product.map(s);
+        products=product.wrapArray(s);
         if(cb)cb(products);
       },err);
       return products;
@@ -341,7 +349,7 @@ Product.factory('product', [
       };
       
       var product=this, s=this.backend.products.get({sku:sku},function() {
-        if(cb)cb(product.share(s,true));
+        if(cb)cb(product.wrap(s));
       },err);
       return this;
     };
@@ -350,7 +358,7 @@ Product.factory('product', [
     Product.prototype.save = function( cb, err){
       if(!err) err=onerr;
       var product=this, s=this.backend.products.save({sku:this.sku},this, function() {
-        if(cb)cb(product.share(s,true));
+        if(cb)cb(product.wrap(s));
       },err);
       return this;
     };
@@ -358,7 +366,7 @@ Product.factory('product', [
     Product.prototype.create=function(shop, p,cb,err){
       if(!err) err=function(){};
       var product=this, s = this.backend.shop.save({shopname:shop},p, function() {
-        product.share(s,true);
+        product.wrap(s);
         if(cb)cb(product);
       },err);
       return this;
@@ -372,7 +380,7 @@ Product.factory('product', [
       return this;
     };    
    
-    _products=api.wrapDomain(Product, 'sku', 'products', defaultProduct, onerr);  
+    _products=api.wrapDomain(Product, 'sku', defaultProduct);  
     return _products;
   }
 ]);

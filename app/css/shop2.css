@@ -9,7 +9,7 @@ article{
 	padding-left: 0px;
 	padding-bottom: 12px;
 	padding-top: 12px;
-	-font-size: 12px;
+	font-size: 12px;
 	letter-spacing: 2px;
 	text-transform: uppercase;
 	color: #b3b3b1;
@@ -28,7 +28,6 @@ article{
 	padding-right: 15px;
 	
 }
-
 .hours {
 	color: #959ba2;
 	margin: 10px 0 -6px;

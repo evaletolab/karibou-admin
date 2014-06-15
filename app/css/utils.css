@@ -157,6 +157,11 @@ ul.nav li{
   line-height:130%;
 }
 
+.smallx {
+  font-size: 80%;
+  line-height:130%;
+}
+
 .lazy {
   -display: none;
 }

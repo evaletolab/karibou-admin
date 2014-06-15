@@ -30,8 +30,9 @@ Service.factory('api', [
   '$http',
   '$resource',
   '$timeout',
+  '$q',
   'config',
-function ($rootScope, $http, $resource, $timeout, config) {  
+function ($rootScope, $http, $resource, $timeout, $q, config) {  
   var _categories=[], promise;
 
   /**
@@ -127,31 +128,74 @@ function ($rootScope, $http, $resource, $timeout, config) {
   }
   
   
-  function wrapDomain(clazz, key, rest, defaultclazz, onerr){
+  function wrapDomain(clazz, key, defaultClazz){
 
     clazz.prototype.copy = function(data) {
-        angular.extend(this,defaultclazz, data);
+        angular.extend(this,defaultClazz, data);
     };
 
+    //
+    // default behavior on error
+    clazz.prototype.onerr=function(data,config){
+      this.copy(defaultClazz);
+    };
 
-    clazz.prototype.map=function(values){
+    /**
+     * chain a Object resource as the next promise
+     */
+    clazz.prototype.chain=function(promise){
+     var self=this
+     this.$promise=this.$promise.then(function(){
+         return promise
+     })
+     return this
+    }
+
+
+    /**
+     * chain a Array resource as the next promise
+     */
+    clazz.prototype.chainAll=function(promise){
+     var self=this;var deferred=$q.defer(); var lst=new Array()
+     this.$promise=lst.$promise=this.$promise.then(function(){
+          return promise.then(function(l){
+            lst=self.wrapArray(l)
+            // deferred.resolve(lst)
+            return lst
+          })
+     })
+     // this.$promise=lst.$promise=deferred.promise;
+     return lst
+    }
+
+    /**
+     * wrap json data to Object instance repository
+     */
+    clazz.prototype.wrapArray=function(values){
       var list=[];
       values.forEach(function(instance){
-        list.push(_singleton.share(instance));
+        //
+        // manage cache on multiple instance
+        if(!_all[instance[key]]){
+          _all[instance[key]]=new clazz();          
+        }
+        _all[instance[key]].copy(instance);
+        list.push(_all[instance[key]]);
       });
       return list;  
     };
     
    
-    clazz.prototype.share=function(instance, copy){
-      if(!_all[instance[key]]){
-        _all[instance[key]]=new clazz();
-        _all[instance[key]].copy(instance);
-      }
-      if (copy)this.copy(instance);
-      return _all[instance[key]];
+    clazz.prototype.wrap=function(instance){
+      this.copy(instance);
+      return this;
     }
+
+
     
+    /**
+     * find data in repository 
+     */
     clazz.findAll=function(where, cb){
       if (!where){
         return _.map(_all, function(val,key){return val;});
@@ -185,10 +229,7 @@ function ($rootScope, $http, $resource, $timeout, config) {
     
     clazz.load=function(elems){
       if (!elems) return _.map(_all, function(val,key){return val});
-      var list=[];
-      elems.forEach(function(e){
-        list.push(_singleton.share(e));
-      });
+      var list=_singleton.wrapArray(elems);
       return list;
     };
     //

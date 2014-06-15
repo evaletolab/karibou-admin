@@ -300,6 +300,19 @@ UI.directive('hideOnClick', ['$parse','$timeout', function($parse, $timeout) {
   }
 }]);
 
+UI.directive('toggleOnClick', ['$parse','$timeout', function($parse, $timeout) {
+  return function(scope, element, attr) {
+      $timeout(function(){
+        var e=angular.element(attr['toggleOnClick']);
+        if(e.length){
+          element.click(function(){
+            e.toggle();
+          });
+        }
+      },0);
+  }
+}]);
+
 
 UI.directive('fadeOnHover', ['$parse','$timeout', function($parse, $timeout) {
   return function(scope, element, attr) {

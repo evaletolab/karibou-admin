@@ -187,7 +187,7 @@ Category.factory('category', [
       }
       
       var category=this, c=this.backend.get({category:slug},function() {
-        category.share(s,true);
+        category.wrap(s);
         if(cb)cb(category);
       },err);
       return category;
@@ -199,7 +199,7 @@ Category.factory('category', [
 
       if(!err) err=onerr;
       var category=this, s=this.backend.save({category:this.slug},this, function() {
-        category.share(s,true);
+        category.wrap(s);
         if(cb)cb(category);
       },err);
       return category;
@@ -208,7 +208,7 @@ Category.factory('category', [
     Category.prototype.create=function(cat, cb,err){
       if(!err) err=function(){};
       var category=this, s = this.backend.save(cat, function() {
-        category=category.share(s,true);
+        category=category.wrap(s);
         if(cb)cb(category);
       },err);
       return category;
@@ -222,9 +222,7 @@ Category.factory('category', [
       return category;
     };    
    
-    return api.wrapDomain(Category,'slug', 'category', defaultCategory, onerr);  
-
-
+    return api.wrapDomain(Category,'slug', defaultCategory);  
   }
 ]);
 

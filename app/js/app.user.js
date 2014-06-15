@@ -21,13 +21,13 @@ User.config([
       .when('/auth/login', {_view:'main', templateUrl : '/partials/auth/login.html'})
       .when('/signup', {title:'Créer votre compte', _view:'main', templateUrl : '/partials/account/signup.html'})
       .when('/login', {title:'Login', _view:'main', templateUrl : '/partials/account/login.html'})
-      .when('/validate/:uid/:email', {title:'Email Validation', templateUrl : '/partials/account/overview.html'})
+      .when('/validate/:id/:email', {title:'Email Validation', templateUrl : '/partials/account/overview.html'})
+      .when('/recovery', { _view:'main', templateUrl : '/partials/account/recovery.html'})
 
       // Account
       // `auth : true` is a custom value passed to current route
       .when('/account', {title:'Votre profile', _view:'main',redirectTo : '/account/overview'})
       .when('/account/', {title:'Votre profile', _view:'main', redirectTo : '/account/overview'})
-      .when('/account/recovery', { _view:'main', templateUrl : '/partials/account/recovery.html'})
       .when('/account/love', {_view:'main', love:true, templateUrl : '/partials/product/love.html'})
       .when('/account/shop', {_view:'main', templateUrl : '/partials/account/shop.html'})
       .when('/account/orders', {_view:'main', templateUrl : '/partials/account/orders.html'})
@@ -65,13 +65,14 @@ User.controller('AccountCtrl',[
     
     var cb_error=api.error($scope);
 
+
     if($location.path()==='/admin/user'){
       $scope.users=user.query({},function(users){
         $scope.users=users;
       })
     }
 
-    if($routeParams.uid&&$routeParams.email){
+    if($routeParams.id&&$routeParams.email){
       user.validate($routeParams,function(msg){
         api.info($scope,"Votre adresse email à été validée!");
       });
@@ -313,10 +314,10 @@ User.factory('user', [
   '$route',
   '$resource',
   '$q',
+  'api',
   'shop',
 
-  function (config, $location, $rootScope, $route, $resource, $q, shop) {
-    var deferred = $q.defer();
+  function (config, $location, $rootScope, $route, $resource, $q, api, shop) {
     
     var defaultUser = {
       id: '',
@@ -334,34 +335,20 @@ User.factory('user', [
     };
 
 
-    //
-    // default behavior on error
-    var onerr=function(data,config){
-       deferred.reject(data)
-      _user.copy(defaultUser);
-    };
     
     var User = function(data) {
-      angular.extend(this, defaultUser, data, deferred.promise);
+      this.backend={}
+      this.backend.$user=$resource(config.API_SERVER+'/v1/users/:id/:action/:aid',
+              {id:'@id',action:'@action',aid:'@aid'}, {
+              update: {method:'POST'},
+              delete: {method:'PUT'},
+      });
+
+      //
+      // wrap promise to this object
+      this.$promise=$q.when(this)
+
     }
-    
-    // User.prototype.gmap=function(address){
-    //   address.gmap={};
-    //   address.gmaps=[];
-    //   address.gmaps.push(address.gmap);
-    //   address.gmap.latitude=address.geo.lat;
-    //   address.gmap.longitude=address.geo.lng;
-    // }
-    
-    
-    User.prototype.copy = function(data) {
-        angular.extend(this, data);
-        //
-        // formating properties for the widget
-        for (var i in this.addresses){          
-          //this.gmap(this.addresses[i]);
-        }
-    };
 
 
     User.prototype.display=function(){
@@ -427,41 +414,43 @@ User.factory('user', [
         return false;
     }
 
+
     //
     // REST api wrapper
     //
 
     User.prototype.me = function(cb,err) {
-      if(!err) err=onerr,_user=this;
-      var u=$resource(config.API_SERVER+'/v1/users/me').get( function(_u,headers) {
-        _user.copy(_u);
-        _user.shops=shop.map(_user.shops);
-        deferred.resolve(_u)
-        if(cb)cb(_user);        
-      },err);
-      return this;
+      var self=this;if(!err) err=function(){self.onerr()};
+      return this.chain(this.backend.$user.get({id:'me'}, function(_u,headers) {
+          self.wrap(_u);
+          self.shops=shop.wrapArray(self.shops);
+          if(cb)cb(self);        
+          return self;
+        },err).$promise
+      );
     };
 
+
     User.prototype.query = function(filter,cb,err) {
-      if(!err) err=onerr;
+      if(!err) err=this.onerr;
       var users=[], s,user=this;
-      s=$resource(config.API_SERVER+'/v1/users').query(filter, function() {
+      s=this.backend.$user.query(filter, function() {
         users=(s);
         if(cb)cb(users);
       },err);
-      return users;
+      return s;
     };
 
     User.prototype.validate = function(validation, cb,err) {
-      if(!err) err=onerr;
-      var msg=$resource(config.API_SERVER+'/v1/validate/:uid/:email',validation).get( function() {
+      if(!err) err=this.onerr;
+      var msg=$resource(config.API_SERVER+'/v1/validate/:id/:email',validation).get( function() {
         if(cb)cb(msg);
       },err);
       return;
     };
 
     User.prototype.validateEmail = function( cb, err){
-      if(!err) err=onerr;
+      if(!err) err=this.onerr;
       var validate=$resource(config.API_SERVER+'/v1/validate/create').save(function() {
         if(cb)cb(validate);
       },err);
@@ -469,7 +458,7 @@ User.factory('user', [
     };
 
     User.prototype.recover = function(recover, cb, err){
-      if(!err) err=onerr;
+      if(!err) err=this.onerr;
       var d=$resource(config.API_SERVER+'/v1/recover/:token/:email/password',recover).save(function() {
         if(cb)cb(d);
       },err);
@@ -478,8 +467,8 @@ User.factory('user', [
 
 
     User.prototype.save = function(user, cb, err){
-      if(!err) err=onerr;
-      var u=$resource(config.API_SERVER+'/v1/users/:id',{id:_user.id}).save(user, function() {
+      if(!err) err=this.onerr;
+      var u=this.backend.$user.save(user, function() {
         _user.copy(u);
         if(cb)cb(_user);
       },err);
@@ -503,16 +492,15 @@ User.factory('user', [
     };
 
     User.prototype.newpassword=function (change, cb,err){
-
       if(!err) var err=function(){};
-      var _user=this, u = $resource(config.API_SERVER+'/v1/users/:id/password',{id:_user.id}).save(change, function() {
+      var _user=this, u = this.backend.$user.save({id:this.id,action:'password'},change, function() {
         if(cb)cb(_user);
       },err);
       return u;
     };
 
     User.prototype.login=function (data, cb,err){
-      if(!err) var err=onerr;
+      if(!err) var err=this.onerr;
       var u = $resource(config.API_SERVER+'/login').save(data, function() {
         _user.copy(u);
 
@@ -521,6 +509,8 @@ User.factory('user', [
       return u;
     };
     
+    //
+    // TODO move this action to the shop service
     User.prototype.createShop=function(shop,cb,err){
       if(!err) var err=function(){};
       var s = $resource(config.API_SERVER+'/v1/shops').save(shop, function() {
@@ -532,18 +522,22 @@ User.factory('user', [
 
 
     User.prototype.love=function(product,cb,err){
-      if(!err) var err=function(){};
-      var u = $resource(config.API_SERVER+'/v1/users/:id/like/:sku',{id:_user.id,sku:product.sku}).save( function() {
+      if(!err) var err=function(){}, params={};
+
+      angular.extend(params, {id:this.id,action:'like',aid:product.sku})
+      var u = this.backend.$user.save(params, function() {
+      // var u = $resource(config.API_SERVER+'/v1/users/:id/like/:sku',{id:_user.id,sku:product.sku}).save( function() {
         _user.copy(u);
         if(cb)cb(_user);
       },err);
       return u;
     };    
 
+
    
     //
     //default singleton for user  
-    var     _user=new User({});
+    var _user=api.wrapDomain(User,'id', defaultUser);
     return _user;  
   }
 ]);

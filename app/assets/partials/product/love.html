@@ -29,7 +29,7 @@
         <div ng-controller="HomeCtrl" class="row wrapheight" >
      
 
-            <article>
+            <article ng-init="findAllUserLoves()">
               <div  style="width:100%;"><!-- MANSORY FIX -->
                 <div  ng-include="'/partials/product/product.html'"  ng-repeat="product in products"></div>              
               </div>
