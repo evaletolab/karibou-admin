@@ -21,6 +21,21 @@
   border-top:1px solid #eee;
 }
 
+.icon-7x {
+  font-size: 8em;
+}
+.icon-7x.icon-border {
+  border-width: 8px;
+  -webkit-border-radius: 7px;
+  -moz-border-radius: 7px;
+  border-radius: 7px;
+}
+
+.btn-transparent {
+  background-color: transparent;
+  border-color: #ccc;
+}
+
 
 .separator{
   -webkit-box-shadow: 0 1px #fff;

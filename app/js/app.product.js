@@ -20,8 +20,14 @@ Product.config([
       .when('/products/create', {
           title:'Créer un nouveau produit ',clear:true, modal:true, view:'modal',controller:'ProductCtrl', templateUrl : '/partials/product/create.html'
        })
+      .when('/shop/:shop/products/create', {
+          title:'Créer un nouveau produit ',clear:true, modal:true, view:'modal',controller:'ProductCtrl', templateUrl : '/partials/product/create.html'
+       })
       .when('/products/:sku', {
           title:'Votre produit ', modal:true,view:'modal',controller:'ProductCtrl', templateUrl : '/partials/product/product-wide.html'
+       })
+      .when('/shop/:shop/products/:sku/edit', {
+          title:'Votre produit ', modal:true, edit:true, view:'modal',controller:'ProductCtrl', templateUrl : '/partials/product/create.html'
        })
       .when('/products/:sku/edit', {
           title:'Votre produit ', modal:true, edit:true, view:'modal',controller:'ProductCtrl', templateUrl : '/partials/product/create.html'
@@ -55,14 +61,57 @@ Product.controller('ProductCtrl',[
     $scope.config=config;
     $scope.cart=cart;
 
+    //
+    // 
+    $scope.rootProductPath=($routeParams.shop)?'/shop/'+$routeParams.shop:''
+
 
     $scope.showActionOnSwipe=function(id){
       // $(id).css({opacity:1,'z-index':1000});
       $(id).fadeIn();
-
     }
 
+    $scope.computeUrl=function(){
+      var url;
+      // edit from shop
+      if($routeParams.shop && $routeParams.sku && $location.path().indexOf('/edit')!=-1){
+        url='/shop/'+$routeParams.shop+'/products/'+$routeParams.sku
+      }
+
+      // edit from products
+      else if($routeParams.sku && $location.path().indexOf('/edit')!=-1){
+        url='/products/'+$routeParams.sku
+      }
+
+      // from shop
+      else if($routeParams.shop){
+        url='/shop/'+$routeParams.shop
+      }
+
+      // from category 
+      else if($routeParams.category){
+        url='/products/category/'+$routeParams.category
+      }
+
+      // from sku
+      else if($routeParams.sku){
+        url='/products'
+      }
+
+      else if(scope.referrer){
+        $location.path(scope.referrer)
+        return;
+      }
+
+      else{
+        url='/'
+      }
+      return url;      
+    }
+
+
     $scope.save=function(product){
+      $rootScope.WaitText="Waiting ..."
       product.save(function(s){
 
           //
@@ -89,6 +138,7 @@ Product.controller('ProductCtrl',[
           api.info($scope,"Vous devez vous connecter pour utiliser cette fonctionalité");
           return;
       }
+      $rootScope.WaitText="Waiting ..."
       user.love(product,function(u){
           //
           // this product as changed
@@ -102,6 +152,7 @@ Product.controller('ProductCtrl',[
       if (!shop){
         return api.info($scope,"Vous devez préciser la boutique");
       }
+      $rootScope.WaitText="Waiting ..."
       product.create(shop,p,function(product){
           $location.path("/products/"+product.sku)
           $scope.product=product;

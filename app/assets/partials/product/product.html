@@ -1,15 +1,29 @@
-  <div class="block layout-item c1 "  id="product{{product.sku}}" ng-swipe-left="showActionOnSwipe('#product{{product.sku}}')">
+  <div id="product{{product.sku}}" class="block layout-item c1" >
       <!-- ACTION FOR THIS PRODUCT -->
-      <div class="actions" style="position:absolute;top:10px;left:10px"
-           fade-on-hover="#product{{product.sku}}"           
+      <div  class="actions hidden-xs hidden-sm hidden-md" style="position:absolute;top:10px;left:10px"
+           fade-on-hover="#product{{product.sku}}"         
            ng-hide="!product.attributes.available||!product.pricing.stock" >
             <a class="btn btn-danger " ng-click="love(product)">
-              <i class="icon-star-empty "></i>&nbsp;J'aime
+              <i ng-class="{true:'icon-heart',false:'icon-heart-empty'}[user.hasLike(product)]"></i>
+
+              &nbsp;J'aime
             </a> 
-            <a class="btn btn-primary " ng-click="cart.add(product)" ng-show="product.isAvailableForOrder()||!product.pricing.stock">
-              <i class="icon-ok"></i>&nbsp;J'achète
+            <a class="btn btn-primary " ng-click="cart.add(product)" ng-disabled="WaitText"
+                ng-show="product.isAvailableForOrder()&& product.pricing.stock">
+              <i ng-class="{'icon-ellipsis-horizontal':CartText, 'icon-ok ':!CartText}"></i>
+              &nbsp;J'achête 
             </a>
       </div>
+      <div class="actions hidden-lg" ng-show="product.isAvailableForOrder()&&product.pricing.stock">
+          <a class="btn btn-transparent green" ng-click="cart.add(product)">
+            <i ng-class="{'icon-ellipsis-horizontal icon-2x':CartText, 'icon-plus icon-2x ':!CartText}"></i>
+          </a>
+          <a class="btn btn-transparent green pull-right" ng-click="cart.remove(product)" 
+              ng-show="cart.findBySku(product.sku).quantity">
+            <i ng-class="{'icon-ellipsis-horizontal icon-2x':CartText, 'icon-minus icon-2x ':!CartText}"></i>
+          </a>
+      </div>
+
       <!-- PRODUCT LINK -->
       <a  href="{{shop.urlpath|test:'/shop/':''}}/products/{{product.sku}}" shop="/shop/{{product.vendor.urlpath}}" class="link">
 

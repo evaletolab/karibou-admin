@@ -25,6 +25,7 @@ Service.factory("flash", function($rootScope) {
 });
 
 
+
 Service.factory('api', [
   '$rootScope',
   '$http',
@@ -47,8 +48,8 @@ function ($rootScope, $http, $resource, $timeout, $q, config) {
   };
 
   function info($scope, msg, ms, cb){
-      if(ms === undefined){ var ms=6000; }
-      else if ((typeof ms)==='function'){ var cb=ms;ms=6000; }
+      if(ms === undefined){ var ms=4000; }
+      else if ((typeof ms)==='function'){ var cb=ms;ms=4000; }
       $rootScope.FormInfos=msg;
       $timeout.cancel(promise);
       promise=$timeout(function(){

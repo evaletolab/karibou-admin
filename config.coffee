@@ -18,10 +18,13 @@ exports.config =
         before: [
           'bower_components/jquery/dist/jquery.js',
           'bower_components/bootstrap/dist/js/bootstrap.js',
+          'bower_components/fastclick/lib/fastclick.js',
           'bower_components/angular/angular.js',
           'bower_components/angular/angular-loader.js',
           'bower_components/angular/angular-cookies.js',
           'bower_components/angular/angular-resource.js',
+          'bower_components/nprogress/nprogress.js',
+          'bower_components/underscore/underscore.js'
         ]
 
     stylesheets:
@@ -30,8 +33,8 @@ exports.config =
         'css/app.css': /^app/
       order:
         before: [
-          'vendor/styles/bootstrap-combined.no-icons.min'
-          'vendor/styles/font-awesome.min.css'
+          'bower_components/nprogress/nprogress.css',
+          'vendor/styles/font-awesome.css'
           'vendor/styles/bootstrap.css'
         ]
         after: [

@@ -5,7 +5,7 @@ var LZ=angular.module('app.ui');
 
 
 // I lazily load the images, when they come into view.
-LZ.directive("bnLazySrc",['$window','$document', function( $window, $document ) {
+LZ.directive("bnLazySrc",['$window','$document','config', function( $window, $document, config ) {
  
  
         // I manage all the images that are currently being

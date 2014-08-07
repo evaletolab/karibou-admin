@@ -88,6 +88,16 @@ Home.controller('HomeCtrl', [
       });
     }
 
+    //
+    // use this to group view by Category
+    $scope.currentCategory = null;
+    $scope.groupByCategory = function(cat) {
+      var catObj=category.find({name:cat})        
+      var showCategory = (catObj!=$scope.currentCategory); 
+       $scope.currentCategory = catObj;
+      return showCategory;
+    }     
+
     if($route.current.$$route.love){
       // TODO REMOVE THIS
       return;

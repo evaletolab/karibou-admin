@@ -27,14 +27,14 @@ Category.config([
 Category.controller('CategoryCtrl',[
   'config',
   '$scope',
-  '$rootScope',
+  '$timeout',
   '$routeParams',
   '$location',
   'api',
   'category',
   '$resource',
 
-  function (config, $scope, $rootScope, $routeParams, $location, api, category,$resource) {
+  function (config, $scope, $timeout, $routeParams, $location, api, category,$resource) {
 
 
     var cb_error=api.error($scope);
@@ -108,6 +108,20 @@ Category.controller('CategoryCtrl',[
       $scope.modalDissmiss()
     }
     
+    //
+    // upload foreground photo 
+    $scope.uploadCover=function(cat){
+      api.uploadfile($scope, {},function(err,fpfile){
+        if(err){
+          api.info($scope,"l'opération à été anullé");
+          return false;
+        }
+        $timeout(function() {
+          cat.cover=fpfile.url;
+        }, 0);
+        
+      });
+    }    
     
     // init
     category.select({stats:true},function(categories){

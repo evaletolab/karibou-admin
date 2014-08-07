@@ -3,7 +3,7 @@
 
 
 
-   <section class="wrapper" tabindex="-1">
+   <section class="wrapper paysage" tabindex="-1">
       <div class="wrapper-inner">
 
 
@@ -31,7 +31,9 @@
                   <th>Liens</th>
                   <th>Poid</th>
                   <th>Type</th>
-                  <th>Image</th>
+                  <th>Icon</th>
+                  <th>Cover</th>
+                  <th>Actions</th>
                 </tr>
               </thead>
 
@@ -43,6 +45,9 @@
                   <td>
                       <i class="{{c.image}}" style="color:{{c.color}}"></i>
                       <span>{{c.image}}</span>
+                  </td>
+                  <td>
+                      <img ng-show="c.cover" src="{{c.cover}}" title="{{c.cover}}" class="img-circle" style="height:25px">
                   </td>
                   <td  style="width:60px;height:25px">
                     <div fade-on-hover=".table">

@@ -5,7 +5,6 @@ var App = angular.module('app', [
   'ngCookies',
   'ngResource',  
   'ngRoute',
-  'ngTouch',
   'ngSanitize',
   'app.config',
   'app.api',
@@ -27,11 +26,12 @@ App.config([
   '$httpProvider',
 
   function ($routeProvider, $locationProvider, $httpProvider) {
-
+    var error_net=0;
     var interceptor = ['$rootScope', '$q','$location', function (scope, $q, $location) {
       function success(response, config) {
-          scope.WaitText = false;
+          scope.WaitText = false;error_net=0;
           NProgress.done();
+
 
           return response;
       }
@@ -39,7 +39,8 @@ App.config([
       function error(response) {
           scope.WaitText = false;
           NProgress.done();
-          if (response.status === 0) {
+          response.status||error_net++
+          if (error_net > 3) {
             $location.path('/the-site-is-currently-down-for-maintenance-reasons');
           }
 
@@ -111,6 +112,10 @@ App.factory('cordovaReady', function() {
 // Bootstrap (= launch) application
 angular.element(document).ready(function () {
 
+  //
+  // loading fastclick for mobile tap
+  FastClick.attach(document.body);
+
 
   //
   // loading leafletjs and the directive
@@ -118,6 +123,7 @@ angular.element(document).ready(function () {
   //      "//rawgithub.com/tombatossals/angular-leaflet-directive/master/dist/angular-leaflet-directive.min.js"],
   //      "leaflet");
   
+
 
 
   //

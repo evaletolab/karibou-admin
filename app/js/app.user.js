@@ -50,6 +50,7 @@ User.controller('AccountCtrl',[
   'config',
   '$scope',
   '$location',
+  '$rootScope',
   '$routeParams',
   'api',
   'user',
@@ -58,7 +59,7 @@ User.controller('AccountCtrl',[
   '$timeout',
   '$http',
   
-  function (config, $scope, $location, $routeParams, api, user, Map, shop, $timeout, $http) {
+  function (config, $scope, $location, $rootScope, $routeParams, api, user, Map, shop, $timeout, $http) {
     $scope.user=user;    
     $scope.users=[];
     $scope.providers=config.providers;
@@ -98,6 +99,7 @@ User.controller('AccountCtrl',[
     //
     // login action
     $scope.login= function(email,password){
+      $rootScope.WaitText="Waiting ..."
       user.login({ email: email, password:password, provider:'local' },function(u){
         api.info($scope,"Merci, vous êtes dès maintenant connecté");
 
@@ -132,6 +134,7 @@ User.controller('AccountCtrl',[
         confirm:u.password.new
       };
       
+      $rootScope.WaitText="Waiting ..."
       user.register(r,function(){
         api.info($scope,"Votre compte à été créé! Vous pouvez vous connecter dès maintenant",function(){
           $location.url('/login');
@@ -142,6 +145,7 @@ User.controller('AccountCtrl',[
     //
     // create a new shop
     $scope.createShop=function(s){
+      $rootScope.WaitText="Waiting ..."
       shop.create(user,s,function(){
           api.info($scope,"Votre boutique à été crée ",function(){
             if ($scope.activeNavId==='/account/shop')
@@ -155,6 +159,7 @@ User.controller('AccountCtrl',[
     //
     // save action
     $scope.save=function(u){
+      $rootScope.WaitText="Waiting ..."
       user.save(user,function(){
         api.info($scope,"Profile enregistré");
       },cb_error);
@@ -167,6 +172,7 @@ User.controller('AccountCtrl',[
     //
     // validate user email
     $scope.changePassword=function(email,password){
+      $rootScope.WaitText="Waiting ..."
       password.email=email;
       user.newpassword(password,function(){
         api.info($scope,"Password modifié");
@@ -177,6 +183,7 @@ User.controller('AccountCtrl',[
     //
     // validate user email
     $scope.verify=function(u){
+      $rootScope.WaitText="Waiting ..."
       user.save(user,function(){
         user.validateEmail(function(validate){
           api.info($scope,"Merci, une confirmation a été envoyé à cette adresse email");

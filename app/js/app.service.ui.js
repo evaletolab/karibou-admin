@@ -36,6 +36,62 @@ UI.filter('clean', function () {
 
 
 //
+// http://stackoverflow.com/questions/19992090/angularjs-group-by-directive
+UI.filter('groupBy', ['$parse', function ($parse) {
+    return function (list, group_by) {
+
+        var filtered = [];
+        var prev_item = null;
+        var group_changed = false;
+        // this is a new field which is added to each item where we append "_CHANGED"
+        // to indicate a field change in the list
+        //was var new_field = group_by + '_CHANGED'; - JB 12/17/2013
+        var new_field = 'group_by_CHANGED';
+
+        // loop through each item in the list
+        angular.forEach(list, function (item) {
+
+            group_changed = false;
+
+            // if not the first item
+            if (prev_item !== null) {
+
+                // check if any of the group by field changed
+
+                //force group_by into Array
+                group_by = angular.isArray(group_by) ? group_by : [group_by];
+
+                //check each group by parameter
+                for (var i = 0, len = group_by.length; i < len; i++) {
+                    if ($parse(group_by[i])(prev_item) !== $parse(group_by[i])(item)) {
+                        group_changed = true;
+                    }
+                }
+
+
+            }// otherwise we have the first item in the list which is new
+            else {
+                group_changed = true;
+            }
+
+            // if the group changed, then add a new field to the item
+            // to indicate this
+            if (group_changed) {
+                item[new_field] = true;
+            } else {
+                item[new_field] = false;
+            }
+
+            filtered.push(item);
+            prev_item = item;
+
+        });
+
+        return filtered;
+    };
+}]);
+
+//
 // Declare global directives here
 UI.directive('toggleSidebar', ['$parse','$timeout', function($parse, $timeout) {
   return function(scope, element, attr) {
@@ -59,6 +115,9 @@ UI.directive('toggleSidebar', ['$parse','$timeout', function($parse, $timeout) {
     },1000)
   }
 }]);
+
+
+
 
 //
 // Declare global directives here
@@ -138,13 +197,14 @@ UI.directive('backstretch', ['$parse', function($parse) {
               
       }
       var options=($parse(attr['backstretch']))();
-      scope.$watch(options.src, function(value) {
+      var src=(options)?options.src:attr['backstretch']
+      scope.$watch(src, function(value) {
           if (value){
             bs(element, value)
-          }else if(options.load){
+          }else if(options['load']){
             bs(element, options.load)
           }else{
-            bs(element, options.src)
+            bs(element, src)
           }
        });
     }
@@ -175,9 +235,8 @@ UI.directive('background', ['$parse', function($parse) {
 }]);
 
 
-UI.directive('backfader', ['$parse','$location','$anchorScroll', function($parse,$location,$anchorScroll) {
+UI.directive('backfader', ['$parse','$location','$anchorScroll','$routeParams', function($parse,$location,$anchorScroll, $routeParams) {
   return function(scope, element, attr) {
-      
       angular.element("body").addClass('noscroll');
       var i=setInterval(function(){
         if(!element.is(":visible")){
@@ -188,15 +247,21 @@ UI.directive('backfader', ['$parse','$location','$anchorScroll', function($parse
       element.removeClass('hide').click(function(e) {
 		    if(e.target === element[0]){
           angular.element("body").removeClass('noscroll');
+          var url
+          if(scope.computeUrl)
+            url=scope.computeUrl();
+          else
+            url=scope.referrer
+          
 
           //
           // FIXME place the RegExp() in the template attr['backfader']
-          var url=$location.path().replace(/^(.*\/[0-9]+)\/edit$/,"$1");
-          if (url===$location.path()) url=url.replace(/^(.*)\/[0-9]+$/,"$1");
-          if (url===$location.path()) {
-            window.history.back();
-            return;
-          }
+          // var url=$location.path().replace(/^(.*\/[0-9]+)\/edit$/,"$1");
+          // if (url===$location.path()) url=url.replace(/^(.*)\/[0-9]+$/,"$1");
+          // if (url===$location.path()) {
+          //   window.history.back();
+          //   return;
+          // }
           window.scrollBy(scope.scrollLeft,scope.scrollTop);
           scope.$apply(function(){
             $location.path(url)
@@ -306,10 +371,14 @@ UI.directive('toggleOnClick', ['$parse','$timeout', function($parse, $timeout) {
         var e=angular.element(attr['toggleOnClick']);
         if(e.length){
           element.click(function(){
-            e.toggle();
+            e.toggle(function(){
+              e.css('display','block!important')
+            },function(){
+              e.css('display','none')
+            });
           });
         }
-      },0);
+      },1500);
   }
 }]);
 
@@ -323,11 +392,10 @@ UI.directive('fadeOnHover', ['$parse','$timeout', function($parse, $timeout) {
             element.fadeIn('fast');
           }).bind('mouseleave', function(){
             element.fadeOut('fast');
-          })
-          
-          
+          })          
         }
-      },60);
+      },10);
+
       element.hide();
   }
 }]);

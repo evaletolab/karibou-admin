@@ -9,7 +9,7 @@
 
 
    <section class="wrapper" tabindex="-1">
-      <div class="wrapper-inner rows">
+      <div class="wrapper-inner wide">
 
 
 
@@ -65,7 +65,7 @@
 
         <!-- FAQ -->
         <section>
-          <h4 class="article-group-title black">FAQ</h4>
+          <h3 class="article-group-title black">FAQ</h3>
           <p>Retrouver les questions les plus fréquentes à propos de la boutique <b>{{shop.name}}</b>
           </p>
           <ol>
@@ -87,6 +87,7 @@
 <!--             <img src="http://staticmap.openstreetmap.de/staticmap.php?center=52.540236667913,11.811828610818&zoom=11&size=600x300&markers=52.540236667913,11.811828610818,pink-pushpin" style="width:100%"/>    -->         
               <img src="{{map.resolveStaticmap(shop.address,shop.address.name)}}" style="width:100%"/>
           </div>
+          <hr/>
         </section>                        
 
          <section ng-show="shop.address.geo">
@@ -139,7 +140,7 @@
 
 
       <!-- FOOTER -->              
-      <footer class="wrapper-footer" ng-include="'/footer.html'"></footer>
+      <footer class="wrapper-footer wide" ng-include="'/footer.html'"></footer>
    </section>
 </div>
 

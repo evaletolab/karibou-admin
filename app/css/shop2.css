@@ -66,3 +66,49 @@ article{
 	font-weight: bold;
 	margin-bottom: 10px;	
 }
+
+
+.products .cover-resume.shop-profile{
+	display: none;
+}
+
+.cover-resume.shop-profile{
+	border-top: 0;
+	padding-top: 46px;
+	color: #aaa;
+	text-shadow: 1px 1px 1px #fff;
+	text-align: left;
+}
+
+.cover-resume.shop-profile{
+	font-size: 22px;
+}
+.cover-resume.shop-profile div{
+	margin: 0 auto;
+	margin-bottom: 10px;
+	width: 250px;
+}
+.cover-resume.shop-profile h3{
+	-text-transform: uppercase;
+	padding-bottom: 20px;
+
+}
+
+.cover-resume.shop-profile i{
+	margin-right: 8px;
+}
+
+.cover-resume.shop-profile a{
+	color: #aaa;
+}
+
+.cover-resume.shop-profile .btn-transparent.left{
+  text-align: left;
+  padding-left: 20px;
+}
+
+.products .cover-user .cover-body {
+    -webkit-box-shadow:none;
+       -moz-box-shadow:none;
+            box-shadow:none;
+    }

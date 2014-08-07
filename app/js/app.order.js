@@ -18,8 +18,9 @@ Order.config([
     $routeProvider
       .when('/logistic/collect', {title:'welcome to your open community market',  templateUrl : '/partials/logistic/collect.html'})
       .when('/logistic/livraison', {title:'welcome to your open community market',  templateUrl : '/partials/logistic/overview.html'})
-      .when('/order', {title:'Valider votre commande',  templateUrl : '/partials/order/order.html'})
-      .when('/admin/order', {title:'Admin of order ', _view:'main', templateUrl : '/partials/admin/order.html'});
+      .when('/order', {title:'Valider votre commande', templateUrl : '/partials/order/order.html'})
+      .when('/admin/orders', {title:'List next orders ',  templateUrl : '/partials/admin/orders.html'})
+      .when('/admin/order', {title:'Admin of order ',  templateUrl : '/partials/admin/order.html'});
   }
 ]);
 
@@ -32,13 +33,14 @@ Order.controller('OrderCtrl',[
   '$scope',
   '$location',
   '$rootScope',
+  '$timeout',
   'api',
   'order',
   'cart',
   'user',
   '$log',
 
-  function (config, $scope, $location, $rootScope,  api, order, cart, user, $log) {
+  function (config, $scope, $location, $rootScope, $timeout,  api, order, cart, user, $log) {
     var cb_error=api.error($scope);
 
     $scope.config=config;
@@ -46,42 +48,57 @@ Order.controller('OrderCtrl',[
     $scope.shipping=order.nextsShippingDate();
     $scope.cart=cart;
     $scope.errors=false;
+    $scope.orders=[];
     
 
     //
     // init order fields
     user.$promise.then(function(){
       var p=user.hasPrimaryAddress();
-      order.address=(p!=-1)?p:0;      
+      $scope.cart.config.address=(p!=-1)?p:0;      
     })
 
+    //
+    // use this to group view by shipping date
+    $scope.currentShippingDate = null;
+    $scope.groupByShippingDate = function(date) {
+          var showHeader = (date!=$scope.currentShippingDate); 
+           $scope.currentShippingDate = date;
+          return showHeader;
+    }    
+
     $scope.updateGateway=function(){
-      cart.setTax(config.shop.order.gateway[order.payment].fees)   
+      cart.setTax(config.shop.order.gateway[cart.config.payment].fees)   
     }
 
 
     $scope.terminateOrder=function(){
+      $rootScope.WaitText="Waiting..."
 
       //
       // prepare shipping
-      var shipping=user.addresses[order.address];
-      shipping.when=$scope.shipping[$scope.order.shipping].when;
+      var shipping=user.addresses[cart.config.address];
+      shipping.when=$scope.shipping[$scope.cart.config.shipping].when;
 
       //
       // prepare items
       var items=$scope.cart.items;
       //
       //
-      var payment=config.shop.order.gateway[order.payment].label;
+      var payment=config.shop.order.gateway[cart.config.payment].label;
       order.create(shipping,items,payment,function(order){
         if(order.errors){
           $rootScope.errors=order.errors
+          $timeout(function(){$rootScope.errors=order.errors=false},3000)
           return;
         }
 
         var labels=order.getShippingLabels();
 
         var when=labels.date+" entre "+labels.time;
+        //
+        // empty the current cart to avoid multiple order
+        cart.empty()
         api.info($scope, "Votre  commande est enregistré, vous serez livré le "+when,6000)
       },cb_error)
     }
@@ -93,7 +110,6 @@ Order.controller('OrderCtrl',[
 
     //
     // get order by user
-    $scope.orders=[];
     $scope.findOrderByUser=function(){
       user.$promise.then(function(){
         order.findOrdersByUser(user).$promise.then(function(orders){
@@ -101,6 +117,15 @@ Order.controller('OrderCtrl',[
         });
 
       })
+    }
+
+    //
+    // get next shipping order
+    $scope.findNextShippingOrders=function(){
+      var filter={nextshippingday:true}
+      order.findAllOrders({}).$promise.then(function(orders){
+        $scope.orders=orders;
+      });
     }
 
   }  
@@ -112,7 +137,7 @@ Order.filter('dateLabel', function () {
         if (!prefix) prefix="";
 
         var date=(shipping.when)?shipping.when:shipping,
-            time=(shipping.time)?' entre '+shipping.time:''
+            time=(shipping.time)?' de '+shipping.time:''
         return  prefix+moment(date).format('dddd DD MMM YYYY', 'fr')+time;
    };
 });
@@ -179,6 +204,7 @@ Order.factory('cart', [
     
     var Cart = function(data) {
       this.items = [];
+      this.config={shipping:0,address:undefined}
     }
 
     Cart.prototype.clear=function(product){
@@ -191,6 +217,10 @@ Order.factory('cart', [
     }
 
     Cart.prototype.remove=function(product){
+      $rootScope.CartText="Waiting";
+      $timeout(function() { $rootScope.CartText=false }, 1000);
+      api.info($rootScope,product.pricing.part+", "+product.title+" a été enlevé du panier",2000)
+
       for(var i=0;i<this.items.length;i++){
         if(this.items[i].sku===product.sku){
           this.items[i].quantity--;
@@ -200,8 +230,8 @@ Order.factory('cart', [
           return this.items;
         }
       }
-
     }
+
     Cart.prototype.addList=function(products){
       var total=0;
       for(var i in products){
@@ -217,7 +247,11 @@ Order.factory('cart', [
     }
 
     Cart.prototype.add=function(product, silent){
-      if(!silent)api.info($rootScope,product.pricing.part+", "+product.title+" a été ajouté dans le panier",4000);
+      if(!silent){
+        $rootScope.CartText="Waiting";
+        $timeout(function() { $rootScope.CartText=false }, 1000);
+        api.info($rootScope,product.pricing.part+", "+product.title+" a été ajouté dans le panier",4000);
+      }
 
       for(var i=0;i<this.items.length;i++){
         if(this.items[i].sku===product.sku){
@@ -348,8 +382,6 @@ Order.factory('order', [
   function (config, $resource, $q, user, api) {
 
     var defaultOrder={
-      shipping:0,
-      address:undefined,
     }
 
 
@@ -504,12 +536,6 @@ Order.factory('order', [
     }
 
 
-    Order.prototype.findAll=function(user){
-      var self=this;
-      return this.chain(this.backend.$order.query(function() {
-      }).$promise);
-    }
-
 
     Order.prototype.create=function(shipping,items,payment, cb,err){
       if(!err) err=function(){};
@@ -522,9 +548,15 @@ Order.factory('order', [
     
 
     Order.prototype.findOrdersByUser=function(user){ 
-      var self=this; var lst=[]
+      var self=this;
       return this.chainAll(this.backend.$user.query({id:user.id,action:'orders'}).$promise);
     }    
+
+
+    Order.prototype.findAllOrders=function(filter, cb){
+      var self=this;
+      return this.chainAll(this.backend.$order.query(filter).$promise);
+    }
 
 
     var _order=api.wrapDomain(Order,'oid', defaultOrder);

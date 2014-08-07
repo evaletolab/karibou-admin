@@ -20,6 +20,23 @@
       <div  class="bucket post-bucket homepage-posts" ng-include="'/partials/account/navigation.html'"></div>
 
 
+      <!-- SHOPS                         
+        <div class="form-background well white">
+          <h5 class="article-group-title " >Vos boutiques 
+              <a ng-href="/account/shop" class="pull-right small link">Ouvrir une boutique</a></h5>
+
+            <ul ng-repeat="shop in user.shops" class="-unstyled " ng-show="user.shops.length" >
+              <li class="block col-md-12">              
+                <p class="-well-small">
+                  <i class="icon-fire"></i>
+                  <a href="/shop/{{shop.urlpath}}">{{shop.name}}</a><span ng-hide="shop.status == true" class="help-inline"><i class="icon-ok"></i>&nbsp;</span>
+                  <span ng-bind-html-unsafe="shop.description"></span><i ng-show="shop.status==true" class="icon-ok green"></i>
+                </p>
+                
+              </li>
+            </ul>      
+          </div>
+
       <!--                               -->
       <!-- CONTENT                       -->
       <!--                               -->                          
@@ -33,13 +50,13 @@
 
 
           <!-- NAME FIRSTNAME -->        
-          <div class="form-group">
+          <div class="form-group required">
             <label class="col-sm-2 control-label">Prénom</label>
             <div class="col-sm-10 ">
                 <input required ng-model="user.name.givenName" placeholder="Prénom" type="text" name="firstname" class="form-control input-lg"/>
             </div>                
           </div>
-          <div class="form-group">
+          <div class="form-group required">
             <label class="col-sm-2 control-label">Nom</label>
             <div class="col-sm-10 ">
                 <input required ng-model="user.name.familyName" placeholder="Nom" type="text" name="lastname" class="form-control input-lg"/>
@@ -47,7 +64,7 @@
           </div>
           
           <!-- PHONES --> 
-          <div class="form-group">
+          <div class="form-group required">
             <label class="col-sm-2 control-label">Téléphone</label>
             <div class="col-sm-10">
               <div ng-repeat="phone in user.phoneNumbers" class="row nomargin">
@@ -81,7 +98,7 @@
             </div>
           </div>
 
-          <div class="form-group ">
+          <div class="form-group required">
             <label class="col-sm-2 control-label">Email</label>
             <div class="col-sm-offset-2 row ">
               <div class="col-xs-9">                
@@ -90,7 +107,7 @@
 
               </div>              
               <div class="col-xs-1">                
-                <input type="submit" ng-hide="user.email.status == true" ng-click="verify(user)" value="Valider" ng-disabled="form.$invalid" class="btn btn-lg btn-warning"/>
+                <input type="submit" ng-hide="user.email.status == true" ng-click="verify(user)" value="Valider" ng-disabled="form.$invalid||WaitText" class="btn btn-lg btn-danger"/>
               </div>              
               
             </div>
@@ -104,7 +121,7 @@
           Pour passer une commande, vous devez indiquer au moins une adresse de livraison.
         </div>
 
-        <div class="nomargin row well white" ng-class="{'primary-content':user.addresses[$index].primary}" ng-repeat="address in user.addresses" >
+        <div class="nomargin  white" ng-class="{'primary-content':user.addresses[$index].primary}" ng-repeat="address in user.addresses" >
               <a href ng-click="user.addresses.splice($index, 1)" 
               class="pull-right btn btn-small btn-inverse"><i class="icon-remove"></i> </a>
 
@@ -115,7 +132,7 @@
             <div class="form-background">
 
             <!-- NOM -->
-            <div class="form-group">                  
+            <div class="form-group required">                  
               <label class="col-sm-2 control-label">Nom complet</label>
               <div class="col-sm-10">
                   <input id="full-name"  ng-model="user.addresses[$index].name" type="text" placeholder="ex. {{user.displayName}}"
@@ -126,16 +143,16 @@
             </div>
 
             <!-- NOTE -->
-            <div class="form-group">
+            <div class="form-group  required">
               <label class="col-sm-2 control-label">Note au livreur</label>
               <div class="col-sm-10">
-                  <input id="full-name"  ng-model="user.addresses[$index].note" type="text" placeholder="ex. code porte 123456 "
+                  <input id="full-name"  ng-model="user.addresses[$index].note" type="text" placeholder="note au livreur "
                   class="form-control input-lg" require>
               </div>
             </div>
 
             <!-- RUE/N°/ETAGE -->
-            <div class="form-group">
+            <div class="form-group  required">
               <label class="col-sm-2 control-label">Rue, Numéro et l'étage</label>
               <div class="col-sm-offset-2 row ">
                 <div class="col-xs-9">                
@@ -149,7 +166,7 @@
             </div>
 
             <!-- POSTAL -->
-            <div class="form-group">
+            <div class="form-group  required">
               <label class="col-sm-2 control-label">Code Postal</label>
               <div class="col-sm-10">
                   <select class="form-control input-lg" ng-model="user.addresses[$index].postalCode"  
@@ -161,7 +178,7 @@
             </div>
 
             <!-- REGION -->
-            <div class="form-group">
+            <div class="form-group required">
               <label class="col-sm-2 control-label">Region</label>
               <div class="col-sm-10">
                   <select class="form-control input-lg" ng-model="user.addresses[$index].region"  

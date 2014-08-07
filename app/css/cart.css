@@ -25,6 +25,39 @@
   color:#bbb;
   font-weight: 300;
 }
+
+
+.cover-resume.cart {    
+    border: 0px;
+    padding: 5px;
+    z-index: 10;
+    position: absolute;
+    visibility: visible;
+    left: 0;
+    margin-top: 50px;
+}
+.cover-resume.cart> div{
+    max-width: 400px;
+    text-align: left;
+    margin:0 auto;
+    background-color: rgba(250, 250, 250, 0.95);
+    -webkit-transition: visibility 0s linear 0.3s,opacity 0.3s linear;
+       -moz-transition: visibility 0s linear 0.3s,opacity 0.3s linear;
+        -ms-transition: visibility 0s linear 0.3s,opacity 0.3s linear;
+         -o-transition: visibility 0s linear 0.3s,opacity 0.3s linear;
+            transition: visibility 0s linear 0.3s,opacity 0.3s linear;
+}
+
+.products .cover-resume.cart {
+    visibility: visible;    
+    display: inherit!important;
+}
+
+.cover-order .cover-resume.cart {
+    visibility: hidden;    
+    display: none;
+}
+
 /* Desktop large
 ------------------------- */
 @media (min-width: 1200px) {
@@ -35,6 +68,28 @@
 /* Desktop
 ------------------------- */
 @media (max-width: 980px) {
+  .cover-resume.cart>div {
+    position: fixed;
+    top:0;
+    left: 0;
+    margin: auto;
+    width: 400px;
+    z-index: 2;
+    margin-left: 25%;
+    margin-right: auto;
+    visibility: hidden;
+
+    width: 100%;
+    max-width: 980px;
+    background-color: rgba(50, 50, 50, 0.8);
+    margin-top: 0px;
+    padding: 60px 10px;    
+    margin-left: -5px;
+
+  }
+  .cover-resume.cart .table{
+    background-color: white;
+  }
 }
 
 /* Tablet to desktop
@@ -46,12 +101,22 @@
 /* Tablet
 ------------------------- */
 @media (max-width: 767px) {
+  .cover-resume.cart> div{
+  }  
 
 }
 
 /* Landscape phones
 ------------------------- */
-@media (max-width: 480px) {
+@media (max-width: 550px) {
+
+  .cover-resume.cart> div{
+
+  }  
+
+  .cover-resume.cart .table{
+    background-color: white;
+  }
 
 }
 

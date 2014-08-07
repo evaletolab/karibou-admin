@@ -1,6 +1,14 @@
 <div class="cover-table cover-user site-shop-sidebar">
   <div class="cover-row">
-    <div class="cover-img" backstretch="{src:'shop.photo.fg',load:'http://placehold.it/400x300&text=la boutique'}"></div>
+    <div class="cover-img" backstretch="{src:'shop.photo.fg',load:'http://placehold.it/400x300&text=la boutique'}">
+
+      <!-- CART SHOP -->
+      <div class="cover-resume cart " ng-controller="OrderCtrl" >
+        <div id="cart"  class="row " ng-show="cart.items.length " ng-include="'/partials/order/cart.html'">
+        </div>    
+      </div>
+    
+    </div>
 
     <!-- MESSAGES -->
     <div class="shop-info-bar active success " ng-cloak 
@@ -17,10 +25,13 @@
 
     <!-- FOR ADMIN -->
     <div class="cover-actions-top" ng-show="user.isOwnerOrAdmin(shop.name)" fade-on-hover=".site-shop-sidebar" >
+        <a href="/shop/{{shop.urlpath}}/products/create" class="btn btn-lg btn-primary btn-block ">Ajouter un produit</a>
         <a href="/shop/{{shop.urlpath}}/edit" class=" btn btn-lg btn-primary btn-block ">Editer votre boutique</a>
         <a ng-show="shop.status!=true"  class="btn btn-primary btn-lg btn-block {{waitingStatus() && 'disabled'}}" ng-click="publish()">Demander la publication de votre boutique</a>
 
     </div>
+
+
 
   </div>
   <div class="cover-row shop">

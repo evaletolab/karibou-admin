@@ -32,15 +32,23 @@
 
       <!-- ORDERS -->
       <div class="well well-small white " style="width:100%;float:left;">
-        <div ng-hide="user.orders.length" class="col-md-12">
+        <div class="col-md-12">
           <h5 class="article-group-title ">
-            <span class="bucket-header-title">Vous n'avez pas de commande enregistré.</span>
+            <span class="bucket-header-title">Votre profile</span>
           </h5>
+          <p>
+            <a href="/account/profile">Modifiez vos données personnelles</a>
+          </p>
         </div>
         
-        <h5 ng-show="user.orders.length" class="article-group-title " >
-          <span class="bucket-header-title">Vos commandes</span> 
-        </h5>
+        <div class="col-md-12">
+          <h5  class="article-group-title " >
+            <span class="bucket-header-title">Sécurité</span> 
+          </h5>
+          <p>
+            <a href="/account/password">Modifiez votre mot de passe</a>
+          </p>
+        </div>
       </div>          
 
       <!-- LOVE -->
@@ -54,6 +62,9 @@
         <h5 ng-show="user.likes.length" class="article-group-title " >
           <span class="bucket-header-title">Vos coups de coeur</span> 
         </h5>
+        <p>
+          <a href="/account/love">La liste principale</a>
+        </p>
       </div>          
     
       <!-- SHOP LIST -->
@@ -64,9 +75,10 @@
           </h5>
         </div>
         
-        <h5 class="article-group-title " >
-          <span class="bucket-header-title">Vos boutiques</span> 
+        <h5 class="article-group-title " >Vos boutiques 
+          <a ng-href="/account/shop" class="pull-right small link">Ouvrir une boutique</a>
         </h5>
+
 
           <ul ng-repeat="shop in user.shops" class="-unstyled " ng-show="user.shops.length" >
             <li class="block col-md-12">              

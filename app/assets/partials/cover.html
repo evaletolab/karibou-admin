@@ -1,8 +1,20 @@
-  <div class="cover-img bg-black" backstretch="{src:'img/welcome.jpg'}"></div>
+  <div class="cover-img bg-black" backstretch="cover">
 
-  <div class="cover-body ">
+      <!-- CART -->        
+        <div class="cover-resume cart " ng-controller="OrderCtrl" >
+
+
+
+              <div id="cart"  class="row " ng-show="cart.items.length " ng-include="'/partials/order/cart.html'">
+              </div>
+        </div> 
+      <!-- CART -->
+
+  </div>
+
+  <div class="cover-body " hide="cart.items.length">
     <!-- HOME -->
-     <div  class="cover-body-inner strong ">
+     <div  class="cover-body-inner strong " >
         <h1  class="cover-title ">Kariboo</h1>
         <div class="cover-description ">La ville et la campagne se retrouvent.<br><br/>
           <ul class="cover-list" >
@@ -14,7 +26,7 @@
           <br>Lisez la <a href="http://kariboo.ghost.io/">présentation</a> 
         </div>
 
-        <div class="cover-actions"><a href="/signup" class="btn btn-success btn-lg btn-new-post"><span class="icons icons-new-post"></span>Inscrivez-vous</a><span class="white">ou <a href="login" class="white">Login</a></span></div>
+        <div class="cover-actions"><a href="/signup" class="btn btn-success btn-lg btn-new-post"><span class="icons icons-new-post"></span>Inscrivez-vous</a><span class="white">ou <a href="/login" class="white">Login</a></span></div>
      </div>
   </div>
 

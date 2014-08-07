@@ -99,7 +99,10 @@
 
           <!-- ACTIONS -->          
           <div class="form-group">
-            <input type="submit" ng-disabled="form.$error.required || !checked" ng-click="createShop(shop)" value="Create a new shop" class="btn btn-primary btn-lg"/>
+            <button  ng-disabled="form.$error.required || !checked || WaitText" ng-click="createShop(shop)"   
+                    class="btn btn-primary btn-lg">
+              <i ng-class="{'icon-gear':WaitText}"></i>
+            </button>
           </div>              
         </fieldset>
       </form>

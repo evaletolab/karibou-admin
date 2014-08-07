@@ -37,6 +37,14 @@
   -padding-left: 8px;  
 }
 
+/* --------- label ------------ */
+.form-horizontal .control-label{
+  font-size: 85%;
+}
+
+.form-group.required .control-label:after {
+  content:"*";color:red;
+}
 
 label, input, button, select, textarea {
     font-size: 18px;
@@ -60,6 +68,8 @@ label.checkbox{
   color: inherit;
 }
 
+/* ---------  ------------ */
+
 .nav-tabs > li > a {
   color: #44a;
 }
@@ -76,7 +86,9 @@ label.checkbox{
   float: left;
   width: 100%;
   font-weight: 350;
+  color: black;
 }
+
 
 .form-group {
     clear: both;
@@ -84,6 +96,7 @@ label.checkbox{
     margin-bottom: 15px;
     width: 100%;
 }
+
 .form-group.bottom{
     padding-left: 20px;
     margin-top: 10px
