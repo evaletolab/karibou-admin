@@ -55,6 +55,8 @@ angular.module('app.shop.ui', [
   };
 })
 
+
+
 /**
  * Binds a freshereditor widget to <textarea> elements.
  */

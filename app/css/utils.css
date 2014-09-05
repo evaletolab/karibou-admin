@@ -36,6 +36,14 @@
   border-color: #ccc;
 }
 
+.btn-split {
+  display: block;
+  width: 48%;
+  padding-right: 0;
+  padding-left: 0;
+  margin-right: 4px;
+  float: left;
+}
 
 .separator{
   -webkit-box-shadow: 0 1px #fff;

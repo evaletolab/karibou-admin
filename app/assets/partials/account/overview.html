@@ -30,12 +30,43 @@
       <!-- CONTENT                       -->
       <!--                               -->                          
 
+      <!-- ADMIN ORDERS -->
+      <div class="well well-small white " style="width:100%;float:left;" ng-if="user.isAdmin()">
+
+        <div class="col-md-12">
+
+          <div class="alert alert-warning" ng-cloak >
+          </div>
+          <p class="">
+            <a class="btn btn-lg btn-block btn-warning" href="/admin/orders?when=next">Toutes les commandes à préparer</a>
+          </p>
+        </div>
+      </div>
+
+      <!-- SHOPS ORDERS -->
+      <div class="well well-small white " style="width:100%;float:left;" ng-if="user.shops.length">
+
+        <div class="col-md-12">
+
+          <div class="alert alert-warning" ng-cloak >
+          </div>
+          <p class="">
+            <a class="btn btn-lg btn-block btn-warning" href="/shop/admin/orders?when=next">Les commandes de votre boutique à préparer</a>
+          </p>
+        </div>
+      </div>
+
       <!-- ORDERS -->
       <div class="well well-small white " style="width:100%;float:left;">
         <div class="col-md-12">
           <h5 class="article-group-title ">
             <span class="bucket-header-title">Votre profile</span>
           </h5>
+
+          <div class="alert alert-warning" ng-cloak ng-show="user.email.status !== true" >
+              Vous n'avez pas encore valider votre addresse email!
+          </div>
+
           <p>
             <a href="/account/profile">Modifiez vos données personnelles</a>
           </p>
@@ -50,6 +81,22 @@
           </p>
         </div>
       </div>          
+
+      <!-- LAST ORDERS -->
+      <div  class="well well-small white" style="width:100%;float:left;">
+        <div ng-hide="user.orders.length" class="col-md-12">
+          <h5 class="article-group-title ">
+            <span class="bucket-header-title">Vous n'avez pas encore passé de commande.</span>
+          </h5>
+        </div>
+        
+        <h5 ng-show="user.orders.length" class="article-group-title " >
+          <span class="bucket-header-title">Vos dernière commandes</span> 
+        </h5>
+        <p>
+          <a href="/account/orders">L'historique de vos commandes</a>
+        </p>
+      </div>    
 
       <!-- LOVE -->
       <div  class="well well-small white" style="width:100%;float:left;">
@@ -76,7 +123,7 @@
         </div>
         
         <h5 class="article-group-title " >Vos boutiques 
-          <a ng-href="/account/shop" class="pull-right small link">Ouvrir une boutique</a>
+          <a ng-href="/account/shop" ng-hide="user.shops.length" class="pull-right small link">Ouvrir une boutique</a>
         </h5>
 
 

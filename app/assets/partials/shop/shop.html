@@ -1,5 +1,5 @@
-<div class=" layout-item c2 "  >
-      <div style="position:relative;overflow:hidden;height:auto">
+<div class="shop layout-item  "  >
+      <div class="top">
         <a href="/shop/{{shop.urlpath}}" >
           <!-- STATUS -->
           <ul class="thumbnails"  style="position:absolute;left:0px;top:0px">
@@ -7,26 +7,22 @@
       			  <i class="icon-warning-sign -icon-2x green" title="Cette boutique n'est pas encore publique"></i>
       			</li>
           </ul>
-          <img ng-show="shop.photo.fg" ng-src="{{shop.photo.fg}}/convert?w=470&h=400&fit=crop&cache=true" >
+          <img ng-show="shop.photo.fg" ng-src="{{shop.photo.fg}}" >
           <img ng-hide="shop.photo.fg" ng-src="{{false  | placehold:'470x400'}}" >
           
       
 
-          <!-- COMMENTS -->
-          <div ng-show="shop.available.active" class="col-md-12 " style="position:absolute;bottom:0px;left:0px;padding:15px;margin-left:0px;background:none repeat scroll 0 0 rgba(0, 0, 0, 0.3)">
-            <span class="shadow white" style="text-align:center;">{{shop.available.comment}}</span>
-          </div>
 
         </a>
       </div>
-      <div class="col-md-12 " style="margin-top:-30px;height:30px;margin-left:0px;background:none repeat scroll 0 0 rgba(0, 0, 0, 0.3)">
-        <span class="shadow white" style="text-align:center;">{{shop.name}}</span>
+      <div class=" message" ng-if="shop.available.active">
+        <span class="shadow white" ng-bind-html="shop.available.comment"></span>
       </div>
 
       <section class="footer" >
         <div  class=" elem">
   	        <h5>{{shop.name}}</h5>
-  	        <p class="hide" ng-bind-html-unsafe="shop.description"></p>
+  	        <p class="-hide" >{{shop.description|limitTo:300}}...</p>
         </div>
       </section>
 

@@ -4,7 +4,7 @@
 
 
 
-   <section class="wrapper" tabindex="-1">
+   <section class="wrapper paysage" tabindex="-1">
       <div class="wrapper-inner">
 
 
@@ -17,27 +17,28 @@
       <!-- CONTENT                       -->
       <!--                               -->                          
  
-
-
-      <div class="well well-small">
+      <h3>Gestion des utilisateurs</h3>
+      <div class="">
       <!-- FORM -->
           <table class="table table-striped ">
             <thead>
               <tr>
                 <th>status</th>
                 <th>name</th>
-                <th>mail</th>
+                <th><a href="" ng-click="orderByField='logged';reverseSort=!reverseSort">login</a></th>
+                <th><a ng-click="orderByField='updated';reverseSort=!reverseSort">update</a></th>
                 <th>validate</th>
                 <th>role</th>
                 <th>shops</th>
               </tr>
             </thead>
             <tbody>
-              <tr ng-repeat="u in users">
-                <td><i ng-class="{'icon-check green':u.status===true,'icon-check-empty ':u.status!==true}"></i> </td>
-                <td>{{u.displayName}}</td>
-                <td>{{u.email.address}}</td>
-                <td>{{u.email.status}}</td>
+              <tr ng-repeat="u in users|orderBy:orderByField:reverseSort" ng-class="{'danger':u.status!==true}">
+                <td>-</td>
+                <td><a href="mailto:{{u.email.address}}">{{u.displayName}}</a></td>
+                <td>{{u.logged|dateLabelShort}}</td>
+                <td>{{u.updated|dateLabelShort}}</td>
+                <td ng-class="{'danger':u.email.status!==true}">{{u.getEmailStatus()}}</td>
                 <td>{{u.roles}}</td>
                 <td>{{u.shops.length}}</td>
               </tr>

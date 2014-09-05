@@ -91,6 +91,47 @@ UI.filter('groupBy', ['$parse', function ($parse) {
     };
 }]);
 
+//Send gg event {category:'',action:''}
+UI.directive('gaSend', ['$parse','$window','config',function($parse,$window, config) {
+  return function(scope, element, attr) {
+    var o = $parse(attr['gaSend'])();
+    //
+    // send gg analitycs
+    if($window.ga && config.API_SERVER.indexOf('localhost')==-1){
+      element.click(function(){
+        setTimeout(function(){
+          $window.ga('send', 'envent', o.category, o.action);        
+          // if(console)console.log('ga',o)
+        },0)        
+      })
+    }
+  }
+}]);
+
+//
+// reload page
+UI.directive('reload', ['$parse','$timeout', function($parse, $timeout) {
+  return function(scope, element, attr) {
+    var path = attr['reload']||'/';
+    $timeout(function(){
+        window.location.pathname = path
+    },5000)
+  }
+}]);
+
+
+//
+// start progress for usability
+UI.directive('startProgress', ['$parse','$timeout', function($parse, $timeout) {
+  return function(scope, element, attr) {
+    var option = attr['startProgress']||{};
+    element.bind('click', function(event) {
+      NProgress.start();
+    })
+  }
+}]);
+
+
 //
 // Declare global directives here
 UI.directive('toggleSidebar', ['$parse','$timeout', function($parse, $timeout) {
@@ -371,11 +412,7 @@ UI.directive('toggleOnClick', ['$parse','$timeout', function($parse, $timeout) {
         var e=angular.element(attr['toggleOnClick']);
         if(e.length){
           element.click(function(){
-            e.toggle(function(){
-              e.css('display','block!important')
-            },function(){
-              e.css('display','none')
-            });
+            e.toggle();
           });
         }
       },1500);

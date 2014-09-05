@@ -85,6 +85,13 @@
             <p ng-show="form.description.$invalid && !form.description.$pristine" class="help-block">La description est obligatoire.</p>                        
           </div>
 
+          <!-- ADDRESS -->
+          <div class=" row" ng-include="'/partials/shop/address.html'">
+          </div>
+          <br/>
+          <hr/>
+
+          <!-- ACCEPT -->
           <div class="form-group">
             <div class=" ">
                 <p class="control-label">
@@ -94,14 +101,12 @@
                 <p class="small" ng-hide="user.email.status == true ">Pour créer une boutique vous devez avoir une <a href="/account/profile">adresse email valide</a>.</p>
             </div>
           </div>
-          
-          
 
           <!-- ACTIONS -->          
           <div class="form-group">
             <button  ng-disabled="form.$error.required || !checked || WaitText" ng-click="createShop(shop)"   
                     class="btn btn-primary btn-lg">
-              <i ng-class="{'icon-gear':WaitText}"></i>
+              <i ng-class="{'icon-gear':WaitText}"></i> Créer votre boutique
             </button>
           </div>              
         </fieldset>

@@ -30,6 +30,7 @@ User.config([
       .when('/account/', {title:'Votre profile', _view:'main', redirectTo : '/account/overview'})
       .when('/account/love', {_view:'main', love:true, templateUrl : '/partials/product/love.html'})
       .when('/account/shop', {_view:'main', templateUrl : '/partials/account/shop.html'})
+      .when('/account/dashboard', {_view:'main', templateUrl : '/partials/account/dashboard.html'})
       .when('/account/orders', {_view:'main', templateUrl : '/partials/account/orders.html'})
       .when('/account/email', {auth : true, _view:'main', templateUrl : '/partials/account/email.html'})
       .when('/account/overview', {auth : true, _view:'main', templateUrl : '/partials/account/overview.html'})
@@ -68,8 +69,8 @@ User.controller('AccountCtrl',[
 
 
     if($location.path()==='/admin/user'){
-      $scope.users=user.query({},function(users){
-        $scope.users=users;
+      user.query({}).$promise.then(function(u){
+          $scope.users=u
       })
     }
 
@@ -112,13 +113,13 @@ User.controller('AccountCtrl',[
 
         // 
         // if user profile is not ready?
-        if(!user.isReady()||user.hasPrimaryAddress()){
+        if(!user.isReady()||!user.hasPrimaryAddress()){
           return $location.url('/account/profile');  
         }
 
         //
         // else goto '/'
-        $location.url('/');
+        $location.url('/account/overview');
       }, cb_error);
     };
 
@@ -370,6 +371,14 @@ User.factory('user', [
         return 'Anonymous';
     }
     
+
+    User.prototype.acronym=function(){
+      var d=this.display()
+      res=d.match(/\b(\w)/g).join('')
+      return (d)?d:'unknow';
+    }
+
+    
     User.prototype.isOwner=function(shopname){
         
         //if (this.isAdmin())return true;
@@ -422,6 +431,17 @@ User.factory('user', [
     }
 
 
+    User.prototype.getEmailStatus=function(){
+      if(!this.email||!this.email.status)
+        return false;
+
+      if(this.email.status===true)
+        return true;
+
+      return  moment(this.email.status).format('ddd DD MMM YYYY', 'fr');
+
+    }
+
     //
     // REST api wrapper
     //
@@ -438,14 +458,11 @@ User.factory('user', [
     };
 
 
-    User.prototype.query = function(filter,cb,err) {
+    User.prototype.query = function(filter,err) {
       if(!err) err=this.onerr;
-      var users=[], s,user=this;
-      s=this.backend.$user.query(filter, function() {
-        users=(s);
-        if(cb)cb(users);
-      },err);
-      return s;
+      self=this;
+      return this.chainAll(this.backend.$user.query(filter,function(u){
+      },err).$promise);
     };
 
     User.prototype.validate = function(validation, cb,err) {

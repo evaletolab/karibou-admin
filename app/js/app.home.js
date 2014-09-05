@@ -90,7 +90,7 @@ Home.controller('HomeCtrl', [
 
     //
     // use this to group view by Category
-    $scope.currentCategory = null;
+    $scope.currentCategory;
     $scope.groupByCategory = function(cat) {
       var catObj=category.find({name:cat})        
       var showCategory = (catObj!=$scope.currentCategory); 

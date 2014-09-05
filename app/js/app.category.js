@@ -117,7 +117,7 @@ Category.controller('CategoryCtrl',[
           return false;
         }
         $timeout(function() {
-          cat.cover=fpfile.url;
+          cat.cover=(config.storage&&fpfile.key)?config.storage+fpfile.key:fpfile.url;
         }, 0);
         
       });
@@ -142,11 +142,11 @@ Category.factory('category', [
   'config',
   '$location',
   '$rootScope',
-  '$route',
+  '$routeParams',
   '$resource',
   'api',
 
-  function (config, $location, $rootScope, $route,$resource, api) {
+  function (config, $location, $rootScope, $routeParams,$resource, api) {
  
     var defaultCategory = {
       name:'',
@@ -172,7 +172,14 @@ Category.factory('category', [
       });
       angular.extend(this, defaultCategory, data);
     }
+
+    Category.prototype.getCurrent = function(){
+      if(!$routeParams.category)
+        return;
+      return this.find({slug:$routeParams.category});
+    };
     
+
     Category.prototype.findNameBySlug = function(slug){
       var cat=this.find({slug:slug});
       if (cat) return cat.name; else return "Inconnu";      

@@ -1,5 +1,5 @@
 <div tabindex="-1"  id="null" class="screen-content" >
-  <aside ng-include="getCover()" class="  cover cover-home img-loaded" 
+  <aside ng-include="getCover()" class="  cover cover-home cover-category img-loaded" 
          ng-class="{'session':user.isAuthenticated()}">
   </aside>
 
@@ -14,12 +14,14 @@
         <div  class="bucket post-bucket homepage-posts" >
             <div class="bucket-header bucket-header-list show-subtitles-variant">
                <nav class="bucket-sort">
-                  <h5 class="article-group-title list black" >
-                    <span class="bucket-header-title">{{group}}</span> 
+                  <h5 class="bucket-title active" >
+                    <a><span class="bucket-header-title">{{category.getCurrent().name}}</span> </a>
                   </h5>
                   <h5 class="bucket-title " >
                     <a href="/products" title="Les produits"><span class="bucket-header-title">Les produits</span> </a>
                   </h5>
+                  <h4 class="bucket-sub-title " clockdown="Prochaine livraison "></h4>
+
                </nav>
             </div>
         </div>

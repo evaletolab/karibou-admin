@@ -32,8 +32,6 @@ article:nth-child(even){
   border: 0px solid #eee;
   border-color:#EAE9E9 #D4D2D3 #B2B1B1;
   box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.23);
-  box-shadow-: 0 1px 5px 0 rgba(0, 0, 0, 0.13);
-  box-shadow-: 0 0px 6px 1px rgba(0, 0, 0, 0.12);
   margin-bottom: 25px;
   min-height: 20px;
   min-height-:300px;
@@ -43,7 +41,9 @@ article:nth-child(even){
   font-weight:300;
   font-size:13px;
 
-  border-radius:4px;
+  border-radius:5px;
+  overflow: hidden;
+  position: relative;
 }
 
 .layout-item img{
@@ -56,9 +56,14 @@ article:nth-child(even){
   vertical-align:middle;
   display: block;
   background: none repeat scroll 0 0 #A05A07;
+  
   background-size: cover;
+  background-position:50% 50%;
 
-  border-radius:4px;
+  -border-radius:4px;
+
+  height: 145px;
+  margin: -2px 0;
 }
 
 .layout-item a.link{
@@ -70,8 +75,8 @@ article:nth-child(even){
   position:relative;
   background: none repeat scroll 0 0 #A05A07;
 
-  border-radius:4px;
-  border-bottom:none;
+  border-radius:5px;
+  border:0px;
 }
 
 .layout-item img.available, .backfader img.available{
@@ -126,11 +131,6 @@ article:nth-child(even){
 }
 
 
-.layout-item .shop{
-  font-family: 'Helvetica',sans-serif;
-  font-size:11px;
-  line-height:15px;
-}
 
 .layout-item .title{
     overflow: hidden;
@@ -157,10 +157,16 @@ article:nth-child(even){
   border-radius:0px 0px 2px 2px;
 }
 
+.layout-item.c2 img{
+  height: 210px
+}
+
 
 .layout-item.c2 div.elem{
+  text-align: left;
+  font-size: 14px;
   padding-left:10px;
-  max-height: 120px;
+  max-height: 130px;
 }
 
 .layout-item.c3{
@@ -182,6 +188,7 @@ article:nth-child(even){
   color:#222;
   font-weight:300;
   font-size:16px;
+  line-height: 20px;
 }
 
 
@@ -248,13 +255,19 @@ article:nth-child(even){
     width: 100%;
   }
 
+  .layout-item img{
+    height:135px;
+  }
+
 }
 
 /* Tablet portrait
 ------------------------- */
 @media (min-width: 768px) and (max-width: 970px) {
 
-
+  .layout-item img{
+    height:135px;
+  }
 
 	.layout-item.c1{
 		width: 30%; /* 305px */
@@ -331,6 +344,10 @@ article:nth-child(even){
 	.layout-item.c2, .layout-item.c3{
 		width: 95%; /* 305px */
 	}
+
+  .layout-item img{
+    height:130px;
+  }
 
 
   .layout-item{

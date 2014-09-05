@@ -19,14 +19,16 @@ angular.module('app.root', [
   'config',
   'api',
   'user',
+  'cart',
   'category',
   'product',
 
-  function ($scope, $rootScope, $window,  $location, $templateCache, $routeParams, config, api, user, category, product) {
+  function ($scope, $rootScope, $window,  $location, $templateCache, $routeParams, config, api, user, cart, category, product) {
 
 
     var cb_error=api.error($scope);
 
+    $scope.cart = cart;
     $scope.user = user;
     $scope.categories = [];
     $scope.config=config;
@@ -102,6 +104,7 @@ angular.module('app.root', [
      * simple function that return true or false depending the input format
      * format: mobile (xs), tablet (sm, sd), desktop (lg). 
      */ 
+    
     var markers = angular.element('<div class="visible-xs"></div><div class="visible-sm"></div><div class="visible-md"></div><div class="visible-lg"></div>');
     angular.element($window.document.body).append(markers);
     $rootScope.getVisibleDevice=function(format){
@@ -111,7 +114,7 @@ angular.module('app.root', [
         }
         //default
         return 'visible-lg'
-    }
+    } 
 
     // getClass compares the current url with the id.
     // If the current url starts with the id it returns 'active'
@@ -141,6 +144,7 @@ angular.module('app.root', [
       if ($routeParams.category){
          var c=category.findBySlug($routeParams.category);
          if(c&&c.cover) $scope.cover=c.cover;
+         return '/partials/product/cover.html'
       }
 
       return '/partials/cover.html';
@@ -183,13 +187,15 @@ angular.module('app.root', [
         e.css('height','0px')
         e.css('opacity','0')
         e.css('visibility','hidden')
-        e.addClass('visible-lg visible-md')
+        // e.css('display','none')
+        // e.addClass('visible-lg visible-md')
         // after transition we remove
       }else{
-        e.removeClass('visible-lg visible-md')
+        // e.removeClass('visible-lg visible-md')
         e.css('opacity','1')
         e.css('visibility','visible')
         e.css('height','inherit')
+        e.css('display','block')
         
 
       }

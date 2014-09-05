@@ -44,7 +44,7 @@ html,body,.main {
 }
 
 .wrapper.paysage{
-    left: 20px;
+    left: 30px;
 }
 
 .wrapper-inner {
@@ -56,6 +56,11 @@ html,body,.main {
     padding:0px 80px;
     margin-top: 5px
 }
+.wrapper.paysage .wrapper-inner{
+    padding:0px 0 0 80px;
+    max-width: 98%;
+}
+
 .wrapper-inner.wide{
     padding:0px; 
     margin-top:0;   
@@ -253,11 +258,10 @@ a {
     background:       o-linear-gradient(#fbfcfb 20%, #f1faf1 ); /*Opera 11.1-12*/
     background:     moz-linear-gradient(#fbfcfb 20%, #f1faf1 ); /*Fx 3.6-15*/    
     background:         linear-gradient(#fbfcfb 20%, #f1faf1 );    
-    overflow-y: auto;
 }
 
 .cover.session {
-    overflow-y:auto;
+    overflow-y:hidden;
     overflow-x:hidden; 
     background-size: cover;
     background-image:linear-gradient( to bottom, #fbfcfb 20%, rgba(241, 250, 241, 0.2) 90% ),url(../img/localfood.jpg);
@@ -445,7 +449,10 @@ ul.cover-list li {
     min-height:inherit;
 }
 
-
+.cover-category {
+    height:350px;    
+    min-height:350px;    
+}
 
 .cover.img-loaded {
     -background-color:#f7f7f7;    
@@ -483,6 +490,11 @@ ul.cover-list li {
     min-height:550px;
     -height:auto;
     display:table}
+
+.cover-category {
+    height:200px;    
+    min-height:200px;    
+}
 
 .cover-body {
     display:table-cell;
@@ -645,6 +657,8 @@ ul.cover-list li {
     height:auto;
     background-position:center 150px}
 
+
+
 .cover-table {
     width:100%}
 
@@ -806,6 +820,17 @@ ul.cover-list li {
     display:inline-block;
     padding:0;
     width:100%}
+
+.bucket-sub-title{
+    color: #aaa;
+    font-style: italic;
+    margin-top: 10px;
+    text-align: left;
+    font-family: serif;
+    float: left;
+    text-shadow: 1px 1px 1px #FFFFFF;
+    width: 100%;    
+}
 
 .bucket-header-list .bucket-title {
     width:auto;
@@ -1270,7 +1295,7 @@ ul.cover-list li {
 }
 
 .site-nav-list-item.site-nav-list-item-home {
-    margin-top:5px}
+    margin-top:10px 0}
 
 .site-nav-list-item:last-child {
     margin-bottom:10px}
@@ -1295,7 +1320,8 @@ ul.cover-list li {
 }
 
 .site-nav-list-item-btn.active{
-    background-color: #fafcfa;
+    background-color: #5bc0de;
+    color: white;
 }
 
 .site-nav-list-item-btn,.site-nav-list-item-btn .icons:before {
@@ -1436,6 +1462,18 @@ ul.cover-list li {
 @media screen and (max-width:1000px) {
     .body-scroll .site-nav {
     position:absolute}
+
+}
+
+@media screen and (max-width:500px) {
+    .site-nav-logo{
+        top:0;
+        left: 0;
+    }
+    .site-nav-logo-cart{
+        right: 0;
+        top:0;
+    }
 
 }
 

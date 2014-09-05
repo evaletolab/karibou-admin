@@ -23,6 +23,8 @@ angular.module('app.config', []).factory('config', [
       AUTH_SUCCESS_REDIRECT_URL:'/',
       AUTH_ERROR_REDIRECT_URL:'/login',
 
+      storage:"http://karibou-filepicker.s3-website-eu-west-1.amazonaws.com/",
+
       user:{
         photo:'http://placehold.it/80x80'
       },

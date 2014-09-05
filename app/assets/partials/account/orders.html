@@ -7,7 +7,7 @@
 
 
    <section class="wrapper" tabindex="-1" ng-controller="OrderCtrl">
-      <div class="wrapper-inner">
+      <div class="wrapper-inner" ng-init="findOrdersByUser()">
 
 
 
@@ -39,7 +39,7 @@
       </h5>
 
 
-    <ul class="timeline" ng-init="findOrderByUser()" ng-show="orders.length">
+    <ul class="timeline"  ng-show="orders.length">
         <li ng-repeat="order in orders" ng-class="{'timeline-inverted':$odd}">
           <!-- timeline start -->
           <div class="timeline-badge success"><i class="icon icon-leaf"></i></div>
@@ -84,7 +84,7 @@
                     <tr ng-repeat="i in order.items">
                       <td title="{{i.vendor}}">{{i.title}}</td>
                       <td>{{i.quantity}}</td>
-                      <td>{{i.finalprice*i.quantity|number:''}} CHF</td>
+                      <td>{{i.finalprice*i.quantity|number:'2'}} CHF</td>
                     </tr>
                     <!-- info -->
                     <tr>

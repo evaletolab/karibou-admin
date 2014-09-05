@@ -40,7 +40,7 @@ App.config([
           scope.WaitText = false;
           NProgress.done();
           response.status||error_net++
-          if (error_net > 3) {
+          if (error_net > 2) {
             $location.path('/the-site-is-currently-down-for-maintenance-reasons');
           }
 
@@ -130,8 +130,11 @@ angular.element(document).ready(function () {
   // firefox security
   $script(["https://login.persona.org/include.js"],"persona");
   
-
+  //
+  // disqus
+  //  $script(["http://karibou.disqus.com/embed.js"],"disqus")
 	  
+  
 
   angular.bootstrap(document, ['app']);
 

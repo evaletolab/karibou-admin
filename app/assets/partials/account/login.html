@@ -14,14 +14,15 @@
       </h3>
       <div class="social-box">
         <!-- PERSONA -->
-<!--         <div class="row mg-btm">
+         <div class="row mg-btm">
             <div class="col-md-12">
-              <a href="#" ng-click="persona(providers[2])" class="btn btn-primary btn-block">
+              <a href="#" ng-click="persona(providers[2])" class="btn btn-primary btn-block" 
+                  ga-send="{category:'account',action:'login persona'}">
                   <i class="icon-user"></i>    Login with persona
               </a>
             </div>
         </div>
- --><!--
+ <!--
         <div class="row mg-btm">
             <div class="col-md-12">
               <a href="#" ng-click="authenticate(providers[1])" class="btn btn-primary btn-block">
@@ -30,13 +31,10 @@
             </div>
         </div>
 -->        
-        <div class="row">
-          <div class="col-md-12">
-            <a href="#" ng-click="authenticate(providers[0])" class="btn btn-info btn-block" >
-                <i class="icon-twitter"></i>    Login with Twitter
-            </a>
-          </div>
+        <div>
+          <h4 class="shipping-clockdown text-center" clockdown="Prochaine livraison "></h4>
         </div>
+      
       </div>
       <div class="main-account">          
         <input type="email" class="form-control input-lg login"  autofocus ng-class="{'border-red': form.email.$invalid, 'border-green': form.email.$valid}"
@@ -54,7 +52,10 @@
               </div>
           </div>
           <div class="col-xs-6 col-md-6 pull-right">
-              <button type="submit" ng-click="login(email, password)" ng-disabled="form.$invalid || WaitText"  class="btn btn-lg btn-success pull-right  ">{{WaitText || 'Login'}}</button>
+              <button type="submit" ng-click="login(email, password)" 
+                      ng-disabled="form.$invalid || WaitText" 
+                      ga-send="{category:'account',action:'login'}" 
+                      class="btn btn-lg btn-success pull-right  ">{{WaitText || 'Login'}}</button>
 
           </div>
         </div>    

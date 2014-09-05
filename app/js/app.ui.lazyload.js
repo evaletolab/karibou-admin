@@ -379,7 +379,8 @@ LZ.directive("bnLazySrc",['$window','$document','config', function( $window, $do
           // source value of the image element.
           function renderSource() {
  
-            element[ 0 ].src = source;
+            //element[ 0 ].src = source;
+            element[ 0 ].style.backgroundImage = "url("+source+")";
  
           }
  

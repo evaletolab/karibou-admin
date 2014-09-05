@@ -97,17 +97,25 @@ function ($rootScope, $http, $resource, $timeout, $q, config) {
     //
     // load filepicker and set api key
     $script("//api.filepicker.io/v1/filepicker.js",function(){
-      console.log("load fp")
       filepicker.setKey("At5GnUxymT4WKHOWpTg5iz");
 
       filepicker.pick({
           mimetypes: ['image/*'],
           maxSize: 150*1024,
-          services:['COMPUTER', 'FACEBOOK', 'GMAIL', 'INSTAGRAM'],
+          location: 'S3',
+          access: 'public',
+          services:['COMPUTER', 'URL', 'IMAGE_SEARCH','GOOGLE_DRIVE', 'FLICKR','INSTAGRAM'],
         },
         function(FPFile){
-          //https://www.filepicker.io/api/file/PMaxCDthQd2buSL4lcym
-                 
+          // console.log(FPFile)
+          // container: "karibou-filepicker"
+          // filename: "oli-avatar-small.png"
+          // isWriteable: true
+          // key: "nQD24l7LSQvI4zyH9Icw_oli-avatar-small.png"
+          // mimetype: "image/png"
+          // size: 14379
+          // url: "https://www.filepicker.io/api/file/bacvRJUQmcbvxdHxwfFQ"
+
           $scope.$apply(function () {
             filepicker.stat(FPFile, {width: true, height: true},
               function(metadata){              
@@ -157,15 +165,17 @@ function ($rootScope, $http, $resource, $timeout, $q, config) {
      * chain a Array resource as the next promise
      */
     clazz.prototype.chainAll=function(promise){
-     var self=this;var deferred=$q.defer(); var lst=new Array()
+     var self=this,
+         deferred=$q.defer(),
+         lst=new Array();
+         
      this.$promise=lst.$promise=this.$promise.then(function(){
           return promise.then(function(l){
             lst=self.wrapArray(l)
-            // deferred.resolve(lst)
+            // console.log(lst)
             return lst
           })
      })
-     // this.$promise=lst.$promise=deferred.promise;
      return lst
     }
 

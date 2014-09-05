@@ -100,6 +100,7 @@ Shop.controller('ShopCtrl',[
         if(console)console.log("upload fg",shop)
         if (!shop.photo)shop.photo={};
         shop.photo.fg=fpfile.url;
+        shop.photo.fg=(config.storage&&fpfile.key)?config.storage+fpfile.key:fpfile.url;      
         shop.save(function(s){
             api.info($scope,"Votre photo a été enregistrée!");            
         },cb_error);
@@ -121,6 +122,7 @@ Shop.controller('ShopCtrl',[
         if(console)console.log("upload ownner",shop)
         if (!shop.photo)shop.photo={};
         shop.photo.owner=fpfile.url+filter;
+        shop.photo.owner=(config.storage&&fpfile.key)?config.storage+fpfile.key:fpfile.url;      
         shop.save(function(s){
             api.info($scope,"Votre photo a été enregistrée!");            
             //elem.find('img.photo-owner').attr("src",FPFile.url+filter);
@@ -231,8 +233,8 @@ Shop.factory('shop', [
     var Shop = function(data) {
       //
       // this is the restfull backend for angular 
-      this.backend=$resource(config.API_SERVER+'/v1/shops/:urlpath',
-            {category:'@id'}, {
+      this.backend=$resource(config.API_SERVER+'/v1/shops/:urlpath/:action',
+            {category:'@id', action:'@action'}, {
             update: {method:'POST'},
             delete: {method:'PUT'},
       });
@@ -280,7 +282,7 @@ Shop.factory('shop', [
     Shop.prototype.findByCatalog = function(cat, filter,cb,err) {
       if(!err) err=this.onerr;
       var shops, s,self=this;
-      angular.extend(params, filter,{urlpath:'category/'+cat})      
+      angular.extend(params, filter,{urlpath:'category',action:cat})      
       s=this.backend.query(filter, function() {
         shops=self.wrapArrayp(s);
         if(cb)cb(shops);
@@ -304,6 +306,7 @@ Shop.factory('shop', [
       },err);
       return this;
     };
+
 
     Shop.prototype.publish=function(cb,err){
       if(!err) err=function(){};

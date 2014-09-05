@@ -31,7 +31,10 @@
               </div>
           </div>
           <div class="col-xs-6 col-md-6 pull-right">
-              <button type="submit" ng-click="createAccount(user)" ng-disabled="form.$invalid || WaitText"  class="btn btn-lg btn-success pull-right  ">
+              <button type="submit" 
+                ng-click="createAccount(user)" ng-disabled="form.$invalid || WaitText"  
+                ga-send="{category:'account',action:'register'}" 
+                class="btn btn-lg btn-success pull-right  ">
                 <i ng-class="{'icon-gear':WaitText}"></i>
                 Submit
               </button>

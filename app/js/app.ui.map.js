@@ -129,15 +129,18 @@ map.factory('Map', [
 
     //
     // generate a static map to replace interactive map
-    Map.prototype.resolveStaticmap=function(address, label){
+    Map.prototype.resolveStaticmap=function(address, label, zoom){
       // no address, no map
       if(!address) return;
 
+
+
       //
       var marker="", 
+          zoom=(zoom)?zoom:12,
           center=(Array.isArray(address))?"":"center="+address.region+"&",
           url="http://maps.googleapis.com/maps/api/staticmap?"+center,
-          opt="maptype=roadmap&zoom=12&size=600x300",
+          opt="maptype=roadmap&zoom="+zoom+"&size=600x300",
           id="&key="+statickey;
 
       function makeMarker(address){

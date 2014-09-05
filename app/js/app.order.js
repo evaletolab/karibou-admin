@@ -19,6 +19,7 @@ Order.config([
       .when('/logistic/collect', {title:'welcome to your open community market',  templateUrl : '/partials/logistic/collect.html'})
       .when('/logistic/livraison', {title:'welcome to your open community market',  templateUrl : '/partials/logistic/overview.html'})
       .when('/order', {title:'Valider votre commande', templateUrl : '/partials/order/order.html'})
+      .when('/shop/admin/orders', {title:'List next orders ',  templateUrl : '/partials/shop/orders.html'})
       .when('/admin/orders', {title:'List next orders ',  templateUrl : '/partials/admin/orders.html'})
       .when('/admin/order', {title:'Admin of order ',  templateUrl : '/partials/admin/order.html'});
   }
@@ -33,23 +34,48 @@ Order.controller('OrderCtrl',[
   '$scope',
   '$location',
   '$rootScope',
+  '$routeParams',
   '$timeout',
   'api',
   'order',
   'cart',
   'user',
+  'shop',
+  'product',
+  'Map',
   '$log',
 
-  function (config, $scope, $location, $rootScope, $timeout,  api, order, cart, user, $log) {
+  function (config, $scope, $location, $rootScope,$routeParams, 
+           $timeout,  api, order, cart, user, shop, product, Map, $log) {
     var cb_error=api.error($scope);
 
+    $scope.map=new Map()
     $scope.config=config;
     $scope.order=order;
-    $scope.shipping=order.nextsShippingDate();
     $scope.cart=cart;
     $scope.errors=false;
     $scope.orders=[];
-    
+    $scope.products=[];
+    $scope.filters={}
+    $scope.shops=false;
+
+    // default model for modal view
+    $scope.modal = {};      
+    $scope.prefix="livraison du "
+
+ 
+    //
+    // title of page
+    $scope.title="Historique de toutes les commandes"
+    if($routeParams.when&&$routeParams.when.indexOf('next')>-1){      
+      $scope.when=true
+      $scope.title="Les prochaines livraisons "
+    }
+    else if($routeParams.when&&$routeParams.when!==null){
+      $scope.shipping=new Date($routeParams.when);
+      $scope.when=true
+      $scope.title="Les livraisons de la date sélectionnées"
+    }
 
     //
     // init order fields
@@ -58,19 +84,106 @@ Order.controller('OrderCtrl',[
       $scope.cart.config.address=(p!=-1)?p:0;      
     })
 
+    config.shop.then(function(){
+      $scope.shippingDays=order.findOneWeekOfShippingDay();
+      if($scope.shipping)
+        return
+      $scope.shipping=order.findCurrentShippingDay();
+      // $scope.shipping=dates[0].when
+
+      // for (var i = dates.length - 1; i >= 0; i--) {
+      //   var date=new Date(dates[i].when);date.setHours(0);date.setMinutes(0,0,0)
+
+      //   if(d.indexOf(date.getTime())==-1) d.push(date.getTime());
+      // };
+
+      // $scope.shippingOptions=d;      
+    })
+ 
+    $scope.filterDateByDay=function(dates){
+      for (var i = dates.length - 1; i >= 0; i--) {
+        //dates[i].when
+      };
+
+    }
+
+    $scope.modalUserDetails=function(oid){
+      for(var i in $scope.orders){
+        if($scope.orders[i].oid==oid){
+          $scope.modal=$scope.orders[i]
+          return
+        }
+      }
+    }
+    
+    $scope.modalDissmiss=function(){
+      $scope.modal = {};
+    }
+
+
+    $scope.groupByShops=function(orders){
+      var shops={}
+      orders.forEach(function(order){
+        order.items.forEach(function(item){
+
+          // init item for this shop
+          if(!shops[item.vendor]){
+            shops[item.vendor]=[]
+          }
+          // add item to this shop
+          item.oid=order.oid
+          item.email=order.email
+          item.customer=order.customer
+          item.created=order.created
+          item.fulfillments=order.fulfillments
+          shops[item.vendor].push(item)
+        })
+      })        
+      return shops
+    }
+
+    $scope.getOrderStatusClass=function(order){
+      // order.fulfillments.status
+      // "failure","created","partial","fulfilled"
+
+      // order.payment.status
+      // "pending","authorized","partially_paid","paid","partially_refunded","refunded","voided"
+      if(order.fulfillments.status=='failure')
+        return 'danger'
+
+      if(order.fulfillments.status=='partial')
+        return 'warning'
+
+      if(order.fulfillments.status=='fulfilled')
+        return 'success'
+
+      return ''
+    }
+
+    $scope.getActiveClass=function(key,value){
+      // no option
+      if(key==undefined){
+        return (Object.keys($routeParams).length===0)?'active':''
+      }
+
+      // options
+      return ($routeParams[key]==value)?'active':''
+    }
+
     //
-    // use this to group view by shipping date
-    $scope.currentShippingDate = null;
+    // use this to group order view by shipping date
+    $scope.currentShippingDate=new Date('1970');
     $scope.groupByShippingDate = function(date) {
-          var showHeader = (date!=$scope.currentShippingDate); 
-           $scope.currentShippingDate = date;
-          return showHeader;
+      var d=new Date(date);d.setHours(12,0,0,0)
+      var showHeader = (d.getTime()!==$scope.currentShippingDate.getTime());
+      $scope.currentShippingDate = d;
+      return showHeader;
     }    
+
 
     $scope.updateGateway=function(){
       cart.setTax(config.shop.order.gateway[cart.config.payment].fees)   
     }
-
 
     $scope.terminateOrder=function(){
       $rootScope.WaitText="Waiting..."
@@ -78,7 +191,8 @@ Order.controller('OrderCtrl',[
       //
       // prepare shipping
       var shipping=user.addresses[cart.config.address];
-      shipping.when=$scope.shipping[$scope.cart.config.shipping].when;
+      shipping.when=new Date($scope.shippingDays[cart.config.shipping].when);
+
 
       //
       // prepare items
@@ -86,12 +200,19 @@ Order.controller('OrderCtrl',[
       //
       //
       var payment=config.shop.order.gateway[cart.config.payment].label;
+
+      // clear error 
+      order.errors=undefined
+      cart.clearErrors()
       order.create(shipping,items,payment,function(order){
         if(order.errors){
-          $rootScope.errors=order.errors
-          $timeout(function(){$rootScope.errors=order.errors=false},3000)
+          cart.setError(order.errors)
           return;
         }
+
+        //
+        // reset accepted CG by user
+        $scope.cg=false;
 
         var labels=order.getShippingLabels();
 
@@ -104,13 +225,28 @@ Order.controller('OrderCtrl',[
     }
 
 
+
     $scope.getItem=function(sku){
       return cart.findBySku(sku)
     }
 
     //
     // get order by user
-    $scope.findOrderByUser=function(){
+    $scope.findOrdersByShop=function(){
+      $scope.shops=false
+      user.$promise.then(function(){
+        order.findOrdersByShop(user.shops[0],$routeParams).$promise.then(function(orders){
+          $scope.orders=orders;
+          if($routeParams.groupby==='shop'){
+            $scope.shops=true
+          }
+        });
+      });
+    }
+
+    //
+    // get order by user
+    $scope.findOrdersByUser=function(){
       user.$promise.then(function(){
         order.findOrdersByUser(user).$promise.then(function(orders){
           $scope.orders=orders;
@@ -120,14 +256,32 @@ Order.controller('OrderCtrl',[
     }
 
     //
-    // get next shipping order
-    $scope.findNextShippingOrders=function(){
-      var filter={nextshippingday:true}
-      order.findAllOrders({}).$promise.then(function(orders){
+    // get all orders
+    $scope.findAllAdminOrders=function(){
+
+      order.findAllOrders($routeParams).$promise.then(function(orders){
         $scope.orders=orders;
+        $scope.shops=false;
+        //
+        // group by shop?
+        if($routeParams.groupby==='shop'){
+          $scope.shops=$scope.groupByShops(orders)
+          $scope.title+=' par boutiques'
+        }
+      })
+    }
+
+    $scope.loadAllProducts=function(){
+      $scope.products=product.query({sort:'categories.weight'},function(products){
+        $scope.products=products;
       });
     }
 
+    $scope.loadShopProducts=function(){
+      $scope.products=product.query({sort:'categories.weight',shopname:user.shops[0].urlpath},function(products){
+        $scope.products=products;
+      });
+    }
   }  
 ]);
 
@@ -138,9 +292,21 @@ Order.filter('dateLabel', function () {
 
         var date=(shipping.when)?shipping.when:shipping,
             time=(shipping.time)?' de '+shipping.time:''
-        return  prefix+moment(date).format('dddd DD MMM YYYY', 'fr')+time;
+        return  prefix+moment(date).format('ddd DD MMM YYYY', 'fr')+time;
    };
 });
+
+Order.filter('dateLabelShort', function () {
+   return function(shipping, prefix) {
+        if (!shipping) return "";
+        if (!prefix) prefix="";
+
+        var date=(shipping.when)?shipping.when:shipping,
+            time=(shipping.time)?' de '+shipping.time:''
+        return  prefix+moment(date).format('ddd DD MMM', 'fr')+time;
+   };
+});
+
 
 
 Order.filter('orderTotal', function () {
@@ -214,22 +380,38 @@ Order.factory('cart', [
           return this.items;
         }
       }
+      
+      return this.save();
     }
 
-    Cart.prototype.remove=function(product){
+    Cart.prototype.remove=function(product,silent){
       $rootScope.CartText="Waiting";
       $timeout(function() { $rootScope.CartText=false }, 1000);
-      api.info($rootScope,product.pricing.part+", "+product.title+" a été enlevé du panier",2000)
+
+      if(!silent){
+        var title=(product.pricing&&product.pricing.part)?
+                product.pricing.part+", "+product.title+" a été enlevé du panier":
+                product.title+" a été enlevé du panier"
+        api.info($rootScope,title,2000)
+      }
 
       for(var i=0;i<this.items.length;i++){
         if(this.items[i].sku===product.sku){
           this.items[i].quantity--;
+
+          //
+          // update the finalprice
+          this.items[i].finalprice=this.items[i].price*this.items[i].quantity
+
           if(this.items[i].quantity===0){
             this.items.splice(i,1)
           }
+          this.save()
           return this.items;
         }
       }
+      
+      return this.save();
     }
 
     Cart.prototype.addList=function(products){
@@ -263,6 +445,10 @@ Order.factory('cart', [
           }
 
           this.items[i].quantity++;
+          //
+          // update the finalprice
+          this.items[i].finalprice=this.items[i].price*this.items[i].quantity
+
           return this.items;
         }
       }
@@ -282,6 +468,36 @@ Order.factory('cart', [
       });
       return this.save();
     }
+
+    Cart.prototype.setError=function(errors){
+      var sku, item;
+
+      for(var i=0;i<errors.length;i++){
+        sku=Object.keys(errors[i])[0];
+        item=this.findBySku(sku)
+        if (item)item.error=errors[i][sku];
+      }
+    }
+
+
+// clear error 
+    Cart.prototype.clearErrors=function(){
+      for(var i=0;i<this.items.length;i++){
+        if(this.items[i].error )this.items[i].error=undefined
+      }
+    }
+
+
+    Cart.prototype.hasError=function(){
+      for(var i=0;i<this.items.length;i++){
+        if(this.items[i].error){
+          return true
+        }
+      }
+      return false;
+    }
+    
+
     Cart.prototype.findBySku=function(sku){
       var product = false;
       this.items.forEach(function (item) {
@@ -351,6 +567,7 @@ Order.factory('cart', [
       try {
         // this.items=angular.fromJson(sessionStorage[defaultCart.namespace])        
         this.items = angular.fromJson(localStorage.getItem(defaultCart.namespace ));
+        if(console)console.log("loading cart",this.items)
       } catch (e){
         api.error( "Votre ancien caddie n'a pas pu être retrouvé: " + e );
       }
@@ -377,9 +594,10 @@ Order.factory('order', [
   '$resource',
   '$q',
   'user',
+  'shop',
   'api',
 
-  function (config, $resource, $q, user, api) {
+  function (config, $resource, $q, user,shop, api) {
 
     var defaultOrder={
     }
@@ -401,16 +619,31 @@ Order.factory('order', [
     var Order = function(data) {
       angular.extend(this, defaultOrder, data);
 
-      //
       // define DAO
       this.backend={}
-      this.backend.$order=$resource(config.API_SERVER+'/v1/orders/:oid',
-              {oid:'@oid'}, {
+
+      // default data
+      this.shipping={}
+      this.items={}
+
+      // GET
+      // '/v1/orders'
+      // '/v1/orders/shops/:shopname'
+      // '/v1/orders/users/:id'
+      // '/v1/orders/:oid'
+
+      // POST
+      // '/v1/orders/items/verify'
+      // '/v1/orders'
+      // '/v1/orders/:oid'
+
+      this.backend.$order=$resource(config.API_SERVER+'/v1/orders/:action/:id',
+              {action:'@action',id:'@id'}, {
               update: {method:'POST'},
               delete: {method:'PUT'},
       });
 
-      this.backend.$user=$resource(config.API_SERVER+'/v1/users/:id/:action/:aid',
+      this.backend.$user=$resource(config.API_SERVER+'/v1/orders/users/:id',
               {id:'@id',action:'@action',aid:'@aid'}, {
               update: {method:'POST'},
               delete: {method:'PUT'},
@@ -422,62 +655,98 @@ Order.factory('order', [
 
     }
 
-      
 
 
-    Order.prototype.nextsShippingDate=function(){
-      var date=[], next, order=this;
-      var deferred=$q.defer();
-      config.shop.then(function(){
-        while(date.length<4){
-          next=order.findNextShippingDay(next);
-//          date.push(next)
-          if(!config.shop.order.shippingtimes){
-            throw new Error("Votre application doit être reloadé.")
-          }
-          for(var k in config.shop.order.shippingtimes){
-            next.setHours(k)
-            date.push({id:date.length||0,when:next,time:config.shop.order.shippingtimes[k]});
-          }
-        }
-        return date
+ 
+
+    /* return array of one week of shipping days available for customers*/
+    Order.prototype.findOneWeekOfShippingDay=function(){
+      var next=this.findNextShippingDay(), result=[], all=[next], nextDate
+
+      config.shop.order.weekdays.forEach(function(day){
+        // next = 2
+        // all=[1,2,4]
+        // result =[2,4,1]
+        if(day<next.getDay()){
+            nextDate=new Date((7-next.getDay()+day)*86400000+next.getTime());
+            if(config.shop.order.weekdays.indexOf(nextDate.getDay())!=-1)
+              all.push(nextDate)
+        }else if(day>next.getDay()){
+            nextDate=new Date((day-next.getDay())*86400000+next.getTime())
+            if(config.shop.order.weekdays.indexOf(nextDate.getDay())!=-1)
+              all.push(nextDate)
+        }    
       })
 
-      return date
+      // sorting dates
+      all=all.sort(function(a,b){
+        // Turn your strings into dates, and then subtract them
+        // to get a value that is either negative, positive, or zero.
+        return a.getTime() - b.getTime();
+      });
+
+
+      //
+      // construct object with delivery options
+      var elem=0;
+      all.forEach(function(next,idx){
+        for(var k in config.shop.order.shippingtimes){
+
+          next.setHours(k,0,0,0)
+          result.push({id:elem++,when:new Date(next),time:config.shop.order.shippingtimes[k]});
+        }
+      })
+
+      return result
+
     }
 
-    Order.prototype.findNextShippingDay=function(date){
-      // 86400000[ms] = 24 * 60² * 1000
-      if(date === undefined){
-        var date=new Date()
-      }
-      var next=new Date(date.getTime()+config.shop.order.timelimit*3600000);
-      while(config.shop.order.weekdays.indexOf(next.getDay())<0){
-        next=new Date(next.getTime()+86400000)
-      }
-      next.setMinutes(0,0,0)
-      next.setHours(6)
+    /* return the next shipping day available for customers*/
+    Order.prototype.findNextShippingDay=function(){
+      var now=new Date()
+      // computing order start always at 18:00PM
+      //now.setHours(18,0,0,0);
+      now=now.getTime()
+      var next=new Date(now+config.shop.order.timelimit*3600000);
 
+      //
+      // next is available until time  (timeLimitH)
+      next.setHours(config.shop.order.timelimitH,0,0,0)
+
+      var limit=Math.abs((now-next.getTime())/3600000) 
+      while(config.shop.order.weekdays.indexOf(next.getDay())<0 || limit<config.shop.order.timelimit){
+        next=new Date(next.getTime()+86400000)
+        limit=Math.abs((now-next.getTime())/3600000) 
+      }
+
+      //
+      // we dont care about seconds and ms
+      next.setHours(next.getHours(),next.getMinutes(),0,0)
+      
       return next;
     }
+    
+    Order.prototype.findCurrentShippingDay=function(){
+      var next=new Date(), now=Date.now();
 
-     Order.prototype.findShippingDayFromDate=function(date, jump) {
-      // 86400000[ms] = 24 * 60² * 1000
-      if(date === undefined){
-        var date=new Date(), jump=date.getDay()
+      // if next is today && next hours >= config.shop.order.timelimitH ==> select next day
+      var elpased=Math.abs((now-next.getTime())/3600000) 
+      while((config.shop.order.weekdays.indexOf(next.getDay())<0) || 
+            (elpased<24 && next.getHours()>config.shop.order.timelimitH)){
+        next=new Date(next.getTime()+86400000)
+        elpased=Math.abs((now-next.getTime())/3600000)  
       }
-      var nextday=((jump-date.getDay())%7)
-      var week=(nextday>=0)?0:7*86400000;
-      var r=new Date(+date.getTime()+nextday*86400000+week)
-      r.setMinutes(0,0,0)
-      r.setHours(12)
-      return r;
 
+      //
+      // we dont care about seconds and ms
+      next.setHours(next.getHours(),next.getMinutes(),0,0)
+      return next
     }
 
     Order.prototype.getShippingLabels=function(){
-        var time=config.shop.order.shippingtimes[new Date(this.shipping.when).getHours()]
-        var date=moment(date).format('dddd DD MMM YYYY', 'fr');
+        var when=new Date(this.shipping.when);
+        var time=config.shop.order.shippingtimes[when.getHours()]
+        var date=moment(when).format('dddd DD MMM YYYY', 'fr');
         
         return {date:date,time:time}
     }
@@ -538,6 +807,7 @@ Order.factory('order', [
 
 
     Order.prototype.create=function(shipping,items,payment, cb,err){
+
       if(!err) err=function(){};
       var self=this, s = this.backend.$order.save({shipping:shipping,items:items,payment:payment}, function() {
         self.wrap(s);
@@ -547,9 +817,9 @@ Order.factory('order', [
     };    
     
 
-    Order.prototype.findOrdersByUser=function(user){ 
+    Order.prototype.findOrdersByUser=function(user,filter){ 
       var self=this;
-      return this.chainAll(this.backend.$user.query({id:user.id,action:'orders'}).$promise);
+      return this.chainAll(this.backend.$order.query({id:user.id,action:'users'}).$promise);
     }    
 
 
@@ -558,6 +828,11 @@ Order.factory('order', [
       return this.chainAll(this.backend.$order.query(filter).$promise);
     }
 
+    Order.prototype.findOrdersByShop=function(shop,filter, cb){
+      var self=this;
+      var params=angular.extend({},filter||{},{id:shop.urlpath,action:'shops'})
+      return this.chainAll(this.backend.$order.query(params).$promise);
+    }
 
     var _order=api.wrapDomain(Order,'oid', defaultOrder);
     return _order;

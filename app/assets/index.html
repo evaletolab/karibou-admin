@@ -11,16 +11,16 @@
 
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" user-scalable="no">
-    <link rel="canonical" href="http://kariboo.ch/">
-    <meta name="title" content="Kariboo">
+    <link rel="canonical" href="http://karibou.ch/">
+    <meta name="title" content="Karibou">
     <meta property="og:type" content="website">
     <meta property="og:image" content="k.png">
-    <meta property="og:title" content="Kariboo">
-    <meta property="og:description" content="Kariboo" >
-    <meta property="og:site_name" content="Kariboo">
-    <meta property="og:url" content="http://Kariboo.ch/">
+    <meta property="og:title" content="Karibou">
+    <meta property="og:description" content="Karibou" >
+    <meta property="og:site_name" content="Karibou">
+    <meta property="og:url" content="http://Karibou.ch/">
     <meta property="fb:app_id" content="012345">
-    <meta name="twitter:site" content="@kariboo">
+    <meta name="twitter:site" content="@karibou">
 
 
     <!--[if lte IE 7]>
@@ -31,7 +31,7 @@
     <![endif]-->
 
 
-    <link href="//fonts.googleapis.com/css?family=Open+Sans:400,300,600|Merriweather:400,300,700" rel="stylesheet" type="text/css">
+    <link href="//fonts.googleapis.com/css?family=Open+Sans:400,300,600|Merriweather:400,300,700" rel="stylesheet" type="text/css" async="true">
     <!-- <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:600' rel='stylesheet' type='text/css'> -->
     <link rel="stylesheet" href="/css/vendor.css">
     <link rel="stylesheet" href="/css/app.css">
@@ -50,7 +50,7 @@
 <!--       <iframe accept-cookie frameborder="0" style="height:0px;width:100%;z-index:999999">
       </iframe> 
  -->
-      <nav class="site-nav" tabindex="-1" toggle-sidebar ng-controller="OrderCtrl">
+      <nav class="site-nav" tabindex="-1" toggle-sidebar >
          <button class="site-nav-logo " ng-cloak ng-class="{large:cart.quantity()}">
             <span class=""><i class="icon-reorder white icon-2"></i>
               &nbsp;Menu
@@ -132,7 +132,7 @@
               <li  class="site-nav-list-item " ng-repeat="category in category.findAll()|filter:{type:'Category'}">
                 <a class="site-nav-list-item-btn  " title="{{category.name}}" 
                    ng-class="getClass('/products/category/{{category.slug}}')"
-                   href="/products/category/{{category.slug}}" tabindex="-1"><i class="icon icon-angle-right"></i>{{category.name}}</a>
+                   href="/products/category/{{category.slug}}" tabindex="-1"><i class="icon icon-angle-right"></i> {{category.name}}</a>
               </li>
 
               <li class="site-nav-list-item divider">
@@ -211,6 +211,8 @@
 
     ga('create', 'UA-36578297-1', 'auto');
     // ga('require', 'displayfeatures');
+
+    
   </script>
 
 </html>

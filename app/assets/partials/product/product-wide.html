@@ -3,10 +3,10 @@
       <div class="header">
         <aside>
           <!-- DISPLAY PHOTO -->
-          <img ng-cloak ng-show="product.photo.url" ng-src="{{product.photo.url}}/convert?w=400&h=320&fit=crop" class="item-image" style="width:100%">
+          <img ng-cloak ng-show="product.photo.url" ng-src="{{product.photo.url}}" class="item-image" style="width:100%">
 
           <!-- DISPLAY DEFAULT PHOTO -->
-          <img ng-cloak ng-hide="product.photo.url" ng-src="{{false|placehold:'400x320'}}" >
+          <img ng-cloak ng-if="!product.photo.url" ng-src="{{false|placehold:'400x320'}}" >
 
           <!-- NOT AVAILABLE -->
           <img ng-cloak ng-show="!product.isAvailableForOrder()" ng-src="http://placehold.it/400x320/eeeeee/000000&text=indisponible" class="available" style="height:100%">

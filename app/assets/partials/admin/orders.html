@@ -1,0 +1,174 @@
+<div tabindex="-1" class="screen-content" ng-controller="OrderCtrl">
+  
+
+
+
+
+   <section class="wrapper paysage" tabindex="-1" >
+      <div class="wrapper-inner" ng-init="findAllAdminOrders()">
+
+
+
+      <!--                               -->
+      <!-- NAVIGATION -->
+      <!--                               -->                          
+
+      <!--                               -->
+      <!-- CONTENT                       -->
+      <!--                               -->                          
+ 
+      
+      
+      
+      
+      
+      <nav class="navbar navbar-inverse" role="navigation">
+        <ul class="nav navbar-nav">
+          <li ng-class="getActiveClass()"><a href="/admin/orders">toutes les commandes</a></li>
+          <li ng-class="getActiveClass('when','next')"><a href="/admin/orders?when=next">prochaines livraison</a></li>
+<!--           <li ng-class="getActiveClass('status','fail')"><a href="/admin/orders?status=fail">failures</a></li>
+          <li ng-class="getActiveClass('status','close')"><a href="/admin/orders?status=close">closes</a></li>
+ -->          <li ng-class="getActiveClass('groupby','shop')"><a ng-href="/admin/orders?groupby=shop&when=next">vue par boutique</a></li>
+        </ul>
+      </nav>
+
+      <!-- <h3>{{title}}</h3> -->
+      <div ng-show="when" >
+        <h2 class="">{{prefix}} {{shipping|dateLabel}}</h2>
+      </div>
+      
+
+      <!-- ORDERS BY SHOPS -->
+      <div class="panel" ng-repeat="(shop, items) in shops" ng-if="shops" style="margin-top:40px">
+        <h3>La boutique <a ng-href="/shops/{{shop}}">{{shop}}</a></h3>
+          <table class="table table-hover table-bordered ">
+            <thead>
+              <tr>
+                <th>n°</th>
+                <th>oid</th>
+                <th>user</th>
+                <th>date</th>
+                <th style="width:30%">article</th>
+                <th>qty</th>
+                <th style="width:100px">CHF</th>
+                <th>actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat="item in items" ng-class="getOrderStatusClass(item)">
+                <td>{{$index}}</td>
+                <td>{{item.oid}}</td>
+                <td>
+                  <button class="btn btn-primary " 
+                          ng-click="modalUserDetails(item.oid)"
+                          bs-modal="'/partials/order/order.user.modal.html'">
+                    {{item.customer.name.familyName}}
+                  </button>                  
+                </td>
+                <td>{{item.created|dateLabelShort}}</td>
+                <td><a ng-href="/products/{{item.sku}}">{{item.title}}</a></td>
+                <td>{{item.quantity}}</td>
+                <td><input type="text" type="number" pattern="^\d+(\.|\,)\d{2}$" ng-model="item.finalprice" class="col-xs-12"></td>
+                <td>
+                  <button type="button" class="btn btn-primary btn-xs" ng-disabled="item.fulfillments.status==='failure'"><i class="icon-ok"></i></button>
+                  <button type="button" class="btn btn-default btn-xs" ng-disabled="item.fulfillments.status==='failure'"><i class="icon-frown"></i></button>
+
+                </td>
+              </tr>
+            </tbody>
+          </table>
+      </div>
+      <hr/>
+      <!-- BY ORDERS -->
+      <div class="panel" ng-if="orders.length && !shops">
+          <table class="table table-hover table-bordered ">
+            <thead>
+              <tr>
+                <th>#oid</th>
+                <th>user</th>
+                <th>date</th>
+                <th>gateway</th>
+                <th>payment</th>
+                <th>total</th>
+                <th>progress</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat-start="order in orders" ng-show="groupByShippingDate(order.shipping.when, $index)" >
+                <td colspan="8" class="shipping-date"><div><a ng-href="/admin/orders?groupby=shop&when={{order.shipping.when}}">{{order.shipping.when|dateLabel}}</a></div></td>
+              </tr>
+              <tr ng-repeat-end ng-class="getOrderStatusClass(order)">
+                <td>{{order.oid}}</td>
+                <td>
+                  <button class="btn btn-primary " 
+                          ng-click="modalUserDetails(order.oid)"
+                          bs-modal="'/partials/order/order.user.modal.html'">
+                    {{order.customer.name.familyName}}
+                  </button>                  
+                </td>
+                <td>{{order.created|dateLabelShort}}</td>
+                <td>{{order.fulfillments.status}}</td>
+                <td>{{order.payment.gateway}}</td>
+                <td>{{order|orderTotal}}</td>
+                <td>{{order.getProgress()|number:1}}<b>%</b></td>
+              </tr>
+            </tbody>
+          </table>
+      </div>
+
+      <hr/>
+      <h1>Apperçu des stocks disponibles <button class="btn btn-transparent btn-md" ng-click="loadAllProducts()"><i class="icon-refresh"></i></button></h1>
+      <div class="panel">
+
+      <!-- PRODUCTS FORM -->
+
+          <table class="table table-hover table-bordered " 
+                 ng-init="orderByField='vendor.urlpath';reverseSort=false">
+            <thead>
+              <tr>
+                <th style="width:40%">#sku</th>
+                <th>
+                  <a href="" ng-click="orderByField='vendor.urlpath';reverseSort=!reverseSort">
+                    shop
+                  </a>
+                </th>
+                <th style="width:80px">
+                  <a href="" ng-click="orderByField='pricing.stock';reverseSort=!reverseSort">stock</a>
+                </th>
+                <th style="width:100px">price</th>
+                <th>-</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat-start="product in products|orderBy:orderByField:reverseSort" >
+              </tr>
+              <tr ng-repeat-end  ng-class="{'info':product.pricing._price!=product.pricing.price||product.pricing._stock!=product.pricing.stock}">
+                <td><a ng-href="/products/{{product.sku}}">{{product.title}}</a></td>
+                <td>{{product.vendor.urlpath}}</td>
+                <td>
+                  <input type="text" type="number" 
+                  ng-model="product.pricing._stock"  ng-init="product.pricing._stock=product.pricing.stock" class="col-xs-12">
+                </td>
+                <td>
+                  <input type="text" type="number" 
+                  ng-model="product.pricing._price" ng-init="product.pricing._price=product.pricing.price" class="col-xs-12">
+                </td>
+                <td>
+                  <button type="button" ng-click="product.updateAndSave();"
+                          class="btn btn-primary btn-xs" 
+                          ng-disabled="product.pricing._price==product.pricing.price&&product.pricing._stock==product.pricing.stock"><i class="icon-save"></i></button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+      </div>
+
+
+      <!-- FOOTER -->              
+        <footer class="wrapper-footer" ng-include="'/footer.html'"></footer>
+      </section>
+   </section>
+</div>
+
+

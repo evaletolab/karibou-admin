@@ -3,9 +3,13 @@
     <div class="cover-body">
       <div class="cover-body-inner">
         <h1 class="cover-title">{{user.display()}}</h1>
-        <div><a href="/account/overview" class="btn  btn-transparent btn btn-xs btn-block">voir profile</a></div>
+        <div>
+          <a href="/account/overview" class="btn  btn-transparent btn btn-xs btn-split">votre profil</a>
+          <a href="/account/love" class="btn btn-transparent btn btn-xs btn-split">
+            votre liste</a>
+        </div>
 
-        <div class="cover-resume">
+<!--         <div class="cover-resume hide" >
               <div class="cover-resume-col" ng-click="showOverview()">
                 <span class="bold">{{user.shops.length}}</span><br/><small>BOUTIQUE{{user.shops.length>1?'S':''}}</small>
               </div>
@@ -15,22 +19,19 @@
               <div class="cover-resume-col" ng-click="showLove()">
                 <span class="bold">{{user.likes.length}}</span><br/><small>LOVES</small>
               </div>
-        </div>
+        </div> -->
 
-        <div class="cover-resume shop-profile" >
           <!-- ADMIN -->
-<!--           <div ng-show="user.isAdmin()">
+<!--         <div class="cover-resume shop-profile" >
+          <div ng-show="user.isAdmin()">
             <a href="/admin/orders" class="btn btn-block btn-lg btn-transparent left">
               <i class="icon-fire "></i> Commande à traiter
             </a>
           </div>
- -->        </div>
-
+        </div>
+ -->
       <!-- CART -->        
-      <div class="cover-resume cart " ng-controller="OrderCtrl" >
-        <!-- EMPTY SHOP -->
-        <i class="icon-shopping-cart gray icon-7x" ng-hide="cart.items.length "></i>
-
+      <div class="cover-resume cart " style="margin-top:100px"  >
         <!-- CART SHOP -->
         <div id="cart" class="row" ng-show="cart.items.length " 
              ng-include="'/partials/order/cart.html'"></div>

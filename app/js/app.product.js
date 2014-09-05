@@ -173,14 +173,14 @@ Product.controller('ProductCtrl',[
 
     $scope.uploadImage=function(product, imgKey){
       api.uploadfile($scope, {},function(err,fpfile){
-        console.log(fpfile)
         if(err){
           api.info($scope,err.toString());
           return false;
         }
         if(!product.photo)product.photo={}
-        product.photo.url=fpfile.url;
-        
+        //product.photo.url=fpfile.url;        
+        product.photo.url=(config.storage&&fpfile.key)?config.storage+fpfile.key:fpfile.url;
+
       });
       return false;
     }
@@ -214,20 +214,53 @@ Product.controller('ProductCtrl',[
       product.get($routeParams.sku,function(product){
         $scope.title='products '+product.sku+' - '+product.title;
         $scope.product=product;
-        if(product.attributes.comment)loadDisqus($location.path());
+
+        if(product.attributes.comment){
+          loadDisqus($location.path());
+        }
+
       },cb_error);
     }          
     
-          
+
     function loadDisqus(currentPageId) {
       // http://docs.disqus.com/help/2/
+      // https://disqus.com/api/applications/
       window.disqus_shortname = 'karibou';
       window.disqus_identifier = currentPageId;
-
-      if ($location.host() == 'localhost') {
+      if (['localhost','lo.cal'].indexOf($location.host())>-1) {
         window.disqus_developer = 1;
       }
 
+      //
+      // SSO auth user 
+      if(user.context&&user.context.disqus){
+        window.disqus_config = function () {
+            // The generated payload which authenticates users with Disqus
+            this.page.remote_auth_s3 = user.context.disqus.auth;
+            this.page.api_key = user.context.disqus.pubKey;
+            // this.sso = {
+            //       name:   "kariboo",
+            //       // button:  "http://example.com/images/samplenews.gif",
+            //       // icon:     "http://example.com/favicon.png",
+            //       url:        "http://kariboo.evaletolab.ch/login/",
+            //       logout:  "http://kariboo.evaletolab.ch/logout",
+            //       width:   "800",
+            //       height:  "400"
+            // };
+        }          
+
+      }
+      var disqus=document.getElementById('disqus_thread');
+      angular.element(disqus).html('');
+      if(window.DISQUS && disqus){
+        // try{
+          window.DISQUS.reset({reload: true, config:window.disqus_config});
+        // }catch(e){}
+        return;
+      }
+      
+      // https://disqus.com/api/applications/
       // http://docs.disqus.com/developers/universal/
       (function() {
         var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
@@ -235,7 +268,6 @@ Product.controller('ProductCtrl',[
         (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
       })();
 
-      angular.element(document.getElementById('disqus_thread')).html('');
     }    
       
   }  
@@ -290,18 +322,14 @@ Product.factory('product', [
       //
       // this is the restfull backend for angular 
       this.backend={};
-      this.backend.products=$resource(config.API_SERVER+'/v1/products/:sku',
-            {sku:'@sku'}, {
+      this.backend.products=$resource(config.API_SERVER+'/v1/products/:sku/:category',
+            {sku:'@sku',category:'@id'}, {
             get:{method:'GET',isArray:false},
+            query:{method:'GET',isArray:true},
             update: {method:'POST'},
             delete: {method:'PUT'},
       });
 
-      this.backend.category=$resource(config.API_SERVER+'/v1/products/category/:category',
-            {category:'@id'}, {
-            update: {method:'POST'},
-            delete: {method:'PUT'},
-      });
 
       this.backend.shop=$resource(config.API_SERVER+'/v1/shops/:shopname/products',
             {shopname:'@shopname'}, {
@@ -360,7 +388,9 @@ Product.factory('product', [
     Product.prototype.query = function(filter,cb,err) {
       if(!err) err=onerr;
       var products, s,product=this;
-      s=this.backend.category.query(filter, function() {
+      var rest=(filter.shopname)?this.backend.shop:this.backend.products;
+
+      s=rest.query(filter, function() {
         products=product.wrapArray(s);
         if(cb)cb(products);
       },err);
@@ -380,10 +410,10 @@ Product.factory('product', [
 
     Product.prototype.findByCategory = function(cat, filter,cb,err) {
       if(!err) err=onerr;
-      var products, s,product=this, params={};
+      var products, s,product=this, params={sku:'category'};
       angular.extend(params,{category:cat},filter)
 
-      s=this.backend.category.query(params, function() {
+      s=this.backend.products.query(params, function() {
         products=product.wrapArray(s);
         if(cb)cb(products);
       },err);
@@ -406,10 +436,30 @@ Product.factory('product', [
     };
 
 
+    Product.prototype.updateAndSave = function( cb, err){
+      if(!err) err=onerr;
+      // stock has been modified
+      if(this.pricing._stock){
+        this.pricing.stock=parseInt(this.pricing._stock);
+        // this.pricing._stock=undefined
+      }
+
+      // price has been modified
+      if(this.pricing._price){
+        this.pricing.price=parseInt(this.pricing._price);
+        // this.pricing._price=undefined
+      }
+
+      var product=this, s=this.backend.products.save({sku:this.sku},this, function() {
+        if(cb)cb(product);
+      },err);
+      return this;
+    };
+
     Product.prototype.save = function( cb, err){
       if(!err) err=onerr;
       var product=this, s=this.backend.products.save({sku:this.sku},this, function() {
-        if(cb)cb(product.wrap(s));
+        if(cb)cb(product);
       },err);
       return this;
     };

@@ -10,6 +10,8 @@ angular.module('app.order.ui', [
   'app.api'
 ])
 
+//
+// print order fullfilment progress 
 .directive("orderProgress", function () {
   return {
       restrict: 'A',
@@ -24,9 +26,25 @@ angular.module('app.order.ui', [
         return element.width(order.getProgress()+"%");
       }
   };
-});
+})
 
 
 
+//
+// clockdown for the next shipping day
+.directive('clockdown', ['$parse','$timeout','order', function($parse, $timeout,order) {
+
+  return function(scope, element, attr) {    
+    var nextShippingDay=order.findNextShippingDay(),
+        delta=nextShippingDay.getTime()-Date.now(),
+        timer,
+        append = attr['clockdown']||'';
+
+    timer=setInterval(function(){
+      delta--;
+      element.html(append+' '+moment(nextShippingDay).fromNow())
+    },1000)
+  }
+}]);
 
 

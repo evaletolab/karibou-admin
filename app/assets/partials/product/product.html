@@ -11,7 +11,7 @@
             <a class="btn btn-primary " ng-click="cart.add(product)" ng-disabled="WaitText"
                 ng-show="product.isAvailableForOrder()&& product.pricing.stock">
               <i ng-class="{'icon-ellipsis-horizontal':CartText, 'icon-ok ':!CartText}"></i>
-              &nbsp;J'achête 
+              &nbsp;J'achète 
             </a>
       </div>
       <div class="actions hidden-lg" ng-show="product.isAvailableForOrder()&&product.pricing.stock">
@@ -25,11 +25,11 @@
       </div>
 
       <!-- PRODUCT LINK -->
-      <a  href="{{shop.urlpath|test:'/shop/':''}}/products/{{product.sku}}" shop="/shop/{{product.vendor.urlpath}}" class="link">
+      <a  ng-href="{{shop.urlpath|test:'/shop/':''}}/products/{{product.sku}}" shop="/shop/{{product.vendor.urlpath}}" class="link"  start-progress>
 
           <!-- PHOTO -->
-          <img ng-cloak ng-show="product.photo.url&&!product_edit" bn-lazy-src="{{product.photo.url}}/convert?w=275&h=215&fit=crop&cache=true" class="lazy">
-          <img ng-cloak ng-show="product_edit" src="{{product.photo.url}}/convert?w=275&h=215&fit=crop&cache=true" >
+          <img ng-cloak ng-show="product.photo.url&&!product_edit" bn-lazy-src="{{product.photo.url}}" class="lazy ">
+          <img ng-cloak ng-show="product_edit" src="{{product.photo.url}}" >
 
           <!-- NOT AVAILABLE -->
           <img ng-cloak ng-hide="product.isAvailableForOrder()" ng-src="http://placehold.it/275x215/eeeeee/000000&text=indisponible" class="available">
@@ -57,7 +57,7 @@
             {{product.title}} <span ng-show="product.details.bio" class="green bold">(bio)</span>
           </div>
           <div >
-            <a class="shop-title " href="/shop/{{product.vendor.urlpath}}">{{product.vendor.name}}</a>
+            <a class="shop-title " ng-href="/shop/{{product.vendor.urlpath}}"  start-progress>{{product.vendor.name}}</a>
             <i class=" love" ng-click="love(product)"
                ng-class="{true:'icon-heart pink1',false:'icon-heart-empty'}[user.hasLike(product)]"></i>
           </div>
