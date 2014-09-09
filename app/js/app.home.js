@@ -143,7 +143,7 @@ Home.controller('HomeCtrl', [
     } 
 
     filter={sort:'categories.weight',group:'categories.name'};
-    $scope.products=product.home(null, filter,function(products){
+    $scope.products=product.home(null,filter,function(products){
       $scope.products=products;
     });
 

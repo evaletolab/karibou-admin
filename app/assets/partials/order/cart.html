@@ -8,7 +8,7 @@
                       </thead>
                       <tbody>
                         <tr  ng-repeat="item in cart.items" >
-                          <td class="col-md-8"><em><a href="/products/{{item.sku}}" >{{item.part}} - {{item.title}}</a></td>
+                          <td class="col-md-8 small"><em><a href="/products/{{item.sku}}" >{{item.part}} - {{item.title}}</a></td>
                           <td class="col-md-1" style="text-align: center">
                             {{item.quantity}}
                             <button type="button" class="btn btn-xs btn-default" ng-click="cart.remove(item,true)"><i class="icon-minus"></i></button>

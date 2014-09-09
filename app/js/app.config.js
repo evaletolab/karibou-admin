@@ -9,13 +9,13 @@ angular.module('app.config', []).factory('config', [
     var deferred = $q.defer();
     
     var defaultConfig = {
-      API_SERVER: 'http://localhost:4000',
+      // API_SERVER: 'http://localhost:4000',
       //API_SERVER: 'http://192.168.1.35:4000',
       //API_SERVER: 'http://karibou-api.cloudfoundry.com',
       //API_SERVER: 'http://karibou-evaletolab.rhcloud.com',
       //API_SERVER: 'http://karibou-api.jit.su',
       //API_SERVER:'http://karibou-api.eu01.aws.af.cm',
-      // API_SERVER:'http://karibou-api.evaletolab.ch',
+      API_SERVER:'http://karibou-api.evaletolab.ch',
       API_VERSION: '/v1',
 
       LOG_LEVEL: 'debug',

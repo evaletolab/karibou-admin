@@ -84,7 +84,7 @@
                     <tr ng-repeat="i in order.items">
                       <td title="{{i.vendor}}">{{i.title}}</td>
                       <td>{{i.quantity}}</td>
-                      <td>{{i.finalprice*i.quantity|number:'2'}} CHF</td>
+                      <td>{{i.finalprice|number:'2'}} CHF</td>
                     </tr>
                     <!-- info -->
                     <tr>

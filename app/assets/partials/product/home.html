@@ -31,6 +31,7 @@
         <div ng-controller="HomeCtrl" class="row wrapheight" >
      
 
+
             <article  ng-repeat="group in keys(products)"  ng-show="products[group].length"> 
               <h5 class="article-group-title ">
                 {{group}}
@@ -41,7 +42,12 @@
                 <div  ng-include="'/partials/product/product.html'"  ng-repeat="product in products[group]"></div>              
               </div>
             </article>
-          
+
+<!--             <article class="article-group-title">
+              <h5>{{currentCategory}}</h5>
+              <i class="{{category.find({name:currentCategory}).image||''}} {{category.find({name:currentCategory}).color||gray}}"></i>
+            </article>
+ -->          
 
         </div>
               

@@ -61,7 +61,8 @@ User.controller('AccountCtrl',[
   '$http',
   
   function (config, $scope, $location, $rootScope, $routeParams, api, user, Map, shop, $timeout, $http) {
-    $scope.user=user;    
+    $scope.user=user; 
+    $scope.reg={}   
     $scope.users=[];
     $scope.providers=config.providers;
     
@@ -132,14 +133,13 @@ User.controller('AccountCtrl',[
         firstname:u.name.givenName,
         lastname:u.name.familyName,
         password:u.password.new,
-        confirm:u.password.new
+        confirm:u.password.copy
       };
       
       $rootScope.WaitText="Waiting ..."
       user.register(r,function(){
-        api.info($scope,"Votre compte à été créé! Vous pouvez vous connecter dès maintenant",function(){
-          $location.url('/login');
-        });
+        api.info($scope,"Votre compte à été créé! Vous pouvez finaliser votre profile dès maintenant")
+        $location.url('/account/profile');
       },cb_error);
     };
     
@@ -510,6 +510,8 @@ User.factory('user', [
     User.prototype.register=function (user, cb,err){
       if(!err) var err=function(){};
       var u = $resource(config.API_SERVER+'/register').save(user, function() {
+        _user.copy(u);
+
         if(cb)cb(_user);
       },err);
       return u;
