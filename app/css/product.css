@@ -41,7 +41,7 @@ article:nth-child(even){
   font-weight:300;
   font-size:13px;
 
-  border-radius:5px;
+  -border-radius:5px;
   overflow: hidden;
   position: relative;
 }
@@ -50,7 +50,6 @@ article:nth-child(even){
   cursor:pointer;
   cursor:-Moz-Zoom-In;
   overlay:hidden;
-  min-height:120px;
   margin-top:auto;
   margin-bottom:auto;
   vertical-align:middle;
@@ -60,14 +59,12 @@ article:nth-child(even){
   background-size: cover;
   background-position:50% 50%;
 
-  -border-radius:4px;
 
-  height: 145px;
+  padding-bottom: 88%;
   margin: -2px 0;
 }
 
 .layout-item a.link{
-  min-height: 120px;
   display: block;
   vertical-align:middle;
   padding:0px;
@@ -75,12 +72,12 @@ article:nth-child(even){
   position:relative;
   background: none repeat scroll 0 0 #A05A07;
 
-  border-radius:5px;
+  -border-radius:5px;
   border:0px;
 }
 
 .layout-item img.available, .backfader img.available{
-  position:absolute;
+
   left:0;
   top:0;
   opacity:0.6;
@@ -123,7 +120,7 @@ article:nth-child(even){
 .layout-item .price{
     overflow: visible;
     position: absolute;
-    right: 0px;
+    right: 1px;
     bottom:0px;
     padding:5px;
     background:none repeat scroll 0 0 rgba(0, 0, 0, 0.6);
@@ -140,9 +137,8 @@ article:nth-child(even){
 
 .layout-item.c1, form .layout-item.c1{
   min-height:130px;
-  width: 28%;
-  max-width: 180px;
-  margin:0 30px 30px 0;
+  width: 30%;
+  margin:0 3% 3% 0;
 }
 
 .layout-item.c1 img, .layout-item.c2 img, .layout-item.c3 img{
@@ -240,39 +236,31 @@ article:nth-child(even){
 @media (min-width: 1200px) {
   .layout-item.c2{
     width: 43%;
+    margin: 0 7% 8% 0;
   }
-}
 
+}
 
 /* Tablet paysage (Ipad1)
 ------------------------- */
-@media (min-width: 780px) and (max-width: 1124px) {
-  .layout-item.c1{
-    width: 47%;
-    margin: 0 10% 8% 0;
-  }
+@media (min-width: 1024px) and (max-width: 1199px) {
   .layout-item .actions{
     width: 100%;
   }
-
-  .layout-item img{
-    height:135px;
-  }
-
 }
-
 /* Tablet portrait
 ------------------------- */
-@media (min-width: 768px) and (max-width: 970px) {
+@media (min-width: 768px) and (max-width: 1023px) {
 
   .layout-item img{
-    height:135px;
+    padding-bottom: 83%;
   }
 
 	.layout-item.c1{
 		width: 30%; /* 305px */
     margin:0 3% 3% 0;
 	}
+
 
 
   .layout-item.c3{
@@ -294,7 +282,6 @@ article:nth-child(even){
   }
 
   .layout-item a.link{
-    -min-height: 120px;
   }
   
   .layout-item .actions{
@@ -310,6 +297,9 @@ article:nth-child(even){
     width: 47%;
     margin: 0 2.5% 5% 0;
   }
+  .layout-item img{
+    height: 170px;
+  }
 
   .layout-item.c1:nth-child(odd){
 
@@ -324,7 +314,6 @@ article:nth-child(even){
   }
 
   .layout-item a.link{
-    min-height: 120px;
   }
 
   .layout-item .actions{
@@ -346,7 +335,6 @@ article:nth-child(even){
 	}
 
   .layout-item img{
-    height:130px;
   }
 
 

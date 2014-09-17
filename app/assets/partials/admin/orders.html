@@ -44,7 +44,7 @@
           <table class="table table-hover table-bordered ">
             <thead>
               <tr>
-                <th>n°</th>
+                <th>n</th>
                 <th>oid</th>
                 <th>user</th>
                 <th>date</th>
@@ -56,7 +56,7 @@
             </thead>
             <tbody>
               <tr ng-repeat="item in items" ng-class="getOrderStatusClass(item)">
-                <td>{{$index}}</td>
+                <td>{{item.rank}}</td>
                 <td>{{item.oid}}</td>
                 <td>
                   <button class="btn btn-primary " 

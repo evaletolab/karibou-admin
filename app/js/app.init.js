@@ -21,11 +21,12 @@ var App = angular.module('app', [
 
 // Configure application $route, $location and $http services.
 App.config([
+  '$provide',
   '$routeProvider',
   '$locationProvider',
   '$httpProvider',
 
-  function ($routeProvider, $locationProvider, $httpProvider) {
+  function ($provide, $routeProvider, $locationProvider, $httpProvider) {
     var error_net=0;
     var interceptor = ['$rootScope', '$q','$location', function (scope, $q, $location) {
       function success(response, config) {
@@ -42,6 +43,12 @@ App.config([
           response.status||error_net++
           if (error_net > 2) {
             $location.path('/the-site-is-currently-down-for-maintenance-reasons');
+          }
+
+          console.log(response)
+
+          if($window.ga && config.API_SERVER.indexOf('localhost')==-1){
+            $window.ga('send', 'event', 'error', response);        
           }
 
           return $q.reject(response);
@@ -79,9 +86,18 @@ App.config([
     $locationProvider.html5Mode(true);
     $locationProvider.hashPrefix = '!';
     
+
+    //
+    // 
+    $provide.decorator("$exceptionHandler", ['$delegate', function($delegate) {
+        return function(exception, cause) {
+            $delegate(exception, cause);
+            if(window.TraceKit) window.TraceKit.report(exception);
+        };
+    }]);
+
   }
 ]);
-
 
 
 

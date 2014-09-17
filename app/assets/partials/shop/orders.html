@@ -42,7 +42,7 @@
           <table class="table table-hover table-bordered" ng-repeat="order in orders">
             <thead>
               <tr>
-                <th>n°</th>
+                <th>n</th>
                 <th>oid</th>
                 <th>user</th>
                 <th>date</th>
@@ -57,7 +57,7 @@
                 <td colspan="8" class="shipping-date"><div><a ng-href="/shop/admin/orders?groupby=shop&when={{order.shipping.when}}">{{order.shipping.when|dateLabel}}</a></div></td>
               </tr>
               <tr ng-repeat="item in order.items" ng-class="getOrderStatusClass(order)">
-                <td>{{$index}}</td>
+                <td>{{order.rank}}</td>
                 <td>{{order.oid}}</td>
                 <td>
                   <button class="btn btn-success btn-xs " 

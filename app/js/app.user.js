@@ -184,8 +184,8 @@ User.controller('AccountCtrl',[
     //
     // validate user email
     $scope.verify=function(u){
-      $rootScope.WaitText="Waiting ..."
       user.save(user,function(){
+        $rootScope.WaitText="Waiting ..."
         user.validateEmail(function(validate){
           api.info($scope,"Merci, une confirmation a été envoyé à cette adresse email");
           if (!user.isAuthenticated())
@@ -198,6 +198,7 @@ User.controller('AccountCtrl',[
     //
     // recover user pass
     $scope.recover=function(email){
+      $rootScope.WaitText="Waiting ..."
       user.recover({token:'Zz7YkTpPPp5YFQnCprtc7O9',email:email},function(){
         api.info($scope,"Merci, une information a été envoyé à votre adresse email");
           if (!user.isAuthenticated())

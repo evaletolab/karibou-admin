@@ -187,7 +187,9 @@ angular.module('app.root', [
         e.css('height','0px')
         e.css('opacity','0')
         e.css('visibility','hidden')
-        // e.css('display','none')
+        e.parent().css('z-index','0')
+        e.css('display','none')
+        $('body').removeClass('body-cart')
         // e.addClass('visible-lg visible-md')
         // after transition we remove
       }else{
@@ -196,6 +198,8 @@ angular.module('app.root', [
         e.css('visibility','visible')
         e.css('height','inherit')
         e.css('display','block')
+        e.parent().css('z-index','1000')
+        $('body').addClass('body-cart')
         
 
       }

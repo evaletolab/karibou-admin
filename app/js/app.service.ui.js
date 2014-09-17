@@ -99,10 +99,8 @@ UI.directive('gaSend', ['$parse','$window','config',function($parse,$window, con
     // send gg analitycs
     if($window.ga && config.API_SERVER.indexOf('localhost')==-1){
       element.click(function(){
-        setTimeout(function(){
-          $window.ga('send', 'envent', o.category, o.action);        
+          $window.ga('send', 'event', o.category, o.action);        
           // if(console)console.log('ga',o)
-        },0)        
       })
     }
   }

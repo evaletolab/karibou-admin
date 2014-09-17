@@ -20,6 +20,7 @@
     "angular-resource": "1.2.x",
     "angular-cookies": "1.2.x",
     "underscore": "~1.6.0",
-    "nprogress": "~0.1.6"
+    "nprogress": "~0.1.6",
+    "tracekit": "*"
   }
 }

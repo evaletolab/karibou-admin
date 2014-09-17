@@ -89,7 +89,7 @@
 
 /* Landscape phones
 ------------------------- */
-@media (max-width: 560px) {
+@media (max-width: 3201px) {
 
   .popupcontent .header aside{
       width: 100%;
@@ -129,7 +129,8 @@
       position:absolute;
       bottom:0;
       right: 0;
-      padding: 10px;
+      padding: 0 10px 10px;
+      margin-top:30px;
   }
 
   .popupcontent .price .btn{

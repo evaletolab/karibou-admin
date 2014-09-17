@@ -107,7 +107,11 @@
 
               </div>              
               <div class="col-xs-1">                
-                <input type="submit" ng-hide="user.email.status == true" ng-click="verify(user)" value="Valider" ng-disabled="form.$invalid||WaitText" class="btn btn-lg btn-danger"/>
+                <input type="submit" ng-hide="user.email.status == true" ng-click="verify(user)" 
+                       value="{{WaitText || 'Valider'}}" 
+                       ga-send="{category:'account',action:'validate'}" 
+                       ng-disabled="form.$invalid||WaitText" 
+                       class="btn btn-lg btn-danger"/>
               </div>              
               
             </div>
