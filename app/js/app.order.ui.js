@@ -32,18 +32,22 @@ angular.module('app.order.ui', [
 
 //
 // clockdown for the next shipping day
-.directive('clockdown', ['$parse','$timeout','order', function($parse, $timeout,order) {
+.directive('clockdown', ['$parse','$timeout','order','config', function($parse, $timeout,order,config) {
 
   return function(scope, element, attr) {    
-    var nextShippingDay=order.findNextShippingDay(),
-        delta=nextShippingDay.getTime()-Date.now(),
-        timer,
-        append = attr['clockdown']||'';
+    //
+    // config is an asynchrone load
+    config.shop.then(function(){
+      var nextShippingDay=order.findNextShippingDay(),
+          delta=nextShippingDay.getTime()-Date.now(),
+          timer,
+          append = attr['clockdown']||'';
 
-    timer=setInterval(function(){
-      delta--;
-      element.html(append+' '+moment(nextShippingDay).fromNow())
-    },1000)
+      timer=setInterval(function(){
+        delta--;
+        element.html(append+' '+moment(nextShippingDay).fromNow())
+      },1000)
+    });
   }
 }]);
 

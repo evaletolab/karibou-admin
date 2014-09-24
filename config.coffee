@@ -17,6 +17,7 @@ exports.config =
       order:
         before: [
           'bower_components/jquery/dist/jquery.js',
+          'bower_components/tracekit/tracekit.js',
           'bower_components/bootstrap/dist/js/bootstrap.js',
           'bower_components/fastclick/lib/fastclick.js',
           'bower_components/angular/angular.js',

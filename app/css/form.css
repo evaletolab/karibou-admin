@@ -87,6 +87,7 @@ label.checkbox{
   width: 100%;
   font-weight: 350;
   color: black;
+  position: relative;
 }
 
 
@@ -98,7 +99,6 @@ label.checkbox{
 }
 
 .form-group.bottom{
-    padding-left: 20px;
     margin-top: 10px
 }
 
@@ -134,6 +134,10 @@ form.nomargin{
 }
 .frame-white{
   background-color:white;
+  clear: both;
+  float: left;
+  padding: 7px;
+  width: 100%;  
 }
 
 .frame-rainbow{

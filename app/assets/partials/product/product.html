@@ -31,11 +31,11 @@
           <img ng-cloak ng-show="product.photo.url&&!product_edit" bn-lazy-src="{{product.photo.url}}" class="lazy ">
           <img ng-cloak ng-show="product_edit" src="{{product.photo.url}}" >
 
-          <!-- NOT AVAILABLE -->
-          <img ng-cloak ng-hide="product.isAvailableForOrder()" ng-src="http://placehold.it/275x215/eeeeee/000000&text=indisponible" class="available">
+          <!-- NOT AVAILABLE http://placehold.it/275x230/eeeeee/000000&text=indisponible -->
+          <img ng-cloak ng-hide="product.isAvailableForOrder()" ng-src="/img/product-not-available.gif" class="available">
 
-          <!-- NOT IN STOCK -->
-          <img ng-cloak ng-hide="product.pricing.stock" ng-src="http://placehold.it/275x215/eeeeee/000000&text=plus+en+stock" class="available">
+          <!-- NOT IN STOCK http://placehold.it/275x230/eeeeee/000000&text=plus+en+stock-->
+          <img ng-cloak ng-hide="product.pricing.stock" ng-src="/img/product-stock.gif" class="available">
 
 
           <!-- PRICE-->

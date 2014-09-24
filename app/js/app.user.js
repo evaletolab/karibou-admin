@@ -21,7 +21,7 @@ User.config([
       .when('/auth/login', {_view:'main', templateUrl : '/partials/auth/login.html'})
       .when('/signup', {title:'Créer votre compte', _view:'main', templateUrl : '/partials/account/signup.html'})
       .when('/login', {title:'Login', _view:'main', templateUrl : '/partials/account/login.html'})
-      .when('/validate/:id/:email', {title:'Email Validation', templateUrl : '/partials/account/overview.html'})
+      .when('/validate/:id/:email', {title:'Email Validation', templateUrl : '/partials/account/validate.html'})
       .when('/recovery', { _view:'main', templateUrl : '/partials/account/recovery.html'})
 
       // Account
@@ -61,10 +61,14 @@ User.controller('AccountCtrl',[
   '$http',
   
   function (config, $scope, $location, $rootScope, $routeParams, api, user, Map, shop, $timeout, $http) {
+    $scope.map=new Map()
     $scope.user=user; 
     $scope.reg={}   
     $scope.users=[];
     $scope.providers=config.providers;
+
+    // default model for modal view
+    $scope.modal = {};      
     
     var cb_error=api.error($scope);
 
@@ -75,10 +79,24 @@ User.controller('AccountCtrl',[
       })
     }
 
+    $scope.remove=function(user, password){
+      // dismiss()
+      user.remove(password,function(){
+        api.info($scope,"l'utilisateur est supprimer");
+        // remove user from local repository
+        for (var i=0;i<$scope.users.length;i++){
+          if($scope.users[i].id===user.id)
+            $scope.users.splice(i,1)
+        }
+        // dismiss()
+      },cb_error)
+    }    
+
     if($routeParams.id&&$routeParams.email){
       user.validate($routeParams,function(msg){
         api.info($scope,"Votre adresse email à été validée!");
-      });
+        user.email.status=true;
+      },cb_error);
     }
 
     //
@@ -94,9 +112,16 @@ User.controller('AccountCtrl',[
           message:address.streetAdress+'/'+address.postalCode
         });        
       })
-
       angular.extend($scope,user.geo.getMap());      
     });
+
+    $scope.modalUserDetails=function(user){
+      $scope.modal=user
+    }
+    
+    $scope.modalDissmiss=function(){
+      $scope.modal = {};
+    }
 
     //
     // login action
@@ -125,20 +150,17 @@ User.controller('AccountCtrl',[
     };
 
 
+
     //
     // create a new account
     $scope.createAccount=function(u){
-      var r={
-        email:u.email.address,
-        firstname:u.name.givenName,
-        lastname:u.name.familyName,
-        password:u.password.new,
-        confirm:u.password.copy
+      var r={email:u.email.address,firstname:u.name.givenName,lastname:u.name.familyName,
+            password:u.password.new,confirm:u.password.copy
       };
-      
       $rootScope.WaitText="Waiting ..."
+      
       user.register(r,function(){
-        api.info($scope,"Votre compte à été créé! Vous pouvez finaliser votre profile dès maintenant")
+        api.info($scope,"Votre compte à été créé! Une demande de confirmation vous a été envoyé à votre adresse email")
         $location.url('/account/profile');
       },cb_error);
     };
@@ -164,11 +186,7 @@ User.controller('AccountCtrl',[
       user.save(user,function(){
         api.info($scope,"Profile enregistré");
       },cb_error);
-    };
-    
-    $scope.deleteUser=function(u){
-      //TODO
-    };
+    };    
 
     //
     // validate user email
@@ -187,10 +205,10 @@ User.controller('AccountCtrl',[
       user.save(user,function(){
         $rootScope.WaitText="Waiting ..."
         user.validateEmail(function(validate){
-          api.info($scope,"Merci, une confirmation a été envoyé à cette adresse email");
+          api.info($scope,"Merci, une confirmation a été envoyé à votre adresse email");
           if (!user.isAuthenticated())
             $location.url('/login');
-        });
+        },cb_error);
       },cb_error);
       return;      
     };
@@ -285,18 +303,18 @@ User.controller('AccountCtrl',[
     
 
 
-    if(user.geo && user.addresses){
+    // if(user.geo && user.addresses){
 
-      user.addresses.forEach(function(address,i){
-        if (address.geo)
-        user.geo.addMarker(i,{
-          lat:address.geo.lat,
-          lng:address.geo.lng, 
-          message:address.streetAdress+'/'+address.postalCode
-        });        
-      })
-      angular.extend($scope,user.geo.getMap());      
-    } else angular.extend($scope,new Map().getMap());      
+    //   user.addresses.forEach(function(address,i){
+    //     if (address.geo)
+    //     user.geo.addMarker(i,{
+    //       lat:address.geo.lat,
+    //       lng:address.geo.lng, 
+    //       message:address.streetAdress+'/'+address.postalCode
+    //     });        
+    //   })
+    //   angular.extend($scope,user.geo.getMap());      
+    // } else angular.extend($scope,new Map().getMap());      
   }  
 ]);
 
@@ -340,7 +358,8 @@ User.factory('user', [
       shops: [],
       provider: '',
       url: '',
-      addresses:[]
+      phoneNumbers:[{what:'mobile'}],
+      addresses:[{}]
     };
 
 
@@ -406,7 +425,7 @@ User.factory('user', [
     };
 
     User.prototype.isReady=function(){
-      return (this.email.status == true) 
+      return (this.email&&this.email.status == true) 
     }
     
     User.prototype.hasRole= function (role) {
@@ -424,6 +443,7 @@ User.factory('user', [
     };
 
     User.prototype.hasPrimaryAddress= function () {
+        if (this.addresses&&this.addresses.length==1)return true;
         for (var i in this.addresses){
           if (this.addresses[i].primary===true)
             return i;
@@ -442,6 +462,14 @@ User.factory('user', [
       return  moment(this.email.status).format('ddd DD MMM YYYY', 'fr');
 
     }
+
+    User.prototype.populateAdresseName=function(user){
+      if (!user)user=this;
+      // autofill the address name when available
+      if(user.addresses&&user.addresses.length&&!user.addresses[0].name){
+        user.addresses[0].name=user.name.familyName+' '+user.name.givenName
+      }      
+    }    
 
     //
     // REST api wrapper
@@ -493,6 +521,10 @@ User.factory('user', [
 
     User.prototype.save = function(user, cb, err){
       if(!err) err=this.onerr;
+
+      // autofill the address name when available
+      this.populateAdresseName(user)
+
       var u=this.backend.$user.save(user, function() {
         _user.copy(u);
         if(cb)cb(_user);
@@ -510,6 +542,10 @@ User.factory('user', [
 
     User.prototype.register=function (user, cb,err){
       if(!err) var err=function(){};
+
+      // autofill the address name when available
+      this.populateAdresseName(user)
+
       var u = $resource(config.API_SERVER+'/register').save(user, function() {
         _user.copy(u);
 
@@ -547,17 +583,23 @@ User.factory('user', [
       return s;
     };    
 
+    User.prototype.remove=function(password,cb,err){
+      if(!err) var err=function(){};
+      var self=this, u=this.backend.$user.delete({id:this.id},{password:password}, function() {
+        self.delete()
+        cb()
+      },err);
+    }
+
 
     User.prototype.love=function(product,cb,err){
+      var self=this;
       if(!err) var err=function(){}, params={};
-
-      angular.extend(params, {id:this.id,action:'like',aid:product.sku})
-      var u = this.backend.$user.save(params, function() {
-      // var u = $resource(config.API_SERVER+'/v1/users/:id/like/:sku',{id:_user.id,sku:product.sku}).save( function() {
-        _user.copy(u);
-        if(cb)cb(_user);
+      var u = this.backend.$user.save({id:this.id,action:'like',aid:product.sku}, function() {
+        self.copy(u);
+        if(cb)cb(self);
       },err);
-      return u;
+      return this;
     };    
 
 

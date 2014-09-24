@@ -7,20 +7,24 @@
       <ul class="nav navbar-nav">
 
        <!-- ADMIN-->
+        <li  ng-class="getClass('/admin/orders')">
+            <a class="btn  btn-default" href="/admin/orders?when=next">Commandes</a>
+        </li>
+
         <li  ng-class="getClass('/logistic/collect')" ng-show="user.isAdmin()" >
-          <a  href="/logistic/collect">Collecte</a>
+          <a class="btn  btn-default" href="/logistic/collect">Collecte</a>
         </li>
         <li  ng-class="getClass('/logistic/overview')" ng-show="user.isAdmin()" >
-          <a  ng-href="/logistic/livraison">livraison</a>
+          <a class="btn  btn-default" ng-href="/logistic/livraison">livraison</a>
         </li>
         <li  ng-class="getClass('/admin/category')" ng-show="user.isAdmin()" >
-          <a  ng-href="/admin/category">Categorie</a>
+          <a class="btn btn-default" ng-href="/admin/category">Categorie</a>
         </li>
         <li  ng-class="getClass('/admin/role')" ng-show="user.isAdmin()" >
-          <a  ng-href="/admin/role">Rôle</a>
+          <a class="btn btn-default" ng-href="/admin/role">Rôle</a>
         </li>
         <li  ng-class="getClass('/admin/user')" ng-show="user.isAdmin()" >
-          <a  ng-href="/admin/user">Utilisateurs</a>
+          <a class="btn btn-default" ng-href="/admin/user">Utilisateurs</a>
         </li>        
       </ul>
     </div><!-- /.navbar-collapse -->

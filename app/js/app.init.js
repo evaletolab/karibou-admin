@@ -25,8 +25,7 @@ App.config([
   '$routeProvider',
   '$locationProvider',
   '$httpProvider',
-
-  function ($provide, $routeProvider, $locationProvider, $httpProvider) {
+  function ( $provide, $routeProvider, $locationProvider, $httpProvider) {
     var error_net=0;
     var interceptor = ['$rootScope', '$q','$location', function (scope, $q, $location) {
       function success(response, config) {
@@ -41,14 +40,12 @@ App.config([
           scope.WaitText = false;
           NProgress.done();
           response.status||error_net++
-          if (error_net > 2) {
+          if (error_net > 1) {
             $location.path('/the-site-is-currently-down-for-maintenance-reasons');
           }
 
-          console.log(response)
-
-          if($window.ga && config.API_SERVER.indexOf('localhost')==-1){
-            $window.ga('send', 'event', 'error', response);        
+          if(window.ga && response.data && [0,401].indexOf(response.status)==-1 ){
+            window.ga('send', 'event', 'error', response.data);
           }
 
           return $q.reject(response);
@@ -86,13 +83,10 @@ App.config([
     $locationProvider.html5Mode(true);
     $locationProvider.hashPrefix = '!';
     
-
-    //
-    // 
     $provide.decorator("$exceptionHandler", ['$delegate', function($delegate) {
         return function(exception, cause) {
             $delegate(exception, cause);
-            if(window.TraceKit) window.TraceKit.report(exception);
+            if(window.TraceKit) TraceKit.report(exception);
         };
     }]);
 
@@ -146,13 +140,8 @@ angular.element(document).ready(function () {
   // firefox security
   $script(["https://login.persona.org/include.js"],"persona");
   
-  //
-  // disqus
-  //  $script(["http://karibou.disqus.com/embed.js"],"disqus")
-	  
   
 
   angular.bootstrap(document, ['app']);
-
 });
 

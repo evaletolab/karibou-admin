@@ -1,12 +1,12 @@
-<div class="cover-table cover-user site-user-sidebar">
+<div class="cover-table cover-user " backstretch="cover">
   <div class="cover-row">
     <div class="cover-body">
       <div class="cover-body-inner">
         <h1 class="cover-title">{{user.display()}}</h1>
         <div>
-          <a href="/account/overview" class="btn  btn-transparent btn btn-xs btn-split">votre profil</a>
-          <a href="/account/love" class="btn btn-transparent btn btn-xs btn-split">
-            votre liste</a>
+          <a href="/account/overview" class="btn  btn-info btn btn-xs btn-split">mon profil</a>
+          <a href="/account/love" class="btn btn-info btn btn-xs btn-split">
+            mes coups de  <i class="icon-heart"></i></a>
         </div>
 
 <!--         <div class="cover-resume hide" >
@@ -30,21 +30,21 @@
           </div>
         </div>
  -->
-      <!-- CART -->        
-      <div class="cover-resume cart " style="margin-top:100px"  >
-        <!-- CART SHOP -->
-        <div id="cart" class="row" ng-show="cart.items.length " 
-             ng-include="'/partials/order/cart.html'"></div>
-      </div> 
-      <!-- CART --> 
 
 
       </div>
     </div> <!-- cover body -->
 
-    <div class="cover-row" style="position:relative">
-     
-    </div><!-- cover row -->    
+  <div class="cover-row">
+      <!-- CART -->        
+      <div class="cover-resume cart ">
+        <!-- CART SHOP -->
+        <div id="cart" class="row" ng-show="cart.items.length " 
+             ng-include="'/partials/order/cart.html'"></div>
+      </div> 
+      <!-- CART --> 
+  </div>
+
   </div><!-- cover row -->
 
 

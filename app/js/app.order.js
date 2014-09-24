@@ -3,7 +3,7 @@
 //
 // Define the Order module (app.shop)  for controllers, services and models
 // the app.shop module depend on app.config and take resources in shop/*.html 
-var Order=angular.module('app.order', ['app.order.ui','app.config', 'app.api']);
+var Order=angular.module('app.order', ['app.order.ui','app.config', 'app.api','app.order.admin']);
 
 //
 // define all routes for user api
@@ -19,6 +19,7 @@ Order.config([
       .when('/logistic/collect', {title:'welcome to your open community market',  templateUrl : '/partials/logistic/collect.html'})
       .when('/logistic/livraison', {title:'welcome to your open community market',  templateUrl : '/partials/logistic/overview.html'})
       .when('/order', {title:'Valider votre commande', templateUrl : '/partials/order/order.html'})
+      .when('/order/:process', {title:'Bank feedback', templateUrl : '/partials/order/order.html'})
       .when('/shop/admin/orders', {title:'List next orders ',  templateUrl : '/partials/shop/orders.html'})
       .when('/admin/orders', {title:'List next orders ',  templateUrl : '/partials/admin/orders.html'})
       .when('/admin/order', {title:'Admin of order ',  templateUrl : '/partials/admin/order.html'});
@@ -26,9 +27,6 @@ Order.config([
 ]);
 
 
-//
-// Define the application level controllers
-// the OrderCtrl is used in shop/*.html 
 Order.controller('OrderCtrl',[
   'config',
   '$scope',
@@ -58,30 +56,50 @@ Order.controller('OrderCtrl',[
     $scope.products=[];
     $scope.filters={}
     $scope.shops=false;
+    $scope.profileReady=(user.isReady()&&user.hasPrimaryAddress())
 
     // default model for modal view
     $scope.modal = {};      
     $scope.prefix="livraison du "
 
- 
     //
-    // title of page
-    $scope.title="Historique de toutes les commandes"
-    if($routeParams.when&&$routeParams.when.indexOf('next')>-1){      
-      $scope.when=true
-      $scope.title="Les prochaines livraisons "
-    }
-    else if($routeParams.when&&$routeParams.when!==null){
-      $scope.shipping=new Date($routeParams.when);
-      $scope.when=true
-      $scope.title="Les livraisons de la date sélectionnées"
-    }
+    // state of the flow
+    $scope.process=$routeParams.process;
+
+    //
+    // initial flow
+    // user.anon && profile   => /order/identity
+    // user.anon              => /order/identity
+    // !user.ready            => /order/profile
+    // user.ready && !process => /order/validation
+    // user.ready &&  process => /order/process
+
+    // user.$promise.finally(function(){
+      if(!user.isAuthenticated() && $scope.process==='profile'){
+        $location.path('/order/profile')
+      }else if(!user.isAuthenticated()){
+        $location.path('/order/identity')
+      }else if(!$scope.profileReady){
+        $location.path('/order/profile')
+        //
+        // the profile is now ok
+      }else if(!$scope.process){
+        $location.path('/order/validation')
+      }else if($scope.process==='identity'){
+        $location.path('/order/profile')
+      }
+    // });
+
+    // remove displayed cart
+    $('html').removeClass('display-cart')
 
     //
     // init order fields
     user.$promise.then(function(){
       var p=user.hasPrimaryAddress();
       $scope.cart.config.address=(p!=-1)?p:0;      
+      if(!user.addresses.length)user.addresses.push({})
+      if(!user.phoneNumbers.length)user.phoneNumbers.push({})
     })
 
     config.shop.then(function(){
@@ -89,97 +107,98 @@ Order.controller('OrderCtrl',[
       if($scope.shipping)
         return
       $scope.shipping=order.findCurrentShippingDay();
-      // $scope.shipping=dates[0].when
-
-      // for (var i = dates.length - 1; i >= 0; i--) {
-      //   var date=new Date(dates[i].when);date.setHours(0);date.setMinutes(0,0,0)
-
-      //   if(d.indexOf(date.getTime())==-1) d.push(date.getTime());
-      // };
-
-      // $scope.shippingOptions=d;      
     })
  
-    $scope.filterDateByDay=function(dates){
-      for (var i = dates.length - 1; i >= 0; i--) {
-        //dates[i].when
-      };
+ 
+ 
+    $scope.currentFlow=function(flow){
 
+      return flow.indexOf($scope.process)>-1
     }
 
-    $scope.modalUserDetails=function(oid){
-      for(var i in $scope.orders){
-        if($scope.orders[i].oid==oid){
-          $scope.modal=$scope.orders[i]
-          return
-        }
-      }
-    }
-    
-    $scope.modalDissmiss=function(){
-      $scope.modal = {};
-    }
-
-
-    $scope.groupByShops=function(orders){
-      var shops={}
-      orders.forEach(function(order){
-        order.items.forEach(function(item){
-
-          // init item for this shop
-          if(!shops[item.vendor]){
-            shops[item.vendor]=[]
-          }
-          // add item to this shop
-          item.oid=order.oid
-          item.email=order.email
-          item.customer=order.customer
-          item.created=order.created
-          item.fulfillments=order.fulfillments
-          shops[item.vendor].push(item)
-        })
-      })        
-      return shops
-    }
-
-    $scope.getOrderStatusClass=function(order){
-      // order.fulfillments.status
-      // "failure","created","partial","fulfilled"
-
-      // order.payment.status
-      // "pending","authorized","partially_paid","paid","partially_refunded","refunded","voided"
-      if(order.fulfillments.status=='failure')
-        return 'danger'
-
-      if(order.fulfillments.status=='partial')
-        return 'warning'
-
-      if(order.fulfillments.status=='fulfilled')
-        return 'success'
-
-      return ''
-    }
-
-    $scope.getActiveClass=function(key,value){
-      // no option
-      if(key==undefined){
-        return (Object.keys($routeParams).length===0)?'active':''
-      }
-
-      // options
-      return ($routeParams[key]==value)?'active':''
+    $scope.updateFlow=function(flow){
+      $location.search('process',flow)
     }
 
     //
-    // use this to group order view by shipping date
-    $scope.currentShippingDate=new Date('1970');
-    $scope.groupByShippingDate = function(date) {
-      var d=new Date(date);d.setHours(12,0,0,0)
-      var showHeader = (d.getTime()!==$scope.currentShippingDate.getTime());
-      $scope.currentShippingDate = d;
-      return showHeader;
-    }    
+    // geomap init
+    $scope.updateMap=function(address, cb){
+      if (address.streetAdress===undefined||address.postalCode===undefined)
+       return;
 
+      $scope.map.geocode(address.streetAdress, address.postalCode, address.country, function(geo){
+        if(!geo.results.length||!geo.results[0].geometry){
+          if(cb)cb("L'adresse n'a pas été trouvé, soit le serveur est en panne, soit vous devez modifier votre adresse")
+         return;
+        }
+        //
+        //update data
+        address.geo={};
+        address.geo.lat=geo.results[0].geometry.location.lat;
+        address.geo.lng=geo.results[0].geometry.location.lng;
+        if(cb)cb(null,address)
+      })
+    };  
+    //
+    // if user => save profile
+    // if !user=> register+save profile 
+    $scope.saveIdentity=function(u){
+      $rootScope.WaitText="Waiting ..."
+      user.populateAdresseName(u);
+
+      $scope.updateMap(u.addresses[0],function(err,address){
+        if(err){
+          return api.info($scope,err)
+        }
+
+        if(user.isAuthenticated()){
+          return user.save(u,function(){
+            api.info($scope,"Votre profile est enregistré");
+            $location.path("/order/validation")
+          },cb_error);
+        }
+        // else , register a new and complete profile
+        var reg={email:u.email.address,firstname:u.name.givenName,lastname:u.name.familyName,
+              password:u.password.new,confirm:u.password.copy,
+              addresses:u.addresses,
+              phoneNumbers:u.phoneNumbers
+        };
+        
+        user.register(reg,function(){
+          api.info($scope,"Merci, votre compte à été créé! Une demande de confirmation vous a été envoyée à votre adresse email")
+          $location.url('/order/validation');
+        },cb_error);
+      });
+    }
+
+    $scope.verify=function(user){
+      $rootScope.WaitText="Waiting ..."
+      user.validateEmail(function(validate){
+        api.info($scope,"Merci, une confirmation a été envoyée à votre adresse email");
+        if (!user.isAuthenticated())
+          $location.url('/');
+      },cb_error);      
+    }
+  
+
+    //
+    // login action
+    $scope.login= function(email,password){
+      $rootScope.WaitText="Waiting ..."
+      user.login({ email: email, password:password, provider:'local' },function(u){
+        api.info($scope,"Merci, vous êtes dès maintenant connecté");
+
+        // 
+        // if user profile is not ready?
+        if(!user.isReady()||!user.hasPrimaryAddress()){
+          return $location.url('/order/profile');  
+        }
+
+        //
+        // else goto '/'
+        $location.url('/order/validation');
+      }, cb_error);
+    };    
 
     $scope.updateGateway=function(){
       cart.setTax(config.shop.order.gateway[cart.config.payment].fees)   
@@ -221,66 +240,13 @@ Order.controller('OrderCtrl',[
         // empty the current cart to avoid multiple order
         cart.empty()
         api.info($scope, "Votre  commande est enregistré, vous serez livré le "+when,6000)
+        //$('#postfinance-form').submit()
       },cb_error)
     }
 
 
-
     $scope.getItem=function(sku){
       return cart.findBySku(sku)
-    }
-
-    //
-    // get order by user
-    $scope.findOrdersByShop=function(){
-      $scope.shops=false
-      user.$promise.then(function(){
-        order.findOrdersByShop(user.shops[0],$routeParams).$promise.then(function(orders){
-          $scope.orders=orders;
-          if($routeParams.groupby==='shop'){
-            $scope.shops=true
-          }
-        });
-      });
-    }
-
-    //
-    // get order by user
-    $scope.findOrdersByUser=function(){
-      user.$promise.then(function(){
-        order.findOrdersByUser(user).$promise.then(function(orders){
-          $scope.orders=orders;
-        });
-
-      })
-    }
-
-    //
-    // get all orders
-    $scope.findAllAdminOrders=function(){
-
-      order.findAllOrders($routeParams).$promise.then(function(orders){
-        $scope.orders=orders;
-        $scope.shops=false;
-        //
-        // group by shop?
-        if($routeParams.groupby==='shop'){
-          $scope.shops=$scope.groupByShops(orders)
-          $scope.title+=' par boutiques'
-        }
-      })
-    }
-
-    $scope.loadAllProducts=function(){
-      $scope.products=product.query({sort:'categories.weight'},function(products){
-        $scope.products=products;
-      });
-    }
-
-    $scope.loadShopProducts=function(){
-      $scope.products=product.query({sort:'categories.weight',shopname:user.shops[0].urlpath},function(products){
-        $scope.products=products;
-      });
     }
   }  
 ]);

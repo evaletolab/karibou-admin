@@ -20,29 +20,13 @@
       <div  class="bucket post-bucket homepage-posts" ng-include="'/partials/account/navigation.html'"></div>
 
 
-      <!-- SHOPS                         
-        <div class="form-background well white">
-          <h5 class="article-group-title " >Vos boutiques 
-              <a ng-href="/account/shop" class="pull-right small link">Ouvrir une boutique</a></h5>
-
-            <ul ng-repeat="shop in user.shops" class="-unstyled " ng-show="user.shops.length" >
-              <li class="block col-md-12">              
-                <p class="-well-small">
-                  <i class="icon-fire"></i>
-                  <a href="/shop/{{shop.urlpath}}">{{shop.name}}</a><span ng-hide="shop.status == true" class="help-inline"><i class="icon-ok"></i>&nbsp;</span>
-                  <span ng-bind-html-unsafe="shop.description"></span><i ng-show="shop.status==true" class="icon-ok green"></i>
-                </p>
-                
-              </li>
-            </ul>      
-          </div>
-
+      
       <!--                               -->
       <!-- CONTENT                       -->
       <!--                               -->                          
 
 
-      <form name="form" novalidate="novalidate" class="form-horizontal ">
+      <form name="form" novalidate="novalidate" class="-form-horizontal ">
         <div class="form-background well white">
           <h5 class="article-group-title " >
             Vos données personnelles
@@ -51,29 +35,29 @@
 
           <!-- NAME FIRSTNAME -->        
           <div class="form-group required">
-            <label class="col-sm-2 control-label">Prénom</label>
-            <div class="col-sm-10 ">
+            <label class="colsm2 control-label">Prénom</label>
+            <div class="colsm10 ">
                 <input required ng-model="user.name.givenName" placeholder="Prénom" type="text" name="firstname" class="form-control input-lg"/>
             </div>                
           </div>
           <div class="form-group required">
-            <label class="col-sm-2 control-label">Nom</label>
-            <div class="col-sm-10 ">
+            <label class="colsm2 control-label">Nom</label>
+            <div class="colsm10 ">
                 <input required ng-model="user.name.familyName" placeholder="Nom" type="text" name="lastname" class="form-control input-lg"/>
             </div>                
           </div>
           
           <!-- PHONES --> 
           <div class="form-group required">
-            <label class="col-sm-2 control-label">Téléphone</label>
-            <div class="col-sm-10">
+            <label class="colsm2 control-label">Téléphone</label>
+            <div class="colsm10">
               <div ng-repeat="phone in user.phoneNumbers" class="row nomargin">
-                <div class="col-xs-4 nopadding">
+                <div class="col-xs-3 nopadding">
                   <input type="text"  ng-model="user.phoneNumbers[$index].what" placeholder="mobile" 
                   class="form-control input-lg ">
                 </div>
-                <div class="col-xs-6 nopadding">
-                  <input type="text"  ng-model="user.phoneNumbers[$index].number" placeholder="078 000 55 55" 
+                <div class="col-xs-7 nopadding">
+                  <input type="text"  ng-model="user.phoneNumbers[$index].number" placeholder="004178 000 55 55" 
                   class="form-control input-lg">
                 </div>
                 <div class="col-xs-1 nopadding">                
@@ -84,61 +68,46 @@
               <hr ng-show="user.phoneNumbers.length"/>
 
               <div class="">
-                  <a ng-click="user.phoneNumbers.push({})" ng-class="!user.phoneNumbers.length? 'btn-lg':'btn-xs'"
+                  <a ng-click="user.phoneNumbers.push({what:'mobile'})" ng-class="!user.phoneNumbers.length? 'btn-lg':'btn-xs'"
                      class="btn btn-info  btn-block"> Ajouter un téléphone</a>
               </div>
             </div>
           </div>
                  
 
-          <!-- EMAIL & VALIDATION -->   
-          <div class="col-xs-12  ">
-            <div class="alert alert-warning" ng-cloak ng-show="user.email.status !== true" >
-                Vous devez valider votre addresse email.
-            </div>
-          </div>
-
           <div class="form-group required">
-            <label class="col-sm-2 control-label">Email</label>
-            <div class="col-sm-offset-2 row ">
-              <div class="col-xs-9">                
-                <input id="email" required ng-model="user.email.address" type="email" name="email" class="form-control input-lg"/><span ng-hide="form.email.$invalid || EmailError" class="accout-field-valid"><i ng-show="user.email.status == true" class="icon-ok green"></i>
-                </span>
-
-              </div>              
-              <div class="col-xs-1">                
-                <input type="submit" ng-hide="user.email.status == true" ng-click="verify(user)" 
-                       value="{{WaitText || 'Valider'}}" 
-                       ga-send="{category:'account',action:'validate'}" 
-                       ng-disabled="form.$invalid||WaitText" 
-                       class="btn btn-lg btn-danger"/>
-              </div>              
-              
-            </div>
+            <label class="colsm2 control-label">Email</label>
+            <input id="email" required ng-model="user.email.address" type="email" name="email" class="form-control input-lg"/><span ng-hide="form.email.$invalid || EmailError" class="accout-field-valid"><i ng-show="user.email.status == true" class="icon-ok green"></i>
+            </span>              
           </div>
         </div>
           <!-- ADDRESS -->
 
           <!-- ADDRESSES -->
-        <div class="alert alert-warning" ng-hide="user.addresses.length">
-          <strong>Votre profile est incomplet!</strong> 
-          Pour passer une commande, vous devez indiquer au moins une adresse de livraison.
+        <div class="" ng-hide="user.addresses.length">
+            <button class="btn btn-lg btn-block" 
+                    ng-class="{'btn-warning':!user.addresses.length,'btn-default':user.addresses.length,}" 
+                    ng-click="user.addresses.push({primary:true})">
+              Mon adresse de livraison 
+            </button> 
+
         </div>
 
-        <div class="nomargin  white" ng-class="{'primary-content':user.addresses[$index].primary}" ng-repeat="address in user.addresses" >
+        <div class="nomargin  white clearfix well" ng-class="{'primary-content':user.addresses[$index].primary}" ng-repeat="address in user.addresses"  style="clear:both">
               <a href ng-click="user.addresses.splice($index, 1)" 
+                  title="enlever cette adresse"
               class="pull-right btn btn-small btn-inverse"><i class="icon-remove"></i> </a>
 
 
-            <h5 class="article-group-title black" >
-                Adresse N°{{$index}}# {{user.addresses[$index].name}} 
-            </h5>          
+            <h4 class="article-group-title black" >
+                Adresse {{user.addresses[$index].name}} 
+            </h4>          
             <div class="form-background">
 
             <!-- NOM -->
             <div class="form-group required">                  
-              <label class="col-sm-2 control-label">Nom complet</label>
-              <div class="col-sm-10">
+              <label class="colsm2 control-label">Nom et prénom</label>
+              <div class="colsm10">
                   <input id="full-name"  ng-model="user.addresses[$index].name" type="text" placeholder="Nom et prénom"
                   class="form-control input-lg" require>
                   <p class="help-block"></p>
@@ -148,34 +117,32 @@
 
             <!-- NOTE -->
             <div class="form-group  required">
-              <label class="col-sm-2 control-label">Note au livreur</label>
-              <div class="col-sm-10">
+              <label class="colsm2 control-label">Note au livreur</label>
+              <div class="colsm10">
                   <input id="full-name"  ng-model="user.addresses[$index].note" type="text" placeholder="Note au livreur, code,..."
-                  class="form-control input-lg" require>
+                  class="form-control input-lg" >
               </div>
             </div>
 
             <!-- RUE/N°/ETAGE -->
             <div class="form-group  required">
-              <label class="col-sm-2 control-label">Rue, numéro et l'étage</label>
-              <div class="col-sm-offset-2 row ">
-                <div class="col-xs-9">                
-                  <input id="address-line1" ng-model="user.addresses[$index].streetAdress"  type="text" ng-blur="updateMap(user.addresses[$index],user)" placeholder="rue et numéro" class="form-control input-lg" require>
+              <label class="colsm2 control-label">Rue, numéro et l'étage</label>
+                <div class="col-xs-10 nopadding">                
+                  <input id="address-line1" ng-model="user.addresses[$index].streetAdress"  type="text" ng-blur="updateMap(user.addresses[$index],user)" placeholder="rue et numéro" class="form-control input-lg" required>
                 </div>
                 <div class="col-xs-2 nopadding">                
-                  <input id="floor1" ng-model="user.addresses[$index].floor" type="text" placeholder="Étage" class="form-control input-lg" require>
+                  <input id="floor1" ng-model="user.addresses[$index].floor" type="text" placeholder="Étage" class="form-control input-lg" required>
                 </div>
 
-              </div>
             </div>
 
             <!-- POSTAL -->
             <div class="form-group  required">
-              <label class="col-sm-2 control-label">Code Postal</label>
-              <div class="col-sm-10">
+              <label class="colsm2 control-label">Code Postal</label>
+              <div class="colsm10">
                   <select class="form-control input-lg" ng-model="user.addresses[$index].postalCode"  
                            data-ng-options="l for l in config.shop.user.location.list" 
-                           ng-change="updateMap(user.addresses[$index],user)">
+                           ng-change="updateMap(user.addresses[$index],user)" required>
                       <option value="">-- Choisissez  --</option>
                   </select>
               </div>
@@ -183,11 +150,11 @@
 
             <!-- REGION -->
             <div class="form-group required">
-              <label class="col-sm-2 control-label">Region</label>
-              <div class="col-sm-10">
+              <label class="colsm2 control-label">Region</label>
+              <div class="colsm10">
                   <select class="form-control input-lg" ng-model="user.addresses[$index].region"  
                            data-ng-options="l for l in config.shop.user.region.list" 
-                           ng-change="updateMap(user.addresses[$index],user)">
+                           ng-change="updateMap(user.addresses[$index],user)" required>
                       <option value="">-- Choisissez  --</option>
                   </select>
               </div>
@@ -195,16 +162,16 @@
 
             <!-- GEO MAP -->
             <div class="form-group" ng-show="user.addresses[$index].geo">
-              <label  class="col-sm-2 control-label">Position sur la carte</label>
-              <div class="col-sm-10">
+              <label  class="colsm2 control-label">Position sur la carte</label>
+              <div class="colsm10">
                 <img src="{{user.geo.resolveStaticmap(user.addresses[$index],user.addresses[$index].note)}}" style="width:100%"/>
               </div>
             </div>
 
             <!-- SELECT MAIN ADDRESS -->
             <div class="form-group">
-              <label  class="col-sm-2 control-label">Pricinpale</label>
-              <div class="col-sm-10">
+              <label  class="colsm2 control-label">Pricinpale</label>
+              <div class="colsm10">
                 <label class="form-control-static"><input class=""  type="checkbox"   ng-model="user.addresses[$index].primary" _disabled="user.hasPrimaryAddress()!=$index">&nbsp;Adresse principale de livraison</label>
               </div>
             </div>
@@ -225,7 +192,7 @@
                    value="{{WaitText || 'Enregistrer'}}" 
                    ga-send="{category:'account',action:'update'}" 
                    class="col-sm-offset btn btn-success btn-lg"/>
-            <button class="btn btn-lg pull-right"
+            <button class="btn btn-lg pull-right" ng-show="user.addresses.length"
                     ng-class="{'btn-warning':!user.addresses.length,'btn-default':user.addresses.length,}" 
                     ng-click="user.addresses.push({primary:true})">
               Ajouter une addresse de livraison 

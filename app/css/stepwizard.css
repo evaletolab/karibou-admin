@@ -11,6 +11,7 @@
     display: table;     
     width: 100%;
     position: relative;
+    margin-top:50px;
 }
 
 .stepwizard-step button[disabled] {

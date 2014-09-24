@@ -68,7 +68,6 @@ function ($rootScope, $http, $resource, $timeout, $q, config) {
         return err.responseText;
       if(typeof err.data === 'string')
         return err.data;       
-      console.log(err)
       if(err.data.length){
         var msg=""
         err.data.forEach(function(e){
@@ -154,7 +153,7 @@ function ($rootScope, $http, $resource, $timeout, $q, config) {
      */
     clazz.prototype.chain=function(promise){
      var self=this
-     this.$promise=this.$promise.then(function(){
+     this.$promise=this.$promise.finally(function(){
          return promise
      })
      return this
@@ -200,6 +199,10 @@ function ($rootScope, $http, $resource, $timeout, $q, config) {
     clazz.prototype.wrap=function(instance){
       this.copy(instance);
       return this;
+    }
+
+    clazz.prototype.delete=function(){
+      if(_all[this[key]]) delete _all[this[key]]
     }
 
 

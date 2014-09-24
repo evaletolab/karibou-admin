@@ -90,6 +90,7 @@ angular.module('app.root', [
     });
 
 
+
     $rootScope.locationReferrer=function(defaultUrl){
       $location.path($rootScope.referrer?$rootScope.referrer:defaultUrl)
     }
@@ -105,16 +106,16 @@ angular.module('app.root', [
      * format: mobile (xs), tablet (sm, sd), desktop (lg). 
      */ 
     
-    var markers = angular.element('<div class="visible-xs"></div><div class="visible-sm"></div><div class="visible-md"></div><div class="visible-lg"></div>');
-    angular.element($window.document.body).append(markers);
-    $rootScope.getVisibleDevice=function(format){
-      for( var i in markers) {
-        if (angular.element(markers[i]).is(":visible"))
-          return markers[i].className;
-        }
-        //default
-        return 'visible-lg'
-    } 
+    // var markers = angular.element('<div class="visible-xs"></div><div class="visible-sm"></div><div class="visible-md"></div><div class="visible-lg"></div>');
+    // angular.element($window.document.body).append(markers);
+    // $rootScope.getVisibleDevice=function(format){
+    //   for( var i in markers) {
+    //     if (angular.element(markers[i]).is(":visible"))
+    //       return markers[i].className;
+    //     }
+    //     //default
+    //     return 'visible-lg'
+    // } 
 
     // getClass compares the current url with the id.
     // If the current url starts with the id it returns 'active'
@@ -135,19 +136,21 @@ angular.module('app.root', [
    
     
 
+    $scope.cover='img/localfood.jpg'        
     $scope.getCover=function(){
       $scope.cover='img/localfood.jpg'        
-
-      if(user.isAuthenticated())
-        return '/partials/account/cover.html';
+      var template='/partials/cover.html';
 
       if ($routeParams.category){
          var c=category.findBySlug($routeParams.category);
          if(c&&c.cover) $scope.cover=c.cover;
-         return '/partials/product/cover.html'
+         template='/partials/product/cover.html'
       }
 
-      return '/partials/cover.html';
+      if(user.isAuthenticated())
+        template='/partials/account/cover.html';
+
+      return template;
     }
 
     $scope.showOverview=function(){
@@ -182,29 +185,28 @@ angular.module('app.root', [
 
     $scope.toggleCart=function(sel){
       // todo, this is hugly
-      var e=angular.element(sel);
-      if(e.css('visibility')=='visible'){
-        e.css('height','0px')
-        e.css('opacity','0')
-        e.css('visibility','hidden')
-        e.parent().css('z-index','0')
-        e.css('display','none')
-        $('body').removeClass('body-cart')
-        // e.addClass('visible-lg visible-md')
-        // after transition we remove
-      }else{
-        // e.removeClass('visible-lg visible-md')
-        e.css('opacity','1')
-        e.css('visibility','visible')
-        e.css('height','inherit')
-        e.css('display','block')
-        e.parent().css('z-index','1000')
-        $('body').addClass('body-cart')
-        
-
-      }
+      $('html').toggleClass('display-cart')            
     }
     
+
+    //
+    // catch errors
+    // https://github.com/occ/TraceKit
+    if(window.TraceKit && window.btoa) {
+      TraceKit.report.subscribe(function(errorReport) {
+        //send via ajax to server, or use console.error in development
+        //to get you started see: https://gist.github.com/4491219
+        console.log(errorReport)
+        if(errorReport.stack.length>2)
+          errorReport.stack.splice(3,errorReport.stack.length-3)
+        var url=config.API_SERVER+"/v1/trace/"+btoa(window.location.origin);
+
+        $.ajax({type: 'POST',data: JSON.stringify(errorReport),
+                contentType: 'application/json', url:url})
+      });
+    }
+
+
   }
 ]);
 

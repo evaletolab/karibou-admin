@@ -27,7 +27,8 @@
                 <th>name</th>
                 <th><a href="" ng-click="orderByField='logged';reverseSort=!reverseSort">login</a></th>
                 <th><a ng-click="orderByField='updated';reverseSort=!reverseSort">update</a></th>
-                <th>validate</th>
+                <th><a ng-click="orderByField='email.status';reverseSort=!reverseSort">validate</a></th>
+                <th>address</th>
                 <th>role</th>
                 <th>shops</th>
               </tr>
@@ -35,10 +36,16 @@
             <tbody>
               <tr ng-repeat="u in users|orderBy:orderByField:reverseSort" ng-class="{'danger':u.status!==true}">
                 <td>-</td>
-                <td><a href="mailto:{{u.email.address}}">{{u.displayName}}</a></td>
+                <td>
+                  <a  ng-click="modalUserDetails(u)"
+                      bs-modal="'/partials/admin/user.modal.html'">
+                    {{u.displayName}}
+                  </button>                  
+                </td>
                 <td>{{u.logged|dateLabelShort}}</td>
                 <td>{{u.updated|dateLabelShort}}</td>
                 <td ng-class="{'danger':u.email.status!==true}">{{u.getEmailStatus()}}</td>
+                <td>{{u.hasPrimaryAddress()}}</td>
                 <td>{{u.roles}}</td>
                 <td>{{u.shops.length}}</td>
               </tr>

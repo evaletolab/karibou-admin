@@ -19,9 +19,6 @@
         <!--                               -->
                           
          <div  class="bucket post-bucket homepage-posts">
-              <h3 class="article-group-title text-center" >
-                Vous allez valider une nouvelle commande
-              </h3>  
               <div class="stepwizard">
                   <div class="stepwizard-row">
                       <div class="stepwizard-step">
@@ -29,25 +26,30 @@
                           <p>Shopping</p>
                       </div>
                       <div class="stepwizard-step">
-                          <button type="button" class="btn btn-primary btn-circle">2</button>
-                          <p>Valider</p>
+                          <a href="/order/identity"
+                          ng-class="currentFlow(['identity','profile']) ? 'btn-primary':'btn-default'"
+                          class="btn  btn-circle">2</a>
+                          <p>Identité</p>
                       </div>
                       <div class="stepwizard-step">
-                          <button type="button" class="btn btn-default btn-circle" disabled="disabled">3</button>
-                          <p>Payment</p>
+                          <a href="/order/payment"
+                          ng-class="currentFlow(['payment']) ? 'btn-primary':'btn-default'"
+                          class="btn  btn-circle" >3</a>
+                          <p>Paiement</p>
+                      </div>
+                      <div class="stepwizard-step">
+                          <a href="/order/validation"
+                          ng-class="currentFlow(['validation']) ? 'btn-primary':'btn-default'"
+                          class="btn btn-circle" >4</a>
+                          <p>Validation</p>
                       </div> 
                   </div>
               </div>
 
          </div>
-         <div>
-           <div class="alert alert-warning" ng-cloak ng-show="user.email.status !== true" >
-                Vous devez <a href="/account/profile">valider votre addresse email</a> pour passer cette commande.
-           </div>
-         </div>
 
-         <!-- ORDER CART -->         
-         <div>
+         <!-- VALIDATE ORDER CART -->         
+         <div ng-if="currentFlow(['validate'])">
            <div class="text-center">
                 <h2 class="article-group-title">VOTRE COMMANDE</h2>
             </div>
@@ -99,61 +101,221 @@
             </table>
          </div>
 
+         <!-- IDENTITY LOGIN -->
+         <div ng-if="currentFlow(['identity'])" >
+          <form class="wizard login" name="identity">
+            <h3>Déjà enregistré ? </h3>
+            <h4>Veuillez vous connecter ci-dessous</h4>
+            <input type="email" class="form-control input-lg login stick"  autofocus 
+                ng-class="{'border-red': identity.email.$invalid, 'border-green': form.email.$valid}"
+                required ng-model="email" type="email" name="email" placeholder="Votre email">
+            <input type="password" class="form-control input-lg login stick" required ng-minlength=6 ng-model="password" name="password" placeholder="Votre password">
+              <a class="small" href="/recovery"  >Avez-vous oublié votre mot de passe? </a>
+              <span class="clearfix"></span>  
 
-         <!-- SHIPPING PAYMENT -->         
-         <div ng-show="user.addresses.length" ng-class="{'has-error':!cart.config.payment}">
-           <h5 class="article-group-title ">Choisir le mode de payment</h5>
-            <select class="form-control input-lg" ng-model="cart.config.payment" ng-change="updateGateway()">
-              <option value="">-- Sélection d'un mode de paiement --</option>
-              <option value="{{$index}}" ng-repeat="gateway in config.shop.order.gateway">{{gateway.label}}</option>
-            </select>           
+            <br/>
+            <button type="submit" ng-click="login(email, password)" 
+                ng-disabled="identity.$invalid || WaitText" 
+                ga-send="{category:'order',action:'login'}" 
+                class="btn btn-lg btn-success">{{WaitText || 'Continuer'}}
+            </button>
+
+
+            <hr/>
+            <a ng-href="/order/profile">Vous n'avez pas encore de compte?</a>
+
+          </form>
          </div>
 
+         <!-- IDENTITY PROFILE -->
+         <div ng-if="currentFlow(['profile'])" >
+            <form name="profile" class="wizard profile">
+              <h3>Créer votre profil de livraison </h3>
+              <!-- NAME FIRSTNAME -->        
+              <div class="form-group required">
+                <label class="collg2 control-label small">Prénom</label>
+                <div class="collg10 ">
+                    <input required ng-model="user.name.givenName" placeholder="Prénom" type="text" name="firstname" class="form-control input-lg"/>
+                </div>                
+              </div>
+              <div class="form-group required">
+                <label class="collg2 control-label small">Nom</label>
+                <div class="collg10 ">
+                    <input required ng-model="user.name.familyName" placeholder="Nom" type="text" name="lastname" class="form-control input-lg"/>
+                </div>                
+              </div>
 
-         <!-- SHIPPING DATE -->         
-         <div ng-show="user.addresses.length">
-           <h5 class="article-group-title ">Choisir la date de livraison</h5>
-            <select class="form-control input-lg" ng-model="cart.config.shipping" ng-options="date.id as date| dateLabel:'' for date in shippingDays">
-            </select>
-            <p class="help-block">En choisissant ce créneau horaire, vous confirmez être présent pour la réception de votre commande.</p>
-
-         </div>
-
-
-         <!-- SHIPPING ADDRESS -->         
-         <div ng-hide="user.addresses.length">
-           <div class="alert alert-warning" >
-             <strong>Votre profile est incomplet!</strong> 
-             Pour passer une commande, vous devez indiquer <a href="/account/profile">au moins une adresse de livraison.</a>
-           </div>
-         </div>            
-
-         <div ng-show="user.addresses.length">
-           <h5 class="article-group-title ">Choisir l'adresse de livraison </h5>
-            <select class="form-control input-lg" ng-model="cart.config.address">
-              <option ng-repeat="a in user.addresses" ng-selected="a.primary" ng-value="$index">
-                {{a.name}} - {{a.streetAdress}} {{a.postalCode}}
-              </option>
-            </select>
-         </div>
+              <div class="form-group required">
+                <label class="collg2 control-label small">Email</label>
+                <div class="collg10 ">
+                    <input required ng-model="user.email.address" placeholder="Votre email" type="text"  class="form-control input-lg"/>
+                </div>                
+              </div>
+              <!-- PASSWORD -->
+              <div class="form-group required" ng-if="!user.isAuthenticated()">
+                <label class="collg2 control-label small">Mot de passe (minimum 6 caractères)</label>
+                <div class="collg10 ">
+                  <input required ng-minlength=6 ng-model="user.password.new"  type="password" name="password" 
+                  placeholder="Mot de passe"  class="form-control input-lg"/>
+                  <span ng-hide="profile.password.$invalid" class="accout-field-valid"><i class="icon-ok green"></i></span>
+                </div>                
+              </div>
+              <div class="form-group required" ng-if="!user.isAuthenticated()">
+                <label class="collg2 control-label small">Confirmer mot de passe</label>
+                <div class="collg10 ">
+                  <input required ng-minlength=6 ng-model="user.password.copy"  type="password" name="copy" 
+                  placeholder="Mot de passe"  class="form-control input-lg"/>
+                  <span ng-hide="profile.copy.$invalid || user.password.copy!==user.password.new" 
+                  class="accout-field-valid"><i class="icon-ok green"></i></span>
+                </div>                
+              </div>
 
 
-        <!-- ORDER -->
-        <div  class="row wrapheight" >
+              
+              <!-- PHONES --> 
+              <div class="form-group required">
+                <label class="collg2 control-label small">Téléphone</label>
+                <div class="collg10">
+                  <div ng-repeat="phone in user.phoneNumbers" class="row nomargin">
+                    <div class="col-xs-3 nopadding">
+                      <input type="text"  ng-model="user.phoneNumbers[0].what" placeholder="mobile" value="mobile"
+                      class="form-control input-lg ">
+                    </div>
+                    <div class="col-xs-9 nopadding">
+                      <input type="text"  ng-model="user.phoneNumbers[0].number" placeholder="004178 000 55 55" 
+                      class="form-control input-lg" required>
+                    </div>
 
-                  <div class="row">
-                      <label>
-                        <input type="checkbox"  value="true" ng-model="cg">
-                        J'ai lu et j'accepte les conditions générales de vente et de livraison.
-                      </label>
-                      <button type="button" class="btn btn-success btn-lg btn-block"
-                              ng-disabled="!cg||!user.isReady()||!user.hasPrimaryAddress()||!cart.config.payment||!cart.items.length||WaitText"  
-                              ng-click="terminateOrder()" >
-                          <i ng-class="{'icon-gear':WaitText}"></i>
-                          Aller à la caisse  
-                      </button>
                   </div>
-        </div>
+                </div>                
+              </div>
+
+
+              <!-- ADDRESS -->
+              <!-- NOTE -->
+              <div class="form-group  ">
+                <label class="collg2 control-label small">Note au livreur</label>
+                <div class="collg10">
+                    <input id="full-name"  ng-model="user.addresses[0].note" type="text" placeholder="Note au livreur, code,..."
+                    class="form-control input-lg" >
+                </div>
+              </div>
+
+              <!-- RUE/N°/ETAGE -->
+              <div class="form-group  required">
+                <label class="collg2 control-label small">Rue, numéro et l'étage</label>
+                <div class="">
+                  <div class="col-xs-10 nopadding">                
+                    <input id="address-line1" ng-model="user.addresses[0].streetAdress"  type="text" placeholder="rue et numéro" class="form-control input-lg" required>
+                  </div>
+                  <div class="col-xs-2 nopadding">                
+                    <input id="floor1" ng-model="user.addresses[0].floor" type="text" placeholder="Étage" class="form-control input-lg" required>
+                  </div>
+
+                </div>
+              </div>
+
+              <!-- POSTAL -->
+              <div class="form-group  required">
+                <label class="collg2 control-label small">Code Postal</label>
+                <div class="collg10">
+                    <select class="form-control input-lg" ng-model="user.addresses[0].postalCode"  
+                             data-ng-options="l for l in config.shop.user.location.list"  required>
+                        <option value="">-- Choisissez  --</option>
+                    </select>
+                </div>
+              </div>
+
+              <!-- REGION -->
+              <div class="form-group required">
+                <label class="collg2 control-label small">Region</label>
+                <div class="collg10">
+                    <select class="form-control input-lg" ng-model="user.addresses[0].region"  
+                             data-ng-options="l for l in config.shop.user.region.list" required>
+                        <option value="">-- Choisissez  --</option>
+                    </select>
+                </div>
+              </div>
+
+              <hr />
+              <div class="clearfix" style="clear:both">
+                 <div class="alert alert-warning" ng-cloak  ng-if="!user.isAuthenticated()">
+                    Afin d'assurer une communication avec vous, nous avons besoin de valider votre adresse email. 
+                    Une demande de confirmation va vous être envoyé à la suite de cet enregistrement.
+                 </div>
+                <div ng-if="user.isAuthenticated() && user.email.status !== true">
+                   <div class="alert alert-warning" ng-cloak  >
+                      <strong>Votre adresse mail n'a toujours pas été confirmée.</strong>
+                      Une demande de confirmation vous a été envoyée par mail le {{user.email.status|dateLabel}}.
+                      Si vous avez perdu ce mail, vous pouvez <a href="" ng-click="verify(user)">activer une nouvelle demande de confirmation</a>.
+                   </div>
+                </div>                 
+              </div>
+              <button class="btn btn-primary btn-lg  clearfix" 
+                      ng-disabled="profile.$invalid || WaitText" 
+                      ga-send="{category:'order',action:'profile'}" 
+                      ng-click="saveIdentity(user)">
+                Continuer
+              </button> 
+
+            </form>
+         </div>
+
+         <!-- IDENTITY ADDRESS -->
+         <div ng-if="currentFlow(['validation'])">
+           <!-- SHIPPING PAYMENT -->         
+           <div ng-class="{'has-error':!cart.config.payment}">
+             <h5 class="article-group-title ">Choisir le mode de payment</h5>
+              <select class="form-control input-lg" ng-model="cart.config.payment" ng-change="updateGateway()">
+                <option value="">-- Sélection d'un mode de paiement --</option>
+                <option value="{{$index}}" ng-repeat="gateway in config.shop.order.gateway">{{gateway.label}}</option>
+              </select>           
+           </div>
+
+           <!-- SHIPPING DATE -->         
+           <div >
+             <h5 class="article-group-title ">Choisir la date de livraison</h5>
+              <select class="form-control input-lg" ng-model="cart.config.shipping" ng-options="date.id as date| dateLabel:'' for date in shippingDays">
+              </select>
+              <p class="help-block">En choisissant ce créneau horaire, vous confirmez être présent pour la réception de votre commande.</p>
+           </div>
+
+           <!-- SHIPPING ADDRESS  -->         
+           <div ng-show="user.hasPrimaryAddress()">
+             <h5 class="article-group-title ">Choisir l'adresse de livraison </h5>
+              <select class="form-control input-lg" ng-model="cart.config.address">
+                <option ng-repeat="a in user.addresses" ng-selected="a.primary||user.addresses.length==1" ng-value="$index">
+                  {{a.name}} - {{a.streetAdress}} {{a.postalCode}}
+                </option>
+              </select>
+           </div>
+
+          <!-- ORDER -->
+          <div  class="row wrapheight" >
+            <div class="row">
+                <label>
+                  <input type="checkbox"  value="true" ng-model="cg">
+                  J'ai lu et j'accepte les conditions générales de vente et de livraison.
+                </label>
+                <button type="button" class="btn btn-success btn-lg btn-block"
+                        ng-disabled="!cg||!user.isReady()||!user.hasPrimaryAddress()||!cart.config.payment||!cart.items.length||WaitText"  
+                        ng-click="terminateOrder()" >
+                    <i ng-class="{'icon-gear':WaitText}"></i>
+                    Aller à la caisse  
+                </button>
+            </div>
+          </div>
+
+         </div>
+
+
+
+
+
+
+        <!-- inject order form for postfinance -->
+        <div ng-include="'/partials/order/payment.alias.html'"/>
+
 
         <footer class="wrapper-footer wide">
           <a class="wrapper-footer-link" title="Qui sommes nous" href="/about">Qui sommes nous</a>

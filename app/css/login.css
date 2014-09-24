@@ -50,11 +50,11 @@
      -moz-box-sizing: border-box;
           box-sizing: border-box;
 }
-.form-account .login.form-control:nth-child(odd){
-  -border-radius: 5px 5px 0 0;
+.stick.form-control:nth-child(odd){
+  border-radius: 5px 5px 0 0;
 }
-.form-account .login.form-control:nth-child(even){
-  -border-radius:  0 0 5px 5px;
+.stick.form-control:nth-child(even){
+  border-radius:  0 0 5px 5px;
 }
 
 .form-account .login.form-control.mainpassword{
