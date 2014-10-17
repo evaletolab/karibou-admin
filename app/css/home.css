@@ -635,7 +635,7 @@ a {
 .site-nav-logo-cart {
     position:fixed;
     top:10px;
-    right:50px;
+    right:30px;
     padding-left:9px;
     padding-right: 0px;
     width:70px;
@@ -737,9 +737,9 @@ a {
     font-weight:700;
     display:block;
     padding:0 10px 0 32px;
-    height:33px;
-    line-height:33px;
-    font-size:14px;
+    height:36px;
+    line-height:36px;
+    font-size:16px;
     border:0;
     background:rgba(0,0,0,0);
     text-align:left;
@@ -839,7 +839,7 @@ a {
 
 .site-nav-transition .site-nav-scrollable-container {
     display:block;
-    width:280px;
+    width:380px;
     overflow: hidden;
     overflow-y:auto; 
 }
@@ -857,7 +857,7 @@ a {
     top-:0}
 
 .site-nav-drawer-open .site-nav-overlay,.site-nav:focus~.site-nav-overlay {
-    left:280px;
+    left:380px;
     z-index:900}
 
 .site-nav-transition #container {
@@ -869,10 +869,10 @@ a {
     z-index:800}
 
 .site-nav-drawer-open #container {
-    -webkit-transform:translate3d(280px,0,0);
-    -moz-transform:translate3d(280px,0,0);
-    -o-transform:translate3d(280px,0,0);
-    transform:translate3d(280px,0,0)}
+    -webkit-transform:translate3d(380px,0,0);
+    -moz-transform:translate3d(380px,0,0);
+    -o-transform:translate3d(380px,0,0);
+    transform:translate3d(380px,0,0)}
 
 .site-nav-drawer-open .site-nav-logo {
     display:none}

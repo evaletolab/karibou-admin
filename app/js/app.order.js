@@ -1,9 +1,15 @@
-'use strict';
+;(function(angular) {'use strict';
 
 //
 // Define the Order module (app.shop)  for controllers, services and models
 // the app.shop module depend on app.config and take resources in shop/*.html 
-var Order=angular.module('app.order', ['app.order.ui','app.config', 'app.api','app.order.admin']);
+var Order=angular.module('app.order', [
+  'app.order.ui',
+  'app.config', 
+  'app.api',
+  'app.order.admin',
+  'postfinance.card'
+]);
 
 //
 // define all routes for user api
@@ -35,6 +41,7 @@ Order.controller('OrderCtrl',[
   '$routeParams',
   '$timeout',
   'api',
+  'Cards',
   'order',
   'cart',
   'user',
@@ -44,7 +51,7 @@ Order.controller('OrderCtrl',[
   '$log',
 
   function (config, $scope, $location, $rootScope,$routeParams, 
-           $timeout,  api, order, cart, user, shop, product, Map, $log) {
+           $timeout,  api, Cards, order, cart, user, shop, product, Map, $log) {
     var cb_error=api.error($scope);
 
     $scope.map=new Map()
@@ -56,11 +63,20 @@ Order.controller('OrderCtrl',[
     $scope.products=[];
     $scope.filters={}
     $scope.shops=false;
+    $scope.Cards=Cards;
     $scope.profileReady=(user.isReady()&&user.hasPrimaryAddress())
 
     // default model for modal view
     $scope.modal = {};      
     $scope.prefix="livraison du "
+
+    $scope.pm={
+      'american express':'ae.jpg',
+      'mastercard':'mc.jpg',
+      'visa':'visa.jpg',
+      'postfinance':'pfc.jpg'
+    }
+
 
     //
     // state of the flow
@@ -71,7 +87,7 @@ Order.controller('OrderCtrl',[
     // user.anon && profile   => /order/identity
     // user.anon              => /order/identity
     // !user.ready            => /order/profile
-    // user.ready && !process => /order/validation
+    // user.ready && !process => /order/payment
     // user.ready &&  process => /order/process
 
     // user.$promise.finally(function(){
@@ -84,14 +100,13 @@ Order.controller('OrderCtrl',[
         //
         // the profile is now ok
       }else if(!$scope.process){
-        $location.path('/order/validation')
+        $location.path('/order/payment')
       }else if($scope.process==='identity'){
         $location.path('/order/profile')
+      }else if($scope.process=='validation' && !cart.config.payment){
+        $location.path('/order/payment')        
       }
     // });
-
-    // remove displayed cart
-    $('html').removeClass('display-cart')
 
     //
     // init order fields
@@ -100,6 +115,7 @@ Order.controller('OrderCtrl',[
       $scope.cart.config.address=(p!=-1)?p:0;      
       if(!user.addresses.length)user.addresses.push({})
       if(!user.phoneNumbers.length)user.phoneNumbers.push({})
+      $log.debug("user data ready for order",user.addresses)
     })
 
     config.shop.then(function(){
@@ -109,16 +125,6 @@ Order.controller('OrderCtrl',[
       $scope.shipping=order.findCurrentShippingDay();
     })
  
- 
- 
-    $scope.currentFlow=function(flow){
-
-      return flow.indexOf($scope.process)>-1
-    }
-
-    $scope.updateFlow=function(flow){
-      $location.search('process',flow)
-    }
 
     //
     // geomap init
@@ -200,25 +206,70 @@ Order.controller('OrderCtrl',[
       }, cb_error);
     };    
 
-    $scope.updateGateway=function(){
-      cart.setTax(config.shop.order.gateway[cart.config.payment].fees)   
+
+    $scope.addPaymentMethod=function(name,number,csc,expiry){
+      $rootScope.WaitText="Waiting ..."
+      user.addPaymentMethod({name:name,number:number,csc:csc,expiry:expiry},function(u){
+        api.info($scope,"Votre méthode de paiement a été enregistrée");        
+        user.showCreditCard=false;
+      },cb_error)
     }
+
+    $scope.deletePaymentMethod=function(alias,cvc,expiry){
+      $rootScope.WaitText="Waiting ..."
+      user.deletePaymentMethod(alias,function(u){
+        api.info($scope,"Votre méthode de paiement a été supprimée");        
+      },cb_error)
+    }
+
+ 
+    $scope.currentFlow=function(flow){
+
+      return flow.indexOf($scope.process)>-1
+    }
+
+    $scope.updateFlow=function(flow){
+      $location.search('process',flow)
+    }
+
+    //
+    // set cart tax and return payment label
+    $scope.updateGatewayFees=function(){
+      if(!cart.config.payment)return 0
+      for(var p in config.shop.order.gateway){
+        if(config.shop.order.gateway[p].label===cart.config.payment.type){
+          cart.setTax(config.shop.order.gateway[p].fees, config.shop.order.gateway[p].label)   
+          return config.shop.order.gateway[p].label;
+        }
+      }
+    }
+
 
     $scope.terminateOrder=function(){
       $rootScope.WaitText="Waiting..."
 
+      $log.debug("order.config",cart.config)
+      $log.debug("order.dates",$scope.shippingDays)
+      $log.debug("order.address",cart.config.address)
+      $log.debug("order.fees",cart.taxName(),cart.tax())
+
       //
       // prepare shipping
-      var shipping=user.addresses[cart.config.address];
-      shipping.when=new Date($scope.shippingDays[cart.config.shipping].when);
+      var shipping=cart.config.address;
+      shipping.when=new Date($scope.shippingDays[cart.config.shipping||0].when);
 
 
       //
       // prepare items
       var items=$scope.cart.items;
+
       //
-      //
-      var payment=config.shop.order.gateway[cart.config.payment].label;
+      // get payment token
+      var payment={
+        alias:cart.config.payment.alias,
+        issuer:cart.config.payment.type,
+        number:cart.config.payment.number
+      };
 
       // clear error 
       order.errors=undefined
@@ -240,7 +291,7 @@ Order.controller('OrderCtrl',[
         // empty the current cart to avoid multiple order
         cart.empty()
         api.info($scope, "Votre  commande est enregistré, vous serez livré le "+when,6000)
-        //$('#postfinance-form').submit()
+        $location.path('/')
       },cb_error)
     }
 
@@ -321,6 +372,7 @@ Order.factory('cart', [
 
         cartStyle:'div',
         shippingFlatRate: 10,
+        taxName:    'Aucun',
         tax:        0.00,
         currency:   "CHF"
     };
@@ -427,7 +479,9 @@ Order.factory('cart', [
         price:product.getPrice(),
         finalprice:product.getPrice(),
         categories:product.categories._id,
+        categoryLabel:product.categories.name,
         vendor:product.vendor._id,
+        vendorName:product.vendor.name,
         discount:product.isDiscount(),
         part:product.pricing.part,
         quantity:1
@@ -503,7 +557,12 @@ Order.factory('cart', [
       return defaultCart.tax;
     }
 
-    Cart.prototype.setTax=function(tax){
+    Cart.prototype.taxName=function(){
+      return defaultCart.taxName;
+    }
+
+    Cart.prototype.setTax=function(tax, label){
+      defaultCart.taxName=label;
       defaultCart.tax=tax;
     }    
 
@@ -805,3 +864,4 @@ Order.factory('order', [
   }
 ]);
 
+})(window.angular);

@@ -59,7 +59,6 @@ Shop.controller('ShopCtrl',[
       },cb_error);
     };
     
-
     $scope.remove=function(user,shops,password){
       shop.remove(user,password,function(){
           api.info($scope,"Votre boutique a été définitivement supprimée!",1000,function(){
@@ -83,7 +82,7 @@ Shop.controller('ShopCtrl',[
       if($scope.waitingStatus())
         return;
       shop.publish(function(){
-          api.info($scope,"Une demande d'activation à bien été envoyé! Vous serez contacté dans les plus brefs délais");        
+          api.info($scope,"Une demande d'activation à bien été envoyée! Vous serez contacté dans les plus brefs délais");        
       },cb_error);
     }
 

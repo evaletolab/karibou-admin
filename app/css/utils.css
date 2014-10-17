@@ -118,9 +118,15 @@ h1.sexy, h2.sexy, h3.sexy {
 
 }
 
+.text-left{
+  text-align: left;
+}
+.text-left.padding{padding-left: 10px}
+
 .text-right{
   text-align: right;
 }
+.text-right.padding{padding-right: 10px}
 
 .navbar-inner{
   min-height-:40px;

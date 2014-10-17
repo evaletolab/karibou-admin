@@ -1,4 +1,6 @@
+;(function(angular) {
 'use strict';
+
 
 //
 // Define the application level controllers
@@ -6,6 +8,22 @@ angular.module('app.root', [
   'app.config',
   'app.user'
 ])
+
+// .decorator("$exceptionHandler", ['user', function(user) {
+//   Raven.config('https://public@getsentry.com/1',{
+//     shouldSendCallback:function(data){
+//       console.log(data)
+//       return false
+//     }
+//   }).install()
+
+//   return function(exception, cause) {
+//     // $delegate(exception, cause);
+//     if(window.Raven){
+//       Raven.captureException(exception,cause)
+//     }
+//   };
+// }])
 
 //
 // the AppCtrl is used in index.html (see app/assets/index.html)
@@ -32,6 +50,8 @@ angular.module('app.root', [
     $scope.user = user;
     $scope.categories = [];
     $scope.config=config;
+    $scope.showCart=false;
+    $scope.cover='img/localfood.jpg'        
 
 
     //
@@ -62,6 +82,7 @@ angular.module('app.root', [
     //
     // get the head title up2date 
     $rootScope.$on('$routeChangeStart', function (event, current, previous) {
+      $scope.showCart=false;
       var longpath=$location.path();
       user.$promise.finally(function(){
         if (!user.isAuthenticated()){
@@ -134,12 +155,11 @@ angular.module('app.root', [
       return '';
     };
    
-    
 
-    $scope.cover='img/localfood.jpg'        
     $scope.getCover=function(){
       $scope.cover='img/localfood.jpg'        
       var template='/partials/cover.html';
+
 
       if ($routeParams.category){
          var c=category.findBySlug($routeParams.category);
@@ -149,6 +169,7 @@ angular.module('app.root', [
 
       if(user.isAuthenticated())
         template='/partials/account/cover.html';
+
 
       return template;
     }
@@ -184,34 +205,12 @@ angular.module('app.root', [
 
 
     $scope.toggleCart=function(sel){
-      // todo, this is hugly
-      $('html').toggleClass('display-cart')            
+      $scope.showCart=!$scope.showCart;
     }
     
 
-    //
-    // catch errors
-    // https://github.com/occ/TraceKit
-    if(window.TraceKit && window.btoa) {
-      TraceKit.report.subscribe(function(errorReport) {
-        //send via ajax to server, or use console.error in development
-        //to get you started see: https://gist.github.com/4491219
-        console.log(errorReport)
-        if(errorReport.stack.length>2)
-          errorReport.stack.splice(3,errorReport.stack.length-3)
-        var url=config.API_SERVER+"/v1/trace/"+btoa(window.location.origin);
-
-        $.ajax({type: 'POST',data: JSON.stringify(errorReport),
-                contentType: 'application/json', url:url})
-      });
-    }
 
 
   }
 ]);
-
-  
-  
-
-
-
+})(window.angular);

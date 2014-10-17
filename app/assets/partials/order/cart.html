@@ -1,35 +1,42 @@
-                  <table class="table " >
-                      <thead>
-                          <tr>
-                              <th>Produit</th>
-                              <th>Qty</th>
-                              <th class="text-center">Total</th>
-                          </tr>
-                      </thead>
-                      <tbody>
-                        <tr  ng-repeat="item in cart.items" >
-                          <td class="col-md-8 small"><em><a href="/products/{{item.sku}}" >{{item.part}} - {{item.title}}</a></td>
-                          <td class="col-md-1" style="text-align: center">
-                            {{item.quantity}}
-                            <button type="button" class="btn btn-xs btn-default" ng-click="cart.remove(item,true)"><i class="icon-minus"></i></button>
+<div style="max-height:90%;overflow-y:auto">                  
+  <table class="table " >
+      <thead>
+          <tr>
+              <th>Produit</th>
+              <th>Qty</th>
+              <th class="text-right padding">Total</th>
+          </tr>
+      </thead>
+      <tbody>
+        <tr  ng-repeat="item in cart.items|orderBy:'vendorName'" >
+          <td class="col-md-8 small"><a href="/products/{{item.sku}}" >{{item.part}} - {{item.title}}</a><br/>
+            <span href="" class="link smallx" ng-if="item.vendorName" title="ajouter une note">
+              <i class="icon icon-pencil-"></i> {{item.vendorName||''}}
+            </span>
+          </td>
+          <td class="col-md-1" style="text-align: center">
+            {{item.quantity}}
+            <button type="button" class="btn btn-xs btn-default" ng-click="cart.add(item, true)"><i class="icon-plus"></i></button>
+            <button type="button" class="btn btn-xs btn-default" ng-click="cart.remove(item,true)"><i class="icon-minus"></i></button>
 
-                          </td>
-                          <td class="col-md-2 text-center">{{item.price*item.quantity|number:2}}</td>
-                        </tr>
-                          <tr>
-                              <td>   </td>
-                              <td class="text-right">
-                                <p><strong>Subtotal: </strong></p>
-                              <td class="text-center">
-                                <p><strong>{{cart.total()|number:2}} </strong></p>
-                              </td>
-                          </tr>
+          </td>
+          <td class="col-md-2 text-right">{{item.price*item.quantity|number:2}} </td>
+        </tr>
+          <tr>
+              <td>   </td>
+              <td class="text-right padding">
+                <p><strong>Soustotal: </strong></p>
+              <td class="text-right padding">
+                <p><strong>{{cart.total()|number:2}} </strong></p>
+              </td>
+          </tr>
 
-                      </tbody>
-                  </table>
-                  <a  href="/order" class="btn btn-success btn-lg btn-block">
-                    Valider la commande
-                  </a>
-                  <button type="button" class="btn btn-default btn-lg btn-block" ng-click="cart.empty()">
-                      Vider le panier
-                  </button>    
+      </tbody>
+  </table>
+</div>  
+  <a  href="/order" class="btn btn-success btn-lg btn-block">
+    Valider la commande
+  </a>
+  <button type="button" class="btn btn-default btn-lg btn-block" ng-click="cart.empty()">
+      Vider le panier
+  </button>    

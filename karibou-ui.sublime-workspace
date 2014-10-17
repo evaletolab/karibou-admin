@@ -4,6 +4,102 @@
 		"selected_items":
 		[
 			[
+				"in",
+				"input	Tag"
+			],
+			[
+				"fon",
+				"font-weight"
+			],
+			[
+				"par",
+				"parts"
+			],
+			[
+				"glo",
+				"globalOptions"
+			],
+			[
+				"up",
+				"updateMap"
+			],
+			[
+				"a",
+				"adresse"
+			],
+			[
+				"la",
+				"lastname"
+			],
+			[
+				"fi",
+				"firstname"
+			],
+			[
+				"pho",
+				"phoneNumbers"
+			],
+			[
+				"add",
+				"addresses"
+			],
+			[
+				"dis",
+				"dismiss"
+			],
+			[
+				"us",
+				"users"
+			],
+			[
+				"pas",
+				"password"
+			],
+			[
+				"pro",
+				"prototype"
+			],
+			[
+				"ba",
+				"background-color"
+			],
+			[
+				"pa",
+				"padding"
+			],
+			[
+				"pu",
+				"push"
+			],
+			[
+				"loca",
+				"location"
+			],
+			[
+				"tex",
+				"text-shadow"
+			],
+			[
+				"er",
+				"errorReport"
+			],
+			[
+				"s",
+				"status"
+			],
+			[
+				"c",
+				"config"
+			],
+			[
+				"err",
+				"errorReport"
+			],
+			[
+				"re",
+				"response"
+			],
+			[
 				"di",
 				"directive"
 			],
@@ -12,20 +108,12 @@
 				"max-width"
 			],
 			[
-				"pa",
-				"paysage"
-			],
-			[
 				"wa",
 				"wrapper"
 			],
 			[
 				"Livr",
 				"livraison"
-			],
-			[
-				"re",
-				"return"
 			],
 			[
 				"r",
@@ -56,16 +144,8 @@
 				"nextShippingDay"
 			],
 			[
-				"fi",
-				"filter"
-			],
-			[
 				"url",
 				"urlpath"
-			],
-			[
-				"pro",
-				"products"
 			],
 			[
 				"findAll",
@@ -124,16 +204,8 @@
 				"partial"
 			],
 			[
-				"dis",
-				"display"
-			],
-			[
 				"sho",
 				"showHeader"
-			],
-			[
-				"a",
-				"active"
 			],
 			[
 				"rou",
@@ -172,16 +244,8 @@
 				"inherit"
 			],
 			[
-				"in",
-				"inline"
-			],
-			[
 				"wra",
 				"wrapper-inner"
-			],
-			[
-				"ba",
-				"background-color"
 			],
 			[
 				"mar",
@@ -204,24 +268,12 @@
 				"timeout	setTimeout function"
 			],
 			[
-				"fon",
-				"font-size"
-			],
-			[
 				"new",
 				"neworder"
 			],
 			[
-				"la",
-				"labels"
-			],
-			[
 				"font",
 				"font-size"
-			],
-			[
-				"err",
-				"errors"
 			],
 			[
 				"ful",
@@ -248,16 +300,8 @@
 				"setHours"
 			],
 			[
-				"c",
-				"console"
-			],
-			[
 				"def",
 				"defaultOrder"
-			],
-			[
-				"add",
-				"address"
 			],
 			[
 				"_u",
@@ -286,14 +330,6 @@
 			[
 				"le",
 				"length"
-			],
-			[
-				"s",
-				"shop"
-			],
-			[
-				"pas",
-				"params"
 			],
 			[
 				"prod",
@@ -333,10 +369,6 @@
 			],
 			[
 				"local",
-				"localStorage"
-			],
-			[
-				"loca",
 				"localStorage"
 			],
 			[
@@ -436,18 +468,115 @@
 	"buffers":
 	[
 		{
-			"file": "app/assets/partials/admin/orders.html",
+			"file": "app/css/scrollbar.css",
 			"settings":
 			{
-				"buffer_size": 7197,
+				"buffer_size": 934,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "app/assets/partials/product/home.html",
+			"file": "app/assets/partials/product/product-new-layout.html",
 			"settings":
 			{
-				"buffer_size": 2206,
+				"buffer_size": 3532,
+				"line_ending": "Unix",
+				"name": "<div class=\"product-listing\" data-id=\"519fe001ea2d"
+			}
+		},
+		{
+			"file": "app/assets/partials/account/cover.html",
+			"settings":
+			{
+				"buffer_size": 1807,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "app/assets/partials/cover-minimal.html",
+			"settings":
+			{
+				"buffer_size": 493,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "app/assets/partials/account/profile.html",
+			"settings":
+			{
+				"buffer_size": 9295,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "app/css/cart.css",
+			"settings":
+			{
+				"buffer_size": 3262,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "app/js/app.order.admin.js",
+			"settings":
+			{
+				"buffer_size": 4836,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "app/assets/partials/order/order.html",
+			"settings":
+			{
+				"buffer_size": 23463,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "app/css/login.css",
+			"settings":
+			{
+				"buffer_size": 2559,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "app/js/app.init.js",
+			"settings":
+			{
+				"buffer_size": 3933,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "app/assets/partials/account/signup.html",
+			"settings":
+			{
+				"buffer_size": 2544,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "app/assets/partials/order/cover.html",
+			"settings":
+			{
+				"buffer_size": 610,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "app/js/app.order.js",
+			"settings":
+			{
+				"buffer_size": 22823,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "app/assets/partials/shop/cover.html",
+			"settings":
+			{
+				"buffer_size": 1764,
 				"line_ending": "Unix"
 			}
 		},
@@ -460,74 +589,24 @@
 			}
 		},
 		{
-			"file": "app/assets/partials/shop/orders.html",
+			"contents": ";(function(angular) {'use strict';\n\n/**\n * Angular.js module for postfinance\n */\nvar postfinance=angular.module('app.postfinance',['app.config']);\n\n\npostfinance.factory('card', [\n  'config',\n  '$rootScope',\n  '$resource',\n\n  function (config, $rootScope,$resource) {\n    var defaultCardValues = {\n      number: undefined,\n      csc: undefined,\n      year: undefined,\n      month: undefined,\n      firstName: '',\n      lastName: '',\n      address1: '',\n      address2: '',\n      city: '',\n      state: '',\n      zip: '',\n      custom: undefined\n    };\n\n\n    var Card = function(data) {\n    }\n\n\n    Cart.prototype.clear=function(product){\n\n    return {};\n  }\n]);\n\n\n//\n// print order fullfilment progress \npostfinance.directive(\"hiddenFields\", function () {\n  return {\n      restrict: 'A',\n      scope: {fields: \"&hiddenFields\"},\n      link: function(scope, element, attrs, model){\n        var fields=scope.fields();\n\n        if(!fields||!fields.length){\n          return;\n        }\n        fields.forEach(function(field){\n          element.append(\"<\")\n        })\n\n        //$compile(el)(scope);\n\n        return element.width(order.getProgress()+\"%\");\n      }\n  };\n});\n\n\n\n\n\n\n})(window.angular);\n",
+			"file": "app/js/app.postfinance.js",
+			"file_size": 716,
+			"file_write_time": 1412153914000000,
 			"settings":
 			{
-				"buffer_size": 7279,
+				"buffer_size": 1192,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "app/js/app.config.js",
+			"contents": "\n<form METHOD=\"post\" ACTION=\"https://e-payment.postfinance.ch/ncol/test/orderstandard.asp\" id=\"postfinance-form\">\n  <INPUT type=\"hidden\" NAME=\"PSPID\" value=\"TEMPkaribou\">\n  <input type=\"hidden\" NAME=\"ORDERID\" value=\"00005\">\n  <input type=\"hidden\" NAME=\"AMOUNT\" value=\"12300\">\n  <input type=\"hidden\" NAME=\"CURRENCY\" value=\"CHF\">\n  <input type=\"hidden\" NAME=\"LANGUAGE\" value=\"fr_FR\">\n\n  <!-- lay out information -->\n<!--   <input type=\"hidden\" NAME=\"TITLE\" value=\"fill here your title\">  \n  <input type=\"hidden\" NAME=\"BGCOLOR\" value=\"fill here your background color\">\n  <input type=\"hidden\" NAME=\"TXTCOLOR\" value=\"fill here your text color\">\n  <input type=\"hidden\" NAME=\"TBLBGCOLOR\" value=\"fill here your table background color\">\n  <input type=\"hidden\" NAME=\"TBLTXTCOLOR\" value=\"fill here your table text color\">\n  <input type=\"hidden\" NAME=\"BUTTONBGCOLOR\" value=\"fill here your background button color\">\n  <input type=\"hidden\" NAME=\"BUTTONTXTCOLOR\" value=\"fill here your button text color\">\n  <input type=\"hidden\" NAME=\"FONTTYPE\" value=\"fill here your font\">  \n  <input type=\"hidden\" NAME=\"LOGO\" value=\"fill here your logo file name\">\n -->\n\n  <!-- or dynamic template page -->\n<!--   <input type=\"hidden\" NAME=\"TP\" value=\"fill here your template page\">\n -->\n  <!-- post-payment redirection -->\n  <input type=\"hidden\" NAME=\"ACCEPTURL\" VALUE=\"http://lo.cal:3000/order/accept\">\n  <input type=\"hidden\" NAME=\"DECLINEURL\" VALUE=\"http://lo.cal:3000/order/decline\">\n  <input type=\"hidden\" NAME=\"EXCEPTIONURL\" VALUE=\"http://lo.cal:3000/order/error\">\n  <input type=\"hidden\" NAME=\"CANCELURL\" VALUE=\"http://lo.cal:3000/order/cancel\">\n  <input type=\"hidden\" NAME=\"BACKURL\" VALUE=\"http://lo.cal:3000/order\">\n\n  <!-- miscellanous -->\n  <input type=\"hidden\" NAME=\"HOMEURL\" VALUE=\"http://karibou.io\">\n  <input type=\"hidden\" NAME=\"CATALOGURL\" VALUE=\"\">\n  <input type=\"hidden\" NAME=\"CN\" value=\"Olivier Evalet\">\n  <input type=\"hidden\" name=\"EMAIL\" value=\"evaleto@gmail.com\">\n  <input type=\"hidden\" NAME=\"PM\" VALUE=\"\" info=\"CreditCard, Postfinance e-finance, Postfinance card\">\n  <input type=\"hidden\" NAME=\"BRAND\" VALUE=\"\">\n  <input type=\"hidden\" NAME=\"OWNERZIP\" VALUE=\"1208\">\n  <input type=\"hidden\" NAME=\"OWNERADDRESS\" VALUE=\"34 route de chene\">\n  <input type=\"hidden\" NAME=\"OWNERADDRESS2\" VALUE=\"\">\n  <input type=\"hidden\" NAME=\"SHASIGN\" value=\"fill here your signature\">\n  <input type=\"hidden\" NAME=\"ALIAS\" VALUE=\"olivier.evalet.1\">\n  <input type=\"hidden\" NAME=\"ALIASUSAGE\" VALUE=\"karibou authorisation\">\n  <input type=\"hidden\" NAME=\"ALIASOPERATION\" VALUE=\"\">\n  <input type=\"hidden\" NAME=\"COM\" VALUE=\"order 00004 2014\">\n  <input type=\"hidden\" NAME=\"COMPLUS\" VALUE=\"appkey\" info=\"Optional additional info for post-payment feedback\">\n  <input type=\"hidden\" NAME=\"PARAMPLUS\" VALUE=\"session=126548354&shoper=73541312\">\n  <input type=\"hidden\" NAME=\"USERID\" VALUE=\"\">\n  <input type=\"hidden\" NAME=\"CREDITCODE\" VALUE=\"\">\n  <input type=\"submit\" class=\"btn btn-primary\" > \n</form>\n",
+			"file": "app/assets/partials/order/payment.alias.html",
+			"file_size": 2951,
+			"file_write_time": 1412170653000000,
 			"settings":
 			{
-				"buffer_size": 2112,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "app/assets/partials/order/order.html",
-			"settings":
-			{
-				"buffer_size": 7986,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "app/js/app.service.ui.js",
-			"settings":
-			{
-				"buffer_size": 15059,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "app/assets/partials/account/navigation.html",
-			"settings":
-			{
-				"buffer_size": 3501,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "app/js/app.home.js",
-			"settings":
-			{
-				"buffer_size": 4444,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "app/js/app.product.js",
-			"settings":
-			{
-				"buffer_size": 13504,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "app/css/cart.css",
-			"settings":
-			{
-				"buffer_size": 2688,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "app/assets/partials/account/orders.html",
-			"settings":
-			{
-				"buffer_size": 11913,
+				"buffer_size": 2951,
 				"line_ending": "Unix"
 			}
 		}
@@ -556,75 +635,88 @@
 	},
 	"file_history":
 	[
-		"/home/evaleto/nodejs/karibou-mockup/app/assets/partials/order/cart.html",
-		"/home/evaleto/nodejs/karibou-mockup/app/assets/partials/account/orders.html",
-		"/home/evaleto/nodejs/karibou-mockup/app/assets/partials/account/login.html",
-		"/home/evaleto/nodejs/karibou-mockup/app/assets/partials/account/signup.html",
-		"/home/evaleto/nodejs/karibou-mockup/app/assets/partials/account/profile.html",
-		"/home/evaleto/nodejs/karibou-mockup/app/assets/partials/account/recovery.html",
-		"/home/evaleto/nodejs/karibou-mockup/app/js/app.root.js",
-		"/home/evaleto/nodejs/karibou-mockup/app/js/app.init.js",
-		"/home/evaleto/nodejs/karibou-mockup/app/js/app.order.js",
 		"/home/evaleto/nodejs/karibou-mockup/app/js/app.order.ui.js",
-		"/home/evaleto/nodejs/karibou-mockup/app/css/home.css",
-		"/home/evaleto/nodejs/karibou-mockup/app/js/app.category.js",
-		"/home/evaleto/nodejs/karibou-mockup/app/css/orders.css",
-		"/home/evaleto/nodejs/karibou-mockup/app/assets/partials/admin/user.html",
-		"/home/evaleto/nodejs/karibou-mockup/app/js/app.user.js",
-		"/home/evaleto/nodejs/karibou-mockup/app/assets/partials/order/order.html",
-		"/home/evaleto/nodejs/karibou-mockup/app/css/cart.css",
-		"/home/evaleto/nodejs/karibou-mockup/app/js/app.product.js",
-		"/home/evaleto/nodejs/karibou-mockup/app/css/form.css",
-		"/home/evaleto/nodejs/karibou-mockup/app/css/shop2.css",
-		"/home/evaleto/nodejs/karibou-mockup/app/css/scrollbar.css",
-		"/home/evaleto/nodejs/karibou-mockup/app/assets/partials/shop/address.html",
-		"/home/evaleto/nodejs/karibou-mockup/app/assets/partials/account/shop.html",
-		"/home/evaleto/nodejs/karibou-mockup/app/assets/partials/shop/edit.html",
-		"/home/evaleto/nodejs/karibou-mockup/app/assets/partials/shop/home.html",
-		"/home/evaleto/nodejs/karibou-mockup/app/assets/partials/product/products.html",
-		"/home/evaleto/nodejs/karibou-mockup/app/assets/partials/product/home.html",
-		"/home/evaleto/nodejs/karibou-mockup/app/css/product.css",
-		"/home/evaleto/nodejs/karibou-mockup/app/js/app.service.ui.js",
 		"/home/evaleto/nodejs/karibou-mockup/app/js/app.product.ui.js",
-		"/home/evaleto/nodejs/karibou-mockup/app/js/app.shop.ui.js",
-		"/home/evaleto/nodejs/karibou-mockup/app/assets/partials/shop/shop.html",
+		"/home/evaleto/nodejs/karibou-mockup/app/css/product.css",
+		"/home/evaleto/nodejs/karibou-mockup/app/css/payment.css",
+		"/home/evaleto/nodejs/karibou-mockup/app/css/cover.css",
+		"/home/evaleto/nodejs/karibou-mockup/app/js/app.root.js",
+		"/home/evaleto/nodejs/karibou-mockup/app/assets/partials/order/order.origin.html",
+		"/home/evaleto/nodejs/karibou-mockup/app/css/stepwizard.css",
+		"/home/evaleto/nodejs/karibou-mockup/app/js/app.order.js",
+		"/home/evaleto/nodejs/karibou-mockup/app/css/orders.css",
+		"/home/evaleto/nodejs/karibou-mockup/app/js/app.raven.js",
+		"/home/evaleto/nodejs/karibou-mockup/bower.json",
 		"/home/evaleto/nodejs/karibou-mockup/app/js/app.shop.js",
-		"/home/evaleto/nodejs/karibou-mockup/app/assets/partials/account/overview.html",
-		"/home/evaleto/nodejs/karibou-mockup/app/js/app.config.js",
-		"/home/evaleto/nodejs/karibou-mockup/app/js/app.home.js",
-		"/home/evaleto/nodejs/karibou-mockup/app/assets/partials/product/product.html",
-		"/home/evaleto/nodejs/karibou-mockup/app/assets/partials/order/order.user.modal.html",
-		"/home/evaleto/nodejs/karibou-mockup/app/assets/partials/product/cover.html",
-		"/home/evaleto/nodejs/karibou-mockup/app/assets/partials/cover-minimal.html",
+		"/home/evaleto/nodejs/karibou-mockup/app/assets/partials/account/validate.html",
 		"/home/evaleto/nodejs/karibou-mockup/app/js/app.service.js",
-		"/home/evaleto/nodejs/karibou-mockup/app/assets/partials/shop/cover.html",
-		"/home/evaleto/nodejs/karibou-mockup/app/css/nprogress.css",
+		"/home/evaleto/nodejs/karibou-mockup/app/css/form.css",
+		"/home/evaleto/nodejs/karibou-mockup/app/assets/partials/admin/user.modal.html",
+		"/home/evaleto/nodejs/karibou-mockup/app/css/cart.css",
+		"/home/evaleto/nodejs/karibou-mockup/app/js/app.user.js",
+		"/home/evaleto/nodejs/karibou-mockup/bower_components/raven-js/dist/raven.js",
+		"/home/evaleto/nodejs/karibou-mockup/app/js/app.config.js",
+		"/home/evaleto/nodejs/karibou-mockup/config.coffee",
+		"/home/evaleto/.config/sublime-text-2/Packages/Default/Preferences.sublime-settings",
+		"/home/evaleto/nodejs/karibou-mockup/app/assets/index.html",
+		"/home/evaleto/nodejs/karibou-mockup/app/assets/partials/account/signup.html",
 		"/home/evaleto/nodejs/karibou-mockup/app/js/app.ui.map.js",
+		"/home/evaleto/nodejs/karibou-mockup/app/assets/partials/admin/user.html",
+		"/home/evaleto/nodejs/karibou-mockup/app/js/app.service.ui.js",
+		"/home/evaleto/nodejs/karibou-mockup/app/js/app.category.js",
 		"/home/evaleto/nodejs/karibou-mockup/app/assets/partials/admin/category.html",
 		"/home/evaleto/nodejs/karibou-mockup/app/assets/partials/admin/category.modal.html",
+		"/home/evaleto/nodejs/karibou-mockup/app/assets/partials/admin/orders.html",
+		"/home/evaleto/nodejs/karibou-mockup/app/assets/partials/account/orders.html",
+		"/home/evaleto/nodejs/karibou-mockup/app/assets/partials/shop/orders.html",
+		"/home/evaleto/nodejs/karibou-mockup/app/assets/partials/shop/address.html",
+		"/home/evaleto/nodejs/karibou-mockup/app/assets/partials/account/address.html",
+		"/home/evaleto/nodejs/karibou-mockup/app/css/home.css",
+		"/home/evaleto/nodejs/karibou-mockup/app/assets/partials/account/navigation.html",
+		"/home/evaleto/nodejs/karibou-mockup/app/assets/partials/order/payment.alias.html",
+		"/home/evaleto/nodejs/karibou-mockup/app/js/app.init.js",
+		"/home/evaleto/nodejs/karibou-mockup/app/js/app.product.js",
+		"/home/evaleto/nodejs/karibou-mockup/app/assets/partials/account/profile.html",
+		"/home/evaleto/nodejs/karibou-mockup/app/assets/partials/product/home.html",
+		"/home/evaleto/nodejs/karibou-mockup/app/css/product.wide.css",
+		"/home/evaleto/nodejs/karibou-mockup/app/assets/partials/product/product.html",
+		"/home/evaleto/nodejs/karibou-mockup/app/assets/partials/account/login.html",
+		"/home/evaleto/nodejs/karibou-mockup/doc/postfinance/validation.js",
+		"/home/evaleto/nodejs/karibou-mockup/app/js/app.home.js",
+		"/home/evaleto/nodejs/karibou-mockup/app/assets/partials/cover.html",
+		"/home/evaleto/nodejs/karibou-mockup/app/assets/partials/shop/home.html",
+		"/home/evaleto/nodejs/karibou-mockup/app/assets/partials/order/order.html",
+		"/home/evaleto/nodejs/karibou-mockup/app/assets/partials/account/shop.html",
+		"/home/evaleto/nodejs/karibou-mockup/app/assets/partials/product/cover.html",
+		"/home/evaleto/nodejs/karibou-mockup/app/assets/footer.html",
+		"/home/evaleto/nodejs/karibou-mockup/app/assets/partials/account/recovery.html",
+		"/home/evaleto/nodejs/karibou-mockup/app/css/login.css",
+		"/home/evaleto/nodejs/karibou-mockup/app/assets/partials/order/cart.html",
+		"/home/evaleto/nodejs/karibou-mockup/app/css/shop2.css",
+		"/home/evaleto/nodejs/karibou-mockup/app/css/scrollbar.css",
+		"/home/evaleto/nodejs/karibou-mockup/app/assets/partials/shop/edit.html",
+		"/home/evaleto/nodejs/karibou-mockup/app/assets/partials/product/products.html",
+		"/home/evaleto/nodejs/karibou-mockup/app/js/app.shop.ui.js",
+		"/home/evaleto/nodejs/karibou-mockup/app/assets/partials/shop/shop.html",
+		"/home/evaleto/nodejs/karibou-mockup/app/assets/partials/account/overview.html",
+		"/home/evaleto/nodejs/karibou-mockup/app/assets/partials/order/order.user.modal.html",
+		"/home/evaleto/nodejs/karibou-mockup/app/assets/partials/cover-minimal.html",
+		"/home/evaleto/nodejs/karibou-mockup/app/assets/partials/shop/cover.html",
+		"/home/evaleto/nodejs/karibou-mockup/app/css/nprogress.css",
 		"/home/evaleto/nodejs/karibou-mockup/app/assets/partials/account/user-details.html",
 		"/home/evaleto/nodejs/karibou-mockup/vendor/styles/font-awesome.css",
 		"/home/evaleto/nodejs/karibou-mockup/app/assets/partials/account/cover.html",
-		"/home/evaleto/nodejs/karibou-mockup/app/assets/partials/shop/orders.html",
 		"/home/evaleto/nodejs/karibou-mockup/app/css/utils.css",
 		"/home/evaleto/nodejs/karibou-mockup/app/css/dashboard.css",
-		"/home/evaleto/nodejs/karibou-mockup/app/assets/partials/cover.html",
 		"/home/evaleto/nodejs/karibou-mockup/app/assets/partials/account/dashboard.html",
 		"/home/evaleto/nodejs/karibou-mockup/app/assets/partials/product/love.html",
 		"/home/evaleto/nodejs/karibou-mockup/app/assets/partials/errors/down.html",
-		"/home/evaleto/nodejs/karibou-mockup/app/css/product.wide.css",
 		"/home/evaleto/nodejs/karibou-mockup/app/assets/partials/product/product-wide.html",
 		"/home/evaleto/nodejs/karibou-mockup/app/js/app.ui.lazyload.js",
-		"/home/evaleto/nodejs/karibou-mockup/config.coffee",
 		"/home/evaleto/nodejs/karibou-mockup/app/assets/partials/shop/shop-content.html",
 		"/home/evaleto/nodejs/karibou-mockup/app/assets/partials/product/create.html",
-		"/home/evaleto/nodejs/karibou-mockup/app/assets/partials/account/navigation.html",
 		"/home/evaleto/nodejs/karibou-mockup/app/css/timeline.css",
 		"/home/evaleto/nodejs/karibou-mockup/app/js/ng.include.cache.js",
-		"/home/evaleto/nodejs/karibou-mockup/app/assets/partials/admin/orders.html",
-		"/home/evaleto/nodejs/karibou-mockup/app/assets/index.html",
-		"/home/evaleto/nodejs/karibou-mockup/bower.json",
-		"/home/evaleto/nodejs/karibou-mockup/app/css/login.css",
 		"/home/evaleto/nodejs/karibou-mockup/app/css/shop.css",
 		"/home/evaleto/nodejs/karibou-mockup/app/css/overlay.css",
 		"/home/evaleto/nodejs/karibou-mockup/app/css/tabs.css",
@@ -636,8 +728,6 @@
 		"/home/evaleto/nodejs/karibou-mockup/app/assets/partials/shop/shops.html",
 		"/home/evaleto/nodejs/karibou-mockup/app/css/navigation.css",
 		"/home/evaleto/nodejs/karibou-mockup/app/css/header.css",
-		"/home/evaleto/nodejs/karibou-mockup/app/css/stepwizard.css",
-		"/home/evaleto/nodejs/karibou-mockup/app/assets/partials/account/address.html",
 		"/home/evaleto/nodejs/git/karibou-api/node_modules/passport-persona/lib/passport-persona/strategy.js",
 		"/home/evaleto/nodejs/git/karibou-api/node_modules/passport-persona/lib/passport-persona/strategy.js:114:29app.user.js",
 		"/home/evaleto/nodejs/karibou-mockup/app/js/moment.fr.js",
@@ -663,7 +753,6 @@
 		"/home/evaleto/nodejs/karibou-mockup/vendor/scripts/angular-sanitize.js",
 		"/home/evaleto/nodejs/karibou-mockup/package.json",
 		"/home/evaleto/nodejs/karibou-mockup/htaccess",
-		"/home/evaleto/nodejs/karibou-mockup/app/assets/footer.html",
 		"/home/evaleto/nodejs/karibou-mockup/app/assets/partials/logistic/collect.html",
 		"/home/evaleto/nodejs/karibou-mockup/app/assets/partials/logistic/overview.html",
 		"/home/evaleto/nodejs/karibou-mockup/vendor/scripts/angular-cookies.js",
@@ -673,17 +762,7 @@
 		"/home/evaleto/nodejs/karibou-mockup/app/js/simpleCart.js",
 		"/home/evaleto/nodejs/git/karibou-api/app/config.js",
 		"/home/evaleto/nodejs/git/karibou-api/app/models.js",
-		"/home/evaleto/nodejs/git/karibou-api/test/users.likes.js",
-		"/home/evaleto/nodejs/git/karibou-api/test/api.category.js",
-		"/home/evaleto/nodejs/git/karibou-api/test/api.users.js",
-		"/home/evaleto/nodejs/git/karibou-api/test/api.emails.validation.js",
-		"/home/evaleto/nodejs/git/karibou-api/test/api.products.find.sort.js",
-		"/home/evaleto/nodejs/git/karibou-api/test/api.products.find.js",
-		"/home/evaleto/nodejs/git/karibou-api/test/api.products.status.find.js",
-		"/home/evaleto/nodejs/git/karibou-api/test/api.products.js",
-		"/home/evaleto/nodejs/git/karibou-api/test/api.users.status.js",
-		"/home/evaleto/nodejs/git/karibou-api/test/api.products.error.js",
-		"/home/evaleto/nodejs/git/karibou-api/test/fixtures.js"
+		"/home/evaleto/nodejs/git/karibou-api/test/users.likes.js"
 	],
 	"find":
 	{
@@ -694,6 +773,7 @@
 		"height": 0.0,
 		"where_history":
 		[
+			""
 		]
 	},
 	"find_state":
@@ -701,134 +781,134 @@
 		"case_sensitive": false,
 		"find_history":
 		[
-			"group",
-			"home",
-			"Kariboo",
-			"kariboo",
-			"Kariboo",
-			"kariboo",
-			"prima",
-			"ng-in",
-			"shipping-date",
-			"groupB",
-			"conso",
-			"getShippingLabels",
-			".create",
-			"create",
-			"getShippingLabels",
-			"create",
-			"findOneWeekOfShippingDay",
-			"findCurrentShippingDay",
-			"findCurrentshippingDay",
-			"findCurrentShippingDay",
-			"findCurrentshippingDay",
-			"findOneWeekOfShippingDay",
-			"findCurrentshippingDay",
-			"findCurrentshippingDate",
-			"Orders",
-			"conso",
-			"ShippingDate",
-			"groupByShippingDate",
-			"ShippingDate",
-			"shippingDate",
-			"ShippingDate",
-			"shippingDate",
-			"nextShippingDate",
-			"shippingDate",
-			"ShippingDate",
-			"currentShippingDate",
-			"shippingDate",
-			"allShippingDate",
-			"nextShippingDate",
-			"currentShippingDate",
-			"nextsShippingDate",
-			"shipping",
-			"conso",
-			"-success",
-			"setHours",
-			"nextsShippingDate",
-			"bucket-to",
-			"shado",
-			"next",
-			"nexts",
-			"z-index",
-			"findOrdersByShop",
-			"loadAllProducts",
-			"findOrdersByShop",
-			"/shop",
-			"shop",
-			"=\"/shop",
-			"/shop",
-			"shop/",
-			"shops/orders",
-			"shops/",
-			"init",
-			"findOrdersByShop",
-			"app.post",
-			"app.get(",
-			"v1",
-			"app.get('/",
-			"app.get(",
-			"      /",
-			"app.get('/",
-			"app.get(",
-			"v1",
-			"app.get('/",
-			"app.get('",
-			"findOrdersByUser",
-			"conso",
-			"end.ca",
-			"console",
-			"refresh",
-			"backend.category",
-			"consol",
-			"home",
-			"include",
-			"$route",
-			"save",
-			"query",
-			"chain",
-			"wrap",
-			"query",
-			"order",
-			"orders",
-			"groupByShippingDate",
-			"shipping",
-			"deferred",
-			"nextsShippingDate",
-			"resolv",
-			"order",
-			"user",
-			"address",
-			"nextsShippingDate",
-			"visibility",
-			"cover-resume.cart",
-			"order",
-			"groupByShops",
-			"item-home",
+			".display-cart .cover-resume.cart",
+			"cover-title",
+			"updateMap",
+			"shippingDays",
+			"($scope.shippingDays",
+			"$scope.shippingDays",
+			"hr/",
 			"href",
-			"font-",
+			"hr",
+			"hr/",
+			"rounded",
+			"cover-order",
+			"circle",
+			"widget",
+			"cover-bo",
+			"cover-order",
+			"cover-cat",
+			"cover-body",
+			"z-inde",
+			".display-cart .cover-resume.cart",
+			"gecko",
+			"handleStackInfo",
+			"processException",
+			"culpri",
+			"frames",
+			": ",
+			"// ",
+			"//",
+			"globalOptions",
+			"shouldSendCallback",
+			"sentry_data",
+			"handleStackInfo",
+			"isrea",
+			"updateMap",
+			"populateAdresse",
+			"api.info",
+			"envoyé",
+			"envoyée",
+			"envoyé",
+			"u.",
 			"console",
-			"order",
-			"getActiveMenu",
-			"nextshippingday",
-			"findAllOrders",
-			"setError",
-			"clearErrors",
-			"setError",
-			"errors",
-			"ch",
-			"loadDisqus",
-			"own",
-			"overflow-y",
-			".cover",
-			"\\.cover",
-			"cover{",
-			"site-nav-logo",
-			"rootScope",
-			"shop",
-			"e",
-			"actions"
+			"validation",
+			"order/validation",
+			"address",
+			"hasPrimaryAddress",
+			"veri",
+			"validate",
+			"validateEmail",
+			"col-sm-2",
+			"col-sm-10",
+			"col-sm-2",
+			"Map",
+			"map",
+			"addMarker",
+			"geoco",
+			"remove",
+			"Map",
+			"modal.addresses[$index]",
+			"shipping",
+			".customer",
+			"modal.customer",
+			".customer",
+			"modalUserDetails",
+			"col-lg-10",
+			"col-lg-2",
+			"col-lg-10",
+			"form",
+			"require",
+			"btn-bl",
+			"isAnonymous",
+			"anony",
+			"findOrdersByShop",
+			"Order",
+			"sign",
+			"$index",
+			"[$index",
+			"$index",
+			"control-label",
+			"col-sm",
+			"$index",
+			"[$index",
+			"$index",
+			"control-label",
+			"col-sm",
+			"sign",
+			"=\"\">",
+			"defaultUser",
+			"phones",
+			"me(",
+			"function",
+			"me(function",
+			"me(",
+			"linear-gradient",
+			"135",
+			"135deg",
+			"cover",
+			"ez",
+			"102",
+			"block",
+			"cover",
+			".cover-user .cover-body ",
+			"cover",
+			"A05A07",
+			"TraceKit",
+			"include",
+			"INPUT",
+			"input",
+			"INPUT",
+			"input",
+			"INPUT",
+			"FORM",
+			"&",
+			"False&CHKDUPLORDERID",
+			"&",
+			"INPUT",
+			"padding-bottom",
+			"config",
+			"findCurrentShippingDay",
+			"item img",
+			"20px",
+			"hei",
+			"max-",
+			"validateEmail",
+			"valid",
+			"valida",
+			"Karibo",
+			"Kariboo",
+			"kariboo"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -836,6 +916,11 @@
 		"regex": false,
 		"replace_history":
 		[
+			"colsm2",
+			"colsm10",
+			"colsm2",
+			"collg10",
+			"collg2",
 			"",
 			"*",
 			".green",
@@ -854,51 +939,79 @@
 	"groups":
 	[
 		{
-			"selected": 1,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "app/assets/partials/admin/orders.html",
+					"file": "app/css/scrollbar.css",
 					"settings":
 					{
-						"buffer_size": 7197,
+						"buffer_size": 934,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								3755,
-								3755
+								457,
+								457
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/HTML/HTML.tmLanguage",
+							"syntax": "Packages/CSS/CSS.tmLanguage",
 							"tab_size": 2,
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 810.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
 					"buffer": 1,
-					"file": "app/assets/partials/product/home.html",
+					"file": "app/assets/partials/product/product-new-layout.html",
 					"settings":
 					{
-						"buffer_size": 2206,
+						"buffer_size": 3532,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1764,
-								1764
+								2889,
+								2889
+							]
+						],
+						"settings":
+						{
+							"auto_name": "<div class=\"product-listing\" data-id=\"519fe001ea2d",
+							"syntax": "Packages/HTML/HTML.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "app/assets/partials/account/cover.html",
+					"settings":
+					{
+						"buffer_size": 1807,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								419,
+								419
 							]
 						],
 						"settings":
@@ -908,7 +1021,91 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 108.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "app/assets/partials/cover-minimal.html",
+					"settings":
+					{
+						"buffer_size": 493,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								274,
+								274
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/HTML/HTML.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "app/assets/partials/account/profile.html",
+					"settings":
+					{
+						"buffer_size": 9295,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								4179,
+								4179
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/HTML/HTML.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 2442.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "app/css/cart.css",
+					"settings":
+					{
+						"buffer_size": 3262,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2693,
+								2693
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/CSS/CSS.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 2616.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -916,11 +1113,235 @@
 			]
 		},
 		{
-			"selected": 2,
+			"selected": 1,
 			"sheets":
 			[
 				{
-					"buffer": 2,
+					"buffer": 6,
+					"file": "app/js/app.order.admin.js",
+					"settings":
+					{
+						"buffer_size": 4836,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1480,
+								1480
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 2508.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 7,
+					"file": "app/assets/partials/order/order.html",
+					"settings":
+					{
+						"buffer_size": 23463,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								17240,
+								17240
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/HTML/HTML.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 6191.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 8,
+					"file": "app/css/login.css",
+					"settings":
+					{
+						"buffer_size": 2559,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1022,
+								1022
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/CSS/CSS.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 528.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 9,
+					"file": "app/js/app.init.js",
+					"settings":
+					{
+						"buffer_size": 3933,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								265,
+								265
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 10,
+					"file": "app/assets/partials/account/signup.html",
+					"settings":
+					{
+						"buffer_size": 2544,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1263,
+								1263
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/HTML/HTML.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 11,
+					"file": "app/assets/partials/order/cover.html",
+					"settings":
+					{
+						"buffer_size": 610,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								587,
+								587
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/HTML/HTML.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 12,
+					"file": "app/js/app.order.js",
+					"settings":
+					{
+						"buffer_size": 22823,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								10403,
+								10403
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 5997.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 13,
+					"file": "app/assets/partials/shop/cover.html",
+					"settings":
+					{
+						"buffer_size": 1764,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								209,
+								209
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/HTML/HTML.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 14,
 					"file": "app/assets/index.html",
 					"settings":
 					{
@@ -931,8 +1352,8 @@
 						"selection":
 						[
 							[
-								8131,
-								8131
+								7334,
+								7334
 							]
 						],
 						"settings":
@@ -942,53 +1363,25 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 3528.0,
+						"translation.y": 4224.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
-					"buffer": 3,
-					"file": "app/assets/partials/shop/orders.html",
+					"buffer": 15,
+					"file": "app/js/app.postfinance.js",
 					"settings":
 					{
-						"buffer_size": 7279,
+						"buffer_size": 1192,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1093,
-								1093
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/HTML/HTML.tmLanguage",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 578.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 4,
-					"file": "app/js/app.config.js",
-					"settings":
-					{
-						"buffer_size": 2112,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								231,
-								231
+								1171,
+								1171
 							]
 						],
 						"settings":
@@ -998,81 +1391,25 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 1102.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
-					"buffer": 5,
-					"file": "app/assets/partials/order/order.html",
+					"buffer": 16,
+					"file": "app/assets/partials/order/payment.alias.html",
 					"settings":
 					{
-						"buffer_size": 7986,
+						"buffer_size": 2951,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								4971,
-								4971
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/HTML/HTML.tmLanguage",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 1674.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 6,
-					"file": "app/js/app.service.ui.js",
-					"settings":
-					{
-						"buffer_size": 15059,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								3087,
-								3087
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 1234.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 7,
-					"file": "app/assets/partials/account/navigation.html",
-					"settings":
-					{
-						"buffer_size": 3501,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								77,
-								77
+								2951,
+								2951
 							]
 						],
 						"settings":
@@ -1083,118 +1420,6 @@
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 8,
-					"file": "app/js/app.home.js",
-					"settings":
-					{
-						"buffer_size": 4444,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								3905,
-								3905
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 1992.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 9,
-					"file": "app/js/app.product.js",
-					"settings":
-					{
-						"buffer_size": 13504,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								10108,
-								10108
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 5886.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 10,
-					"file": "app/css/cart.css",
-					"settings":
-					{
-						"buffer_size": 2688,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								764,
-								764
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/CSS/CSS.tmLanguage",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 378.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 11,
-					"file": "app/assets/partials/account/orders.html",
-					"settings":
-					{
-						"buffer_size": 11913,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								3667,
-								3667
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/HTML/HTML.tmLanguage",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 1404.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -1230,7 +1455,7 @@
 		"cols":
 		[
 			0.0,
-			0.331889799185,
+			0.263030303031,
 			1.0
 		],
 		"rows":
@@ -1445,6 +1670,6 @@
 	"show_open_files": false,
 	"show_tabs": true,
 	"side_bar_visible": true,
-	"side_bar_width": 342.0,
+	"side_bar_width": 270.0,
 	"status_bar_visible": true
 }

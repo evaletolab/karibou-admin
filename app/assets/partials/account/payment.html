@@ -1,0 +1,103 @@
+<div tabindex="-1" class="screen-content" ng-controller="AccountCtrl">
+  
+
+  <aside ng-include="'/partials/account/cover.html'" 
+         class="cover cover-home img-loaded" 
+         ng-class="{'session':user.isAuthenticated()}">
+  </aside>
+
+  <section class="wrapper" tabindex="-1">
+      <div class="wrapper-inner"  >
+
+
+        <!--                               -->
+        <!-- PAYMENT                       -->
+        <!--                               -->
+
+        <div>
+          <div>
+            <h4 class="article-group-title black">Quelle méthode de paiement utiliser?</h4>
+            <p class="help-block">Toutes les transactions sont effectuées via une connexion sécurisée.
+            </p>
+          </div>
+
+          <div class="payment">     
+            <div class="list-group clearfix">
+              <!-- THE ONES SAVED -->
+              <a href="" class="list-group-item "                             
+                         ng-repeat="method in user.payments" >
+                <div class="col-xs-2 nopadding " >
+                  <img src="/img/payments/{{pm[method.type]}}" class="img-thumbnail img-responsive" alt="" />
+                </div>
+                <div class="col-xs-10 " >
+                  <h4 class="list-group-item-heading ">{{method.number}} <span class="bold green" payments-date="{{method.expiry}}">{{method.expiry}}</span></h4>
+                  <p class="list-group-item-text comment-text" >
+                    <button class="btn btn-xs btn-transparent"
+                            ng-click="showPaymentForm=true;">modifier</button>
+                    <button class="btn btn-xs btn-danger"
+                            ng-click="deletePaymentMethod(method.alias)">supprimer</button>
+                  </p>
+                </div>
+              </a>
+            </div>
+            <div ng-show="user.payments.length" style="padding:10px" class=" help-block">
+              <a href="" ng-click="showPaymentForm=true" >
+                Ajouter une méthode de paiement?
+              </a>
+            </div>
+
+            <div class="list-group clearfix" ng-show="!user.payments.length || showPaymentForm">
+              <!-- VISA - MC -AE -->
+              <a href="" class="list-group-item" 
+                         ng-class="{'active':user.showCreditCard==='vma'}" 
+                         ng-click="user.showCreditCard='vma';">
+                <div class="col-xs-2 nopadding">
+                  <img src="/img/payments/vma.jpg" class="img-thumbnail img-responsive" alt="" />
+                </div>
+                <div class="col-xs-10 " >
+                  <h5 class="list-group-item-heading heading-center">VISA - MasterCard - American Express</h5>
+                </div>
+              </a>
+              <!-- POSTFINANCE CARD -->
+              <a href="" class="list-group-item" ng-class="{'active':user.showCreditCard=='pf'}" ng-click="user.showCreditCard='pf';">
+                <div class="col-xs-2 nopadding">
+                  <img src="/img/payments/pfc.jpg" class="img-thumbnail img-responsive" alt="" /></div>
+                <div class="col-xs-10 ">
+                  <h5 class="list-group-item-heading">Postfinance Card</h5>
+                  <p class="list-group-item-text comment-text">
+                    Nécessitera l'utilisation de votre lecteur de carte.
+                  </p>
+
+                </div>
+
+              </a>
+            </div>
+
+            <!-- new card -->
+            <div ng-include="'/partials/order/card.html'" 
+                 ng-show="user.showCreditCard=='vma'"></div>
+
+          </div>
+
+
+          <div class="row col-xs-12">
+            <hr/>
+            <a  href="" 
+                ng-disabled="!cart.config.payment || WaitText" 
+                ga-send="{category:'order',action:'payment'}" 
+                class=" btn btn-lg btn-success">{{WaitText || 'Enregistrer'}}
+            </a>
+          </div>
+
+        </div>
+
+
+        <footer class="wrapper-footer wide">
+          <a class="wrapper-footer-link" title="Qui sommes nous" href="/about">Qui sommes nous</a>
+          <a class="wrapper-footer-link" title="Lire notre charte " href="/charte">Lire notre charte</a>
+          <a class="wrapper-footer-link" title="La FAQ" href="/help-center/faq">FAQ</a>
+          <a class="wrapper-footer-link" title="Developpeurs" href="" backend-url="href">API</a>
+        </footer>
+      </div>
+   </section>
+</div>

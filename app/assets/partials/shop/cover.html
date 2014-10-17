@@ -1,12 +1,6 @@
 <div class="cover-table cover-user cover-shop site-shop-sidebar">
   <div class="cover-row">
     <div class="cover-img" backstretch="{src:'shop.photo.fg',load:'http://placehold.it/400x300&text=la boutique'}">
-
-      <!-- CART SHOP -->
-      <div class="cover-resume cart "  >
-        <div id="cart"  class="row " ng-show="cart.items.length " ng-include="'/partials/order/cart.html'">
-        </div>    
-      </div>
     
     </div>
 
@@ -35,12 +29,12 @@
 
   </div>
   <div class="cover-row shop">
-    <div class="cover-body">
+    <div class="cover-body ">
       <div class="cover-body-inner">
         <span class="cover-avatar">
           <span><img src="{{shop.photo.owner | placehold:'160x160&text=l`équipe'}}"  ></span>
         </span>
-        <h1 class="cover-title">{{shop.name}}</h1>
+        <h1 class="black cover-title">{{shop.name}}</h1>
         <p class="cover-description" ng-bind="shop.description"></p>
 
       </div>

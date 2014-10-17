@@ -6,7 +6,7 @@
 </div>
 
 <div tabindex="-1"  id="null" class="screen-content">
-  <aside ng-include="getCover()" class="cover cover-home cover-order img-loaded" ng-class="{'session':user.isAuthenticated()}">
+  <aside ng-include="'/partials/order/cover.html'" class="cover cover-home cover-order img-loaded" >
   </aside>
 
 
@@ -20,9 +20,9 @@
                           
          <div  class="bucket post-bucket homepage-posts">
               <div class="stepwizard">
-                  <div class="stepwizard-row">
+                  <div class="stepwizard-row small">
                       <div class="stepwizard-step">
-                          <button type="button" class="btn btn-default btn-circle" disabled="disabled">1</button>
+                          <a href="/" class="btn btn-default btn-circle">1</a>
                           <p>Shopping</p>
                       </div>
                       <div class="stepwizard-step">
@@ -182,7 +182,7 @@
                       class="form-control input-lg ">
                     </div>
                     <div class="col-xs-9 nopadding">
-                      <input type="text"  ng-model="user.phoneNumbers[0].number" placeholder="004178 000 55 55" 
+                      <input type="text"  ng-model="user.phoneNumbers[0].number" placeholder="ex. 004178 000 55 55" 
                       class="form-control input-lg" required>
                     </div>
 
@@ -260,17 +260,148 @@
 
             </form>
          </div>
+         <!-- PAYMENT -->
+         <div ng-if="currentFlow(['payment'])" ng-init="showCreditCard=false;">
+            <div>
+              <h4 class="article-group-title black">Quelle méthode de paiement utiliser?</h4>
+              <p class="help-block">Toutes les transactions sont effectuées via une connexion sécurisée.
+              </p>
+            </div>
 
-         <!-- IDENTITY ADDRESS -->
-         <div ng-if="currentFlow(['validation'])">
-           <!-- SHIPPING PAYMENT -->         
-           <div ng-class="{'has-error':!cart.config.payment}">
+            <div class="payment">     
+              <div class="list-group clearfix">
+                <!-- THE ONES SAVED -->
+                <a href="" class="list-group-item "                             
+                           ng-repeat="method in user.payments" 
+                           ng-click="cart.config.payment=method;" 
+                           ng-class="{'active':cart.config.payment.type===method.type}" >
+                  <div class="col-xs-2 nopadding " >
+                    <img src="/img/payments/{{pm[method.type]}}" class="img-thumbnail img-responsive" alt="" />
+                  </div>
+                  <div class="col-xs-10 " >
+                    <h4 class="list-group-item-heading heading-center">{{method.number}} <span class="bold green" payments-date="{{method.expiry}}">{{method.expiry}}</span></h4>
+                    <p class="list-group-item-text comment-text hide" >
+                      <button class="btn btn-xs btn-transparent">modifier</button>
+                      <button class="btn btn-xs btn-transparent"
+                              ng-click="deletePaymentMethod(method.alias)">supprimer</button>
+                    </p>
+                  </div>
+                </a>
+              </div>
+              <div ng-show="user.payments.length" style="padding:10px" class=" help-block">
+                <a href="" ng-click="user.showMorePayment=true" >
+                  Ajouter une autre méthode de paiement?
+                </a>
+              </div>
+
+              <div class="list-group clearfix" ng-show="!user.payments.length || user.showMorePayment">
+                <!-- VISA - MC -AE -->
+                <a href="" class="list-group-item" 
+                           ng-class="{'active':user.showCreditCard==='vma'}" 
+                           ng-click="user.showCreditCard='vma';">
+                  <div class="col-xs-2 nopadding">
+                    <img src="/img/payments/vma.jpg" class="img-thumbnail img-responsive" alt="" />
+                  </div>
+                  <div class="col-xs-10 " >
+                    <h5 class="list-group-item-heading heading-center">VISA - MasterCard - American Express</h5>
+                  </div>
+                </a>
+                <!-- POSTFINANCE CARD -->
+                <a href="" class="list-group-item" ng-class="{'active':user.showCreditCard=='pf'}" ng-click="user.showCreditCard='pf';">
+                  <div class="col-xs-2 nopadding">
+                    <img src="/img/payments/pfc.jpg" class="img-thumbnail img-responsive" alt="" /></div>
+                  <div class="col-xs-10 ">
+                    <h5 class="list-group-item-heading">Postfinance Card</h5>
+                    <p class="list-group-item-text comment-text">
+                      Nécessitera l'utilisation de votre lecteur de carte.
+                    </p>
+
+                  </div>
+
+                </a>
+              </div>
+
+              <!-- new card -->
+              <div ng-include="'/partials/order/card.html'" 
+                   ng-show="user.showCreditCard=='vma'"></div>
+
+            </div>
+
+           <!-- SHIPPING PAYMENT --
+           <div ng-class="{'has-error':!cart.config.payment}" >
              <h5 class="article-group-title ">Choisir le mode de payment</h5>
-              <select class="form-control input-lg" ng-model="cart.config.payment" ng-change="updateGateway()">
+              <select class="form-control input-lg" ng-model="cart.config.payment" ng-change="updateGatewayFees()">
                 <option value="">-- Sélection d'un mode de paiement --</option>
                 <option value="{{$index}}" ng-repeat="gateway in config.shop.order.gateway">{{gateway.label}}</option>
               </select>           
            </div>
+          -->
+
+            <div class="row col-xs-12">
+              <hr/>
+              <a href="/order/validation" 
+                  ng-disabled="!cart.config.payment || WaitText" 
+                  ga-send="{category:'order',action:'payment'}" 
+                  class=" btn btn-lg btn-success">{{WaitText || 'Continuer'}}
+              </a>
+            </div>
+
+         </div>
+
+         <!-- VALIDATION -->
+         <div ng-if="currentFlow(['validation'])">
+         <!-- ORDER CART -->         
+         <div class="cart well well-sm white">
+           <div class="text-center">
+                <h2 class="article-group-title">VOTRE COMMANDE</h2>
+            </div>
+            </span>
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>Produit</th>
+                        <th>Qty</th>
+                        <th class="text-right padding">Prix</th>
+                        <th class="text-right padding">Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                  <tr  ng-repeat="item in cart.items|orderBy:'vendorName'" >                    
+                    <td class="col-md-8">
+                      <a href="/products/{{item.sku}}" >{{item.part}} - {{item.title}}</a>
+                      <div ng-show="item.error" class="alert alert-warning">{{item.error}}</div>
+                      <div class="btn-group btn-group-xs pull-right hidden-xs">
+                        <button type="button" class="btn btn-default" ng-click="cart.add(item, true)"><i class="icon-plus"></i></button>
+                        <button type="button" class="btn btn-default" ng-click="cart.remove(item,true)"><i class="icon-minus"></i></button>
+                        <button type="button" class="btn btn-default" ng-click="cart.clear(item)"><i class="icon-remove"></i></button>
+                      </div>
+                    </td>
+                    <td class="col-md-1" style="text-align: center">{{item.quantity}}</td>
+                    <td class="col-md-1 text-right padding">{{item.price|number:2}}</td>
+                    <td class="col-md-2 text-right padding">{{item.price*item.quantity|number:2}}</td>
+                  </tr>
+                    <tr>
+                        <td class="text-right" colspan="3">
+                          <p><strong>Soustotal: </strong></p>
+                          <p><strong>Paiement {{updateGatewayFees()}}: {{cart.tax()*100|number:1}}% </strong>
+                          </p>
+                          <p><strong>Livraison: </strong></p>
+                        </td>
+                        <td class="text-right padding">
+                          <p><strong>{{cart.total()|number:2}} </strong></p>
+                          <p><strong>{{cart.tax()*cart.total()|number:2}} </strong></p>
+                          <p><strong><i class="icon icon-truck"></i>{{cart.shipping()|number:2}} </strong></p>
+                      </td>
+                    </tr>
+                    <tr>
+                        <td>   </td>
+                        <td>   </td>
+                        <td class="text-right"><h4><strong>Total: </strong></h4></td>
+                        <td class="text-right padding text-success"><h4><strong>{{cart.grandTotal()|number:2}} CHF</strong></h4></td>
+                    </tr>
+                </tbody>
+            </table>
+         </div>
 
            <!-- SHIPPING DATE -->         
            <div >
@@ -283,16 +414,17 @@
            <!-- SHIPPING ADDRESS  -->         
            <div ng-show="user.hasPrimaryAddress()">
              <h5 class="article-group-title ">Choisir l'adresse de livraison </h5>
-              <select class="form-control input-lg" ng-model="cart.config.address">
-                <option ng-repeat="a in user.addresses" ng-selected="a.primary||user.addresses.length==1" ng-value="$index">
-                  {{a.name}} - {{a.streetAdress}} {{a.postalCode}}
-                </option>
+              <select class="form-control input-lg" 
+                      ng-init="cart.config.address = user.addresses[0]"
+                      ng-model="cart.config.address"
+                      ng-options="a.name +' - ' +a.streetAdress + ' ' + a.postalCode for a in user.addresses">
               </select>
            </div>
 
           <!-- ORDER -->
           <div  class="row wrapheight" >
             <div class="row">
+                <br/>
                 <label>
                   <input type="checkbox"  value="true" ng-model="cg">
                   J'ai lu et j'accepte les conditions générales de vente et de livraison.
@@ -307,15 +439,6 @@
           </div>
 
          </div>
-
-
-
-
-
-
-        <!-- inject order form for postfinance -->
-        <div ng-include="'/partials/order/payment.alias.html'"/>
-
 
         <footer class="wrapper-footer wide">
           <a class="wrapper-footer-link" title="Qui sommes nous" href="/about">Qui sommes nous</a>

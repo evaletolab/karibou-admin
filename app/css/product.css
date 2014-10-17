@@ -148,6 +148,7 @@ article:nth-child(even){
 
 .layout-item.c1 img, .layout-item.c2 img, .layout-item.c3 img{
   width: 100%;
+  height: auto;
 }
 
 

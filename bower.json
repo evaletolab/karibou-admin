@@ -21,6 +21,6 @@
     "angular-cookies": "1.2.x",
     "underscore": "~1.6.0",
     "nprogress": "~0.1.6",
-    "tracekit": "*"
+    "raven-js": "~1.1.16"
   }
 }

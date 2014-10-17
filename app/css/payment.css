@@ -1,0 +1,97 @@
+.payment{
+  padding-top: 20px;
+  clear: both;
+  width: 100%;
+  float: left;
+}
+
+.payment .ng-invalid {
+  border-color: #f00 !important;
+}
+
+.payment .invalid-date{
+  color:red!important;
+}
+
+
+.payment .panel-body { 
+  padding:0px; 
+}
+.payment .list-group { 
+  margin-bottom: 0; 
+}
+.payment .panel-title { 
+  display:inline 
+}
+.payment .label-info { 
+  float: right; 
+}
+.payment a.list-group-item {
+  border-radius: 0;
+  border: 0;
+  border-top: 1px solid #ddd;
+  float: left;
+  width: 100%;
+}
+.payment li.list-group-item:hover { 
+  background-color: rgba(86,61,124,.1); 
+}
+
+.payment .list-group-item-heading.heading-center{
+  padding-top: 12px;
+  text-transform: capitalize;
+}
+
+.payment a.list-group-item img{
+  max-width: 70px;
+}
+.payment .mic-info { 
+  color: #666666;font-size: 11px; 
+}
+.payment .action {
+ margin-top:5px; 
+}
+.payment .comment-text { 
+  font-size: 12px; 
+}
+.payment .btn-block { 
+  border-top-left-radius:0px;border-top-right-radius:0px; 
+}
+
+
+.postfinance{
+  border: 3px solid #ffdd00;
+  border-radius: 4px;
+  clear: both;
+  margin: 20px 0px;
+  padding-top: 70px;
+  position: relative;
+}
+
+.postfinance.content{
+  padding: 60px 20px;    
+}
+
+.postfinance .security{
+  clear: both;
+}
+
+.postfinance .security div.lock{
+  max-height: 40px;
+  float: left;
+  padding: 10px;
+}
+.postfinance .security div.content{
+  float: left;
+  padding: 5px;
+  width: 90%;
+}
+
+.postfinance .security div.logo{
+  overflow: hidden;
+  position: absolute;
+  top: 0;right: 0;
+}
+.postfinance .security div.logo img{
+  height: 50px;
+}

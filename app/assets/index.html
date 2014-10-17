@@ -39,7 +39,7 @@
     
   </head>
 
-   <body class="">
+   <body class="" ng-class="{'display-cart':showCart}">
 
       <!--[if lt IE 7]><p class="browser-support">
         Unfortunately, this site won't work with your browser. Please upgrade to a modern browser:<br>
@@ -57,7 +57,7 @@
             </span>
          </button>
          <button class="site-nav-logo-cart " 
-                 ng-cloak  ng-click="toggleCart('#cart')" 
+                 ng-cloak  ng-click="toggleCart()" 
                  ng-show="cart.items.length">
               <span ng-show="cart.items.length">
                 <i class="icon-shopping-cart green small"></i>&nbsp;<span class=" green small">{{cart.quantity()}}</span>
@@ -129,10 +129,10 @@
               </li>
 
 
-              <li  class="site-nav-list-item " ng-repeat="category in category.findAll()|filter:{type:'Category'}">
+              <li  class="site-nav-list-item " ng-repeat="category in category.findAll()|filter:{type:'Category'}|orderBy:'weight'">
                 <a class="site-nav-list-item-btn  " title="{{category.name}}" 
                    ng-class="getClass('/products/category/{{category.slug}}')"
-                   href="/products/category/{{category.slug}}" tabindex="-1"><i class="icon icon-angle-right"></i> {{category.name}}</a>
+                   href="/products/category/{{category.slug}}" tabindex="-1"><i class=""></i> {{category.name}}</a>
               </li>
 
               <li class="site-nav-list-item divider">
@@ -155,6 +155,13 @@
  -->            </ul>
          </div>
       </nav>
+
+      <!-- CART -->        
+      <div class="cover-resume cart "  ng-if="showCart">
+        <div id="cart"  class="row " ng-show="cart.items.length " ng-include="'/partials/order/cart.html'">
+        </div>
+      </div> 
+      <!-- CART -->
 
       <div class="site-nav-overlay"></div>
       <div class="main" id="container" ng-swipe-right="showMenuOnSwipe()">

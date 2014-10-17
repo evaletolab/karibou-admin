@@ -30,6 +30,7 @@ User.config([
       .when('/account/', {title:'Votre profile', _view:'main', redirectTo : '/account/overview'})
       .when('/account/love', {_view:'main', love:true, templateUrl : '/partials/product/love.html'})
       .when('/account/shop', {_view:'main', templateUrl : '/partials/account/shop.html'})
+      .when('/account/payment', {_view:'main', templateUrl : '/partials/account/payment.html'})
       .when('/account/dashboard', {_view:'main', templateUrl : '/partials/account/dashboard.html'})
       .when('/account/orders', {_view:'main', templateUrl : '/partials/account/orders.html'})
       .when('/account/email', {auth : true, _view:'main', templateUrl : '/partials/account/email.html'})
@@ -67,10 +68,22 @@ User.controller('AccountCtrl',[
     $scope.users=[];
     $scope.providers=config.providers;
 
+    $scope.pm={
+      'american express':'ae.jpg',
+      'mastercard':'mc.jpg',
+      'visa':'visa.jpg',
+      'postfinance':'pfc.jpg'
+    }
+
+    // show payment form
+    $scope.showPaymentForm=false;
+
     // default model for modal view
     $scope.modal = {};      
     
     var cb_error=api.error($scope);
+
+
 
 
     if($location.path()==='/admin/user'){
@@ -104,6 +117,8 @@ User.controller('AccountCtrl',[
     user.me(function(u){      
       $scope.user = u;
       u.geo=new Map()
+      Raven.setUserContext({ email: user.email })
+      
 
       user.addresses.forEach(function(address,i){
         user.geo.addMarker(i,{
@@ -244,6 +259,24 @@ User.controller('AccountCtrl',[
       });
     }
 
+
+    $scope.addPaymentMethod=function(name,number,csc,expiry){
+      $rootScope.WaitText="Waiting ..."
+      user.addPaymentMethod({name:name,number:number,csc:csc,expiry:expiry},function(u){
+        api.info($scope,"Votre méthode de paiement a été enregistré");        
+        user.showCreditCard=false;
+      },cb_error)
+    }
+
+    $scope.deletePaymentMethod=function(alias,cvc,expiry){
+      $rootScope.WaitText="Waiting ..."
+      user.deletePaymentMethod(alias,function(u){
+        api.info($scope,"Votre méthode de paiement a été supprimé");        
+      },cb_error)
+    }
+
+
+
     // Functions
     // Open a popup to authenticate users with Auth, and redirect to account page on success
     $scope.authenticate = function (provider, w, h) {
@@ -366,8 +399,8 @@ User.factory('user', [
     
     var User = function(data) {
       this.backend={}
-      this.backend.$user=$resource(config.API_SERVER+'/v1/users/:id/:action/:aid',
-              {id:'@id',action:'@action',aid:'@aid'}, {
+      this.backend.$user=$resource(config.API_SERVER+'/v1/users/:id/:action/:aid/:detail',
+              {id:'@id',action:'@action',aid:'@aid',detail:'@detail'}, {
               update: {method:'POST'},
               delete: {method:'PUT'},
       });
@@ -602,6 +635,33 @@ User.factory('user', [
       return this;
     };    
 
+
+    /**
+     * payment methods
+     */
+    User.prototype.addPaymentMethod=function(payment,cb,err){
+      var self=this;
+      if(!err) var err=function(){}, params={};
+      this.backend.$user.save({id:this.id,action:'payment'},payment, function(u) {
+        self.payments=u.payments
+        if(cb)cb(self);
+      },err);
+      return this;
+    };    
+
+    User.prototype.deletePaymentMethod=function(alias,cb,err){
+      var self=this;
+      if(!err) var err=function(){}, params={};
+      this.backend.$user.save({id:this.id,action:'payment',aid:alias,detail:'delete'}, function() {
+        for(var p in self.payments){
+          if(self.payments[p].alias===alias){
+            self.payments.splice(p,1)
+          }
+        }
+        if(cb)cb(self);
+      },err);
+      return this;
+    };    
 
    
     //

@@ -1,4 +1,13 @@
+;(function(angular) {
 'use strict';
+
+// var API_SERVER='http://localhost:4000'
+var API_SERVER='http://api.karibou.evaletolab.ch'
+// var API_SERVER='http://192.168.1.35:4000'
+// var API_SERVER='http://karibou-api.cloudfoundry.com'
+// var API_SERVER='http://karibou-evaletolab.rhcloud.com'
+// var API_SERVER='http://karibou-api.jit.su'
+// var API_SERVER='http://karibou-api.eu01.aws.af.cm'
 
 // Declare application level module which depends on additional filters and services (most of them are custom)
 var App = angular.module('app', [
@@ -7,6 +16,7 @@ var App = angular.module('app', [
   'ngRoute',
   'ngSanitize',
   'app.config',
+  'app.raven',
   'app.api',
   'app.root',
   'app.user',
@@ -15,7 +25,7 @@ var App = angular.module('app', [
   'app.category',
   'app.order',
   'app.home'
-]);
+]).value('API_SERVER',API_SERVER);
 
 
 
@@ -83,16 +93,9 @@ App.config([
     $locationProvider.html5Mode(true);
     $locationProvider.hashPrefix = '!';
     
-    $provide.decorator("$exceptionHandler", ['$delegate', function($delegate) {
-        return function(exception, cause) {
-            $delegate(exception, cause);
-            if(window.TraceKit) TraceKit.report(exception);
-        };
-    }]);
 
   }
 ]);
-
 
 
 //
@@ -145,3 +148,4 @@ angular.element(document).ready(function () {
   angular.bootstrap(document, ['app']);
 });
 
+})(window.angular);
