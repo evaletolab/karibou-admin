@@ -1,10 +1,10 @@
 
-/* 
+/*
 -------------------------------------------------- */
-/* 
-  Allow angular.js to be loaded in body, hiding cloaked elements until 
-  templates compile.  The !important is important given that there may be 
-  other selectors that are more specific or come later and might alter display.  
+/*
+  Allow angular.js to be loaded in body, hiding cloaked elements until
+  templates compile.  The !important is important given that there may be
+  other selectors that are more specific or come later and might alter display.
  */
 [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak{
   display: none!important;
@@ -55,7 +55,7 @@
   height: 1px;
   margin-top: -20px;
   margin-left: 10%;
-  margin-right: 10%;  
+  margin-right: 10%;
 }
 
 .animate, .fadein-setup, .fadeout-setup {
@@ -75,11 +75,11 @@
 }
 
 .fadein-setup{
-  opacity:1;  
+  opacity:1;
 }
 
 .fadeout-setup{
-  opacity:0;  
+  opacity:0;
 }
 
 .no-space[class*="span"] {
@@ -91,7 +91,7 @@ h1.sexy, h2.sexy, h3.sexy {
   text-shadow:1px 2px 4px #E3E3E3,0 0 0 black,1px 2px 4px #E3E3E3,0 1px 0 white;
   -margin:15px 0px 25px 25px;
   font-family:'Helvetica Neue', Helvetica, Arial, sans-serif;
-  
+
 	color: #666;
 	text-transform: uppercase;
 	font-weight: 600;
@@ -145,20 +145,6 @@ ul.nav li{
 }
 
 
-.affix {
-    position: fixed!important;
-    top: 0px;
-    left: 00px;
-    right: 0px;
-    z-index: 100;
-    background-color: white;
-    padding-left: 80px;
-}
-
-.affix-top{
-    z-index:100;  
-}
-
 .shadow{
   text-align: left;
   text-shadow: 0 0px 2px #444;
@@ -183,12 +169,10 @@ ul.nav li{
 
 .small {
   font-size: 88%;
-  line-height:130%;
 }
 
 .smallx {
   font-size: 80%;
-  line-height:130%;
 }
 
 .lazy {
@@ -211,6 +195,9 @@ ul.nav li{
 
 .gray{
   color:#777!important;
+}
+.grayx{
+  color:#aaa!important;
 }
 
 .pink{
@@ -257,7 +244,7 @@ ul.nav li{
 }
 
 .elem{
-  padding: 4px;  
+  padding: 4px;
 }
 
 .textshadow {
@@ -343,8 +330,3 @@ hr.soften {
   color: #ccc;
   background-color: #f9f9f9 !important;
 }
-
-
-
-
-

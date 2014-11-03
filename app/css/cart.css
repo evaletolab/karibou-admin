@@ -48,6 +48,10 @@
   font-weight: bolder;
 }
 
+select.cart{
+  font-size: 23px;
+}
+
 .cover-resume.cart {    
     border: 0px;
     padding: 5px;

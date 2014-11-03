@@ -1,17 +1,18 @@
+;(function(angular) {'use strict';
 
 /**
- * Define the Product directives for (app.product) 
+ * Define the Product directives for (app.product)
  * provides directives for interacting with Product on views.
  */
 
 
 angular.module('app.order.ui', [
-  'app.config', 
+  'app.config',
   'app.api'
 ])
 
 //
-// print order fullfilment progress 
+// print order fullfilment progress
 .directive("orderProgress", function () {
   return {
       restrict: 'A',
@@ -34,7 +35,7 @@ angular.module('app.order.ui', [
 // clockdown for the next shipping day
 .directive('clockdown', ['$parse','$timeout','order','config', function($parse, $timeout,order,config) {
 
-  return function(scope, element, attr) {    
+  return function(scope, element, attr) {
     //
     // config is an asynchrone load
     config.shop.then(function(){
@@ -49,6 +50,54 @@ angular.module('app.order.ui', [
       },1000)
     });
   }
-}]);
+}])
 
 
+.filter('dateLabel', function () {
+   return function(shipping, prefix) {
+        if (!shipping) return "";
+        if (!prefix) prefix="";
+
+        var date=(shipping.when)?shipping.when:shipping,
+            time=(shipping.time)?' de '+shipping.time:''
+        return  prefix+moment(date).format('ddd DD MMM YYYY', 'fr')+time;
+   };
+})
+
+.filter('dateLabelShort', function () {
+   return function(shipping, prefix) {
+        if (!shipping) return "";
+        if (!prefix) prefix="";
+
+        var date=(shipping.when)?shipping.when:shipping,
+            time=(shipping.time)?' de '+shipping.time:''
+        return  prefix+moment(date).format('ddd DD MMM', 'fr')+time;
+   };
+})
+
+
+.filter('orderInitial', function () {
+   return function(order) {
+        if (!order||!order.items.length) return "0.0 CHF";
+        var price=0.0;
+        for (var i in order.items){
+          price+=parseFloat(order.items[i].price)*order.items[i].quantity
+        }
+        return price.toFixed(2)+" CHF"
+   };
+})
+
+
+.filter('orderTotal', function () {
+   return function(order) {
+        if (!order||!order.items.length) return "0.0 CHF";
+        var price=0.0;
+        for (var i in order.items){
+          price+=parseFloat(order.items[i].finalprice)
+        }
+        return price.toFixed(2)+" CHF"
+   };
+});
+
+
+})(window.angular);

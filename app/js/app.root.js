@@ -119,24 +119,27 @@ angular.module('app.root', [
 
 
     $rootScope.showMenuOnSwipe=function(){
-      $('nav.site-nav').click();
+      // $('nav.site-nav').click();
     }
 
-    /**
-     * simple function that return true or false depending the input format
-     * format: mobile (xs), tablet (sm, sd), desktop (lg). 
-     */ 
-    
-    // var markers = angular.element('<div class="visible-xs"></div><div class="visible-sm"></div><div class="visible-md"></div><div class="visible-lg"></div>');
-    // angular.element($window.document.body).append(markers);
-    // $rootScope.getVisibleDevice=function(format){
-    //   for( var i in markers) {
-    //     if (angular.element(markers[i]).is(":visible"))
-    //       return markers[i].className;
-    //     }
-    //     //default
-    //     return 'visible-lg'
-    // } 
+    $scope.toggle = function (params) {
+      console.log(params)
+      angular.forEach(params, function (v, k) {
+          var t = ($location.search()[k] && $location.search()[k] === v) ? null : v;
+          $location.search(k, t)
+      });
+    }
+
+    $scope.getToggleClass=function(key,value, clazz){
+      if(!clazz)clazz='active'
+      // for '/'
+      if(!key) {
+        return ($location.path()==='/')?clazz:'';
+      }
+
+      // search options
+      return ($routeParams[key]==value)?clazz:''
+    }
 
     // getClass compares the current url with the id.
     // If the current url starts with the id it returns 'active'
@@ -155,6 +158,7 @@ angular.module('app.root', [
       return '';
     };
    
+
 
     $scope.getCover=function(){
       $scope.cover='img/localfood.jpg'        

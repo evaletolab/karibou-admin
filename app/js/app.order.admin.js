@@ -1,8 +1,8 @@
-'use strict';
+;(function(angular) {'use strict';
 
 //
 // Define the Order module (app.shop)  for controllers, services and models
-// the app.shop module depend on app.config and take resources in shop/*.html 
+// the app.shop module depend on app.config and take resources in shop/*.html
 angular.module('app.order.admin', ['app.order.ui','app.config', 'app.api'])
 
 .controller('OrderAdminCtrl',[
@@ -21,7 +21,7 @@ angular.module('app.order.admin', ['app.order.ui','app.config', 'app.api'])
   'Map',
   '$log',
 
-  function (config, $scope, $location, $rootScope,$routeParams, 
+  function (config, $scope, $location, $rootScope,$routeParams,
            $timeout,  api, order, cart, user, shop, product, Map, $log) {
     var cb_error=api.error($scope);
 
@@ -36,26 +36,17 @@ angular.module('app.order.admin', ['app.order.ui','app.config', 'app.api'])
     $scope.shops=false;
 
     // default model for modal view
-    $scope.modal = {};      
-
-
-    // remove displayed cart
-    $('html').removeClass('display-cart')
+    $scope.modal = {};
 
     //
-    // init order fields
-    user.$promise.then(function(){
-      var p=user.hasPrimaryAddress();
-      $scope.cart.config.address=(p!=-1)?p:0;      
-    })
+    // current shipping date based on the url
+    $scope.currentShipping=function(){
+      var date=($routeParams.when=='next')?order.findCurrentShippingDay():Date.parse($routeParams.when);
+      if(date){
+        return moment(date).format('dddd DD MMM YYYY', 'fr')
+      }
+    }
 
-    config.shop.then(function(){
-      $scope.shippingDays=order.findOneWeekOfShippingDay();
-      if($scope.shipping)
-        return
-      $scope.shipping=order.findCurrentShippingDay();
-    })
- 
     $scope.filterDateByDay=function(dates){
       for (var i = dates.length - 1; i >= 0; i--) {
         //dates[i].when
@@ -71,7 +62,7 @@ angular.module('app.order.admin', ['app.order.ui','app.config', 'app.api'])
         }
       }
     }
-    
+
     $scope.modalDissmiss=function(){
       $scope.modal = {};
     }
@@ -87,6 +78,7 @@ angular.module('app.order.admin', ['app.order.ui','app.config', 'app.api'])
             shops[item.vendor]=[]
           }
           // add item to this shop
+          item.rank=order.rank
           item.oid=order.oid
           item.email=order.email
           item.customer=order.customer
@@ -94,7 +86,7 @@ angular.module('app.order.admin', ['app.order.ui','app.config', 'app.api'])
           item.fulfillments=order.fulfillments
           shops[item.vendor].push(item)
         })
-      })        
+      })
       return shops
     }
 
@@ -116,26 +108,35 @@ angular.module('app.order.admin', ['app.order.ui','app.config', 'app.api'])
       return ''
     }
 
-    $scope.getActiveClass=function(key,value){
-      // no option
-      if(key==undefined){
-        return (Object.keys($routeParams).length===0)?'active':''
-      }
 
-      // options
-      return ($routeParams[key]==value)?'active':''
+    $scope.getOrderItemStatusClass=function(item){
+      var orderFailure=(item.fulfillments&&item.fulfillments.status==='failure');
+      var itemStatus=item.fulfillment.status
+      if(item.fulfillment.status=='failure' ||orderFailure)
+        return 'danger'
+
+      if(item.fulfillment.status=='partial')
+        return 'warning'
+
+      if(item.fulfillment.status=='fulfilled')
+        return 'success'
+    }
+
+    $scope.getInputDisabled=function(item){
+      var orderDisabled=(item.fulfillments&&item.fulfillments.status==='failure');
+      var itemDisabled=(['failure','fulfilled'].indexOf(item.fulfillment.status)!==-1)
+      return itemDisabled||orderDisabled;
     }
 
     //
     // use this to group order view by shipping date
     $scope.currentShippingDate=new Date('1970');
-    $scope.groupByShippingDate = function(date) {
+    $scope.groupByShippingDate = function(date, idx) {
       var d=new Date(date);d.setHours(12,0,0,0)
       var showHeader = (d.getTime()!==$scope.currentShippingDate.getTime());
       $scope.currentShippingDate = d;
-      return showHeader;
-    }    
-
+      return showHeader||(idx===0);
+    }
 
 
     //
@@ -190,5 +191,17 @@ angular.module('app.order.admin', ['app.order.ui','app.config', 'app.api'])
         $scope.products=products;
       });
     }
-  }  
+
+    $scope.updateItem=function(oid,item,fulfillment){
+      for (var o in $scope.orders){
+        if($scope.orders[o].oid===oid){
+          return $scope.orders[o].updateItem(item,fulfillment,function(){
+            api.info($scope,"Status enregistré",2000);
+          },cb_error)
+        }
+      }
+    }
+  }
 ]);
+
+})(window.angular);

@@ -1,8 +1,7 @@
-;(function(angular) {
-'use strict';
+;(function(angular) {'use strict';
 
-// var API_SERVER='http://localhost:4000'
-var API_SERVER='http://api.karibou.evaletolab.ch'
+var API_SERVER='http://localhost:4000'
+//var API_SERVER='http://api.karibou.evaletolab.ch'
 // var API_SERVER='http://192.168.1.35:4000'
 // var API_SERVER='http://karibou-api.cloudfoundry.com'
 // var API_SERVER='http://karibou-evaletolab.rhcloud.com'
@@ -12,7 +11,7 @@ var API_SERVER='http://api.karibou.evaletolab.ch'
 // Declare application level module which depends on additional filters and services (most of them are custom)
 var App = angular.module('app', [
   'ngCookies',
-  'ngResource',  
+  'ngResource',
   'ngRoute',
   'ngSanitize',
   'app.config',
@@ -67,7 +66,7 @@ App.config([
           return promise.then(success, error);
       }
     }];
-    $httpProvider.responseInterceptors.push(interceptor);  
+    $httpProvider.responseInterceptors.push(interceptor);
 
     //console.log("$httpProvider.defaults",$httpProvider.defaults);
     $httpProvider.defaults.crossDomain=true;
@@ -92,7 +91,7 @@ App.config([
     // Without serve side support html5 must be disabled.
     $locationProvider.html5Mode(true);
     $locationProvider.hashPrefix = '!';
-    
+
 
   }
 ]);
@@ -135,15 +134,15 @@ angular.element(document).ready(function () {
   // $script(["//cdn.leafletjs.com/leaflet-0.7/leaflet.js",
   //      "//rawgithub.com/tombatossals/angular-leaflet-directive/master/dist/angular-leaflet-directive.min.js"],
   //      "leaflet");
-  
+
 
 
 
   //
   // firefox security
-  $script(["https://login.persona.org/include.js"],"persona");
-  
-  
+  // $script(["https://login.persona.org/include.js"],"persona");
+
+
 
   angular.bootstrap(document, ['app']);
 });

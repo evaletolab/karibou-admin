@@ -1,11 +1,11 @@
 #disqus_thread{
   font-size:80%;
-  padding:30px;
+  padding:0px 20px;
 }
-   
+
 .dsq-comment {
   font-size:80%;
-}   
+}
 
 #disqus_thread #footer{
 	display: none;

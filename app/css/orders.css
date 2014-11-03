@@ -3,11 +3,11 @@
 }
 
 .table td.shipping-date div{
-  margin-left:-80px;
+  margin-left:-20px;
   background-color: white;
   padding: 8px;
   font-size: 18px;
-  text-transform: uppercase;  
+  text-transform: uppercase;
 }
 
 div.shipping-date{
@@ -70,13 +70,8 @@ div.shipping-date{
 
 }
 
- 
+
 @media only screen and ( max-width: 320px ) /* 320px */{
 
 
 }
-
-
-
-
-

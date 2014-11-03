@@ -16,15 +16,15 @@
 
           <!-- CART QUANTITY -->
           <div class="sexy white product-qty" ng-show="cart.findBySku(product.sku).quantity" >
-             {{cart.findBySku(product.sku).quantity}} articles dans votre panier</span>          
-          </div>                
+             {{cart.findBySku(product.sku).quantity}} articles dans votre panier</span>
+          </div>
 
 
         </aside>
-        <section>          
+        <section>
           <!-- CLOSE-->
           <div>
-          <a class="btn btn-transparent pull-right" 
+          <a class="btn btn-transparent pull-right"
                  href="{{computeUrl()}}"><i class="icon-remove icon-2x white"></i>&nbsp;</a>
           </div>
 
@@ -38,7 +38,7 @@
             <span ng-show="product.attributes.discount" >
               <span class="red bold strike"> {{product.pricing.price| number:2}}</span>
               <span class="green bold small">Fr {{product.pricing.discount| number:2}}</span>
-            </span>                 
+            </span>
 
             <!-- SHOULD BE INLINED IN PHONE -->
             <div class=" em" >{{product.pricing.part}}</div>
@@ -46,11 +46,11 @@
             <!-- ACTIONS -->
             <button class="btn btn-danger btn-lg " ng-click="love(product)">
               <i ng-class="{true:'icon-heart',false:'icon-heart-empty'}[user.hasLike(product)]"></i>&nbsp;J'aime
-            </button> 
+            </button>
 
             <button class="btn btn-primary btn-lg " ng-click="cart.add(product)" ng-hide="!product.isAvailableForOrder()||!product.pricing.stock">
               <i class="icon-ok"></i>&nbsp;J'achète
-            </button>            
+            </button>
 
           </div>
 
@@ -61,7 +61,7 @@
       <!-- ADMIN OR OWNER -->
       <div ng-show="user.isOwnerOrAdmin(product.vendor.name)" class="pull-right">
         <a href="{{rootProductPath}}/products/{{product.sku}}/edit" class="btn  btn-small"><i class="icon-edit"></i>&nbsp;Editer le produit</a>
-      </div>                
+      </div>
 
       <!-- TITLE -->
       <h2 class="" style="padding: 15px 20px;">
@@ -73,15 +73,15 @@
       <blockquote >
         <p>{{product.details.description}}</p>
         <span ng-show="product.details.origin" ><small>{{product.details.origin}}</small></span>
-      </blockquote>      
-        
+      </blockquote>
+
   	  <!-- VENDOR-->
-      <div class="shop " >
+      <div class="shop clearfix" >
             <img ng-show="product.vendor.photo.owner"
               src="{{product.vendor.photo.owner | placehold:'160x160&text=l`équipe'}}"  align="left"
               alt="160x160" class="thumbnail-owner photo-owner" >
             <img ng-show="product.vendor.photo.fg&&!product.vendor.photo.owner" align="left"
-              src="{{product.vendor.photo.fg | placehold:'160x160&text=l`équipe'}}"  
+              src="{{product.vendor.photo.fg | placehold:'160x160&text=l`équipe'}}"
               alt="160x160" class="thumbnail-owner photo-owner">
 
             <strong>{{product.vendor.name}}</strong>&nbsp;|&nbsp;{{product.vendor.description}} <a  href="/shop/{{product.vendor.urlpath}}">Visiter la boutique</a>
@@ -91,4 +91,3 @@
     </div>
   </div>
 </div>
-

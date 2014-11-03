@@ -406,7 +406,7 @@
            <!-- SHIPPING DATE -->         
            <div >
              <h5 class="article-group-title ">Choisir la date de livraison</h5>
-              <select class="form-control input-lg" ng-model="cart.config.shipping" ng-options="date.id as date| dateLabel:'' for date in shippingDays">
+              <select class="cart form-control input-lg" ng-model="cart.config.shipping" ng-options="date.id as date| dateLabel:'' for date in shippingDays">
               </select>
               <p class="help-block">En choisissant ce créneau horaire, vous confirmez être présent pour la réception de votre commande.</p>
            </div>
@@ -414,7 +414,7 @@
            <!-- SHIPPING ADDRESS  -->         
            <div ng-show="user.hasPrimaryAddress()">
              <h5 class="article-group-title ">Choisir l'adresse de livraison </h5>
-              <select class="form-control input-lg" 
+              <select class="cart form-control input-lg" 
                       ng-init="cart.config.address = user.addresses[0]"
                       ng-model="cart.config.address"
                       ng-options="a.name +' - ' +a.streetAdress + ' ' + a.postalCode for a in user.addresses">

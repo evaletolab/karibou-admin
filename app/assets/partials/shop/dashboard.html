@@ -1,0 +1,114 @@
+<div class="dashboard"
+     ng-controller="OrderAdminCtrl" ng-init="findAllAdminOrders()">
+  <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="#">Karibou</a>
+      </div>
+      <div id="navbar" class="navbar-collapse collapse">
+        <ul class="nav navbar-nav navbar-right">
+          <li><a href="#">Boutique</a></li>
+          <li><a href="#">Profile</a></li>
+          <li><a href="#">Help</a></li>
+        </ul>
+        <form class="navbar-form navbar-right">
+          <input type="text" class="form-control" placeholder="Search...">
+        </form>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-sm-2 col-md-2 sidebar">
+        <ul class="nav nav-sidebar">
+          <li ng-class="getToggleClass()"><a href="/admin/orders">historique</a></li>
+          <li ng-class="getToggleClass('when','next')"><a href="/admin/orders?when=next">prochaines</a></li>
+          <li ng-class="getToggleClass('groupby','shop')"><a ng-href="/admin/orders?groupby=shop&when=next">vue par boutique</a></li>
+          <li ng-class="getToggleClass('fulfillments','failure')"><a href="" ng-click="toggle({fulfillments:'failure'})">erreurs</a></li>
+          <li ng-class="getToggleClass('closed','true')"><a href="" ng-click="toggle({closed:'true'})">fermées</a></li>
+        </ul>
+      </div>
+      <div class="col-sm-10 col-sm-offset-2 col-md-10 col-md-offset-2 main">
+        <h1 class="page-header">Dashboard {{currentShipping()}}</h1>
+
+        <div class="row placeholders">
+          <div class="col-xs-6 col-sm-3 placeholder">
+            <img ng-src="http://placehold.it/200x200" class="img-responsive" alt="Generic placeholder thumbnail">
+            <h4>Label</h4>
+            <span class="text-muted">Something else</span>
+          </div>
+          <div class="col-xs-6 col-sm-3 placeholder">
+            <img src="http://placehold.it/200x200" class="img-responsive" alt="Generic placeholder thumbnail">
+            <h4>Label</h4>
+            <span class="text-muted">Something else</span>
+          </div>
+          <div class="col-xs-6 col-sm-3 placeholder">
+            <img src="http://placehold.it/200x200" class="img-responsive" alt="Generic placeholder thumbnail">
+            <h4>Label</h4>
+            <span class="text-muted">Something else</span>
+          </div>
+          <div class="col-xs-6 col-sm-3 placeholder">
+            <img data-src="holder.js/200x200/auto/vine" class="img-responsive" alt="Generic placeholder thumbnail">
+            <h4>Label</h4>
+            <span class="text-muted">Something else</span>
+          </div>
+        </div>
+
+        <h2 class="sub-header">Vos commandes</h2>
+          <!-- BY ORDERS -->
+          <div class="panel" ng-if="orders.length && !shops">
+              <table class="table table-hover table-bordered table-responsive ">
+                <thead>
+                  <tr>
+                    <th>#oid</th>
+                    <th>user</th>
+                    <th>date</th>
+                    <th>status</th>
+                    <th>payment</th>
+                    <th>initial</th>
+                    <th>total</th>
+                    <th>progress</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr ng-repeat-start="order in orders|filter:filterTxt" ng-show="groupByShippingDate(order.shipping.when, $index)" >
+                    <td colspan="7" class="shipping-date"><div><a ng-href="/admin/orders?groupby=shop&when={{order.shipping.when}}">test {{order.shipping.when|dateLabel}}</a></div></td>
+                  </tr>
+                  <tr ng-repeat-end ng-class="getOrderStatusClass(order)">
+                    <td>{{order.oid}}</td>
+                    <td>
+                      <a class="link "
+                              ng-click="modalUserDetails(order.oid)"
+                              bs-modal="'/partials/order/order.user.modal.html'">
+                        {{order.customer.name.familyName}}
+                      </a>
+                    </td>
+                    <td>{{order.created|dateLabelShort}}</td>
+                    <td>{{order.fulfillments.status}}</td>
+                    <td>{{order.payment.status}}</td>
+                    <td>{{order|orderInitial}}</td>
+                    <td>{{order|orderTotal}}</td>
+                    <td>
+                      <div class="progress-bar  " role="progressbar" order-progress="order"
+                        ng-class="{'progress-bar-danger':order.fulfillments.status=='failure',
+                                   'progress-bar-success':order.fulfillments.status!=='failure'}">
+                        <span class="sr-only-">({{order.getFulfilledStats()}}) {{order.getProgress()|number:1}}<b>%</b></span>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+          </div>
+
+
+      </div>
+    </div>
+  </div>
+</div>

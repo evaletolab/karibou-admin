@@ -1,7 +1,7 @@
 
-  
+
 <div tabindex="-1"  id="null" class="screen-content" ng-controller="AccountCtrl">
-  <aside ng-include="'/partials/account/cover.html'" 
+  <aside ng-include="'/partials/account/cover.html'"
          class="cover cover-home img-loaded" ng-class="{'session':user.isAuthenticated()}">
   </aside>
 
@@ -13,11 +13,11 @@
 
       <!--                               -->
       <!-- NAVIGATION -->
-      <!--                               -->                          
+      <!--                               -->
 
       <!--                               -->
       <!-- CONTENT                       -->
-      <!--                               -->                          
+      <!--                               -->
       <script type="text/ng-template" id="/orders-list-actions.html">
         <hr>
         <div class="btn-group">
@@ -30,12 +30,12 @@
             <li class="divider"></li>
             <li><a href="#">Signaler un problème</a></li>
           </ul>
-        </div>      
+        </div>
       </script>
 
 
       <h5 class="article-group-title " >
-        <span class="bucket-header-title box">Vos dernières commandes</span> 
+        <span class="bucket-header-title box">Vos dernières commandes</span>
       </h5>
 
 
@@ -53,12 +53,12 @@
             <div class="timeline-body">
               <h5 style="margin-bottom:5px" class="text-muted">Status de la commande</h5>
               <div class="progress">
-                <div class="progress-bar  " role="progressbar" order-progress="order" 
-                  ng-class="{'progress-bar-danger':order.fulfillments.status=='failure', 
+                <div class="progress-bar  " role="progressbar" order-progress="order"
+                  ng-class="{'progress-bar-danger':order.fulfillments.status=='failure',
                              'progress-bar-success':order.fulfillments.status!=='failure'}">
                   <span class="sr-only-">{{order.fulfillments.status}}</span>
                 </div>
-              </div>              
+              </div>
 
               <div class="panel panel-default">
                 <!-- Default panel contents -->
@@ -81,7 +81,7 @@
                     <tr><th>Produit</th><th>Qté</th><th>CHF</th></tr>
                   </thead>
                   <tbody>
-                    <tr ng-repeat="i in order.items">
+                    <tr ng-repeat="i in order.items" ng-class="{'strike grayx':i.fulfillment.status==='failure'}">
                       <td title="{{i.vendor}}">{{i.title}}</td>
                       <td>{{i.quantity}}</td>
                       <td>{{i.finalprice|number:'2'}} CHF</td>
@@ -169,7 +169,7 @@
                   <li class="divider"></li>
                   <li><a href="#">Signaler un problème</a></li>
                 </ul>
-              </div>  
+              </div>
 
             </div>
           </div>
@@ -243,10 +243,9 @@
     </ul>
 -->
 
-      <!-- FOOTER -->              
+      <!-- FOOTER -->
         <footer class="wrapper-footer" ng-include="'/footer.html'"></footer>
 
       </section>
    </section>
 </div>
-
