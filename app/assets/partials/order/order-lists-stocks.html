@@ -1,0 +1,53 @@
+
+<!-- PRODUCTS FORM -->
+<table class="table  table-responsive "
+       ng-init="orderByField='vendor.urlpath';reverseSort=false">
+  <thead>
+    <tr>
+      <th style="width:40%">#sku</th>
+      <th>
+        <a href="" ng-click="orderByField='vendor.urlpath';reverseSort=!reverseSort">
+          shop
+        </a>
+      </th>
+      <th style="width:80px">
+        <a href="" ng-click="orderByField='pricing.stock';reverseSort=!reverseSort">stock</a>
+      </th>
+      <th style="width:100px">price</th>
+      <th style="width:110px" class="text-center small">discount price</th>
+      <th>-</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat-start="product in products|filter:filterTxt|orderBy:orderByField:reverseSort" >
+    </tr>
+    <tr ng-repeat-end  ng-class="{'info':product.pricing._price!=product.pricing.price||product.pricing._stock!=product.pricing.stock}">
+      <td><a ng-href="/products/{{product.sku}}">{{product.title}}</a></td>
+      <td>{{product.vendor.urlpath}}</td>
+      <td>
+        <input type="text" type="number"
+        ng-model="product.pricing._stock"  ng-init="product.pricing._stock=product.pricing.stock" class="col-xs-12">
+      </td>
+      <td>
+        <input type="text" type="number"
+        ng-model="product.pricing._price" ng-init="product.pricing._price=product.pricing.price" class="col-xs-12">
+      </td>
+      <!-- DISCOUNT -->
+      <td>
+        <div class="input-group" ng-class="{'discount':product.attributes.discount}">
+          <span class="input-group-addon">
+            <input type="checkbox" ng-checked="product.attributes.discount" ng-model="product.attributes.discount">
+          </span>
+          <input type="text" class="form-control" type="number" ng-disabled="!product.attributes.discount" ng-model="product.pricing.discount">
+        </div>      
+      </td>
+
+      <td>
+        <button type="button" ng-click="product.updateAndSave();"
+                class="btn btn-primary btn-xs"
+                ng-disabled="product.pricing._price==product.pricing.price&&product.pricing._stock==product.pricing.stock"><i class="icon-save"></i></button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+

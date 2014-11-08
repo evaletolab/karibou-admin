@@ -1,0 +1,48 @@
+<!-- BY ORDERS -->
+<div class="panel">
+    <table class="table  table-bordered table-responsive ">
+      <thead>
+        <tr>
+          <th>#oid</th>
+          <th>user</th>
+          <th>date</th>
+          <th>status</th>
+          <th>payment</th>
+          <th>initial</th>
+          <th>total</th>
+          <th>progress</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat-start="order in orders|filter:filterTxt" ng-show="groupByShippingDate(order.shipping.when, $index)" >
+          <td colspan="8" class="shipping-date"><div><a title="voir le détail par boutique" ng-href="/admin/orders?groupby=shop&when={{order.shipping.when}}">{{order.shipping.when|dateLabel}}</a></div></td>
+        </tr>
+        <tr ng-repeat-end ng-class="getOrderStatusClass(order)">
+          <td>{{order.oid}}</td>
+          <td>
+            <a class="link "
+                    ng-click="modalUserDetails(order.oid)"
+                    bs-modal="'/partials/order/order.user.modal.html'">
+              {{order.customer.name.familyName}}
+            </a>
+          </td>
+          <td>{{order.created|dateLabelShort}}</td>
+          <td>{{order.fulfillments.status}}</td>
+          <td>
+            <span ng-show="!showPayButton(order)">
+              {{order.payment.status}}</span>
+            <button class="btn btn-transparent bold red" ng-show="showPayButton(order)" ng-click="pay(order)"> {{order.getTotalPrice()}}CHF</button>
+          </td>
+          <td>{{order|orderInitial}}</td>
+          <td>{{order|orderTotal}}</td>
+          <td>
+            <div class="progress-bar  " role="progressbar" order-progress="order"
+              ng-class="{'progress-bar-danger':order.fulfillments.status=='failure',
+                         'progress-bar-success':order.fulfillments.status!=='failure'}">
+              <span class="sr-only-">({{order.getFulfilledStats()}}) {{order.getProgress()|number:1}}<b>%</b></span>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+</div>
