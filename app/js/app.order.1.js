@@ -26,32 +26,15 @@ Order.config([
       .when('/logistic/livraison', {title:'welcome to your open community market',  templateUrl : '/partials/logistic/overview.html'})
       .when('/order', {title:'Valider votre commande', templateUrl : '/partials/order/order.html'})
       .when('/order/:process', {title:'Bank feedback', templateUrl : '/partials/order/order.html'})
-      .when('/shop/admin/orders', {title:'List next orders ',  templateUrl : '/partials/shop/dashboard.html'})
-      .when('/admin/orders', {title:'List next orders ',  templateUrl : '/partials/admin/orders.html'})
+      .when('/admin/orders', {title:'List next orders ',  templateUrl : '/partials/account/dashboard.html', controller:'OrderAdminCtrl'})
       .when('/admin/order', {title:'Admin of order ',  templateUrl : '/partials/admin/order.html'});
   }
 ]);
 
 
-Order.controller('OrderCtrl',[
-  'config',
-  '$scope',
-  '$location',
-  '$rootScope',
-  '$routeParams',
-  '$timeout',
-  'api',
-  'Cards',
-  'order',
-  'cart',
-  'user',
-  'shop',
-  'product',
-  'Map',
-  '$log',
-
-  function (config, $scope, $location, $rootScope,$routeParams,
-           $timeout,  api, Cards, order, cart, user, shop, product, Map, $log) {
+Order.controller('OrderNewCtrl',[
+  '$scope','$location','$rootScope','$routeParams','api','Cards','order','cart','user','product','Map','config','$log',
+  function ($scope, $location, $rootScope,$routeParams, api, Cards, order, cart, user, product, Map, config,  $log) {
     var cb_error=api.error($scope);
 
     $scope.map=new Map()

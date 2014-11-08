@@ -3,11 +3,13 @@
 }
 
 .table td.shipping-date div{
-  margin-left:-20px;
+  -margin-left:-20px;
+  -padding: 8px;
+  -text-transform: uppercase;
   background-color: white;
-  padding: 8px;
   font-size: 18px;
-  text-transform: uppercase;
+  font-weight: 800;
+  margin: 15px 0;  
 }
 
 div.shipping-date{

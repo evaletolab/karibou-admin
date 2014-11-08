@@ -82,7 +82,7 @@ Order.factory('order', [
 
 
     /* return array of one week of shipping days available for customers*/
-    Order.prototype.findOneWeekOfShippingDay=function(){
+    Order.prototype.findOneWeekOfShippingDay=function(timeLess){
       var next=this.findNextShippingDay(), result=[], all=[next], nextDate
 
       config.shop.order.weekdays.forEach(function(day){
@@ -107,7 +107,6 @@ Order.factory('order', [
         return a.getTime() - b.getTime();
       });
 
-
       //
       // construct object with delivery options
       var elem=0;
@@ -116,6 +115,8 @@ Order.factory('order', [
 
           next.setHours(k,0,0,0)
           result.push({id:elem++,when:new Date(next),time:config.shop.order.shippingtimes[k]});
+          // we dont want shipping times precision
+          if(timeLess) return;
         }
       })
 
@@ -163,6 +164,35 @@ Order.factory('order', [
       // we dont care about seconds and ms
       next.setHours(next.getHours(),next.getMinutes(),0,0)
       return next
+    }
+
+    Order.prototype.getTotalPrice=function(factor){
+      var total=0.0;
+      this.items&&this.items.forEach(function(item){
+        //
+        // item should not be failure (fulfillment)
+        if(item.fulfillment!=='failure'){
+          total+=item.finalprice;
+        }
+      });
+
+      //
+      // add gateway fees
+      for (var gateway in config.shop.order.gateway){
+        gateway=config.shop.order.gateway[gateway]
+        if (gateway.label===this.payment.issuer){
+          total+=total*gateway.fees;
+          break;
+        }
+      }
+
+      // add mul factor
+      factor&&(total*=factor);
+
+      // add shipping fees (10CHF)
+      total+=config.shop.marketplace.shipping;
+
+      return parseFloat((Math.ceil(total*20)/20).toFixed(2));
     }
 
     Order.prototype.getShippingLabels=function(){
@@ -242,7 +272,6 @@ Order.factory('order', [
 
 
     Order.prototype.create=function(shipping,items,payment, cb,err){
-
       if(!err) err=function(){};
       var self=this, s = this.backend.$order.save({shipping:shipping,items:items,payment:payment}, function() {
         self.wrap(s);
@@ -251,6 +280,15 @@ Order.factory('order', [
       return self;
     };
 
+
+    Order.prototype.payment=function(cb,err){
+      if(!err) err=function(){};
+      var self=this, s = this.backend.$order.save({action:self.oid,id:'pay'}, function() {
+        self.wrap(s);
+        if(cb)cb(self)
+      },err);
+      return self;
+    };
 
     Order.prototype.updateItem=function(item,fulfillment, cb,err){
       if(!err) err=function(){};

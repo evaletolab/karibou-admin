@@ -6,7 +6,7 @@
         Créer un compte
       </h3>
 
-      <div class="main-account">          
+      <div class="main-account">
         <!-- FNAME -->
         <input required ng-model="reg.name.givenName" placeholder="Prénom" type="text" name="name1" class="form-control input-lg" />
         <span ng-hide="identity.name1.$invalid" class="accout-field-valid"><i class="icon-ok green"></i></span>
@@ -18,14 +18,14 @@
 <!--         <span ng-hide="form.email.$invalid" class="accout-field-valid"><i class="icon-ok green"></i></span>
  -->
         <!-- PASSWORD -->
-        <input class="form-control input-lg " required ng-minlength=6 ng-model="reg.password.new" type="password" name="password" 
+        <input class="form-control input-lg " required ng-minlength=6 ng-model="reg.password.new" type="password" name="password"
           placeholder="Mot de passe (minimum 6 caractères)"/>
         <span ng-hide="identity.password.$invalid" class="accout-field-valid"><i class="icon-ok green"></i></span>
-        <input class="form-control input-lg " required ng-minlength=6 ng-model="reg.password.copy" type="password" name="copy" 
+        <input class="form-control input-lg " required ng-minlength=6 ng-model="reg.password.copy" type="password" name="copy"
           placeholder="Confirmer mot de passe"/>
         <span ng-hide="identity.copy.$invalid || reg.password.copy!=reg.password.new" class="accout-field-valid"><i class="icon-ok green"></i></span>
-
-      </div>      
+        <!--<ul id="strength" password-strength="reg.password.new"></ul>-->
+      </div>
 
       <div class="account-footer">
         <div class="row">
@@ -35,18 +35,18 @@
               </div>
           </div>
           <div class="col-xs-6 col-md-6 pull-right">
-              <button type="submit" 
-                ng-click="createAccount(reg)" ng-disabled="identity.$invalid || WaitText ||user.password.copy!=user.password.new"  
-                ga-send="{category:'account',action:'register'}" 
+              <button type="submit"
+                ng-click="createAccount(reg)" ng-disabled="identity.$invalid || WaitText ||user.password.copy!=user.password.new"
+                ga-send="{category:'account',action:'register'}"
                 class="btn btn-lg btn-success pull-right  ">
                 <i ng-class="{'icon-gear':WaitText}"></i>
                 Submit
               </button>
 
           </div>
-        </div>    
+        </div>
       </div>
     </form>
-  </div>    
+  </div>
 
 </section>

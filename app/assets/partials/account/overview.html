@@ -23,7 +23,6 @@
       <!--                               -->
       <!-- NAVIGATION -->
       <!--                               -->                          
-      <div  class="bucket post-bucket homepage-posts" ng-include="'/partials/account/navigation.html'"></div>
 
 
       <!--                               -->
@@ -34,15 +33,12 @@
 
       <!-- SHOPS ORDERS -->
       <div class="well well-small white " style="width:100%;float:left;" ng-if="user.shops.length">
-
-        <div class="col-md-12">
-
-          <div class="alert alert-warning" ng-cloak >
-          </div>
-          <p class="">
-            <a class="btn btn-lg btn-block btn-warning" href="/shop/admin/orders?when=next">Les prochaines commandes à préparer</a>
-          </p>
-        </div>
+          <h5 class="article-group-title ">
+            <span class="bucket-header-title">Mon dashboard</span>
+          </h5>
+          <ul>
+            <li><a class="" href="/admin/orders?when=all">Toutes les commandes</a> </li>
+          </ul>
       </div>
 
       <!-- ORDERS -->

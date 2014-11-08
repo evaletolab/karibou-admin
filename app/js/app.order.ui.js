@@ -44,10 +44,11 @@ angular.module('app.order.ui', [
           timer,
           append = attr['clockdown']||'';
 
-      timer=setInterval(function(){
-        delta--;
-        element.html(append+' '+moment(nextShippingDay).fromNow())
-      },1000)
+      element.html(append+' '+moment(nextShippingDay).format('dddd D MMMM', 'fr'))
+      // timer=setInterval(function(){
+      //   delta--;
+      //   element.html(append+' '+moment(nextShippingDay).fromNow())
+      // },1000)
     });
   }
 }])

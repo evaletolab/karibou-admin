@@ -2,8 +2,8 @@
 
 //
 // Define the User module (app.user)  for controllers, services and models
-// the app.user module depend on app.config and take resources in account/*.html 
-var User=angular.module('app.user', ['app.config','app.ui.map']);
+// the app.user module depend on app.config and take resources in account/*.html
+var User=angular.module('app.user', ['app.config','app.ui.map','app.user.ui']);
 
 //
 // define all routes for user api
@@ -39,15 +39,15 @@ User.config([
       .when('/account/password', {auth : true, _view:'main', templateUrl : '/partials/account/password.html'})
       .when('/account/profile', {auth : true, _view:'main', templateUrl : '/partials/account/profile.html'})
       .when('/account/signup', {view:'main', templateUrl : '/partials/account/profile.html'})
-      
-      .when('/admin/user', {title:'Admin of users ', _view:'main', templateUrl : '/partials/admin/user.html'});      
+
+      .when('/admin/user', {title:'Admin of users ', _view:'main', templateUrl : '/partials/admin/user.html'});
   }
 ]);
 
 
 //
 // Define the application level controllers
-// the AccountCtrl is used in account/*.html 
+// the AccountCtrl is used in account/*.html
 User.controller('AccountCtrl',[
   'config',
   '$scope',
@@ -60,11 +60,11 @@ User.controller('AccountCtrl',[
   'shop',
   '$timeout',
   '$http',
-  
+
   function (config, $scope, $location, $rootScope, $routeParams, api, user, Map, shop, $timeout, $http) {
     $scope.map=new Map()
-    $scope.user=user; 
-    $scope.reg={}   
+    $scope.user=user;
+    $scope.reg={}
     $scope.users=[];
     $scope.providers=config.providers;
 
@@ -79,21 +79,19 @@ User.controller('AccountCtrl',[
     $scope.showPaymentForm=false;
 
     // default model for modal view
-    $scope.modal = {};      
-    
+    $scope.modal = {};
+
     var cb_error=api.error($scope);
 
-
-
-
+    // get list of users
     if($location.path()==='/admin/user'){
       user.query({}).$promise.then(function(u){
           $scope.users=u
       })
     }
 
+    // remove an user
     $scope.remove=function(user, password){
-      // dismiss()
       user.remove(password,function(){
         api.info($scope,"l'utilisateur est supprimer");
         // remove user from local repository
@@ -101,9 +99,8 @@ User.controller('AccountCtrl',[
           if($scope.users[i].id===user.id)
             $scope.users.splice(i,1)
         }
-        // dismiss()
       },cb_error)
-    }    
+    }
 
     if($routeParams.id&&$routeParams.email){
       user.validate($routeParams,function(msg){
@@ -113,27 +110,27 @@ User.controller('AccountCtrl',[
     }
 
     //
-    // check and init the session    
-    user.me(function(u){      
+    // check and init the session
+    user.me(function(u){
       $scope.user = u;
       u.geo=new Map()
       Raven.setUserContext({ email: user.email })
-      
+
 
       user.addresses.forEach(function(address,i){
         user.geo.addMarker(i,{
           lat:address.geo.lat,
-          lng:address.geo.lng, 
+          lng:address.geo.lng,
           message:address.streetAdress+'/'+address.postalCode
-        });        
+        });
       })
-      angular.extend($scope,user.geo.getMap());      
+      angular.extend($scope,user.geo.getMap());
     });
 
     $scope.modalUserDetails=function(user){
       $scope.modal=user
     }
-    
+
     $scope.modalDissmiss=function(){
       $scope.modal = {};
     }
@@ -149,13 +146,13 @@ User.controller('AccountCtrl',[
         // if referer is in protected path?
         if($scope.referrer&&_.find(config.loginPath,function(path){
             return ($scope.referrer.indexOf(path)!==-1)})){
-          return $location.url($scope.referrer);  
+          return $location.url($scope.referrer);
         }
 
-        // 
+        //
         // if user profile is not ready?
         if(!user.isReady()||!user.hasPrimaryAddress()){
-          return $location.url('/account/profile');  
+          return $location.url('/account/profile');
         }
 
         //
@@ -173,13 +170,13 @@ User.controller('AccountCtrl',[
             password:u.password.new,confirm:u.password.copy
       };
       $rootScope.WaitText="Waiting ..."
-      
+
       user.register(r,function(){
         api.info($scope,"Votre compte à été créé! Une demande de confirmation vous a été envoyé à votre adresse email")
         $location.url('/account/profile');
       },cb_error);
     };
-    
+
     //
     // create a new shop
     $scope.createShop=function(s){
@@ -192,8 +189,8 @@ User.controller('AccountCtrl',[
       },cb_error);
     };
 
-    
-    
+
+
     //
     // save action
     $scope.save=function(u){
@@ -201,7 +198,7 @@ User.controller('AccountCtrl',[
       user.save(user,function(){
         api.info($scope,"Profile enregistré");
       },cb_error);
-    };    
+    };
 
     //
     // validate user email
@@ -212,8 +209,8 @@ User.controller('AccountCtrl',[
         api.info($scope,"Password modifié");
         user.password={};
       },cb_error);
-    };    
-    
+    };
+
     //
     // validate user email
     $scope.verify=function(u){
@@ -225,7 +222,7 @@ User.controller('AccountCtrl',[
             $location.url('/login');
         },cb_error);
       },cb_error);
-      return;      
+      return;
     };
 
     //
@@ -241,10 +238,10 @@ User.controller('AccountCtrl',[
 
       },cb_error);
       return;
-      
+
     };
     $scope.persona=function(provider){
-      navigator.id.get(function (assertion) {      
+      navigator.id.get(function (assertion) {
         $http.post(provider.url, {assertion:assertion})
           .then(function (responce) {
             user.me(function(u){
@@ -254,8 +251,8 @@ User.controller('AccountCtrl',[
               $location.url(home);
             })
          },function(error){
-          api.info($scope,error);          
-         });      
+          api.info($scope,error);
+         });
       });
     }
 
@@ -263,7 +260,7 @@ User.controller('AccountCtrl',[
     $scope.addPaymentMethod=function(name,number,csc,expiry){
       $rootScope.WaitText="Waiting ..."
       user.addPaymentMethod({name:name,number:number,csc:csc,expiry:expiry},function(u){
-        api.info($scope,"Votre méthode de paiement a été enregistré");        
+        api.info($scope,"Votre méthode de paiement a été enregistré");
         user.showCreditCard=false;
       },cb_error)
     }
@@ -271,7 +268,7 @@ User.controller('AccountCtrl',[
     $scope.deletePaymentMethod=function(alias,cvc,expiry){
       $rootScope.WaitText="Waiting ..."
       user.deletePaymentMethod(alias,function(u){
-        api.info($scope,"Votre méthode de paiement a été supprimé");        
+        api.info($scope,"Votre méthode de paiement a été supprimé");
       },cb_error)
     }
 
@@ -302,7 +299,7 @@ User.controller('AccountCtrl',[
           },function(e){
             // still not connected
             $scope.FormErrors=('Wainting...');
-            $timeout(tick, 2000);            
+            $timeout(tick, 2000);
           });
 
       };
@@ -333,7 +330,7 @@ User.controller('AccountCtrl',[
 
       })
     };
-    
+
 
 
     // if(user.geo && user.addresses){
@@ -342,17 +339,17 @@ User.controller('AccountCtrl',[
     //     if (address.geo)
     //     user.geo.addMarker(i,{
     //       lat:address.geo.lat,
-    //       lng:address.geo.lng, 
+    //       lng:address.geo.lng,
     //       message:address.streetAdress+'/'+address.postalCode
-    //     });        
+    //     });
     //   })
-    //   angular.extend($scope,user.geo.getMap());      
-    // } else angular.extend($scope,new Map().getMap());      
-  }  
+    //   angular.extend($scope,user.geo.getMap());
+    // } else angular.extend($scope,new Map().getMap());
+  }
 ]);
 
 /**
- * this should be usefull to help the display of the primary address 
+ * this should be usefull to help the display of the primary address
  */
 User.filter("primary",function(){
   return function(primary,user){
@@ -378,7 +375,7 @@ User.factory('user', [
   'shop',
 
   function (config, $location, $rootScope, $route, $resource, $q, api, shop) {
-    
+
     var defaultUser = {
       id: '',
       name: {
@@ -396,7 +393,7 @@ User.factory('user', [
     };
 
 
-    
+
     var User = function(data) {
       this.backend={}
       this.backend.$user=$resource(config.API_SERVER+'/v1/users/:id/:action/:aid/:detail',
@@ -420,10 +417,10 @@ User.factory('user', [
         if (this.id){
           return this.id+'@'+this.provider;
         }
-          
+
         return 'Anonymous';
     }
-    
+
 
     User.prototype.acronym=function(){
       var d=this.display()
@@ -431,9 +428,9 @@ User.factory('user', [
       return (d)?d:'unknow';
     }
 
-    
+
     User.prototype.isOwner=function(shopname){
-        
+
         //if (this.isAdmin())return true;
         for (var i in this.shops) {
           if (this.shops[i].name === shopname) {
@@ -448,7 +445,7 @@ User.factory('user', [
         return true;
       return this.isOwner(shopname);
     };
-            
+
     User.prototype.isAuthenticated= function () {
         return this.id !== '';
     };
@@ -458,9 +455,9 @@ User.factory('user', [
     };
 
     User.prototype.isReady=function(){
-      return (this.email&&this.email.status == true) 
+      return (this.email&&this.email.status == true)
     }
-    
+
     User.prototype.hasRole= function (role) {
         for (var i in this.roles){
           if (this.roles[i]===role) return true;
@@ -501,8 +498,8 @@ User.factory('user', [
       // autofill the address name when available
       if(user.addresses&&user.addresses.length&&!user.addresses[0].name){
         user.addresses[0].name=user.name.familyName+' '+user.name.givenName
-      }      
-    }    
+      }
+    }
 
     //
     // REST api wrapper
@@ -513,7 +510,7 @@ User.factory('user', [
       return this.chain(this.backend.$user.get({id:'me'}, function(_u,headers) {
           self.wrap(_u);
           self.shops=shop.wrapArray(self.shops);
-          if(cb)cb(self);        
+          if(cb)cb(self);
           return self;
         },err).$promise
       );
@@ -604,7 +601,7 @@ User.factory('user', [
       },err);
       return u;
     };
-    
+
     //
     // TODO move this action to the shop service
     User.prototype.createShop=function(shop,cb,err){
@@ -614,7 +611,7 @@ User.factory('user', [
         if(cb)cb(_user);
       },err);
       return s;
-    };    
+    };
 
     User.prototype.remove=function(password,cb,err){
       if(!err) var err=function(){};
@@ -633,7 +630,7 @@ User.factory('user', [
         if(cb)cb(self);
       },err);
       return this;
-    };    
+    };
 
 
     /**
@@ -647,7 +644,7 @@ User.factory('user', [
         if(cb)cb(self);
       },err);
       return this;
-    };    
+    };
 
     User.prototype.deletePaymentMethod=function(alias,cb,err){
       var self=this;
@@ -661,13 +658,12 @@ User.factory('user', [
         if(cb)cb(self);
       },err);
       return this;
-    };    
+    };
 
-   
+
     //
-    //default singleton for user  
+    //default singleton for user
     var _user=api.wrapDomain(User,'id', defaultUser);
-    return _user;  
+    return _user;
   }
 ]);
-

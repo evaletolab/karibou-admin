@@ -113,27 +113,18 @@ h1.sexy, h2.sexy, h3.sexy {
   border:1px solid #0f0!important;
 }
 
-.text-center{
-  text-align: center;
-
-}
-
-.text-left{
-  text-align: left;
-}
-.text-left.padding{padding-left: 10px}
-
-.text-right{
-  text-align: right;
-}
-.text-right.padding{padding-right: 10px}
+.text-center{text-align: center;}
+.text-left{text-align: left;}
+.text-left.padding{padding-left: 10px!important}
+.text-right{text-align: right;}
+.text-right.padding{padding-right: 10px!important}
 
 .navbar-inner{
   min-height-:40px;
 }
 
 ul.nav li{
-  line-height-:30px;
+  line-height:30px;
 }
 
 .navbar .nav .dropdown-toggle .caret {
@@ -172,7 +163,11 @@ ul.nav li{
 }
 
 .smallx {
-  font-size: 80%;
+  font-size: 78%;
+}
+
+.smallxx {
+  font-size: 70%;
 }
 
 .lazy {
@@ -258,6 +253,11 @@ address{
 .well.white{
   background-color: white;
   color: inherit!important;
+}
+.text-ellipsis{
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
 }
 
 /* Sections

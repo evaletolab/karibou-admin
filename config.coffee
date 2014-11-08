@@ -41,9 +41,9 @@ exports.config =
         after: [
           'vendor/styles/bootstrap-theme.css'
         ]
-        
+
     templates:
-      joinTo: 
+      joinTo:
         'js/dontUseMe' : /^app/ # dirty hack for Jade compiling.
 
   plugins:
@@ -55,4 +55,4 @@ exports.config =
   #    pretty: yes # Adds pretty-indentation whitespaces to output (false by default)
 
   # Enable or disable minifying of result js / css files.
-  # minify: true 
+  # minify: true

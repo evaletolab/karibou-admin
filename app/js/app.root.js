@@ -34,14 +34,14 @@ angular.module('app.root', [
   '$location',
   '$templateCache',
   '$routeParams',
+  '$anchorScroll',
   'config',
   'api',
   'user',
   'cart',
   'category',
   'product',
-
-  function ($scope, $rootScope, $window,  $location, $templateCache, $routeParams, config, api, user, cart, category, product) {
+  function ($scope, $rootScope, $window,  $location, $templateCache, $routeParams,$anchorScroll, config, api, user, cart, category, product) {
 
 
     var cb_error=api.error($scope);
@@ -122,8 +122,25 @@ angular.module('app.root', [
       // $('nav.site-nav').click();
     }
 
-    $scope.toggle = function (params) {
-      console.log(params)
+
+    $scope.gotoAnchor = function(x) {
+      var newHash = x;
+      if ($location.hash() !== newHash) {
+        // set the $location.hash to `newHash` and
+        // $anchorScroll will automatically scroll to it
+        $location.hash(x);
+      } else {
+        // call $anchorScroll() explicitly,
+        // since $location.hash hasn't changed
+        $anchorScroll();
+      }
+    };
+
+
+    $scope.toggle = function (params,clear) {
+      if(clear){
+        $location.search({})
+      }
       angular.forEach(params, function (v, k) {
           var t = ($location.search()[k] && $location.search()[k] === v) ? null : v;
           $location.search(k, t)
@@ -134,7 +151,7 @@ angular.module('app.root', [
       if(!clazz)clazz='active'
       // for '/'
       if(!key) {
-        return ($location.path()==='/')?clazz:'';
+        return (Object.keys($routeParams).length===0)?clazz:'';
       }
 
       // search options

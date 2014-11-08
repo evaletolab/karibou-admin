@@ -1,36 +1,4 @@
-
-<nav role="navigation" class="navbar navbar-default  " ng-if="user.isAdmin()">
-  <!-- We use the fluid option here to avoid overriding the fixed width of a normal container within the narrow content columns. -->
-  <div class="container-fluid">
-
-    <div id="user-navbar-collapse" class="collapse navbar-collapse in">
-      <ul class="nav navbar-nav">
-
-       <!-- ADMIN-->
-        <li  ng-class="getClass('/admin/orders')">
-            <a class="btn  btn-default" href="/admin/orders?when=next">Commandes</a>
-        </li>
-
-        <li  ng-class="getClass('/logistic/collect')" ng-show="user.isAdmin()" >
-          <a class="btn  btn-default" href="/logistic/collect">Collecte</a>
-        </li>
-        <li  ng-class="getClass('/logistic/overview')" ng-show="user.isAdmin()" >
-          <a class="btn  btn-default" ng-href="/logistic/livraison">livraison</a>
-        </li>
-        <li  ng-class="getClass('/admin/category')" ng-show="user.isAdmin()" >
-          <a class="btn btn-default" ng-href="/admin/category">Categorie</a>
-        </li>
-        <li  ng-class="getClass('/admin/role')" ng-show="user.isAdmin()" >
-          <a class="btn btn-default" ng-href="/admin/role">Rôle</a>
-        </li>
-        <li  ng-class="getClass('/admin/user')" ng-show="user.isAdmin()" >
-          <a class="btn btn-default" ng-href="/admin/user">Utilisateurs</a>
-        </li>        
-      </ul>
-    </div><!-- /.navbar-collapse -->
-  </div>
-</nav>
-
+<span></span>
 <!--
   <li ng-class="getClass('/account/overview')"><a ng-href="/account/overview"></i>Aperçu</a></li>
   <li ng-class="getClass('/account/profile')"><a ng-href="/account/profile">Profile</a></li>
