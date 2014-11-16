@@ -37,7 +37,6 @@ article:nth-child(even){
   min-height-:300px;
   position:relative;
   
-  font-family:Merriweather,serif;
   font-weight:300;
   font-size:13px;
 
@@ -109,7 +108,7 @@ article:nth-child(even){
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  font-size:90%;
+  font-size:98%;
 }
 
 .layout-item .love{
@@ -138,6 +137,8 @@ article:nth-child(even){
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+    font-family: 'Halant', serif;
+    font-size:16px;
 }
 
 .layout-item.c1, form .layout-item.c1{

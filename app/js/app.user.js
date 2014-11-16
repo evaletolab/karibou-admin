@@ -26,8 +26,8 @@ User.config([
 
       // Account
       // `auth : true` is a custom value passed to current route
-      .when('/account', {title:'Votre profile', _view:'main',redirectTo : '/account/overview'})
-      .when('/account/', {title:'Votre profile', _view:'main', redirectTo : '/account/overview'})
+      .when('/account', {title:'Votre profil', _view:'main',redirectTo : '/account/overview'})
+      .when('/account/', {title:'Votre profil', _view:'main', redirectTo : '/account/overview'})
       .when('/account/love', {_view:'main', love:true, templateUrl : '/partials/product/love.html'})
       .when('/account/shop', {_view:'main', templateUrl : '/partials/account/shop.html'})
       .when('/account/payment', {_view:'main', templateUrl : '/partials/account/payment.html'})
@@ -35,7 +35,6 @@ User.config([
       .when('/account/orders', {_view:'main', templateUrl : '/partials/account/orders.html'})
       .when('/account/email', {auth : true, _view:'main', templateUrl : '/partials/account/email.html'})
       .when('/account/overview', {auth : true, _view:'main', templateUrl : '/partials/account/overview.html'})
-      .when('/account/connected', {auth : true, _view:'main', templateUrl : '/partials/account/connected.html'})
       .when('/account/password', {auth : true, _view:'main', templateUrl : '/partials/account/password.html'})
       .when('/account/profile', {auth : true, _view:'main', templateUrl : '/partials/account/profile.html'})
       .when('/account/signup', {view:'main', templateUrl : '/partials/account/profile.html'})
@@ -211,19 +210,6 @@ User.controller('AccountCtrl',[
       },cb_error);
     };
 
-    //
-    // validate user email
-    $scope.verify=function(u){
-      user.save(user,function(){
-        $rootScope.WaitText="Waiting ..."
-        user.validateEmail(function(validate){
-          api.info($scope,"Merci, une confirmation a été envoyé à votre adresse email");
-          if (!user.isAuthenticated())
-            $location.url('/login');
-        },cb_error);
-      },cb_error);
-      return;
-    };
 
     //
     // recover user pass

@@ -14,7 +14,7 @@
               &nbsp;J'achète 
             </a>
       </div>
-      <div class="actions hidden-lg" ng-show="product.isAvailableForOrder()&&product.pricing.stock">
+      <div class="actions hidden-lg" ng-if="product.isAvailableForOrder()&&product.pricing.stock">
           <a class="btn btn-transparent green" ng-click="cart.add(product)">
             <i ng-class="{'icon-ellipsis-horizontal icon-2x':CartText, 'icon-plus icon-2x ':!CartText}"></i>
           </a>
@@ -25,25 +25,27 @@
       </div>
 
       <!-- PRODUCT LINK -->
-      <a  ng-href="{{shop.urlpath|test:'/shop/':''}}/products/{{product.sku}}" shop="/shop/{{product.vendor.urlpath}}" class="link"  start-progress>
+      <a  ng-href="{{shop.urlpath|test:'/shop/':''}}/products/{{product.sku}}" 
+          shop="/shop/{{product.vendor.urlpath}}" 
+          class="link"  start-progress>
 
           <!-- PHOTO -->
-          <img ng-cloak ng-show="product.photo.url&&!product_edit" bn-lazy-src="{{product.photo.url}}" class="lazy ">
-          <img ng-cloak ng-show="product_edit" src="{{product.photo.url}}" >
+          <img ng-if="product.photo.url&&!product_edit" bg-src="{{product.photo.url}}" class="lazy ">
+          <img ng-if="product_edit" ng-src="{{product.photo.url}}" >
 
           <!-- NOT AVAILABLE http://placehold.it/275x230/eeeeee/000000&text=indisponible -->
-          <img ng-cloak ng-hide="product.isAvailableForOrder()" ng-src="/img/product-not-available.gif" class="available">
+          <img ng-if="!product.isAvailableForOrder()" ng-src="/img/product-not-available.gif" class="available">
 
           <!-- NOT IN STOCK http://placehold.it/275x230/eeeeee/000000&text=plus+en+stock-->
-          <img ng-cloak ng-hide="product.pricing.stock" ng-src="/img/product-stock.gif" class="available">
+          <img ng-cloak ng-if="!product.pricing.stock" ng-src="/img/product-stock.gif" class="available">
 
 
           <!-- PRICE-->
           <div class="price" >
             <!-- REGULAR -->
-            <span ng-hide="product.attributes.discount" class="small green bold ">Fr {{product.pricing.price| number:2}}</span>
+            <span ng-if="!product.attributes.discount" class="small green bold ">Fr {{product.pricing.price| number:2}}</span>
             <!-- DISCOUNT -->
-            <span ng-show="product.attributes.discount" >
+            <span ng-if="product.attributes.discount" >
               <span class="red bold strike"> {{product.pricing.price| number:2}}</span>
               <span class="green bold small">Fr {{product.pricing.discount| number:2}}</span>
             </span>                 

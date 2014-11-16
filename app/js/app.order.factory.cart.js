@@ -258,8 +258,15 @@ angular.module('app.order')
     Cart.prototype.load= function () {
       if(!localStorage)return;
       try {
-        // this.items=angular.fromJson(sessionStorage[defaultCart.namespace])        
+        var verifyItem=[];
         this.items = angular.fromJson(localStorage.getItem(defaultCart.namespace ));
+        this.items.forEach(function (item) {
+          if(item.title && item.sku){
+            verifyItem.push(item)
+          }
+        })
+        this.items=verifyItem;
+
         if(console)console.log("loading cart",this.items)
       } catch (e){
         api.error( "Votre ancien caddie n'a pas pu être retrouvé: " + e );

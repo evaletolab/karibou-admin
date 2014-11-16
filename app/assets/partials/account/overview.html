@@ -32,51 +32,22 @@
 
 
       <!-- SHOPS ORDERS -->
-      <div class="well well-small white " style="width:100%;float:left;" ng-if="user.shops.length">
+      <div class="well well-small white  clearfix"  ng-if="user.shops.length||user.isAdmin()">
           <h5 class="article-group-title ">
             <span class="bucket-header-title">Mon dashboard</span>
           </h5>
           <ul>
-            <li><a class="" href="/admin/orders?when=all">Toutes les commandes</a> </li>
+            <li><a class="" href="/admin/orders?view=all">Toutes les commandes</a> </li>
           </ul>
       </div>
 
-      <!-- ORDERS -->
-      <div class="well well-small white " style="width:100%;float:left;">
-        <div class="col-md-12">
-          <h5 class="article-group-title ">
-            <span class="bucket-header-title">Mon profile</span>
-          </h5>
-
-          <div class="alert alert-warning" ng-cloak ng-show="user.email.status !== true" >
-              Vous n'avez pas encore valider votre addresse email!
-          </div>
-
-          <p>
-            <a href="/account/profile">Modifier mes données personnelles</a>
-          </p>
-        </div>
-        
-        <div class="col-md-12">
-          <h5  class="article-group-title " >
-            <span class="bucket-header-title">Sécurité</span> 
-          </h5>
-          <ul>
-            <li><a href="/account/password">Modifier mon mot de passe</a></li>
-            <li><a href="/account/payment">Mes méthodes de paiement</a></li>
-          </ul>
-        </div>
-      </div>          
-
       <!-- LAST ORDERS -->
-      <div  class="well well-small white" style="width:100%;float:left;">
-        <div ng-hide="user.orders.length" class="col-md-12">
-          <h5 class="article-group-title ">
-            <span class="bucket-header-title">Je n'ai pas encore passé de commande.</span>
-          </h5>
-        </div>
+      <div  class="well well-small white clearfix" >
+        <h5 class="article-group-title " ng-if="!user.orders.length">
+          <span class="bucket-header-title">Je n'ai pas encore passé de commande.</span>
+        </h5>
         
-        <h5 ng-show="user.orders.length" class="article-group-title " >
+        <h5 ng-if="user.orders.length" class="article-group-title " >
           <span class="bucket-header-title">Mes dernières commandes</span> 
         </h5>
         <p>
@@ -85,12 +56,10 @@
       </div>    
 
       <!-- LOVE -->
-      <div  class="well well-small white" style="width:100%;float:left;">
-        <div ng-hide="user.likes.length" class="col-md-12">
-          <h5 class="article-group-title ">
-            <span class="bucket-header-title">Je n'ai encore pas de produits préférés.</span>
-          </h5>
-        </div>
+      <div  class="well well-small white clearfix" >
+        <h5 class="article-group-title " ng-hide="user.likes.length">
+          <span class="bucket-header-title">Je n'ai encore pas de produits préférés.</span>
+        </h5>
         
         <h5 ng-show="user.likes.length" class="article-group-title " >
           <span class="bucket-header-title">Mes coups de coeur</span> 
@@ -99,17 +68,45 @@
           <a href="/account/love">Ma liste principale</a>
         </p>
       </div>          
+
+      <!-- PROFILE -->
+      <div class="well well-small white  clearfix" >
+        <h5 class="article-group-title ">
+          <span class="bucket-header-title">Mon profil</span>
+        </h5>
+
+
+        <div class="alert alert-warning" ng-cloak  ng-show="user.email.status !== true">
+          <strong>Votre adresse mail n'a toujours pas été confirmée.</strong>
+          Une demande de confirmation vous a été envoyée par mail le {{user.email.status|dateLabel}}.
+          Si vous avez perdu ce mail, vous pouvez <a href="" ng-click="verify(user)">activer une nouvelle demande de confirmation</a>.
+        </div>
+
+
+        <p>
+          <a href="/account/profile">Modifier mes données personnelles</a>
+        </p>
+      </div>
+        
+      <div class="well well-small white  clearfix" >
+        <h5  class="article-group-title " >
+          <span class="bucket-header-title">Sécurité</span> 
+        </h5>
+        <ul>
+          <li><a href="/account/password">Modifier mon mot de passe</a></li>
+          <li><a href="/account/payment">Mes méthodes de paiement</a></li>
+        </ul>
+      </div>          
+
     
       <!-- SHOP LIST -->
       <div class="well well-small white" style="width:100%;float:left;margin-bottom:100px">
-        <div ng-hide="user.shops.length" class="col-md-12">
-          <h5 class="article-group-title ">
-            Je n'ai pas de boutique.
-          </h5>
-        </div>
+        <h5 class="article-group-title " ng-hide="user.shops.length">
+          Je n'ai pas de boutique.
+        </h5>
         
         <h5 class="article-group-title " >Mes boutiques 
-          <a ng-href="/account/shop" ng-hide="user.shops.length" class="pull-right small link">Ouvrir une boutique</a>
+          <a ng-href="/account/shop" ng-hide="(user.shops.length>2)&&!user.isAdmin()" class="pull-right small link">Ouvrir une boutique</a>
         </h5>
 
 

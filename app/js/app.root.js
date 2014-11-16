@@ -111,6 +111,13 @@ angular.module('app.root', [
     });
 
 
+    //
+    // this is an helper for avoid the default sorting by ng-repeat
+    $scope.keys=function(map){
+      if(!map)return [];
+      return Object.keys(map);
+    }
+
 
     $rootScope.locationReferrer=function(defaultUrl){
       $location.path($rootScope.referrer?$rootScope.referrer:defaultUrl)
@@ -119,7 +126,11 @@ angular.module('app.root', [
 
 
     $rootScope.showMenuOnSwipe=function(){
-      // $('nav.site-nav').click();
+      //$('nav.site-nav').click();
+    }
+
+    $rootScope.hideMenuOnSwipe=function(){
+      //$('nav.site-nav').click();
     }
 
 
@@ -217,6 +228,17 @@ angular.module('app.root', [
       });
     };
 
+    //
+    // validate user email
+    $scope.verify=function(user){
+      $rootScope.WaitText="Waiting ..."
+      user.validateEmail(function(validate){
+        api.info($scope,"Merci, une confirmation a été envoyée à votre adresse email");
+        if (!user.isAuthenticated())
+          $location.url('/');
+      },cb_error);
+    }
+    
     //
     // the size of shop and product cart
     $scope.getFormat=function(index){      

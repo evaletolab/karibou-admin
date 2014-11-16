@@ -105,6 +105,7 @@
    *
    */
   NProgress.start = function() {
+    //return  this;
     if (!NProgress.status) NProgress.set(0);
 
     var work = function() {

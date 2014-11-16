@@ -1,5 +1,5 @@
 <div tabindex="-1"  id="null" class="screen-content">
-  <aside ng-include="getCover()" class=" cover cover-home img-loaded" ng-class="{'session':user.isAuthenticated()}">
+  <aside ng-include="getCover()" class=" cover cover-home cover-category img-loaded" ng-class="{'session':user.isAuthenticated()}">
   </aside>
 
 
@@ -26,7 +26,11 @@
 
         
         <!-- SHOPS -->
-        <div ng-controller="HomeCtrl" class="row wrapheight " style="padding:0">
+        <div ng-controller="HomeCtrl" 
+             infinite-scroll='loadNextPage()'  
+             infinite-scroll-distance='0' 
+             infinite-scroll-container="'section.wrapper:first-child'" infinite-scroll-window="true"
+             class="row wrapheight " style="padding:0">
 
             <article  ng-repeat="(group, _shops) in shops" > 
               <h5 class="article-group-title ">

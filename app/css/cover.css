@@ -93,12 +93,12 @@
 .cover-body {
     position:absolute;
     bottom:0;
-    padding:50px 10% 10%;
+    padding:50px 12% 10%;
     width:100%;
     -webkit-box-sizing:border-box;
     -moz-box-sizing:border-box;
     box-sizing:border-box;
-    background:none repeat scroll 0 0 rgba(0, 0, 0, 0.4);
+    background:none repeat scroll 0 0 rgba(0, 0, 0, 0.2);
     z-index: 1;
 }
 
@@ -147,7 +147,7 @@ ul.cover-list li {
 
 
 .cover-new-collection-link {
-    font-family:"freight-sans-pro","Myriad Pro","Lucida Grande","Lucida Sans Unicode","Lucida Sans",Geneva,Verdana,sans-serif;
+    -font-family:"freight-sans-pro","Myriad Pro","Lucida Grande","Lucida Sans Unicode","Lucida Sans",Geneva,Verdana,sans-serif;
     font-weight:400;
     margin-left:5px;
     color:#fff;
@@ -227,7 +227,8 @@ ul.cover-list li {
 }
 
 .strong .cover-description, .strong .cover-title, .strong .cover-description a{
-    text-shadow:0 1px 3px rgba(0,0,0,0.7);
+    text-shadow: 0 0px 10px rgba(0,0,0,0.2);
+    font-weight: 900;    
 }
 
 .light .cover-description, .light .cover-title, .light .cover-description a{
@@ -383,7 +384,7 @@ ul.cover-list li {
     margin-bottom:8px;
     color:white;
     font-size:32px;
-    text-shadow:0 0px 1px rgba(0,0,0,0.3)
+    text-shadow:0 0px 1px rgba(0,30,0,0.83)
 }
 
 .cover-user .cover-description {

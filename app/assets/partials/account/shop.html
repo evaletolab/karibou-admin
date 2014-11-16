@@ -34,7 +34,7 @@
         <span class="bucket-header-title box">Ajouter une nouvelle boutique</span> 
       </h5>
 
-      <div class="well well-xs white"  style="margin-bottom:40px;">
+      <div class="well well-xs white clearfix"  >
           <b>Vous trouverez ici <a href="#">les règles</a> complètes pour participer à notre place de marché. En voici les éléments fondateurs.</b>
           <ol>
             <li>Vous êtes producteur d'aliment
@@ -55,13 +55,14 @@
           </ol>
           <small>Karibou </small>
       </div>        
-      <form name="form" class="-form-horizontal well well-xs white" style="margin-bottom:80px;">
+      <form name="form" class="well well-xs white clearfix" ng-init="shop={}">
         <fieldset>
           <!-- catalog -->
           <div class="form-group">
-            <label class="control-label ">Votre boutique figure dans le catalogue</label> 
+            <label class="control-label ">Votre boutique figure dans le catalogue </label> 
             <div class=" small">
-              <select  ng-model="shop.catalog " class="form-control input-lg" required="true" >
+              <select  ng-model="shop.catalog " 
+                       class="form-control input-lg" required="true" >
                 <option ng-repeat="cat in category.findAll() | filter:{type:'Catalog'}" value="{{cat._id}}">{{cat.name}}</option>
               </select>
             </div>
@@ -71,7 +72,7 @@
           <div class="form-group">
             <label for="name" class="control-label">Le nom de votre boutique</label>
             <div class="">
-                <input  ng-model="shop.name" type="text" required="true"  class="form-control input-lg" placeholder="..."/>
+                <input  ng-model="shop.name" type="text" required="true"  class="form-control input-lg" placeholder="ex. Les bons gâteaux de chez dédé"/>
                 <p class="help-block ">Le nom de votre boutique est définitif et ne pas être modifié par la suite.<br/></p>          
             </div>
           </div>
@@ -80,14 +81,15 @@
           <div class="form-group">
             <label class="control-label">Description</label>
             <div class="">                     
-              <textarea name="description" required rows="4" ng-model="shop.description"  class="form-control" placeholder="Votre boutique..." >{{shop.description }}</textarea>
+              <textarea name="description" required rows="4" ng-model="shop.description"  class="form-control" placeholder="C'est le texte qui décrit votre boutique. (~6 lignes)" >{{shop.description }}</textarea>
             </div>
             <p ng-show="form.description.$invalid && !form.description.$pristine" class="help-block">La description est obligatoire.</p>                        
           </div>
 
           <!-- ADDRESS -->
-          <div class=" row" ng-include="'/partials/shop/address.html'">
+          <div class="clearfix" ng-include="'/partials/shop/address.html'">
           </div>
+          <p class="help-block">Vous pourrez préciser d'autres points de collecte après la création de votre boutique.</p>                        
           <br/>
           <hr/>
 

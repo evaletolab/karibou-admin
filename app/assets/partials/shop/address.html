@@ -1,21 +1,21 @@
 <h4 class="article-group-title text-center black">Votre emplacement </h4>
-<p class="text-center">
-  L'adresse ci-dessous précise l'emplacement de votre commerce. Cet emplacement peut être utilisé comme point de collecte s'il est valide.
+<p class="">
+  L'adresse ci-dessous précise l'emplacement de votre commerce. Cet emplacement peut être utilisé comme point de collecte s'il est dans la zone de logistique. Vous avez également la possibilité de déposer vos produits au marché ou dans une autre boutique (voir en bas de page).
 </p>
 <div class="form-group">                  
-  <label class="col-sm-2 control-label">Nom complet</label>
-  <div class="col-sm-10">
-      <input   ng-model="shop.address.name" type="text" placeholder="Personne de contact / Nom de votre boutique"
-      class="form-control input-lg " require>
+  <label class=" control-label">Nom complet</label>
+  <div class="">
+      <input   ng-model="shop.address.name" type="text" placeholder="Personne de contact "
+      class="form-control input-lg " require ng-init="shop.address.name=user.display()">
       
   </div>
 </div>
 
 <!-- phone -->
 <div class="form-group">                  
-  <label class="col-sm-2 control-label">Téléphone</label>
-  <div class="col-sm-10">
-      <input   ng-model="shop.address.phone" type="text" placeholder="Téléphone de votre commerce"
+  <label class=" control-label">Téléphone</label>
+  <div class="">
+      <input   ng-model="shop.address.phone" type="text" placeholder="Indiquer un numéro où vous êtes facilement joignable"
       class="form-control input-lg " require>
       
   </div>
@@ -23,11 +23,11 @@
 
 <!-- street & floor -->
 <div class="form-group">
-  <label class="col-sm-2 control-label">Rue, Numéro /étage</label>
-  <div class="col-sm-10">
+  <label class=" control-label">Rue, Numéro /étage</label>
+  <div class="">
       <input  ng-model="shop.address.streetAdress"  ng-blur="updateMap(shop.address)"
-              type="text"  placeholder="indiquer la rue et le numéro " class="form-control input-lg inline" require>
-      <input  ng-model="shop.address.floor" type="text" placeholder="étage" class="form-control input-lg inline" require>
+              type="text"  placeholder="Indiquer la rue  " class="form-control input-lg inline" require>
+      <input  ng-model="shop.address.floor" type="text" placeholder="et l'étage (ex: rez)" class="form-control input-lg inline" require>
 
   </div>
 </div>
@@ -35,12 +35,11 @@
 
   <!-- postal -->
 <div class="form-group">
-  <label class="col-sm-2 control-label">Code Postal</label>
-  <div class="col-sm-10">
-      <input  ng-model="shop.address.postalCode" ng-blur="updateMap(shop.address)" type="text"  placeholder="indiquer la rue et le numéro " class="form-control input-lg inline" require>
+  <label class=" control-label">Code Postal</label>
+  <div class="">
+      <input  ng-model="shop.address.postalCode" ng-blur="updateMap(shop.address)" type="text"  placeholder="ex. 1208" class="form-control input-lg inline" require>
 
       <span ng-hide="config.shop.user.location.list.indexOf(shop.address.postalCode)==-1" class="accout-field-valid"><i class="icon-ok green"></i></span>                        
-      <p class="help-block">Si cette adresse est valide, il sera possible de l'utiliser comme point de collecte</p>
 
   </div> 
 </div>
@@ -48,8 +47,8 @@
 
 <!-- REGION -->
 <div class="form-group">
-  <label class="col-sm-2 control-label">Region</label>
-  <div class="col-sm-10">
+  <label class=" control-label">Region</label>
+  <div class="">
       <select class="form-control input-lg" ng-model="shop.address.region"  
                data-ng-options="l for l in config.shop.region.list" 
                ng-change="updateMap(shop.address)">
@@ -60,8 +59,8 @@
 
 <!-- GEO MAP -->
 <div class="form-group" ng-show="shop.address.geo">
-  <label  class="col-sm-2 control-label">Position sur la carte</label>
-  <div class="col-sm-10">
+  <label  class=" control-label">Position sur la carte</label>
+  <div class="">
     <img src="{{map.resolveStaticmap(shop.address,shop.address.name)}}" style="width:100%"/>
   </div>
 </div>

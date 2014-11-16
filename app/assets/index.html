@@ -29,10 +29,12 @@
     <![endif]-->
 
 
-    <link href="//fonts.googleapis.com/css?family=Open+Sans:400,300,600|Merriweather:400,300,700" rel="stylesheet" type="text/css" async="true">
+    <!-- <link href="//fonts.googleapis.com/css?family=Open+Sans:400,300,600|Merriweather:400,300,700" rel="stylesheet" type="text/css" async="true">-->
+    <link href='http://fonts.googleapis.com/css?family=Halant:500|Fira+Sans:300' rel='stylesheet' type='text/css'>
+
     <!-- <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:600' rel='stylesheet' type='text/css'> -->
-    <link rel="stylesheet" href="/css/vendor.css">
-    <link rel="stylesheet" href="/css/app.css">
+    <link rel="stylesheet" href="/css/vendor.css?cache={!distRelease!}">
+    <link rel="stylesheet" href="/css/app.css?cache={!distRelease!}">
 
     
   </head>
@@ -92,20 +94,20 @@
 
               <!-- HOME -->              
               <li class="site-nav-list-item navigable-list-item site-nav-list-item-home">
-                <span class=""><a class="site-nav-list-item-btn" title="Go home" href="/" tabindex="-1"><span class="icon-home"></span>Home</a></span>
+                <span class=""><a class="site-nav-list-item-btn" title="Go home" href="/" tabindex="-1"><span class="icon-home green"></span>&nbsp;Home</a></span>
               </li>
 
 
               <li class="site-nav-list-item" ng-hide="user.isAuthenticated()">
-                <a ng-class="getClass('/login')" class="btn  btn-success btn btn-md site-nav-list-item-btn-bootstrap " href="/login"><i class="icon icon-user"></i> Login</a>
+                <a ng-class="getClass('/login')" class="btn  btn-success btn btn-md site-nav-list-item-btn-bootstrap " href="/login"><i class="icon icon-user"></i>&nbsp;Login</a>
               </li>
               <li class="site-nav-list-item" ng-hide="user.isAuthenticated()">
-                <a ng-class="getClass('/signup') " class="btn  btn-md  btn-info site-nav-list-item-btn-bootstrap" href="/signup"><i class="icon icon-fire"> </i>Sign Up</a>
+                <a ng-class="getClass('/signup') " class="btn  btn-md  btn-info site-nav-list-item-btn-bootstrap" href="/signup"><i class="icon icon-fire"> </i>&nbsp;Sign Up</a>
               </li>
 
               <!-- SIGNED -->
               <li ng-class="getClass('/account')" class="site-nav-list-item" ng-show="user.isAuthenticated()">
-                <a class="site-nav-list-item-btn" href="/account/">@<span ng-bind="user.display()"></span></a>
+                <a class="site-nav-list-item-btn" href="/account/"><span class="green">@</span>&nbsp;<span ng-bind="user.display()"></span></a>
               </li>
 <!--               <li ng-class="getClass('/account')" class="site-nav-list-item" ng-show="user.isAuthenticated()">
                 <a ng-show="user.shops.length" class="site-nav-list-item-btn" href="/products/create" title="Ajouter un nouvel article">
@@ -130,7 +132,7 @@
               <li  class="site-nav-list-item " ng-repeat="category in category.findAll()|filter:{type:'Category'}|orderBy:'weight'">
                 <a class="site-nav-list-item-btn  " title="{{category.name}}" 
                    ng-class="getClass('/products/category/{{category.slug}}')"
-                   href="/products/category/{{category.slug}}" tabindex="-1"><i class=""></i> {{category.name}}</a>
+                   href="/products/category/{{category.slug}}" tabindex="-1"><i class=""></i>&nbsp;{{category.name}}</a>
               </li>
 
               <li class="site-nav-list-item divider">
@@ -162,7 +164,9 @@
       <!-- CART -->
 
       <div class="site-nav-overlay"></div>
-      <div class="main" id="container" ng-swipe-right="showMenuOnSwipe()">
+      <div class="main" id="container" 
+        ng-swipe-left="hideMenuOnSwipe('#container')"
+        ng-swipe-right="showMenuOnSwipe('#container')">
 
       <!--          -->
       <!-- FLASH    -->
@@ -205,8 +209,8 @@
 
   <!-- Placed at the end of the document so the pages load faster &callback=initCall -->
   <!-- <script src="cordova.js"></script> -->
-  <script src="/js/vendor.js"></script>
-  <script src="/js/app.js"></script>
+  <script defer src="/js/vendor.js?cache={!distRelease!}"></script>
+  <script defer src="/js/app.js?cache={!distRelease!}"></script>
 
   <script>
     (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){

@@ -42,7 +42,7 @@
 
 .popupcontent>div.content{
   border-bottom:solid 2px #ddd;
-  font-family:Georgia,"Times New Roman",Times,serif;
+  -font-family:Georgia,"Times New Roman",Times,serif;
   font-size:16px;  
   padding-bottom:10px;
 }

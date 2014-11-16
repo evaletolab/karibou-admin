@@ -141,7 +141,7 @@ Order.controller('OrderNewCtrl',[
 
         if(user.isAuthenticated()){
           return user.save(u,function(){
-            api.info($scope,"Votre profile est enregistré");
+            api.info($scope,"Votre profil est enregistré");
             $location.path("/order/validation")
           },cb_error);
         }

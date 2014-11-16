@@ -149,19 +149,27 @@
                 <div data-title="Logistique" class="form-background">
 
                     <!-- ADDRESS -->
-                    <div class=" row" ng-include="'/partials/shop/address.html'">
+                    <div class="clearfix" ng-include="'/partials/shop/address.html'">
                     </div>
                     <!-- form address-->
                     <br/>
                     <hr/>
                     <!-- real market place -->
-                    <div class="row">
+                    <div class="clearfix">
 
                       <!-- Marketplace -->
-                      <div class="label-or" >ET</div>
-                      <h5 class="article-group-title text-center black">Vos produits sont disponibles sur les points de collectes suivants</h5>
+                      <!--<div class="label-or" >ET</div>-->
+                      <h5 class="article-group-title black">Vos produits seront collectés dans les lieux suivants</h5>
+
                       <div class="form-group">
                         <div class="col-sm-12">
+                            <p class="help-block">
+                              Vous avez plusieurs options:
+                              <ol>
+                                <li>au marché,</li>
+                                <li>ou dans une autre boutique.</li>
+                              </ol>
+                            </p>
 
                             <div class="list-group">
                               <a href="" class="list-group-item" 
@@ -171,9 +179,17 @@
                                   <span ng-show="activeMarket(l.name)" class="pull-right label label-success"><i class="icon-ok"></i></span>
                                 </a>
                             </div>                          
-                            <p class="help-block">Sélectionnez les lieux de collecte des produits</p>
+                            <p class="help-block">Si votre produit est colecté au marché, précisez un nom de stand. Sinon, indiquez l'adresse d'une autre boutique.</b></p>
+                            <div class="">
+                                <input  ng-model="shop.collectFreeText"  type="text" class="form-control input-lg " 
+                                        placeholder="ex. chez dédé/34 rue de Carouge/1205"  require>
+                            </div>
+
+                            <p class="help-block"><b>Les lieux de collectes sont prioritaire à l'adresse principale de votre commerce</b></p>
 
                         </div> 
+
+
                       </div> 
                     </div>  
 

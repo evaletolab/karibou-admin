@@ -164,17 +164,17 @@ div.timeline-heading  p {
 
 @media (max-width: 767px) {
     ul.timeline:before {
-        left: 40px;
+        left: 20px;
     }
 
     ul.timeline > li > .timeline-panel {
-        width: 82%;
+        width: 91%;
     }
 
     ul.timeline > li > .timeline-badge {
-        left: 24px;
+        left: 4px;
         margin-left: 0;
-        top: 28px;
+        top: 15px;
     }
 
     .timeline > li.timeline-inverted > .timeline-badge {
@@ -189,38 +189,27 @@ div.timeline-heading  p {
     }
 
         ul.timeline > li > .timeline-panel:before {
-            border-left-width: 0;
-            border-right-width: 15px;
-            left: -15px;
-            right: auto;
+            content: inherit;
         }
 
         ul.timeline > li > .timeline-panel:after {
-            border-left-width: 0;
-            border-right-width: 14px;
-            left: -14px;
-            right: auto;
+            content: inherit;
         }
 }
 
 @media (max-width: 470px) {
     .timeline{
-        font-size:90%;
+        font-size:100%;
     }
+
     ul.timeline:before {
-        left: 10px;
+        left: 0px;
     }
     ul.timeline > li > .timeline-badge {
-        left: 20px;
-        margin-left: -25px;
-        width: 25px;
-        height: 25px;
-        line-height: 16px;
-        font-size: 16px;
-        top: 29px;
-        padding-top: 4px;
+        display: none;
     }    
+    
     ul.timeline > li > .timeline-panel {
-        width: 88%;
+        width: 100%;
     }
 }

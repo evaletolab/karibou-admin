@@ -66,10 +66,29 @@ Product.controller('ProductCtrl',[
     $scope.rootProductPath=($routeParams.shop)?'/shop/'+$routeParams.shop:''
 
 
-    $scope.showActionOnSwipe=function(id){
-      // $(id).css({opacity:1,'z-index':1000});
-      $(id).fadeIn();
+
+    $scope.showPreviousProduct=function(sku){
+      var lst=$scope.product.findAll().filter(function(p){
+        if(p.categories._id==$scope.product.categories._id)return p;
+      })
+      for(var i=lst.length-1;i>=0;i--){
+        if(lst[i]&&lst[i].sku===sku){
+          return $scope.product=(i===0)?lst[lst.length-1]:lst[i-1];
+        }
+      }
     }
+
+    $scope.showNextProduct=function(sku){
+      var lst=$scope.product.findAll().filter(function(p){
+        if(p.categories._id==$scope.product.categories._id)return p;
+      })
+      for(var i=0;i<lst.length;i++){
+        if(lst[i]&&lst[i].sku===sku){
+          return $scope.product=(i===lst.length-1)?lst[0]:lst[i+1];
+        }
+      }
+    }
+
 
     $scope.computeUrl=function(){
       var url;
@@ -284,9 +303,10 @@ Product.factory('product', [
   'config',
   '$rootScope',
   '$resource',
+  '$q',
   'api',
 
-  function (config, $rootScope,$resource,api) {
+  function (config, $rootScope,$resource,$q,api) {
     var _products;
 
     //
@@ -338,6 +358,11 @@ Product.factory('product', [
       });
 
       angular.extend(this, defaultProduct, data);
+
+      //
+      // wrap promise to this object
+      this.$promise=$q.when(this)
+
     }
 
 

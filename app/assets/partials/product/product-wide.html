@@ -1,6 +1,8 @@
-<div backfader="" nhow="product.sku" class="backfader ">
+<div backfader="" class="backfader ">
    <div class="popupcontent" id="popup">
-      <div class="header">
+      <div class="header"
+          ng-swipe-right="showNextProduct(product.sku)"
+          ng-swipe-left="showPreviousProduct(product.sku)" >
         <aside>
           <!-- DISPLAY PHOTO -->
           <img ng-cloak ng-show="product.photo.url" ng-src="{{product.photo.url}}" class="item-image" style="width:100%">

@@ -34,6 +34,7 @@ exports.config =
         'css/app.css': /^app/
       order:
         before: [
+          'app/css/fonts.css',
           'bower_components/nprogress/nprogress.css',
           'vendor/styles/font-awesome.css'
           'vendor/styles/bootstrap.css'
@@ -46,6 +47,15 @@ exports.config =
       joinTo:
         'js/dontUseMe' : /^app/ # dirty hack for Jade compiling.
 
+  keyword:
+    # file filter
+    filePattern: /\.(css|html)$/
+
+    # By default keyword-brunch has these keywords:
+    #     {!version!}, {!name!}, {!date!}, {!timestamp!}
+    # using information from package.json
+    map:
+      distRelease: -> (Date.now())
   plugins:
     signature:
       file: 'signature'

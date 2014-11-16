@@ -171,7 +171,6 @@ function ($rootScope, $http, $resource, $timeout, $q, config) {
      this.$promise=lst.$promise=this.$promise.then(function(){
           return promise.then(function(l){
             lst=self.wrapArray(l)
-            // console.log(lst)
             return lst
           })
      })

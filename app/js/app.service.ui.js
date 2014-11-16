@@ -91,6 +91,17 @@ UI.filter('groupBy', ['$parse', function ($parse) {
     };
 }]);
 
+//
+// load image as background image
+UI.directive("bgSrc", function () {
+  return {
+      restrict: 'A',
+      link: function(scope, element, attrs){
+        element[ 0 ].style.backgroundImage = "url("+attrs.bgSrc+")";
+      }
+  };
+});
+
 //Send gg event {category:'',action:''}
 UI.directive('gaSend', ['$parse','$window','config',function($parse,$window, config) {
   return function(scope, element, attr) {

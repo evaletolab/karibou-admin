@@ -7,8 +7,8 @@
       			  <i class="icon-warning-sign -icon-2x green" title="Cette boutique n'est pas encore publique"></i>
       			</li>
           </ul>
-          <img ng-show="shop.photo.fg" ng-src="{{shop.photo.fg}}" >
-          <img ng-hide="shop.photo.fg" ng-src="{{false  | placehold:'470x400'}}" >
+          <img ng-if="shop.photo.fg"  bn-lazy-src="{{shop.photo.fg}}" class="lazy ">
+          <img ng-if="!shop.photo.fg" ng-src="{{false  | placehold:'470x400'}}" >
           
       
 

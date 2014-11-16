@@ -35,6 +35,7 @@ Home.controller('HomeCtrl', [
   '$location',
   '$rootScope',
   '$routeParams',
+  '$q',
   'config',
   'api',
   'category',
@@ -43,23 +44,18 @@ Home.controller('HomeCtrl', [
   'product',
   'Map',
 
-  function ($scope, $route, $location, $rootScope, $routeParams, config, api, category, user, shop, product,Map) {
+  function ($scope, $route, $location, $rootScope, $routeParams, $q, config, api, category, user, shop, product,Map) {
     var filter={sort:'created'};
     $scope.user = user;
     $scope.map=new Map()
+    $scope.infinite={}
     
 
+
+
     //
-    // this is an helper for avoid the default sorting by ng-repeat
-    $scope.keys=function(map){
-      if(!map)return [];
-      return Object.keys(map);
-    }
-
-
+    // generate a set of geo addresses to display map
     $scope.shopsAddress=function(shops){
-      //
-      // 
       if(!shops)return 
       var addresses=[]
       for (var i in shops){
@@ -81,12 +77,6 @@ Home.controller('HomeCtrl', [
       return addresses
     }
 
-    $scope.findAllUserLoves=function(){
-      $scope.products=[]
-      product.findLove(function(products){
-        $scope.products=products
-      });
-    }
 
     //
     // use this to group view by Category
@@ -98,54 +88,85 @@ Home.controller('HomeCtrl', [
       return showCategory;
     }     
 
-    if($route.current.$$route.love){
-      // TODO REMOVE THIS
-      return;
-    }
 
-    //
-    // list products by category
-    if ($routeParams.category){
-      $scope.group=category.findNameBySlug($routeParams.category);
-      $scope.$parent.title="Les produits - "+$scope.group;
-      filter={sort:'title'/**,status:true*/};
+    $scope.findAllUserLoves=function(){
+      $scope.products=[]
+      product.findLove(function(products){
+        $scope.products=products
+      });
+    }    
+
+    $scope.loadHome=function(){
+      var deferred = $q.defer();
+      //
+      // list products by category
+      if ($routeParams.category){
+        $scope.group=category.findNameBySlug($routeParams.category);
+        $scope.$parent.title="Les produits - "+$scope.group;
+        filter={sort:'title'/**,status:true*/};
+        
+        $scope.products=product.findByCategory($routeParams.category,filter,function(products){
+          $scope.items=$scope.products=products;
+          deferred.resolve(products)
+        });
+        return deferred.promise;
+      }
       
-      $scope.products=product.findByCategory($routeParams.category,filter,function(products){
-        $scope.products=products;
-      });
-      return;
-    }
-    
-    //
-    // list shops by catalog
-    if($routeParams.catalog){
-      $scope.group=category.findNameBySlug($routeParams.catalog);
-      $scope.$parent.title="Les boutiques - "+$scope.group;
-      filter={sort:'created'};
+      //
+      // list shops by catalog
+      if($routeParams.catalog){
+        $scope.group=category.findNameBySlug($routeParams.catalog);
+        $scope.$parent.title="Les boutiques - "+$scope.group;
+        filter={sort:'created'};
+        
+        $scope.shops=shop.findByCatalog($routeParams.catalog,filter,function(shops){
+          $scope.items=$scope.shops=shops;
+          $scope.addresses=$scope.shopsAddress(shops)
+          deferred.resolve(shops)
+        });
+        return deferred.promise;
+      }
+
       
-      $scope.shops=shop.findByCatalog($routeParams.catalog,filter,function(shops){
-        $scope.shops=shops;
-        $scope.addresses=$scope.shopsAddress(shops)
+      //
+      // get shops for the front page
+      if($location.path()==='/shops'){
+        filter={sort:'created',group:'catalog.name' };
+        $scope.shops=shop.home(filter,function(shops){
+          $scope.items=$scope.shops=shops;
+          $scope.addresses=$scope.shopsAddress(shops)
+          deferred.resolve(shops)
+        });
+        return deferred.promise;
+      } 
+
+      filter={sort:'categories.weight',group:'categories.name'};
+      $scope.products=product.home(null,filter,function(products){
+        $scope.items=$scope.products=products;
+        deferred.resolve(products)
       });
-      return;
+      return deferred.promise;
     }
 
-    
-    //
-    // get shops for the front page
-    if($location.path()==='/shops'){
-      filter={sort:'created',group:'catalog.name' };
-      $scope.shops=shop.home(filter,function(shops){
-        $scope.shops=shops;
-        $scope.addresses=$scope.shopsAddress(shops)
-      });
-      return;
-    } 
+    $scope.loadNextPage=function(){
+      var promise=$q.when(true);
+      if(!$scope.items){
+       promise=$scope.loadHome()
+      } 
+      promise.then(function(){
+        var i=0;
+        Object.keys($scope.items).every(function(key,i){
+          if($scope.items[key].length && !$scope.items[key].loaded){
+            $scope.items[key].loaded=true;
+            $scope.infinite[key]=$scope.items[key]
+            return (i++<1);
+          }
+          return true;
+        })
 
-    filter={sort:'categories.weight',group:'categories.name'};
-    $scope.products=product.home(null,filter,function(products){
-      $scope.products=products;
-    });
+      })
+    }
+    //var promise=$scope.loadHome()
 
 
 

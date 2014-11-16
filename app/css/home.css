@@ -176,8 +176,8 @@ body {
     background:#fff
 }
 
-h1,h2,h3,h4 {
-    font-family:"freight-sans-pro","Myriad Pro","Lucida Grande","Lucida Sans Unicode","Lucida Sans",Geneva,Verdana,sans-serif;
+h1,h2,h3,h4,h5 {
+    font-family:"Halant",Serif;
     font-weight:500;
     padding-bottom: 10px;
 }
@@ -268,9 +268,9 @@ a {
     display:block;
     padding-bottom:12px;
     padding-top:12px;
-    font-size:12px;
-    letter-spacing:2px;
-    text-transform:uppercase;
+    font-size:28px;
+    -letter-spacing:2px;
+    -text-transform:uppercase;
     color:#b3b3b1;
     -webkit-transition:color .1s linear;
     -moz-transition:color .1s linear;
@@ -278,6 +278,7 @@ a {
     -o-transition:color .1s linear;
     transition:color .1s linear;
     text-decoration: inherit;
+    font-family: 'Halant',Serif;
 }
 
 .bucket-title:hover a {
@@ -311,7 +312,7 @@ a {
 
 @media all and (max-width:1000px) {
     .bucket-title a,.bucket-title .no-link {
-    font-size:11px;
+    font-size:20px;
     padding-bottom:11px}
 
 
@@ -324,11 +325,16 @@ a {
 }
 
 @media all and (max-width:500px) {
+
     .bucket-header {
     margin-bottom:30px}
 
+.bucket-title a,.bucket-title .no-link {
+    font-size:20px;
+    padding-bottom:5px}
+
 .bucket-header-title {
-    line-height:12px;
+    line-height:20px;
     max-width:420px;
     display:inline-block;
     overflow:hidden;
@@ -839,7 +845,7 @@ a {
 
 .site-nav-transition .site-nav-scrollable-container {
     display:block;
-    width:380px;
+    width:340px;
     overflow: hidden;
     overflow-y:auto; 
 }
@@ -857,7 +863,7 @@ a {
     top-:0}
 
 .site-nav-drawer-open .site-nav-overlay,.site-nav:focus~.site-nav-overlay {
-    left:380px;
+    left:340px;
     z-index:900}
 
 .site-nav-transition #container {
@@ -869,10 +875,10 @@ a {
     z-index:800}
 
 .site-nav-drawer-open #container {
-    -webkit-transform:translate3d(380px,0,0);
-    -moz-transform:translate3d(380px,0,0);
-    -o-transform:translate3d(380px,0,0);
-    transform:translate3d(380px,0,0)}
+    -webkit-transform:translate3d(340px,0,0);
+    -moz-transform:translate3d(340px,0,0);
+    -o-transform:translate3d(340px,0,0);
+    transform:translate3d(340px,0,0)}
 
 .site-nav-drawer-open .site-nav-logo {
     display:none}

@@ -12,7 +12,9 @@ function init($scope, elem, product){
 angular.module('app.product.ui', [
   'app.config', 
   'app.api'
-]).directive("product", function () {
+])
+
+.directive("product", function () {
   return {
       restrict: 'E',
       link: function(scope, element, attrs)
@@ -32,3 +34,5 @@ angular.module('app.product.ui', [
 
 
 
+
+            

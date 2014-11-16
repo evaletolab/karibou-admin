@@ -1,12 +1,12 @@
 
 <div tabindex="-1"  id="null" class="screen-content">
-  <aside ng-include="getCover()" class=" cover cover-home img-loaded" 
+  <aside ng-include="getCover()" class=" cover cover-home cover-category img-loaded" 
          ng-class="{'session':user.isAuthenticated()}">
   </aside>
 
 
    <section class="wrapper" tabindex="-1">
-      <div class="wrapper-inner">
+      <div class="wrapper-inner" >
 
         <!--                               -->
         <!-- CATEGORIES PRODUITS/BOUTIQUES -->
@@ -28,18 +28,23 @@
          </div>
 
         <!-- PRODUCTS -->
-        <div ng-controller="HomeCtrl" class="row wrapheight" >
+        <div ng-controller="HomeCtrl" 
+             infinite-scroll='loadNextPage()'  
+             infinite-scroll-distance='0' 
+             infinite-scroll-container="'section.wrapper:first-child'" 
+             infinite-scroll-window="true"
+             class="row wrapheight" >
      
 
 
-            <article  ng-repeat="group in keys(products)"  ng-show="products[group].length"> 
+            <article  ng-repeat="group in keys(infinite)"  ng-if="infinite[group].length"> 
               <h5 class="article-group-title ">
                 {{group}}
                 <i class="{{category.find({name:group}).image||''}} {{category.find({name:group}).color||gray}}"></i>
               </h5>
 
               <div  style="width:100%;"><!-- MANSORY FIX -->
-                <div  ng-include="'/partials/product/product.html'"  ng-repeat="product in products[group]"></div>              
+                <div  ng-include="'/partials/product/product.html'"  ng-repeat="product in infinite[group]"></div>              
               </div>
             </article>
 
