@@ -26,15 +26,17 @@
                   </div>
 
                      <div class="form-group">
-                      <label class="control-label">Ingrédients 
-                      </label> 
-                      <span class="control-label" >
-                        <input type="checkbox" name="details" value="BIO" ng-model="product.details.bio">Bio 
-                        <input type="checkbox" name="details" value="Locale" ng-model="product.details.local">Locale 
-                      </span>
+                      <label class="control-label">Ingrédients </label> 
                       <div class="">
                         <textarea name="origin" rows="2" class="form-control input-lg"  placeholder="ex, olive(Grèce), pâte(Italie)... " ng-model="product.details.origin" required></textarea>
                       </div>
+                      <div class="" >
+                        <label><input type="checkbox" name="details" value="BIO"    ng-model="product.details.bio">Certifié Bio </label>
+                        <label><input type="checkbox" name="details" value="Locale" ng-model="product.details.local">Production Locale </label>
+                        <label><input type="checkbox" name="details" value="Artisanale" ng-model="product.details.homemade">Fabrication artisanale</label> 
+                        <label><input type="checkbox" name="details" value="Naturel" ng-model="product.details.naturel">Sans chimie de synthèse </label>
+                      </div>
+
                     </div>
 
 
@@ -52,8 +54,8 @@
                   -->
 
                 <!-- TWO COLUMNS -->
-                <div class="row">  
-                  <div class="col-xs-5 ">
+                <div class="clearfix">  
+                  <div class="col-xs-5 nopadding">
                     <!-- shop -->
                     <!-- DISPLAY ONLY ON CREATION -->
                     <div class="form-group" ng-hide="product.sku">
@@ -65,16 +67,18 @@
                       </div>
                     </div>
                     <!-- DISPLAY ONLY WHEN USER IS OWNER AND PRODUCT EXIST -->
-                    <div class="form-group" ng-show="user.isOwner(product.vendor.name) && product.sku">
+                    <div class="form-group" ng-if="user.isOwner(product.vendor.name) && product.sku">
                       <label class="control-label ">Boutique</label> 
                       <div class="">
-                        <select  ng-model="product.vendor._id" class="form-control input-lg" required>
-                          <option ng-repeat="shop in user.shops" value="{{shop._id}}" ng-selected="product.vendor._id==shop._id">{{shop.name}}</option>
-                        </select>
+                        <select  ng-model="product.vendor" 
+                                 ng-options="i.name for i in user.shops track by i._id"
+                                 class="form-control input-lg" required ></select>
+
+
                       </div>
                     </div>
                     <!-- DISPLAY ONLY WHEN USER IS ADMIN AND NOT OWNER -->
-                    <div class="form-group" ng-show="!user.isOwner(product.vendor.name) && user.isAdmin() && product.sku">
+                    <div class="form-group" ng-if="!user.isOwner(product.vendor.name) && user.isAdmin() && product.sku">
                       <label class="control-label ">Boutique</label> 
                       <p class="form-control-static">
                         {{product.vendor.name}}
@@ -84,15 +88,14 @@
                   </div>
     
                   
-                  <div class="col-xs-7">
+                  <div class="col-xs-7 ">
                     <!-- category -->
                     <div class="form-group">
                       <label class="control-label ">Catégorie </label> 
                       <div class=" small">
                         <select  ng-model="product.categories " class="form-control input-lg" required >
-                        
                           <option ng-repeat="cat in category.findAll()| filter:{type:'Category'}" 
-                                  ng-selected="product.categories._id==cat._id" value="{{cat._id}}" >{{cat.name}}</option>
+                                  ng-selected="(product.categories._id||product.categories)==cat._id" value="{{cat._id}}" >{{cat.name}}</option>
                         </select>
                       </div>
                     </div>
@@ -102,13 +105,13 @@
                 
             </div>
             <div data-title="Prix et quantité" class="form-background">
-                <div class="row">
+                <div class="clearfix">
                   <div class="col-xs-5">
                     <!-- prix-->
                     <div class="form-group">
                       <label class="control-label">Prix</label>
                       <div class=" ">                      
-                        <input name="price" type="text" placeholder="10.50" class="input-lg form-control " ng-model="product.pricing.price" required>                      
+                        <input name="price" type="text" placeholder="exemple 10.50" class="input-lg form-control " ng-model="product.pricing.price" required>                      
                         <p class="help-block gray">Le prix en CHF</p>
                       </div>
                     </div>
@@ -118,7 +121,7 @@
                     <div class="form-group">
                       <label class="control-label">Qte disponible</label>
                       <div class="">
-                        <input  name="stock" type="text" placeholder="ex: 10" class="input-lg form-control  green" ng-model="product.pricing.stock" required>
+                        <input  name="stock" type="text" placeholder="exemple 10" class="input-lg form-control  green" ng-model="product.pricing.stock" required>
                       </div>
                     </div>
 
@@ -130,7 +133,7 @@
                         <input type="checkbox" ng-model="product.attributes.discount">
                       </label>
                       <div class=" ">                      
-                          <input  type="text" ng-model="product.pricing.discount"  placeholder="2.50" class="input-lg form-control red" >
+                          <input  type="text" ng-model="product.pricing.discount"  placeholder="exemple 2.50" class="input-lg form-control red" >
                           <p class="help-block gray"> Le prix promotionnel</p>
                       </div>
                     </div>
@@ -138,9 +141,14 @@
                     <!-- portion -->
                     <div class="form-group">
                       <div class="">
-                        <label class="control-label">Une portion  </label>
-                        <input name="part" type="text" placeholder="3pce" pattern="([0-9]+pce|[0-9]+gr|[\d.]+kg|1botte|[0-9]+bottes|[\d.]+L)" class="input-lg form-control " ng-model="product.pricing.part" required>
-                        <p class="help-block gray">100gr/1botte/0.75L/1pce</p>
+                        <label class="control-label">
+                          Une portion                            
+                        </label>
+                        <input name="part" type="text" placeholder="exemple ~180gr" pattern="([0-9]+pce|[0-9]+gr|[\d.]+kg|1botte|[0-9]+bottes|[\d.]+L)" class="input-lg form-control " ng-model="product.pricing.part" required>
+                        <p class="help-block gray">
+                          100gr/~180gr/1botte/0.75L/1pce<br/>
+                        </p>
+                        <div class="well well-sm small">Avec <b style="font-size: 130%;">~</b>180gr le client recevra {{'~180gr'|portion}}</div>                        
                       </div>                      
                     </div>                    
                   </div>        

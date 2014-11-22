@@ -1,5 +1,4 @@
-;(function(angular) {
-'use strict';
+;(function(angular) {'use strict';
 
 
 //
@@ -256,4 +255,5 @@ angular.module('app.root', [
 
   }
 ]);
+
 })(window.angular);

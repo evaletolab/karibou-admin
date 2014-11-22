@@ -122,7 +122,7 @@
 
 
             <hr/>
-            <a ng-href="/order/profile">Vous n'avez pas encore de compte?</a>
+            <a ng-href="/order/profile" class="link blue-king">Vous n'avez pas encore de compte?</a>
 
           </form>
          </div>
@@ -205,10 +205,10 @@
               <div class="form-group  required">
                 <label class="collg2 control-label small">Rue, numéro et l'étage</label>
                 <div class="">
-                  <div class="col-xs-10 nopadding">                
+                  <div class="col-xs-12 col-sm-9 col-md-8 nopadding">                
                     <input id="address-line1" ng-model="user.addresses[0].streetAdress"  type="text" placeholder="rue et numéro" class="form-control input-lg" required>
                   </div>
-                  <div class="col-xs-2 nopadding">                
+                  <div class="col-xs-12 col-sm-3 col-md-4 nopadding">                
                     <input id="floor1" ng-model="user.addresses[0].floor" type="text" placeholder="Étage" class="form-control input-lg" required>
                   </div>
 
@@ -223,6 +223,10 @@
                              data-ng-options="l for l in config.shop.user.location.list"  required>
                         <option value="">-- Choisissez  --</option>
                     </select>
+                    <!--<p class="help-block">
+                      Votre code postal n'est peut être pas encore disponible pour le moment.
+                    </p>-->
+
                 </div>
               </div>
 

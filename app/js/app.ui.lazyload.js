@@ -1,4 +1,4 @@
-'use strict';
+;(function(angular) {'use strict';
 
 
 var LZ=angular.module('app.ui');
@@ -442,3 +442,6 @@ LZ.directive("bnLazySrc",['$window','$document','config', function( $window, $do
         });
  
 }]);
+
+
+})(window.angular);

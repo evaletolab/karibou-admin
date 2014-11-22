@@ -1,7 +1,7 @@
-'use strict';
+;(function(angular) {'use strict';
 
 
-var Service=angular.module('app.api',['app.config']);
+var Service=angular.module('app.api',['app.config','app.ui']);
 
 
 Service.factory("flash", function($rootScope) {
@@ -263,5 +263,6 @@ function ($rootScope, $http, $resource, $timeout, $q, config) {
   
 
 
+})(window.angular);
 
 

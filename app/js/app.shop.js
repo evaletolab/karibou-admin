@@ -1,4 +1,4 @@
-'use strict';
+;(function(angular) {'use strict';
 
 //
 // Define the Shop module (app.shop)  for controllers, services and models
@@ -36,10 +36,9 @@ Shop.controller('ShopCtrl',[
   'shop',
   'product',
   'Map',
+  '$log',
 
-  function (config, $scope, $rootScope, $routeParams, $location, api, shop, product, Map) {
-    $scope.FormInfos=false;
-    $scope.FormErrors=false;
+  function (config, $scope, $rootScope, $routeParams, $location, api, shop, product, Map,$log) {
 
 
     var cb_error=api.error($scope);
@@ -53,7 +52,7 @@ Shop.controller('ShopCtrl',[
           //
           // inform all listeners this has changed
           $rootScope.$broadcast("update.shop",shop);
-          api.info($scope,"Votre boutique a été modifié!",1000,function(){
+          api.info($scope,"Votre boutique a été modifié!",2000,function(){
             $location.url('/shop/'+shop.urlpath);            
           });
       },cb_error);
@@ -61,9 +60,9 @@ Shop.controller('ShopCtrl',[
     
     $scope.remove=function(user,shops,password){
       shop.remove(user,password,function(){
-          api.info($scope,"Votre boutique a été définitivement supprimée!",1000,function(){
+          api.info($scope,"Votre boutique a été définitivement supprimée!",2000,function(){
             $location.url('/account');  
-            shops.pop(shop)          
+            user.shops.pop(shop)          
           });
       },cb_error);
     }
@@ -96,7 +95,7 @@ Shop.controller('ShopCtrl',[
         }
         //
         // FIXME
-        if(console)console.log("upload fg",shop)
+        $log.info("upload fg",shop,fpfile,err,shop.photo)
         if (!shop.photo)shop.photo={};
         shop.photo.fg=fpfile.url;
         shop.photo.fg=(config.storage&&fpfile.key)?config.storage+fpfile.key:fpfile.url;      
@@ -225,7 +224,7 @@ Shop.factory('shop', [
     
     function checkimg(s){
         if(!s.photo){
-          s.photo={fg:config.shop.photo.fg};
+          s.photo={fg:''};
         }
     }    
     
@@ -354,3 +353,4 @@ Shop.factory('shop', [
   }
 ]);
 
+})(window.angular);

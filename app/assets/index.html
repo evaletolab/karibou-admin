@@ -30,11 +30,11 @@
 
 
     <!-- <link href="//fonts.googleapis.com/css?family=Open+Sans:400,300,600|Merriweather:400,300,700" rel="stylesheet" type="text/css" async="true">-->
-    <link href='http://fonts.googleapis.com/css?family=Halant:500|Fira+Sans:300' rel='stylesheet' type='text/css'>
+    <link defer href='http://fonts.googleapis.com/css?family=Halant:500|Fira+Sans:300' rel='stylesheet' type='text/css'>
 
     <!-- <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:600' rel='stylesheet' type='text/css'> -->
-    <link rel="stylesheet" href="/css/vendor.css?cache={!distRelease!}">
-    <link rel="stylesheet" href="/css/app.css?cache={!distRelease!}">
+    <link defer rel="stylesheet" href="/css/vendor.css?cache={!distRelease!}">
+    <link defer rel="stylesheet" href="/css/app.css?cache={!distRelease!}">
 
     
   </head>
@@ -173,13 +173,13 @@
       <!--          -->
          <div class="butter-bar active success " ng-cloak ng-show="FormInfos" 
             ng-animate="{show: 'fadein', hide: 'fadeout'}">
-            <p class="butter-bar-message">
+            <p class="butter-bar-message" ng-cloak >
               {{FormInfos}}
             </p>
          </div>
-         <div class="butter-bar active error " ng-cloak ng-show="FormErrors" 
+         <div class="butter-bar active error " ng-cloak  ng-show="FormErrors" 
             ng-animate="{show: 'fadein', hide: 'fadeout'}">
-            <p class="butter-bar-message" ng-bind-html="FormErrors">
+            <p class="butter-bar-message" ng-bind-html="FormErrors" ng-cloak >
             </p>
          </div>
 

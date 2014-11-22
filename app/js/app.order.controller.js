@@ -6,8 +6,8 @@
 angular.module('app.order.admin', ['app.order.ui','app.config', 'app.api'])
 
 .controller('OrderAdminCtrl',[
-  '$scope', '$routeParams','$controller','api','order','user','product','Map','config','$log',
-  function ($scope,$routeParams, $controller, api, order, user, product, Map, config, $log) {
+  '$scope', '$routeParams','$location','api','order','user','product','Map','config','$log',
+  function ($scope,$routeParams, $location, api, order, user, product, Map, config, $log) {
 
     // inherit from OrderCtrl
     // $controller('OrderCtrl', {$scope: $scope}); 
@@ -150,6 +150,18 @@ angular.module('app.order.admin', ['app.order.ui','app.config', 'app.api'])
 
 
     //
+    // get all orders for a customer
+    $scope.findOrdersByUser=function(){
+      user.$promise.then(function(){
+        order.findOrdersByUser(user).$promise.then(function(orders){
+          $scope.orders=orders;
+          $scope.shops=false;
+        },cb_error)
+
+      })
+    }
+
+    //
     // get all orders
     $scope.findAllOrders=function(){
 
@@ -201,17 +213,21 @@ angular.module('app.order.admin', ['app.order.ui','app.config', 'app.api'])
 
     // 
     // default : findAllOrders
+    // TODO this is so hugly, please change that!!!
     $scope.initContext=function(){
-      // when
-      if($routeParams.view==='stock'){
+      // trap orders for a customer
+      if($location.path().indexOf('/account/orders')!==-1){
+        $scope.findOrdersByUser();
+      }else if($routeParams.view==='stock'){
         $scope.loadAllProducts();
-      }else if($routeParams.view==='all'){
-        $scope.findAllOrders();
       }else{
+        // else vendor needs his orders
         $scope.findAllOrders();
       }
     }
 
+    //
+    // load scope for each creation
     $scope.initContext()
   }
 ]);

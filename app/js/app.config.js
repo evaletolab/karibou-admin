@@ -1,4 +1,4 @@
-'use strict';
+;(function(angular) {'use strict';
 
 //
 // Define the application global configuration
@@ -61,3 +61,4 @@ angular.module('app.config', []).factory('config', [
   }
 ]);
   
+})(window.angular);

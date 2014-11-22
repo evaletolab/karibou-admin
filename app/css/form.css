@@ -83,11 +83,12 @@ label.checkbox{
 .form-background{
   background-color: #fff;
   padding: 10px;  
-  float: left;
-  width: 100%;
-  font-weight: 350;
-  color: black;
   position: relative;
+}
+
+.form-background:before, .form-background:after {
+  display: table;
+  content: " ";
 }
 
 

@@ -1,3 +1,4 @@
+;(function(angular) {'use strict';
 
 /**
  * Define the Product directives for (app.product) 
@@ -28,10 +29,23 @@ angular.module('app.product.ui', [
           }, true );
       }
   };
-});
+})
 
 
+.filter('portion', function () {
+   function round5(val){
+      return parseInt(Math.round(val / 5) * 5)
+   }
+   return function(weight) {
+        if (!weight) return "";
+        var m=weight.match(/~([0-9]+)(.+)/);
+        if(!m||m.length<2)return weight;
+        var w=parseInt(m[1]), unit=(m[2]);
+        return 'entre '+round5(w-w*.08)+unit+' et '+round5(w+w*.08)+''+unit;
+   };
+})
 
+})(window.angular);
 
 
 

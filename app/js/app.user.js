@@ -1,4 +1,4 @@
-'use strict';
+;(function(angular) {'use strict';
 
 //
 // Define the User module (app.user)  for controllers, services and models
@@ -231,7 +231,7 @@ User.controller('AccountCtrl',[
         $http.post(provider.url, {assertion:assertion})
           .then(function (responce) {
             user.me(function(u){
-              $scope.FormErrors='';
+              $scope.FormErrors=false;
               var home=(u.email&&u.email.status===true)?
                 '/products':'/account/profile'
               $location.url(home);
@@ -278,7 +278,7 @@ User.controller('AccountCtrl',[
           // simple check of session
           user.me(function(u){
             targetWin.close();
-            $scope.FormErrors='';
+            $scope.FormErrors=false;
             var home=(u.email&&u.email.status===true)?
               '/products':'/account/profile'
             $location.url(home);
@@ -653,3 +653,5 @@ User.factory('user', [
     return _user;
   }
 ]);
+
+})(window.angular);

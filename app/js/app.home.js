@@ -1,4 +1,4 @@
-'use strict';
+;(function(angular) {'use strict';
 
 //
 // Define the Home module (app.home)  for controllers, services and models
@@ -194,3 +194,4 @@ Home.controller('HomeCtrl', [
 
   
  
+})(window.angular);

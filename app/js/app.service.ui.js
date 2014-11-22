@@ -1,4 +1,4 @@
-'use strict';
+;(function(angular) {'use strict';
 
 
 var UI=angular.module('app.ui',['app.config']);
@@ -90,6 +90,28 @@ UI.filter('groupBy', ['$parse', function ($parse) {
         return filtered;
     };
 }]);
+
+//
+// simple ngInclude
+// http://zachsnow.com/#!/blog/2014/angularjs-faster-ng-include/
+UI.directive('ngStaticInclude', [
+  '$compile',
+  '$templateCache',
+  function($compile, $templateCache) {
+    return {
+      restrict: 'A',
+      priority: 400,
+      compile: function(element, attrs){
+        var templateName = attrs.ngStaticInclude;
+        var template = $templateCache.get(templateName);
+        return function(scope, element){
+          element.html(template);
+          $compile(element.contents())(scope);
+        };
+      }
+    };
+  }
+]);
 
 //
 // load image as background image
@@ -525,3 +547,4 @@ UI.directive('lazySrc', ['$document', '$parse', function($document, $parse) {
         };
     }]);
 
+})(window.angular);

@@ -1,4 +1,4 @@
-'use strict';
+;(function(angular) {'use strict';
 
 //
 // Define the Category module (app.shop)  for controllers, services and models
@@ -247,3 +247,4 @@ Category.factory('category', [
   }
 ]);
 
+})(window.angular);

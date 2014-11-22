@@ -1,4 +1,4 @@
-'use strict';
+;(function(angular) {'use strict';
 
 var $strap=angular.module('$strap',[]);
 
@@ -238,3 +238,4 @@ $strap.directive('bsTabs', [
   }
 ]);
 
+})(window.angular);

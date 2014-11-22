@@ -3,7 +3,7 @@
 //
 // Define the Product module (app.product)  for controllers, services and models
 // the app.product module depend on app.config and take resources in product/*.html 
-var Product=angular.module('app.product', ['app.config', 'app.api','app.ui']);
+var Product=angular.module('app.product', ['app.config', 'app.api','app.ui','app.product.ui']);
 
 
 //

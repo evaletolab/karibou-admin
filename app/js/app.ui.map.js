@@ -1,3 +1,4 @@
+;(function(angular) {'use strict';
 
 //
 var map=angular.module('app.ui.map',['app.config','leaflet-directive']);
@@ -164,3 +165,4 @@ map.factory('Map', [
   }
 ]);
 
+})(window.angular);

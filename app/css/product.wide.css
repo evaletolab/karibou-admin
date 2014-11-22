@@ -11,7 +11,7 @@
     overflow: hidden;
     margin-right: 0px;
     margin-left: 0px;    
-    text-shadow:0 1px 1px #666;
+    text-shadow:0 0px 1px #666;
     position: relative;
 }
 .popupcontent .header aside{
@@ -51,6 +51,12 @@
     right: 0;
     padding: 5px;
 }
+
+.popupcontent .price .part{
+   font-size:35%;
+   line-height: 12px;
+   color: #eee;
+ }
 
 .popupcontent .price .btn{
   width: 98%

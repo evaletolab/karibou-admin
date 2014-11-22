@@ -31,7 +31,7 @@
 
           <!-- PHOTO -->
           <img ng-if="product.photo.url&&!product_edit" bg-src="{{product.photo.url}}" class="lazy ">
-          <img ng-if="product_edit" ng-src="{{product.photo.url}}" >
+          <img ng-if="product.photo.url&&product_edit" bg-src="{{product.photo.url}}" >
 
           <!-- NOT AVAILABLE http://placehold.it/275x230/eeeeee/000000&text=indisponible -->
           <img ng-if="!product.isAvailableForOrder()" ng-src="/img/product-not-available.gif" class="available">

@@ -1,3 +1,4 @@
+;(function(angular) {'use strict';
 
 /**
  * Define the Shop directives for (app.shop) 
@@ -120,3 +121,5 @@ angular.module('app.shop.ui', [
 
 
 
+
+})(window.angular);
