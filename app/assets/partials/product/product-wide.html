@@ -81,10 +81,10 @@
   	  <!-- VENDOR-->
       <div class="shop clearfix" >
             <img ng-show="product.vendor.photo.owner"
-              src="{{product.vendor.photo.owner | placehold:'160x160&text=l`équipe'}}"  align="left"
+              ng-src="{{product.vendor.photo.owner | placehold:'160x160&text=l`équipe'}}"  align="left"
               alt="160x160" class="thumbnail-owner photo-owner" >
             <img ng-show="product.vendor.photo.fg&&!product.vendor.photo.owner" align="left"
-              src="{{product.vendor.photo.fg | placehold:'160x160&text=l`équipe'}}"
+              ng-src="{{product.vendor.photo.fg | placehold:'160x160&text=l`équipe'}}"
               alt="160x160" class="thumbnail-owner photo-owner">
 
             <strong>{{product.vendor.name}}</strong>&nbsp;|&nbsp;{{product.vendor.description}} <a  href="/shop/{{product.vendor.urlpath}}">Visiter la boutique</a>

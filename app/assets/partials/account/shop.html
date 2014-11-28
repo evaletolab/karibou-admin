@@ -83,7 +83,7 @@
             <div class="">                     
               <textarea name="description" required rows="4" ng-model="shop.description"  class="form-control" placeholder="C'est le texte qui décrit votre boutique. (~6 lignes)" >{{shop.description }}</textarea>
             </div>
-            <p ng-show="form.description.$invalid && !form.description.$pristine" class="help-block">La description est obligatoire.</p>                        
+            <p class="help-block">La description est obligatoire. Le nombre de caractère est limité à 300.</p>                        
           </div>
 
           <!-- ADDRESS -->

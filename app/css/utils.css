@@ -32,8 +32,13 @@
 }
 
 .btn-transparent {
-  background-color: transparent;
+  background-color: rgba(60,60,60,.2);
   border-color: #ccc;
+  text-shadow:0 0 1px rgba(0,0,0,1);
+}
+
+.btn-transparent:hover {
+  background-color: rgba(60,60,60,.6);
 }
 
 .btn-split {

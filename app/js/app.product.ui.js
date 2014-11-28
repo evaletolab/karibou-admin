@@ -36,10 +36,12 @@ angular.module('app.product.ui', [
    function round5(val){
       return parseInt(Math.round(val / 5) * 5)
    }
-   return function(weight) {
+   return function(weight,def) {
+        if(!def)def=''
         if (!weight) return "";
-        var m=weight.match(/~([0-9]+)(.+)/);
-        if(!m||m.length<2)return weight;
+        var m=weight.match(/~([0-9]+) ?(.+)/);
+        if(!m&&def)m=def.match(/~([0-9]+) ?(.+)/);
+        if(!m||m.length<2)return '';
         var w=parseInt(m[1]), unit=(m[2]);
         return 'entre '+round5(w-w*.08)+unit+' et '+round5(w+w*.08)+''+unit;
    };

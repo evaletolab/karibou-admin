@@ -54,7 +54,7 @@
           <div class="form-group ">
             <label class="control-label" >Define a cover</label>
             <div ng-show="modal.cover">
-              <img src="{{modal.cover}}" title="{{modal.cover}}" class="img-thumbnail" />
+              <img ng-src="{{modal.cover}}" title="{{modal.cover}}" class="img-thumbnail" />
             </div>
             <button ng-click="uploadCover(modal)" class="btn btn-block ">upload cover image for the {{modal.name}}</button>
             <button ng-show="modal.cover" ng-click="modal.cover=null" class="btn btn-block ">clear this cover image</button>

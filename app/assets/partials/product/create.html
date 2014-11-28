@@ -148,7 +148,7 @@
                         <p class="help-block gray">
                           100gr/~180gr/1botte/0.75L/1pce<br/>
                         </p>
-                        <div class="well well-sm small">Avec <b style="font-size: 130%;">~</b>180gr le client recevra {{'~180gr'|portion}}</div>                        
+                        <div class="well well-sm small">Avec <span ng-show="!product.hasFixexPortion()">{{product.pricing.part}}</span><span ng-show="product.hasFixexPortion()">~180gr</span> le client recevra {{product.pricing.part|portion:'~180gr'}}</div>                        
                       </div>                      
                     </div>                    
                   </div>        

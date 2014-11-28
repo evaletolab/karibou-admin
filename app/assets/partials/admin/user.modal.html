@@ -20,7 +20,7 @@
         <div ng-repeat="address in modal.addresses" class="col-xs-12">
           <strong>{{address.name}}, {{address.streetAdress}}/{{address.postalCode}}</strong>
 
-          <img src="{{map.resolveStaticmap(address,address.note,13)}}" style="width:80%"/>
+          <img ng-src="{{map.resolveStaticmap(address,address.note,13)}}" style="width:80%"/>
         </div>
       </div>
 

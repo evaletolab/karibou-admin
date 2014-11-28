@@ -161,7 +161,7 @@
             <div class="form-group" ng-show="user.addresses[$index].geo">
               <label  class="colsm2 control-label">Position sur la carte</label>
               <div class="colsm10">
-                <img src="{{user.geo.resolveStaticmap(user.addresses[$index],user.addresses[$index].note)}}" style="width:100%"/>
+                <img ng-src="{{user.geo.resolveStaticmap(user.addresses[$index],user.addresses[$index].note)}}" style="width:100%"/>
               </div>
             </div>
 

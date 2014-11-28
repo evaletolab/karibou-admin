@@ -48,58 +48,6 @@
 
          </div>
 
-         <!-- VALIDATE ORDER CART -->         
-         <div ng-if="currentFlow(['validate'])">
-           <div class="text-center">
-                <h2 class="article-group-title">VOTRE COMMANDE</h2>
-            </div>
-            </span>
-            <table class="table table-hover">
-                <thead>
-                    <tr>
-                        <th>Produit</th>
-                        <th>Qty</th>
-                        <th class="text-center">Prix</th>
-                        <th class="text-center">Total</th>
-                    </tr>
-                </thead>
-                <tbody>
-                  <tr  ng-repeat="item in cart.items" >                    
-                    <td class="col-md-8"><em>
-                      <a href="/products/{{item.sku}}" >{{item.part}} - {{item.title}}</a></em>
-                      <div ng-show="item.error" class="alert alert-warning">{{item.error}}</div>
-                      <div class="btn-group btn-group-xs pull-right hidden-xs">
-                        <button type="button" class="btn btn-default" ng-click="cart.add(item, true)"><i class="icon-plus"></i></button>
-                        <button type="button" class="btn btn-default" ng-click="cart.remove(item,true)"><i class="icon-minus"></i></button>
-                        <button type="button" class="btn btn-default" ng-click="cart.clear(item)"><i class="icon-remove"></i></button>
-                      </div>
-                    </td>
-                    <td class="col-md-1" style="text-align: center">{{item.quantity}}</td>
-                    <td class="col-md-1 text-center">{{item.price|number:2}}</td>
-                    <td class="col-md-2 text-center">{{item.price*item.quantity|number:2}}</td>
-                  </tr>
-                    <tr>
-                        <td class="text-right" colspan="3">
-                          <p><strong>Soustotal: </strong></p>
-                          <p><strong>Paiement {{config.shop.order.gateway[cart.config.payment].label}}: {{cart.tax()*100|number:1}}% </strong>
-                          </p>
-                          <p><strong>Livraison: </strong></p>
-                        </td>
-                        <td class="text-center">
-                          <p><strong>{{cart.total()|number:2}} </strong></p>
-                          <p><strong>{{cart.tax()*cart.total()|number:2}} </strong></p>
-                          <p><strong>{{cart.shipping()|number:2}} </strong></p>
-                      </td>
-                    </tr>
-                    <tr>
-                        <td>   </td>
-                        <td>   </td>
-                        <td class="text-right"><h4><strong>Total: </strong></h4></td>
-                        <td class="text-center text-danger"><h4><strong>{{cart.grandTotal()|number:2}} CHF</strong></h4></td>
-                    </tr>
-                </tbody>
-            </table>
-         </div>
 
          <!-- IDENTITY LOGIN -->
          <div ng-if="currentFlow(['identity'])" >
@@ -203,7 +151,7 @@
 
               <!-- RUE/N°/ETAGE -->
               <div class="form-group  required">
-                <label class="collg2 control-label small">Rue, numéro et l'étage</label>
+                <label class="collg2 control-label small">Votre adresse de livraison; Rue, numéro et l'étage</label>
                 <div class="">
                   <div class="col-xs-12 col-sm-9 col-md-8 nopadding">                
                     <input id="address-line1" ng-model="user.addresses[0].streetAdress"  type="text" placeholder="rue et numéro" class="form-control input-lg" required>
@@ -211,6 +159,7 @@
                   <div class="col-xs-12 col-sm-3 col-md-4 nopadding">                
                     <input id="floor1" ng-model="user.addresses[0].floor" type="text" placeholder="Étage" class="form-control input-lg" required>
                   </div>
+                  <!--<p class="help-block"></p>-->
 
                 </div>
               </div>
@@ -280,7 +229,7 @@
                            ng-click="cart.config.payment=method;" 
                            ng-class="{'active':cart.config.payment.type===method.type}" >
                   <div class="col-xs-2 nopadding " >
-                    <img src="/img/payments/{{pm[method.type]}}" class="img-thumbnail img-responsive" alt="" />
+                    <img ng-src="/img/payments/{{pm[method.type]}}" class="img-thumbnail img-responsive" alt="" />
                   </div>
                   <div class="col-xs-10 " >
                     <h4 class="list-group-item-heading heading-center">{{method.number}} <span class="bold green" payments-date="{{method.expiry}}">{{method.expiry}}</span></h4>
@@ -372,7 +321,11 @@
                 <tbody>
                   <tr  ng-repeat="item in cart.items|orderBy:'vendorName'" >                    
                     <td class="col-md-8">
-                      <a href="/products/{{item.sku}}" >{{item.part}} - {{item.title}}</a>
+                      <a href="/products/{{item.sku}}" >{{item.part}} - {{item.title}}<br/>
+                      <div href="" class="link smallx" ng-if="item.vendorName" title="ajouter une note">
+                        <i class="icon icon-pencil-"></i> {{item.vendorName||''}}
+                      </div>                      
+                      </a>
                       <div ng-show="item.error" class="alert alert-warning">{{item.error}}</div>
                       <div class="btn-group btn-group-xs pull-right hidden-xs">
                         <button type="button" class="btn btn-default" ng-click="cart.add(item, true)"><i class="icon-plus"></i></button>

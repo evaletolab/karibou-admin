@@ -262,6 +262,10 @@ article:nth-child(even){
   .layout-item img{
     padding-bottom: 83%;
   }
+  
+  .ie .layout-item img{
+    padding-bottom: 1%;
+  }
 
 	.layout-item.c1{
 		width: 30%; /* 305px */

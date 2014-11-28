@@ -366,6 +366,12 @@ Product.factory('product', [
     }
 
 
+    Product.prototype.hasFixedPortion=function(){
+        var weight=this.pricing.part||''
+        var m=weight.match(/~([0-9]+) ?(.+)/);
+        return(!m||m.length<2);
+    }
+
     Product.prototype.getPrice=function(){
       if(this.attributes.discount && this.pricing.discount)
         return this.pricing.discount;

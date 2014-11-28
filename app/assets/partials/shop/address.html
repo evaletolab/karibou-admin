@@ -61,6 +61,6 @@
 <div class="form-group" ng-show="shop.address.geo">
   <label  class=" control-label">Position sur la carte</label>
   <div class="">
-    <img src="{{map.resolveStaticmap(shop.address,shop.address.name)}}" style="width:100%"/>
+    <img ng-src="{{map.resolveStaticmap(shop.address,shop.address.name)}}" style="width:100%"/>
   </div>
 </div>
