@@ -2,9 +2,9 @@
 <div tabindex="-1"  id="null" class="screen-content" ng-controller="AccountCtrl">
   
 
-  <div class="butter-bar active success back " ng-cloak ng-show="user.email.status !== true">
+  <div class="butter-bar active info back " ng-cloak ng-show="user.email.status !== true">
     <p class="butter-bar-message">
-      Vous devez valider votre profile pour finaliser votre inscription.
+      <b>Psst!</b> N'oubliez pas de valider votre adresse e-mail! Rechercher dans votre boîte de reception le message que nous vous avons envoyé. <a href="/account/overview">Vous pouvez aussi demander à recevoir de nouveau l'e-mail</a>.
     </p>
   </div>
 
@@ -75,11 +75,10 @@
           <span class="bucket-header-title">Mon profil</span>
         </h5>
 
-
         <div class="alert alert-warning" ng-cloak  ng-show="user.email.status !== true">
-          <strong>Votre adresse mail n'a toujours pas été confirmée.</strong>
-          Une demande de confirmation vous a été envoyée par mail le {{user.email.status|dateLabel}}.
-          Si vous avez perdu ce mail, vous pouvez <a href="" ng-click="verify(user)">activer une nouvelle demande de confirmation</a>.
+          <strong>Votre adresse e-mail n'a pas été confirmée.</strong><br/>
+          Afin d'assurer une communication avec vous, nous avons besoin de valider votre adresse email.
+          Pour valider votre adresse, rechercher dans votre boîte de reception le message que nous vous avons envoyé. Vous pouvez <a href="" ng-click="verify(user)">aussi demander à recevoir un nouvel e-mail de confirmation.</a>.
         </div>
 
 

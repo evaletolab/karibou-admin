@@ -97,16 +97,26 @@ UI.filter('groupBy', ['$parse', function ($parse) {
 UI.directive('ngStaticInclude', [
   '$compile',
   '$templateCache',
-  function($compile, $templateCache) {
+  '$http',
+  '$sce',
+  function($compile, $templateCache, $http, $sce) {
+    function includeTpl(element, template,scope){
+      element.html(template);
+      return $compile(element.contents())(scope);                
+    }
     return {
       restrict: 'A',
       priority: 400,
       compile: function(element, attrs){
-        var templateName = attrs.ngStaticInclude;
-        var template = $templateCache.get(templateName);
+        var templateName = $sce.parseAsResourceUrl(attrs.ngStaticInclude)();
         return function(scope, element){
-          element.html(template);
-          $compile(element.contents())(scope);
+          // var template = $templateCache.get(templateName);
+          // if(template){
+          //   return includeTpl(element,template,scope)
+          // }
+         $http.get(templateName, {cache: $templateCache}).then(function(response) {
+           return includeTpl(element,response.data,scope)
+         });
         };
       }
     };
@@ -115,14 +125,16 @@ UI.directive('ngStaticInclude', [
 
 //
 // load image as background image
-UI.directive("bgSrc", function () {
+UI.directive("bgSrc", ['$timeout',function ($timeout) {
   return {
       restrict: 'A',
       link: function(scope, element, attrs){
-        element[ 0 ].style.backgroundImage = "url("+attrs.bgSrc+")";
+        var url=attrs.bgSrc.replace(/ /g,'%20');
+        if(attrs.bgSmall) url='http://cdn.filter.to/375x1000/'+url.replace('https','http')
+        element[ 0 ].style.backgroundImage = "url("+url+")";
       }
   };
-});
+}]);
 
 //Send gg event {category:'',action:''}
 UI.directive('gaSend', ['$parse','$window','config',function($parse,$window, config) {

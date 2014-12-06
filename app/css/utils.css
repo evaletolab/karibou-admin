@@ -32,9 +32,9 @@
 }
 
 .btn-transparent {
-  background-color: rgba(60,60,60,.2);
+  background-color: rgba(90,120,90,.05);
   border-color: #ccc;
-  text-shadow:0 0 1px rgba(0,0,0,1);
+  -text-shadow:0 0 1px rgba(0,0,0,1);
 }
 
 .btn-transparent:hover {
@@ -128,12 +128,18 @@ h1.sexy, h2.sexy, h3.sexy {
   min-height-:40px;
 }
 
+
+a.disabled {
+  pointer-events: none;
+  cursor: default;
+}
+
 ul.nav li{
   line-height:30px;
 }
 
 .navbar .nav .dropdown-toggle .caret {
-    margin-top-: 13px;
+  margin-top-: 13px;
 }
 
 .fill{

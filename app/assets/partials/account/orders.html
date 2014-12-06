@@ -18,20 +18,6 @@
       <!--                               -->
       <!-- CONTENT                       -->
       <!--                               -->
-      <script type="text/ng-template" id="/orders-list-actions.html">
-        <hr>
-        <div class="btn-group">
-          <button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown">
-            <i class="icon icon-cog"></i> <span class="caret"></span>
-          </button>
-          <ul class="dropdown-menu" role="menu">
-            <li><a href="#">Copier</a></li>
-            <li><a href="#">Envoyer pas mail</a></li>
-            <li class="divider"></li>
-            <li><a href="#">Signaler un problème</a></li>
-          </ul>
-        </div>
-      </script>
 
 
       <h5 class="article-group-title " >
@@ -66,7 +52,7 @@
                 <div class="">
                   <div class="cart">
                     {{order.payment.status}}<br/>
-                    <span>ordre {{order.payment.gateway}}</span>
+                    <span>{{order.payment.issuer}}</span>
                   </div>
                   <div class="cart">
                     {{order|orderTotal}}<br/>
@@ -88,7 +74,7 @@
                     </tr>
                     <!-- info -->
                     <tr>
-                      <td colspan="2">{{order.payment.gateway}}</td><td>{{order.payment.status}}</td>
+                      <td colspan="2">{{order.payment.issuer}}</td><td>{{order.payment.status}}</td>
                     </tr>
                     <tr class="bold">
                       <td colspan="2">TOTAL</td><td >{{order|orderTotal}}</td>
@@ -96,9 +82,25 @@
 
                   </tbody>
                 </table>
-
+    
               </div>
 
+              <div class="btn-group">
+                <button type="button" class="btn btn-transparent btn-sm dropdown-toggle" data-toggle="dropdown">
+                  <i class="icon icon-cog"></i> actions <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu" role="menu">
+                  <li ng-class="{'disabled':order.fulfillments.status!=='reserved'}">
+                      <a href="#" ng-click="orderCancel(order,'customer')" 
+                         title="il est possible d'annuler votre commande tant que la logistique n'a pas commencé">Annuler cette commande</a></li>
+                  <li><a href="#" ng-click="">Copier cette commande dans le panier</a></li>
+                  <li ng-class="{'disabled':order.payment.status!=='paid'}">
+                      <a href="#" ng-click="orderInvoice(order)" >Recevoir la facture par e-mail</a></li>
+<!--                  <li class="divider"></li>
+                  <li><a href="#">Signaler un problème avec cette commande</a></li>
+-->                  
+                </ul>
+              </div>
 
 <!--               <div class="btn-group">
                 <button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown">

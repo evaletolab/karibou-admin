@@ -15,7 +15,8 @@ var App = angular.module('app', [
   'ngRoute',
   'ngSanitize',
   'ngTouch',
-  'ngAnimate',
+  'ngCMS',
+//  'ngAnimate',
   'infinite-scroll',
   'app.config',
   'app.raven',
@@ -88,7 +89,8 @@ App.config([
       // Pages
       .when('/the-site-is-currently-down-for-maintenance-reasons', {title:'the site is currently down for maintenance reasons',templateUrl : '/partials/errors/down.html'})
       .when('/about', {title:'about',templateUrl : '/partials/about.html'})
-
+      .when('/page/doc/:article?',{title: 'markdown content', templateUrl: '/partials/pages/page.html'})
+      .when('/page/:article?',{title: 'markdown content', templateUrl: '/partials/pages/page.html'})
       // 404
       .when('/404', {title:'404',templateUrl : '/partials/errors/404.html'})
       // Catch all
@@ -126,6 +128,16 @@ App.factory('cordovaReady', function() {
     };
   };
 });
+
+// init the module
+App.run(function (gitHubContent) {
+  gitHubContent.initialize({
+        root:'page', // specify the prefix route of your content
+        githubRepo:'evaletolab/karibou-doc',
+        githubToken:'7b24b8ec909903ad91d4548fc6025badaf1501bc'
+    });
+});
+
 
 // Bootstrap (= launch) application
 angular.element(document).ready(function () {

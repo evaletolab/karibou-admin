@@ -14,6 +14,7 @@ angular.module('app.order.admin', ['app.order.ui','app.config', 'app.api'])
     var cb_error=api.error($scope);
 
     $scope.map=new Map()
+    $scope.user=user;
     $scope.config=config;
     $scope.order=order;
     $scope.errors=false;
@@ -26,26 +27,31 @@ angular.module('app.order.admin', ['app.order.ui','app.config', 'app.api'])
     $scope.modal = {};
 
     config.shop.then(function(){
-      $scope.shippingDays=order.findOneWeekOfShippingDay(true);
+      var currentDay=order.findCurrentShippingDay();
+      //
+      // based on url we have to change those values
+      $scope.shipping={
+        days:order.findOneWeekOfShippingDay(true),
+        timeLeftNextDay:Math.round((order.findNextShippingDay().getTime()-Date.now())/3600000),
+        timeLeftCurrentDay:Math.round((currentDay.getTime()-Date.now())/3600000),
+        nextDay:order.findNextShippingDay(),
+        currentDay:currentDay,
+        pastDays:order.findPastWeekOfShippingDay(currentDay),
+        isToday:function(date){
+          return (new Date(date).getDay())===(new Date().getDay())
+        }
+      }
+      // if date is specified
+      if(!isNaN(Date.parse($routeParams.when)))
+        $scope.shipping.currentDay=Date.parse($routeParams.when)
     })
 
 
-
-    //
-    // current shipping date based on the url
-    $scope.currentShipping=function(){
-      var date=($routeParams.when=='next')?order.findCurrentShippingDay():Date.parse($routeParams.when);
-      if(date){
-        return moment(date).format('dddd DD MMM YYYY', 'fr')
-      }
+    $scope.countShops=function(shops){
+      if(!shops)return;
+      return Object.keys(shops).length
     }
 
-    $scope.filterDateByDay=function(dates){
-      for (var i = dates.length - 1; i >= 0; i--) {
-        //dates[i].when
-      };
-
-    }
 
     $scope.modalUserDetails=function(oid){
       for(var i in $scope.orders){
@@ -123,18 +129,53 @@ angular.module('app.order.admin', ['app.order.ui','app.config', 'app.api'])
 
     //
     // display pay button when order is fulfilled
-    $scope.showPayButton=function(order){
+    $scope.showCaptureButton=function(order){
       if(!user.isAdmin()) return false;
-      return (['voided','payed'].indexOf(order.payment.status)===-1) && (order.fulfillments.status==='fulfilled')
+      return (['voided','paid'].indexOf(order.payment.status)===-1) && (order.fulfillments.status==='fulfilled')
     }
 
 
     //
-    // pay and close the order
-    $scope.pay=function(order){
-      order.payment().$promise.then(function(){
-        
-      })
+    // capture and close the order
+    $scope.orderCapture=function(order){
+      order.capture().$promise.then(function(o){
+        api.info($scope,"Commande capturée",2000);
+        for (var i = $scope.orders.length - 1; i >= 0; i--) {
+          if($scope.orders[i].oid===order.oid){$scope.orders[i]=o}
+        };
+
+      },cb_error)
+    }
+
+    //
+    // cancel and close the order
+    $scope.orderCancel=function(order,reason){
+      order.cancelWithReason(reason).$promise.then(function(){
+        api.info($scope,"Commande annulée",2000);
+      },cb_error)
+    }
+
+    //
+    // cancel and close the order
+    $scope.orderDelete=function(order){
+      order.remove().$promise.then(function(){
+        api.info($scope,"Commande suprimmée",2000);
+        for (var i = $scope.orders.length - 1; i >= 0; i--) {
+          if($scope.orders[i].oid===order.oid){$scope.orders.splice(i,1)}
+        };
+      },cb_error)
+    }
+
+
+
+    $scope.updateItem=function(oid,item,fulfillment){
+      for (var o in $scope.orders){
+        if($scope.orders[o].oid===oid){
+          return $scope.orders[o].updateItem(item,fulfillment).$promise.then(function(){
+            api.info($scope,"Status enregistré",2000);
+          },cb_error)
+        }
+      }
     }
 
 
@@ -173,9 +214,20 @@ angular.module('app.order.admin', ['app.order.ui','app.config', 'app.api'])
         params.action='shops'
       }
 
+      //
+      // is logistic?
+      if($scope.displayLogisitic){
+        params.closed=true;
+        params.fulfillments='fulfilled'
+        params.when||(params.when='current')
+      }
+
+
       order.findAllOrders(params).$promise.then(function(orders){
         $scope.orders=orders;
         $scope.shops=false;
+        $scope.addresses=orders.map(function(order){return order.shipping})
+        console.log($scope.addresses)
         //
         // group by shop?
         if($routeParams.groupby==='shop'){
@@ -200,21 +252,12 @@ angular.module('app.order.admin', ['app.order.ui','app.config', 'app.api'])
     }
 
 
-    $scope.updateItem=function(oid,item,fulfillment){
-      for (var o in $scope.orders){
-        if($scope.orders[o].oid===oid){
-          return $scope.orders[o].updateItem(item,fulfillment,function(){
-            api.info($scope,"Status enregistré",2000);
-          },cb_error)
-        }
-      }
-    }
-
 
     // 
     // default : findAllOrders
     // TODO this is so hugly, please change that!!!
     $scope.initContext=function(){
+      $scope.displayLogisitic=($location.path().indexOf('/admin/shipping')!==-1)
       // trap orders for a customer
       if($location.path().indexOf('/account/orders')!==-1){
         $scope.findOrdersByUser();

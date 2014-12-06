@@ -111,6 +111,23 @@ angular.module('app.root', [
 
 
     //
+    // browser detection    
+    $scope.browser=function() {
+      var userAgent = $window.navigator.userAgent;
+      var browsers = {chrome: /chrome/i, safari: /safari/i, firefox: /firefox/i, ie: /internet explorer/i};
+      for(var key in browsers) {
+        if (browsers[key].test(userAgent)) {
+          return key;
+        }
+      };
+      // special case for IE>=11
+      if((new RegExp("Trident/.*rv:([0-9]{1,}[\.0-9]{0,})").exec(navigator.userAgent))&&(navigator.appName == 'Netscape')){
+        return 'ie';
+      }
+    }
+
+
+    //
     // this is an helper for avoid the default sorting by ng-repeat
     $scope.keys=function(map){
       if(!map)return [];

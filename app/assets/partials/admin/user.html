@@ -48,7 +48,7 @@
             </thead>
             <tbody>
               <tr ng-repeat="u in users|orderBy:orderByField:reverseSort" ng-class="{'danger':u.status!==true}">
-                <td>-</td>
+                <td>{{u.status}}</td>
                 <td>
                   <a  ng-click="modalUserDetails(u)"
                       bs-modal="'/partials/admin/user.modal.html'">

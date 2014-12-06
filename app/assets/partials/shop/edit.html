@@ -19,7 +19,7 @@
 
 
           <div>
-            <form class="kariboo" novalidate>
+            <form class="karibou" novalidate>
             <!-- <div class="modal-header">
               <h3 class="gray">Editer votre boutique</h3>
             </div> -->
@@ -32,7 +32,7 @@
                       <p class="text-center">{{shop.name }}</p>
                       <!-- Description -->
                       <div class="form-group clearfix">
-                        <label class="control-label">Description</label>
+                        <label class="control-label">Description (max 300 caractères)</label>
                         <div class="">                     
                           <textarea name="description" required rows="4" ng-model="shop.description"  class="form-control" placeholder="Votre boutique..." >{{shop.description }}</textarea>
                         </div>
@@ -184,13 +184,13 @@
                                   <span ng-show="activeMarket(l.name)" class="pull-right label label-success"><i class="icon-ok"></i></span>
                                 </a>
                             </div>                          
-                            <p class="help-block">Si votre produit est colecté au marché, précisez un nom de stand. Sinon, indiquez l'adresse d'une autre boutique.</b></p>
+                            <p class="help-block">Si votre produit est collecté au marché, précisez un nom de stand. Sinon, indiquez l'adresse d'une autre boutique.</b></p>
                             <div class="">
-                                <input  ng-model="shop.collectFreeText"  type="text" class="form-control input-lg " 
+                                <input  ng-model="shop.address.depository"  type="text" class="form-control input-lg " 
                                         placeholder="ex. chez dédé/34 rue de Carouge/1205"  require>
                             </div>
 
-                            <p class="help-block"><b>Les lieux de collectes sont prioritaire à l'adresse principale de votre commerce</b></p>
+                            <p class="help-block"><b>Les lieux de collectes sont prioritaires à l'adresse principale de votre commerce</b></p>
 
                         </div> 
 

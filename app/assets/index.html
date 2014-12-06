@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<!--[if IE]> <html lang="fr" ng-controller="AppCtrl" class="ie" > <![endif]-->
-<!--[if !IE]><html lang="fr" ng-controller="AppCtrl" class="-screen-scroll" > <![endif]-->
+<html lang="fr" ng-controller="AppCtrl" class="-screen-scroll" ng-class="browser()">
   <head>
     <title>Karibou Genève - un marché alimentaire composé d'artisans, de producteurs et de petits commerçants</title>
     <meta name="title" content="Karibou Genève - un marché alimentaire composé d'artisans, de producteurs et de petits commerçants">
@@ -22,9 +21,6 @@
     <meta name="twitter:site" content="@kariboulab">
 
 
-    <!--[if lte IE 7]>
-      <script src="http://cdnjs.cloudflare.com/ajax/libs/json2/20110223/json2.js"></script>
-    <![endif]-->
     <!--[if lt IE 9]>
       <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
@@ -36,7 +32,7 @@
     <!-- <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:600' rel='stylesheet' type='text/css'> -->
     <link defer rel="stylesheet" href="/css/vendor.css?cache={!distRelease!}">
     <link defer rel="stylesheet" href="/css/app.css?cache={!distRelease!}">
-
+    <script type="text/javascript">var ngCMSSettings={}</script>
     
   </head>
 

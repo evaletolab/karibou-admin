@@ -19,7 +19,7 @@
                     <div class="">
                       <input  type="text" placeholder="Titre du produit" class="input-lg  form-control" ng-model="product.title" required>
                       <p class="help-block"></p>
-                      <textarea rows="3" class="form-control input-lg"  placeholder="Description du produit" ng-model="product.details.description" required></textarea>
+                      <textarea rows="3" class="form-control input-lg"  placeholder="Description du produit (max 300 caractères)" ng-model="product.details.description" required></textarea>
 
                     </div>
 
@@ -34,7 +34,7 @@
                         <label><input type="checkbox" name="details" value="BIO"    ng-model="product.details.bio">Certifié Bio </label>
                         <label><input type="checkbox" name="details" value="Locale" ng-model="product.details.local">Production Locale </label>
                         <label><input type="checkbox" name="details" value="Artisanale" ng-model="product.details.homemade">Fabrication artisanale</label> 
-                        <label><input type="checkbox" name="details" value="Naturel" ng-model="product.details.naturel">Sans chimie de synthèse </label>
+                        <label><input type="checkbox" name="details" value="Naturel" ng-model="product.details.natural">Sans chimie de synthèse </label>
                       </div>
 
                     </div>
@@ -104,14 +104,14 @@
                 <!-- END TWO COLUMNS -->
                 
             </div>
-            <div data-title="Prix et quantité" class="form-background">
+            <div data-title="Prix et quantité" class="form-background karibou">
                 <div class="clearfix">
                   <div class="col-xs-5">
                     <!-- prix-->
                     <div class="form-group">
                       <label class="control-label">Prix</label>
                       <div class=" ">                      
-                        <input name="price" type="text" placeholder="exemple 10.50" class="input-lg form-control " ng-model="product.pricing.price" required>                      
+                        <input name="price" type="text" placeholder="exemple 10.50" class="input-lg form-control " ng-model="product.pricing.price" required >                      
                         <p class="help-block gray">Le prix en CHF</p>
                       </div>
                     </div>
@@ -121,7 +121,7 @@
                     <div class="form-group">
                       <label class="control-label">Qte disponible</label>
                       <div class="">
-                        <input  name="stock" type="text" placeholder="exemple 10" class="input-lg form-control  green" ng-model="product.pricing.stock" required>
+                        <input  name="stock" type="text" placeholder="exemple 10" class="input-lg form-control" ng-model="product.pricing.stock" required>
                       </div>
                     </div>
 
@@ -144,11 +144,18 @@
                         <label class="control-label">
                           Une portion                            
                         </label>
-                        <input name="part" type="text" placeholder="exemple ~180gr" pattern="([0-9]+pce|[0-9]+gr|[\d.]+kg|1botte|[0-9]+bottes|[\d.]+L)" class="input-lg form-control " ng-model="product.pricing.part" required>
+                        <input name="part" type="text" placeholder="exemple ~180gr" pattern="([0-9]+pce|[0-9]+gr|[\d.]+kg|1botte|[0-9]+bottes|[\d.]+[\w])" class="input-lg form-control " ng-model="product.pricing.part" required>
                         <p class="help-block gray">
-                          100gr/~180gr/1botte/0.75L/1pce<br/>
+                          100gr/~180gr/1botte/0.75L/0.75litre/1pce<br/>
                         </p>
-                        <div class="well well-sm small">Avec <span ng-show="!product.hasFixexPortion()">{{product.pricing.part}}</span><span ng-show="product.hasFixexPortion()">~180gr</span> le client recevra {{product.pricing.part|portion:'~180gr'}}</div>                        
+                        <div class="well well-sm small" ng-show="product.pricing.part">
+                          Avec {{product.pricing.part}} le client recevra
+                          <span ng-show="!product.hasFixedPortion()"> {{product.pricing.part|portion}}</span>
+                          <span ng-show="product.hasFixedPortion()">{{product.pricing.part}}</span>
+                        </div>                        
+                        <div class="well well-sm small" ng-hide="product.pricing.part">
+                          Avec <b>~180gr</b> le client recevra {{'~180gr'|portion}}
+                        </div>
                       </div>                      
                     </div>                    
                   </div>        

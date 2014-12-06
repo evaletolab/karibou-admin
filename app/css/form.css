@@ -4,19 +4,20 @@
 
 
 /* item is currently valid based on the rules you placed. */
-.kariboo .ng-valid{
+.karibou .ng-valid{
 
 }
 /* form/input has *not* been used yet. */
 .ng-pristine{
 }
+
 /* form/input has been used yet. */
-.kariboo  .ng-dirty{
+.karibou  .ng-dirty{
   border:1px solid orange!important;
 }
 
 /* item is currently invalid based on the rules you placed. */
-.kariboo  .ng-invalid{
+.karibou  .ng-invalid{
   border:1px solid red!important;
 }
 

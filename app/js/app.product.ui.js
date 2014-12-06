@@ -33,17 +33,24 @@ angular.module('app.product.ui', [
 
 
 .filter('portion', function () {
-   function round5(val){
-      return parseInt(Math.round(val / 5) * 5)
+   function roundN(val){
+      if(val<=5){
+        return val.toFixed(1);
+      }
+      if(val<=50){
+        return Math.round(val);
+      }
+      var N=5;
+      return (Math.round(val / N) * N)
    }
    return function(weight,def) {
         if(!def)def=''
         if (!weight) return "";
-        var m=weight.match(/~([0-9]+) ?(.+)/);
-        if(!m&&def)m=def.match(/~([0-9]+) ?(.+)/);
+        var m=weight.match(/~([0-9.,]+) ?(.+)/);
+        if(!m&&def)m=def.match(/~([0-9.,]+) ?(.+)/);
         if(!m||m.length<2)return '';
-        var w=parseInt(m[1]), unit=(m[2]);
-        return 'entre '+round5(w-w*.08)+unit+' et '+round5(w+w*.08)+''+unit;
+        var w=parseFloat(m[1]), unit=(m[2]).toLowerCase();
+        return 'entre '+roundN(w-w*.07)+unit+' et '+roundN(w+w*.07)+''+unit;
    };
 })
 

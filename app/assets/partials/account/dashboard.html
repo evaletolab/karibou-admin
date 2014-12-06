@@ -12,7 +12,12 @@
       </div>
       <div id="navbar" class="navbar-collapse collapse">
         <ul class="nav navbar-nav navbar-right">
-          <li><a href="/account/profile">Boutique</a></li>
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Boutiques <span class="caret"></span></a>
+            <ul class="dropdown-menu" role="menu">
+              <li ng-repeat="shop in user.shops"><a ng-href="/shop/{{shop.urlpath}}">{{shop.name}}</a></li>
+            </ul>
+          </li>        
           <li><a href="/account">{{user.display()}} <span ng-show="user.isAdmin()" class="label label-danger">ADMIN</span></a></li>
           <li><a href="#">Help</a></li>
         </ul>
@@ -31,27 +36,30 @@
       <div class="col-sm-2 col-md-2 sidebar" ng-include="'/partials/account/dashboard-sidebar.html'"></div>
       <div class="col-sm-10 col-sm-offset-2 col-md-10 col-md-offset-2 main">
         <h1 class="page-header">Dashboard </h1>
+        <h3 class="red" ng-if="shipping.isToday(shipping.currentDay)">Aujourd'hui, livraison en cours ({{shipping.timeLeftCurrentDay}} heures)</h3>
+        <h4>prochaine préparation le {{shipping.nextDay|dateLabelShort}} (dans {{shipping.timeLeftNextDay}} heures)</h4>
 
 
         <!-- EMPTY -->
         <div ng-if="!orders.length && !shops &&!products">
-          <h2 class="sub-header">Pas de commande <span class="em">{{currentShipping()}}</span></h2>
+          <h2 class="sub-header">Pas de commande <span class="em">{{shipping.currentDay|dateLabelShort}}</span></h2>
         </div>
 
 
         <!-- FILTERS -->
-        <div class="panel panel-default" ng-if="orders || shops">
-          <div class="panel-heading">Filtrez les commandes</div>
+        <div class="panel panel-default" ng-hide="displayLogisitic">
+          <div class="panel-heading">Afficher les commandes</div>
           <div class="panel-body">
 
             <form role="form" class="form-inline" >
               <div class="checkbox">
-                <label><input type="checkbox" ng-checked="{{getToggleClass('closed','true')=='active'}}" ng-click="toggle({closed:'true'})"> Commandes fermées</label>
+                <label><input type="checkbox" ng-checked="{{getToggleClass('closed','true')=='active'}}" ng-click="toggle({closed:'true'})"> Commandes traitées</label>
               </div>&nbsp;
+<!-- 
               <div class="checkbox">
-                <label><input type="checkbox" ng-checked="{{getToggleClass('fulfillments','failure')=='active'}}" ng-click="toggle({fulfillments:'failure'})"> Commandes avec erreurs</label>
+                <label><input type="checkbox" ng-checked="{{getToggleClass('fulfillments','pending')=='active'}}" ng-click="toggle({fulfillments:'pending'})"> Commandes pending</label>
               </div>
-
+ -->
             </form>        
 
 
@@ -59,17 +67,35 @@
           </div>
         </div>        
 
+        
+        <!-- LOGISTIC -->
+        <div ng-if="orders.length && !shops && displayLogisitic">
+          <h2 class="sub-header">Les livraisons <span ng-show="orders.length">({{orders.length}})</span> {{shipping.currentDay|dateLabelShort}}</h2>
+          <div  ng-include="'/partials/order/order-logistic-lists.html'"></div>
+
+          <!-- MAP -->
+          <div ng-if="addresses" class="text-center">
+            <img ng-src="{{map.resolveStaticmap(addresses)}}" style=""/>
+          </div>
+          <hr/>
+        </div>
 
 
         <!-- ORDERS -->
-        <div ng-if="orders.length && !shops">
-          <h2 class="sub-header">Les commandes <span ng-show="orders.length">({{orders.length}})</span> {{currentShipping()}}</h2>
+        <div ng-if="orders.length && !shops && !displayLogisitic">
+          <h2 class="sub-header">Les commandes <span ng-show="orders.length">({{orders.length}})</span> {{shipping.currentDay|dateLabelShort}}</h2>
           <div  ng-include="'/partials/order/order-lists.html'"></div>
+          <!-- MAP -->
+          <div ng-if="addresses" class="text-center">
+            <img ng-src="{{map.resolveStaticmap(addresses)}}" style=""/>
+          </div>
+          <hr/>
         </div>
 
         <!-- ORDERS BY SHOP -->
         <div ng-if="shops">
-          <h2 class="sub-header">Les commandes par boutique <span ng-show="shops.length">({{Object.keys(shops).length}})</span> </h2>
+          <h2 class="sub-header">Les commandes par boutique - {{shipping.currentDay|dateLabelShort}} 
+              <span ng-show="shops">({{countShops(shops)}}) </span> </h2>
           <div  ng-include="'/partials/order/order-lists-byshop.html'"></div>
         </div>
 

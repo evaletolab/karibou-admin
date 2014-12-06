@@ -19,7 +19,11 @@
     font-style:italic}
 
 html,body,.main {
-    height:100%}
+    height:100%;
+    padding-right:0;
+    padding-left:0;
+    padding:0;
+}
 
 .surface {
     top:0;
@@ -38,7 +42,7 @@ html,body,.main {
     bottom:0;
     background-color:#fbfbfb;
     -webkit-overflow-scrolling:touch;
-    overflow-y:auto;
+    -overflow-y:auto;
     padding-top: 0px;
     margin-top: 0px;
 }
@@ -66,6 +70,11 @@ html,body,.main {
     margin-top:0;   
 }
 
+.wrapper-inner.markdown{
+    margin:20px 0; 
+}
+
+
 .wrapper-inner.wide>div:nth-child(odd),
 .wrapper-inner.wide article:nth-child(odd),
 .wrapper-inner.wide>section:nth-child(even),
@@ -81,7 +90,7 @@ html,body,.main {
 .wrapper-inner.wide>section:nth-child(odd),
 .wrapper-inner.wide>footer:nth-child(even)
 {
-    background-color: #fafafa;
+    background-color: #fdfdfd;
     padding:15px 80px;
     float: left;
     width: 100%;
@@ -492,8 +501,12 @@ a {
 .butter-bar.success .butter-bar-message {
     background:#57ad68}
 
+.butter-bar.info .butter-bar-message {
+    background:#FCF8E3;color:#8A6D3B;}
+
 .butter-bar.error .butter-bar-message {
     background:#ad5768}
+    
 
 @media all and (max-width:1000px) {
     .template-flex-article .butter-bar,.butter-bar {
@@ -901,12 +914,12 @@ a {
 
 @media screen and (max-width:500px) {
     .site-nav-logo{
-        top:0;
-        left: 0;
+        top:10px;
+        left: 10px;
     }
     .site-nav-logo-cart{
-        right: 0;
-        top:0;
+        right: 10px;
+        top:10px;
     }
 
 }

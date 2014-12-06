@@ -26,8 +26,9 @@ Order.config([
       .when('/logistic/livraison', {title:'welcome to your open community market',  templateUrl : '/partials/logistic/overview.html'})
       .when('/order', {title:'Valider votre commande', templateUrl : '/partials/order/order.html'})
       .when('/order/:process', {title:'Bank feedback', templateUrl : '/partials/order/order.html'})
-      .when('/admin/orders', {title:'List next orders ',  templateUrl : '/partials/account/dashboard.html', controller:'OrderAdminCtrl'})
-      .when('/admin/order', {title:'Admin of order ',  templateUrl : '/partials/admin/order.html'});
+      .when('/admin/orders', {title:'Manage next orders ',  templateUrl : '/partials/account/dashboard.html', controller:'OrderAdminCtrl'})
+      .when('/admin/collect', {title:'Manage next shipping ',  templateUrl : '/partials/account/dashboard.html', controller:'OrderAdminCtrl'})
+      .when('/admin/shipping', {title:'Manage next shipping ',  templateUrl : '/partials/account/dashboard.html', controller:'OrderAdminCtrl'});
   }
 ]);
 
@@ -272,7 +273,7 @@ Order.controller('OrderNewCtrl',[
         //
         // empty the current cart to avoid multiple order
         cart.empty()
-        api.info($scope, "Votre  commande est enregistré, vous serez livré le "+when,6000)
+        api.info($scope, "Votre  commande est enregistrée, vous serez livré le "+when,6000)
         $location.path('/')
       },cb_error)
     }

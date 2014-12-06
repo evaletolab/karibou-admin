@@ -31,8 +31,6 @@
         <div ng-controller="HomeCtrl" 
              infinite-scroll='loadNextPage()'  
              infinite-scroll-distance='0' 
-             infinite-scroll-container="'section.wrapper:first-child'" 
-             infinite-scroll-on-window="true"
              class="row wrapheight" >
      
 
@@ -44,7 +42,7 @@
               </h5>
 
               <div  style="width:100%;"><!-- MANSORY FIX -->
-                <div  ng-include="'/partials/product/product.html'"  ng-repeat="product in infinite[group]"></div>              
+                <div  ng-static-include="'/partials/product/product.html'"  ng-repeat="product in infinite[group]"></div>              
               </div>
             </article>
 

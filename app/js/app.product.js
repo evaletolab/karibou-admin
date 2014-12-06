@@ -258,15 +258,6 @@ Product.controller('ProductCtrl',[
             // The generated payload which authenticates users with Disqus
             this.page.remote_auth_s3 = user.context.disqus.auth;
             this.page.api_key = user.context.disqus.pubKey;
-            // this.sso = {
-            //       name:   "kariboo",
-            //       // button:  "http://example.com/images/samplenews.gif",
-            //       // icon:     "http://example.com/favicon.png",
-            //       url:        "http://kariboo.evaletolab.ch/login/",
-            //       logout:  "http://kariboo.evaletolab.ch/logout",
-            //       width:   "800",
-            //       height:  "400"
-            // };
         }          
 
       }

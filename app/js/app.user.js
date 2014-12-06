@@ -149,6 +149,12 @@ User.controller('AccountCtrl',[
         }
 
         //
+        // if user manage his shop
+        if(user.shops.length){
+          return $location.url('/admin/orders');
+        }
+
+        //
         // if user profile is not ready?
         if(!user.isReady()||!user.hasPrimaryAddress()){
           return $location.url('/account/profile');
@@ -258,6 +264,12 @@ User.controller('AccountCtrl',[
       },cb_error)
     }
 
+    $scope.updateStatus=function(id,status){
+      $rootScope.WaitText="Waiting ..."
+      user.updateStatus(id,status,function(){
+        api.info($scope,"Le status à été modifié");
+      },cb_error)
+    }
 
 
     // Functions
@@ -645,6 +657,22 @@ User.factory('user', [
       },err);
       return this;
     };
+
+    /**
+     * ADMIN
+     */
+    User.prototype.updateStatus=function(id,status,cb,err){
+      var self=this;
+      if(!err) var err=function(){}, params={};
+      var u = this.backend.$user.save({id:id,action:'status'},{status:status}, function() {
+        self.copy(u);
+        if(cb)cb(self);
+      },err);
+      return this;
+    };
+
+     
+
 
 
     //

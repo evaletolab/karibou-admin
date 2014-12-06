@@ -115,7 +115,7 @@ angular.module('app.order')
       if(!silent){
         $rootScope.CartText="Waiting";
         $timeout(function() { $rootScope.CartText=false }, 1000);
-        api.info($rootScope,product.pricing.part+", "+product.title+" a été ajouté dans le panier",4000);
+        api.info($rootScope,product.pricing.part+", "+product.title+" a été ajouté dans le panier",2000);
       }
 
       for(var i=0;i<this.items.length;i++){

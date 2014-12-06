@@ -64,7 +64,11 @@ article:nth-child(even){
 }
 
 .layout-item.c1 img, .layout-item.c2 img{
-  padding-bottom: 85%;
+  padding-bottom: 83%;
+}
+
+.ie .layout-item.c1 img, .ie .layout-item.c2 img{
+  padding-bottom: 0%;
 }
 
 .layout-item a.link{
@@ -259,13 +263,6 @@ article:nth-child(even){
 ------------------------- */
 @media (min-width: 768px) and (max-width: 1023px) {
 
-  .layout-item img{
-    padding-bottom: 83%;
-  }
-  
-  .ie .layout-item img{
-    padding-bottom: 1%;
-  }
 
 	.layout-item.c1{
 		width: 30%; /* 305px */
@@ -308,9 +305,6 @@ article:nth-child(even){
     width: 47%;
     margin: 0 2.5% 5% 0;
   }
-  .layout-item img{
-    height: 170px;
-  }
 
   .layout-item.c1:nth-child(odd){
 
@@ -323,6 +317,7 @@ article:nth-child(even){
     width: 95%; /* 305px */
     height: inherit;
   }
+
 
   .layout-item a.link{
   }
@@ -345,9 +340,6 @@ article:nth-child(even){
 		width: 95%; /* 305px */
 	}
 
-  .layout-item img{
-  }
-
 
   .layout-item{
     font-size:12px;
@@ -356,6 +348,11 @@ article:nth-child(even){
   .layout-item .shop{
     font-size:10px;
     line-height:12px;
+  }
+
+
+  .layout-item.c1 img, .layout-item.c2 img{
+    padding-bottom: 120%;
   }
 
 }

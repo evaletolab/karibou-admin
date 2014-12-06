@@ -79,25 +79,43 @@ Order.factory('order', [
 
 
 
-
-
     /* return array of one week of shipping days available for customers*/
-    Order.prototype.findOneWeekOfShippingDay=function(timeLess){
-      var next=this.findNextShippingDay(), result=[], all=[next], nextDate
+    Order.prototype.findPastWeekOfShippingDay=function(when){
+      // init the date at begin of the week
+      var next=new Date(when.getTime()-(when.getDay()*86400000)), all=[], nextDate, nextDay
+
+      // jump one week past
+      next=new Date(next.getTime()-86400000*7)
 
       config.shop.order.weekdays.forEach(function(day){
-        // next = 2
-        // all=[1,2,4]
-        // result =[2,4,1]
-        if(day<next.getDay()){
-            nextDate=new Date((7-next.getDay()+day)*86400000+next.getTime());
-            if(config.shop.order.weekdays.indexOf(nextDate.getDay())!=-1)
-              all.push(nextDate)
-        }else if(day>next.getDay()){
-            nextDate=new Date((day-next.getDay())*86400000+next.getTime())
-            if(config.shop.order.weekdays.indexOf(nextDate.getDay())!=-1)
-              all.push(nextDate)
+        nextDay=(day>=next.getDay())? (day-next.getDay()):(7-next.getDay()+day)
+        nextDate=new Date(nextDay*86400000+next.getTime());
+        if(config.shop.order.weekdays.indexOf(nextDate.getDay())!=-1)
+          all.push(nextDate)
+
+      })
+
+      // sorting dates
+      all=all.sort(function(a,b){
+        return b.getTime() - a.getTime();
+      });
+      return all;
+    }
+
+    /* return array of one week of shipping days available for customers*/
+    Order.prototype.findOneWeekOfShippingDay=function(timeLess, from){
+      var next=this.findNextShippingDay(0,0,from), result=[], all=[next], nextDate, nextDay
+
+      config.shop.order.weekdays.forEach(function(day){
+        if(day==next.getDay()){
+          return
         }
+
+        nextDay=(day>next.getDay())? (day-next.getDay()):(7-next.getDay()+day)
+        nextDate=new Date(nextDay*86400000+next.getTime());
+        if(config.shop.order.weekdays.indexOf(nextDate.getDay())!=-1)
+          all.push(nextDate)
+
       })
 
       // sorting dates
@@ -125,46 +143,54 @@ Order.factory('order', [
     }
 
     /* return the next shipping day available for customers*/
-    Order.prototype.findNextShippingDay=function(){
-      var now=new Date()
-      // computing order start always at 18:00PM
-      //now.setHours(18,0,0,0);
-      now=now.getTime()
-      var next=new Date(now+config.shop.order.timelimit*3600000);
+    Order.prototype.findNextShippingDay=function(tl,th,date){
+      var now=date||new Date(), 
+          next, 
+          timelimit=tl||config.shop.order.timelimit,
+          timelimitH=th||config.shop.order.timelimitH;
+      // 24h == 86400000
 
-      //
-      // next is available until time  (timeLimitH)
-      next.setHours(config.shop.order.timelimitH,0,0,0)
+      // remove min/sec
+      now.setHours(now.getHours(),0,0,0)
 
-      var limit=Math.abs((now-next.getTime())/3600000)
-      while(config.shop.order.weekdays.indexOf(next.getDay())<0 || limit<config.shop.order.timelimit){
-        next=new Date(next.getTime()+86400000)
-        limit=Math.abs((now-next.getTime())/3600000)
+
+      // looking for end of the week 
+      for (var i = 0; i < config.shop.order.weekdays.length; i++) {
+        var day=config.shop.order.weekdays[i];
+        if(day>=now.getDay()){
+          // a valid day is at least>=timelimit 
+          next=new Date(now.getTime()+86400000*(day-now.getDay()))      
+          next.setHours(timelimitH,0,0,0)
+          //console.log('----- this week -- delta',((next.getTime()-now.getTime())/3600000),timelimit,(day-now.getDay()))
+          if(((next.getTime()-now.getTime())/3600000)>=timelimit){
+            //console.log('this week',next)
+            return next;
+          }
+        }
       }
 
-      //
-      // we dont care about seconds and ms
-      next.setHours(next.getHours(),next.getMinutes(),0,0)
+      // looking for begin of the week 
+      for (var i = 0; i < config.shop.order.weekdays.length; i++) {
+        var day=config.shop.order.weekdays[i];
+        if(day<now.getDay()){
+          next=new Date((7-now.getDay()+day)*86400000+now.getTime());
+          next.setHours(timelimitH,0,0,0)
+          //console.log('----- next week -- delta',((next.getTime()-now.getTime())/3600000),timelimit,((7-now.getDay()+day)))
+          if(((next.getTime()-now.getTime())/3600000)>=timelimit){
+            //console.log('for next week',next)
+            return next;
+          }
+        }
 
-      return next;
+      }
     }
 
     Order.prototype.findCurrentShippingDay=function(){
-      var next=new Date(), now=Date.now();
-
-      // if next is today && next hours >= config.shop.order.timelimitH ==> select next day
-      var elpased=Math.abs((now-next.getTime())/3600000)
-      while((config.shop.order.weekdays.indexOf(next.getDay())<0) ||
-            (elpased<24 && next.getHours()>config.shop.order.timelimitH)){
-        next=new Date(next.getTime()+86400000)
-        elpased=Math.abs((now-next.getTime())/3600000)
-      }
-
-      //
-      // we dont care about seconds and ms
-      next.setHours(next.getHours(),next.getMinutes(),0,0)
-      return next
+      var timelimitH=Number(Object.keys(config.shop.order.shippingtimes).sort()[0])+8
+      if(timelimitH>=23)timelimitH=23;
+      return this.findNextShippingDay(0.1,timelimitH)
     }
+
 
     Order.prototype.getTotalPrice=function(factor){
       var total=0.0;
@@ -280,29 +306,27 @@ Order.factory('order', [
       return self;
     };
 
-
-    Order.prototype.payment=function(cb,err){
-      if(!err) err=function(){};
-      var self=this, s = this.backend.$order.save({action:self.oid,id:'pay'}, function() {
-        self.wrap(s);
-        if(cb)cb(self)
-      },err);
-      return self;
+    Order.prototype.remove=function(){
+      return this.chain(this.backend.$order.save({action:this.oid,id:'remove'}).$promise);
     };
+
+    Order.prototype.capture=function(){
+      return this.chain(this.backend.$order.save({action:this.oid,id:'capture'}).$promise);
+    };
+
+
+    Order.prototype.cancelWithReason=function(reason){
+      return this.chain(this.backend.$order.save({action:this.oid,id:'cancel'},{reason:reason}).$promise);
+    };
+
 
     Order.prototype.updateItem=function(item,fulfillment, cb,err){
-      if(!err) err=function(){};
       item.fulfillment.status=fulfillment;
-      var self=this, s = this.backend.$order.save({action:self.oid,id:'items',},[item], function() {
-        self.wrap(s);
-        if(cb)cb(self)
-      },err);
-      return self;
+      return this.chain(this.backend.$order.save({action:this.oid,id:'items',},[item]).$promise)
     };
 
 
-    Order.prototype.findOrdersByUser=function(user,filter){
-      var self=this;
+    Order.prototype.findOrdersByUser=function(user){
       return this.chainAll(this.backend.$order.query({id:user.id,action:'users'}).$promise);
     }
 

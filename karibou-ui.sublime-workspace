@@ -504,10 +504,18 @@
 			}
 		},
 		{
-			"file": "app/css/utils.css",
+			"file": "app/css/cart.css",
 			"settings":
 			{
-				"buffer_size": 5404,
+				"buffer_size": 3132,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "app/js/app.service.ui.js",
+			"settings":
+			{
+				"buffer_size": 15880,
 				"line_ending": "Unix"
 			}
 		},
@@ -515,15 +523,7 @@
 			"file": "app/js/app.product.ui.js",
 			"settings":
 			{
-				"buffer_size": 1107,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "app/js/app.root.js",
-			"settings":
-			{
-				"buffer_size": 6176,
+				"buffer_size": 1250,
 				"line_ending": "Unix"
 			}
 		},
@@ -547,18 +547,39 @@
 			"file": "app/assets/partials/product/create.html",
 			"settings":
 			{
-				"buffer_size": 10501,
+				"buffer_size": 10886,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"contents": "<div class=\"butter-bar active success back\" \n     ng-cloak ng-show=\"cart.hasError()\" >\n  <div class=\"butter-bar-message\">\n    Votre commande nécessite quelques modifications\n  </div>\n</div>\n\n<div tabindex=\"-1\"  id=\"null\" class=\"screen-content\">\n  <aside ng-include=\"'/partials/order/cover.html'\" class=\"cover cover-home cover-order img-loaded\" >\n  </aside>\n\n\n   <section class=\"wrapper\" tabindex=\"-1\" ng-controller=\"OrderNewCtrl\">\n      <div class=\"wrapper-inner wide\"  >\n\n\n        <!--                               -->\n        <!-- CATEGORIES PRODUITS/BOUTIQUES -->\n        <!--                               -->\n                          \n         <div  class=\"bucket post-bucket homepage-posts\">\n              <div class=\"stepwizard\">\n                  <div class=\"stepwizard-row small\">\n                      <div class=\"stepwizard-step\">\n                          <a href=\"/\" class=\"btn btn-default btn-circle\">1</a>\n                          <p>Shopping</p>\n                      </div>\n                      <div class=\"stepwizard-step\">\n                          <a href=\"/order/identity\"\n                          ng-class=\"currentFlow(['identity','profile']) ? 'btn-primary':'btn-default'\"\n                          class=\"btn  btn-circle\">2</a>\n                          <p>Identité</p>\n                      </div>\n                      <div class=\"stepwizard-step\">\n                          <a href=\"/order/payment\"\n                          ng-class=\"currentFlow(['payment']) ? 'btn-primary':'btn-default'\"\n                          class=\"btn  btn-circle\" >3</a>\n                          <p>Paiement</p>\n                      </div>\n                      <div class=\"stepwizard-step\">\n                          <a href=\"/order/validation\"\n                          ng-class=\"currentFlow(['validation']) ? 'btn-primary':'btn-default'\"\n                          class=\"btn btn-circle\" >4</a>\n                          <p>Validation</p>\n                      </div> \n                  </div>\n              </div>\n\n         </div>\n\n\n         <!-- IDENTITY LOGIN -->\n         <div ng-if=\"currentFlow(['identity'])\" >\n          <form class=\"wizard login\" name=\"identity\">\n            <h3>Déjà enregistré ? </h3>\n            <h4>Veuillez vous connecter ci-dessous</h4>\n            <input type=\"email\" class=\"form-control input-lg login stick\"  autofocus \n                ng-class=\"{'border-red': identity.email.$invalid, 'border-green': form.email.$valid}\"\n                required ng-model=\"email\" type=\"email\" name=\"email\" placeholder=\"Votre email\">\n            <input type=\"password\" class=\"form-control input-lg login stick\" required ng-minlength=6 ng-model=\"password\" name=\"password\" placeholder=\"Votre password\">\n              <a class=\"small\" href=\"/recovery\"  >Avez-vous oublié votre mot de passe? </a>\n              <span class=\"clearfix\"></span>  \n\n            <br/>\n            <button type=\"submit\" ng-click=\"login(email, password)\" \n                ng-disabled=\"identity.$invalid || WaitText\" \n                ga-send=\"{category:'order',action:'login'}\" \n                class=\"btn btn-lg btn-success\">{{WaitText || 'Continuer'}}\n            </button>\n\n\n            <hr/>\n            <a ng-href=\"/order/profile\" class=\"link blue-king\">Vous n'avez pas encore de compte?</a>\n\n          </form>\n         </div>\n\n         <!-- IDENTITY PROFILE -->\n         <div ng-if=\"currentFlow(['profile'])\" >\n            <form name=\"profile\" class=\"wizard profile\">\n              <h3>Créer votre profil de livraison </h3>\n              <!-- NAME FIRSTNAME -->        \n              <div class=\"form-group required\">\n                <label class=\"collg2 control-label small\">Prénom</label>\n                <div class=\"collg10 \">\n                    <input required ng-model=\"user.name.givenName\" placeholder=\"Prénom\" type=\"text\" name=\"firstname\" class=\"form-control input-lg\"/>\n                </div>                \n              </div>\n              <div class=\"form-group required\">\n                <label class=\"collg2 control-label small\">Nom</label>\n                <div class=\"collg10 \">\n                    <input required ng-model=\"user.name.familyName\" placeholder=\"Nom\" type=\"text\" name=\"lastname\" class=\"form-control input-lg\"/>\n                </div>                \n              </div>\n\n              <div class=\"form-group required\">\n                <label class=\"collg2 control-label small\">Email</label>\n                <div class=\"collg10 \">\n                    <input required ng-model=\"user.email.address\" placeholder=\"Votre email\" type=\"text\"  class=\"form-control input-lg\"/>\n                </div>                \n              </div>\n              <!-- PASSWORD -->\n              <div class=\"form-group required\" ng-if=\"!user.isAuthenticated()\">\n                <label class=\"collg2 control-label small\">Mot de passe (minimum 6 caractères)</label>\n                <div class=\"collg10 \">\n                  <input required ng-minlength=6 ng-model=\"user.password.new\"  type=\"password\" name=\"password\" \n                  placeholder=\"Mot de passe\"  class=\"form-control input-lg\"/>\n                  <span ng-hide=\"profile.password.$invalid\" class=\"accout-field-valid\"><i class=\"icon-ok green\"></i></span>\n                </div>                \n              </div>\n              <div class=\"form-group required\" ng-if=\"!user.isAuthenticated()\">\n                <label class=\"collg2 control-label small\">Confirmer mot de passe</label>\n                <div class=\"collg10 \">\n                  <input required ng-minlength=6 ng-model=\"user.password.copy\"  type=\"password\" name=\"copy\" \n                  placeholder=\"Mot de passe\"  class=\"form-control input-lg\"/>\n                  <span ng-hide=\"profile.copy.$invalid || user.password.copy!==user.password.new\" \n                  class=\"accout-field-valid\"><i class=\"icon-ok green\"></i></span>\n                </div>                \n              </div>\n\n\n              \n              <!-- PHONES --> \n              <div class=\"form-group required\">\n                <label class=\"collg2 control-label small\">Téléphone</label>\n                <div class=\"collg10\">\n                  <div ng-repeat=\"phone in user.phoneNumbers\" class=\"row nomargin\">\n                    <div class=\"col-xs-3 nopadding\">\n                      <input type=\"text\"  ng-model=\"user.phoneNumbers[0].what\" placeholder=\"mobile\" value=\"mobile\"\n                      class=\"form-control input-lg \">\n                    </div>\n                    <div class=\"col-xs-9 nopadding\">\n                      <input type=\"text\"  ng-model=\"user.phoneNumbers[0].number\" placeholder=\"ex. 004178 000 55 55\" \n                      class=\"form-control input-lg\" required>\n                    </div>\n\n                  </div>\n                </div>                \n              </div>\n\n\n              <!-- ADDRESS -->\n              <!-- NOTE -->\n              <div class=\"form-group  \">\n                <label class=\"collg2 control-label small\">Note au livreur</label>\n                <div class=\"collg10\">\n                    <input id=\"full-name\"  ng-model=\"user.addresses[0].note\" type=\"text\" placeholder=\"Note au livreur, code,...\"\n                    class=\"form-control input-lg\" >\n                </div>\n              </div>\n\n              <!-- RUE/N°/ETAGE -->\n              <div class=\"form-group  required\">\n                <label class=\"collg2 control-label small\">Votre adresse de livraison; Rue, numéro et l'étage</label>\n                <div class=\"\">\n                  <div class=\"col-xs-12 col-sm-9 col-md-8 nopadding\">                \n                    <input id=\"address-line1\" ng-model=\"user.addresses[0].streetAdress\"  type=\"text\" placeholder=\"rue et numéro\" class=\"form-control input-lg\" required>\n                  </div>\n                  <div class=\"col-xs-12 col-sm-3 col-md-4 nopadding\">                \n                    <input id=\"floor1\" ng-model=\"user.addresses[0].floor\" type=\"text\" placeholder=\"Étage\" class=\"form-control input-lg\" required>\n                  </div>\n                  <!--<p class=\"help-block\"></p>-->\n\n                </div>\n              </div>\n\n              <!-- POSTAL -->\n              <div class=\"form-group  required\">\n                <label class=\"collg2 control-label small\">Code Postal</label>\n                <div class=\"collg10\">\n                    <select class=\"form-control input-lg\" ng-model=\"user.addresses[0].postalCode\"  \n                             data-ng-options=\"l for l in config.shop.user.location.list\"  required>\n                        <option value=\"\">-- Choisissez  --</option>\n                    </select>\n                    <!--<p class=\"help-block\">\n                      Votre code postal n'est peut être pas encore disponible pour le moment.\n                    </p>-->\n\n                </div>\n              </div>\n\n              <!-- REGION -->\n              <div class=\"form-group required\">\n                <label class=\"collg2 control-label small\">Region</label>\n                <div class=\"collg10\">\n                    <select class=\"form-control input-lg\" ng-model=\"user.addresses[0].region\"  \n                             data-ng-options=\"l for l in config.shop.user.region.list\" required>\n                        <option value=\"\">-- Choisissez  --</option>\n                    </select>\n                </div>\n              </div>\n\n              <hr />\n              <div class=\"clearfix\" style=\"clear:both\">\n                 <div class=\"alert alert-warning\" ng-cloak  ng-if=\"!user.isAuthenticated()\">\n                    Afin d'assurer une communication avec vous, nous avons besoin de valider votre adresse email. \n                    Une demande de confirmation va vous être envoyé à la suite de cet enregistrement.\n                 </div>\n                <div ng-if=\"user.isAuthenticated() && user.email.status !== true\">\n                   <div class=\"alert alert-warning\" ng-cloak  >\n                      <strong>Votre adresse mail n'a toujours pas été confirmée.</strong>\n                      Une demande de confirmation vous a été envoyée par mail le {{user.email.status|dateLabel}}.\n                      Si vous avez perdu ce mail, vous pouvez <a href=\"\" ng-click=\"verify(user)\">activer une nouvelle demande de confirmation</a>.\n                   </div>\n                </div>                 \n              </div>\n              <button class=\"btn btn-primary btn-lg  clearfix\" \n                      ng-disabled=\"profile.$invalid || WaitText\" \n                      ga-send=\"{category:'order',action:'profile'}\" \n                      ng-click=\"saveIdentity(user)\">\n                Continuer\n              </button> \n\n            </form>\n         </div>\n         \n         <!-- PAYMENT -->\n         <div ng-if=\"currentFlow(['payment'])\" ng-init=\"showCreditCard=false;\">\n            <div>\n              <h4 class=\"article-group-title black\">Quelle méthode de paiement utiliser?</h4>\n              <p class=\"help-block\">Toutes les transactions sont effectuées via une connexion sécurisée.\n              </p>\n            </div>\n\n            <div class=\"payment\">     \n              <div class=\"list-group clearfix\">\n                <!-- THE ONES SAVED -->\n                <a href=\"\" class=\"list-group-item \"                             \n                           ng-repeat=\"method in user.payments\" \n                           ng-click=\"cart.config.payment=method;\" \n                           ng-class=\"{'active':cart.config.payment.type===method.type}\" >\n                  <div class=\"col-xs-2 nopadding \" >\n                    <img ng-src=\"/img/payments/{{pm[method.type]}}\" class=\"img-thumbnail img-responsive\" alt=\"\" />\n                  </div>\n                  <div class=\"col-xs-10 \" >\n                    <h4 class=\"list-group-item-heading heading-center\">{{method.number}} <span class=\"bold green\" payments-date=\"{{method.expiry}}\">{{method.expiry}}</span></h4>\n                    <p class=\"list-group-item-text comment-text hide\" >\n                      <button class=\"btn btn-xs btn-transparent\">modifier</button>\n                      <button class=\"btn btn-xs btn-transparent\"\n                              ng-click=\"deletePaymentMethod(method.alias)\">supprimer</button>\n                    </p>\n                  </div>\n                </a>\n              </div>\n              <div ng-show=\"user.payments.length\" style=\"padding:10px\" class=\" help-block\">\n                <a href=\"\" ng-click=\"user.showMorePayment=true\" >\n                  Ajouter une autre méthode de paiement?\n                </a>\n              </div>\n\n              <div class=\"list-group clearfix\" ng-show=\"!user.payments.length || user.showMorePayment\">\n                <!-- VISA - MC -AE -->\n                <a href=\"\" class=\"list-group-item\" \n                           ng-class=\"{'active':user.showCreditCard==='vma'}\" \n                           ng-click=\"user.showCreditCard='vma';\">\n                  <div class=\"col-xs-2 nopadding\">\n                    <img src=\"/img/payments/vma.jpg\" class=\"img-thumbnail img-responsive\" alt=\"\" />\n                  </div>\n                  <div class=\"col-xs-10 \" >\n                    <h5 class=\"list-group-item-heading heading-center\">VISA - MasterCard - American Express</h5>\n                  </div>\n                </a>\n                <!-- POSTFINANCE CARD -->\n                <a href=\"\" class=\"list-group-item\" ng-class=\"{'active':user.showCreditCard=='pf'}\" ng-click=\"user.showCreditCard='pf';\">\n                  <div class=\"col-xs-2 nopadding\">\n                    <img src=\"/img/payments/pfc.jpg\" class=\"img-thumbnail img-responsive\" alt=\"\" /></div>\n                  <div class=\"col-xs-10 \">\n                    <h5 class=\"list-group-item-heading\">Postfinance Card</h5>\n                    <p class=\"list-group-item-text comment-text\">\n                      Nécessitera l'utilisation de votre lecteur de carte.\n                    </p>\n\n                  </div>\n\n                </a>\n              </div>\n\n              <!-- new card -->\n              <div ng-include=\"'/partials/order/card.html'\" \n                   ng-show=\"user.showCreditCard=='vma'\"></div>\n\n            </div>\n\n           <!-- SHIPPING PAYMENT --\n           <div ng-class=\"{'has-error':!cart.config.payment}\" >\n             <h5 class=\"article-group-title \">Choisir le mode de payment</h5>\n              <select class=\"form-control input-lg\" ng-model=\"cart.config.payment\" ng-change=\"updateGatewayFees()\">\n                <option value=\"\">-- Sélection d'un mode de paiement --</option>\n                <option value=\"{{$index}}\" ng-repeat=\"gateway in config.shop.order.gateway\">{{gateway.label}}</option>\n              </select>           \n           </div>\n          -->\n\n            <div class=\"row col-xs-12\">\n              <hr/>\n              <a href=\"/order/validation\" \n                  ng-disabled=\"!cart.config.payment || WaitText\" \n                  ga-send=\"{category:'order',action:'payment'}\" \n                  class=\" btn btn-lg btn-success\">{{WaitText || 'Continuer'}}\n              </a>\n            </div>\n\n         </div>\n\n         <!-- VALIDATION -->\n         <div ng-if=\"currentFlow(['validation'])\">\n         <!-- ORDER CART -->         \n         <div class=\"cart well well-sm white\">\n           <div class=\"text-center\">\n                <h2 class=\"article-group-title\">VOTRE COMMANDE</h2>\n            </div>\n            </span>\n            <table class=\"table table-hover\">\n                <thead>\n                    <tr>\n                        <th>Produit</th>\n                        <th>Qty</th>\n                        <th class=\"text-right padding\">Prix</th>\n                        <th class=\"text-right padding\">Total</th>\n                    </tr>\n                </thead>\n                <tbody>\n                  <tr  ng-repeat=\"item in cart.items|orderBy:'vendorName'\" >                    \n                    <td class=\"col-md-8\">\n                      <a href=\"/products/{{item.sku}}\" >{{item.part}} - {{item.title}}<br/>\n                      <div href=\"\" class=\"link smallx\" ng-if=\"item.vendorName\" title=\"ajouter une note\">\n                        <i class=\"icon icon-pencil-\"></i> {{item.vendorName||''}}\n                      </div>                      \n                      </a>\n                      <div ng-show=\"item.error\" class=\"alert alert-warning\">{{item.error}}</div>\n                      <div class=\"btn-group btn-group-xs pull-right hidden-xs\">\n                        <button type=\"button\" class=\"btn btn-default\" ng-click=\"cart.add(item, true)\"><i class=\"icon-plus\"></i></button>\n                        <button type=\"button\" class=\"btn btn-default\" ng-click=\"cart.remove(item,true)\"><i class=\"icon-minus\"></i></button>\n                        <button type=\"button\" class=\"btn btn-default\" ng-click=\"cart.clear(item)\"><i class=\"icon-remove\"></i></button>\n                      </div>\n                    </td>\n                    <td class=\"col-md-1\" style=\"text-align: center\">{{item.quantity}}</td>\n                    <td class=\"col-md-1 text-right padding\">{{item.price|number:2}}</td>\n                    <td class=\"col-md-2 text-right padding\">{{item.price*item.quantity|number:2}}</td>\n                  </tr>\n                    <tr>\n                        <td class=\"text-right\" colspan=\"3\">\n                          <p><strong>Soustotal: </strong></p>\n                          <p><strong>Paiement {{updateGatewayFees()}}: {{cart.tax()*100|number:1}}% </strong>\n                          </p>\n                          <p><strong>Livraison: </strong></p>\n                        </td>\n                        <td class=\"text-right padding\">\n                          <p><strong>{{cart.total()|number:2}} </strong></p>\n                          <p><strong>{{cart.tax()*cart.total()|number:2}} </strong></p>\n                          <p><strong><i class=\"icon icon-truck\"></i>{{cart.shipping()|number:2}} </strong></p>\n                      </td>\n                    </tr>\n                    <tr>\n                        <td>   </td>\n                        <td>   </td>\n                        <td class=\"text-right\"><h4><strong>Total: </strong></h4></td>\n                        <td class=\"text-right padding text-success\"><h4><strong>{{cart.grandTotal()|number:2}} CHF</strong></h4></td>\n                    </tr>\n                </tbody>\n            </table>\n         </div>\n\n           <!-- SHIPPING DATE -->         \n           <div >\n             <h5 class=\"article-group-title \">Choisir la date de livraison</h5>\n              <select class=\"cart form-control input-lg\" ng-model=\"cart.config.shipping\" ng-options=\"date.id as date| dateLabel:'' for date in shippingDays\">\n              </select>\n              <p class=\"help-block\">En choisissant ce créneau horaire, vous confirmez être présent pour la réception de votre commande.</p>\n           </div>\n\n           <!-- SHIPPING ADDRESS  -->         \n           <div ng-show=\"user.hasPrimaryAddress()\">\n             <h5 class=\"article-group-title \">Choisir l'adresse de livraison </h5>\n              <select class=\"cart form-control input-lg\" \n                      ng-init=\"cart.config.address = user.addresses[0]\"\n                      ng-model=\"cart.config.address\"\n                      ng-options=\"a.name +' - ' +a.streetAdress + ' ' + a.postalCode for a in user.addresses\">\n              </select>\n           </div>\n\n          <!-- ORDER -->\n          <div  class=\"row wrapheight\" >\n            <div class=\"row\">\n                <br/>\n                <label>\n                  <input type=\"checkbox\"  value=\"true\" ng-model=\"cg\">\n                  J'ai lu et j'accepte les conditions générales de vente et de livraison.\n                </label>\n                <button type=\"button\" class=\"btn btn-success btn-lg btn-block\"\n                        ng-disabled=\"!cg||!user.isReady()||!user.hasPrimaryAddress()||!cart.config.payment||!cart.items.length||WaitText\"  \n                        ng-click=\"terminateOrder()\" >\n                    <i ng-class=\"{'icon-gear':WaitText}\"></i>\n                    Aller à la caisse  \n                </button>\n            </div>\n          </div>\n\n         </div>\n\n        <footer class=\"wrapper-footer wide\">\n          <a class=\"wrapper-footer-link\" title=\"Qui sommes nous\" href=\"/about\">Qui sommes nous</a>\n          <a class=\"wrapper-footer-link\" title=\"Lire notre charte \" href=\"/charte\">Lire notre charte</a>\n          <a class=\"wrapper-footer-link\" title=\"La FAQ\" href=\"/help-center/faq\">FAQ</a>\n          <a class=\"wrapper-footer-link\" title=\"Developpeurs\" href=\"\" backend-url=\"href\">API</a>\n        </footer>\n      </div>\n   </section>\n</div>\n",
-			"file": "app/assets/partials/order/order.html",
-			"file_size": 20715,
-			"file_write_time": 130616385040137014,
+			"file": "app/assets/partials/shop/edit.html",
 			"settings":
 			{
-				"buffer_size": 20676,
+				"buffer_size": 14879,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "app/js/app.shop.js",
+			"settings":
+			{
+				"buffer_size": 9647,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "app/js/app.product.js",
+			"settings":
+			{
+				"buffer_size": 13929,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "app/assets/partials/order/order.html",
+			"settings":
+			{
+				"buffer_size": 21697,
 				"line_ending": "Unix"
 			}
 		},
@@ -615,6 +636,14 @@
 			"settings":
 			{
 				"buffer_size": 9303,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "app/assets/partials/account/overview.html",
+			"settings":
+			{
+				"buffer_size": 4658,
 				"line_ending": "Unix"
 			}
 		},
@@ -691,18 +720,18 @@
 			}
 		},
 		{
-			"file": "app/assets/partials/order/cart.html",
+			"file": "app/assets/index.html",
 			"settings":
 			{
-				"buffer_size": 1698,
+				"buffer_size": 10063,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "app/assets/index.html",
+			"file": "app/css/product.css",
 			"settings":
 			{
-				"buffer_size": 10175,
+				"buffer_size": 6140,
 				"line_ending": "Unix"
 			}
 		},
@@ -769,13 +798,16 @@
 	],
 	"file_history":
 	[
+		"/home/evaleto/nodejs/karibou-mockup/app/css/form.css",
+		"/home/evaleto/nodejs/karibou-mockup/app/assets/partials/shop/edit.html",
+		"/home/evaleto/nodejs/karibou-mockup/app/css/utils.css",
+		"/home/evaleto/nodejs/karibou-mockup/app/js/app.root.js",
 		"/home/evaleto/nodejs/karibou-mockup/app/js/app.service.ui.js",
 		"/home/evaleto/nodejs/karibou-mockup/app/assets/partials/shop/address.html",
 		"/home/evaleto/nodejs/karibou-mockup/app/assets/partials/order/order.html",
 		"/home/evaleto/nodejs/karibou-mockup/app/js/app.product.js",
 		"/home/evaleto/nodejs/karibou-mockup/Makefile",
 		"/home/evaleto/nodejs/karibou-mockup/app/js/app.order.controller.js",
-		"/home/evaleto/nodejs/karibou-mockup/app/js/app.root.js",
 		"/home/evaleto/nodejs/karibou-mockup/app/js/app.category.js",
 		"/home/evaleto/nodejs/karibou-mockup/app/js/app.config.js",
 		"/home/evaleto/nodejs/karibou-mockup/app/js/app.home.js",
@@ -783,7 +815,6 @@
 		"/home/evaleto/nodejs/karibou-mockup/app/assets/partials/account/profile.html",
 		"/home/evaleto/nodejs/karibou-mockup/app/assets/partials/account/overview.html",
 		"/home/evaleto/nodejs/karibou-mockup/app/assets/partials/product/home.html",
-		"/home/evaleto/nodejs/karibou-mockup/app/css/form.css",
 		"/home/evaleto/nodejs/karibou-mockup/app/js/app.shop.js",
 		"/home/evaleto/nodejs/karibou-landing/css/style.css",
 		"/home/evaleto/nodejs/karibou-mockup/app/assets/partials/shop/home.html",
@@ -795,10 +826,8 @@
 		"/home/evaleto/nodejs/karibou-mockup/app/js/app.ui.strap.js",
 		"/home/evaleto/nodejs/karibou-mockup/app/js/app.user.js",
 		"/home/evaleto/nodejs/karibou-mockup/app/js/app.service.js",
-		"/home/evaleto/nodejs/karibou-mockup/app/css/utils.css",
 		"/home/evaleto/nodejs/karibou-mockup/app/css/product.wide.css",
 		"/home/evaleto/nodejs/karibou-mockup/bower_components/ngInfiniteScroll/build/ng-infinite-scroll.js",
-		"/home/evaleto/nodejs/karibou-mockup/app/assets/partials/shop/edit.html",
 		"/home/evaleto/nodejs/karibou-mockup/app/assets/partials/product/product.html",
 		"/home/evaleto/nodejs/karibou-mockup/app/assets/index.html",
 		"/home/evaleto/nodejs/karibou-mockup/app/assets/partials/account/cover.html",
@@ -915,6 +944,14 @@
 		"case_sensitive": true,
 		"find_history":
 		[
+			"profile",
+			"collec",
+			"kariboo",
+			"port",
+			"round5",
+			"c1.l",
+			"layout-item img",
+			"83",
 			"dis",
 			"item.title",
 			"Total",
@@ -1034,15 +1071,7 @@
 			".setT",
 			"showMorePayment",
 			"paymentM",
-			".create",
-			"setTax",
-			"updateGateway",
-			"setTa",
-			"$log",
-			" .site-nav-list-item:first-child .site-nav-list-item-btn",
-			"46p",
-			"36p",
-			".site-nav-list-item-btn"
+			".create"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -1078,7 +1107,7 @@
 	"groups":
 	[
 		{
-			"selected": 8,
+			"selected": 18,
 			"sheets":
 			[
 				{
@@ -1094,8 +1123,8 @@
 						"selection":
 						[
 							[
-								77,
-								77
+								796,
+								796
 							]
 						],
 						"settings":
@@ -1108,24 +1137,24 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 4,
+					"stack_index": 3,
 					"type": "text"
 				},
 				{
 					"buffer": 1,
-					"file": "app/css/utils.css",
+					"file": "app/css/cart.css",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 5404,
+						"buffer_size": 3132,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								882,
-								882
+								827,
+								827
 							]
 						],
 						"settings":
@@ -1134,28 +1163,58 @@
 							"tab_size": 2,
 							"translate_tabs_to_spaces": true
 						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.x": -0.0,
+						"translation.y": 891.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 7,
+					"stack_index": 2,
 					"type": "text"
 				},
 				{
 					"buffer": 2,
-					"file": "app/js/app.product.ui.js",
+					"file": "app/js/app.service.ui.js",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 1107,
+						"buffer_size": 15880,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								276,
-								276
+								3226,
+								3226
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 2376.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 4,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "app/js/app.product.ui.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1250,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1018,
+								1018
 							]
 						],
 						"settings":
@@ -1168,37 +1227,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 6,
-					"type": "text"
-				},
-				{
-					"buffer": 3,
-					"file": "app/js/app.root.js",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 6176,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								6156,
-								6156
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 5670.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 23,
+					"stack_index": 12,
 					"type": "text"
 				},
 				{
@@ -1228,7 +1257,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 22,
+					"stack_index": 27,
 					"type": "text"
 				},
 				{
@@ -1258,7 +1287,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 21,
+					"stack_index": 26,
 					"type": "text"
 				},
 				{
@@ -1267,15 +1296,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 10501,
+						"buffer_size": 10886,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								7937,
-								7937
+								7856,
+								7856
 							]
 						],
 						"settings":
@@ -1285,7 +1314,7 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 3564.0,
+						"translation.y": 3551.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 5,
@@ -1293,19 +1322,19 @@
 				},
 				{
 					"buffer": 7,
-					"file": "app/assets/partials/order/order.html",
+					"file": "app/assets/partials/shop/edit.html",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 20676,
+						"buffer_size": 14879,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								10710,
-								10710
+								9873,
+								9873
 							]
 						],
 						"settings":
@@ -1315,14 +1344,104 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 6656.0,
+						"translation.y": 2066.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 1,
+					"stack_index": 6,
 					"type": "text"
 				},
 				{
 					"buffer": 8,
+					"file": "app/js/app.shop.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 9647,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								5113,
+								5113
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 3969.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 10,
+					"type": "text"
+				},
+				{
+					"buffer": 9,
+					"file": "app/js/app.product.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 13929,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								7001,
+								7001
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 5886.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 11,
+					"type": "text"
+				},
+				{
+					"buffer": 10,
+					"file": "app/assets/partials/order/order.html",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 21697,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								17477,
+								17477
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/HTML/HTML.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 9194.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 8,
+					"type": "text"
+				},
+				{
+					"buffer": 11,
 					"file": "app/assets/partials/shop/shops.html",
 					"semi_transient": false,
 					"settings":
@@ -1334,8 +1453,8 @@
 						"selection":
 						[
 							[
-								229,
-								229
+								684,
+								684
 							]
 						],
 						"settings":
@@ -1345,14 +1464,14 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 243.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 0,
+					"stack_index": 16,
 					"type": "text"
 				},
 				{
-					"buffer": 9,
+					"buffer": 12,
 					"file": "app/assets/partials/shop/home.html",
 					"semi_transient": false,
 					"settings":
@@ -1378,11 +1497,11 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 17,
+					"stack_index": 24,
 					"type": "text"
 				},
 				{
-					"buffer": 10,
+					"buffer": 13,
 					"file": "app/assets/partials/shop/shop-content.html",
 					"semi_transient": false,
 					"settings":
@@ -1408,11 +1527,11 @@
 						"translation.y": 1796.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 11,
+					"stack_index": 19,
 					"type": "text"
 				},
 				{
-					"buffer": 11,
+					"buffer": 14,
 					"file": "app/assets/partials/admin/category.modal.html",
 					"semi_transient": false,
 					"settings":
@@ -1438,11 +1557,11 @@
 						"translation.y": 851.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 10,
+					"stack_index": 18,
 					"type": "text"
 				},
 				{
-					"buffer": 12,
+					"buffer": 15,
 					"file": "app/assets/partials/account/payment.html",
 					"semi_transient": false,
 					"settings":
@@ -1476,11 +1595,11 @@
 						"translation.y": 729.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 9,
+					"stack_index": 17,
 					"type": "text"
 				},
 				{
-					"buffer": 13,
+					"buffer": 16,
 					"file": "app/assets/partials/admin/user.modal.html",
 					"semi_transient": false,
 					"settings":
@@ -1506,11 +1625,11 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 16,
+					"stack_index": 23,
 					"type": "text"
 				},
 				{
-					"buffer": 14,
+					"buffer": 17,
 					"file": "app/assets/partials/account/profile.html",
 					"semi_transient": false,
 					"settings":
@@ -1533,14 +1652,44 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 4010.0,
+						"translation.y": 1931.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 15,
+					"stack_index": 1,
 					"type": "text"
 				},
 				{
-					"buffer": 15,
+					"buffer": 18,
+					"file": "app/assets/partials/account/overview.html",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 4658,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2850,
+								2850
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/HTML/HTML.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 1782.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 19,
 					"file": "app/assets/partials/order/order.user.modal.html",
 					"semi_transient": false,
 					"settings":
@@ -1566,11 +1715,11 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 14,
+					"stack_index": 22,
 					"type": "text"
 				},
 				{
-					"buffer": 16,
+					"buffer": 20,
 					"file": "app/assets/partials/shop/cover.html",
 					"semi_transient": false,
 					"settings":
@@ -1596,11 +1745,11 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 13,
+					"stack_index": 21,
 					"type": "text"
 				},
 				{
-					"buffer": 17,
+					"buffer": 21,
 					"file": "app/assets/partials/admin/category.html",
 					"semi_transient": false,
 					"settings":
@@ -1626,11 +1775,11 @@
 						"translation.y": 905.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 12,
+					"stack_index": 20,
 					"type": "text"
 				},
 				{
-					"buffer": 18,
+					"buffer": 22,
 					"file": "app/js/app.order.controller.js",
 					"semi_transient": false,
 					"settings":
@@ -1656,11 +1805,11 @@
 						"translation.y": 3402.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 24,
+					"stack_index": 28,
 					"type": "text"
 				},
 				{
-					"buffer": 19,
+					"buffer": 23,
 					"file": "app/assets/partials/account/orders.html",
 					"semi_transient": false,
 					"settings":
@@ -1686,11 +1835,11 @@
 						"translation.y": 162.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 25,
+					"stack_index": 29,
 					"type": "text"
 				},
 				{
-					"buffer": 20,
+					"buffer": 24,
 					"file": "app/assets/partials/product/product-wide.html",
 					"semi_transient": false,
 					"settings":
@@ -1713,10 +1862,10 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 1634.0,
+						"translation.y": 662.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 8,
+					"stack_index": 14,
 					"type": "text"
 				}
 			]
@@ -1726,7 +1875,7 @@
 			"sheets":
 			[
 				{
-					"buffer": 21,
+					"buffer": 25,
 					"file": "app/css/shop2.css",
 					"semi_transient": false,
 					"settings":
@@ -1750,11 +1899,11 @@
 						"translation.y": 4131.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 26,
+					"stack_index": 30,
 					"type": "text"
 				},
 				{
-					"buffer": 22,
+					"buffer": 26,
 					"file": "app/assets/partials/account/shop.html",
 					"semi_transient": false,
 					"settings":
@@ -1780,11 +1929,11 @@
 						"translation.y": 1823.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 19,
+					"stack_index": 25,
 					"type": "text"
 				},
 				{
-					"buffer": 23,
+					"buffer": 27,
 					"file": "app/js/app.ui.map.js",
 					"semi_transient": false,
 					"settings":
@@ -1807,57 +1956,27 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 2511.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 18,
+					"stack_index": 9,
 					"type": "text"
 				},
 				{
-					"buffer": 24,
-					"file": "app/assets/partials/order/cart.html",
-					"semi_transient": true,
-					"settings":
-					{
-						"buffer_size": 1698,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								475,
-								475
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/HTML/HTML.tmLanguage",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 2,
-					"type": "text"
-				},
-				{
-					"buffer": 25,
+					"buffer": 28,
 					"file": "app/assets/index.html",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 10175,
+						"buffer_size": 10063,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								10062,
-								10062
+								1823,
+								1823
 							]
 						],
 						"settings":
@@ -1867,14 +1986,44 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 284.0,
+						"translation.y": 594.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 3,
+					"stack_index": 7,
 					"type": "text"
 				},
 				{
-					"buffer": 26,
+					"buffer": 29,
+					"file": "app/css/product.css",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 6140,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								4725,
+								4725
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/CSS/CSS.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 6413.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 13,
+					"type": "text"
+				},
+				{
+					"buffer": 30,
 					"file": "app/js/app.service.js",
 					"semi_transient": false,
 					"settings":
@@ -1897,14 +2046,14 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 6318.0,
+						"translation.y": 5617.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 20,
+					"stack_index": 15,
 					"type": "text"
 				},
 				{
-					"buffer": 27,
+					"buffer": 31,
 					"semi_transient": false,
 					"settings":
 					{
@@ -1929,7 +2078,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 27,
+					"stack_index": 31,
 					"type": "text"
 				}
 			]
@@ -1963,7 +2112,7 @@
 		"cols":
 		[
 			0.0,
-			0.516576576577,
+			0.478378378378,
 			1.0
 		],
 		"rows":

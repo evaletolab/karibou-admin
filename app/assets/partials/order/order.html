@@ -78,8 +78,12 @@
          <!-- IDENTITY PROFILE -->
          <div ng-if="currentFlow(['profile'])" >
             <form name="profile" class="wizard profile">
+
+              <!-- START PROFILE -->
+              <div ng-if="!user.isAuthenticated()">     
               <h3>Créer votre profil de livraison </h3>
-              <!-- NAME FIRSTNAME -->        
+
+              <!-- NAME FIRSTNAME -->   
               <div class="form-group required">
                 <label class="collg2 control-label small">Prénom</label>
                 <div class="collg10 ">
@@ -100,7 +104,7 @@
                 </div>                
               </div>
               <!-- PASSWORD -->
-              <div class="form-group required" ng-if="!user.isAuthenticated()">
+              <div class="form-group required" >
                 <label class="collg2 control-label small">Mot de passe (minimum 6 caractères)</label>
                 <div class="collg10 ">
                   <input required ng-minlength=6 ng-model="user.password.new"  type="password" name="password" 
@@ -108,7 +112,7 @@
                   <span ng-hide="profile.password.$invalid" class="accout-field-valid"><i class="icon-ok green"></i></span>
                 </div>                
               </div>
-              <div class="form-group required" ng-if="!user.isAuthenticated()">
+              <div class="form-group required">
                 <label class="collg2 control-label small">Confirmer mot de passe</label>
                 <div class="collg10 ">
                   <input required ng-minlength=6 ng-model="user.password.copy"  type="password" name="copy" 
@@ -117,8 +121,6 @@
                   class="accout-field-valid"><i class="icon-ok green"></i></span>
                 </div>                
               </div>
-
-
               
               <!-- PHONES --> 
               <div class="form-group required">
@@ -189,13 +191,19 @@
                     </select>
                 </div>
               </div>
-
-              <hr />
               <div class="clearfix" style="clear:both">
-                 <div class="alert alert-warning" ng-cloak  ng-if="!user.isAuthenticated()">
+                 <div class="alert alert-warning" >
                     Afin d'assurer une communication avec vous, nous avons besoin de valider votre adresse email. 
                     Une demande de confirmation va vous être envoyé à la suite de cet enregistrement.
                  </div>
+              </div>
+              <hr />
+              </div>
+              <!-- END OF SHIPPING PROFILE -->
+              <div class="clearfix" style="clear:both">
+                <div ng-if="user.isAuthenticated() && user.email.status === true">
+                  <h3>Votre profil est parfait, vous pouvez passer à l'étape suivante</h3>
+                </div>
                 <div ng-if="user.isAuthenticated() && user.email.status !== true">
                    <div class="alert alert-warning" ng-cloak  >
                       <strong>Votre adresse mail n'a toujours pas été confirmée.</strong>
@@ -213,6 +221,7 @@
 
             </form>
          </div>
+         
          <!-- PAYMENT -->
          <div ng-if="currentFlow(['payment'])" ng-init="showCreditCard=false;">
             <div>
@@ -223,6 +232,22 @@
 
             <div class="payment">     
               <div class="list-group clearfix">
+                <!-- THE INVOICE -->
+                <a href="" class="list-group-item "                             
+                           ng-click="cart.config.payment={type:'invoice'};" 
+                           ng-class="{'active':cart.config.payment.type==='invoice'}" >
+                  <div class="col-xs-2 nopadding " >
+                    <img ng-src="/img/payments/invoice.png" class="img-thumbnail img-responsive" alt="" />
+                  </div>
+                  <div class="col-xs-10 " >
+                    <h4 class="list-group-item-heading heading-center">Facture en ligne <span class="bold green" >sans frais</span></h4>
+                    <p class="list-group-item-text comment-text " >
+                        La facture sera disponible en ligne et vous sera envoyée par email le jour suivant la livraison
+                        <span class="link small" ng-href="/docs/facture-en-ligne">plus d'info concernant la facture en ligne</span>
+
+                    </p>
+                  </div>
+                </a>
                 <!-- THE ONES SAVED -->
                 <a href="" class="list-group-item "                             
                            ng-repeat="method in user.payments" 
@@ -233,11 +258,6 @@
                   </div>
                   <div class="col-xs-10 " >
                     <h4 class="list-group-item-heading heading-center">{{method.number}} <span class="bold green" payments-date="{{method.expiry}}">{{method.expiry}}</span></h4>
-                    <p class="list-group-item-text comment-text hide" >
-                      <button class="btn btn-xs btn-transparent">modifier</button>
-                      <button class="btn btn-xs btn-transparent"
-                              ng-click="deletePaymentMethod(method.alias)">supprimer</button>
-                    </p>
                   </div>
                 </a>
               </div>
@@ -309,7 +329,7 @@
                 <h2 class="article-group-title">VOTRE COMMANDE</h2>
             </div>
             </span>
-            <table class="table table-hover">
+            <table class="table ">
                 <thead>
                     <tr>
                         <th>Produit</th>
@@ -321,13 +341,13 @@
                 <tbody>
                   <tr  ng-repeat="item in cart.items|orderBy:'vendorName'" >                    
                     <td class="col-md-8">
-                      <a href="/products/{{item.sku}}" >{{item.part}} - {{item.title}}<br/>
-                      <div href="" class="link smallx" ng-if="item.vendorName" title="ajouter une note">
+                      <a href="/products/{{item.sku}}" >{{item.part}} - {{item.title}}</a><br/>
+                      <span href="" class="link smallx" ng-if="item.vendorName" title="ajouter une note">
                         <i class="icon icon-pencil-"></i> {{item.vendorName||''}}
-                      </div>                      
-                      </a>
+                      </span>                      
+
                       <div ng-show="item.error" class="alert alert-warning">{{item.error}}</div>
-                      <div class="btn-group btn-group-xs pull-right hidden-xs">
+                      <div class="btn-group btn-group-xs pull-right hidden-xs" style="margin-top:-8px">
                         <button type="button" class="btn btn-default" ng-click="cart.add(item, true)"><i class="icon-plus"></i></button>
                         <button type="button" class="btn btn-default" ng-click="cart.remove(item,true)"><i class="icon-minus"></i></button>
                         <button type="button" class="btn btn-default" ng-click="cart.clear(item)"><i class="icon-remove"></i></button>

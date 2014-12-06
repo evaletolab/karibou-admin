@@ -17,6 +17,18 @@
 
         </ul>
         <hr/>
+        <div>
+          <div class="checkbox">
+            <label><input type="checkbox" name="status" ng-click="updateStatus(modal.id,!modal.status)"  ng-selected="modal.status"/>utilisateur activé</label>
+          </div>          
+
+          <div class="checkbox">
+            <label><input type="checkbox" name="status" ng-click="activateMail(modal.id)"  ng-selected="modal.email.status"/>{{modal.email.address}} activé</label>
+          </div>          
+
+
+        </div>
+        <hr/>
         <div ng-repeat="address in modal.addresses" class="col-xs-12">
           <strong>{{address.name}}, {{address.streetAdress}}/{{address.postalCode}}</strong>
 

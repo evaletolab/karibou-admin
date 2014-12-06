@@ -34,7 +34,7 @@
             </div>
           </td>
           <td>{{item.quantity}}</td>
-          <td>{{item.price*item.quantity}}CHF</td>
+          <td>{{item.price*item.quantity|number:'2'}}CHF</td>
           <td><input type="text" type="number" pattern="^\d+(\.|\,)\d{2}$" ng-model="item.finalprice" class="col-xs-12" ng-disabled="getInputDisabled(item)"></td>
           <td>
             <button type="button" class="btn btn-primary btn"

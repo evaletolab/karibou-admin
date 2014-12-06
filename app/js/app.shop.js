@@ -166,7 +166,6 @@ Shop.controller('ShopCtrl',[
     $scope.updateMap=function(address){
       if (address.streetAdress===undefined||address.postalCode===undefined)
        return;
-
       $scope.map.geocode(address.streetAdress, address.postalCode, address.country, function(geo){
         if(!geo.results.length||!geo.results[0].geometry){
          return;
@@ -187,7 +186,7 @@ Shop.controller('ShopCtrl',[
 
     //
     // get products for the front page shop
-    var filter={sort:'created',group:'categories.name'/**,status:true*/};
+    var filter={sort:'categories.weight',group:'categories.name'};
     $scope.products=product.home($routeParams.shop, filter,function(products){
       $scope.products=products;
     });

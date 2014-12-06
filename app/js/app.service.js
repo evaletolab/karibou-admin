@@ -68,6 +68,8 @@ function ($rootScope, $http, $resource, $timeout, $q, config) {
         return err.responseText;
       if(typeof err.data === 'string')
         return err.data;       
+      if(typeof err.message === 'string')
+        return err.message;       
       if(err.data.length){
         var msg=""
         err.data.forEach(function(e){
@@ -75,15 +77,14 @@ function ($rootScope, $http, $resource, $timeout, $q, config) {
         })
         return msg;
       }         
-      return "Undefined error!";
+      return "Undefined error! ->"+JSON.stringify(err);
   };
 
   function error($scope, ms, cb){
     if(ms === undefined){ var ms=6000; }
     else if ((typeof ms)==='function'){ var cb=ms;ms=6000; }
     return function (err, status, thrown){
-      var e=parseError(err);
-      $rootScope.FormErrors=e;
+      $rootScope.FormErrors=parseError(err);
       $timeout(function(){
         $rootScope.FormErrors=false;
         if (cb) cb($scope);

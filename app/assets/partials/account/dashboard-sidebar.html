@@ -5,7 +5,7 @@
 <!--           <li ng-class="getToggleClass('when','next')"><a href="/admin/orders?when=next">Les prochaines</a></li>
 -->          
   <!-- SHIPPING DAYS -->
-  <li ng-class="getToggleClass('when',shipping.when.toISOString())" ng-repeat="shipping in shippingDays">
+  <li ng-class="getToggleClass('when',shipping.when.toISOString())" ng-repeat="shipping in shipping.days">
     <a class="" href="/admin/orders?when={{shipping.when.toISOString()}}">Le {{shipping.when|dateLabelShort}}</a>
   </li>
   <!-- SHOP LINKS -->
@@ -16,23 +16,28 @@
 
   <!-- PRODUCTS LINKS -->
   <li><h5>Produits</h5></li>
-  <li ng-class="getToggleClass('view','stock')"><a href="/admin/orders?view=stock">Les stocks</a></li>
+  <li ng-class="getToggleClass('view','stock')"><a href="/admin/orders?view=stock">Tous les produits</a></li>
+
+  <!-- SHIPPING LINKS -->
+  <li ng-if="user.hasRole('logistic')||user.isAdmin()"><h5>Logistique</h5></li>
+  <li  ng-class="getClass('/admin/collect')" ng-if="user.hasRole('logistic')||user.isAdmin()" >
+    <a href="/admin/collect">Collecte</a>
+  </li>
+  <li  ng-class="getToggleClass('when','current')" ng-if="user.hasRole('logistic')||user.isAdmin()" >
+    <a ng-href="/admin/shipping?when=current">livraison</a>
+  </li>
+  <li ng-class="getToggleClass('when',shipping.toISOString())" 
+      ng-repeat="shipping in shipping.pastDays"
+      ng-if="user.hasRole('logistic')||user.isAdmin()">
+    <a class="" href="/admin/shipping?when={{shipping.toISOString()}}">Le {{shipping|dateLabelShort}}</a>
+  </li>
 
   <!-- ADMIN LINKS -->
   <li ng-show="user.isAdmin()"><h5>Admin</h5></li>
-  <li  ng-class="getClass('/logistic/collect')" ng-show="user.isAdmin()" >
-    <a href="/logistic/collect">Collecte</a>
-  </li>
-  <li  ng-class="getClass('/logistic/overview')" ng-show="user.isAdmin()" >
-    <a ng-href="/logistic/livraison">livraison</a>
-  </li>
-  <li  ng-class="getClass('/admin/category')" ng-show="user.isAdmin()" >
+  <li  ng-class="getClass('/admin/category')" ng-if="user.isAdmin()" >
     <a ng-href="/admin/category">Categorie</a>
   </li>
-  <li  ng-class="getClass('/admin/role')" ng-show="user.isAdmin()" >
-    <a ng-href="/admin/role">Rôle</a>
-  </li>
-  <li  ng-class="getClass('/admin/user')" ng-show="user.isAdmin()" >
+  <li  ng-class="getClass('/admin/user')" ng-if="user.isAdmin()" >
     <a ng-href="/admin/user">Utilisateurs</a>
   </li>               
 
