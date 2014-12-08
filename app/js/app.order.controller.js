@@ -227,7 +227,6 @@ angular.module('app.order.admin', ['app.order.ui','app.config', 'app.api'])
         $scope.orders=orders;
         $scope.shops=false;
         $scope.addresses=orders.map(function(order){return order.shipping})
-        console.log($scope.addresses)
         //
         // group by shop?
         if($routeParams.groupby==='shop'){

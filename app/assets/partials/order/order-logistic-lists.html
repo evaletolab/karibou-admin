@@ -4,12 +4,12 @@
       <thead>
         <tr>
           <th><b>sac</b></th>
-          <th>#oid</th>
           <th>user</th>
-          <th>date</th>
           <th>postal</th>
           <th>rue</th>
           <th>étage</th>
+          <th>#oid</th>
+          <th>date</th>
           <th>note</th>
         </tr>
       </thead>
@@ -19,18 +19,18 @@
         </tr>
         <tr ng-repeat-end ng-class="getOrderStatusClass(order)">
           <td><b>{{order.rank}}</b></td>
-          <td>{{order.oid}}</td>
           <td>
             <a class="link "
                     ng-click="modalUserDetails(order.oid)"
                     bs-modal="'/partials/order/order.user.modal.html'">
-              {{order.customer.name.familyName}}
+              {{order.customer.name.givenName}} {{order.customer.name.familyName}}
             </a>
           </td>
-          <td>{{order.created|dateLabelShort}}</td>
           <td>{{order.shipping.postalCode}}</td>
           <td>{{order.shipping.streetAdress}}</td>
           <td>{{order.shipping.floor}}</td>
+          <td>{{order.oid}}</td>
+          <td>{{order.created|dateLabelShort}}</td>
           <td>{{order.shipping.note}}</td>
         </tr>
       </tbody>

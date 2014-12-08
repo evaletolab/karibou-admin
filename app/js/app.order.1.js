@@ -273,8 +273,8 @@ Order.controller('OrderNewCtrl',[
         //
         // empty the current cart to avoid multiple order
         cart.empty()
-        api.info($scope, "Votre  commande est enregistrée, vous serez livré le "+when,6000)
-        $location.path('/')
+        api.info($scope, "Votre  commande est enregistrée, vous serez livré le "+when,8000)
+        $location.path('/account/orders')
       },cb_error)
     }
 
