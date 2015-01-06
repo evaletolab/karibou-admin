@@ -154,7 +154,7 @@ function ($rootScope, $http, $resource, $timeout, $q, config) {
      */
     clazz.prototype.chain=function(promise){
      var self=this
-     this.$promise=this.$promise.finally(function(){
+     this.$promise=this.$promise.finally(function(data){
          return promise
      })
      return this

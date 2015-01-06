@@ -161,7 +161,43 @@ angular.element(document).ready(function () {
   // $script(["https://login.persona.org/include.js"],"persona");
 
 
+  if(!window.btoa){
+    window.btoa = function(str, utf8encode) {  // http://tools.ietf.org/html/rfc4648
+      utf8encode =  (typeof utf8encode == 'undefined') ? false : utf8encode;
+      var o1, o2, o3, bits, h1, h2, h3, h4, e=[], pad = '', c, plain, coded;
+      var b64 = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=";
+       
+      plain = utf8encode ? Utf8.encode(str) : str;
+      
+      c = plain.length % 3;  // pad string to length of multiple of 3
+      if (c > 0) { while (c++ < 3) { pad += '='; plain += '\0'; } }
+      // note: doing padding here saves us doing special-case packing for trailing 1 or 2 chars
+       
+      for (c=0; c<plain.length; c+=3) {  // pack three octets into four hexets
+        o1 = plain.charCodeAt(c);
+        o2 = plain.charCodeAt(c+1);
+        o3 = plain.charCodeAt(c+2);
+          
+        bits = o1<<16 | o2<<8 | o3;
+          
+        h1 = bits>>18 & 0x3f;
+        h2 = bits>>12 & 0x3f;
+        h3 = bits>>6 & 0x3f;
+        h4 = bits & 0x3f;
 
+        // use hextets to index into code string
+        e[c/3] = b64.charAt(h1) + b64.charAt(h2) + b64.charAt(h3) + b64.charAt(h4);
+      }
+      coded = e.join('');  // join() is far faster than repeated string concatenation in IE
+      
+      // replace 'A's from padded nulls with '='s
+      coded = coded.slice(0, coded.length-pad.length) + pad;
+       
+      return coded;
+    }  
+  }
+
+  console.log(window.Showdown.extensions)
   angular.bootstrap(document, ['app']);
 });
 

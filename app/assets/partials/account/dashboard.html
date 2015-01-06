@@ -19,7 +19,7 @@
             </ul>
           </li>        
           <li><a href="/account">{{user.display()}} <span ng-show="user.isAdmin()" class="label label-danger">ADMIN</span></a></li>
-          <li><a href="#">Help</a></li>
+          <li ng-if="user.isAuthenticated()"><a href="/logout">logout</a></li>
         </ul>
         <!-- FILTER CONTENT -->
         <form class="navbar-form navbar-right" role="search">
@@ -46,8 +46,8 @@
         </div>
 
 
-        <!-- FILTERS -->
-        <div class="panel panel-default" ng-hide="displayLogisitic">
+        <!-- FILTERS ORDERS -->
+        <div class="panel panel-default" ng-if="!displayLogisitic">
           <div class="panel-heading">Afficher les commandes</div>
           <div class="panel-body">
 
@@ -67,7 +67,20 @@
           </div>
         </div>        
 
+        <!-- FILTERS LOGISTIC -->
+        <div class="panel panel-default" ng-if="displayLogisitic">
+          <div class="panel-heading">Afficher les commandes</div>
+          <div class="panel-body">
+
+            <form role="form" class="form-inline" >
+              <div class="checkbox">
+                <label><input type="checkbox" ng-checked="{{getToggleClass('fulfillments','partial')=='active'}}" ng-click="toggle({fulfillments:'partial'})"> Commandes en préparations</label>
+              </div>&nbsp;
+            </form>        
+          </div>
+        </div>        
         
+
         <!-- LOGISTIC -->
         <div ng-if="orders.length && !shops && displayLogisitic">
           <h2 class="sub-header">Les livraisons <span ng-show="orders.length">({{orders.length}})</span> {{shipping.currentDay|dateLabelShort}}</h2>

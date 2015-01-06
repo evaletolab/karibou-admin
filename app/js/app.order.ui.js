@@ -89,6 +89,37 @@ angular.module('app.order.ui', [
 })
 
 
+.filter('orderFees', ['config',function (config) {
+   return function(order) {
+        if (!order||!order.items.length) return "0.0 CHF";
+
+        var fees=0.0,total=0.0;
+        this.items&&this.items.forEach(function(item){
+          if(item.fulfillment!=='failure'){
+            total+=item.finalprice;
+          }
+        });
+
+        //
+        // add gateway fees
+        for (var gateway in config.shop.order.gateway){
+          gateway=config.shop.order.gateway[gateway]
+          if (gateway.label===order.payment.issuer){
+            fees+=total*gateway.fees;
+            break;
+          }
+        }
+
+        // add shipping fees (10CHF)
+        fees+=config.shop.marketplace.shipping;
+
+        return parseFloat((Math.round(fees*20)/20).toFixed(2))+" CHF";
+
+
+   };
+}])
+
+
 .filter('orderTotal', function () {
    return function(order) {
         if (!order||!order.items.length) return "0.0 CHF";

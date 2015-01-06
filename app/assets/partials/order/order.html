@@ -80,7 +80,7 @@
             <form name="profile" class="wizard profile">
 
               <!-- START PROFILE -->
-              <div ng-if="!user.isAuthenticated()">     
+              <div ng-if="!profileReady">     
               <h3>Créer votre profil de livraison </h3>
 
               <!-- NAME FIRSTNAME -->   
@@ -104,7 +104,7 @@
                 </div>                
               </div>
               <!-- PASSWORD -->
-              <div class="form-group required" >
+              <div class="form-group required" ng-if="!user.isAuthenticated()">
                 <label class="collg2 control-label small">Mot de passe (minimum 6 caractères)</label>
                 <div class="collg10 ">
                   <input required ng-minlength=6 ng-model="user.password.new"  type="password" name="password" 
@@ -112,7 +112,7 @@
                   <span ng-hide="profile.password.$invalid" class="accout-field-valid"><i class="icon-ok green"></i></span>
                 </div>                
               </div>
-              <div class="form-group required">
+              <div class="form-group required" ng-if="!user.isAuthenticated()">
                 <label class="collg2 control-label small">Confirmer mot de passe</label>
                 <div class="collg10 ">
                   <input required ng-minlength=6 ng-model="user.password.copy"  type="password" name="copy" 
@@ -191,17 +191,17 @@
                     </select>
                 </div>
               </div>
-              <div class="clearfix" style="clear:both">
+              <div class="clearfix" style="clear:both" ng-if="user.email.status !== true">
                  <div class="alert alert-warning" >
                     Afin d'assurer une communication avec vous, nous avons besoin de valider votre adresse email. 
-                    Une demande de confirmation va vous être envoyé à la suite de cet enregistrement.
+                    Une demande de confirmation va vous être envoyée à la suite de cet enregistrement.
                  </div>
               </div>
               <hr />
               </div>
               <!-- END OF SHIPPING PROFILE -->
               <div class="clearfix" style="clear:both">
-                <div ng-if="user.isAuthenticated() && user.email.status === true">
+                <div ng-if="profileReady">
                   <h3>Votre profil est parfait, vous pouvez passer à l'étape suivante</h3>
                 </div>
                 <div ng-if="user.isAuthenticated() && user.email.status !== true">
@@ -269,9 +269,9 @@
 
               <div class="list-group clearfix" ng-show="!user.payments.length || user.showMorePayment">
                 <!-- VISA - MC -AE -->
-                <a href="" class="list-group-item" 
+                <a href="" class="list-group-item disabled" 
                            ng-class="{'active':user.showCreditCard==='vma'}" 
-                           ng-click="user.showCreditCard='vma';">
+                           nclick="user.showCreditCard='vma';">
                   <div class="col-xs-2 nopadding">
                     <img src="/img/payments/vma.jpg" class="img-thumbnail img-responsive" alt="" />
                   </div>
@@ -280,7 +280,9 @@
                   </div>
                 </a>
                 <!-- POSTFINANCE CARD -->
-                <a href="" class="list-group-item" ng-class="{'active':user.showCreditCard=='pf'}" ng-click="user.showCreditCard='pf';">
+                <a href="" class="list-group-item disabled" 
+                           ng-class="{'active':user.showCreditCard=='pf'}" 
+                           nclick="user.showCreditCard='pf';">
                   <div class="col-xs-2 nopadding">
                     <img src="/img/payments/pfc.jpg" class="img-thumbnail img-responsive" alt="" /></div>
                   <div class="col-xs-10 ">
@@ -404,7 +406,7 @@
                 <br/>
                 <label>
                   <input type="checkbox"  value="true" ng-model="cg">
-                  J'ai lu et j'accepte les conditions générales de vente et de livraison.
+                  J'ai lu et j'accepte <a ng-href="/page/conditions-generales">les conditions générales de vente et de livraison.</a>
                 </label>
                 <button type="button" class="btn btn-success btn-lg btn-block"
                         ng-disabled="!cg||!user.isReady()||!user.hasPrimaryAddress()||!cart.config.payment||!cart.items.length||WaitText"  
@@ -417,12 +419,7 @@
 
          </div>
 
-        <footer class="wrapper-footer wide">
-          <a class="wrapper-footer-link" title="Qui sommes nous" href="/about">Qui sommes nous</a>
-          <a class="wrapper-footer-link" title="Lire notre charte " href="/charte">Lire notre charte</a>
-          <a class="wrapper-footer-link" title="La FAQ" href="/help-center/faq">FAQ</a>
-          <a class="wrapper-footer-link" title="Developpeurs" href="" backend-url="href">API</a>
-        </footer>
+        <footer class="wrapper-footer wide" ng-include="'/footer.html'"></footer>
       </div>
    </section>
 </div>

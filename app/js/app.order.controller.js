@@ -123,7 +123,7 @@ angular.module('app.order.admin', ['app.order.ui','app.config', 'app.api'])
 
     $scope.getInputDisabled=function(item){
       var orderDisabled=(item.fulfillments&&item.fulfillments.status==='failure');
-      var itemDisabled=(['failure','fulfilled'].indexOf(item.fulfillment.status)!==-1)
+      var itemDisabled=(['fulfilled'].indexOf(item.fulfillment.status)!==-1)
       return itemDisabled||orderDisabled;
     }
 
@@ -150,8 +150,13 @@ angular.module('app.order.admin', ['app.order.ui','app.config', 'app.api'])
     //
     // cancel and close the order
     $scope.orderCancel=function(order,reason){
-      order.cancelWithReason(reason).$promise.then(function(){
+      order.cancelWithReason(reason).$promise.then(function(o){
         api.info($scope,"Commande annulée",2000);
+        // FIXME order status on cancel should be set from http result
+        order.fulfillments.status='failure';
+        order.payment.status="voided";
+        order.cancel={}
+        order.cancel.reason=reason;
       },cb_error)
     }
 
@@ -166,6 +171,13 @@ angular.module('app.order.admin', ['app.order.ui','app.config', 'app.api'])
       },cb_error)
     }
 
+
+    $scope.informShopToOrders=function(shop,content){
+      order.informShopToOrders(shop,content, function(){
+          api.info($scope,"Votre message à bien été envoyé! ");        
+      },cb_error);
+    }
+    
 
 
     $scope.updateItem=function(oid,item,fulfillment){
@@ -217,9 +229,9 @@ angular.module('app.order.admin', ['app.order.ui','app.config', 'app.api'])
       //
       // is logistic?
       if($scope.displayLogisitic){
-        params.closed=true;
-        params.fulfillments='fulfilled'
-        params.when||(params.when='current')
+        //params.fulfillments=(params.fulfillments||'fulfilled')
+        params.when=(params.when||'current')
+        if(params.fulfillments==='fulfilled')params.closed=true;
       }
 
 

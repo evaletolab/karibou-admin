@@ -1,6 +1,10 @@
 <!-- ORDERS BY SHOPS -->
 <div class="panel" ng-repeat="(shop, items) in shops" ng-if="shops" style="margin-top:40px">
-  <h3 id="ac-{{shop}}">La boutique <a ng-href="/shops/{{shop}}">{{shop}} ({{items.length}})</a></h3>
+  <h3 id="ac-{{shop}}">
+    La boutique <a ng-href="/shop/{{shop}}">{{shop}} ({{items.length}}) </a>  
+    <button ng-click="informShopToOrders(shop,shipping.currentDay)" ng-if="user.isAdmin()"
+            type="button" class="btn btn-sm btn-transparent">Envoyer un mail</button>
+  </h3>
     <table class="table  table-responsive ">
       <thead>
         <tr>
@@ -28,7 +32,7 @@
           </td>
           <td>{{item.created|dateLabelShort}}</td>
           <td>  
-            <a ng-href="/products/{{item.sku}}">{{item.title}}</a>
+            <a ng-href="/products/{{item.sku}}">{{item.title}} ({{item.part}})</a>
             <div ng-show="item.note" class="text-ellipsis smallx" style="max-width:300px">
             <i class="icon icon-pencil"></i> {{item.note||''}} 
             </div>

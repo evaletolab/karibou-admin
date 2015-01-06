@@ -150,7 +150,7 @@ User.controller('AccountCtrl',[
 
         //
         // if user manage his shop
-        if(user.shops.length){
+        if(user.shops.length || user.hasRole('logistic')){
           return $location.url('/admin/orders');
         }
 
@@ -387,7 +387,7 @@ User.factory('user', [
       provider: '',
       url: '',
       phoneNumbers:[{what:'mobile'}],
-      addresses:[{}]
+      addresses:[]
     };
 
 

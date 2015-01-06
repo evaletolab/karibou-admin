@@ -21,7 +21,7 @@
 
 
       <h5 class="article-group-title " >
-        <span class="bucket-header-title box">Vos dernières commandes</span>
+        <span class="bucket-header-title box">Status de mes commandes</span>
       </h5>
 
 
@@ -32,12 +32,12 @@
           <div class="timeline-panel">
             <div class="timeline-heading">
               <h4 class="timeline-title">{{order.getTitle()}}</h4>
-              <p><small class="text-muted"><i class="icon icon-time"></i>Créer {{order.created|dateLabel}}, N° {{order.oid}}</small>
+              <p><small class="text-muted"><i class="icon icon-time"></i>Créée {{order.created|dateLabel}}, N° {{order.oid}}</small>
 
               </p>
             </div>
             <div class="timeline-body">
-              <h5 style="margin-bottom:5px" class="text-muted">Status de la commande</h5>
+              <h5 style="margin-bottom:5px" class="text-muted">Statut de la commande</h5>
               <div class="progress">
                 <div class="progress-bar  " role="progressbar" order-progress="order"
                   ng-class="{'progress-bar-danger':order.fulfillments.status=='failure',
@@ -55,7 +55,7 @@
                     <span>{{order.payment.issuer}}</span>
                   </div>
                   <div class="cart">
-                    {{order|orderTotal}}<br/>
+                    {{order.getTotalPrice().toFixed(2)}} CHF<br/>
                     <span>total</span>
                   </div>
 
@@ -73,11 +73,14 @@
                       <td>{{i.finalprice|number:'2'}} CHF</td>
                     </tr>
                     <!-- info -->
-                    <tr>
-                      <td colspan="2">{{order.payment.issuer}}</td><td>{{order.payment.status}}</td>
+                    <tr class="">
+                      <td colspan="2">Soutotal</td><td >{{order|orderTotal}}</td>
+                    </tr>
+                    <tr class="">
+                      <td colspan="2">Livraison & Paiement</td><td >{{order|orderFees}}</td>
                     </tr>
                     <tr class="bold">
-                      <td colspan="2">TOTAL</td><td >{{order|orderTotal}}</td>
+                      <td colspan="2">TOTAL</td><td >{{order.getTotalPrice().toFixed(2)}} CHF</td>
                     </tr>
 
                   </tbody>

@@ -50,7 +50,7 @@ angular.module('app.root', [
     $scope.categories = [];
     $scope.config=config;
     $scope.showCart=false;
-    $scope.cover='img/localfood.jpg'        
+    $scope.cover=config.cover        
 
 
     //
@@ -205,7 +205,7 @@ angular.module('app.root', [
 
 
     $scope.getCover=function(){
-      $scope.cover='img/localfood.jpg'        
+      $scope.cover=config.cover        
       var template='/partials/cover.html';
 
 

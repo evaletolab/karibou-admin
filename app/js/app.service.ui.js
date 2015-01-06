@@ -320,22 +320,40 @@ UI.directive('background', ['$parse', function($parse) {
 
 
 UI.directive('backfader', ['$parse','$location','$anchorScroll','$routeParams', function($parse,$location,$anchorScroll, $routeParams) {
+  var referrers=[];
   return function(scope, element, attr) {
       angular.element("body").addClass('noscroll');
+
+      var referrer;
+      referrers.push(scope.referrer);
+      // manage state
+      //if current path is not on referrer, ok
+      if(referrers.indexOf($location.path())===-1){
+        referrer=scope.referrer;
+      }else{
+        var index=referrers.indexOf($location.path());
+        referrers.splice(index,referrers.length-index)
+        referrer=referrers[index-1]
+        //return;
+      }
+
+
       var i=setInterval(function(){
         if(!element.is(":visible")){
           angular.element("body").removeClass('noscroll');
           clearInterval(i);
         }
       },2000);
-      element.removeClass('hide').click(function(e) {
-		    if(e.target === element[0]){
+      //if current path is already in referrers => remove all
+      //console.log('input backfader', referrers,referrers.length-1);
+
+      (function(referrer, scrollLeft,scrollTop){
+        function onClose(){
+          //console.log('output backfader ---------------', referrer, scrollLeft,scrollTop)
           angular.element("body").removeClass('noscroll');
-          var url
-          if(scope.computeUrl)
+          var url=referrer
+          if(!url&&scope.computeUrl)
             url=scope.computeUrl();
-          else
-            url=scope.referrer
           
 
           //
@@ -346,14 +364,24 @@ UI.directive('backfader', ['$parse','$location','$anchorScroll','$routeParams', 
           //   window.history.back();
           //   return;
           // }
-          window.scrollBy(scope.scrollLeft,scope.scrollTop);
+          window.scrollBy(scrollLeft,scrollTop);
           scope.$apply(function(){
             $location.path(url)
           });
-          return;
-        }
-        
-		  });	    
+        };
+
+        element.find('.on-close').click(function(e){
+          e.stopPropagation();
+          onClose()
+          return false;
+        });
+        element.removeClass('hide').click(function(e) {
+          if(e.target === element[0]){
+            onClose()
+          }
+        });     
+
+      })(referrer,scope.scrollLeft,scope.scrollTop);
   }
 }]);
 

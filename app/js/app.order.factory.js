@@ -187,7 +187,7 @@ Order.factory('order', [
 
     Order.prototype.findCurrentShippingDay=function(){
       var timelimitH=Number(Object.keys(config.shop.order.shippingtimes).sort()[0])+8
-      if(timelimitH>=23)timelimitH=23;
+      timelimitH=23;
       return this.findNextShippingDay(0.1,timelimitH)
     }
 
@@ -218,7 +218,7 @@ Order.factory('order', [
       // add shipping fees (10CHF)
       total+=config.shop.marketplace.shipping;
 
-      return parseFloat((Math.ceil(total*20)/20).toFixed(2));
+      return parseFloat((Math.round(total*20)/20).toFixed(2));
     }
 
     Order.prototype.getShippingLabels=function(){
@@ -291,7 +291,7 @@ Order.factory('order', [
       }
       var labels=this.getShippingLabels();
 
-      return "Livré le "+labels.date;
+      return "Livrée le "+labels.date +' de '+labels.time;
 
     }
 
@@ -304,6 +304,10 @@ Order.factory('order', [
         if(cb)cb(self)
       },err);
       return self;
+    };
+
+    Order.prototype.informShopToOrders=function(shop,when,content){
+      return this.chain(this.backend.$order.save({action:shop,id:'email'},{when:when,content:content}).$promise);
     };
 
     Order.prototype.remove=function(){

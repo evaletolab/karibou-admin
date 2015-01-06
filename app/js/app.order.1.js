@@ -72,6 +72,7 @@ Order.controller('OrderNewCtrl',[
     // !user.ready            => /order/profile
     // user.ready && !process => /order/payment
     // user.ready &&  process => /order/process
+    $log.info('in flow',$scope.process, $scope.profileReady)  
 
     // user.$promise.finally(function(){
       if(!user.isAuthenticated() && $scope.process==='profile'){
@@ -89,6 +90,8 @@ Order.controller('OrderNewCtrl',[
       }else if($scope.process=='validation' && !cart.config.payment){
         $location.path('/order/payment')
       }
+
+    $log.info('out flow',$scope.process)  
     // });
 
     //
@@ -96,9 +99,10 @@ Order.controller('OrderNewCtrl',[
     user.$promise.then(function(){
       var p=user.hasPrimaryAddress();
       $scope.cart.config.address=(p!=-1)?p:0;
-      if(!user.addresses.length)user.addresses.push({})
-      if(!user.phoneNumbers.length)user.phoneNumbers.push({})
-      $log.debug("user data ready for order",user.addresses)
+      // create an empty address to prefil the form in the wizard
+      //if(!user.addresses.length)user.addresses.push({})
+      if(!user.phoneNumbers.length)user.phoneNumbers.push({what:'mobile'})
+      $log.info("user data ready for order",user.addresses)
     })
 
     config.shop.then(function(){
@@ -112,6 +116,7 @@ Order.controller('OrderNewCtrl',[
     //
     // geomap init
     $scope.updateMap=function(address, cb){
+      $log.info('update map done',address)
       if (address.streetAdress===undefined||address.postalCode===undefined)
        return;
 
@@ -133,8 +138,10 @@ Order.controller('OrderNewCtrl',[
     // if !user=> register+save profile
     $scope.saveIdentity=function(u){
       $rootScope.WaitText="Waiting ..."
+      $log.info('populate address ')
       user.populateAdresseName(u);
 
+      $log.info('update map')
       $scope.updateMap(u.addresses[0],function(err,address){
         if(err){
           return api.info($scope,err)
