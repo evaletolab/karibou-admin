@@ -19,6 +19,7 @@ article{
 	-o-transition: color .1s linear;
 	margin-bottom: 20px;
 	border-bottom: 1px solid #eee;
+	text-shadow:0px 1px 0px rgba(255, 255, 255, 0.9);
 }
 .article-group-title.black{
 	color: black;

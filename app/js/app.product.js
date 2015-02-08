@@ -55,9 +55,6 @@ Product.controller('ProductCtrl',[
 
   function ($scope,$route,$rootScope, $location, $routeParams, config, category, user, api, product, cart) {
     $scope.product=product;
-
-    var cb_error=api.error($scope);
-
     $scope.config=config;
     $scope.cart=cart;
 
@@ -140,7 +137,7 @@ Product.controller('ProductCtrl',[
           api.info($scope,"Votre produit a été enregistrée!",2000, function(){
             $location.path("/products/"+product.sku)
           });
-      },cb_error);
+      });
     };
     
     if($route.current&&$route.current.$$route.clear){
@@ -154,8 +151,7 @@ Product.controller('ProductCtrl',[
     
     $scope.love=function(product){
       if(!user.isAuthenticated()){
-          api.info($scope,"Vous devez vous connecter pour utiliser cette fonctionalité");
-          return;
+          return api.info($scope,"Vous devez vous connecter pour utiliser cette fonctionalité");
       }
       $rootScope.WaitText="Waiting ..."
       user.love(product,function(u){
@@ -175,7 +171,7 @@ Product.controller('ProductCtrl',[
       product.create(shop,p,function(product){
           $location.path("/products/"+product.sku)
           $scope.product=product;
-      },cb_error);
+      });
       
     };
 
@@ -183,7 +179,7 @@ Product.controller('ProductCtrl',[
       product.remove(password,function(){
           $location.path("/products")
           $scope.product={};
-      },cb_error);
+      });
       
     };
 
@@ -238,7 +234,7 @@ Product.controller('ProductCtrl',[
           loadDisqus($location.path());
         }
 
-      },cb_error);
+      });
     }          
     
 

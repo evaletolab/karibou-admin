@@ -15,22 +15,23 @@
       </th>
       <th style="width:100px">price</th>
       <th style="width:110px" class="text-center small">discount price</th>
+      <th style="width:40px"  class="text-center small" ng-if="user.isAdmin()">home</th>
       <th>-</th>
     </tr>
   </thead>
   <tbody>
     <tr ng-repeat-start="product in products|filter:filterTxt|orderBy:orderByField:reverseSort" >
     </tr>
-    <tr ng-repeat-end  ng-class="{'info':product.pricing._price!=product.pricing.price||product.pricing._stock!=product.pricing.stock}">
+    <tr ng-repeat-end  ng-class="{'info':isProductDirty(product)}">
       <td><a ng-href="/products/{{product.sku}}">{{product.title}}</a></td>
       <td>{{product.vendor.urlpath}}</td>
       <td>
         <input type="text" type="number"
-        ng-model="product.pricing._stock"  ng-init="product.pricing._stock=product.pricing.stock" class="col-xs-12">
+        ng-model="product.pricing._stock"  ng-init="product.pricing._stock=product.pricing.stock" class="form-control">
       </td>
       <td>
         <input type="text" type="number"
-        ng-model="product.pricing._price" ng-init="product.pricing._price=product.pricing.price" class="col-xs-12">
+        ng-model="product.pricing._price" ng-init="product.pricing._price=product.pricing.price" class="form-control">
       </td>
       <!-- DISCOUNT -->
       <td>
@@ -41,11 +42,13 @@
           <input type="text" class="form-control" type="number" ng-disabled="!product.attributes.discount" ng-model="product.pricing.discount">
         </div>      
       </td>
-
+      <!-- HOME -->
+      <td ng-if="user.isAdmin()">
+        <input type="checkbox" ng-checked="product.attributes.home" ng-model="product.attributes.home" ng-init="product.attributes._home=product.attributes.home">        
+      </td>
       <td>
         <button type="button" ng-click="product.updateAndSave();"
-                class="btn btn-primary btn-xs"
-                ng-disabled="product.pricing._price==product.pricing.price&&product.pricing._stock==product.pricing.stock"><i class="icon-save"></i></button>
+                class="btn btn-primary btn-xs"><i class="fa fa-save"></i></button>
       </td>
     </tr>
   </tbody>

@@ -40,14 +40,14 @@ article:nth-child(even){
   font-weight:300;
   font-size:13px;
 
-  -border-radius:5px;
+  border-radius:3px;
   overflow: hidden;
   position: relative;
 }
 
 .layout-item img{
   cursor:pointer;
-  cursor:-Moz-Zoom-In;
+  -cursor:-Moz-Zoom-In;
   overlay:hidden;
   margin-top:auto;
   margin-bottom:auto;
@@ -137,12 +137,24 @@ article:nth-child(even){
 
 
 
-.layout-item .title{
-    overflow: hidden;
+.layout-item .title-old{
+    overflow: hidden; 
     text-overflow: ellipsis;
     white-space: nowrap;
     font-family: 'Halant', serif;
-    font-size:16px;
+    font-family: 'Gentium Book Basic', serif;
+    font-size:14px;
+}
+
+.layout-item .title{
+  overflow: hidden;
+  font-family: Halant,serif;
+  font-family: 'Gentium Book Basic', serif;
+  font-size: 15px;
+  padding: 8px 4px 1px 8px;
+  height: 45px;
+  line-height: 18px;
+  vertical-align: text-bottom;
 }
 
 .layout-item.c1, form .layout-item.c1{
@@ -235,8 +247,9 @@ article:nth-child(even){
 
 .layout-item .btn-transparent.green {
   border-width: 0px;
-  color: rgba(14, 226, 56, 0.37)!important;
+  color: rgba(14, 226, 56, 0.57)!important;
   background-color: rgba(234, 227, 235, 0.17);
+  border-radius: 30%;
 }
 
 
@@ -302,10 +315,15 @@ article:nth-child(even){
 ------------------------- */
 @media (max-width: 767px) {
 	.layout-item.c1{
-    width: 47%;
-    margin: 0 2.5% 5% 0;
+    width: 49%;
+    margin: 0 1% 1% 0;
   }
 
+  .layout-item.c1{
+    width: 31%;
+    margin: 0 1% 1% 0%;
+  }
+  
   .layout-item.c1:nth-child(odd){
 
   }
@@ -333,17 +351,22 @@ article:nth-child(even){
 ------------------------- */
 @media (max-width: 480px) {
   .layout-item.c1{
-    margin: 0 2.5% 5% 0%;
+    width: 31%;
+    margin: 0 1% 1% 0%;
   }
 
 	.layout-item.c2, .layout-item.c3{
-		width: 95%; /* 305px */
+		width: 98%; /* 305px */
 	}
 
 
   .layout-item{
     font-size:12px;
   }
+
+  .layout-item .title{
+    font-size: 14px;
+  }  
 
   .layout-item .shop{
     font-size:10px;

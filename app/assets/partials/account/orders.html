@@ -6,8 +6,8 @@
   </aside>
 
 
-   <section class="wrapper" tabindex="-1" ng-controller="OrderAdminCtrl">
-      <div class="wrapper-inner" >
+   <section class="wrapper" tabindex="-1" ng-controller="OrderCommonCtrl">
+      <div class="wrapper-inner" ng-init="findOrdersByUser()">
 
 
 
@@ -21,18 +21,18 @@
 
 
       <h5 class="article-group-title " >
-        <span class="bucket-header-title box">Status de mes commandes</span>
+        <span class="bucket-header-title box">Statut de mes commandes</span>
       </h5>
 
 
     <ul class="timeline"  ng-show="orders.length">
         <li ng-repeat="order in orders" ng-class="{'timeline-inverted':$odd}">
           <!-- timeline start -->
-          <div class="timeline-badge "><i class="icon icon-shopping-cart green"></i></div>
+          <div class="timeline-badge "><i class="fa fa-shopping-cart green"></i></div>
           <div class="timeline-panel">
             <div class="timeline-heading">
               <h4 class="timeline-title">{{order.getTitle()}}</h4>
-              <p><small class="text-muted"><i class="icon icon-time"></i>Créée {{order.created|dateLabel}}, N° {{order.oid}}</small>
+              <p><small class="text-muted"><i class="fa fa-time"></i>Créée {{order.created|dateLabel}}, N° {{order.oid}}</small>
 
               </p>
             </div>
@@ -62,24 +62,24 @@
                 </div>
 
                 <!-- ITEMS DETAILS-->
-                <table class="table table-condensed smallx " id="detail-{{order.oid}}" style="display:none">
+                <table class="table table-condensed smallx hide" id="detail-{{order.oid}}" style="">
                   <thead>
                     <tr><th>Produit</th><th>Qté</th><th>CHF</th></tr>
                   </thead>
                   <tbody>
-                    <tr ng-repeat="i in order.items" ng-class="{'strike grayx':i.fulfillment.status==='failure'}">
-                      <td title="{{i.vendor}}">{{i.title}}</td>
+                    <tr ng-repeat="i in order.items" ng-class="{'strike grayx':(i.fulfillment.status==='failure'||order.fulfillments.status==='failure')}">
+                      <td title="{{i.vendor}}"><a ng-href="/products/{{i.sku}}">{{i.title}}</a></td>
                       <td>{{i.quantity}}</td>
                       <td>{{i.finalprice|number:'2'}} CHF</td>
                     </tr>
                     <!-- info -->
-                    <tr class="">
+                    <tr ng-class="{'strike grayx':order.fulfillments.status==='failure'}">
                       <td colspan="2">Soutotal</td><td >{{order|orderTotal}}</td>
                     </tr>
-                    <tr class="">
+                    <tr ng-class="{'strike grayx':order.fulfillments.status==='failure'}">
                       <td colspan="2">Livraison & Paiement</td><td >{{order|orderFees}}</td>
                     </tr>
-                    <tr class="bold">
+                    <tr class="bold" ng-class="{'strike grayx':order.fulfillments.status==='failure'}">
                       <td colspan="2">TOTAL</td><td >{{order.getTotalPrice().toFixed(2)}} CHF</td>
                     </tr>
 
@@ -90,7 +90,7 @@
 
               <div class="btn-group">
                 <button type="button" class="btn btn-transparent btn-sm dropdown-toggle" data-toggle="dropdown">
-                  <i class="icon icon-cog"></i> actions <span class="caret"></span>
+                  <i class="fa fa-cog"></i> actions <span class="caret"></span>
                 </button>
                 <ul class="dropdown-menu" role="menu">
                   <li ng-class="{'disabled':order.fulfillments.status!=='reserved'}">
@@ -107,7 +107,7 @@
 
 <!--               <div class="btn-group">
                 <button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown">
-                  <i class="icon icon-cog"></i> <span class="caret"></span>
+                  <i class="fa fa-cog"></i> <span class="caret"></span>
                 </button>
                 <ul class="dropdown-menu" role="menu">
                   <li><a href="#" ng-click="cart.addList(order.items)" ng-disabled="!order.items.length">Copier cette commande</a></li>
@@ -122,11 +122,11 @@
         </li>
 <!--
         <li class="timeline-inverted">
-          <div class="timeline-badge warning"><i class="icon icon-credit-card"></i></div>
+          <div class="timeline-badge warning"><i class="fa fa-credit-card"></i></div>
           <div class="timeline-panel">
             <div class="timeline-heading">
               <h4 class="timeline-title">Livrée 1 avril 2013, CHF 120.-</h4>
-              <p><small class="text-muted"><i class="icon icon-time"></i>commandé le 28 mars, N° #10020135</small></p>
+              <p><small class="text-muted"><i class="fa fa-time"></i>commandé le 28 mars, N° #10020135</small></p>
             </div>
             <div class="timeline-body">
               <table class="table table-condensed small">
@@ -166,7 +166,7 @@
               <hr>
               <div class="btn-group">
                 <button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown">
-                  <i class="icon icon-cog"></i> <span class="caret"></span>
+                  <i class="fa fa-cog"></i> <span class="caret"></span>
                 </button>
                 <ul class="dropdown-menu" role="menu">
                   <li><a href="#">Copier cette commande</a></li>
@@ -180,7 +180,7 @@
           </div>
         </li>
         <li>
-          <div class="timeline-badge danger"><i class="icon icon-leaf"></i></div>
+          <div class="timeline-badge danger"><i class="fa fa-leaf"></i></div>
           <div class="timeline-panel">
             <div class="timeline-heading">
               <h4 class="timeline-title">20 mars 2013, CHF 70.50</h4>
@@ -191,7 +191,7 @@
           </div>
         </li>
         <li class="timeline-inverted">
-          <div class="timeline-badge info"><i class="icon icon-leaf"></i></div>
+          <div class="timeline-badge info"><i class="fa fa-leaf"></i></div>
           <div class="timeline-panel">
             <div class="timeline-heading">
               <h4 class="timeline-title">10 mars 2013, CHF 170.10</h4>
@@ -202,7 +202,7 @@
           </div>
         </li>
         <li>
-          <div class="timeline-badge info"><i class="icon icon-lemon"></i></div>
+          <div class="timeline-badge info"><i class="fa fa-lemon"></i></div>
           <div class="timeline-panel">
             <div class="timeline-heading">
               <h4 class="timeline-title">2 mars 2013, CHF 80.40</h4>
@@ -212,7 +212,7 @@
               <hr>
               <div class="btn-group">
                 <button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown">
-                  <i class="icon icon-cog"></i> <span class="caret"></span>
+                  <i class="fa fa-cog"></i> <span class="caret"></span>
                 </button>
                 <ul class="dropdown-menu" role="menu">
                   <li><a href="#">Copier</a></li>
@@ -235,7 +235,7 @@
           </div>
         </li>
         <li class="timeline-inverted">
-          <div class="timeline-badge success"><i class="icon icon-thumbs-up"></i></div>
+          <div class="timeline-badge success"><i class="fa fa-thumbs-up"></i></div>
           <div class="timeline-panel">
             <div class="timeline-heading">
               <h4 class="timeline-title">20 février 2013, CHF 100.00</h4>

@@ -26,14 +26,14 @@
               <!-- THE ONES SAVED -->
               <a href="" class="list-group-item "                             
                          ng-repeat="method in user.payments" >
-                <div class="col-xs-2 nopadding " >
-                  <img ng-src="/img/payments/{{pm[method.type]}}" class="img-thumbnail img-responsive" alt="" />
+                <div class="col-xs-3 col-sm-2 nopadding " >
+                  <img ng-src="/img/payments/{{pm[method.type.toLowerCase()]}}" class="img-thumbnail img-responsive" alt="" />
                 </div>
-                <div class="col-xs-10 " >
+                <div class="col-xs-9 col-sm-10 " >
                   <h4 class="list-group-item-heading ">{{method.number}} <span class="bold green" payments-date="{{method.expiry}}">{{method.expiry}}</span></h4>
                   <p class="list-group-item-text comment-text" >
-                    <button class="btn btn-xs btn-transparent"
-                            ng-click="showPaymentForm=true;">modifier</button>
+                    <button class="btn btn-xs btn-transparent hide"
+                            ng-click="options.showPaymentOptions=true;">modifier</button>
                     <button class="btn btn-xs btn-danger"
                             ng-click="deletePaymentMethod(method.alias)">supprimer</button>
                   </p>
@@ -41,30 +41,30 @@
               </a>
             </div>
             <div ng-show="user.payments.length" style="padding:10px" class=" help-block">
-              <a href="" ng-click="showPaymentForm=true" >
+              <a href="" ng-click="options.showPaymentOptions=true" >
                 Ajouter une méthode de paiement?
               </a>
             </div>
 
-            <div class="list-group clearfix" ng-show="!user.payments.length || showPaymentForm">
+            <div class="list-group clearfix" ng-show="!user.payments.length || options.showPaymentOptions">
               <!-- VISA - MC -AE -->
               <a href="" class="list-group-item" 
-                         ng-class="{'active':user.showCreditCard==='vma'}" 
-                         ng-click="user.showCreditCard='vma';">
-                <div class="col-xs-2 nopadding">
+                         ng-class="{'active':options.showCreditCard==='vma'}" 
+                         ng-click="options.showCreditCard='vma';">
+                <div class="col-xs-3 col-sm-2 nopadding">
                   <img ng-src="/img/payments/vma.jpg" class="img-thumbnail img-responsive" alt="" />
                 </div>
-                <div class="col-xs-10 " >
+                <div class="col-xs-9 col-sm-10 " >
                   <h5 class="list-group-item-heading heading-center">VISA - MasterCard - American Express</h5>
                 </div>
               </a>
               <!-- POSTFINANCE CARD -->
-              <a href="" class="list-group-item" ng-class="{'active':user.showCreditCard=='pf'}" ng-click="user.showCreditCard='pf';">
-                <div class="col-xs-2 nopadding">
+              <a href="" class="list-group-item" ng-class="{'active':options.showCreditCard=='pf'}" ng-click="options.showCreditCard='pf';">
+                <div class="col-xs-3 col-sm-2 nopadding">
                   <img ng-src="/img/payments/pfc.jpg" class="img-thumbnail img-responsive" alt="" /></div>
-                <div class="col-xs-10 ">
+                <div class="col-xs-9 col-sm-10 ">
                   <h5 class="list-group-item-heading">Postfinance Card</h5>
-                  <p class="list-group-item-text comment-text">
+                  <p class="list-group-item-text comment-text hide">
                     Nécessitera l'utilisation de votre lecteur de carte.
                   </p>
 
@@ -74,8 +74,11 @@
             </div>
 
             <!-- new card -->
-            <div ng-include="'/partials/order/card.html'" 
-                 ng-show="user.showCreditCard=='vma'"></div>
+            <div ng-include="'/partials/order/payment-card.html'" 
+                 ng-if="options.showCreditCard=='vma'"></div>
+
+            <div ng-include="'/partials/order/payment-postfinance-ecommerce.html'" 
+                 ng-if="options.showCreditCard=='pf'"></div>
 
           </div>
 

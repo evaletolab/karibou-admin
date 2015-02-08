@@ -11,6 +11,16 @@ angular.module('app.user.ui', [
   'app.api'
 ])
 
+/**
+ * this should be usefull to help the display of the primary address
+ */
+.filter("primary",function(){
+  return function(primary,user){
+    if (primary)return primary;
+    return (user.addresses.length==1)?'true':'false';
+  }
+})
+
 //
 // compute passwrod strength
 // http://blog.brunoscopelliti.com/angularjs-directive-to-test-the-strength-of-a-password

@@ -60,36 +60,9 @@ function ($rootScope, $http, $resource, $timeout, $q, config) {
   };
 
   
-  
-  function parseError(err){
-      if(typeof err === 'string') 
-        return err;
-      if(typeof err.responseText === 'string')
-        return err.responseText;
-      if(typeof err.data === 'string')
-        return err.data;       
-      if(typeof err.message === 'string')
-        return err.message;       
-      if(err.data.length){
-        var msg=""
-        err.data.forEach(function(e){
-          msg=msg+"<p>"+e+"</p>";
-        })
-        return msg;
-      }         
-      return "Undefined error! ->"+JSON.stringify(err);
-  };
+
 
   function error($scope, ms, cb){
-    if(ms === undefined){ var ms=6000; }
-    else if ((typeof ms)==='function'){ var cb=ms;ms=6000; }
-    return function (err, status, thrown){
-      $rootScope.FormErrors=parseError(err);
-      $timeout(function(){
-        $rootScope.FormErrors=false;
-        if (cb) cb($scope);
-      }, ms);
-    }
   };  
   
   
@@ -153,11 +126,12 @@ function ($rootScope, $http, $resource, $timeout, $q, config) {
      * chain a Object resource as the next promise
      */
     clazz.prototype.chain=function(promise){
-     var self=this
-     this.$promise=this.$promise.finally(function(data){
-         return promise
-     })
-     return this
+      var self=this;
+      this.$promise=this.$promise.then(function(data){
+        if(Array.isArray(data))self.wrapArray(data);else self.wrap(data)
+        return promise
+      })
+      return this
     }
 
 

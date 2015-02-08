@@ -1,6 +1,15 @@
 <!DOCTYPE html>
 <html lang="fr" ng-controller="AppCtrl" class="-screen-scroll" ng-class="browser()">
   <head>
+
+    <!--                                 
+       | |/ /         (_) |                
+       | ' / __ _ _ __ _| |__   ___  _   _ 
+       |  < / _` | '__| | '_ \ / _ \| | | |
+       | . \ (_| | |  | | |_) | (_) | |_| |
+       |_|\_\__,_|_|  |_|_.__/ \___/ \__,_|
+    < -->          
+
     <title>Karibou Genève - un marché alimentaire composé d'artisans, de producteurs et de petits commerçants</title>
     <meta name="title" content="Karibou Genève - un marché alimentaire composé d'artisans, de producteurs et de petits commerçants">
     <meta charset="utf-8">
@@ -20,142 +29,111 @@
     <meta property="og:url" content="http://Karibou.ch/">
     <meta name="twitter:site" content="@kariboulab">
 
-
     <!--[if lt IE 9]>
       <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
 
 
     <!-- <link href="//fonts.googleapis.com/css?family=Open+Sans:400,300,600|Merriweather:400,300,700" rel="stylesheet" type="text/css" async="true">-->
-    <link defer href='http://fonts.googleapis.com/css?family=Halant:500|Fira+Sans:300' rel='stylesheet' type='text/css'>
+    <!-- <link defer href='http://fonts.googleapis.com/css?family=Halant:500|Fira+Sans:300' rel='stylesheet' type='text/css'> -->
+    <link href='http://fonts.googleapis.com/css?family=Gentium+Book+Basic:700|Fira+Sans:300' rel='stylesheet' type='text/css'>
 
-    <!-- <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:600' rel='stylesheet' type='text/css'> -->
     <link defer rel="stylesheet" href="/css/vendor.css?cache={!distRelease!}">
     <link defer rel="stylesheet" href="/css/app.css?cache={!distRelease!}">
     <script type="text/javascript">var ngCMSSettings={}</script>
-    
   </head>
 
-   <body class="fade-in-right fade-out-left " ng-class="{'display-cart':showCart}">
+   <body ng-class="{'display-cart':options.cart,'display-info':config.shop.global.maintenance.active, 'site-nav-transition site-nav-drawer-open':options.sidebar}">
 
-      <!--[if lt IE 7]><p class="browser-support">
-        Unfortunately, this site won't work with your browser. Please upgrade to a modern browser:<br>
-        <a href="http://www.google.com/chrome">Google Chrome</a>
-        <a href="http://www.mozilla.org/firefox">Firefox</a>
-        <a href="http://www.microsoft.com/windows/internet-explorer/">Internet Explorer 9</a>
-      </p><![endif]-->
-<!--       <iframe accept-cookie frameborder="0" style="height:0px;width:100%;z-index:999999">
-      </iframe> 
- -->
-      <nav class="site-nav" tabindex="-1" toggle-sidebar >
-         <button class="site-nav-logo " ng-cloak ng-class="{large:cart.quantity()}">
-            <span class=""><i class="icon-reorder white icon-2"></i>
+      <!-- DISPLAY CART -->
+      <button class="site-nav-logo-cart hidden-print" 
+             ng-cloak  ng-click="toggleCart()" 
+             ng-show="cart.items.length">
+          <span ng-show="cart.items.length">
+            <i class="fa fa-chevron-down hidden-xs"></i>&nbsp;
+            <i class="fa fa-shopping-cart green "></i>&nbsp;({{cart.quantity()}}) <span class="pull-right">{{cart.grandTotal()|number:2}} CHF  <i class=" fa fa-bicycle hidden-xs"></i>&nbsp;</span></span>
+          </span>
+      </button>
+      <!-- DISPLAY SIDEBAR -->
+      <nav class="site-nav hidden-print" tabindex="-1" toggle-sidebar  ng-click="toggleSidebar()" >
+         <button class="site-nav-logo hidden-print" 
+                 >
+            <span class=""><i class="fa fa-reorder white fa fa-2"></i>
               &nbsp;Menu
             </span>
-         </button>
-         <button class="site-nav-logo-cart " 
-                 ng-cloak  ng-click="toggleCart()" 
-                 ng-show="cart.items.length">
-              <span ng-show="cart.items.length">
-                <i class="icon-shopping-cart green small"></i>&nbsp;<span class=" green small">{{cart.quantity()}}</span>
-              </span>
          </button>
 
          <div  class="site-nav-scrollable-container">
             
-      <!--            -->
-      <!-- NAVIGATION -->
-      <!--            -->
+            <!--            -->
+            <!-- NAVIGATION -->
+            <!--            -->
 
             <ul class="site-nav-list fill">
-
-              <!-- CART 
-              <li class="site-nav-list-item basket-top" ng-show="cart.items.length">
-                <span  class="site-nav-list-item-text" >
-                  <i class="icon-shopping-cart green "></i>  Votre panier
-                </span>
-              </li>
-              <li class="site-nav-list-item basket" ng-repeat="item in cart.items" ng-show="cart.items.length">
-                <a class="site-nav-list-item-cart green"  href="/products/{{item.sku}}" tabindex="-1">{{item.quantity}}x {{item.title}}<span>{{item.part}}</span></a>
-              </li>
-
-              <li class="site-nav-list-item basket" ng-show="cart.items.length">
-                <span class="site-nav-list-item-cart  green"  href="" tabindex="-1">TOTAL {{cart.total()| number:2}} CHF</span>
-                <a type="button" class="btn btn-success btn-lg btn-block" href="/order">
-                    Valider votre commande
-                </a>
-                <button type="button" class="btn  btn-lg btn-block" ng-click="cart.empty()">
-                    Effacer
-                </button>                                
-              </li>
-
               <!-- HOME -->              
               <li class="site-nav-list-item navigable-list-item site-nav-list-item-home">
-                <span class=""><a class="site-nav-list-item-btn" title="Go home" href="/" tabindex="-1"><span class="icon-home green"></span>&nbsp;Home</a></span>
+                <span class=""><a class="site-nav-list-item-btn" title="Go home" href="/" tabindex="-1"><span class="fa fa-home green"></span>&nbsp;Home</a></span>
               </li>
 
 
               <li class="site-nav-list-item" ng-hide="user.isAuthenticated()">
-                <a ng-class="getClass('/login')" class="btn  btn-success btn btn-md site-nav-list-item-btn-bootstrap " href="/login"><i class="icon icon-user"></i>&nbsp;Login</a>
+                <a ng-class="getClass('/login')" class="btn  btn-success btn btn-md site-nav-list-item-btn-bootstrap " href="/login"><i class="fa fa-user"></i>&nbsp;Login</a>
               </li>
               <li class="site-nav-list-item" ng-hide="user.isAuthenticated()">
-                <a ng-class="getClass('/signup') " class="btn  btn-md  btn-info site-nav-list-item-btn-bootstrap" href="/signup"><i class="icon icon-fire"> </i>&nbsp;Sign Up</a>
+                <a ng-class="getClass('/signup') " class="btn  btn-md  btn-info site-nav-list-item-btn-bootstrap" href="/signup"><i class="fa fa-fire"> </i>&nbsp;Sign Up</a>
               </li>
 
               <!-- SIGNED -->
-              <li ng-class="getClass('/account')" class="site-nav-list-item" ng-show="user.isAuthenticated()">
-                <a class="site-nav-list-item-btn" href="/account/"><span class="green">@</span>&nbsp;<span ng-bind="user.display()"></span></a>
-              </li>
-<!--               <li ng-class="getClass('/account')" class="site-nav-list-item" ng-show="user.isAuthenticated()">
-                <a ng-show="user.shops.length" class="site-nav-list-item-btn" href="/products/create" title="Ajouter un nouvel article">
-                  <i class="icon-plus pink"></i> Ajouter un produit
-                </a>                
-              </li>              
- -->
               <li class="site-nav-list-item" ng-show="user.isAuthenticated()">
-                <a  class="site-nav-list-item-btn" href="" ng-click="logout()">logout</a>
+                <a  class="site-nav-list-item-btn" ng-href="/account/overview" ><i class="fa fa-wrench green"></i>&nbsp;@{{user.display()}}</a>
               </li>
-
-
-
-
+              <li class="site-nav-list-item" ng-show="user.isAuthenticated()">
+                <a  class="site-nav-list-item-btn" href="" ng-click="logout()"><i class="fa fa-sign-out green"></i>&nbsp;logout</a>
+              </li>
 
               <!-- MENU -->
-              <li class="site-nav-list-item divider">
+              <li class="site-nav-list-item divider visible-xs visible-sm">
                 <span  class="site-nav-list-item-text" >Le marché</span>
               </li>
 
-
-              <li  class="site-nav-list-item " ng-repeat="category in category.findAll()|filter:{type:'Category'}|orderBy:'weight'">
+              <li  class="site-nav-list-item visible-xs visible-sm" ng-repeat="category in category.findAll()|filter:{type:'Category'}|orderBy:'weight'">
                 <a class="site-nav-list-item-btn  " title="{{category.name}}" 
                    ng-class="getClass('/products/category/{{category.slug}}')"
                    href="/products/category/{{category.slug}}" tabindex="-1"><i class=""></i>&nbsp;{{category.name}}</a>
               </li>
 
-              <li class="site-nav-list-item divider">
+              <li class="site-nav-list-item divider visible-xs visible-sm">
                 <span  class="site-nav-list-item-text" >Les commerces</span>
               </li>
 
-              <li class="site-nav-list-item ">
+              <li class="site-nav-list-item visible-xs visible-sm">
                 <a class="site-nav-list-item-btn " ng-class="getClass('/shops')" title="Les boutiques" href="/shops" tabindex="-1">Les boutiques</a>
               </li>
               
+              <!-- INFO -->
+              <li class="site-nav-list-item divider">
+                <span  class="site-nav-list-item-text" >Informations</span>
+              </li>
+              <li class="site-nav-list-item">
+                <a  class="site-nav-list-item-btn" title="Qui sommes-nous?" href="/page/team">Qui sommes-nous?</a
+              </li>
+              <li class="site-nav-list-item">
+                <a  class="site-nav-list-item-btn" title="Lire notre Charte " href="/page/la-charte">Lire notre Charte</a>
+              </li>
+
+              <li class="site-nav-list-item">
+                <a  class="site-nav-list-item-btn" title="Conditions générales de vente" href="/page/conditions-generales">Conditions générales de vente</a>
+              </li>
 
 
               <!-- CART -->     
-<!--               <li class="site-nav-list-item divider">
-                <span  class="site-nav-list-item-text" >Le panier</span>
-              </li>
- -->
-
-<!--               <li class="site-nav-list-item basket-bottom"></li>
- -->            </ul>
+            </ul>
          </div>
       </nav>
 
       <!-- CART -->        
-      <div class="cover-resume cart "  ng-if="showCart">
-        <div id="cart"  class="row " ng-show="cart.items.length " ng-include="'/partials/order/cart.html'">
+      <div class="cover-resume cart fade-in-right fade-out-right" ng-cloak ng-show="options.cart && cart.items.length" >
+        <div id="cart"  class="row nopadding"  ng-include="'/partials/order/cart.html'">
         </div>
       </div> 
       <!-- CART -->
@@ -168,15 +146,30 @@
       <!--          -->
       <!-- FLASH    -->
       <!--          -->
+        <div class="butter-bar active info back " ng-cloak 
+             ng-show="user.isAuthenticated() && user.email.status !== true">
+          <p class="butter-bar-message">
+            <b>Psst!</b> N'oubliez pas de valider votre adresse e-mail!
+          </p>
+        </div>
+
+         <div class="butter-bar active info " ng-cloak 
+              ng-show="config.shop.global.maintenance.active" 
+            ng-animate="{show: 'fadein', hide: 'fadeout'}">
+            <p class="butter-bar-message" >
+              <i class="fa fa-info-circle"></i>&nbsp;<strong>Livraisons interrompues</strong>
+              
+            </p>
+         </div>
          <div class="butter-bar active success " ng-cloak ng-show="FormInfos" 
             ng-animate="{show: 'fadein', hide: 'fadeout'}">
-            <p class="butter-bar-message" ng-cloak >
+            <p class="butter-bar-message" ng-cloak ng-show="FormInfos">
               {{FormInfos}}
             </p>
          </div>
          <div class="butter-bar active error " ng-cloak  ng-show="FormErrors" 
             ng-animate="{show: 'fadein', hide: 'fadeout'}">
-            <p class="butter-bar-message" ng-bind-html="FormErrors" ng-cloak >
+            <p class="butter-bar-message" ng-bind-html="FormErrors" ng-cloak ng-show="FormErrors">
             </p>
          </div>
 

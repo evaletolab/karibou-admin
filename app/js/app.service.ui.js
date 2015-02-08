@@ -34,6 +34,19 @@ UI.filter('clean', function () {
    };
 });
 
+UI.filter('reverse', function() {
+  return function(items) {
+    if(!items)return
+    return items.slice().reverse();
+  };
+});
+
+UI.filter('unique', function() {
+    return function (arr, field) {
+        return _.uniq(arr, function(a) { return a[field]; });
+    };
+});
+
 
 //
 // http://stackoverflow.com/questions/19992090/angularjs-group-by-directive
@@ -137,12 +150,17 @@ UI.directive("bgSrc", ['$timeout',function ($timeout) {
 }]);
 
 //Send gg event {category:'',action:''}
-UI.directive('gaSend', ['$parse','$window','config',function($parse,$window, config) {
+UI.directive('gaSend', ['$parse','$window','config','user',function($parse,$window, config, user) {
   return function(scope, element, attr) {
     var o = $parse(attr['gaSend'])();
     //
     // send gg analitycs
     if($window.ga && config.API_SERVER.indexOf('localhost')==-1){
+      if(!$window._gaUserId && user.isAuthenticated()){
+        $window._gaUserId=user.display();
+        $window.ga('set', 'userId', $window._gaUserId);
+      }
+
       element.click(function(){
           $window.ga('send', 'event', o.category, o.action);        
           // if(console)console.log('ga',o)
@@ -163,40 +181,20 @@ UI.directive('reload', ['$parse','$timeout', function($parse, $timeout) {
 }]);
 
 
-//
-// start progress for usability
-UI.directive('startProgress', ['$parse','$timeout', function($parse, $timeout) {
-  return function(scope, element, attr) {
-    var option = attr['startProgress']||{};
-    element.bind('click', function(event) {
-      NProgress.start();
-    })
-  }
-}]);
-
 
 //
 // Declare global directives here
 UI.directive('toggleSidebar', ['$parse','$timeout', function($parse, $timeout) {
   return function(scope, element, attr) {
-    var sb = $parse(attr['toggleSidebar']);
-    var $body=$("body");
-    $('button.site-nav-logo').click(function(){
-        $body.addClass("site-nav-transition site-nav-drawer-open");
-        $("button.site-nav-logo").css('opacity',0);
-      })
-    $timeout(function(){
-      function hide(){
-          $body.removeClass("site-nav-drawer-open");  
-          $timeout(function(){
-            $("button.site-nav-logo").css({opacity:1,'z-index':1000});
-            $body.removeClass("site-nav-transition ");  
-          },800);        
-      }
-      $(".site-nav-overlay").click(hide);
-      $("a").click(hide)
-
-    },1000)
+    function hide(){
+        if(scope.options.sidebar)return;
+        scope.options.sidebar=false;
+        $timeout(function(){
+          $("button.site-nav-logo").css({opacity:1,'z-index':1000});
+        },800);        
+    }
+    //$(".site-nav-overlay").click(hide);
+    $(document).click(hide)
   }
 }]);
 
@@ -212,7 +210,7 @@ UI.directive('confirmDelete', ['$parse', function($parse) {
   var span='\
     <form id="passwd-{{$id}}" style="'+style+'" class="form-inline prompt-passwd" validate>\
       <input type="password" class="form-control" placeholder="valider avec votre mot de passe" required autofocus="true" style="width: 220px;">\
-      <button class="btn btn-primary" ><i class="icon-unlock"></i></button>\
+      <button class="btn btn-primary" ><i class="fa fa-unlock"></i></button>\
     </form>\
   ';
   return {
@@ -416,6 +414,30 @@ UI.directive('lazyload', ['$parse','$timeout', function($parse , $timeout) {
   }
 }]);
 
+UI.directive('autoSubmit', ['$parse','$timeout', function($parse , $timeout) {
+  return function(scope, element, attr) {
+    $timeout(function () {
+      element.submit();
+    },1000)
+  }
+}]);
+
+
+UI.directive('iframeAutoHeight', [function(){
+return {
+    restrict: 'A',
+    link: function(scope, element, attrs){
+        element.on('load', function(){
+            /* Set the dimensions here, 
+               I think that you were trying to do something like this: */
+               var iFrameHeight = element[0].contentWindow.document.body.scrollHeight + 'px';
+               var iFrameWidth = '100%';
+               element.css('width', iFrameWidth);
+               if(iFrameHeight!==0)
+                element.css('height', iFrameHeight);
+        })
+    }
+}}])
 
 
 //
@@ -483,7 +505,7 @@ UI.directive('toggleOnClick', ['$parse','$timeout', function($parse, $timeout) {
         var e=angular.element(attr['toggleOnClick']);
         if(e.length){
           element.click(function(){
-            e.toggle();
+            e.toggleClass('hide');
           });
         }
       },1500);

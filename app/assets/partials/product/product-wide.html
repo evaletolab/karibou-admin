@@ -5,7 +5,7 @@
           ng-swipe-left="showPreviousProduct(product.sku)" >
         <aside>
           <!-- DISPLAY PHOTO -->
-          <img ng-cloak ng-show="product.photo.url" ng-src="{{product.photo.url}}" class="item-image" style="width:100%">
+          <img ng-cloak ng-if="product.photo.url" bg-src="{{product.photo.url}}" class="item-image" >
 
           <!-- DISPLAY DEFAULT PHOTO -->
           <img ng-cloak ng-if="!product.photo.url" ng-src="{{false|placehold:'400x320'}}" >
@@ -27,7 +27,7 @@
           <!-- CLOSE-->
           <div>
           <a class="btn btn-transparent pull-right on-close"
-                 href="{{computeUrl()}}"><i class="icon-remove icon-2x white"></i>&nbsp;</a>
+                 href="{{computeUrl()}}"><i class="fa fa-remove fa fa-2x white"></i>&nbsp;</a>
           </div>
 
           <!-- PRICE-->
@@ -48,11 +48,11 @@
 
             <!-- ACTIONS -->
             <button class="btn btn-danger btn-lg " ng-click="love(product)">
-              <i ng-class="{true:'icon-heart',false:'icon-heart-empty'}[user.hasLike(product)]"></i>&nbsp;J'aime
+              <i ng-class="{true:'fa fa-heart',false:'fa fa-heart-empty'}[user.hasLike(product)]"></i>&nbsp;J'aime
             </button>
 
             <button class="btn btn-primary btn-lg " ng-click="cart.add(product)" ng-hide="!product.isAvailableForOrder()||!product.pricing.stock">
-              <i class="icon-ok"></i>&nbsp;J'achète
+              <i class="fa fa-ok"></i>&nbsp;J'achète
             </button>
 
           </div>
@@ -63,7 +63,7 @@
 
       <!-- ADMIN OR OWNER -->
       <div ng-show="user.isOwnerOrAdmin(product.vendor.name)" class="pull-right">
-        <a href="{{rootProductPath}}/products/{{product.sku}}/edit" class="btn  btn-small"><i class="icon-edit"></i>&nbsp;Editer le produit</a>
+        <a href="{{rootProductPath}}/products/{{product.sku}}/edit" class="btn  btn-small"><i class="fa fa-edit"></i>&nbsp;Editer le produit</a>
       </div>
 
       <!-- TITLE -->

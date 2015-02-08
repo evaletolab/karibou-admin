@@ -13,7 +13,7 @@
   right: 0;
   top: 0;
   cursor:-Moz-Zoom-Out;
-  z-index: 9999;
+  z-index: 999999;
 }
 
 .popupcontent{

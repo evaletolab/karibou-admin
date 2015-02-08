@@ -40,9 +40,6 @@ Shop.controller('ShopCtrl',[
 
   function (config, $scope, $rootScope, $routeParams, $location, api, shop, product, Map,$log) {
 
-
-    var cb_error=api.error($scope);
-
     $scope.config=config;
     $scope.shop=shop;
     $scope.map=new Map();
@@ -55,7 +52,7 @@ Shop.controller('ShopCtrl',[
           api.info($scope,"Votre boutique a été modifié!",2000,function(){
             $location.url('/shop/'+shop.urlpath);            
           });
-      },cb_error);
+      });
     };
     
     $scope.remove=function(user,shops,password){
@@ -64,7 +61,7 @@ Shop.controller('ShopCtrl',[
             $location.url('/account');  
             user.shops.pop(shop)          
           });
-      },cb_error);
+      });
     }
 
     
@@ -72,7 +69,7 @@ Shop.controller('ShopCtrl',[
     shop.get($routeParams.shop,function(shop){
       $scope.shop=shop;
       $rootScope.title='La boutique '+shop.name;
-    },cb_error);
+    });
     
 
     //
@@ -82,7 +79,7 @@ Shop.controller('ShopCtrl',[
         return;
       shop.publish(function(){
           api.info($scope,"Une demande d'activation à bien été envoyée! Vous serez contacté dans les plus brefs délais");        
-      },cb_error);
+      });
     }
 
     //
@@ -101,7 +98,7 @@ Shop.controller('ShopCtrl',[
         shop.photo.fg=(config.storage&&fpfile.key)?config.storage+fpfile.key:fpfile.url;      
         shop.save(function(s){
             api.info($scope,"Votre photo a été enregistrée!");            
-        },cb_error);
+        });
         
       });
     }
@@ -125,7 +122,7 @@ Shop.controller('ShopCtrl',[
             api.info($scope,"Votre photo a été enregistrée!");            
             //elem.find('img.photo-owner').attr("src",FPFile.url+filter);
             
-        },cb_error);
+        });
         
       });
     }
@@ -141,7 +138,7 @@ Shop.controller('ShopCtrl',[
       shop.ask(content, function(){
           api.info($scope,"Votre question à bien été envoyé! Vous serez contacté dans les plus brefs délais");        
           
-      },cb_error);
+      });
     }
     
     $scope.waitingStatus=function(){
@@ -217,6 +214,7 @@ Shop.factory('shop', [
       photo:{},
       options:{},
       available:{},
+      address:{},
       info:{},
       faq:[]
     };
@@ -288,18 +286,12 @@ Shop.factory('shop', [
     };
 
 
-    Shop.prototype.get = function(urlpath,cb,err) {
-      if(!err) err=this.onerr;
-      
-      var me=this, loaded=Shop.find(urlpath);if (loaded){
-        me.wrap(loaded)
-        if(cb)cb(loaded);
-        return loaded;
-      };
-      
+    Shop.prototype.get = function(urlpath,cb) {
+      var err=this.onerr, self=this;      
       var s=this.backend.get({urlpath:urlpath},function() {
         checkimg(s);
-        if(cb)cb(me.wrap(s));
+        self.wrap(s)
+        if(cb)cb(self);
       },err);
       return this;
     };

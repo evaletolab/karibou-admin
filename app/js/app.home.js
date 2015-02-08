@@ -103,7 +103,7 @@ Home.controller('HomeCtrl', [
       if ($routeParams.category){
         $scope.group=category.findNameBySlug($routeParams.category);
         $scope.$parent.title="Les produits - "+$scope.group;
-        filter={sort:'title'/**,status:true*/};
+        filter={sort:'title',status:true};
         
         $scope.products=product.findByCategory($routeParams.category,filter,function(products){
           $scope.items=$scope.products=products;
@@ -140,7 +140,7 @@ Home.controller('HomeCtrl', [
         return deferred.promise;
       } 
 
-      filter={sort:'categories.weight',group:'categories.name'};
+      filter={sort:'categories.weight',group:'categories.name', status:true, home:true};
       $scope.products=product.home(null,filter,function(products){
         $scope.items=$scope.products=products;
         deferred.resolve(products)

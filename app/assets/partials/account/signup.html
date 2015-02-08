@@ -9,21 +9,21 @@
       <div class="main-account">
         <!-- FNAME -->
         <input required ng-model="reg.name.givenName" placeholder="Prénom" type="text" name="name1" class="form-control input-lg" />
-        <span ng-hide="identity.name1.$invalid" class="accout-field-valid"><i class="icon-ok green"></i></span>
+        <span ng-hide="identity.name1.$invalid" class="accout-field-valid"><i class="fa fa-ok green"></i></span>
         <!-- NAME -->
         <input required ng-model="reg.name.familyName" placeholder="Nom" type="text" name="name2" class="form-control input-lg"/>
-        <span ng-hide="identity.name2.$invalid" class="accout-field-valid"><i class="icon-ok green"></i></span>
+        <span ng-hide="identity.name2.$invalid" class="accout-field-valid"><i class="fa fa-ok green"></i></span>
         <!-- EMAIL -->
         <input name="email" placeholder="Email" required ng-model="reg.email.address" type="email" class="form-control input-lg login"/>
-<!--         <span ng-hide="form.email.$invalid" class="accout-field-valid"><i class="icon-ok green"></i></span>
+<!--         <span ng-hide="form.email.$invalid" class="accout-field-valid"><i class="fa fa-ok green"></i></span>
  -->
         <!-- PASSWORD -->
         <input class="form-control input-lg " required ng-minlength=6 ng-model="reg.password.new" type="password" name="password"
           placeholder="Mot de passe (minimum 6 caractères)"/>
-        <span ng-hide="identity.password.$invalid" class="accout-field-valid"><i class="icon-ok green"></i></span>
+        <span ng-hide="identity.password.$invalid" class="accout-field-valid"><i class="fa fa-ok green"></i></span>
         <input class="form-control input-lg " required ng-minlength=6 ng-model="reg.password.copy" type="password" name="copy"
           placeholder="Confirmer mot de passe"/>
-        <span ng-hide="identity.copy.$invalid || reg.password.copy!=reg.password.new" class="accout-field-valid"><i class="icon-ok green"></i></span>
+        <span ng-hide="identity.copy.$invalid || reg.password.copy!=reg.password.new" class="accout-field-valid"><i class="fa fa-ok green"></i></span>
         <!--<ul id="strength" password-strength="reg.password.new"></ul>-->
       </div>
 
@@ -39,7 +39,7 @@
                 ng-click="createAccount(reg)" ng-disabled="identity.$invalid || WaitText ||user.password.copy!=user.password.new"
                 ga-send="{category:'account',action:'register'}"
                 class="btn btn-lg btn-success pull-right  ">
-                <i ng-class="{'icon-gear':WaitText}"></i>
+                <i ng-class="{'fa fa-gear':WaitText}"></i>
                 Submit
               </button>
 

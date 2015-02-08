@@ -16,7 +16,7 @@ Category.config([
 
     // List of routes of the application
     $routeProvider
-      .when('/admin/category', {title:'Admin of category ', _view:'main', templateUrl : '/partials/admin/category.html'});
+      .when('/admin/category', {title:'Admin of category ', _view:'main', templateUrl : '/partials/admin/dashboard-category.html'});
   }
 ]);
 
@@ -36,9 +36,6 @@ Category.controller('CategoryCtrl',[
 
   function (config, $scope, $timeout, $routeParams, $location, api, category,$resource) {
 
-
-    var cb_error=api.error($scope);
-
     $scope.config=config;
   
     $scope.selected;
@@ -55,14 +52,14 @@ Category.controller('CategoryCtrl',[
       category.save(function(s){
           api.info($scope,"Successfully updated!");
           $scope.categoryslug=null;
-      },cb_error);
+      });
     };
     
     $scope.create=function(cat){
       category.create(cat,function(s){
           api.info($scope,"Successfully updated!");
           $scope.categories.push(s);
-      },cb_error);
+      });
     };
 
     $scope.delete=function(index, password){
@@ -72,14 +69,14 @@ Category.controller('CategoryCtrl',[
       category.remove(password, function(s){
           api.info($scope,"Successfully updated!");
           $scope.categories.splice(index,1);
-      },cb_error);
+      });
     };
 
     //
     //modal
 
     // default model
-    $scope.modal = {name:'',type:'Category',image:'icon-leaf', weight:0, saved: false};
+    $scope.modal = {name:'',type:'Category',image:'fa fa-leaf', weight:0, saved: false};
 
     
     $scope.launchModal=function(elem){
@@ -87,7 +84,7 @@ Category.controller('CategoryCtrl',[
     }
     
     $scope.modalDissmiss=function(){
-      $scope.modal = {name:'',type:'Category',image:'icon-leaf', weight:0, saved: false};
+      $scope.modal = {name:'',type:'Category',image:'fa fa-leaf', weight:0, saved: false};
     }
 
     $scope.modalSave=function(dismiss){
@@ -126,7 +123,7 @@ Category.controller('CategoryCtrl',[
     // init
     category.select({stats:true},function(categories){
       $scope.categories=categories;
-    },cb_error);
+    });
     
   }  
 ]);

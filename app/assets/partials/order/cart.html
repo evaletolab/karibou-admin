@@ -1,4 +1,17 @@
-<div style="max-height:90%;overflow-y:auto">                  
+<div class="cart-content">     
+  <!-- MESSAGE -->
+  <div ng-show="config.shop.global.maintenance.active" >
+    <div class="alert alert-warning nomargin small">
+    <i class="fa fa-info-circle"></i>&nbsp;<strong>Livraisons interrompues</strong><br/>
+    {{config.shop.global.maintenance.reason}}                
+    </div>
+  </div>
+  <div ng-show="!config.shop.global.maintenance.active" >
+    <div class="alert alert-warning nomargin small " 
+         clockdown="Prochaine livraison "
+         style="padding-left:10px"></div>
+  </div>
+  <!-- CONTENT -->             
   <table class="table " >
       <thead>
           <tr>
@@ -8,16 +21,16 @@
           </tr>
       </thead>
       <tbody>
-        <tr  ng-repeat="item in cart.items|orderBy:'vendorName'" >
+        <tr  ng-repeat="item in cart.items|orderBy:['weight','vendorName']" >
           <td class="col-md-8 small"><a href="/products/{{item.sku}}" >{{item.part}} - {{item.title}}</a><br/>
             <span href="" class="link smallx" ng-if="item.vendorName" title="ajouter une note">
-              <i class="icon icon-pencil-"></i> {{item.vendorName||''}}
+              <i class="fa fa-pencil-"></i> {{item.vendorName||''}}
             </span>
           </td>
           <td class="col-md-1" style="text-align: center">
             {{item.quantity}}
-            <button type="button" class="btn btn-xs btn-default" ng-click="cart.add(item, true)"><i class="icon-plus"></i></button>
-            <button type="button" class="btn btn-xs btn-default" ng-click="cart.remove(item,true)"><i class="icon-minus"></i></button>
+            <button type="button" class="btn btn-xs btn-default" ng-click="cart.add(item, true)"><i class="fa fa-plus"></i></button>
+            <button type="button" class="btn btn-xs btn-default" ng-click="cart.remove(item,true)"><i class="fa fa-minus"></i></button>
 
           </td>
           <td class="col-md-2 text-right">{{item.price*item.quantity|number:2}} </td>
@@ -25,18 +38,32 @@
           <tr>
               <td>   </td>
               <td class="text-right padding">
-                <p><strong>Soustotal: </strong></p>
+                <strong>Soustotal: </strong><br/>
+                <strong>Livraison: </strong>
               <td class="text-right padding">
-                <p><strong>{{cart.total()|number:2}} </strong></p>
+                <strong>{{cart.total()|number:2}} </strong></br>
+                <strong><i class="fa fa-bicycle green bold"></i> {{cart.shipping()|number:2}} </strong>
               </td>
+          </tr>
+
+          <tr>
+              <td>   </td>
+              <td class="text-right"><h4><strong>Total: </strong></h4></td>
+              <td class="text-right padding text-success"><h4><strong>{{cart.grandTotal()|number:2}} CHF</strong></h4></td>
+          </tr>
+          <tr ng-cloak ng-show="config.shop.global.maintenance.active" >
+            <td  colspan="3">
+            </td>
           </tr>
 
       </tbody>
   </table>
 </div>  
-  <a  href="/order" class="btn btn-success btn-lg btn-block">
+<div class="cart-bottom">
+  <a  href="/order" class="btn btn-success btn-lg btn-block" ng-class="{'disabled':config.shop.global.maintenance.active}">
     Valider la commande
   </a>
-  <button type="button" class="btn btn-default btn-lg btn-block" ng-click="cart.empty()">
+  <button type="button" class="btn btn-default btn-lg btn-block" ng-click="cart.empty();toggleCart();">
       Vider le panier
-  </button>    
+  </button>        
+</div>

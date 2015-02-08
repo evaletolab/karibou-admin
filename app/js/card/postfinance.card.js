@@ -95,7 +95,6 @@
       for (i = 0, len = cards.length; i < len; i++) {
 
         card = cards[i];
-
         if (card.pattern.test(num)) {
           return card;
         }

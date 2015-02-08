@@ -23,7 +23,7 @@
             <!-- <div class="modal-header">
               <h3 class="gray">Editer votre boutique</h3>
             </div> -->
-            <div class="">
+            <div class="" style="margin-top:50px;">
               <div data-fade="1" bs-tabs>
                 <div data-title="Information">
 
@@ -181,7 +181,7 @@
                                   ng-repeat="l in config.shop.marketplace.list"
                                   ng-class="{'list-group-item-success':activeMarket(l.name)}"
                                   ng-click="toggleMarket(l.name)">{{l.name}}
-                                  <span ng-show="activeMarket(l.name)" class="pull-right label label-success"><i class="icon-ok"></i></span>
+                                  <span ng-show="activeMarket(l.name)" class="pull-right label label-success"><i class="fa fa-ok"></i></span>
                                 </a>
                             </div>                          
                             <p class="help-block">Si votre produit est collecté au marché, précisez un nom de stand. Sinon, indiquez l'adresse d'une autre boutique.</b></p>
@@ -244,7 +244,7 @@
                         <p class="help-block"> </p>
                       </div>
                       <div class="col-xs-1">
-                        <a class="pull-right btn btn-default btn-lg" href ng-click="shop.faq.splice($index, 1)"><i class="icon-remove"></i></a>
+                        <a class="pull-right btn btn-default btn-lg" href ng-click="shop.faq.splice($index, 1)"><i class="fa fa-remove"></i></a>
                       </div>           
                       <div class="col-xs-12">
                         <textarea  rows="4" class="form-control input-lg" ng-model="shop.faq[$index].a" placeholder="Votre commentaire">{{faq.a}}</textarea>
@@ -252,7 +252,7 @@
                       </div>           
                     </div>
                     <div class="clearfix">
-                      <button href ng-click="shop.faq.push({})" class="btn btn-primary btn-lg btn-block ">Ajouter <i class="icon-plus"></i></button>
+                      <button href ng-click="shop.faq.push({})" class="btn btn-primary btn-lg btn-block ">Ajouter <i class="fa fa-plus"></i></button>
                       <p class="help-block"> </p>
                     </div>
 

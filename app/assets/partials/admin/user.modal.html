@@ -19,11 +19,11 @@
         <hr/>
         <div>
           <div class="checkbox">
-            <label><input type="checkbox" name="status" ng-click="updateStatus(modal.id,!modal.status)"  ng-selected="modal.status"/>utilisateur activé</label>
+            <label><input type="checkbox" name="status" ng-click="updateStatus(modal.id,modal.status)"  ng-model="modal.status"/>utilisateur activé</label>
           </div>          
 
           <div class="checkbox">
-            <label><input type="checkbox" name="status" ng-click="activateMail(modal.id)"  ng-selected="modal.email.status"/>{{modal.email.address}} activé</label>
+            <label><input type="checkbox" name="status" ng-click="activateMail(modal.id)"  ng-model="modal.email.status"/>{{modal.email.address}} activé</label>
           </div>          
 
 

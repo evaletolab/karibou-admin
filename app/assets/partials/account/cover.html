@@ -4,10 +4,26 @@
       <div class="cover-body-inner">
         <h1 class="cover-title">{{user.display()}}</h1>
         <div>
-          <a href="/account/overview" class="btn  btn-info btn btn-md btn-split">Mon profil</a>
-          <a href="/account/love" class="btn btn-info btn btn-md btn-split">
-            Mes coups de  <i class="icon-heart"></i></a>
+          <a href="/account/overview" class="btn  btn-profile btn btn-md btn-split">Mon profil</a>
+          <a href="/account/love" class="btn btn-profile btn btn-md btn-split">
+            Mes coups de  <i class="fa fa-heart"></i></a>
         </div>
+
+
+        <div class="cover-resume categories hidden-xs hidden-sm" >
+          <ul>
+              <li>
+                <a class="site-nav-list-item  " title="Tous les produits" 
+                   href="/" tabindex="-1"><i class=""></i>&nbsp;Tous les produits</a>
+              </li>
+              <li  class="" ng-repeat="category in category.findAll()|filter:{type:'Category'}|orderBy:'weight'">
+                <a class="site-nav-list-item  " title="{{category.name}}" 
+                   ng-class="getClass('/products/category/{{category.slug}}')"
+                   href="/products/category/{{category.slug}}" tabindex="-1"><i class=""></i>&nbsp;{{category.name}}</a>
+              </li>
+          </ul>
+        </div>
+
 
 <!--         <div class="cover-resume hide" >
               <div class="cover-resume-col" ng-click="showOverview()">
@@ -25,7 +41,7 @@
 <!--         <div class="cover-resume shop-profile" >
           <div ng-show="user.isAdmin()">
             <a href="/admin/orders" class="btn btn-block btn-lg btn-transparent left">
-              <i class="icon-fire "></i> Commande à traiter
+              <i class="fa fa-fire "></i> Commande à traiter
             </a>
           </div>
         </div>

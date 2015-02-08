@@ -1,38 +1,21 @@
 <!-- BY ORDERS -->
-<div class="panel">
-    <table class="table  table-bordered table-responsive ">
-      <thead>
-        <tr>
-          <th><b>sac</b></th>
-          <th>user</th>
-          <th>postal</th>
-          <th>rue</th>
-          <th>étage</th>
-          <th>#oid</th>
-          <th>date</th>
-          <th>note</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr ng-repeat-start="order in orders|filter:filterTxt" ng-show="groupByShippingDate(order.shipping.when, $index)" >
-          <td colspan="8" class="shipping-date"><div><a title="voir le détail par boutique" ng-href="/admin/orders?groupby=shop&when={{order.shipping.when}}">{{order.shipping.when|dateLabel}}</a></div></td>
-        </tr>
-        <tr ng-repeat-end ng-class="getOrderStatusClass(order)">
-          <td><b>{{order.rank}}</b></td>
-          <td>
-            <a class="link "
-                    ng-click="modalUserDetails(order.oid)"
-                    bs-modal="'/partials/order/order.user.modal.html'">
-              {{order.customer.name.givenName}} {{order.customer.name.familyName}}
-            </a>
-          </td>
-          <td>{{order.shipping.postalCode}}</td>
-          <td>{{order.shipping.streetAdress}}</td>
-          <td>{{order.shipping.floor}}</td>
-          <td>{{order.oid}}</td>
-          <td>{{order.created|dateLabelShort}}</td>
-          <td>{{order.shipping.note}}</td>
-        </tr>
-      </tbody>
-    </table>
+<div class="list-group">
+  <div ng-repeat-start="order in orders|orderBy:['-shipping.when','shipping.postalCode']|filter:filterTxt" 
+       ng-show="groupByShippingDate(order.shipping.when, $index) && (!filters.f||filters.f===order.shipping.when)" >
+      <h3>&nbsp;{{order.shipping.when|dateLabel}}</h3>
+  </div>
+  <li  class="list-group-item " 
+     ng-repeat-end ng-class="getOrderStatusClass(order)" ng-if="(!filters.f||filters.f===order.shipping.when)">
+    <h4 class="list-group-item-heading">
+      <a class=" " ng-click="modalUserDetails(order.oid)" bs-modal="'/partials/order/order.user.modal.html'">
+        {{order.shipping.name}}</a> - {{getOrderPhones(order)}}
+    </h4>
+    <span class="pull-right label label-primary">sac {{order.rank}}</span>
+    <p class="list-group-item-text">
+       {{order.shipping.streetAdress}}/{{order.shipping.postalCode}}<br/>
+       <small>étage: {{order.shipping.floor}} - {{order.shipping.note}}</small>
+    </p>
+  </li>
 </div>
+
+

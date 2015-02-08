@@ -15,9 +15,24 @@ body {
   font-weight: 300;
 }
 
+body.display-cart, body.site-nav-drawer-open{
+  overflow-y: hidden;
+}
+
+@-viewport {
+    width: device-width;
+    zoom: .5;
+}
+
 html{
   height: 100%;
   -webkit-font-smoothing: antialiased;
+}
+
+iframe{
+  border: none;
+  margin: 0;
+  height:100%;
 }
 
 .browser-support {

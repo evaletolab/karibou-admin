@@ -1,33 +1,35 @@
-  <div id="product{{product.sku}}" class="block layout-item c1" >
+  <!-- microformat http://schema-creator.org/product.php -->
+  <div id="product{{product.sku}}" class="block layout-item c1" 
+        itemscope itemtype="http://schema.org/Product">
       <!-- ACTION FOR THIS PRODUCT -->
       <div  class="actions hidden-xs hidden-sm hidden-md" style="position:absolute;top:10px;left:10px"
            fade-on-hover="#product{{product.sku}}"         
            ng-hide="!product.attributes.available||!product.pricing.stock" >
-            <a class="btn btn-danger " ng-click="love(product)">
-              <i ng-class="{true:'icon-heart',false:'icon-heart-empty'}[user.hasLike(product)]"></i>
+            <a class="btn btn-danger " nh-href="" ng-click="love(product)">
+              <i ng-class="{true:'fa fa-heart',false:'fa fa-heart-o'}[user.hasLike(product)]"></i>
 
               &nbsp;J'aime
             </a> 
             <a class="btn btn-primary " ng-click="cart.add(product)" ng-disabled="WaitText"
                 ng-show="product.isAvailableForOrder()&& product.pricing.stock">
-              <i ng-class="{'icon-ellipsis-horizontal':CartText, 'icon-ok ':!CartText}"></i>
+              <i ng-class="{'fa fa-ellipsis-h':CartText, 'fa fa-ok ':!CartText}"></i>
               &nbsp;J'achète 
             </a>
       </div>
       <div class="actions hidden-lg" ng-if="product.isAvailableForOrder()&&product.pricing.stock">
           <a class="btn btn-transparent green" ng-click="cart.add(product)">
-            <i ng-class="{'icon-ellipsis-horizontal icon-2x':CartText, 'icon-plus icon-2x ':!CartText}"></i>
+            <i ng-class="{'fa fa-ellipsis-h fa fa-2x':CartText, 'fa fa-plus fa fa-2x ':!CartText}"></i>
           </a>
           <a class="btn btn-transparent green pull-right" ng-click="cart.remove(product)" 
               ng-show="cart.findBySku(product.sku).quantity">
-            <i ng-class="{'icon-ellipsis-horizontal icon-2x':CartText, 'icon-minus icon-2x ':!CartText}"></i>
+            <i ng-class="{'fa fa-ellipsis-h fa fa-2x':CartText, 'fa fa-minus fa fa-2x ':!CartText}"></i>
           </a>
       </div>
 
       <!-- PRODUCT LINK -->
       <a  ng-href="{{shop.urlpath|test:'/shop/':''}}/products/{{product.sku}}" 
           shop="/shop/{{product.vendor.urlpath}}" 
-          class="link"  start-progress>
+          class="link"   itemprop="url">
 
           <!-- PHOTO -->
           <!-- <img ng-if="product.photo.url&&!product_edit" bg-src="{{product.photo.url}}" class="lazy "> -->
@@ -41,7 +43,7 @@
 
 
           <!-- PRICE-->
-          <div class="price" >
+          <div class="price" itemprop="price">
             <!-- REGULAR -->
             <span ng-if="!product.attributes.discount" class="small green bold ">Fr {{product.pricing.price| number:2}}</span>
             <!-- DISCOUNT -->
@@ -55,13 +57,13 @@
         </a>
 
         <div class="vertical-divider" style="width:100%">
-          <div class="title " >
+          <div class="title " itemprop="name">
             {{product.title}} <span ng-show="product.details.bio" class="green bold">(bio)</span>
           </div>
           <div >
-            <a class="shop-title " ng-href="/shop/{{product.vendor.urlpath}}"  start-progress>{{product.vendor.name}}</a>
-            <i class=" love" ng-click="love(product)"
-               ng-class="{true:'icon-heart pink1',false:'icon-heart-empty'}[user.hasLike(product)]"></i>
+            <a class="shop-title " ng-href="/shop/{{product.vendor.urlpath}}"  >{{product.vendor.name}}</a>
+            <i class=" love" 
+               ng-class="{true:'fa fa-heart pink1',false:'fa fa-heart-o'}[user.hasLike(product)]"></i>
           </div>
         </div>       
   </div>

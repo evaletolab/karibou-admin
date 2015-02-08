@@ -42,16 +42,16 @@ angular.module('app.root', [
   'product',
   function ($scope, $rootScope, $window,  $location, $templateCache, $routeParams,$anchorScroll, config, api, user, cart, category, product) {
 
-
-    var cb_error=api.error($scope);
-
     $scope.cart = cart;
     $scope.user = user;
     $scope.categories = [];
     $scope.config=config;
-    $scope.showCart=false;
     $scope.cover=config.cover        
 
+    $scope.options={
+      cart:false,
+      sidebar:false
+    };
 
     //
     // check and init the session    
@@ -65,14 +65,13 @@ angular.module('app.root', [
     // get categories
     category.select({stats:true},function(categories){
       $scope.category=category;
-    },cb_error);
+    });
 
 
     //
     // clear cache
     $rootScope.$on('$viewContentLoaded', function() {
       //$templateCache.removeAll();
-
       if($window.ga && config.API_SERVER.indexOf('localhost')==-1){
         $window.ga('send', 'pageview', { page: $location.path() });        
       }
@@ -81,7 +80,7 @@ angular.module('app.root', [
     //
     // get the head title up2date 
     $rootScope.$on('$routeChangeStart', function (event, current, previous) {
-      $scope.showCart=false;
+      $scope.options.cart=false;
       var longpath=$location.path();
       user.$promise.finally(function(){
         if (!user.isAuthenticated()){
@@ -252,7 +251,7 @@ angular.module('app.root', [
         api.info($scope,"Merci, une confirmation a été envoyée à votre adresse email");
         if (!user.isAuthenticated())
           $location.url('/');
-      },cb_error);
+      });
     }
     
     //
@@ -264,9 +263,13 @@ angular.module('app.root', [
 
 
     $scope.toggleCart=function(sel){
-      $scope.showCart=!$scope.showCart;
+      $scope.options.cart=!$scope.options.cart;
     }
     
+    $scope.toggleSidebar=function(sel){
+      $scope.options.sidebar=!$scope.options.sidebar;
+      
+    }
 
 
 

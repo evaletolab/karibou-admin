@@ -1,7 +1,8 @@
 ;(function(angular) {'use strict';
 
+// chromium-browser --ignore-gpu-blacklist --disable-gpu-sandbox
 var API_SERVER='http://localhost:4000'
-//var API_SERVER='http://api.'+window.location.hostname
+// var API_SERVER='http://api.'+window.location.hostname
 // var API_SERVER='http://192.168.1.35:4000'
 // var API_SERVER='http://karibou-api.cloudfoundry.com'
 // var API_SERVER='http://karibou-evaletolab.rhcloud.com'
@@ -9,14 +10,14 @@ var API_SERVER='http://localhost:4000'
 // var API_SERVER='http://karibou-api.eu01.aws.af.cm'
 
 // Declare application level module which depends on additional filters and services (most of them are custom)
-var App = angular.module('app', [
+angular.module('app', [
   'ngCookies',
   'ngResource',
   'ngRoute',
   'ngSanitize',
   'ngTouch',
   'ngCMS',
-//  'ngAnimate',
+  'ngAnimate',
   'infinite-scroll',
   'app.config',
   'app.raven',
@@ -29,87 +30,132 @@ var App = angular.module('app', [
   'app.order',
   'app.home'
 ])
-.value('API_SERVER',API_SERVER);
+  .value('API_SERVER',API_SERVER)
+  .config(appConfig)
+  .factory('cordovaReady',cordovaReady)
+  .run(appRun);
 
+//
 // Scroll events can be triggered very frequently, which can hurt performance and make scrolling appear jerky.
 angular.module('infinite-scroll').value('THROTTLE_MILLISECONDS', 500)
 
-
+//
 // Configure application $route, $location and $http services.
-App.config([
-  '$provide',
-  '$routeProvider',
-  '$locationProvider',
-  '$httpProvider',
-  function ( $provide, $routeProvider, $locationProvider, $httpProvider) {
-    var error_net=0;
-    var interceptor = ['$rootScope', '$q','$location', function (scope, $q, $location) {
-      function success(response, config) {
-          scope.WaitText = false;error_net=0;
-          NProgress.done();
+appConfig.$inject=['$provide','$routeProvider','$locationProvider','$httpProvider']
+function appConfig( $provide, $routeProvider, $locationProvider, $httpProvider) {
+  var error_net=0;
+
+  
+  function parseError(err){
+      if(typeof err === 'string') 
+        return err;
+      if(typeof err.responseText === 'string')
+        return err.responseText;
+      if(typeof err.data === 'string')
+        return err.data;       
+      if(typeof err.message === 'string')
+        return err.message;       
+      if(err.data.length){
+        var msg=""
+        err.data.forEach(function(e){
+          msg=msg+"<p>"+e+"</p>";
+        })
+        return msg;
+      }         
+      return "Undefined error! ->"+JSON.stringify(err);
+  };
+
+  
+  var interceptor = ['$rootScope', '$q','$location','$timeout', function (scope, $q, $location, $timeout) {
+    function showError($rootScope, err, ms){
+      $rootScope.FormErrors=parseError(err);
+      console.log(err)
+      $timeout(function(){
+        $rootScope.FormErrors=undefined;
+      }, ms||5000);
+    };  
+
+    function success(response, config) {
+        scope.WaitText = false;error_net=0;
+        NProgress.done();
 
 
-          return response;
-      }
+        return response;
+    }
 
-      function error(response) {
-          scope.WaitText = false;
-          NProgress.done();
-          response.status||error_net++
-          if (error_net > 1) {
-            $location.path('/the-site-is-currently-down-for-maintenance-reasons');
+    function error(response) {
+        scope.WaitText = false;
+        NProgress.done();
+        response.status||error_net++;
+
+        if (error_net > 1) {
+          $location.path('/the-site-is-currently-down-for-maintenance-reasons');
+        }
+
+        //
+        // on error analytics log 
+        if(window.ga && response.data && [0,401].indexOf(response.status)==-1 ){
+          window.ga('send', 'event', 'error', response.data);
+        }
+
+        //
+        // if we are anonymous in the wrong place ...
+        if(401===response.status){
+          var longpath=$location.path();
+          if(_.find(['/account','/admin'],function(path){
+            return (longpath.indexOf(path)!==-1);
+          })){
+            $location.path('/login');
           }
+        }
 
-          if(window.ga && response.data && [0,401].indexOf(response.status)==-1 ){
-            window.ga('send', 'event', 'error', response.data);
-          }
-
-          return $q.reject(response);
-      }
-
-      return function (promise) {
-          scope.WaitText = 'Working...';
-          NProgress.start();
-          return promise.then(success, error);
-      }
-    }];
-    $httpProvider.responseInterceptors.push(interceptor);
-
-    //console.log("$httpProvider.defaults",$httpProvider.defaults);
-    $httpProvider.defaults.crossDomain=true;
-    $httpProvider.defaults.withCredentials=true;
-
-    //
-    // clear the cache
-    //$httpProvider.defaults.headers.common['Cache-Control']='no-cache';
-    //$templateCache.removeAll()
-
-    // List of routes of the application
-    $routeProvider
-      // Pages
-      .when('/the-site-is-currently-down-for-maintenance-reasons', {title:'the site is currently down for maintenance reasons',templateUrl : '/partials/errors/down.html'})
-      .when('/about', {title:'about',templateUrl : '/partials/about.html'})
-      .when('/page/doc/:article?',{title: 'markdown content', templateUrl: '/partials/pages/page.html'})
-      .when('/page/:article?',{title: 'markdown content', templateUrl: '/partials/pages/page.html'})
-      // 404
-      .when('/404', {title:'404',templateUrl : '/partials/errors/404.html'})
-      // Catch all
-      .otherwise({redirectTo : '/404'});
-
-    // Without serve side support html5 must be disabled.
-    $locationProvider.html5Mode(true);
-    $locationProvider.hashPrefix = '!';
+        else if(response.status>0){
+          showError(scope,response.data)
+        }
 
 
-  }
-]);
+        return $q.reject(response);
+    }
+
+    return function (promise) {
+        scope.WaitText = 'Working...';
+        NProgress.start();
+        return promise.then(success, error);
+    }
+  }];
+  $httpProvider.responseInterceptors.push(interceptor);
+
+  //console.log("$httpProvider.defaults",$httpProvider.defaults);
+  $httpProvider.defaults.crossDomain=true;
+  $httpProvider.defaults.withCredentials=true;
+
+  //
+  // clear the cache
+  //$httpProvider.defaults.headers.common['Cache-Control']='no-cache';
+  //$templateCache.removeAll()
+
+  // List of routes of the application
+  $routeProvider
+    // Pages
+    .when('/the-site-is-currently-down-for-maintenance-reasons', {title:'the site is currently down for maintenance reasons',templateUrl : '/partials/errors/down.html'})
+    .when('/about', {title:'about',templateUrl : '/partials/about.html'})
+    .when('/page/doc/:article?',{title: 'markdown content', templateUrl: '/partials/pages/page.html'})
+    .when('/page/:article?',{title: 'markdown content', templateUrl: '/partials/pages/page.html'})
+    // 404
+    .when('/404', {title:'404',templateUrl : '/partials/errors/404.html'})
+    // Catch all
+    .otherwise({redirectTo : '/404'});
+
+  // Without serve side support html5 must be disabled.
+  $locationProvider.html5Mode(true);
+  $locationProvider.hashPrefix = '!';
+}
 
 
 //
 // boostrap mobile app
-App.factory('cordovaReady', function() {
+function cordovaReady() {
   return function (fn) {
-
     var queue = [];
 
     var impl = function () {
@@ -127,16 +173,26 @@ App.factory('cordovaReady', function() {
       return impl.apply(this, arguments);
     };
   };
-});
+}
 
+
+//
 // init the module
-App.run(function (gitHubContent) {
+appRun.$inject=['gitHubContent', '$templateCache', '$route', '$http']
+function appRun(gitHubContent, $templateCache, $route, $http) {
   gitHubContent.initialize({
         root:'page', // specify the prefix route of your content
         githubRepo:'evaletolab/karibou-doc',
         githubToken:'7b24b8ec909903ad91d4548fc6025badaf1501bc'
     });
-});
+
+  // preload templates
+  for(var i in $route.routes){
+    if($route.routes[i].templateUrl){
+      $http.get($route.routes[i].templateUrl, {cache: $templateCache});
+    }
+  }
+};
 
 
 // Bootstrap (= launch) application
@@ -197,7 +253,13 @@ angular.element(document).ready(function () {
     }  
   }
 
-  console.log(window.Showdown.extensions)
+  Date.prototype.daysInMonth=function(month) {
+    //var y=this.getFullYear(), m=(month||this.getMonth())
+    //return /8|3|5|10/.test(m)?30:m==1?(!(y%4)&&y%100)||!(y%400)?29:28:31;
+    return new Date(this.getFullYear(), (month||this.getMonth())+1, 0).getDate();
+  };  
+
+  //console.log(window.Showdown.extensions)
   angular.bootstrap(document, ['app']);
 });
 

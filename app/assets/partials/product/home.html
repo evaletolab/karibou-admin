@@ -15,10 +15,10 @@
          <div  class="bucket post-bucket homepage-posts">
             <div class="bucket-header bucket-header-list show-subtitles-variant">
                <nav class="bucket-sort">
-                  <h5 class="bucket-title active" >
+                  <h5 class="bucket-title active hidden-xs" >
                     <a href="/products" title="Les produits"><span class="bucket-header-title">Les produits</span> </a>
                   </h5>
-                  <h5 class="bucket-title" >
+                  <h5 class="bucket-title hidden-xs" >
                     <a href="/shops" title="Collections"><span class="bucket-header-title">Les boutiques</span> </a>
                   </h5>
                   <h4 class="bucket-sub-title " clockdown="Prochaine livraison "></h4>
@@ -37,8 +37,9 @@
 
             <article  ng-repeat="group in keys(infinite)"  ng-if="infinite[group].length"> 
               <h5 class="article-group-title ">
-                {{group}}
+                <span class="gray">{{group}}</span>
                 <i class="{{category.find({name:group}).image||''}} {{category.find({name:group}).color||gray}}"></i>
+                <a ng-href="/products/category/{{category.find({name:group}).slug||''}}" class="btn btn-xs btn-category green">Plus &nbsp;<i class="fa fa-angle-right"></i></a>
               </h5>
 
               <div  style="width:100%;"><!-- MANSORY FIX -->

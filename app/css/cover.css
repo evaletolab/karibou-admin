@@ -48,6 +48,9 @@
     height:100%;
     max-width:600px}
 
+.site-nav-drawer-open .cover{
+    position: absolute;
+}
    
 
 .cover.img-loaded {
@@ -66,7 +69,9 @@
 
 .cover-home.session .cover-user .cover-body{
     position: absolute;
-    background: none repeat scroll 0 0 rgba(0, 0, 0, 0.4)
+    background: none repeat scroll 0 0 rgba(0, 0, 0, 0.05);
+    top:0;
+    max-height: 180px;
 }
 
 .body-scroll .cover {
@@ -468,9 +473,52 @@ ul.cover-list li {
     border-right: inherit;
 }
 
+.cover-resume.categories{
+    clear: both;
+    border-top: 0px none;
+    margin-top: 100px;
+    text-align: left;
+}
+
+.cover-resume.categories ul{
+    position: fixed;
+    left: 0px;
+    top: 60px;
+}
+
+.cover.session .cover-resume.categories ul{
+    top: 180px;
+}
+
+.cover-resume.categories .site-nav-list-item {
+    font-weight: 300;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-size: 16px;
+    -color: #81D829;
+    color:#ddd;
+    line-height: 31px;
+    background: none repeat scroll 0px 0px rgba(0, 0, 0, 0.6);
+    border-radius: 0px 4px 4px 0;
+    padding: 2px 6px;    
+}
+.firefox .cover-resume.categories .site-nav-list-item {
+    padding: 6px 6px;    
+    line-height: 33px;
+}
+
+.cover-resume.categories .site-nav-list-item:hover{
+  color: #81D829;
+  border: 0px solid #50944A;
+  background: none repeat scroll 0px 0px rgba(0, 0, 0, 0.65);
+  text-decoration: none!important;
+
+}
 
 
-@media all and (max-width:1000px) {
+
+
+@media all and (max-width:1025px) {
     .cover-user {
     height:auto;
     background-position:center 150px}
@@ -507,7 +555,25 @@ ul.cover-list li {
 .cover-user.no-image .cover-img {
     height:120px}
 
+.cover-resume.categories{
+    margin-top: 10px;
 }
+
+
+.cover-resume.categories ul{
+    padding-left: 0px;
+    margin-left: -5px;
+    list-style: outside none none;
+}
+
+.cover-resume.categories ul > li {
+    display: inline-block;
+    padding-right: 5px;
+    padding-left: 5px;
+}
+
+}
+
 
 @media all and (max-width:500px) {
     .cover-user {

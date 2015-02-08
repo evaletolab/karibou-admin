@@ -1,20 +1,26 @@
 <div class="dashboard" ng-controller="AccountCtrl">
-  <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+  <!-- MENU -->
+  <nav class="navbar navbar-inverse navbar-fixed-top hidden-print" role="navigation">
     <div class="container-fluid">
       <div class="navbar-header">
         <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
           <span class="sr-only">Toggle navigation</span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
+          <span class="fa fa-bar"></span>
+          <span class="fa fa-bar"></span>
+          <span class="fa fa-bar"></span>
         </button>
-        <a class="navbar-brand" href="/">Karibou</a>
+        <a class="navbar-brand" href="" ng-click="options.showMenu=!options.showMenu;"><i class="fa fa-reorder white_ fa fa-2"></i> MENU</a>
       </div>
       <div id="navbar" class="navbar-collapse collapse">
         <ul class="nav navbar-nav navbar-right">
-          <li><a href="/account/profile">Boutique</a></li>
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Boutiques <span class="caret"></span></a>
+            <ul class="dropdown-menu" role="menu">
+              <li ng-repeat="shop in user.shops"><a ng-href="/shop/{{shop.urlpath}}">{{shop.name}}</a></li>
+            </ul>
+          </li>        
           <li><a href="/account">{{user.display()}} <span ng-show="user.isAdmin()" class="label label-danger">ADMIN</span></a></li>
-          <li><a href="#">Help</a></li>
+          <li ng-if="user.isAuthenticated()"><a href="" ng-click="logout()">logout</a></li>
         </ul>
         <!-- FILTER CONTENT -->
         <form class="navbar-form navbar-right" role="search">
@@ -26,13 +32,18 @@
     </div>
   </nav>
 
-  <div class="container-fluid">
+
+  <div class="container-fluid" ng-init="findAllUsers()">
     <div class="row">
-      <div class="col-sm-2 col-md-2 sidebar" ng-include="'/partials/account/dashboard-sidebar.html'"></div>
-      <div class="col-sm-10 col-sm-offset-2 col-md-10 col-md-offset-2 main">
+      <!-- SIDEBAR MENU -->
+      <div class="col-xs-8 col-sm-4 col-lg-2 sidebar " 
+           ng-include="'/partials/dashboard/dashboard-sidebar.html'" 
+           ng-class="{'menu-off':!options.showMenu}">
+      </div>
+      <div class="col-xs-12  nopadding-xs">
         <h1 class="page-header">Gestion des utilisateurs </h1>
 
-      <!-- FORM -->
+        <!-- FORM -->
           <table class="table  table-responsive ">
             <thead>
               <tr>
@@ -47,10 +58,10 @@
               </tr>
             </thead>
             <tbody>
-              <tr ng-repeat="u in users|orderBy:orderByField:reverseSort" ng-class="{'danger':u.status!==true}">
+              <tr ng-repeat="u in users|orderBy:orderByField:reverseSort|filter:filterTxt" ng-class="{'danger':u.status!==true}">
                 <td>{{u.status}}</td>
-                <td>
-                  <a  ng-click="modalUserDetails(u)"
+                <td ng-class="{'danger':u.email.status!==true}">
+                  <a  ng-click="modalUserDetails(u)" title="{{u.getEmailStatus()}}"
                       bs-modal="'/partials/admin/user.modal.html'">
                     {{u.displayName}}
                   </button>                  
@@ -66,7 +77,6 @@
           </table>
 
 
-        </div>
       <!-- FOOTER -->              
       </div>
     </div>

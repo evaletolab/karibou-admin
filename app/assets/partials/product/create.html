@@ -184,16 +184,20 @@
         <div class="text-left">
           <label class="checkbox inline  " style="text-align:left;width:400px">
              <input checked type="checkbox" name="attributes" value="indisponible" ng-model="product.attributes.available">
-              <span ng-class="{true:'red'}[!product.attributes.available]">ce produit est disponible</span>
+              <span ng-class="{true:'red'}[!product.attributes.available]">Ce produit est disponible</span>
           </label>
+          <label class="" ng-if="user.isAdmin()">
+            <input type="checkbox" ng-model="product.attributes.home" ng-if="user.isAdmin()">
+            Ce produit fait parti de la sélection (home)
+          </label>                        
+          <label class="" ng-if="user.isAdmin()">
+            <input type="checkbox" ng-model="product.attributes.comment" />
+            Autoriser les commentaires pour ce produit
+          </label>                        
         </div>
 
         <!-- ENABLE COMMENT -->
         <div class="text-left">
-          <label class="">
-            <input type="checkbox" ng-model="product.attributes.comment" />
-            Autoriser les commentaires pour ce produit
-          </label>                        
         </div>
 
       </div>

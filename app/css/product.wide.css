@@ -22,14 +22,25 @@
     height: 100%;
 }
 
+.popupcontent .header aside img{
+  width: 100%;
+  height: 700px;
+  vertical-align: middle;
+  display: block;
+  background-size: cover;
+  background-position: 50% 50%;  
+}
+
 .popupcontent .header aside .product-qty{
   padding: 10px;
   position: absolute;
-  top: 38%;
-  left: 30%;
+  top: 0%;
+  left: 0%;
+  right: 0;
+  text-align: center;
   background-color: black;
-  background-color: rgba(0, 0, 0, 0.56);
-  border-radius: 4px;  
+  background-color: rgba(0, 0, 0, 0.40);
+  -border-radius: 4px;  
 }
 
 .popupcontent .header section{
@@ -90,6 +101,11 @@
 ------------------------- */
 @media (max-width: 767px) {
 
+  .popupcontent .header aside img{
+    width: 100%;
+    height: 600px;
+  }
+
 }
 
 
@@ -105,15 +121,6 @@
       min-height: 310px;
   }
 
-  .popupcontent .header aside .product-qty{
-    padding: 10px;
-    position: absolute;
-    top: 18%;
-    left: 20%;
-    background-color: black;
-    background-color: rgba(0, 0, 0, 0.56);
-    border-radius: 4px;  
-  }
 
   .popupcontent .header section{
       width: 250px;
@@ -127,6 +134,13 @@
   }
 
 
+  .popupcontent .btn.on-close{
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 100;
+  }
+
   .popupcontent .price{
       color:white;
       font-size:200%;
@@ -136,7 +150,9 @@
       bottom:0;
       right: 0;
       padding: 0 10px 10px;
-      margin-top:30px;
+      margin-top:0px;
+      width: 100%;
+      z-index: 0;
   }
 
   .popupcontent .price .btn{
@@ -151,9 +167,17 @@
     min-height: 270px
   }
 
+  .popupcontent .header aside img{
+    width: 100%;
+    height: 400px;
+  }
+
   .popupcontent .header aside .product-qty{
-    top: 5%;
-    left: 10%;
+    top: 0;
+    left: 0%;
+    right: 0;
+    text-align: center;
+    border-radius: 0px;
   }
 
   .popupcontent .header section{
@@ -172,6 +196,15 @@
   }
 
   .popupcontent .price .btn{
-    width: 43%
+    width: 43%;
+    border-radius: 0px;
   }
+
+  .popupcontent .price .part{
+    clear: both;
+    display: block;
+    text-align: center;
+    margin-bottom: 5px;
+  }
+
 }

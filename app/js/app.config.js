@@ -4,12 +4,13 @@
 // Define the application global configuration
 angular.module('app.config', [])
   .factory('config', appConfig)
+  .controller('ConfigCtrl',ConfigCtrl);
 
 
 //
 // implement service
-appConfig.$inject=['$q','$resource','API_SERVER']; 
-function appConfig($q, $resource, API_SERVER) {
+appConfig.$inject=['$q','$resource','$sce','API_SERVER']; 
+function appConfig($q, $resource, $sce, API_SERVER) {
   var deferred = $q.defer();
   
   var defaultConfig = {
@@ -25,9 +26,14 @@ function appConfig($q, $resource, API_SERVER) {
 
     storage:"http://karibou-filepicker.s3-website-eu-west-1.amazonaws.com/",
 
-    //'img/localfood.jpg'
+    
+    //cover:'img/localfood.jpg',
     cover:'img/home-site.jpg',
     
+    postfinance:{
+      url:$sce.trustAsResourceUrl('https://e-payment.postfinance.ch/ncol/test/orderstandard_utf8.asp')
+    },
+
     user:{
       photo:'http://placehold.it/80x80'
     },
@@ -65,6 +71,25 @@ function appConfig($q, $resource, API_SERVER) {
   });
 
   return defaultConfig;
+}
+
+
+//
+// implement config controller
+ConfigCtrl.$inject=['$scope','$resource','config','api'];
+function ConfigCtrl($scope,$resource,config,api){
+  var $dao=$resource(config.API_SERVER+'/v1/config');
+  $scope.config=config;
+
+  //
+  // save stored config (admin only)
+  $scope.saveConfig=function(){
+    console.log('save config',config.shop.global)
+    $dao.save(config.shop.global,function(){
+      api.info($scope,"Configuration sauvée");
+    })
+  }
+
 }
 
 })(window.angular);

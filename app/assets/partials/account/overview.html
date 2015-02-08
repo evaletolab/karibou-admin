@@ -2,12 +2,12 @@
 <div tabindex="-1"  id="null" class="screen-content" ng-controller="AccountCtrl">
   
 
-  <div class="butter-bar active info back " ng-cloak ng-show="user.email.status !== true">
+ <!--  <div class="butter-bar active info back " ng-cloak ng-show="user.email.status !== true">
     <p class="butter-bar-message">
       <b>Psst!</b> N'oubliez pas de valider votre adresse e-mail! Rechercher dans votre boîte de reception le message que nous vous avons envoyé. <a href="/account/overview">Vous pouvez aussi demander à recevoir de nouveau l'e-mail</a>.
     </p>
   </div>
-
+ -->
 
   <aside ng-include="'/partials/account/cover.html'" 
          class="cover cover-home img-loaded" 
@@ -34,29 +34,35 @@
       <!-- SHOPS ORDERS -->
       <div class="well well-small white  clearfix"  ng-if="user.shops.length||user.isAdmin()">
           <h5 class="article-group-title ">
-            <span class="bucket-header-title">Mon dashboard</span>
+            <span class="bucket-header-title"><i class="fa fa-line-chart gray"></i>&nbsp;Mon dashboard</span>
           </h5>
           <ul>
-            <li><a class="" href="/admin/orders?view=all">Toutes les commandes</a> </li>
+            <li><a class="" href="/admin/orders">La gestion de ma boutique</a> </li>
+          </ul>
+      </div>
+
+      <div class="well well-small white  clearfix"  ng-if="user.hasRole('logistic')&&!user.isAdmin()">
+          <h5 class="article-group-title ">
+            <span class="bucket-header-title"><i class="fa fa-bicycle gray"></i>&nbsp;Mon dashboard</span>
+          </h5>
+          <ul>
+            <li><a class="" href="/admin/shipping">La gestion des livraisons</a> </li>
           </ul>
       </div>
 
       <!-- LAST ORDERS -->
-      <div  class="well well-small white clearfix" >
-        <h5 class="article-group-title " ng-if="!user.orders.length">
-          <span class="bucket-header-title">Je n'ai pas encore passé de commande.</span>
-        </h5>
+      <div  class="well well-small white clearfix" ng-if="!user.orders.length">
         
-        <h5 ng-if="user.orders.length" class="article-group-title " >
-          <span class="bucket-header-title">Mes dernières commandes</span> 
+        <h5  class="article-group-title " >
+          <span class="bucket-header-title"><i class="fa fa-shopping-cart gray"></i>&nbsp;Mes dernières commandes</span> 
         </h5>
         <p>
-          <a href="/account/orders">L'historique de mes commandes</a>
+          <a href="/account/orders"><i class="fa fa-angle-right"></i>&nbsp;L'historique de mes commandes</a>
         </p>
       </div>    
 
       <!-- LOVE -->
-      <div  class="well well-small white clearfix" >
+      <div  class="well well-small white clearfix hide" >
         <h5 class="article-group-title " ng-hide="user.likes.length">
           <span class="bucket-header-title">Je n'ai encore pas de produits préférés.</span>
         </h5>
@@ -65,14 +71,14 @@
           <span class="bucket-header-title">Mes coups de coeur</span> 
         </h5>
         <p>
-          <a href="/account/love">Ma liste principale</a>
+          <a href="/account/love"><i class="fa fa-angle-right"></i>&nbsp;Ma liste principale</a>
         </p>
       </div>          
 
       <!-- PROFILE -->
       <div class="well well-small white  clearfix" >
         <h5 class="article-group-title ">
-          <span class="bucket-header-title">Mon profil</span>
+          <span class="bucket-header-title"><i class="fa fa-edit gray"></i>&nbsp;Mon profil</span>
         </h5>
 
         <div class="alert alert-warning" ng-cloak  ng-show="user.email.status !== true">
@@ -83,37 +89,37 @@
 
 
         <p>
-          <a href="/account/profile">Modifier mes données personnelles</a>
+          <a href="/account/profile"><i class="fa fa-angle-right"></i>&nbsp;Modifier mes données personnelles</a>
         </p>
       </div>
         
       <div class="well well-small white  clearfix" >
         <h5  class="article-group-title " >
-          <span class="bucket-header-title">Sécurité</span> 
+          <span class="bucket-header-title"><i class="fa fa-lock gray"></i>&nbsp;Sécurité</span> 
         </h5>
         <ul>
-          <li><a href="/account/password">Modifier mon mot de passe</a></li>
-          <li><a href="/account/payment">Mes méthodes de paiement</a></li>
+          <li><a href="/account/password"><i class="fa fa-angle-right"></i>&nbsp;Modifier mon mot de passe</a></li>
+          <li><a href="/account/payment"><i class="fa fa-angle-right"></i>&nbsp;Mes méthodes de paiement <i class="fa fa-credit-card"></i></a></li>
         </ul>
       </div>          
 
     
       <!-- SHOP LIST -->
       <div class="well well-small white" style="width:100%;float:left;margin-bottom:100px">        
-        <h5 class="article-group-title " >Mes boutiques 
+        <h5 class="article-group-title " ><i class="fa fa-coffee gray"></i>&nbsp;Mes boutiques 
           <a ng-href="/account/shop" ng-hide="(user.shops.length>2)&&!user.isAdmin()" class="pull-right small link">Ouvrir une boutique</a>
         </h5>
 
-        <h5 class="article-group-title " ng-hide="user.shops.length">
+        <h5 class="article-group-title gray" ng-hide="user.shops.length">
           Je n'ai pas de boutique.
         </h5>
 
           <ul ng-repeat="shop in user.shops" class="-unstyled " ng-show="user.shops.length" >
             <li class="block col-md-12">              
               <p class="-well-small">
-                <i class="icon-fire"></i>
-                <a href="/shop/{{shop.urlpath}}">{{shop.name}}</a><span ng-hide="shop.status == true" class="help-inline"><i class="icon-ok"></i>&nbsp;</span>
-                <span ng-bind-html-unsafe="shop.description"></span><i ng-show="shop.status==true" class="icon-ok green"></i>
+                <i class="fa fa-fire"></i>
+                <a href="/shop/{{shop.urlpath}}">{{shop.name}}</a><span ng-hide="shop.status == true" class="help-inline"><i class="fa fa-ok"></i>&nbsp;</span>
+                <span ng-bind-html-unsafe="shop.description"></span><i ng-show="shop.status==true" class="fa fa-ok green"></i>
               </p>
               
             </li>

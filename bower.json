@@ -9,16 +9,6 @@
     "components",
     "bower"
   ],
-  "overrides": {
-    "showdown": {
-      "main": [
-        "src/showdown.js",
-        "src/extensions/github.js",
-        "src/extensions/table.js",
-        "src/extensions/twitter.js"
-      ]
-    }
-  },
   "dependencies": {
     "jquery": "2.1.x",
     "bootstrap": "3.1.x",
@@ -35,5 +25,8 @@
     "ngInfiniteScroll": "~1.1.2",
     "angular-touch": "~1.2.x",
     "angular-cms": "https://github.com/evaletolab/angular-cms/tarball/master"
+  },
+  "resolutions": {
+    "angular": "1.2.x"
   }
 }

@@ -15,16 +15,16 @@
 }
 
 .vertical-divider>div{
-  padding:8px;
+  padding:0 8px 4px;
 }
 .vertical-divider.border{
   border-top:1px solid #eee;
 }
 
-.icon-7x {
+.fa-7x {
   font-size: 8em;
 }
-.icon-7x.icon-border {
+.fa-7x.fa-border {
   border-width: 8px;
   -webkit-border-radius: 7px;
   -moz-border-radius: 7px;
@@ -37,6 +37,29 @@
   -text-shadow:0 0 1px rgba(0,0,0,1);
 }
 
+.btn-category{
+  -color: rgba(220,250,220,.9);  
+  border-color: #ccc;
+  text-transform: uppercase;
+  margin-left: 10px;
+}
+
+.btn-category:hover{
+  border-color: #50944A;
+}
+
+.btn-profile{
+  -color: #81D829;
+  color: #ddd;
+  background: none repeat scroll 0px 0px rgba(0, 0, 0, 0.45);
+}
+
+.btn-profile:hover{
+  color: #81D829;
+  border-color: #50944A;
+  background: none repeat scroll 0px 0px rgba(0, 0, 0, 0.15);
+  text-decoration: none;
+}
 .btn-transparent:hover {
   background-color: rgba(60,60,60,.6);
 }
@@ -48,6 +71,21 @@
   padding-left: 0;
   margin-right: 4px;
   float: left;
+}
+
+.btn-info:hover, .btn-info:active, .btn-info.active, .btn-transparent.active {
+  color: #fff;
+  background-color: #2F89A4;
+  border-color: #269abc;
+}
+
+.input-xs {
+    height: 22px;
+    padding: 2px 5px;
+    font-size: 12px;
+    line-height: 1.5;
+    border-radius: 3px;
+    vertical-align: middle;
 }
 
 .separator{
@@ -123,7 +161,7 @@ h1.sexy, h2.sexy, h3.sexy {
 .text-left.padding{padding-left: 10px!important}
 .text-right{text-align: right;}
 .text-right.padding{padding-right: 10px!important}
-
+.text-capitalize{text-transform: capitalize;}
 .navbar-inner{
   min-height-:40px;
 }
@@ -146,7 +184,12 @@ ul.nav li{
   height:100%;
 }
 
-
+img.img-cover {
+  background-size: cover;
+  background-position:50% 50%;
+  width: 100%;
+  display: block;
+}
 .shadow{
   text-align: left;
   text-shadow: 0 0px 2px #444;
@@ -220,6 +263,10 @@ ul.nav li{
 
 .bg-black{
   background-color:#111;
+}
+
+.bg-gray{
+  background-color:#efefef;
 }
 
 .headline{
@@ -344,4 +391,23 @@ hr.soften {
 .responsive-utilities td.is-hidden {
   color: #ccc;
   background-color: #f9f9f9 !important;
+}
+
+
+@media (max-width: 768px) {
+.nopadding-xs{
+  padding: 0px!important;
+}
+}
+
+@media all {
+  .page-break {  }
+}
+
+@media print {
+  .page-break { 
+    display: block; 
+    bresk-before:always;
+    page-break-before: always; 
+  }
 }

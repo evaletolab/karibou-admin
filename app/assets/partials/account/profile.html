@@ -58,7 +58,7 @@
                   class="form-control input-lg">
                 </div>
                 <div class="col-xs-1 nopadding">                
-                  <a class="btn btn-default btn-lg" href ng-click="user.phoneNumbers.splice($index, 1)"><i class="icon-remove"></i></a>
+                  <a class="btn btn-default btn-lg" href ng-click="user.phoneNumbers.splice($index, 1)"><i class="fa fa-remove"></i></a>
                 </div>
 
               </div>
@@ -74,7 +74,7 @@
 
           <div class="form-group required">
             <label class="colsm2 control-label">Email</label>
-            <input id="email" required ng-model="user.email.address" type="email" name="email" class="form-control input-lg"/><span ng-hide="form.email.$invalid || EmailError" class="accout-field-valid"><i ng-show="user.email.status == true" class="icon-ok green"></i>
+            <input id="email" required ng-model="user.email.address" type="email" name="email" class="form-control input-lg"/><span ng-hide="form.email.$invalid || EmailError" class="accout-field-valid"><i ng-show="user.email.status == true" class="fa fa-ok green"></i>
             </span>              
           </div>
         </div>
@@ -93,7 +93,7 @@
         <div class="nomargin  white clearfix well" ng-class="{'primary-content':user.addresses[$index].primary}" ng-repeat="address in user.addresses"  style="clear:both">
               <a href ng-click="user.addresses.splice($index, 1)" 
                   title="enlever cette adresse"
-              class="pull-right btn btn-small btn-inverse"><i class="icon-remove"></i> </a>
+              class="pull-right btn btn-small btn-inverse"><i class="fa fa-remove"></i> </a>
 
 
             <h4 class="article-group-title black" >
@@ -192,7 +192,7 @@
             <button class="btn btn-lg pull-right" ng-show="user.addresses.length"
                     ng-class="{'btn-warning':!user.addresses.length,'btn-default':user.addresses.length,}" 
                     ng-click="user.addresses.push({primary:true})">
-              Ajouter une addresse de livraison 
+              Ajouter une adresse de livraison 
             </button> 
           </div>          
       </form>      

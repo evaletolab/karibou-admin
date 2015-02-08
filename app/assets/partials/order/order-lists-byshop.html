@@ -1,55 +1,42 @@
 <!-- ORDERS BY SHOPS -->
-<div class="panel" ng-repeat="(shop, items) in shops" ng-if="shops" style="margin-top:40px">
-  <h3 id="ac-{{shop}}">
-    La boutique <a ng-href="/shop/{{shop}}">{{shop}} ({{items.length}}) </a>  
+<div  ng-repeat="(shop, items) in shops" ng-if="shops" >
+  <!-- TITLE -->
+  <h3 id="ac-{{shop}}" ng-if="(!filters.s||filters.s===shop)">
+    <a ng-href="/shop/{{shop}}">{{shop}} ({{items.length}}) </a>  
     <button ng-click="informShopToOrders(shop,shipping.currentDay)" ng-if="user.isAdmin()"
             type="button" class="btn btn-sm btn-transparent">Envoyer un mail</button>
   </h3>
-    <table class="table  table-responsive ">
-      <thead>
-        <tr>
-          <th>n</th>
-          <th>oid</th>
-          <th>user</th>
-          <th>date</th>
-          <th style="width:30%">article</th>
-          <th>qté</th>
-          <th>prix</th>
-          <th style="width:100px">final</th>
-          <th>actions</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr ng-repeat="item in items|filter:filterTxt" ng-class="getOrderItemStatusClass(item)">
-          <td>{{item.rank}}</td>
-          <td>{{item.oid}}</td>
-          <td>
-            <a class="link "
-                    ng-click="modalUserDetails(item.oid)"
-                    bs-modal="'/partials/order/order.user.modal.html'">
-              {{item.customer.name.familyName}}
-            </a>
-          </td>
-          <td>{{item.created|dateLabelShort}}</td>
-          <td>  
-            <a ng-href="/products/{{item.sku}}">{{item.title}} ({{item.part}})</a>
-            <div ng-show="item.note" class="text-ellipsis smallx" style="max-width:300px">
-            <i class="icon icon-pencil"></i> {{item.note||''}} 
-            </div>
-          </td>
-          <td>{{item.quantity}}</td>
-          <td>{{item.price*item.quantity|number:'2'}}CHF</td>
-          <td><input type="text" type="number" pattern="^\d+(\.|\,)\d{2}$" ng-model="item.finalprice" class="col-xs-12" ng-disabled="getInputDisabled(item)"></td>
-          <td>
-            <button type="button" class="btn btn-primary btn"
-                    ng-click="updateItem(item.oid,item,'fulfilled')"
-                    ng-disabled="getInputDisabled(item)"><i class="icon-ok"></i> terminé</button>
-            <button type="button" class="btn btn-default btn"
-                    ng-click="updateItem(item.oid,item,'failure')"
-                    ng-disabled="getInputDisabled(item)"><i class="icon-frown"></i></button>
 
-          </td>
-        </tr>
-      </tbody>
-    </table>
+  <!-- ITEMS -->
+  <div class="list-group">
+    <li  class="list-group-item " 
+         ng-repeat="item in items|filter:filterTxt" 
+         ng-class="getOrderItemStatusClass(item,'list-group-item-')" ng-if="(!filters.s||filters.s===shop)">
+      <h4 class="list-group-item-heading">
+        <a class="text-capitalize" ng-click="modalUserDetails(item.oid)" bs-modal="'/partials/order/order.user.modal.html'">
+          <span class="hidden-xs">{{item.customer.name.givenName}}</span> {{item.customer.name.familyName}}</a>,  
+          {{item.quantity}}x <a ng-href="/products/{{item.sku}}">{{item.title}} ({{item.part}})</a> 
+      </h4>
+      <span class="bag-1 label " ng-class="isItemValidated(item)?'label-primary':'label-default'">sac {{item.rank}}</span>
+      <span class="bag-2 label " ng-class="isItemValidated(item)?'label-success':'label-default'">{{item.finalprice|number:'2'}}CHF</span>
+      <div class="list-group-item-text clearfix">
+        <div class="col-xs-10 nopadding">
+          <form class="form-inline pull-righ ">
+            <label class="small hidden-xs">Prix final:</label>          
+            <input type="text" type="number" pattern="^\d+(\.|\,)\d{2}$" ng-model="item.finalprice" class="form-control input-xs" ng-disabled="getInputDisabled(item)" style="width:60px;display:inline">
+            <button type="button" class="btn btn-success btn btn-xs"
+                    ng-click="updateItem(item.oid,item,'fulfilled')"
+                    ng-disabled="getInputDisabled(item)"><i class="fa fa-thumbs-up"></i> Terminez</button>
+            <button type="button" class="btn btn-default btn btn-xs"
+                    ng-click="updateItem(item.oid,item,'failure')"
+                    ng-disabled="getInputDisabled(item)"><i class="fa fa-thumbs-down"></i> Annulez</button>
+          </form>
+
+        </div>
+      </div>
+    </li>
+  </div>
+  <!-- ITEMS TOTAL -->
+  <p ng-show="(!filters.s||filters.s===shop)" class="gray small">Total commandé : {{getAmountTotal(shop)|number:2}} CHF</p>
 </div>
+
