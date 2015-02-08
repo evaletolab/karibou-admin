@@ -1,0 +1,63 @@
+.fade-out.ng-hide-add {
+    -webkit-animation: fadeOut 0.5s;
+    display: block !important;
+}
+
+.fade-in.ng-hide-remove {
+    -webkit-animation: fadeIn 0.5s;
+    display: block !important;
+}
+
+.fade-out-left.ng-hide-add {
+    -webkit-animation: fadeOutLeft 0.5s;
+    display: block !important;
+}
+
+.fade-in-left.ng-hide-remove {
+    -webkit-animation: fadeInLeft 0.5s;
+    display: block !important;
+}
+
+.fade-out-right.ng-hide-add {
+    -webkit-animation: fadeOutRight 0.5s;
+    display: block !important;
+}
+
+.fade-in-right.ng-hide-remove {
+    -webkit-animation: fadeInRight 0.5s;
+    display: block !important;
+}
+
+.slide-out-left.ng-hide-add {
+    -webkit-animation: slideOutLeft .5s;
+    display: block !important;
+}
+
+.slide-in-left.ng-hide-remove {
+    -webkit-animation: slideInLeft .5s;
+    display: block !important;
+}
+
+.slide-out-right.ng-hide-add {
+    -webkit-animation: slideOutRight .5s;
+    display: block !important;
+}
+
+.slide-in-right.ng-hide-remove {
+    -webkit-animation: slideInRight .5s;
+    display: block !important;
+}
+
+.not .ng-enter, .not .ng-move{
+    -webkit-animation: fadeIn .3s;
+    -moz-animation: fadeIn .3s;
+    -o-animation: fadeIn .3s;
+    animation: fadeIn .3s;
+}
+
+.not .ng-leave{
+    -webkit-animation: fadeOut .3s;
+    -moz-animation: fadeOut .3s;
+    -o-animation: fadeOut .3s;
+    animation: fadeOut .3s;
+}

@@ -1,0 +1,32 @@
+<!-- ORDERS BY SHOPS -->
+<div  ng-if="shops" >
+  <!-- (!filters.f||filters.f===order.shipping.when) -->
+  <div class="list-group">
+    <li  class="list-group-item " 
+         ng-repeat="(shop, items) in shops" 
+         ng-class="isCollectedShopForDay(shop,filters.f)?'list-group-item-success':''" 
+         ng-show="isCollectableShopForDay(shop,filters.f)">
+      <h4 class="list-group-item-heading">
+        <a class="text-capitalize" > {{shop}}</a>
+        <form class="form-inline  pull-right">
+          <button type="button" class="btn btn-success btn btn-xs"
+                  ng-click="updateCollect(shops[shop][0].oid,shop,true,shops[shop][0].when)"
+                  ng-disabled=""><i class="fa fa-thumbs-up"></i> ok</button>&nbsp;
+          <button type="button" class="btn btn-danger btn btn-xs "
+                  ng-click="updateCollect(shops[shop][0].oid,shop,false,shops[shop][0].when)"
+                  ng-disabled=""><i class="fa fa-thumbs-down"></i>  ko</button>&nbsp;
+        </form>
+
+      </h4>
+      <span ng-repeat="item in items|filter:{when:filters.f}|orderBy:'-rank'|unique:'rank'" class="pull-right small">
+        <span class="label " ng-class="(item.fulfillments==='fulfilled')?'label-success':'label-warning'"
+              title="{{item.email}}" 
+              ng-click="modalUserDetails(item.oid)" bs-modal="'/partials/order/order.user.modal.html'">{{item.rank}}</span>&nbsp;        
+      </span>
+      <div class="list-group-item-text clearfix">
+      </div>
+    </li>
+  </div>
+  
+</div>
+

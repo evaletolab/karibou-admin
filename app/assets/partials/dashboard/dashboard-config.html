@@ -1,0 +1,63 @@
+<div class="dashboard" ng-controller="OrderCommonCtrl">
+
+  <!-- MENU -->
+  <nav  class="navbar navbar-inverse navbar-fixed-top" role="navigation"
+        ng-include="'/partials/dashboard/dashboard-header.html'"></nav>
+
+  <!-- MAIN CONTENT -->
+  <div class="container-fluid " ng-controller="ConfigCtrl">
+    <div class="row">
+
+      <!-- LEFT MENU -->
+      <div class="col-xs-8 col-sm-4 col-lg-2 sidebar " 
+           ng-include="'/partials/dashboard/dashboard-sidebar.html'" 
+           ng-class="{'menu-off':!options.showMenu}">
+      </div>
+      <div class="col-xs-12  nopadding-xs">
+
+        <!-- CONFIG -->
+        <h1 class="page-header">Configuration ({{config.shop.global.cid}}) </h1>
+
+        <!-- MAINTENANCE -->
+        <h3 class="page-header">Maintenance</h3>
+        <div class="form-group ">                        
+          <label class="control-label">Toutes les livraisons sont interrompues
+            <input type="checkbox" ng-model="config.shop.global.maintenance.active">
+          </label>
+          <div class="">
+            <textarea  rows="4" class="form-control input-lg" ng-model="config.shop.global.maintenance.reason" placeholder="Pour quelle raison?"></textarea>            
+          </div>
+        </div>
+        <!-- NOSHIPPING -->
+        <h3 class="page-header">Interrompre les livraisons </h3>
+        <div class="clearfix" ng-repeat="noshipping in config.shop.global.noshipping" style="border-bottom:1px dotted #ddd;margin-bottom:5px">
+          <div class="col-xs-7 nopadding">
+            <input type="text" value="{{noshipping.reason}}" ng-model="config.shop.global.noshipping[$index].reason" placeholder="pour quelle raison?" class="form-control input-lg col-md-10">
+          </div>
+          <div class="col-xs-4">
+            <input type="date" class="form-control input-lg" ng-model="config.shop.global.noshipping[$index].when" placeholder="yyyy-MM-dd" min="2015-01-01" max="2030-12-31" required />
+          </div>           
+          <div class="col-xs-1 nopadding">
+            <a class="pull-right btn btn-default btn-lg" href ng-click="config.shop.global.noshipping.splice($index, 1)"><i class="fa fa-remove"></i></a>
+          </div>           
+        </div>
+        <div class="clearfix">
+          <button href ng-click="config.shop.global.noshipping.push({})" class="btn btn-transparent btn-lg btn-block ">Ajouter une date <i class="fa fa-plus"></i></button>
+          <p class="help-block"> </p>
+        </div>
+
+        <div>
+          <button ng-disabled="form.$invalid||WaitText"  ng-click="saveConfig();"  class="save btn btn-primary btn-lg"  >{{WaitText || 'Enregistrer'}}</button>
+        </div>
+          
+
+        <!-- WAIT -->
+        <div ng-show="loading&&false" class="text-center gray">
+          <i class="fa fa-refresh fa-2x fa-spin"></i>
+        </div>
+
+
+      </div>
+    </div>
+  </div>
+</div>
