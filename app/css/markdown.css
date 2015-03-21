@@ -1,0 +1,52 @@
+/* markdown layout
+-------------------------------------------------- */
+
+markdown img{
+  max-width: 100%;
+} 
+
+markdown ul{
+	list-style: inherit;
+	padding-left: 20px;	
+}
+
+/* Desktop large
+------------------------- */
+@media (min-width: 1200px) {
+
+}
+
+
+/* Desktop
+------------------------- */
+@media (max-width: 980px) {
+}
+
+/* Tablet to desktop
+------------------------- */
+@media (min-width: 200px) and (max-width: 979px) {    
+
+}
+
+/* Tablet
+------------------------- */
+@media (max-width: 767px) {
+
+}
+
+/* Landscape phones
+------------------------- */
+@media (max-width: 480px) {
+
+}
+
+ 
+@media only screen and ( max-width: 320px ) /* 320px */{
+
+
+}
+
+
+
+
+
