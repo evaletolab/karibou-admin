@@ -44,9 +44,29 @@
     position:fixed;
     top:0;
     left:0;
-    width:38%;
+    width:30%;
     height:100%;
-    max-width:600px}
+    max-width:550px}
+
+.cover.cover-shop{
+    width:40%;
+    max-width:650px;
+}
+
+@media all and (min-width:1666px) {
+.cover {
+    position:fixed;
+    top:0;
+    left:0;
+    width:25%;
+    height:100%;
+    max-width:550px}
+
+}
+.cover.cover-shop{
+    width:40%;
+    max-width:650px;
+}
 
 .site-nav-drawer-open .cover{
     position: absolute;
@@ -233,7 +253,7 @@ ul.cover-list li {
 
 .strong .cover-description, .strong .cover-title, .strong .cover-description a{
     text-shadow: 0 0px 10px rgba(0,0,0,0.2);
-    font-weight: 900;    
+    font-weight: 300;    
 }
 
 .light .cover-description, .light .cover-title, .light .cover-description a{
@@ -243,13 +263,18 @@ ul.cover-list li {
 
 
 
-@media  (max-width:1000px) {
+@media  (max-width:992px) {
 .cover {
     position:relative!important;
     width:100%;
     max-width:none;
     min-height:490px;        
 }
+.cover.cover-shop{
+    width:100%;
+    max-width: inherit;
+}
+
 .cover.session {
     height:auto;
     min-height:inherit;
@@ -323,7 +348,7 @@ ul.cover-list li {
     left:-1px;
     margin:0;
     padding:65px 5% 30px;
-    background:none repeat scroll 0 0 rgba(0, 0, 0, 0.25);
+    background:none repeat scroll 0 0 rgba(0, 0, 0, 0.15);
 }
 
 .cover-title {
@@ -467,7 +492,8 @@ ul.cover-list li {
     border-right: 3px solid #eee;
     width: 33%;
     float: left;
-    padding: 4px;
+    padding: 4px;-.,yxc
+
 }
 .cover-resume .cover-resume-col:last-child{
     border-right: inherit;
@@ -481,16 +507,18 @@ ul.cover-list li {
 }
 
 .cover-resume.categories ul{
-    position: fixed;
+    position: static;
     left: 0px;
     top: 60px;
+    margin-top: -90px;
 }
 
 .cover.session .cover-resume.categories ul{
     top: 180px;
+    margin-top: 0px;
 }
 
-.cover-resume.categories .site-nav-list-item {
+/*.cover-resume.categories .site-nav-list-item1 {
     font-weight: 300;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -502,12 +530,25 @@ ul.cover-list li {
     border-radius: 0px 4px 4px 0;
     padding: 2px 6px;    
 }
-.firefox .cover-resume.categories .site-nav-list-item {
-    padding: 6px 6px;    
-    line-height: 33px;
+*/
+.cover-resume.categories .site-nav-list-item {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-size: 18px;
+    line-height: 31px;
+    padding: 0px 6px;
+    border-radius: 4px;
+    color: white;
+    text-shadow: 0px 0px 1px rgba(20, 20, 20, 0.43);
+    font-weight: 400;
+    background: none repeat scroll 0px 0px rgba(0, 0, 0, 0.25);    
 }
 
-.cover-resume.categories .site-nav-list-item:hover{
+.firefox .cover-resume.categories .site-nav-list-item {
+    padding: 2px 6px;    
+}
+
+.cover-resume.categories .site-nav-list-item:hover,.cover-resume.categories .site-nav-list-item.active{
   color: #81D829;
   border: 0px solid #50944A;
   background: none repeat scroll 0px 0px rgba(0, 0, 0, 0.65);
@@ -520,7 +561,7 @@ ul.cover-list li {
 
 @media all and (max-width:1025px) {
     .cover-user {
-    height:auto;
+    -height:auto;
     background-position:center 150px}
 
 
@@ -529,47 +570,43 @@ ul.cover-list li {
     width:100%}
 
 .cover-user .cover-img {
-    height:360px}
+    height:360px
+}
 
 
 .cover-user .cover-body {
     position:relative;
-    padding:44px 20%;
+    -padding:44px 20%;
 }
 
 .cover-user .cover-title {
-    margin-top:30px;
-    font-size:42px}
+}
 
 .cover-user .cover-avatar {
     top:-135px;
     margin-left:-63px;
     width:120px;
-    height:120px}
+    height:120px
+}
 
 .cover-user .cover-body,.cover-image {
     -webkit-box-shadow:none;
     -moz-box-shadow:none;
-    box-shadow:none}
+    box-shadow:none
+}
 
 .cover-user.no-image .cover-img {
-    height:120px}
+    -height:120px
+}
 
 .cover-resume.categories{
-    margin-top: 10px;
 }
 
 
 .cover-resume.categories ul{
-    padding-left: 0px;
-    margin-left: -5px;
-    list-style: outside none none;
 }
 
 .cover-resume.categories ul > li {
-    display: inline-block;
-    padding-right: 5px;
-    padding-left: 5px;
 }
 
 }
@@ -650,7 +687,7 @@ ul.cover-list li {
     height:0}
 
 
-@media all and (max-width:1000px) {
+@media all and (max-width:992px) {
     .editing .cover .image-controls {
     filter:alpha(opacity=100);
     -khtml-opacity:1;

@@ -45,14 +45,18 @@
 
 .dashboard .bag-1{
   position: absolute;
-  right: 15px;
-  top: 12px;  
+  right: 10px;
+  top: 10px;
+}
+.dashboard .bag-1.customer{
+  padding: 4px;
+  top: 0px;
 }
 
 .dashboard .bag-2{
   position: absolute;
-  right: 15px;
-  bottom: 12px;  
+  right: 10px;
+  bottom: 10px;  
 }
 
 .dashboard .input-group-addon{
@@ -66,6 +70,7 @@
   font-size: 60%;
   font-family: sans-serif;
   font-weight: 300;  
+  vertical-align:middle;
 }
 /*
  * Top navigation

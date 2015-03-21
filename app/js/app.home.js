@@ -18,7 +18,7 @@ Home.config([
 
     // List of routes of the application
     $routeProvider
-      .when('/', {title:'welcome to your open community market',  templateUrl : '/partials/product/home.html'})
+      .when('/', { templateUrl : '/partials/product/home.html'})
       .when('/shops', {title:'Les boutiques ',  templateUrl : '/partials/shop/home.html'})
       .when('/products', {title:'Les produits ',  templateUrl : '/partials/product/home.html'})
       .when('/products/category/:category', {title:'Les produits ',  templateUrl : '/partials/product/products.html'})
@@ -49,6 +49,7 @@ Home.controller('HomeCtrl', [
     $scope.user = user;
     $scope.map=new Map()
     $scope.infinite={}
+    $scope.product=false;
     
 
 
@@ -103,7 +104,7 @@ Home.controller('HomeCtrl', [
       if ($routeParams.category){
         $scope.group=category.findNameBySlug($routeParams.category);
         $scope.$parent.title="Les produits - "+$scope.group;
-        filter={sort:'title',status:true};
+        filter={sort:'title',status:true,available:true};
         
         $scope.products=product.findByCategory($routeParams.category,filter,function(products){
           $scope.items=$scope.products=products;
@@ -140,7 +141,7 @@ Home.controller('HomeCtrl', [
         return deferred.promise;
       } 
 
-      filter={sort:'categories.weight',group:'categories.name', status:true, home:true};
+      filter={sort:'categories.weight',group:'categories.name', status:true, home:true, available:true};
       $scope.products=product.home(null,filter,function(products){
         $scope.items=$scope.products=products;
         deferred.resolve(products)

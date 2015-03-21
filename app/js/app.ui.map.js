@@ -16,11 +16,12 @@ map.factory('Map', [
   '$route',
   '$http',
   'api',
+  '$q',
   
-  function (config, $location, $rootScope, $route, $http, api) {
+  function (config, $location, $rootScope, $route, $http, api, $q) {
 
   	// init icon
-  	var icons, statickey="AIzaSyD5w46BmWX6hX-uJ2yMycS_cRb2HRvDXQU";
+  	var icons, statickey=config.staticMapKey;
 
     //
     // make leaflet loading asynchrone
@@ -102,14 +103,20 @@ map.factory('Map', [
     //
     // get address
     Map.prototype.geocode=function(street,postal,region, cb){
+      var defer=$q.defer()
+
       //
       // google format: Route de Chêne 34, 1208 Genève, Suisse
       if(!region)region="Suisse";
       var fulladdress=street+","+postal+", "+region;//"34+route+de+chêne,+Genève,+Suisse
-      var url="http://maps.googleapis.com/maps/api/geocode/json?address="+fulladdress+"&sensor=false" ;
+      var url="//maps.googleapis.com/maps/api/geocode/json?address="+fulladdress+"&sensor=false" ;
       $http.get(url,{withCredentials:false}).success(function(geo,status,header,config){
-      	cb(geo,status);
+      	if(cb) return cb(geo,status);
+        defer.resolve(geo,status)
+      },function (err) {
+        defer.reject(err)
       })
+      return defer.promise;
     }
 
 
@@ -140,7 +147,7 @@ map.factory('Map', [
       var marker="", 
           zoom=(zoom)?zoom:12,
           center=(Array.isArray(address))?"":"center="+address.region+"&",
-          url="http://maps.googleapis.com/maps/api/staticmap?"+center,
+          url="//maps.googleapis.com/maps/api/staticmap?"+center,
           opt="maptype=roadmap&zoom="+zoom+"&size=850x400",
           id="&key="+statickey;
 

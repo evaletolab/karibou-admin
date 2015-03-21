@@ -2,6 +2,28 @@
 
   </div>
 
+	<!-- DIPLAY CATEGORY -->
+  <div class="cover-row">
+    <div class="cover-body" style="top:0">
+      <div class="cover-body-inner">
+        <div class="cover-resume categories hidden-xs hidden-sm" >
+          <ul>
+              <li>
+                <a class="site-nav-list-item  " title="Tous les produits" 
+                   href="/" tabindex="-1"><i class=""></i>&nbsp;Tous les produits</a>
+              </li>
+              <li  class="" ng-repeat="category in category.findAll()|filter:{type:'Category'}|orderBy:'weight'">
+                <a class="site-nav-list-item  " title="{{category.name}}" 
+                   ng-class="getClass('/products/category/{{category.slug}}')"
+                   href="/products/category/{{category.slug}}" tabindex="-1"><i class=""></i>&nbsp;{{category.name}}</a>
+              </li>
+          </ul>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+
   <div class="cover-body " hide="cart.items.length">
     <!-- HOME -->
      <div  class="cover-body-inner strong " >
@@ -13,3 +35,5 @@
   </div>
 
 
+
+  

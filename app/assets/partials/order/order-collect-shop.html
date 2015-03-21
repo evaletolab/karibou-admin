@@ -10,10 +10,10 @@
         <a class="text-capitalize" > {{shop}}</a>
         <form class="form-inline  pull-right">
           <button type="button" class="btn btn-success btn btn-xs"
-                  ng-click="updateCollect(shops[shop][0].oid,shop,true,shops[shop][0].when)"
+                  ng-click="updateCollect(shop,true,filters.f)"
                   ng-disabled=""><i class="fa fa-thumbs-up"></i> ok</button>&nbsp;
           <button type="button" class="btn btn-danger btn btn-xs "
-                  ng-click="updateCollect(shops[shop][0].oid,shop,false,shops[shop][0].when)"
+                  ng-click="updateCollect(shop,false,filters.f)"
                   ng-disabled=""><i class="fa fa-thumbs-down"></i>  ko</button>&nbsp;
         </form>
 

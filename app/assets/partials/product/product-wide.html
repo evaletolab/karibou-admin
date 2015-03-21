@@ -11,14 +11,14 @@
           <img ng-cloak ng-if="!product.photo.url" ng-src="{{false|placehold:'400x320'}}" >
 
           <!-- NOT AVAILABLE -->
-          <img ng-cloak ng-show="!product.isAvailableForOrder()" ng-src="http://placehold.it/400x320/eeeeee/000000&text=indisponible" class="available" style="height:100%">
+          <img ng-cloak ng-show="!product.isAvailableForOrder()" ng-src="//placehold.it/400x320/eeeeee/000000&text=indisponible" class="available" style="height:100%">
 
           <!-- NOT IN STOCK -->
-          <img ng-cloak ng-hide="product.pricing.stock" ng-src="http://placehold.it/400x320/eeeeee/000000&text=plus+en+stock" class="available" style="width:100%">
+          <img ng-cloak ng-hide="product.pricing.stock" ng-src="//placehold.it/400x320/eeeeee/000000&text=plus+en+stock" class="available" style="width:100%">
 
           <!-- CART QUANTITY -->
           <div class="sexy white product-qty" ng-show="cart.findBySku(product.sku).quantity" >
-             {{cart.findBySku(product.sku).quantity}} articles dans votre panier</span>
+             {{cart.findBySku(product.sku).quantity}} article(s) dans votre panier</span>
           </div>
 
 
@@ -35,7 +35,6 @@
 
             <!-- REGULAR -->
             <span ng-hide="product.attributes.discount" class="small green bold ">Fr {{product.pricing.price| number:2}}</span>
-
             <!-- DISCOUNT -->
             <span ng-show="product.attributes.discount" >
               <span class="red bold strike"> {{product.pricing.price| number:2}}</span>
@@ -68,15 +67,28 @@
 
       <!-- TITLE -->
       <h2 class="" style="padding: 15px 20px;">
-        {{product.title}} <span class="green " ng-show="product.details.bio">(bio)</span>
+        {{product.title}}
       </h2>
-
-
+      
       <!-- DESCRIPTION -->
-      <blockquote >
+      <div class="description">
         <p>{{product.details.description}}</p>
-        <span ng-show="product.details.origin" ><small>{{product.details.origin}}</small></span>
-      </blockquote>
+        <span ng-show="product.details.origin" class="small">{{product.details.origin}}</span>
+      </div>
+
+      <!-- CERTIFIED -->
+      <div class="certified">
+        <ul class="info ">
+          <li ng-show="product.quantity.display">{{product.quantity.comment}}</li>
+          <li ng-show="product.shelflife.display">{{product.shelflife.comment}}</li>
+        </ul>
+        <div>
+          <span ng-if="product.details.bio" class="label label-product">BIO</span>
+          <span ng-if="product.details.natural" class="label label-product" title="Naturel">Sans chimie de synthèse</span>
+          <span ng-if="product.details.homemade" class="label label-product">Artisanal</span>
+          <span ng-if="product.details.local" class="label label-product">Local</span>
+        </div>
+      </div>
 
   	  <!-- VENDOR-->
       <div class="shop clearfix" >

@@ -32,7 +32,6 @@
           class="link"   itemprop="url">
 
           <!-- PHOTO -->
-          <!-- <img ng-if="product.photo.url&&!product_edit" bg-src="{{product.photo.url}}" class="lazy "> -->
           <img ng-if="product.photo.url" bg-src="{{product.photo.url}}" bg-small="true">
 
           <!-- NOT AVAILABLE http://placehold.it/275x230/eeeeee/000000&text=indisponible -->
@@ -42,6 +41,10 @@
           <img ng-cloak ng-if="!product.pricing.stock" ng-src="/img/product-stock.gif" class="available">
 
 
+          <!-- CLOSE-->
+          <div class="closed" ng-if="product.vendor.available.active">
+            <!-- {{product.vendor.available.comment}} -->
+          </div>
           <!-- PRICE-->
           <div class="price" itemprop="price">
             <!-- REGULAR -->
@@ -57,9 +60,9 @@
         </a>
 
         <div class="vertical-divider" style="width:100%">
-          <div class="title " itemprop="name">
-            {{product.title}} <span ng-show="product.details.bio" class="green bold">(bio)</span>
-          </div>
+          <a class="title " itemprop="name" ng-href="{{shop.urlpath|test:'/shop/':''}}/products/{{product.sku}}" >
+            {{product.title}}
+          </a>
           <div >
             <a class="shop-title " ng-href="/shop/{{product.vendor.urlpath}}"  >{{product.vendor.name}}</a>
             <i class=" love" 

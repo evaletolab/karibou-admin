@@ -22,9 +22,9 @@
         <li ng-if="user.isAuthenticated()"><a href="" ng-click="logout()">logout</a></li>
       </ul>
       <!-- FILTER CONTENT -->
-      <form class="navbar-form navbar-right" role="search">
+      <form class="navbar-form navbar-left" role="search">
         <div class="form-group">
-          <input type="text" class="form-control" placeholder="Filter" ng-model="filterTxt">
+          <input type="text" class="form-control" placeholder="Filter" ng-model="options.filterTxt">
         </div>
       </form>        
     </div>

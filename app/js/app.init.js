@@ -1,8 +1,8 @@
 ;(function(angular) {'use strict';
 
 // chromium-browser --ignore-gpu-blacklist --disable-gpu-sandbox
-var API_SERVER='http://localhost:4000'
-// var API_SERVER='http://api.'+window.location.hostname
+// var API_SERVER='http://localhost:4000'
+var API_SERVER='//api.'+window.location.hostname
 // var API_SERVER='http://192.168.1.35:4000'
 // var API_SERVER='http://karibou-api.cloudfoundry.com'
 // var API_SERVER='http://karibou-evaletolab.rhcloud.com'
@@ -24,6 +24,7 @@ angular.module('app', [
   'app.api',
   'app.root',
   'app.user',
+  'app.feedback',
   'app.shop',
   'app.product',
   'app.category',
@@ -37,7 +38,7 @@ angular.module('app', [
 
 //
 // Scroll events can be triggered very frequently, which can hurt performance and make scrolling appear jerky.
-angular.module('infinite-scroll').value('THROTTLE_MILLISECONDS', 500)
+//angular.module('infinite-scroll').value('THROTTLE_MILLISECONDS', 500)
 
 //
 // Configure application $route, $location and $http services.
@@ -66,12 +67,12 @@ function appConfig( $provide, $routeProvider, $locationProvider, $httpProvider) 
   };
 
   
-  var interceptor = ['$rootScope', '$q','$location','$timeout', function (scope, $q, $location, $timeout) {
-    function showError($rootScope, err, ms){
-      $rootScope.FormErrors=parseError(err);
-      console.log(err)
+  var interceptor = ['$rootScope', '$q','$location','$timeout',
+  function (scope, $q, $location, $timeout) {
+    function showError($scope, err, ms){
+      $scope.FormErrors=parseError(err);
       $timeout(function(){
-        $rootScope.FormErrors=undefined;
+        $scope.FormErrors=undefined;
       }, ms||5000);
     };  
 
@@ -102,10 +103,13 @@ function appConfig( $provide, $routeProvider, $locationProvider, $httpProvider) 
         // if we are anonymous in the wrong place ...
         if(401===response.status){
           var longpath=$location.path();
-          if(_.find(['/account','/admin'],function(path){
+          if(!scope.user.isAuthenticated() && _.find(['/account','/admin'],function(path){
             return (longpath.indexOf(path)!==-1);
           })){
             $location.path('/login');
+          }else if (response.data.toLowerCase().indexOf('vous devez ouvrir')){
+            // if logged but without correct right 
+            showError(scope,response.data)            
           }
         }
 
@@ -137,6 +141,7 @@ function appConfig( $provide, $routeProvider, $locationProvider, $httpProvider) 
   // List of routes of the application
   $routeProvider
     // Pages
+    .when('/welcome',{templateUrl:'/partials/pages/welcome.html'})
     .when('/the-site-is-currently-down-for-maintenance-reasons', {title:'the site is currently down for maintenance reasons',templateUrl : '/partials/errors/down.html'})
     .when('/about', {title:'about',templateUrl : '/partials/about.html'})
     .when('/page/doc/:article?',{title: 'markdown content', templateUrl: '/partials/pages/page.html'})
@@ -178,13 +183,21 @@ function cordovaReady() {
 
 //
 // init the module
-appRun.$inject=['gitHubContent', '$templateCache', '$route', '$http']
-function appRun(gitHubContent, $templateCache, $route, $http) {
+appRun.$inject=['gitHubContent', '$templateCache', '$route', '$http', 'config']
+function appRun(gitHubContent, $templateCache, $route, $http, config) {
   gitHubContent.initialize({
         root:'page', // specify the prefix route of your content
         githubRepo:'evaletolab/karibou-doc',
         githubToken:'7b24b8ec909903ad91d4548fc6025badaf1501bc'
     });
+
+
+  // special setup that depends on config 
+  config.shop.then(function () {
+      // config stripe here
+      var pk=config.shop.global.keys&&config.shop.global.keys.pubStripe||'pk_test_PbzvxL5vak34c2GvSFqUXEac';
+      Stripe.setPublishableKey(pk);
+  })
 
   // preload templates
   for(var i in $route.routes){

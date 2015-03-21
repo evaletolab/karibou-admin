@@ -3,22 +3,28 @@
   <!-- TITLE -->
   <h3 id="ac-{{shop}}" ng-if="(!filters.s||filters.s===shop)">
     <a ng-href="/shop/{{shop}}">{{shop}} ({{items.length}}) </a>  
-    <button ng-click="informShopToOrders(shop,shipping.currentDay)" ng-if="user.isAdmin()"
+    <button ng-click="informShopToOrders(shop,shipping.currentDay)" 
             type="button" class="btn btn-sm btn-transparent">Envoyer un mail</button>
   </h3>
 
   <!-- ITEMS -->
-  <div class="list-group">
+  <ul class="list-group">
     <li  class="list-group-item " 
-         ng-repeat="item in items|filter:filterTxt" 
+         ng-repeat="item in items|orderBy:['rank']|filter:options.filterTxt" 
          ng-class="getOrderItemStatusClass(item,'list-group-item-')" ng-if="(!filters.s||filters.s===shop)">
-      <h4 class="list-group-item-heading">
-        <a class="text-capitalize" ng-click="modalUserDetails(item.oid)" bs-modal="'/partials/order/order.user.modal.html'">
-          <span class="hidden-xs">{{item.customer.name.givenName}}</span> {{item.customer.name.familyName}}</a>,  
-          {{item.quantity}}x <a ng-href="/products/{{item.sku}}">{{item.title}} ({{item.part}})</a> 
+      <h4 class="list-group-item-heading"> 
+          <span ng-class="(item.quantity>1)?'bold red':''">{{item.quantity}}x</span> <a ng-href="/products/{{item.sku}}">{{item.title}} ({{item.part}})</a> 
       </h4>
-      <span class="bag-1 label " ng-class="isItemValidated(item)?'label-primary':'label-default'">sac {{item.rank}}</span>
-      <span class="bag-2 label " ng-class="isItemValidated(item)?'label-success':'label-default'">{{item.finalprice|number:'2'}}CHF</span>
+      <span class="bag-1 customer" >
+          <a class="text-capitalize link bold" 
+             ng-show="groupByCustomer(item.email, $index)"
+             ng-click="modalUserDetails(item.oid)" 
+             bs-modal="'/partials/order/order.user.modal.html'">
+            <span class="hidden-xs">{{item.customer.name.givenName}}</span> {{item.customer.name.familyName}} 
+          </a>&nbsp;
+          <span class="label" ng-class="isItemValidated(item)?'label-primary':'label-default'">sac {{item.rank}}</span>
+      </span>
+      <span class="bag-2 label " ng-class="isItemValidated(item)?'label-price':'label-default'">{{item.finalprice|number:'2'}}CHF</span>
       <div class="list-group-item-text clearfix">
         <div class="col-xs-10 nopadding">
           <form class="form-inline pull-righ ">
@@ -26,16 +32,16 @@
             <input type="text" type="number" pattern="^\d+(\.|\,)\d{2}$" ng-model="item.finalprice" class="form-control input-xs" ng-disabled="getInputDisabled(item)" style="width:60px;display:inline">
             <button type="button" class="btn btn-success btn btn-xs"
                     ng-click="updateItem(item.oid,item,'fulfilled')"
-                    ng-disabled="getInputDisabled(item)"><i class="fa fa-thumbs-up"></i> Terminez</button>
+                    ><i class="fa fa-thumbs-up"></i> Validez</button>
             <button type="button" class="btn btn-default btn btn-xs"
                     ng-click="updateItem(item.oid,item,'failure')"
-                    ng-disabled="getInputDisabled(item)"><i class="fa fa-thumbs-down"></i> Annulez</button>
+                    ><i class="fa fa-thumbs-down"></i> Annulez</button>
           </form>
 
         </div>
       </div>
     </li>
-  </div>
+  </ul>
   <!-- ITEMS TOTAL -->
   <p ng-show="(!filters.s||filters.s===shop)" class="gray small">Total commandé : {{getAmountTotal(shop)|number:2}} CHF</p>
 </div>

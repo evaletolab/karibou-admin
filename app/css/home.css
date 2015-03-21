@@ -44,7 +44,10 @@ html,body,.main {
     -overflow-y:auto;
     padding-top: 0px;
     margin-top: 0px;
-    margin-left: 38%;
+    margin-left: 30%;
+}
+.wrapper.shop{
+    margin-left: 40%;
 }
 
 .wrapper.paysage{
@@ -121,17 +124,21 @@ html,body,.main {
 
 }
 
-@media all and (max-width:1000px) {
+@media all and (max-width:992px) {
     .wrapper {
-    margin-left:0;
-    position:relative}
+        margin-left:0;
+        position:relative;
+    }
 
-.wrapper-inner {
-    padding:0px 88px;
-    max-width:100%;
-    margin-top: 5px
+    .wrapper-inner {
+        padding:0px 88px;
+        max-width:100%;
+        margin-top: 5px
+    }
+    .wrapper.shop{
+        margin-left: 0;
+    }
 
-}
 
 }
 
@@ -163,13 +170,24 @@ html,body,.main {
         -background:     moz-linear-gradient(#ffffff,#fafbfa); /*Fx 3.6-15*/    
         -background:         linear-gradient(#ffffff,#fafbfa)    
     }
+
+    .wrapper-inner.markdown {
+        padding: 5px;
+    }
 }
 
 @media all and (min-width:1666px) {
     .wrapper {
-    width: 62%;
+    width: 75%;
     margin-left:0;
-    left:600px;}
+    left:25%;
+    }
+    .wrapper.shop{
+    width: 60%;
+    margin-left:0;
+    left:40%;
+    }
+
 
 .wrapper-inner {
     max-width:1024px}
@@ -181,12 +199,15 @@ html,body,.main {
 }
 
 body {
-    text-rendering:optimizeLegibility;
     -webkit-font-smoothing:antialiased;
-    font-weight:400;
+    font-weight:300;
     color:#333332;
     font-size:18px;
     line-height:1.4
+}
+
+.chrome body {
+    text-rendering:optimizeLegibility;
 }
 
 .main {
@@ -210,7 +231,7 @@ a {
     -color:#000;
     text-decoration:none}
 
-@media screen and (max-device-width:1000px) {
+@media screen and (max-device-width:992px) {
     html {
     -webkit-text-size-adjust:none}
 
@@ -307,7 +328,8 @@ a {
     padding-top:20px}
 
 .bucket-sort .active {
-    border-bottom:1px solid #333332}
+    -border-bottom:1px solid #333332
+}
 
 .bucket-sort .active a {
     color:#333332}
@@ -329,7 +351,7 @@ a {
 .wf-loading .bucket,.wf-loading .bucket-title,.wf-loading .empty-bucket {
     visibility:hidden}
 
-@media all and (max-width:1000px) {
+@media all and (max-width:992px) {
     .bucket-title a,.bucket-title .no-link {
     font-size:20px;
     padding-bottom:11px}
@@ -410,7 +432,7 @@ a {
     padding-bottom:6px;
     font-size:18px}
 
-@media all and (max-width:1000px) {
+@media all and (max-width:992px) {
     .show-subtitles-variant .post-item-snippet {
     font-size:18px}
 
@@ -442,8 +464,8 @@ a {
     top:-100px;
     width:58%;
     max-width:640px;
-    margin-left:32%;
-    z-index:199800;
+    margin-left:30%;
+    z-index:1998000;
     text-align:center;
     -webkit-transition:top .7s,opacity .7s;
     -moz-transition:top .7s,opacity .7s;
@@ -518,7 +540,7 @@ a {
     background:#ad5768}
     
 
-@media all and (max-width:1000px) {
+@media all and (max-width:992px) {
     .template-flex-article .butter-bar,.butter-bar {
     left:0;
     margin-left:10%;
@@ -605,7 +627,7 @@ a {
     text-decoration:none;
     cursor:default}
 
-@media screen and (max-width:1000px) {
+@media screen and (max-width:992px) {
     .nav-page {
     margin-top:0;
     text-align:left}
@@ -748,7 +770,7 @@ a {
     position:relative;
     font-family:"freight-sans-pro","Myriad Pro","Lucida Grande","Lucida Sans Unicode","Lucida Sans",Geneva,Verdana,sans-serif;
     font-weight:400;
-    overflow-y: hidden;
+    overflow-y: auto;
 }
 
 .site-nav-list-item {
@@ -919,14 +941,14 @@ a {
 .site-nav-drawer-open .site-nav-overlay {
     display:block}
 
-@media screen and (min-device-width:1000px) {
+@media screen and (min-device-width:992px) {
     .site-nav-list-item-active .site-nav-list-item-btn,.site-nav-list-item-active .notifications-list-item-btn,.site-nav-list-item-active .site-nav-list-item-btn .icons:before,.site-nav-list-item-btn:hover,.site-nav-list-item-btn:hover .icons:before,.site-nav-list-item-btn-secondary:hover .icons:before,.notifications-list-item-btn:hover {
     color:#fff;
     outline:0}
 
 }
 
-@media screen and (max-width:1000px) {
+@media screen and (max-width:992px) {
     .body-scroll .site-nav {
     position:absolute}
 
@@ -1378,7 +1400,7 @@ body:not(.post-edit-mode) .post-page-wrapper-contain {
 .logged-out-section-link:hover {
     border-bottom:1px solid #b3b3b1}
 
-@media screen and (max-width:1000px) {
+@media screen and (max-width:992px) {
     .logged-out-sections {
     width:130%}
 

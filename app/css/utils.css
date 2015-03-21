@@ -31,6 +31,14 @@
   border-radius: 7px;
 }
 
+.label.label-lg{
+  font-size: 100%;
+} 
+
+.label.label-md{
+  font-size: 90%;
+} 
+
 .btn-transparent {
   background-color: rgba(90,120,90,.05);
   border-color: #ccc;
@@ -283,6 +291,7 @@ img.img-cover {
 
 .link{
   border-bottom: 1px dotted;
+  text-decoration: none!important;
 }
 
 .stick-bl{

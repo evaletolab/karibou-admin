@@ -20,7 +20,7 @@
                               ng-model="number" payments-validate="card" payments-format="card" payments-type-model="type" 
                               ng-class="card.number.$card.type"/>
                       <span ng-show="Cards.fromNumber(number).type" class="accout-field-valid"><i class="fa fa-ok green"></i></span>
-                      <p class="help-block"> mc 5555555555554444, visa 4012888888881881, ae 371449635398431
+                      <p class="help-block hide"> mc 5555555555554444, visa 4012888888881881, ae 371449635398431
                       </p>
                     </div>
                   </div>
@@ -67,8 +67,8 @@
               </div>
               <div class="security clearfix">
                 <div class="lock"><img src="/img/payments/lock.png" /></div>
-                <div class="content"><p class="help-block">Les transactions et le stockage des cartes est effectué de façon sécurisée par Postfinance SA</p></div>
-                <div class="logo"><img src="/img/payments/postfinance-lg.jpg" /></div>
+                <div class="content"><p class="help-block">Les transactions et le stockage des cartes sont effectués de façon sécurisée par Stripe</p></div>
+                <div class="logo"><img src="/img/payments/solid.png" /></div>
               </div>
 
           </div>

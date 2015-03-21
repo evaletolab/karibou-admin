@@ -20,7 +20,7 @@
           <div class="panel-body nopadding" id="shopper-filter" ng-class="{'hide':orders.length}">
               <div class="col-xs-12 col-md-3 ">
                 <span>Filtrer: </span>                
-                <button class="btn btn-md btn-transparent btn-block" ng-click="toggle({fulfillments:'partial'})" ng-class="getToggleClass('fulfillments','partial')">Les commandes incomplètes</button>
+                <button class="btn btn-md btn-transparent btn-block" ng-click="toggle({payment:'authorized'})" ng-class="getToggleClass('payment','authorized')">Les commandes incomplètes</button>
               </div>
               <div ng-show="!dates.length" class="col-xs-12 col-md-3 gray text-center ">
                 <i class="fa fa-warning fa-1x"></i><br/> Pas de livraison à proposer pour {{months_long[filters.month-1]}}

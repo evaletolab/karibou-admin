@@ -6,17 +6,18 @@
     <a ng-href="/admin/shipping">livraison</a>
   </li>
 
-  <li ng-if="user.isAdmin()"  ng-class="getClass('/admin/collect')" >
+  <li   ng-class="getClass('/admin/collect')" >
     <a ng-href="/admin/collect">Collecte</a>
   </li>
 </ul>
-<ul class="nav nav-sidebar">
+<ul class="nav nav-sidebar" ng-if="user.shops.length||user.isAdmin()">
   <li><h5>Commandes</h5></li>
   <li  ng-class="getClass('/admin/orders')"><a href="/admin/orders">Les commandes</a></li>
-
+<!--   <li  ng-class="getClass('/admin/orders/print')"><a href="/admin/orders/print">Les commandes imprimables</a></li>
+ -->
   <!-- REPPORT -->
   <li><h5>Rapport</h5></li>
-  <li ng-if="user.shops.length||user.isAdmin()" ng-class="getClass('/admin/repport/shop')"><a href="/admin/repport/shop">Rapport d'activité</a></li>
+  <li ng-class="getClass('/admin/repport/shop')"><a href="/admin/repport/shop">Rapport d'activité</a></li>
   <!--
   <li ng-if="user.isAdmin()" ng-class="getClass('/admin/repport/users')"><a href="/admin/repport/users">Users</a></li>
   -->

@@ -102,17 +102,6 @@ User.controller('AccountCtrl',[
     // check and init the session
     user.me(function(u){
       $scope.user = u;
-      u.geo=new Map()
-      Raven.setUserContext({ email: user.email })
-
-
-      user.addresses.forEach(function(address,i){
-        user.geo.addMarker(i,{
-          lat:address.geo.lat,
-          lng:address.geo.lng,
-          message:address.streetAdress+'/'+address.postalCode
-        });
-      })
       angular.extend($scope,user.geo.getMap());
     });
 
@@ -192,7 +181,7 @@ User.controller('AccountCtrl',[
       $rootScope.WaitText="Waiting ..."
 
       user.register(r,function(){
-        api.info($scope,"Votre compte à été créé! Une demande de confirmation vous a été envoyé à votre adresse email")
+        api.info($scope,"Votre compte à été créé! Une demande de confirmation vous a été envoyée à votre adresse email")
         $location.url('/account/profile');
       });
     };
@@ -216,7 +205,7 @@ User.controller('AccountCtrl',[
     $scope.save=function(u){
       $rootScope.WaitText="Waiting ..."
       user.save(user,function(){
-        api.info($scope,"Profile enregistré");
+        api.info($scope,"Profil enregistré");
       });
     };
 
@@ -228,6 +217,7 @@ User.controller('AccountCtrl',[
       user.newpassword(password,function(){
         api.info($scope,"Password modifié");
         user.password={};
+        $location.url('/account/profile');
       });
     };
 
@@ -265,9 +255,50 @@ User.controller('AccountCtrl',[
 
     $scope.addPaymentMethod=function(name,number,csc,expiry){
       $rootScope.WaitText="Waiting ..."
-      user.addPaymentMethod({name:name,number:number,csc:csc,expiry:expiry},function(u){
-        api.info($scope,"Votre méthode de paiement a été enregistré");
-        $scope.options.showCreditCard=false;
+    if(!expiry){
+      $rootScope.WaitText=false
+      return api.info($scope,"Date non valide!");
+    }
+    if(!csc){
+      $rootScope.WaitText=false
+      return api.info($scope,"CVC non valide!");
+    }
+      Stripe.card.createToken({
+        name:name,
+        number: number,
+        cvc: csc,
+        exp_month: expiry.split('/')[0],
+        exp_year: expiry.split('/')[1]
+      }, function (status, response) {
+        if(response.error){
+          $rootScope.WaitText=false
+          return api.info($scope,response.error.message);
+        }
+        //
+        // response.id
+        user.addPaymentMethod({
+          id:response.id,
+          name:response.card.name,
+          issuer:response.card.brand.toLowerCase(),
+          number:'xxxx-xxxx-xxxx-'+response.card.last4,
+          expiry:response.card.exp_month+'/'+response.card.exp_year
+        },function(u){
+          api.info($scope,"Votre méthode de paiement a été enregistrée");
+          $rootScope.WaitText=false
+          $scope.options.showCreditCard=false;
+        })
+
+      });      
+    }
+
+
+    $scope.checkPaymentMethod=function(){
+      $rootScope.WaitText="Waiting ..."
+      $scope.methodStatus={}
+      user.$promise.then(function () {
+        user.checkPaymentMethod(function(methodStatus){
+          $scope.methodStatus=methodStatus;
+        })
       })
     }
 

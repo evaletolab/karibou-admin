@@ -5,8 +5,10 @@
         <h1 class="cover-title">{{user.display()}}</h1>
         <div>
           <a href="/account/overview" class="btn  btn-profile btn btn-md btn-split">Mon profil</a>
-          <a href="/account/love" class="btn btn-profile btn btn-md btn-split">
+          <a ng-if="!user.shops.length" href="/account/love" class="btn btn-profile btn btn-md btn-split">
             Mes coups de  <i class="fa fa-heart"></i></a>
+          <a ng-if="user.shops.length" href="/admin/orders" class="btn btn-profile btn btn-md btn-split">
+            Ma boutique  <i class="fa fa-home green"></i></a>
         </div>
 
 

@@ -38,8 +38,33 @@ div.shipping-date{
 
 .wizard input.ng-invalid {
   border: 1px solid #a94442;
+  -webkit-box-shadow: 0px 0px 5px rgba(200, 0, 0, .35)
+     -moz-box-shadow: 0px 0px 5px rgba(200, 0, 0, .35);
+          box-shadow: 0px 0px 5px rgba(200, 0, 0, .35);
 }
 
+
+.label-price{
+  background-color: rgba(226, 223, 223, 0.39);
+  color: rgb(171, 170, 170);  
+  margin-right: -5px;
+}
+
+.wizard.login a.link{
+  position: absolute;
+  top: 5px;
+  right: 30px;  
+  padding: 4px;
+}
+
+div.list-group-item{
+  margin: 5px;
+  padding: 15px 5px;  
+}
+
+table th.col-product{
+  width: 70%;
+}
 
 /* Desktop large
 ------------------------- */
@@ -62,6 +87,13 @@ div.shipping-date{
 /* Tablet
 ------------------------- */
 @media (max-width: 767px) {
+
+.wizard.login a.link{
+  position: relative;
+  font-weight: bold;
+  top:inherit;
+  right: inherit;
+}
 
 }
 

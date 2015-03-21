@@ -9,7 +9,7 @@ var UI=angular.module('app.ui',['app.config']);
 UI.filter("placehold",function(){
   return function(img,params){
     if (img)return img;
-    return "http://placehold.it/"+params;
+    return "//placehold.it/"+params;
   }
 });
 
@@ -138,12 +138,16 @@ UI.directive('ngStaticInclude', [
 
 //
 // load image as background image
-UI.directive("bgSrc", ['$timeout',function ($timeout) {
+UI.directive("bgSrc", ['$timeout','config',function ($timeout,config) {
   return {
       restrict: 'A',
       link: function(scope, element, attrs){
         var url=attrs.bgSrc.replace(/ /g,'%20');
-        if(attrs.bgSmall) url='http://cdn.filter.to/375x1000/'+url.replace('https','http')
+
+        if(attrs.bgSmall) {
+          // url='http://cdn.filter.to/300x1000/'+url.replace('https','http')
+          url=config.API_SERVER+'/v1/cdn/image/305x1000?source='+url.replace('https','http')
+        }
         element[ 0 ].style.backgroundImage = "url("+url+")";
       }
   };
@@ -268,12 +272,13 @@ UI.directive('backstretch', ['$parse', function($parse) {
       };    
       
       function bs(e, path){
-        if($.browser && $.browser.msie && $.browser.version<8){
-          e.find('div.backstretch').remove();
-          e.backstretch(path);
-          return;
-        }
-        if (path.indexOf('http')==-1)path='/'+path;
+        // if($.browser && $.browser.msie && $.browser.version<8){
+        //   e.find('div.backstretch').remove();
+        //   e.backstretch(path);
+        //   return;
+        // }
+        // console.log('------------',path)
+        if ((path.indexOf('http')!==0) && (path.indexOf('//')!==0))path='/'+path;
         style['background-image']='url('+path+')';
         e.css(style);	
               
@@ -320,8 +325,8 @@ UI.directive('background', ['$parse', function($parse) {
 UI.directive('backfader', ['$parse','$location','$anchorScroll','$routeParams', function($parse,$location,$anchorScroll, $routeParams) {
   var referrers=[];
   return function(scope, element, attr) {
-      angular.element("body").addClass('noscroll');
 
+      angular.element("body").addClass('noscroll');
       var referrer;
       referrers.push(scope.referrer);
       // manage state
@@ -336,12 +341,12 @@ UI.directive('backfader', ['$parse','$location','$anchorScroll','$routeParams', 
       }
 
 
-      var i=setInterval(function(){
-        if(!element.is(":visible")){
-          angular.element("body").removeClass('noscroll');
-          clearInterval(i);
-        }
-      },2000);
+      // var i=setInterval(function(){
+      //   if(!element.is(":visible")){
+      //     angular.element("body").removeClass('noscroll');
+      //     clearInterval(i);
+      //   }
+      // },2000);
       //if current path is already in referrers => remove all
       //console.log('input backfader', referrers,referrers.length-1);
 
@@ -368,6 +373,14 @@ UI.directive('backfader', ['$parse','$location','$anchorScroll','$routeParams', 
           });
         };
 
+        // FIXME find a best way to clean on exit 
+        element.find('a').click(function (e) {
+          setTimeout(function() {
+            if(!element.is(":visible")){
+              angular.element("body").removeClass('noscroll');
+            }            
+          }, 300);
+        })
         element.find('.on-close').click(function(e){
           e.stopPropagation();
           onClose()
@@ -414,11 +427,24 @@ UI.directive('lazyload', ['$parse','$timeout', function($parse , $timeout) {
   }
 }]);
 
-UI.directive('autoSubmit', ['$parse','$timeout', function($parse , $timeout) {
+UI.directive('autoSubmit', ['$parse','$timeout','user', function($parse , $timeout, user) {
   return function(scope, element, attr) {
-    $timeout(function () {
-      element.submit();
-    },1000)
+    var target=angular.element('#'+attr.target),
+        firstTime=true;
+
+
+    function tick() {
+        if(firstTime)element.submit();
+        firstTime=false;
+
+        //
+        // simple check of payment validation
+        user.me(function(u){
+          console.log('psp ecommerce payment is live',u.payments)
+        });
+
+    };
+    $timeout(tick, 2000);    
   }
 }]);
 

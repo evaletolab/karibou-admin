@@ -27,7 +27,7 @@ angular.module('postfinance.card')
   // card formatting
 
   var _formatCardNumber = function(e) {
-      var $target, card, digit, length, re, upperLength, value;
+      var $target, card, digit, length, re, upperLength, value, space='';
       
       digit = String.fromCharCode(e.which);
       $target = angular.element(e.currentTarget);
@@ -60,15 +60,22 @@ angular.module('postfinance.card')
       }
 
       if (re.test(value)) {
-        e.preventDefault();
-        return $target.val(value + ' ' + digit);
+        space=''
+        if(e.which!==8){
+          space=' '
+          e.preventDefault();
+        }
+        //
+        // prevent block on backspace and space char
+        digit=(e.which>46&&e.which<91)?digit:'';
+        return $target.val($.trim(value) + space + digit);
 
       } else if (re.test(value + digit)) {
         e.preventDefault();
         return $target.val(value + digit + ' ');
 
       }
-  };
+};
 
   var _restrictCardNumber = function(e) {
       var $target, card, digit, value;
@@ -182,6 +189,7 @@ angular.module('postfinance.card')
   var _formatCVC = function(e){
     var $target = angular.element(e.currentTarget);
     var digit = String.fromCharCode(e.which);
+    digit=(e.which>46&&e.which<91)?digit:'';
     
     if (!/^\d+$/.test(digit) && !e.meta && e.keyCode >= 46) {
       e.preventDefault();
@@ -209,6 +217,7 @@ angular.module('postfinance.card')
     
     $target = angular.element(e.currentTarget);
     digit = String.fromCharCode(e.which);
+    digit=(e.which>46&&e.which<91)?digit:'';
     
     if (!/^\d+$/.test(digit) && !e.meta && e.keyCode >= 46) {
       e.preventDefault();

@@ -28,6 +28,7 @@ function OrderCommonCtrl($scope, $routeParams, api, order, user, product, Map, c
     showMenu:false
   }
 
+
   // default model for modal view
   $scope.modal = {};
 
@@ -92,6 +93,14 @@ function OrderCommonCtrl($scope, $routeParams, api, order, user, product, Map, c
     return showHeader||(idx===0);
   }
 
+  //
+  // use this to group order view by Customer
+  $scope.currentCustomer='pok1';
+  $scope.groupByCustomer = function(customer, idx) {
+    var showHeader = (customer!==$scope.currentCustomer);
+    $scope.currentCustomer = customer;
+    return showHeader||(idx===0);
+  }
   //
   //
   $scope.getOrderStatusClass=function(order,prefix){

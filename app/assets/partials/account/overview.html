@@ -4,7 +4,7 @@
 
  <!--  <div class="butter-bar active info back " ng-cloak ng-show="user.email.status !== true">
     <p class="butter-bar-message">
-      <b>Psst!</b> N'oubliez pas de valider votre adresse e-mail! Rechercher dans votre boîte de reception le message que nous vous avons envoyé. <a href="/account/overview">Vous pouvez aussi demander à recevoir de nouveau l'e-mail</a>.
+      <b>Psst!</b> N'oubliez pas de valider votre adresse e-mail! Recherchez dans votre boîte de reception le message que nous vous avons envoyé. <a href="/account/overview">Vous pouvez aussi demander à recevoir de nouveau l'e-mail</a>.
     </p>
   </div>
  -->
@@ -51,7 +51,7 @@
       </div>
 
       <!-- LAST ORDERS -->
-      <div  class="well well-small white clearfix" ng-if="!user.orders.length">
+      <div  class="well well-small white clearfix" >
         
         <h5  class="article-group-title " >
           <span class="bucket-header-title"><i class="fa fa-shopping-cart gray"></i>&nbsp;Mes dernières commandes</span> 
@@ -84,7 +84,7 @@
         <div class="alert alert-warning" ng-cloak  ng-show="user.email.status !== true">
           <strong>Votre adresse e-mail n'a pas été confirmée.</strong><br/>
           Afin d'assurer une communication avec vous, nous avons besoin de valider votre adresse email.
-          Pour valider votre adresse, rechercher dans votre boîte de reception le message que nous vous avons envoyé. Vous pouvez <a href="" ng-click="verify(user)">aussi demander à recevoir un nouvel e-mail de confirmation.</a>.
+          Pour valider votre adresse, recherchez dans votre boîte de reception le message que nous vous avons envoyé. Vous pouvez <a href="" ng-click="verify(user)">aussi demander à recevoir un nouvel e-mail de confirmation.</a>.
         </div>
 
 

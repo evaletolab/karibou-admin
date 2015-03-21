@@ -24,7 +24,7 @@ Product.config([
           title:'Créer un nouveau produit ',clear:true, modal:true, view:'modal',controller:'ProductCtrl', templateUrl : '/partials/product/create.html'
        })
       .when('/products/:sku', {
-          title:'Votre produit ', modal:true,view:'modal',controller:'ProductCtrl', templateUrl : '/partials/product/product-wide.html'
+          modal:true,view:'modal',controller:'ProductCtrl', templateUrl : '/partials/product/product-wide.html'
        })
       .when('/shop/:shop/products/:sku/edit', {
           title:'Votre produit ', modal:true, edit:true, view:'modal',controller:'ProductCtrl', templateUrl : '/partials/product/create.html'
@@ -33,7 +33,7 @@ Product.config([
           title:'Votre produit ', modal:true, edit:true, view:'modal',controller:'ProductCtrl', templateUrl : '/partials/product/create.html'
        })
       .when('/shop/:shop/products/:sku', {
-          title:'Votre produit ', modal:true,view:'modal',controller:'ProductCtrl', templateUrl : '/partials/product/product-wide.html'
+          modal:true,view:'modal',controller:'ProductCtrl', templateUrl : '/partials/product/product-wide.html'
        });
   }
 ]);
@@ -42,7 +42,6 @@ Product.config([
 
 Product.controller('ProductCtrl',[
   '$scope',
-  '$route',
   '$rootScope',
   '$location',
   '$routeParams',
@@ -52,12 +51,14 @@ Product.controller('ProductCtrl',[
   'api',
   'product',
   'cart',
+  'shop',
 
-  function ($scope,$route,$rootScope, $location, $routeParams, config, category, user, api, product, cart) {
-    $scope.product=product;
+  function ($scope,$rootScope, $location, $routeParams, config, category, user, api, product, cart, shop) {
+    $scope.product={};
     $scope.config=config;
     $scope.cart=cart;
 
+    // console.log('DEBUG-CTRL------------->',product)
     //
     // 
     $scope.rootProductPath=($routeParams.shop)?'/shop/'+$routeParams.shop:''
@@ -70,7 +71,9 @@ Product.controller('ProductCtrl',[
       })
       for(var i=lst.length-1;i>=0;i--){
         if(lst[i]&&lst[i].sku===sku){
-          return $scope.product=(i===0)?lst[lst.length-1]:lst[i-1];
+          var sku=(i===0)?lst[lst.length-1]:lst[i-1];
+          var path=$location.path();
+          return $location.path(path.replace(/products\/.*/,'products/'+sku.sku));
         }
       }
     }
@@ -81,7 +84,9 @@ Product.controller('ProductCtrl',[
       })
       for(var i=0;i<lst.length;i++){
         if(lst[i]&&lst[i].sku===sku){
-          return $scope.product=(i===lst.length-1)?lst[0]:lst[i+1];
+          var sku=(i===lst.length-1)?lst[0]:lst[i+1];
+          var path=$location.path();
+          return $location.path(path.replace(/products\/.*/,'products/'+sku.sku));
         }
       }
     }
@@ -134,20 +139,13 @@ Product.controller('ProductCtrl',[
           // this product as changed
           $rootScope.$broadcast("update.product",s);
 
-          api.info($scope,"Votre produit a été enregistrée!",2000, function(){
+          api.info($scope,"Votre produit a été enregistré!",2000, function(){
             $location.path("/products/"+product.sku)
           });
       });
     };
     
-    if($route.current&&$route.current.$$route.clear){
-      $scope.product={};
-    }
     
-    if($route.current&&$route.current.$$route.edit){
-      $scope.product_edit=true;
-    }
-
     
     $scope.love=function(product){
       if(!user.isAuthenticated()){
@@ -216,10 +214,12 @@ Product.controller('ProductCtrl',[
     
     
     
+    // FIXME make shops available in root ctrl
+    // load shops for edit
+    if(!$scope.shopsSelect){
+      $scope.shopsSelect=shop.query({})        
+    }
 
-    /***
-     * DISQUS
-     */
     if($routeParams.sku){
       var doc = document.documentElement, body = document.body;
       var left = (doc && doc.scrollLeft || body && body.scrollLeft || 0);
@@ -227,16 +227,20 @@ Product.controller('ProductCtrl',[
       $scope.scrollTop=top;
       $scope.scrollLeft=left;
       product.get($routeParams.sku,function(product){
-        $scope.title='products '+product.sku+' - '+product.title;
+        $rootScope.title='products '+product.sku+' - '+product.title;
         $scope.product=product;
-
         if(product.attributes.comment){
           loadDisqus($location.path());
         }
 
       });
+
+
     }          
     
+    /***
+     * DISQUS
+     */
 
     function loadDisqus(currentPageId) {
       // http://docs.disqus.com/help/2/
@@ -464,9 +468,14 @@ Product.factory('product', [
 
       // price has been modified
       if(this.pricing._price){
-        this.pricing.price=parseInt(this.pricing._price);
-        // this.pricing._price=undefined
+        this.pricing.price=(this.pricing._price);
       }
+
+      // weight has been modified
+      if(this._weight){
+        this.weight=(this._weight);
+      }
+
 
       var product=this, s=this.backend.products.save({sku:this.sku},this, function() {
         if(cb)cb(product);

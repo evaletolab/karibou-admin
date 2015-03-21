@@ -1,11 +1,11 @@
 <!-- BY ORDERS -->
 <div class="list-group">
-  <div ng-repeat-start="order in orders|orderBy:['-shipping.when','shipping.postalCode']|filter:filterTxt" 
+  <div ng-repeat-start="order in orders|orderBy:['-shipping.when','shipping.postalCode']|filter:options.filterTxt" 
        ng-show="groupByShippingDate(order.shipping.when, $index) && (!filters.f||filters.f===order.shipping.when)" >
       <h3>&nbsp;{{order.shipping.when|dateLabel}}</h3>
   </div>
   <li  class="list-group-item " 
-     ng-repeat-end ng-class="getOrderStatusClass(order)" ng-if="(!filters.f||filters.f===order.shipping.when)">
+     ng-repeat-end ng-class="getOrderStatusClass(order,'list-group-item-')" ng-if="(!filters.f||filters.f===order.shipping.when)">
     <h4 class="list-group-item-heading">
       <a class=" " ng-click="modalUserDetails(order.oid)" bs-modal="'/partials/order/order.user.modal.html'">
         {{order.shipping.name}}</a> - {{getOrderPhones(order)}}

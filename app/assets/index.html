@@ -10,7 +10,7 @@
        |_|\_\__,_|_|  |_|_.__/ \___/ \__,_|
     < -->          
 
-    <title>Karibou Genève - un marché alimentaire composé d'artisans, de producteurs et de petits commerçants</title>
+    <title ng-bind="title">Karibou Genève - un marché alimentaire composé d'artisans, de producteurs et de petits commerçants</title>
     <meta name="title" content="Karibou Genève - un marché alimentaire composé d'artisans, de producteurs et de petits commerçants">
     <meta charset="utf-8">
     <meta name="viewport"     content="width=device-width, initial-scale=1.0">
@@ -21,8 +21,9 @@
     <meta name="fragment"     content="!" />    
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" user-scalable="no">
     <link rel="canonical" href="http://karibou.ch/">
+    <link rel="icon" type="image/png" href="/img/k-small.png" />
     <meta property="og:type" content="website">
-    <meta property="og:image" content="k.png">
+    <meta property="og:image" content="/img/k-small.png">
     <meta property="og:title" content="Karibou">
     <meta property="og:description" content="Karibou Genève - un marché alimentaire composé d'artisans, de producteurs et de petits commerçants" >
     <meta property="og:site_name" content="Karibou">
@@ -30,20 +31,26 @@
     <meta name="twitter:site" content="@kariboulab">
 
     <!--[if lt IE 9]>
-      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+      <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
 
 
     <!-- <link href="//fonts.googleapis.com/css?family=Open+Sans:400,300,600|Merriweather:400,300,700" rel="stylesheet" type="text/css" async="true">-->
-    <!-- <link defer href='http://fonts.googleapis.com/css?family=Halant:500|Fira+Sans:300' rel='stylesheet' type='text/css'> -->
-    <link href='http://fonts.googleapis.com/css?family=Gentium+Book+Basic:700|Fira+Sans:300' rel='stylesheet' type='text/css'>
+    <!-- <link defer href='//fonts.googleapis.com/css?family=Halant:500|Fira+Sans:300' rel='stylesheet' type='text/css'> -->
+    <link href="//code.cdn.mozilla.net/fonts/fira.css" rel="stylesheet" >    
+    <link href='//fonts.googleapis.com/css?family=Gentium+Book+Basic:700' rel='stylesheet' type='text/css'>
+    
 
+    <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
     <link defer rel="stylesheet" href="/css/vendor.css?cache={!distRelease!}">
     <link defer rel="stylesheet" href="/css/app.css?cache={!distRelease!}">
-    <script type="text/javascript">var ngCMSSettings={}</script>
+    <script type="text/javascript">
+      var ngCMSSettings={};
+    </script>
   </head>
 
    <body ng-class="{'display-cart':options.cart,'display-info':config.shop.global.maintenance.active, 'site-nav-transition site-nav-drawer-open':options.sidebar}">
+
 
       <!-- DISPLAY CART -->
       <button class="site-nav-logo-cart hidden-print" 
@@ -51,7 +58,8 @@
              ng-show="cart.items.length">
           <span ng-show="cart.items.length">
             <i class="fa fa-chevron-down hidden-xs"></i>&nbsp;
-            <i class="fa fa-shopping-cart green "></i>&nbsp;({{cart.quantity()}}) <span class="pull-right">{{cart.grandTotal()|number:2}} CHF  <i class=" fa fa-bicycle hidden-xs"></i>&nbsp;</span></span>
+            <i class="fa fa-shopping-cart green "></i>&nbsp;({{cart.quantity()}}) 
+            <span class="pull-right">{{cart.total()+cart.shipping()|number:2}} CHF  <span class="hidden-xs"><i class=" fa fa-bicycle"></i>&nbsp;</span></span></span>
           </span>
       </button>
       <!-- DISPLAY SIDEBAR -->
@@ -106,8 +114,8 @@
                 <span  class="site-nav-list-item-text" >Les commerces</span>
               </li>
 
-              <li class="site-nav-list-item visible-xs visible-sm">
-                <a class="site-nav-list-item-btn " ng-class="getClass('/shops')" title="Les boutiques" href="/shops" tabindex="-1">Les boutiques</a>
+              <li class="site-nav-list-item ">
+                <a class="site-nav-list-item-btn " ng-class="getClass('/shops')" title="Les boutiques" href="/shops" tabindex="-1"><i class="fa fa-group green"></i>&nbsp;Les boutiques</a>
               </li>
               
               <!-- INFO -->
@@ -125,11 +133,15 @@
                 <a  class="site-nav-list-item-btn" title="Conditions générales de vente" href="/page/conditions-generales">Conditions générales de vente</a>
               </li>
 
+              <li class="site-nav-list-item">
+                <a  class="site-nav-list-item-btn" title="Conditions générales de vente" href="/welcome">Qu'est-ce que Karibou?</a>
+              </li>
 
               <!-- CART -->     
             </ul>
          </div>
       </nav>
+
 
       <!-- CART -->        
       <div class="cover-resume cart fade-in-right fade-out-right" ng-cloak ng-show="options.cart && cart.items.length" >
@@ -161,6 +173,15 @@
               
             </p>
          </div>
+
+        <!--[if lt IE 11]>
+        <div class="butter-bar active info back " >
+          <p class="butter-bar-message">
+            <b>Désolé!</b> La version de votre navigateur Internet Explorer 9  n'est pas supportée!
+          </p>
+        </div>
+        <![endif]-->
+
          <div class="butter-bar active success " ng-cloak ng-show="FormInfos" 
             ng-animate="{show: 'fadein', hide: 'fadeout'}">
             <p class="butter-bar-message" ng-cloak ng-show="FormInfos">
@@ -193,8 +214,66 @@
          </div>
       </div>
       <div class="loading-bar"></div>
-      <div></div>
-
+      <!-- FEEDBACK -->
+      <div ng-controller="FeedbackCtrl">
+        <button class="ng-cloak  btn btn-circle feedbackbtn " ng-click="feedback.show=true" ng-hide="feedback.show"><i class="fa fa-pencil fa-2x"></i></button>
+        <div  class="feedbackform ng-cloak "  unselectable="on" ng-if="feedback.show">
+          <div unselectable="on" class="feedbackform-header">
+            <b>{{getTitle()}}</b>
+            <!-- <a title="Display the help screen." href="#" class="size-button help">?</a> -->
+            <a title="Minimize window." href="#" ng-click="feedback.show=false" class="size-button minimize">–</a>
+          </div>
+          <div class="feedbackform-content">
+            <!-- ON SHOP -->
+            <div ng-if="contextShop()">
+              <div class="feedback-avatar">
+                <img  ng-src="{{feedback.shop.photo.owner | placehold:'50x50&text=l`équipe'}}" style="">              
+              </div>
+              <div class="feedback-description">
+              <div ng-if="user.isAuthenticated()">Bonjour {{user.display()}},</div>
+              <span bind="feedback.shop.description">Je suis {{feedback.shop.owner.displayName}} vous pouvez contacter la boutique <span class="bold">{{feedback.shop.name}}</span> ici.</span>
+                
+              </div>
+            </div>
+            <!-- ON PRODUCT -->
+            <div ng-if="contextProduct()">
+              <div class="feedback-avatar">
+                <img  ng-src="{{feedback.product.vendor.photo.owner | placehold:'50x50&text=l`équipe'}}" style="">              
+              </div>
+              <div class="feedback-description">
+              <div ng-if="user.isAuthenticated()">Bonjour {{user.display()}},</div>
+              <span bind="feedback.shop.description">Vous avez une question à propos du produit <span class="bold">{{feedback.product.title}}</span> vous pouvez contacter la boutique <span class="bold">{{feedback.product.vendor.name}}</span> ici.</span>
+                
+              </div>              
+            </div>
+            <!-- ON SITE -->
+            <div ng-if="contextSite()">
+              <div class="feedback-description">
+              <span ng-if="user.isAuthenticated()">Bonjour {{user.display()}},&nbsp;</span>
+              Vous pouvez contacter l'équipe  <span class="bold">Karibou</span> ici.
+              </div>
+              
+            </div>
+            <input  placeholder="Votre adresse email " type="email" class="smallx form-control"
+                    ng-model="feedback.email" ng-hide="user.isAuthenticated()" style="border:none">
+            <!-- FORM CONTENT -->
+            <select class="smallx form-control" ng-if="contextSite()"
+                    ng-model="feedback.mood" ng-options="mood for mood in feedback.moods"></select>
+            <textarea placeholder="Merci d'écrire votre commentaire ici" 
+                      ng-model="feedback.comment" 
+                      class="form-control" >
+            </textarea>
+          </div>
+          <div unselectable="on" class="feedbackform-footer">
+            <a href="#" class="btn btn-transparent" ng-click="fbCancel()">Annuler</a>
+            <div title="Send a screenshot of this site." 
+                 class="btn btn-info"
+                 ng-click="sendComment()"
+                 ng-disabled="!feedback.comment||!feedback.email">Envoyer</div>
+          </div>
+        </div>
+        
+      </div>
    </body>
 
   <!-- Placed at the end of the document so the pages load faster &callback=initCall -->
@@ -211,18 +290,6 @@
     ga('create', 'UA-57032730-1', 'auto');
   </script>
 
-  <!-- ClickDesk Live Chat Service for websites -->
-  <!--
-  <script type='text/javascript'>
-    var _glc =_glc || []; _glc.push('all_ag9zfmNsaWNrZGVza2NoYXRyDwsSBXVzZXJzGIOe4ZwGDA');
-    var glcpath = (('https:' == document.location.protocol) ? 'https://my.clickdesk.com/clickdesk-ui/browser/' : 
-    'http://my.clickdesk.com/clickdesk-ui/browser/');
-    var glcp = (('https:' == document.location.protocol) ? 'https://' : 'http://');
-    var glcspt = document.createElement('script'); glcspt.type = 'text/javascript'; 
-    glcspt.async = true; glcspt.src = glcpath + 'livechat-new.js';
-    var s = document.getElementsByTagName('script')[0];s.parentNode.insertBefore(glcspt, s);
-  </script>
-  <!-- End of ClickDesk -->
 
 </html>
 

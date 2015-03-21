@@ -8,7 +8,7 @@
     tp:"http://localhost:4000/v1/psp/std"
  -->      
     </ul>
-    <form action="https://e-payment.postfinance.ch/ncol/test/orderstandard.asp"
+    <form action="https://e-payment.postfinance.ch/ncol/test/orderstandard_utf8.asp"
           method="post" enctype="UTF-8" 
           target="postfinance-ecommerce" class="hide" auto-submit>
       <input ng-repeat="(name,value) in user.ecommerceForm.body" type="hidden" value="{{value}}" name="{{name}}">

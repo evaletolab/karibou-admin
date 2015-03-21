@@ -77,6 +77,47 @@
   border-width: 0px
 }
 
+.popupcontent div.certified {
+  border-top: dotted 2px #ddd;
+  padding: 10px 20px;
+  margin: 0 0 10px;
+  font-size: 17.5px;
+}
+
+.popupcontent div.certified ul{
+  margin-bottom: 10px;
+}
+
+.popupcontent div.certified ul.info li{
+  font-size: 80%;
+}
+
+.popupcontent div.certified .label-product{
+  background-color: rgba(92, 184, 92, 0.06);
+  border-radius: 15px;
+  padding: 4px 10px;
+  border: 1px solid rgba(70, 140, 70, 0.99);  
+  color: rgba(70, 140, 70, 0.99);
+}
+.popupcontent div.description{
+  border-top: dotted 2px #ddd;
+  padding: 10px 20px;
+  margin: 0 0 10px;
+  font-size: 17.5px;
+}
+
+.popupcontent div.description p{
+  margin: 0 0 10px;
+}
+
+.popupcontent div.description small, .popupcontent div.description .small {
+  display: block;
+  font-size: 80%;
+  line-height: 1.42857143;
+  color: #999;
+}
+
+
 /* Desktop large
 ------------------------- */
 @media (min-width: 1200px) {

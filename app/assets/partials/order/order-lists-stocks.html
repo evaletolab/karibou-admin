@@ -7,31 +7,51 @@
       <th style="width:40%">#sku</th>
       <th>
         <a href="" ng-click="orderByField='vendor.urlpath';reverseSort=!reverseSort">
-          shop
+          boutique
         </a>
+      </th>
+      <th style="width:40px" title="Les produits disponibles à la vente">visible</th>
+      <th style="width:80px">
+        <a href="" ng-click="orderByField='weight';reverseSort=!reverseSort">poids</a>
       </th>
       <th style="width:80px">
         <a href="" ng-click="orderByField='pricing.stock';reverseSort=!reverseSort">stock</a>
       </th>
-      <th style="width:100px">price</th>
-      <th style="width:110px" class="text-center small">discount price</th>
+      <th style="width:100px">prix</th>
+      <th style="width:110px" class="text-center small">prix promotion</th>
       <th style="width:40px"  class="text-center small" ng-if="user.isAdmin()">home</th>
       <th>-</th>
     </tr>
   </thead>
   <tbody>
-    <tr ng-repeat-start="product in products|filter:filterTxt|orderBy:orderByField:reverseSort" >
+    <tr ng-repeat-start="product in products|filter:options.filterTxt|orderBy:orderByField:reverseSort" >
     </tr>
-    <tr ng-repeat-end  ng-class="{'info':isProductDirty(product)}">
-      <td><a ng-href="/products/{{product.sku}}">{{product.title}}</a></td>
+    <tr ng-repeat-end  
+        ng-class="{'info':isProductDirty(product),'warning':!product.attributes.available}">
+      <td ng-init="initProductState(product)">
+        <a ng-href="/products/{{product.sku}}">{{product.title}}</a>
+      </td>
       <td>{{product.vendor.urlpath}}</td>
+
+      <!-- DISPO -->
+      <td>
+        <input type="checkbox" ng-checked="product.attributes.available" ng-model="product.attributes.available" >        
+      </td>
+
+      <!-- WEIGTH -->
       <td>
         <input type="text" type="number"
-        ng-model="product.pricing._stock"  ng-init="product.pricing._stock=product.pricing.stock" class="form-control">
+        ng-model="product.pricing._weight"   class="form-control">
+      </td>
+
+      <!-- STOCK -->
+      <td>
+        <input type="text" type="number"
+        ng-model="product.pricing._stock"   class="form-control">
       </td>
       <td>
         <input type="text" type="number"
-        ng-model="product.pricing._price" ng-init="product.pricing._price=product.pricing.price" class="form-control">
+        ng-model="product.pricing._price"  class="form-control">
       </td>
       <!-- DISCOUNT -->
       <td>
@@ -43,11 +63,11 @@
         </div>      
       </td>
       <!-- HOME -->
-      <td ng-if="user.isAdmin()">
-        <input type="checkbox" ng-checked="product.attributes.home" ng-model="product.attributes.home" ng-init="product.attributes._home=product.attributes.home">        
+      <td ng-if="user.isAdmin()" >
+        <input type="checkbox" ng-checked="product.attributes.home" ng-model="product.attributes.home" >        
       </td>
       <td>
-        <button type="button" ng-click="product.updateAndSave();"
+        <button type="button" ng-click="saveProduct(product);"
                 class="btn btn-primary btn-xs"><i class="fa fa-save"></i></button>
       </td>
     </tr>

@@ -1,44 +1,35 @@
 
-<div tabindex="-1"  id="null" class="screen-content" ng-controller="AccountCtrl">
-  
+<div tabindex="-1"  id="email-validation" class="screen-content" ng-controller="AccountCtrl">
+   <section class="" tabindex="-1" ng-init="validateEmail()">
 
 
 
-  <aside ng-include="'/partials/account/cover.html'" 
-         class="cover cover-home img-loaded" 
-         ng-class="{'session':user.isAuthenticated()}">
-  </aside>
+    <!--                               -->
+    <!-- NAVIGATION -->
+    <!--                               -->                          
+    <div  class="bucket post-bucket homepage-posts" ng-include="'/partials/account/navigation.html'"></div>
 
 
-   <section class="wrapper" tabindex="-1" ng-init="validateEmail()">
-      <div class="wrapper-inner">
-
-
-
-      <!--                               -->
-      <!-- NAVIGATION -->
-      <!--                               -->                          
-      <div  class="bucket post-bucket homepage-posts" ng-include="'/partials/account/navigation.html'"></div>
-
-
-      <!--                               -->
-      <!-- CONTENT                       -->
-      <!--                               -->                          
+    <!--                               -->
+    <!-- CONTENT                       -->
+    <!--                               -->                          
 
 
 
-      <!-- THANKS VALIDATE -->
-      <br/>
-      <div class="alert alert-success" role="alert">
-        <strong>Merci d'avoir validé votre adresse email!</strong> <br/>
-        Vous pouvez <a href="/">poursuivre vos achats</a> <span ng-if="cart.quantity()">ou finalisez <a href="/order">votre commande courante</a>.</span>
-      </div>
+    <!-- THANKS VALIDATE -->
+    <br/>
+    <div class="alert alert-success" role="alert">
+      <strong>Merci d'avoir validé votre adresse email chez Karibou!</strong> <br/>
+      Vous pouvez fermer cette fenêtre et poursuivre vos achats</a>.</span>
+    </div>
+
+    <div class="text-center">
+      <i class="fa fa-heart-o fa-4x grayx"></i>
+    </div>
 
 
-
-      <!-- FOOTER -->              
-        <footer class="wrapper-footer" ng-include="'/footer.html'"></footer>
-
-      </section>
+    <!-- FOOTER -->              
+<!--     <footer class="wrapper-footer" ng-include="'/footer.html'"></footer>
+ -->
    </section>
 </div>

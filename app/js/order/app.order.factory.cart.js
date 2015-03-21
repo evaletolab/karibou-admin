@@ -39,12 +39,27 @@ function cartFactory(config, $timeout,$rootScope,$window, api) {
   };
 
 
-  var localStorage=$window['localStorage'];
+  config.shop.then(function () {
+    defaultCart.shippingFlatRate=config.shop.marketplace.shipping;
+  })
+
+
+  var localStorage;
+
+  // this check have to be wrapped within a try/catch because on
+  // a SecurityError: Dom Exception 18 on iOS
+  try{
+    if ($window.localStorage !== null) {
+      localStorage=$window.localStorage;
+    }
+  }catch(e){
+    api.info( "Actuellement, l'appareil que vous utilisez n'autorise pas la sauvegarde du panier." );
+  }
 
   
   var Cart = function(data) {
     this.items = [];
-    this.config={shipping:0,address:undefined}
+    this.config={shipping:0,address:undefined, payment:undefined}
   }
 
   Cart.prototype.clear=function(product){
@@ -198,14 +213,15 @@ function cartFactory(config, $timeout,$rootScope,$window, api) {
     this.items.forEach(function (item) {
       total += (item.price*item.quantity);
     });
-    return total;
+    return (Math.round(total*20)/20);
   }
 
   Cart.prototype.grandTotal=function(){
     var total=this.total();
-    total=(total + this.tax()*total + this.shipping());
+    var fees=this.tax()*(total+this.shipping())
+    total=(total + fees + this.shipping());
     // Rounding up to the nearest 0.05
-    return (Math.ceil(total*20)/20).toFixed(2);
+    return (Math.round(total*20)/20).toFixed(2);
 
   }
 
@@ -240,7 +256,7 @@ function cartFactory(config, $timeout,$rootScope,$window, api) {
 
     // storage
   Cart.prototype.save=function () {
-    if(!this.items||!localStorage) return;
+    if(!this.items||!localStorage) return this;
     // save all the items
     // sessionStorage[defaultCart.namespace]=angular.toJson(items)
     localStorage.setItem(defaultCart.namespace, angular.toJson(this.items));
@@ -248,7 +264,7 @@ function cartFactory(config, $timeout,$rootScope,$window, api) {
   }
 
   Cart.prototype.load= function () {
-    if(!localStorage)return;
+    if(!localStorage)return this;
     try {
       var verifyItem=[];
       this.items = angular.fromJson(localStorage.getItem(defaultCart.namespace ));
@@ -259,7 +275,6 @@ function cartFactory(config, $timeout,$rootScope,$window, api) {
       })
       this.items=verifyItem;
 
-      if(console)console.log("loading cart",this.items)
     } catch (e){
       api.error( "Votre ancien caddie n'a pas pu être retrouvé: " + e );
     }

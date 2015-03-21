@@ -183,7 +183,7 @@ Shop.controller('ShopCtrl',[
 
     //
     // get products for the front page shop
-    var filter={sort:'categories.weight',group:'categories.name'};
+    var filter={sort:'categories.weight',group:'categories.name', available:true};
     $scope.products=product.home($routeParams.shop, filter,function(products){
       $scope.products=products;
     });
@@ -266,12 +266,12 @@ Shop.factory('shop', [
     Shop.prototype.query = function(filter,cb,err) {
       if(!err) err=this.onerr;
       var shops, s,self=this, params={};
-      angular.extend(params, filter,{urlpath:'category'})
+      angular.extend(params, filter)
       s=this.backend.query(params, function() {
         shops=self.wrapArray(s);
         if(cb)cb(shops);
       },err);
-      return shops;
+      return s;
     };
 
     Shop.prototype.findByCatalog = function(cat, filter,cb,err) {
@@ -321,13 +321,13 @@ Shop.factory('shop', [
       return this;
     };
 
-    Shop.prototype.create=function(user, data,cb,err){
-      if(!err) err=function(){};
+    Shop.prototype.create=function(user, data,cb){
+      // if(!err) err=function(){};
       var me=this, s = this.backend.save(data, function() {
         var shop=me.wrap(s);
         user.shops.push(shop);
         if(cb)cb(shop);
-      },err);
+      });
       return this;
     };    
     

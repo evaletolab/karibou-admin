@@ -133,18 +133,22 @@ article:nth-child(even){
     padding:5px;
     background:none repeat scroll 0 0 rgba(0, 0, 0, 0.6);
     color:white;
+    max-width: 40%;
 }
 
 
-
-.layout-item .title-old{
-    overflow: hidden; 
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    font-family: 'Halant', serif;
-    font-family: 'Gentium Book Basic', serif;
-    font-size:14px;
+.layout-item .closed{
+    overflow: visible;
+    position: absolute;
+    left: 1px;
+    bottom:0px;
+    padding:1px;
+    background:none repeat scroll 0 0 rgba(200, 0, 0, 0.6);
+    color:white;
+    width: 50%;
+    height: 0px;
 }
+
 
 .layout-item .title{
   overflow: hidden;
@@ -155,6 +159,13 @@ article:nth-child(even){
   height: 45px;
   line-height: 18px;
   vertical-align: text-bottom;
+  color: inherit;
+  display: block;
+}
+
+.layout-item .title:hover{
+  text-decoration: inherit;
+  color:#999;
 }
 
 .layout-item.c1, form .layout-item.c1{
@@ -257,6 +268,14 @@ article:nth-child(even){
 
 /* Desktop large
 ------------------------- */
+@media (min-width: 1300px) {
+  .layout-item.c1, form .layout-item.c1 {
+      min-height: 130px;
+      width: 24%;
+      margin: 0px 2% 2% 0px;
+  }
+}
+
 @media (min-width: 1200px) {
   .layout-item.c2{
     width: 43%;

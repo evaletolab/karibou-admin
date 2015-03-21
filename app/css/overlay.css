@@ -1,6 +1,17 @@
 
 /* global popup (inspired from pinterest) 
 -------------------------------------------------- */
+#email-validation{
+  position: fixed;
+  top: 0px;
+  bottom: 0px;
+  left: 0px;
+  right: 0px;
+  z-index: 200000;
+  background-color: white;
+  padding: 10px;  
+}
+
 
 .backfader{
   background-color: rgba(240, 240, 240, 0.83);

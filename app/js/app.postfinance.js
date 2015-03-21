@@ -3,41 +3,42 @@
 /**
  * Angular.js module for postfinance
  */
-var postfinance=angular.module('app.postfinance',['app.config']);
+angular.module('app.postfinance',['app.config'])
+  .factory('card',cardFactory);
 
 
-postfinance.factory('card', [
-  'config',
-  '$rootScope',
-  '$resource',
+//
+// define dependency injection
+cardFactory.$inject=['config','$rootScope','$resource'];
 
-  function (config, $rootScope,$resource) {
-    var defaultCardValues = {
-      number: undefined,
-      csc: undefined,
-      year: undefined,
-      month: undefined,
-      firstName: '',
-      lastName: '',
-      address1: '',
-      address2: '',
-      city: '',
-      state: '',
-      zip: '',
-      custom: undefined
-    };
-
-
-    var Card = function(data) {
-    }
+//
+// implement service
+function cardFactory(config, $rootScope,$resource) {
+  var defaultCardValues = {
+    number: undefined,
+    csc: undefined,
+    year: undefined,
+    month: undefined,
+    firstName: '',
+    lastName: '',
+    address1: '',
+    address2: '',
+    city: '',
+    state: '',
+    zip: '',
+    custom: undefined
+  };
 
 
-    Card.prototype.clear=function(product){
-    }
-
-    return {};
+  var Card = function(data) {
   }
-]);
+
+
+  Card.prototype.clear=function(product){
+  }
+
+  return {};
+}
 
 
 

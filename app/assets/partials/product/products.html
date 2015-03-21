@@ -32,7 +32,7 @@
      
             <article>
               <div  style="width:100%;"><!-- MANSORY FIX -->
-                <div  ng-include="'/partials/product/product.html'"  ng-repeat="product in products"></div>              
+                <div  ng-include="'/partials/product/product.html'"  ng-repeat="product in products|orderBy:['updated']"></div>              
               </div>
             </article>
           

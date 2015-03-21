@@ -18,11 +18,13 @@ User.factory('user', [
   '$rootScope',
   '$route',
   '$resource',
+  '$log',
   '$q',
   'api',
   'shop',
+  'Map',
 
-  function (config, $location, $rootScope, $route, $resource, $q, api, shop) {
+  function (config, $location, $rootScope, $route, $resource, $log, $q, api, shop, Map) {
 
     var defaultUser = {
       id: '',
@@ -120,7 +122,7 @@ User.factory('user', [
 
     User.prototype.hasLike= function (product) {
         for (var i in this.likes){
-          if (this.likes[i].sku==product.sku) return true;
+          if (this.likes[i]==product.sku) return true;
         }
         return false;
     };
@@ -155,6 +157,38 @@ User.factory('user', [
     }
 
     //
+    // init user 
+    User.prototype.init=function () {
+      var self=this;
+
+      // set context for error
+      Raven.setUserContext(self)        
+
+      if(!self.addresses){
+        return
+      }
+      //check address
+      self.populateAdresseName()
+
+      // get geo 
+      self.geo=new Map()
+      self.addresses.forEach(function(address,i){
+        // address is correct
+        if(!address.geo||!address.geo.lat||!address.geo.lng){
+          return
+        }
+        //
+        //setup marker
+        self.geo.addMarker(i,{
+          lat:address.geo.lat,
+          lng:address.geo.lng,
+          message:address.streetAdress+'/'+address.postalCode
+        });
+      });
+
+    };
+
+    //
     // REST api wrapper
     //
 
@@ -163,11 +197,73 @@ User.factory('user', [
       return this.chain(backend.$user.get({id:'me'}, function(_u,headers) {
           self.wrap(_u);
           self.shops=shop.wrapArray(self.shops);
+
+          // init
+          self.init();
+
           if(cb)cb(self);
           return self;
         }).$promise
       );
     };
+
+
+    User.prototype.updateGeoCode=function () {
+      var promises=[], dirty=false, self=this;
+      // check state
+      if(self.geo){
+        return
+      }
+      if(self.addresses.length===0||self.addresses.length && self.addresses[0].geo && self.addresses[0].geo.lat){
+        return
+      }
+
+      //
+      // get geo lt/lng
+      if(!self.geo)self.geo=new Map()
+
+
+      self.addresses.forEach(function(address,i){
+        // address is correct
+        if(address.geo&&address.geo.lat&&address.geo.lng){
+          return
+        }
+
+        promises.push(self.geo.geocode(address.streetAdress, address.postalCode, address.country, function(geo){
+          if(!geo.results.length||!geo.results[0].geometry){
+           return;
+          }
+          if(!geo.results[0].geometry.lat){
+            return;
+          }
+
+          //
+          //update data
+          address.geo={};
+          address.geo.lat=geo.results[0].geometry.location.lat;
+          address.geo.lng=geo.results[0].geometry.location.lng;
+
+          //
+          //setup marker
+          self.geo.addMarker(i,{
+            lat:address.geo.lat,
+            lng:address.geo.lng,
+            message:address.streetAdress+'/'+address.postalCode
+          });
+
+
+          dirty=true;
+        }));// end of promise
+      }); // end of forEach
+
+      // should we save the user?
+      $q.all(promises).finally(function () {
+        $log('save user geo map',dirty)
+        if(dirty)self.save()
+      })
+
+
+    }
 
 
     User.prototype.query = function(filter) {
@@ -209,9 +305,10 @@ User.factory('user', [
     };
 
     User.prototype.logout=function(cb){
+      var self=this;
       var u = $resource(config.API_SERVER+'/logout').get( function() {
-        _user.copy(defaultUser);
-        if(cb)cb(_user);
+        self.copy(defaultUser);
+        if(cb)cb(self);
       });
       return u;
     };
@@ -222,6 +319,7 @@ User.factory('user', [
       this.populateAdresseName(user)
       var u = $resource(config.API_SERVER+'/register').save(user, function() {
         _user.copy(u);
+        _user.updateGeoCode()
 
 
         if(cb)cb(_user);
@@ -239,6 +337,7 @@ User.factory('user', [
     User.prototype.login=function (data, cb){
       var u = $resource(config.API_SERVER+'/login').save(data, function() {
         _user.copy(u);
+        _user.updateGeoCode()
         if(cb)cb(_user);
       });
       return u;
@@ -275,6 +374,21 @@ User.factory('user', [
     /**
      * payment methods
      */
+    User.prototype.checkPaymentMethod=function(cb){
+      var self=this, allAlias=[],alias;
+      if(!self.payments || !self.payments.length){
+        return cb({})
+      }
+      allAlias=self.payments.map(function (payment) {
+        return payment.alias
+      })
+      alias=allAlias.pop();
+      backend.$user.save({id:this.id,action:'payment',aid:alias,detail:'check'},{alias:allAlias}, function(methodStatus) {
+        if(cb)cb(methodStatus);
+      });
+      return this;
+    };
+
     User.prototype.addPaymentMethod=function(payment,cb){
       var self=this, params={};
       backend.$user.save({id:this.id,action:'payment'},payment, function(u) {

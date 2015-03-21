@@ -17,13 +17,13 @@ function OrderShopperCtrl($scope,$routeParams, $log, $controller, order) {
   $scope.findAllOrdersForShipping=function(){
 
     var filters=$scope.filters=$routeParams, today=new Date();
-    if(!filters.fulfillments)filters.fulfillments='fulfilled'
+    if(!filters.payment)filters.fulfillments='fulfilled,partial'
     if(!filters.month)filters.month=today.getMonth()+1;
-    if(filters.fulfillments==='fulfilled')filters.closed=true;
+    // if(filters.fulfillments==='fulfilled,partial')filters.closed=true;
     $scope.loading=true;
 
     order.findAllOrders(filters).$promise.then(function(orders){
-      $scope.orders=orders;
+      $scope.orders=orders;filters.f=null;
       $scope.addresses=orders.map(function(order){return order.shipping})
       $scope.dates=orders.map(function (order) {
         return ((order.shipping.when))
@@ -31,8 +31,18 @@ function OrderShopperCtrl($scope,$routeParams, $log, $controller, order) {
         return self.indexOf(v)===i;
       })
 
+      // select current shipping
+      if($scope.shipping.currentDay){
+        var today=new Date($scope.shipping.currentDay).toLocaleDateString();
+        if($scope.dates && $scope.dates.length>0){
+          if(today===new Date(Date.parse($scope.dates[1])).toLocaleDateString()){
+            filters.f=$scope.dates[1]; 
+          }
+        }
+      }
+
       // select default date
-      if($scope.dates.length){
+      if($scope.dates.length && !filters.f){
         filters.f=$scope.dates[0]
       }
 

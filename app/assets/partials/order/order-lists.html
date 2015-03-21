@@ -1,14 +1,17 @@
 <!-- BY ORDERS -->
 <div class="list-group">
-  <div ng-repeat-start="order in orders|orderBy:['-shipping.when','shipping.postalCode']|filter:filterTxt" 
-       ng-show="groupByShippingDate(order.shipping.when, $index) && (!filters.f||filters.f===order.shipping.when)" >
+  <div >
       <h3>&nbsp;
         <a title="voir le détail par boutique" 
-           ng-href="{{getDetailledOrderUrl(order)}}" >{{order.shipping.when|dateLabel}}</a>
+           ng-href="{{getDetailledOrderUrl(filters.f)}}" >{{filters.f|dateLabel}}</a>&nbsp;
+        <a class="btn btn-xs btn-category "
+           ng-href="{{getDetailledOrderUrl(filters.f)}}" >Détail des commandes</a>
       </h3>
   </div>
-  <li  class="list-group-item " ng-if="(!filters.f||filters.f===order.shipping.when)"
-     ng-repeat-end ng-class="getOrderStatusClass(order,'list-group-item-')" >
+  <li  ng-repeat="order in orders|orderBy:['rank']|filter:options.filterTxt" 
+       class="list-group-item " 
+       ng-if="(!filters.f||filters.f===order.shipping.when)"
+       ng-class="getOrderStatusClass(order,'list-group-item-')" >
 
     <!-- ORDER ID BUTTON -->
     <div class="btn-group " style="float: left; margin-right: 5px;">
@@ -38,19 +41,19 @@
     <h4 class="list-group-item-heading">
       <a class=" text-capitalize" ng-click="modalUserDetails(order.oid)" bs-modal="'/partials/order/order.user.modal.html'">
         <span class="hidden-xs">{{order.customer.name.givenName}}</span> 
-        {{order.customer.name.familyName}}</a>  {{order.created|dateLabelShort}} 
+        {{order.customer.name.familyName}}</a>  <!-- {{order.created|dateLabelShort}} -->
         <span class="label label-title hidden-xs">{{order.fulfillments.status}}</span>
         <span class="label label-title" ng-show="!showCaptureButton(order)">
-            {{order.payment.status}}
+            {{order.payment.status}}|{{order.getOriginPrice()}}|{{order.getTotalPrice()}}CHF
         </span>
         <button class="btn btn-transparent bold red btn-xs" 
                 ng-show="showCaptureButton(order)" 
-                ng-click="orderCapture(order)"><span class="hidden-xs">{{order.payment.status}}</span> {{order.getTotalPrice()}}CHF
+                ng-click="orderCapture(order)"><span class="hidden-xs">{{order.payment.status}}</span> {{order.getOriginPrice()}}|{{order.getTotalPrice()}}CHF
         </button>
 
     </h4>
     <!-- ORDER SAC -->
-    <span class="bag-1 label label-primary">sac {{order.rank}}</span>
+    <span class="bag-1 label label-primary ">sac {{order.rank}}</span>
     
 
     <p class="list-group-item-text">
@@ -67,7 +70,7 @@
           &nbsp;
         </div>
         <div class="col-xs-6 col-sm-3 nopadding">
-          <span class="label label-default pull-right">{{order|orderTotal}}</span>
+          <span class="label label-price pull-right">{{order|orderTotal}}</span>
 <!--          <div class="input-group">
             <span class="input-group-addon hidden-xs">{{order|orderInitial}}</span>
             <span class="input-group-addon ">{{order|orderTotal}}</span>

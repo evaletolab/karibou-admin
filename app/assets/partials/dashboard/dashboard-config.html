@@ -13,10 +13,20 @@
            ng-include="'/partials/dashboard/dashboard-sidebar.html'" 
            ng-class="{'menu-off':!options.showMenu}">
       </div>
-      <div class="col-xs-12  nopadding-xs">
+      <div class="col-xs-12  nopadding-xs text-center" ng-if="!user.isAdmin()">
+      <i class="fa fa-bug fa-7x gray" ></i><br/>
+      <div class="gray">rien à déclarer!</div>
+      </div>
+      <div class="col-xs-12  nopadding-xs" ng-if="user.isAdmin()">
 
         <!-- CONFIG -->
         <h1 class="page-header">Configuration ({{config.shop.global.cid}}) </h1>
+
+        <!-- GATEWAY KEY -->
+        <h3 class="page-header">Gateway public key (stripe)</h3>
+        <div class="form-group ">                        
+            <input type="text" class="form-control input-lg" ng-model="config.shop.global.keys.pubStripe" />
+        </div>
 
         <!-- MAINTENANCE -->
         <h3 class="page-header">Maintenance</h3>

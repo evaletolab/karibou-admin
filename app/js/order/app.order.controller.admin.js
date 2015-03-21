@@ -21,7 +21,9 @@ function OrderAdminCtrl($scope,$routeParams, $location, api, order, user, produc
     var total=0;
     if(!$scope.shops)return total;
     $scope.shops[shop].forEach(function (item) {
-      total+=item.finalprice
+      if(item.fulfillment.status!=='failure'){
+        total+=parseFloat(item.finalprice)
+      }
     })
     return total
   }
@@ -88,13 +90,22 @@ function OrderAdminCtrl($scope,$routeParams, $location, api, order, user, produc
   $scope.isProductDirty=function (product) {
     return (product.pricing._price!=product.pricing.price||
             product.pricing._stock!=product.pricing.stock||
+            product.attributes._available!=product.attributes.available||
             product.attributes._home!=product.attributes.home)
   }
 
-  $scope.getDetailledOrderUrl=function (order) {
+  $scope.initProductState=function(product){
+    product._weight=product.weight;
+    product.attributes._available=product.attributes.available;
+    product.attributes._home=product.attributes.home;
+    product.pricing._stock=product.pricing.stock;
+    product.pricing._price=product.pricing.price;
+  }
+
+  $scope.getDetailledOrderUrl=function (when) {
     var params=($routeParams.closed)?'&closed='+$routeParams.closed:'';
     params+=($routeParams.fulfillments)?'&fulfillments='+$routeParams.fulfillments:'';
-    return '/admin/shop/orders?groupby=shop&when='+order.shipping.when+params;
+    return '/admin/shop/orders?groupby=shop&when='+when+params;
     // body...
   }
 
@@ -117,10 +128,18 @@ function OrderAdminCtrl($scope,$routeParams, $location, api, order, user, produc
   $scope.orderCapture=function(order){
     order.capture().$promise.then(function(o){
       api.info($scope,"Commande capturée",2000);
-      for (var i = $scope.orders.length - 1; i >= 0; i--) {
-        if($scope.orders[i].oid===order.oid){$scope.orders[i]=o}
-      };
+      $log.info('capture result',order.oid, o)
+      order.wrap(o)
+    })
+  }
 
+
+  //
+  // capture and close the order
+  $scope.orderRefund=function(order){
+    order.refund().$promise.then(function(o){
+      api.info($scope,"Commande remboursée",2000);
+      order.wrap(o)
     })
   }
 
@@ -137,7 +156,7 @@ function OrderAdminCtrl($scope,$routeParams, $location, api, order, user, produc
 
 
   $scope.informShopToOrders=function(shop,content){
-    order.informShopToOrders(shop,content, function(){
+    order.informShopToOrders(shop,content).$promise.then(function(){
         api.info($scope,"Votre message à bien été envoyé! ");        
     });
   }
@@ -148,16 +167,16 @@ function OrderAdminCtrl($scope,$routeParams, $location, api, order, user, produc
     for (var o in $scope.orders){
       if($scope.orders[o].oid===oid){
         return $scope.orders[o].updateItem(item,fulfillment).$promise.then(function(){
-          api.info($scope,"Statut enregistré",2000);
+          api.info($scope,"Statut commande enregistré",2000);
+          item.fulfillment.status=fulfillment;
         })
       }
     }
   }
 
-  $scope.updateCollect=function (oid, shopname,status,when) {
-    order.find(oid).updateCollect(shopname,status,when).$promise
+  $scope.updateCollect=function (shopname,status,when) {
+    order.updateCollect(shopname,status,when).$promise
       .then(function (order) {
-        console.log(order)
         api.info($scope,"Collecte enregistrée",2000);
       })
   }
@@ -182,7 +201,7 @@ function OrderAdminCtrl($scope,$routeParams, $location, api, order, user, produc
 
 
       order.findAllOrders(filters).$promise.then(function(orders){
-        $scope.orders=orders;
+        $scope.orders=orders;filters.f=null;
         $scope.shops=false;
         $scope.addresses=orders.map(function(order){return order.shipping})
         $scope.dates=orders.map(function (order) {
@@ -191,13 +210,24 @@ function OrderAdminCtrl($scope,$routeParams, $location, api, order, user, produc
           return self.indexOf(v)===i;
         }).sort($scope.sortByDateDESC)
 
+        // select current shipping
+        if($scope.shipping.currentDay){
+          var today=new Date($scope.shipping.currentDay).toLocaleDateString();
+          if($scope.dates && $scope.dates.length>0){
+            if(today===new Date(Date.parse($scope.dates[1])).toLocaleDateString()){
+              filters.f=$scope.dates[1]; 
+            }
+          }
+        }
         // select default date
         if(filters.when){
           filters.f=filters.when
         }
-        if($scope.dates.length){
+        // default date
+        if($scope.dates.length && !filters.f){
           filters.f=$scope.dates[0]
         }
+
 
         //
         // group by shop?
@@ -211,7 +241,12 @@ function OrderAdminCtrl($scope,$routeParams, $location, api, order, user, produc
     });
   }
 
-
+  $scope.saveProduct=function (product) {
+    product.updateAndSave(function () {
+      api.info($scope,"Produit enregistré :"+product.title,1000);
+      $scope.initProductState(product)
+    })
+  }
   $scope.loadAllProducts=function(){
     $scope.loading=true
     user.$promise.then(function(){

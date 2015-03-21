@@ -29,8 +29,8 @@
           </td>
           <td class="col-md-1" style="text-align: center">
             {{item.quantity}}
-            <button type="button" class="btn btn-xs btn-default" ng-click="cart.add(item, true)"><i class="fa fa-plus"></i></button>
-            <button type="button" class="btn btn-xs btn-default" ng-click="cart.remove(item,true)"><i class="fa fa-minus"></i></button>
+            <button type="button" class="btn btn-xs btn-default" ng-click="addCart(item, true)"><i class="fa fa-plus"></i></button>
+            <button type="button" class="btn btn-xs btn-default" ng-click="removeCart(item,true)"><i class="fa fa-minus"></i></button>
 
           </td>
           <td class="col-md-2 text-right">{{item.price*item.quantity|number:2}} </td>
@@ -49,7 +49,7 @@
           <tr>
               <td>   </td>
               <td class="text-right"><h4><strong>Total: </strong></h4></td>
-              <td class="text-right padding text-success"><h4><strong>{{cart.grandTotal()|number:2}} CHF</strong></h4></td>
+              <td class="text-right padding text-success"><h4><strong>{{cart.total()+cart.shipping()|number:2}} CHF</strong></h4></td>
           </tr>
           <tr ng-cloak ng-show="config.shop.global.maintenance.active" >
             <td  colspan="3">

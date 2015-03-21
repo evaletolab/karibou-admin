@@ -4,11 +4,11 @@
 
 
 
-  <aside ng-include="'/partials/shop/cover.html'" class="cover cover-home img-loaded" >
+  <aside ng-include="'/partials/shop/cover.html'" class="cover-shop cover cover-home img-loaded" >
   </aside>
 
 
-   <section class="wrapper" tabindex="-1">
+   <section class="wrapper shop" tabindex="-1">
       <div class="wrapper-inner wide">
 
 
@@ -38,7 +38,7 @@
           </h4>
 
           <div  style="width:100%;"><!-- MANSORY FIX -->
-            <div  ng-include="'/partials/product/product.html'"  ng-repeat="product in _products"></div>              
+            <div  ng-include="'/partials/product/product.html'"  ng-repeat="product in _products|orderBy:['updated']"></div>              
           </div>
         </article>
             
@@ -76,7 +76,7 @@
           </ol>
           <p>
             <br/>
-            <button type="button" class="btn btn-lg  btn-info"  role="button" ng-click="modal('#ask')" >Vous avez une question?</button>
+            <button type="button" class="btn btn-lg  btn-info hide"  role="button" ng-click="modal('#ask')" >Vous avez une question?</button>
           </p>
         </section>      
 

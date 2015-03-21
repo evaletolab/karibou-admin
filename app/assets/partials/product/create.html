@@ -1,4 +1,5 @@
-<div backfader=""  class="backfader popupcontent">
+<div backfader="" class="backfader ">
+  <div class="popupcontent" id="popup">
   <form class=" nomargin product-create "  id="popup"
         name="f_product" novalidate style="overflow:hidden">
     <div class="modal-header">
@@ -25,19 +26,34 @@
 
                   </div>
 
-                     <div class="form-group">
-                      <label class="control-label">Ingrédients </label> 
-                      <div class="">
-                        <textarea name="origin" rows="2" class="form-control input-lg"  placeholder="ex, olive(Grèce), pâte(Italie)... " ng-model="product.details.origin" required></textarea>
-                      </div>
-                      <div class="" >
-                        <label><input type="checkbox" name="details" value="BIO"    ng-model="product.details.bio">Certifié Bio </label>
-                        <label><input type="checkbox" name="details" value="Locale" ng-model="product.details.local">Production Locale </label>
-                        <label><input type="checkbox" name="details" value="Artisanale" ng-model="product.details.homemade">Fabrication artisanale</label> 
-                        <label><input type="checkbox" name="details" value="Naturel" ng-model="product.details.natural">Sans chimie de synthèse </label>
-                      </div>
-
+                  <div class="form-group">
+                    <label class="control-label">Ingrédients </label> 
+                    <div class="">
+                      <textarea name="origin" rows="2" class="form-control input-lg"  placeholder="ex, olive(Grèce), pâte(Italie)... " ng-model="product.details.origin" required></textarea>
                     </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="control-label">Détails </label> 
+                    <div class="col-xs-12 " >
+                      <label><input type="checkbox" name="details" value="BIO"    ng-model="product.details.bio">Certifié Bio </label>
+                      <label><input type="checkbox" name="details" value="Locale" ng-model="product.details.local">Production Locale </label>
+                      <label><input type="checkbox" name="details" value="Artisanale" ng-model="product.details.homemade">Fabrication artisanale</label> 
+                      <label><input type="checkbox" name="details" value="Naturel" ng-model="product.details.natural">Sans chimie de synthèse </label>
+                    </div>
+                    <div class="col-xs-12 col-sm-6 details">
+                      <label><input type="checkbox" name="shelflife" ng-model="product.shelflife.display">Afficher l'information de péremption </label>
+                      <input  type="text" placeholder="Se conserve 3 jours" 
+                              class=" form-control" ng-model="product.shelflife.comment" ng-disabled="!product.shelflife.display">
+                    </div>
+                    <div class="col-xs-12 col-sm-6 details">
+
+                      <label><input type="checkbox" name="quantity"     ng-model="product.quantity.display">Afficher l'information de quantité </label>
+                      <input  type="text" placeholder="Convient pour 1-2 personnes" 
+                              class=" form-control" ng-model="product.quantity.comment" ng-disabled="!product.quantity.display">
+
+                      
+                    </div>
+                  </div>
 
 
                   <!-- details non alimentaire -->
@@ -54,46 +70,51 @@
                   -->
 
                 <!-- TWO COLUMNS -->
-                <div class="clearfix">  
-                  <div class="col-xs-5 nopadding">
+                <div class="clearfix details">  
+                  <div class="col-xs-6 details">
                     <!-- shop -->
                     <!-- DISPLAY ONLY ON CREATION -->
-                    <div class="form-group" ng-hide="product.sku">
+                    <div class="form-group" ng-if="!product.sku">
                       <label class="control-label ">Boutique</label> 
-                      <div class="">
-                        <select  ng-model="product.urlshop" class="form-control input-lg" required>
+                      <div ng-if="!user.isAdmin()">
+                        <select  ng-model="product.urlshop" class="form-control " required>
                           <option ng-repeat="shop in user.shops" value="{{shop.urlpath}}">{{shop.name}}</option>
                         </select>
                       </div>
-                    </div>
-                    <!-- DISPLAY ONLY WHEN USER IS OWNER AND PRODUCT EXIST -->
-                    <div class="form-group" ng-if="user.isOwner(product.vendor.name) && product.sku">
-                      <label class="control-label ">Boutique</label> 
-                      <div class="">
-                        <select  ng-model="product.vendor" 
-                                 ng-options="i.name for i in user.shops track by i._id"
-                                 class="form-control input-lg" required ></select>
-
-
+                      <div ng-if="user.isAdmin()">
+                        <select  ng-model="product.urlshop" class="form-control " required>
+                          <option ng-repeat="shop in shopsSelect" value="{{shop.urlpath}}">{{shop.name}}</option>
+                        </select>
                       </div>
                     </div>
-                    <!-- DISPLAY ONLY WHEN USER IS ADMIN AND NOT OWNER -->
-                    <div class="form-group" ng-if="!user.isOwner(product.vendor.name) && user.isAdmin() && product.sku">
+
+
+                    <!-- DISPLAY ONLY WHEN USER IS OWNER AND PRODUCT EXIST -->
+                    <div class="form-group" ng-if="product.sku">
                       <label class="control-label ">Boutique</label> 
-                      <p class="form-control-static">
-                        {{product.vendor.name}}
-                      </p>
+                      <!-- DISPLAY ONLY WHEN USER IS OWNER AND PRODUCT EXIST -->
+                      <div ng-if="user.isOwner(product.vendor.name)">
+                        <select  ng-model="product.vendor" 
+                                 ng-options="i.name for i in user.shops track by i._id"
+                                 class="form-control " required ></select>
+                      </div>
+                      <!-- DISPLAY ONLY WHEN USER IS ADMIN AND NOT OWNER -->
+                      <div ng-if="!user.isOwner(product.vendor.name) && user.isAdmin()">
+                        <select  ng-model="product.vendor" 
+                                 ng-options="i.name for i in shopsSelect track by i._id"
+                                 class="form-control " required ></select>
+                      </div>
                     </div>
 
                   </div>
     
                   
-                  <div class="col-xs-7 ">
+                  <div class="col-xs-6 details">
                     <!-- category -->
                     <div class="form-group">
                       <label class="control-label ">Catégorie </label> 
                       <div class=" small">
-                        <select  ng-model="product.categories " class="form-control input-lg" required >
+                        <select  ng-model="product.categories " class="form-control " required >
                           <option ng-repeat="cat in category.findAll()| filter:{type:'Category'}" 
                                   ng-selected="(product.categories._id||product.categories)==cat._id" value="{{cat._id}}" >{{cat.name}}</option>
                         </select>
@@ -141,77 +162,78 @@
                     <!-- portion -->
                     <div class="form-group">
                       <div class="">
-                        <label class="control-label">
-                          Une portion                            
-                        </label>
-                        <input name="part" type="text" placeholder="exemple ~180gr" pattern="([0-9]+pce|[0-9]+gr|[\d.]+kg|1botte|[0-9]+bottes|[\d.]+[\w])" class="input-lg form-control " ng-model="product.pricing.part" required>
-                        <p class="help-block gray">
-                          100gr/~180gr/1botte/0.75L/0.75litre/1pce<br/>
-                        </p>
-                        <div class="well well-sm small" ng-show="product.pricing.part">
-                          Avec {{product.pricing.part}} le client recevra
-                          <span ng-show="!product.hasFixedPortion()"> {{product.pricing.part|portion}}</span>
-                          <span ng-show="product.hasFixedPortion()">{{product.pricing.part}}</span>
-                        </div>                        
-                        <div class="well well-sm small" ng-hide="product.pricing.part">
-                          Avec <b>~180gr</b> le client recevra {{'~180gr'|portion}}
-                        </div>
-                      </div>                      
-                    </div>                    
-                  </div>        
-                </div>    
-            </div>
-            <div data-title="Photo et aperçu " class="form-background row">
-              <div class="col-xs-12" style="margin-left:20%">
-                <!-- overview -->
-                  <div class="" ng-include="'/partials/product/product.html'">
-                  </div>
+                          <label class="control-label">
+                            Une portion                            
+                          </label>
+                          <input name="part" type="text" placeholder="exemple ~180gr" pattern="([0-9]+pce|[0-9]+gr|[\d.]+kg|1botte|[0-9]+bottes|[\d.]+[\w])" class="input-lg form-control " ng-model="product.pricing.part" required>
+                          <p class="help-block gray">
+                            100gr/~180gr/1botte/0.75L/0.75litre/1pce<br/>
+                          </p>
+                          <div class="well well-sm small" ng-show="product.pricing.part">
+                            Avec {{product.pricing.part}} le client recevra
+                            <span ng-show="!product.hasFixedPortion()"> {{product.pricing.part|portion}}</span>
+                            <span ng-show="product.hasFixedPortion()">{{product.pricing.part}}</span>
+                          </div>                        
+                          <div class="well well-sm small" ng-hide="product.pricing.part">
+                            Avec <b>~180gr</b> le client recevra {{'~180gr'|portion}}
+                          </div>
+                        </div>                      
+                      </div>                    
+                    </div>        
+                  </div>    
               </div>
-                  
+              <div data-title="Photo et aperçu " class="form-background row">
+                <div class="col-xs-12" style="margin-left:20%">
+                  <!-- overview -->
+                    <div class="" ng-include="'/partials/product/product.html'">
+                    </div>
+                </div>
+                    
 
-              <div class="col-xs-12" style="margin-left:20%">
-                <!-- Photo -->
-                    <button type="button" id="image" name="image" class=" btn btn-info btn-lg " ng-disabled="!product" ng-click="uploadImage(product,'front')" style="width:210px">Choisir une photo</button>
+                <div class="col-xs-12" style="margin-left:20%">
+                  <!-- Photo -->
+                      <button type="button" id="image" name="image" class=" btn btn-info btn-lg " ng-disabled="!product" ng-click="uploadImage(product,'front')" style="width:210px">Choisir une photo</button>
+                </div>
+                
+
               </div>
-              
-
-            </div>
-          </div><!-- TABS-->
-    </div>
-    <div class="modal-footer">
-      <div class=" pull-left ">
-        <!-- ENABLE PRODUCT -->
-        <div class="text-left">
-          <label class="checkbox inline  " style="text-align:left;width:400px">
-             <input checked type="checkbox" name="attributes" value="indisponible" ng-model="product.attributes.available">
-              <span ng-class="{true:'red'}[!product.attributes.available]">Ce produit est disponible</span>
-          </label>
-          <label class="" ng-if="user.isAdmin()">
-            <input type="checkbox" ng-model="product.attributes.home" ng-if="user.isAdmin()">
-            Ce produit fait parti de la sélection (home)
-          </label>                        
-          <label class="" ng-if="user.isAdmin()">
-            <input type="checkbox" ng-model="product.attributes.comment" />
-            Autoriser les commentaires pour ce produit
-          </label>                        
-        </div>
-
-        <!-- ENABLE COMMENT -->
-        <div class="text-left">
-        </div>
-
+            </div><!-- TABS-->
       </div>
-      <a id="close-product-editor"  class="btn  " href="{{computeUrl()}}">Fermer</a>
-      <button type="submit" ng-show="product.sku" class="btn  btn-danger" confirm-delete="remove(product,password);">Supprimer</button>
+      <div class="modal-footer">
+        <div class=" pull-left ">
+          <!-- ENABLE PRODUCT -->
+          <div class="text-left">
+            <label class="checkbox inline  " style="text-align:left;width:400px">
+               <input checked type="checkbox" name="attributes" value="indisponible" ng-model="product.attributes.available">
+                <span ng-class="{true:'red'}[!product.attributes.available]">Ce produit est disponible</span>
+            </label>
+            <label class="" ng-if="user.isAdmin()">
+              <input type="checkbox" ng-model="product.attributes.home" ng-if="user.isAdmin()">
+              Ce produit fait parti de la sélection (home)
+            </label>                        
+            <label class="" ng-if="user.isAdmin()">
+              <input type="checkbox" ng-model="product.attributes.comment" />
+              Autoriser les commentaires pour ce produit
+            </label>                        
+          </div>
 
-      <button type="submit" ng-show="product.sku" ng-disabled="f_product.$invalid || WaitText" 
-              class="btn  btn-primary" ng-click="save(product);">
-              {{WaitText||'Enregistrer'}}
-      </button>
-      <button type="submit" ng-hide="product.sku" ng-disabled="f_product.$invalid || WaitText" 
-              class="btn btn-primary" ng-click="create(product.urlshop,product);">
-              {{WaitText||'Ajouter'}}
-      </button>
-    </div>
-  </form>
+          <!-- ENABLE COMMENT -->
+          <div class="text-left">
+          </div>
+
+        </div>
+        <a id="close-product-editor"  class="btn  " href="{{computeUrl()}}">Fermer</a>
+        <button type="submit" ng-show="product.sku" class="btn  btn-danger" confirm-delete="remove(product,password);">Supprimer</button>
+
+        <button type="submit" ng-show="product.sku" ng-disabled="f_product.$invalid || WaitText" 
+                class="btn  btn-primary" ng-click="save(product);">
+                {{WaitText||'Enregistrer'}}
+        </button>
+        <button type="submit" ng-hide="product.sku" ng-disabled="f_product.$invalid || WaitText" 
+                class="btn btn-primary" ng-click="create(product.urlshop,product);">
+                {{WaitText||'Ajouter'}}
+        </button>
+      </div>
+    </form>
+  </div>
 </div>

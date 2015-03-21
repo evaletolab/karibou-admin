@@ -23,24 +23,26 @@ function appConfig($q, $resource, $sce, API_SERVER) {
     AUTH_SUCCESS_REDIRECT_URL:'/',
     AUTH_ERROR_REDIRECT_URL:'/login',
 
+    filepicker:"At5GnUxymT4WKHOWpTg5iz",
+    // storage:"//karibou-filepicker.s3-website-eu-west-1.amazonaws.com/",
+    storage:"//s3-eu-west-1.amazonaws.com/karibou-filepicker/",
 
-    storage:"http://karibou-filepicker.s3-website-eu-west-1.amazonaws.com/",
-
+    staticMapKey:"AIzaSyD5w46BmWX6hX-uJ2yMycS_cRb2HRvDXQU",
     
-    //cover:'img/localfood.jpg',
-    cover:'img/home-site.jpg',
+    cover:'img/localfood.jpg',
+    // cover:'img/home-site.jpg',
     
     postfinance:{
       url:$sce.trustAsResourceUrl('https://e-payment.postfinance.ch/ncol/test/orderstandard_utf8.asp')
     },
 
     user:{
-      photo:'http://placehold.it/80x80'
+      photo:'//placehold.it/80x80'
     },
     shop:{
       photo:{
-        fg:"http://placehold.it/400x300",
-        owner:"http://placehold.it/80x80&text=owner",
+        fg:"//placehold.it/400x300",
+        owner:"//placehold.it/80x80&text=owner",
         bg:''
       }
     },
@@ -67,6 +69,8 @@ function appConfig($q, $resource, $sce, API_SERVER) {
   defaultConfig.shop=deferred.promise;
   var serverSettings=$resource(defaultConfig.API_SERVER+'/v1/config').get(function(){
       angular.extend(defaultConfig.shop,serverSettings);
+
+
       deferred.resolve(defaultConfig)
   });
 
@@ -84,7 +88,6 @@ function ConfigCtrl($scope,$resource,config,api){
   //
   // save stored config (admin only)
   $scope.saveConfig=function(){
-    console.log('save config',config.shop.global)
     $dao.save(config.shop.global,function(){
       api.info($scope,"Configuration sauvée");
     })

@@ -93,12 +93,13 @@ function OrderNewCtrl($scope,$location,$rootScope,$routeParams,api,Cards,order,c
   // geomap init
   $scope.updateMap=function(address, cb){
     $log.info('update map done',address)
-    if (address.streetAdress===undefined||address.postalCode===undefined)
-     return;
+    if (!address||address.streetAdress===undefined||address.postalCode===undefined)
+     return cb&&cb("Vous n'avez pas rempli le formulaire avec l'adresse");
 
     $scope.map.geocode(address.streetAdress, address.postalCode, address.country, function(geo){
       if(!geo.results.length||!geo.results[0].geometry){
-        if(cb)cb("L'adresse n'a pas été trouvé, soit le serveur est en panne, soit vous devez modifier votre adresse")
+        // issue with geocode, anyways continue
+        if(cb)cb(null,address)
        return;
       }
       //
@@ -120,6 +121,7 @@ function OrderNewCtrl($scope,$location,$rootScope,$routeParams,api,Cards,order,c
     $log.info('update map')
     $scope.updateMap(u.addresses[0],function(err,address){
       if(err){
+        $rootScope.WaitText=false
         return api.info($scope,err)
       }
 
@@ -173,20 +175,79 @@ function OrderNewCtrl($scope,$location,$rootScope,$routeParams,api,Cards,order,c
   };
 
 
-  $scope.addPaymentMethod=function(name,number,csc,expiry){
+  $scope.selectPaymentMethod=function (method) {
+    $scope.options.showCreditCard=false;
+    if($scope.methodStatus[method.alias]){
+      return 
+    }
+    cart.config.payment=method;
+  }
+
+
+  $scope.checkPaymentMethod=function(){
     $rootScope.WaitText="Waiting ..."
-    user.addPaymentMethod({name:name,number:number,csc:csc,expiry:expiry},function(u){
-      api.info($scope,"Votre méthode de paiement a été enregistrée");
-      $scope.options.showCreditCard=false;
+    $scope.methodStatus={}
+    user.$promise.then(function () {
+      //
+      // check payment method with our gateway
+      user.checkPaymentMethod(function(methodStatus){
+        $scope.methodStatus=methodStatus;
+        // 
+        // select the default payment method
+        user.payments.every(function (method) {
+          if(Object.keys(methodStatus).indexOf(method.alias)===-1){
+            cart.config.payment=method;
+            return;
+          }
+        })
+      })
     })
   }
 
-  $scope.deletePaymentMethod=function(alias,cvc,expiry){
+  $scope.addPaymentMethod=function(name,number,csc,expiry){
     $rootScope.WaitText="Waiting ..."
-    user.deletePaymentMethod(alias,function(u){
-      api.info($scope,"Votre méthode de paiement a été supprimée");
-    })
-  }
+    if(!expiry){
+      $rootScope.WaitText=false
+      return api.info($scope,"Date non valide!");
+    }
+    if(!csc){
+      $rootScope.WaitText=false
+      return api.info($scope,"CVC non valide!");
+    }
+    Stripe.card.createToken({
+      name:name,
+      number: number,
+      cvc: csc,
+      exp_month: expiry.split('/')[0],
+      exp_year: expiry.split('/')[1]
+    }, function (status, response) {
+      if(response.error){
+        $rootScope.WaitText=false
+        return api.info($scope,response.error.message);
+      }
+      //
+      // response.id
+      user.addPaymentMethod({
+        id:response.id,
+        name:response.card.name,
+        issuer:response.card.brand.toLowerCase(),
+        number:'xxxx-xxxx-xxxx-'+response.card.last4,
+        expiry:response.card.exp_month+'/'+response.card.exp_year
+      },function(u){
+        api.info($scope,"Votre méthode de paiement a été enregistrée");
+        $rootScope.WaitText=false
+        $scope.options.showCreditCard=false;
+
+        //
+        // select default method
+        if(user.payments.length>0){
+          cart.config.payment=user.payments[user.payments.length-1];
+        }
+      })
+
+    });      
+  }  
+
 
 
   $scope.currentFlow=function(flow){
@@ -203,7 +264,7 @@ function OrderNewCtrl($scope,$location,$rootScope,$routeParams,api,Cards,order,c
   $scope.updateGatewayFees=function(){
     if(!cart.config.payment)return 0
     for(var p in config.shop.order.gateway){
-      if(config.shop.order.gateway[p].label===cart.config.payment.type){
+      if(config.shop.order.gateway[p].label===cart.config.payment.issuer){
         cart.setTax(config.shop.order.gateway[p].fees, config.shop.order.gateway[p].label)
         return config.shop.order.gateway[p].label;
       }
@@ -233,7 +294,8 @@ function OrderNewCtrl($scope,$location,$rootScope,$routeParams,api,Cards,order,c
     // get payment token
     var payment={
       alias:cart.config.payment.alias,
-      issuer:cart.config.payment.type,
+      issuer:cart.config.payment.issuer,
+      name:cart.config.payment.name,
       number:cart.config.payment.number
     };
 

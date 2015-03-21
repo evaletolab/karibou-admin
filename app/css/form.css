@@ -213,7 +213,7 @@ form.nomargin{
 
 .modal-body{
   min-height:480px;
-  max-height:550px!important;
+  max-height:700px!important;
 }
 .modal-body.gradient{
   background-image: -moz-linear-gradient(center top , #eee 0px, #efefef 60%);
@@ -239,6 +239,16 @@ form.nomargin{
   border-bottom:1px solid #777;
 }
 
+
+.modal-body div.details{
+  margin-top: 5px;
+  border-top: 1px dotted rgb(207, 207, 207);
+  padding-top: 10px;  
+}
+
+.modal-body .control-label{
+  font-weight: 700;
+}
 
 
 /* Desktop large

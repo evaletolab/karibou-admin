@@ -7,7 +7,7 @@
   </aside>
 
   <section class="wrapper" tabindex="-1">
-      <div class="wrapper-inner"  >
+      <div class="wrapper-inner"  ng-init="checkPaymentMethod()">
 
 
         <!--                               -->
@@ -22,24 +22,27 @@
           </div>
 
           <div class="payment">     
-            <div class="list-group clearfix">
+            <ul class="list-group clearfix">
               <!-- THE ONES SAVED -->
-              <a href="" class="list-group-item "                             
-                         ng-repeat="method in user.payments" >
+              <li class="list-group-item clearfix"                             
+                         ng-repeat="method in user.payments" 
+                         ng-class="{'disabled':methodStatus[method.alias]}">
                 <div class="col-xs-3 col-sm-2 nopadding " >
-                  <img ng-src="/img/payments/{{pm[method.type.toLowerCase()]}}" class="img-thumbnail img-responsive" alt="" />
+                  <img ng-src="/img/payments/{{pm[method.issuer.toLowerCase()]}}" class="img-thumbnail img-responsive" alt="" />
                 </div>
                 <div class="col-xs-9 col-sm-10 " >
                   <h4 class="list-group-item-heading ">{{method.number}} <span class="bold green" payments-date="{{method.expiry}}">{{method.expiry}}</span></h4>
                   <p class="list-group-item-text comment-text" >
+                    <abbr  ng-show="methodStatus[method.alias]" title="{{methodStatus[method.alias]}}">Cette méthode de paiement n'est plus valide</abbr>
                     <button class="btn btn-xs btn-transparent hide"
                             ng-click="options.showPaymentOptions=true;">modifier</button>
-                    <button class="btn btn-xs btn-danger"
+                    <button class="btn btn-xs btn-danger pull-right"
                             ng-click="deletePaymentMethod(method.alias)">supprimer</button>
                   </p>
                 </div>
-              </a>
-            </div>
+              </li>
+              <!-- END OF CARD -->
+            </ul>
             <div ng-show="user.payments.length" style="padding:10px" class=" help-block">
               <a href="" ng-click="options.showPaymentOptions=true" >
                 Ajouter une méthode de paiement?
@@ -59,7 +62,7 @@
                 </div>
               </a>
               <!-- POSTFINANCE CARD -->
-              <a href="" class="list-group-item" ng-class="{'active':options.showCreditCard=='pf'}" ng-click="options.showCreditCard='pf';">
+<!--               <a href="" class="list-group-item" ng-class="{'active':options.showCreditCard=='pf'}" ng-click="options.showCreditCard='pf';">
                 <div class="col-xs-3 col-sm-2 nopadding">
                   <img ng-src="/img/payments/pfc.jpg" class="img-thumbnail img-responsive" alt="" /></div>
                 <div class="col-xs-9 col-sm-10 ">
@@ -71,25 +74,20 @@
                 </div>
 
               </a>
-            </div>
+ -->            </div>
 
             <!-- new card -->
             <div ng-include="'/partials/order/payment-card.html'" 
                  ng-if="options.showCreditCard=='vma'"></div>
 
-            <div ng-include="'/partials/order/payment-postfinance-ecommerce.html'" 
+<!--             <div ng-include="'/partials/order/payment-postfinance-ecommerce.html'" 
                  ng-if="options.showCreditCard=='pf'"></div>
-
+ -->
           </div>
 
 
           <div class="row col-xs-12">
             <hr/>
-            <a  href="" 
-                ng-disabled="!cart.config.payment || WaitText" 
-                ga-send="{category:'order',action:'payment'}" 
-                class=" btn btn-lg btn-success">{{WaitText || 'Enregistrer'}}
-            </a>
           </div>
 
         </div>

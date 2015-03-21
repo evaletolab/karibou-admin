@@ -77,7 +77,7 @@ function orderFactory(config, $resource, $q, user,shop, api) {
 
   /* return array of one week of shipping days available for customers*/
   Order.prototype.findOneWeekOfShippingDay=function(timeLess, from){
-    var next=this.findNextShippingDay(0,0,from), result=[], all=[next], nextDate, nextDay
+    var next=this.findNextShippingDay(0,0,from), result=[], all=[next], today=new Date(), nextDate, nextDay
 
     config.shop.order.weekdays.forEach(function(day){
       if(day==next.getDay()){
@@ -86,8 +86,12 @@ function orderFactory(config, $resource, $q, user,shop, api) {
 
       nextDay=(day>next.getDay())? (day-next.getDay()):(7-next.getDay()+day)
       nextDate=new Date(nextDay*86400000+next.getTime());
-      if(config.shop.order.weekdays.indexOf(nextDate.getDay())!=-1)
-        all.push(nextDate)
+      
+      if(Math.round((nextDate.getTime()-today.getTime())/86400000)>6)
+        return
+      if(config.shop.order.weekdays.indexOf(nextDate.getDay())===-1)
+        return
+      all.push(nextDate)
 
     })
 
@@ -196,6 +200,38 @@ function orderFactory(config, $resource, $q, user,shop, api) {
     return parseFloat((Math.round(total*20)/20).toFixed(2));
   }
 
+  Order.prototype.getOriginPrice=function(factor){
+    var total=0.0;
+    this.items&&this.items.forEach(function(item){
+      //
+      // item should not be failure (fulfillment)
+      if(item.fulfillment.status!=='failure'){
+        total+=(item.price*item.quantity);
+      }
+    });
+
+    // before the payment fees! 
+    // add shipping fees (10CHF)
+    total+=config.shop.marketplace.shipping;
+
+    //
+    // add gateway fees
+    for (var gateway in config.shop.order.gateway){
+      gateway=config.shop.order.gateway[gateway]
+      if (gateway.label===this.payment.issuer){
+        total+=total*gateway.fees;
+        break;
+      }
+    }
+
+    // add mul factor
+    factor&&(total*=factor);
+
+
+    return parseFloat((Math.round(total*20)/20).toFixed(2));
+  }
+
+
   Order.prototype.getShippingLabels=function(){
       var when=new Date(this.shipping.when);
       var time=config.shop.order.shippingtimes[when.getHours()]
@@ -271,7 +307,6 @@ function orderFactory(config, $resource, $q, user,shop, api) {
   }
 
 
-
   Order.prototype.create=function(shipping,items,payment, cb){
     var self=this, s = backend.$order.save({shipping:shipping,items:items,payment:payment}, function() {
       self.wrap(s);
@@ -292,14 +327,18 @@ function orderFactory(config, $resource, $q, user,shop, api) {
     return this.chain(backend.$order.save({action:this.oid,id:'capture'}).$promise);
   };
 
+  Order.prototype.refund=function(){
+    return this.chain(backend.$order.save({action:this.oid,id:'refund'}).$promise);
+  };
 
   Order.prototype.cancelWithReason=function(reason){
     return this.chain(backend.$order.save({action:this.oid,id:'cancel'},{reason:reason}).$promise);
   };
 
   Order.prototype.updateItem=function(item,fulfillment, cb){
-    item.fulfillment.status=fulfillment;
-    return this.chain(backend.$order.save({action:this.oid,id:'items'},[item]).$promise)
+    var tosave=_.clone(item)
+    tosave.fulfillment.status=fulfillment;
+    return this.chain(backend.$order.save({action:this.oid,id:'items'},[tosave]).$promise)
   };
 
   Order.prototype.updateShipping=function(oid,status){

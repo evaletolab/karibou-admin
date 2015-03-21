@@ -23,7 +23,7 @@
       <!--                               -->                          
 
 
-      <form name="form" novalidate="novalidate" class="-form-horizontal ">
+      <form name="form" novalidate="novalidate" class="wizard " ng-submit="save(user)" >
         <div class="form-background well white clearfix">
           <h5 class="article-group-title " >
             Vos données personnelles
@@ -50,11 +50,11 @@
             <div class="colsm10">
               <div ng-repeat="phone in user.phoneNumbers" class="row nomargin">
                 <div class="col-xs-3 nopadding">
-                  <input type="text"  ng-model="user.phoneNumbers[$index].what" placeholder="mobile" 
+                  <input type="text"  ng-model="user.phoneNumbers[$index].what" placeholder="mobile" required 
                   class="form-control input-lg ">
                 </div>
                 <div class="col-xs-7 nopadding">
-                  <input type="text"  ng-model="user.phoneNumbers[$index].number" placeholder="004178 000 55 55" 
+                  <input type="text"  ng-model="user.phoneNumbers[$index].number" placeholder="004178 000 55 55" required 
                   class="form-control input-lg">
                 </div>
                 <div class="col-xs-1 nopadding">                
@@ -82,11 +82,11 @@
 
           <!-- ADDRESSES -->
         <div class="clearfix" ng-hide="user.addresses.length">
-            <button class="btn btn-lg btn-block" 
-                    ng-class="{'btn-warning':!user.addresses.length,'btn-default':user.addresses.length,}" 
+            <a class="btn btn-lg btn-block" 
+                    ng-class="{'btn-info':!user.addresses.length,'btn-default':user.addresses.length,}" 
                     ng-click="user.addresses.push({primary:true})">
               Mon adresse de livraison 
-            </button> 
+            </a> 
 
         </div>
 
@@ -105,7 +105,7 @@
             <div class="form-group required">                  
               <label class="colsm2 control-label">Nom et prénom</label>
               <div class="colsm10">
-                  <input id="full-name"  ng-model="user.addresses[$index].name" type="text" placeholder="Nom et prénom"
+                  <input id="full-name"  ng-model="user.addresses[$index].name" type="text" placeholder="Nom et prénom" required 
                   class="form-control input-lg" require>
                   <p class="help-block"></p>
                   
@@ -113,7 +113,7 @@
             </div>
 
             <!-- NOTE -->
-            <div class="form-group  required">
+            <div class="form-group  ">
               <label class="colsm2 control-label">Note au livreur</label>
               <div class="colsm10">
                   <input id="full-name"  ng-model="user.addresses[$index].note" type="text" placeholder="Note au livreur, code,..."
@@ -124,13 +124,12 @@
             <!-- RUE/N°/ETAGE -->
             <div class="form-group  required">
               <label class="colsm2 control-label">Rue, numéro et l'étage</label>
-                <div class="col-xs-10 nopadding">                
-                  <input id="address-line1" ng-model="user.addresses[$index].streetAdress"  type="text" ng-blur="updateMap(user.addresses[$index],user)" placeholder="rue et numéro" class="form-control input-lg" required>
-                </div>
-                <div class="col-xs-2 nopadding">                
-                  <input id="floor1" ng-model="user.addresses[$index].floor" type="text" placeholder="Étage" class="form-control input-lg" required>
-                </div>
-
+              <div class="col-xs-10 nopadding">                
+                <input id="address-line1" ng-model="user.addresses[$index].streetAdress"  type="text" ng-blur="updateMap(user.addresses[$index],user)" placeholder="rue et numéro" class="form-control input-lg" required>
+              </div>
+              <div class="col-xs-2 nopadding">                
+                <input id="floor1" ng-model="user.addresses[$index].floor" type="text" placeholder="Étage" class="form-control input-lg" required>
+              </div>
             </div>
 
             <!-- POSTAL -->
@@ -142,6 +141,7 @@
                            ng-change="updateMap(user.addresses[$index],user)" required>
                       <option value="">-- Choisissez  --</option>
                   </select>
+                  <p class="help-block">Actuellement nous livrons uniquement en Ville de Genève et de Carouge</p>
               </div>
             </div>
 
@@ -175,24 +175,17 @@
           </div>
           </div>          
           
-          <!--     -->
-          <!-- MAP -->
-          <!--     -->
-  <!--             <leaflet center="geneva" legend="legend" event-broadcast="events" 
-            defaults="defaults" markers="markers" style="height: 250px; width: 80%">
-          </leaflet>        
-  -->
 
           <div class="form-group bottom">
-            <input type="submit" ng-click="save(user)" 
-                   ng-disabled="form.$invalid || WaitText" 
+            <input type="submit" 
+                   ng-disabled=" WaitText" autofocus
                    value="{{WaitText || 'Enregistrer'}}" 
                    ga-send="{category:'account',action:'update'}" 
                    class="col-sm-offset btn btn-success btn-lg"/>
-            <button class="btn btn-lg pull-right" ng-show="user.addresses.length"
+            <button type="button" class="btn btn-lg pull-right" ng-show="user.addresses.length"
                     ng-class="{'btn-warning':!user.addresses.length,'btn-default':user.addresses.length,}" 
                     ng-click="user.addresses.push({primary:true})">
-              Ajouter une adresse de livraison 
+              Autre adresse de livraison 
             </button> 
           </div>          
       </form>      

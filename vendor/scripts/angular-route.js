@@ -864,6 +864,8 @@ function ngViewFactory(   $route,   $anchorScroll,   $animate) {
            * - the next view is not named
            * - the last route (tagerting the main view) != the current route 
            */ 
+          // console.log('DEBUG-ROUTE---------->',currentRoute)
+
           if(currentRoute&&
              currentRoute.$$route&&
              currentRoute.$$route.view){

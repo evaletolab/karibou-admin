@@ -58,7 +58,7 @@ select.cart{
     position: fixed;
     right: 0;
     top: 0;
-    font-size: 90%;
+    font-size: 100%;
     width: 62%;
     height: 100%;
     -webkit-transition: all .5s ease-out;
@@ -68,6 +68,7 @@ select.cart{
             transition: all .5s ease-out;
     box-shadow: 0px 0px 40px #444;
     background-color: rgba(62, 74, 63, 0.98);
+    background-color: white;
     z-index: 9999;
     margin-top: 0;
 }
@@ -102,6 +103,7 @@ select.cart{
 
 .cover-resume.cart> div > div.cart-bottom{
   background-color: rgba(62, 74, 63, 0.98);
+    background-color: white;
   position: absolute;
   bottom: 0;
   left: 0;

@@ -5,6 +5,7 @@
  */
 
 angular.module('postfinance.card')
+
 .factory('_Validate', ['Cards', 'Common', '$parse', function(Cards, Common, $parse){
 
   var __indexOf = [].indexOf || function(item) { for (var i = 0, l = this.length; i < l; i++) { if (i in this && this[i] === item) return i; } return -1; }
@@ -102,7 +103,6 @@ angular.module('postfinance.card')
       }
 
       var ret = (ref = num.length, __indexOf.call(card.length, ref) >= 0) && (card.luhn === false || _luhnCheck(num));
-
       return ret;
   }
 
@@ -170,6 +170,7 @@ angular.module('postfinance.card')
         if(attr.paymentsTypeModel) {
             scope.$watch(attr.paymentsTypeModel, function(newVal, oldVal) {
                 if(newVal != oldVal) {
+
                     var valid = _Validate(type, ctrl.$modelValue, ctrl, scope, attr);
                     ctrl.$setValidity(type, valid);
                 }
