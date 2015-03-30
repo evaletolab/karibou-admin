@@ -169,6 +169,7 @@ function OrderAdminCtrl($scope,$routeParams, $location, api, order, user, produc
         return $scope.orders[o].updateItem(item,fulfillment).$promise.then(function(){
           api.info($scope,"Statut commande enregistré",2000);
           item.fulfillment.status=fulfillment;
+        },function () {
         })
       }
     }
@@ -186,7 +187,7 @@ function OrderAdminCtrl($scope,$routeParams, $location, api, order, user, produc
   // get all orders
   $scope.findAllOrders=function(defaultParams){
 
-    var filters=$scope.filters=angular.extend({},$routeParams,defaultParams||{});
+    var filters=$scope.filters=angular.extend({},$routeParams,defaultParams||{padding:true});
     var today=new Date();
     if(!filters.month &&!filters.when)filters.month=today.getMonth()+1;
     $scope.loading=true;

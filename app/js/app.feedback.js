@@ -44,7 +44,7 @@ function FeedbackCtrl(config, $scope, $rootScope,$timeout, $http, user,api) {
   }
 
   user.$promise.then(function (user) {
-    feedback.email=user.email.address;
+    if(user.email)feedback.email=user.email.address;
   })
 
 

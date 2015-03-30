@@ -142,11 +142,14 @@ UI.directive("bgSrc", ['$timeout','config',function ($timeout,config) {
   return {
       restrict: 'A',
       link: function(scope, element, attrs){
-        var url=attrs.bgSrc.replace(/ /g,'%20');
+        var url=attrs.bgSrc;//.replace(/ /g,'%20');
 
         if(attrs.bgSmall) {
           // url='http://cdn.filter.to/300x1000/'+url.replace('https','http')
-          url=config.API_SERVER+'/v1/cdn/image/305x1000?source='+url.replace('https','http')
+          // url=config.API_SERVER+'/v1/cdn/image/305x1000?source='+url.replace('https','http')
+          url+='-/resize/300x/';
+        }else{
+          url+='-/progressive/yes/'
         }
         element[ 0 ].style.backgroundImage = "url("+url+")";
       }

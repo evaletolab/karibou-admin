@@ -65,8 +65,60 @@ function ($rootScope, $http, $resource, $timeout, $q, config) {
   function error($scope, ms, cb){
   };  
   
-  
+
   function uploadfile($scope, options, callback){
+    //
+    // load filepicker and set api key
+    // $script("//ucarecdn.com/widget/2.0.4/uploadcare/uploadcare.min.js",function(){
+/*
+      uploadcare.openDialog(null, {
+          publicKey: config.uploadcare,
+          imagesOnly: true,
+          multiple:false,
+          previewStep:true,
+          crop: "free"
+      });      
+      filepicker.setKey(config.filepicker);
+/**
+      filepicker.pick({
+          mimetypes: ['image/*'],
+          maxSize: 150*1024,
+          location: 'S3',
+          access: 'public',
+          services:['COMPUTER', 'URL', 'IMAGE_SEARCH','GOOGLE_DRIVE', 'FLICKR','INSTAGRAM'],
+        },
+        function(FPFile){
+          // console.log(FPFile)
+          // container: "karibou-filepicker"
+          // filename: "oli-avatar-small.png"
+          // isWriteable: true
+          // key: "nQD24l7LSQvI4zyH9Icw_oli-avatar-small.png"
+          // mimetype: "image/png"
+          // size: 14379
+          // url: "https://www.filepicker.io/api/file/bacvRJUQmcbvxdHxwfFQ"
+
+          $scope.$apply(function () {
+            filepicker.stat(FPFile, {width: true, height: true},
+              function(metadata){              
+                callback(null,FPFile,metadata, metadata.height/metadata.width);
+
+            });        
+          });
+        },
+        function(FPError){
+          $scope.$apply(function () {
+            callback(FPError);
+          });
+        }
+      );
+
+
+    })
+*/
+    return false;      
+  }
+
+  function uploadfile_FP($scope, options, callback){
     //
     // load filepicker and set api key
     $script("//api.filepicker.io/v1/filepicker.js",function(){
@@ -104,42 +156,6 @@ function ($rootScope, $http, $resource, $timeout, $q, config) {
         }
       );
 
-/**
-      filepicker.pick({
-          mimetypes: ['image/*'],
-          maxSize: 150*1024,
-          location: 'S3',
-          access: 'public',
-          services:['COMPUTER', 'URL', 'IMAGE_SEARCH','GOOGLE_DRIVE', 'FLICKR','INSTAGRAM'],
-        },
-        function(uploaded){
-          filepicker.convert(uploaded,{ fit:'clip', width: 300, location: 'S3' },function (FPFile) {
-            // console.log(FPFile)
-            // container: "karibou-filepicker"
-            // filename: "oli-avatar-small.png"
-            // isWriteable: true
-            // key: "nQD24l7LSQvI4zyH9Icw_oli-avatar-small.png"
-            // mimetype: "image/png"
-            // size: 14379
-            // url: "https://www.filepicker.io/api/file/bacvRJUQmcbvxdHxwfFQ"
-
-            $scope.$apply(function () {
-              filepicker.stat(FPFile, {width: true, height: true},
-                function(metadata){              
-                  callback(null,FPFile,metadata, metadata.height/metadata.width);
-
-              });        
-            });
-
-          });
-        },
-        function(FPError){
-          $scope.$apply(function () {
-            callback(FPError);
-          });
-        }
-      );
-*/
 
     })
 

@@ -336,7 +336,7 @@ function orderFactory(config, $resource, $q, user,shop, api) {
   };
 
   Order.prototype.updateItem=function(item,fulfillment, cb){
-    var tosave=_.clone(item)
+    var tosave=angular.copy(item);
     tosave.fulfillment.status=fulfillment;
     return this.chain(backend.$order.save({action:this.oid,id:'items'},[tosave]).$promise)
   };
