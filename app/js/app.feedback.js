@@ -43,9 +43,9 @@ function FeedbackCtrl(config, $scope, $rootScope,$timeout, $http, user,api) {
     ]    
   }
 
-  user.$promise.then(function (user) {
+  user.$promise.finally(function () {
     if(user.email)feedback.email=user.email.address;
-  })
+  });
 
 
   $scope.getTitle=function () {

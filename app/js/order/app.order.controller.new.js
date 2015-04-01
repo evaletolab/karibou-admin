@@ -21,8 +21,8 @@ function OrderNewCtrl($scope,$location,$rootScope,$routeParams,api,Cards,order,c
   $scope.products=[];
   $scope.filters={}
   $scope.shops=false;
+  $scope.profileReady=false;
   $scope.Cards=Cards;
-  $scope.profileReady=(user.isReady()&&user.hasPrimaryAddress());
   $scope.options={
     showCreditCard:false,
     showPaymentOptions:false
@@ -50,8 +50,10 @@ function OrderNewCtrl($scope,$location,$rootScope,$routeParams,api,Cards,order,c
   // !user.ready            => /order/profile
   // user.ready && !process => /order/payment
   // user.ready &&  process => /order/process
-  $log.info('in flow',$scope.process, $scope.profileReady)  
-  user.$promise.then(function(){
+  user.$promise.finally(function(){
+    $scope.profileReady=(user.isReady()&&user.hasPrimaryAddress());
+    $log.info('in flow',$scope.process, $scope.profileReady)  
+
     if(!user.isAuthenticated() && $scope.process==='profile'){
       $location.path('/order/profile')
     }else if(!user.isAuthenticated()){
@@ -186,6 +188,8 @@ function OrderNewCtrl($scope,$location,$rootScope,$routeParams,api,Cards,order,c
   $scope.checkPaymentMethod=function(){
     $rootScope.WaitText="Waiting ..."
     $scope.methodStatus={}
+    //
+    // wait for user should not be there???
     user.$promise.then(function () {
       //
       // check payment method with our gateway
