@@ -58,7 +58,7 @@ app.get('/', function (req, res) {
 //    a. Browser supports history api -- change the url to '/signup'.
 //    b. Browser does not support history api -- keep the url '/#/signup'
 app.use(function (req, res) {
-  res.redirect('/#' + req.path);
+  res.redirect('/#' + req.url);
 });
 
 http.createServer(app).listen(app.get('port'), function () {

@@ -112,23 +112,24 @@
               </div>
             </div>
 
-            <!-- NOTE -->
-            <div class="form-group  ">
-              <label class="colsm2 control-label">Note au livreur</label>
-              <div class="colsm10">
-                  <input id="full-name"  ng-model="user.addresses[$index].note" type="text" placeholder="Note au livreur, code,..."
-                  class="form-control input-lg" >
-              </div>
-            </div>
 
             <!-- RUE/N°/ETAGE -->
             <div class="form-group  required">
-              <label class="colsm2 control-label">Rue, numéro et l'étage</label>
+              <label class="colsm2 control-label">Rue, <u>numéro</u> et l'étage</label>
               <div class="col-xs-10 nopadding">                
                 <input id="address-line1" ng-model="user.addresses[$index].streetAdress"  type="text" ng-blur="updateMap(user.addresses[$index],user)" placeholder="rue et numéro" class="form-control input-lg" required>
               </div>
               <div class="col-xs-2 nopadding">                
                 <input id="floor1" ng-model="user.addresses[$index].floor" type="text" placeholder="Étage" class="form-control input-lg" required>
+              </div>
+            </div>
+
+            <!-- NOTE -->
+            <div class="form-group  ">
+              <label class="colsm2 control-label">Note au livreur et complément d'adresse</label>
+              <div class="colsm10">
+                  <input id="full-name"  ng-model="user.addresses[$index].note" type="text" placeholder="Note au livreur, code, C/O, batiment, ..."
+                  class="form-control input-lg" >
               </div>
             </div>
 

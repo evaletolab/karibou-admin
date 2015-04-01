@@ -6,12 +6,12 @@
 angular.module('app.order.repport', ['app.order.ui','app.config', 'app.api'])
   .controller('OrderRepportCtrl',OrderRepportCtrl)
 
-OrderRepportCtrl.$inject=['$scope', '$routeParams','$location','api','order','user','product','$log', '$controller'];
-function OrderRepportCtrl($scope,$routeParams, $location, api, order, user, product, $log, $controller) {
+OrderRepportCtrl.$inject=['$scope', '$routeParams','$location','api','order','user','product','shop','$log', '$controller'];
+function OrderRepportCtrl($scope,$routeParams, $location, api, order, user, product,shop, $log, $controller) {
   $controller('OrderCommonCtrl', {$scope: $scope}); 
 
   $scope.today=new Date();
-
+  $scope.shopsSelect=shop.query({})
 
   $scope.getAmountTotal=function (shop) {
     var total=0;
@@ -36,7 +36,6 @@ function OrderRepportCtrl($scope,$routeParams, $location, api, order, user, prod
   }
 
 
-
   $scope.getDetailledOrderUrl=function (order) {
     var params=($routeParams.closed)?'&closed='+$routeParams.closed:'';
     params+=($routeParams.fulfillments)?'&fulfillments='+$routeParams.fulfillments:'';
@@ -51,13 +50,6 @@ function OrderRepportCtrl($scope,$routeParams, $location, api, order, user, prod
     $scope.loading=true;
 
     user.$promise.then(function(){
-
-      //
-      // is admin?
-      if(!user.isAdmin()){
-        filters.shops='yes'
-      }
-
 
       order.findRepportForShop(filters).$promise.then(function(repport){
         $scope.loading=true

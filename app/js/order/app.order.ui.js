@@ -39,16 +39,16 @@ angular.module('app.order.ui', [
     //
     // config is an asynchrone load
     config.shop.then(function(){
+      if(config.shop.global.maintenance.active){
+        return  element.html(config.shop.global.maintenance.reason)
+      }
+
       var nextShippingDay=order.findNextShippingDay(),
           delta=nextShippingDay.getTime()-Date.now(),
           timer,
           append = attr['clockdown']||'';
 
       element.html(append+' '+moment(nextShippingDay).format('dddd D MMMM', 'fr'))
-      // timer=setInterval(function(){
-      //   delta--;
-      //   element.html(append+' '+moment(nextShippingDay).fromNow())
-      // },1000)
     });
   }
 }])

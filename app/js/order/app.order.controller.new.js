@@ -51,28 +51,27 @@ function OrderNewCtrl($scope,$location,$rootScope,$routeParams,api,Cards,order,c
   // user.ready && !process => /order/payment
   // user.ready &&  process => /order/process
   $log.info('in flow',$scope.process, $scope.profileReady)  
-
-  if(!user.isAuthenticated() && $scope.process==='profile'){
-    $location.path('/order/profile')
-  }else if(!user.isAuthenticated()){
-    $location.path('/order/identity')
-  }else if(!$scope.profileReady){
-    $location.path('/order/profile')
-    //
-    // the profile is now ok
-  }else if(!$scope.process){
-    $location.path('/order/payment')
-  }else if($scope.process==='identity'){
-    $location.path('/order/profile')
-  }else if($scope.process=='validation' && !cart.config.payment){
-    $location.path('/order/payment')
-  }
-
-  $log.info('out flow',$scope.process)  
-
-  //
-  // init order fields
   user.$promise.then(function(){
+    if(!user.isAuthenticated() && $scope.process==='profile'){
+      $location.path('/order/profile')
+    }else if(!user.isAuthenticated()){
+      $location.path('/order/identity')
+    }else if(!$scope.profileReady){
+      $location.path('/order/profile')
+      //
+      // the profile is now ok
+    }else if(!$scope.process){
+      $location.path('/order/payment')
+    }else if($scope.process==='identity'){
+      $location.path('/order/profile')
+    }else if($scope.process=='validation' && !cart.config.payment){
+      $location.path('/order/payment')
+    }
+
+    $log.info('out flow',$scope.process)  
+
+
+
     var p=user.hasPrimaryAddress();
     $scope.cart.config.address=(p!=-1)?p:0;
     // create an empty address to prefil the form in the wizard

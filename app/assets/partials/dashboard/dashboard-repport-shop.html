@@ -19,19 +19,31 @@
         <div class="panel panel-default hidden-print" >
           <div class="panel-heading"><i class="fa fa-chevron-down "></i> <a href="" toggle-on-click="#shopper-filter" > Sélectioner le rapport </a></div>
           <div class="panel-body nopadding" id="shopper-filter" ng-class="{'hide':repport.products.length}">
-              <div class="col-xs-12 col-md-6 ">
+              <div class="col-xs-12 col-md-4 ">
                 <div>Mois: </div>
                 <span ng-repeat="month in months"><button class="btn btn-xs btn-transparent" ng-click="toggle({month:month})" ng-class="getToggleClass('month',month)">{{months_short[month-1]}}</button> </span>                
               </div>
-              <div class="col-xs-12 col-md-6 ">
+              <div class="col-xs-12 col-md-4 ">
                 <span>Année: </span>
                 <button class="btn btn-md btn-transparent btn-block" 
                         ng-repeat="year in years"
                         ng-click="toggle({year:year})" ng-class="getToggleClass('year',year)">{{year}}</button>                 
                 <br/>
               </div>
+              <div class="col-xs-12  col-md-4" ng-if="user.isAdmin()">
+                <span>Par boutique: </span>
+                <select class="form-control " 
+                        ng-change="findAllShopRepport()"
+                        ng-model="filters.shops" 
+                        ng-options="shop.urlpath as shop.name  for shop in shopsSelect">
+                        <option value=""  selected>-- Choisissez une boutique</option>
+                </select>                        
+              </div>
+
           </div>
-        </div>        
+        </div>  
+
+              
         <div class=" repport">
           <address>
             <strong class="text-capitalize">{{user.display()}}</strong><br>
@@ -64,11 +76,10 @@
             </tbody>
           </table>
 
-          <p class="page-break">
+          <p>
             Avec nos meilleurs salutations,<br/>
             L'équipe Karibou
           </p>
-
 
           <div class="page-break"></div>
           <div  ng-include="'/partials/order/order-repport-shop.html'"></div>

@@ -142,18 +142,10 @@
 
 
               <!-- ADDRESS -->
-              <!-- NOTE -->
-              <div class="form-group  ">
-                <label class="collg2 control-label small">Note au livreur (complément d'adresse)</label>
-                <div class="collg10">
-                    <input id="full-name"  ng-model="user.addresses[0].note" type="text" placeholder="Note au livreur, code,..."
-                    class="form-control input-lg" >
-                </div>
-              </div>
 
               <!-- RUE/N°/ETAGE -->
               <div class="form-group  required">
-                <label class="collg2 control-label small">Votre adresse de livraison; Rue, numéro et l'étage</label>
+                <label class="collg2 control-label small">Votre adresse de livraison; Rue, <u>numéro</u> et l'étage</label>
                 <div class="">
                   <div class="col-xs-12 col-sm-9 col-md-8 nopadding">                
                     <input id="address-line1" ng-model="user.addresses[0].streetAdress"  type="text" placeholder="rue et numéro" class="form-control input-lg" required>
@@ -163,6 +155,15 @@
                   </div>
                   <!--<p class="help-block"></p>-->
 
+                </div>
+              </div>
+
+              <!-- NOTE -->
+              <div class="form-group  ">
+                <label class="collg2 control-label small">Note au livreur et complément d'adresse</label>
+                <div class="collg10">
+                    <input id="full-name"  ng-model="user.addresses[0].note" type="text" placeholder="Note au livreur, code, C/O, batiment, ... "
+                    class="form-control input-lg" >
                 </div>
               </div>
 

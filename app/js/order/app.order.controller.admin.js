@@ -169,7 +169,6 @@ function OrderAdminCtrl($scope,$routeParams, $location, api, order, user, produc
         return $scope.orders[o].updateItem(item,fulfillment).$promise.then(function(){
           api.info($scope,"Statut commande enregistré",2000);
           item.fulfillment.status=fulfillment;
-        },function () {
         })
       }
     }
