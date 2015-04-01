@@ -33,6 +33,7 @@ angular.module('app', [
 ])
   .value('API_SERVER',API_SERVER)
   .config(appConfig)
+  .factory('errorInterceptor', errorInterceptor)
   .factory('cordovaReady',cordovaReady)
   .run(appRun);
 
@@ -67,67 +68,7 @@ function appConfig( $provide, $routeProvider, $locationProvider, $httpProvider) 
   };
 
   
-  var interceptor = ['$rootScope', '$q','$location','$timeout',
-  function (scope, $q, $location, $timeout) {
-    function showError($scope, err, ms){
-      $scope.FormErrors=parseError(err);
-      $timeout(function(){
-        $scope.FormErrors=undefined;
-      }, ms||5000);
-    };  
-
-    function success(response, config) {
-        scope.WaitText = false;error_net=0;
-        NProgress.done();
-
-
-        return response;
-    }
-
-    function error(response) {
-        scope.WaitText = false;
-        NProgress.done();
-        response.status||error_net++;
-
-        if (error_net > 1) {
-          $location.path('/the-site-is-currently-down-for-maintenance-reasons');
-        }
-
-        //
-        // on error analytics log 
-        if(window.ga && response.data && [0,401].indexOf(response.status)==-1 ){
-          window.ga('send', 'event', 'error', response.data);
-        }
-
-        //
-        // if we are anonymous in the wrong place ...
-        if(401===response.status){
-          var longpath=$location.path();
-          if(!scope.user.isAuthenticated() && _.find(['/account','/admin'],function(path){
-            return (longpath.indexOf(path)!==-1);
-          })){
-            $location.path('/login');
-          }else if (response.data.toLowerCase().indexOf('vous devez ouvrir')){
-            // if logged but without correct right 
-            showError(scope,response.data)            
-          }
-        }
-
-        else if(response.status>0){
-          showError(scope,response.data)
-        }
-
-
-        return $q.reject(response);
-    }
-
-    return function (promise) {
-        scope.WaitText = 'Working...';
-        NProgress.start();
-        return promise.then(success, error);
-    }
-  }];
-  $httpProvider.responseInterceptors.push(interceptor);
+  $httpProvider.interceptors.push('errorInterceptor');
 
   //console.log("$httpProvider.defaults",$httpProvider.defaults);
   $httpProvider.defaults.crossDomain=true;
@@ -153,9 +94,72 @@ function appConfig( $provide, $routeProvider, $locationProvider, $httpProvider) 
 
   // Without serve side support html5 must be disabled.
   $locationProvider.html5Mode(true);
-  $locationProvider.hashPrefix('!');
+  // $locationProvider.hashPrefix('!');
 }
 
+
+//
+// implement error interceptor
+errorInterceptor.$inject = ['$rootScope', '$q','$location','$timeout'];
+function errorInterceptor(scope, $q, $location, $timeout) {
+  function showError($scope, err, ms){
+    $scope.FormErrors=parseError(err);
+    $timeout(function(){
+      $scope.FormErrors=undefined;
+    }, ms||5000);
+  };  
+
+  function success(response, config) {
+      scope.WaitText = false;error_net=0;
+      NProgress.done();
+
+
+      return response;
+  }
+
+  function error(response) {
+      scope.WaitText = false;
+      NProgress.done();
+      response.status||error_net++;
+
+      if (error_net > 1) {
+        $location.path('/the-site-is-currently-down-for-maintenance-reasons');
+      }
+
+      //
+      // on error analytics log 
+      if(window.ga && response.data && [0,401].indexOf(response.status)==-1 ){
+        window.ga('send', 'event', 'error', response.data);
+      }
+
+      //
+      // if we are anonymous in the wrong place ...
+      if(401===response.status){
+        var longpath=$location.path();
+        if(!scope.user.isAuthenticated() && _.find(['/account','/admin'],function(path){
+          return (longpath.indexOf(path)!==-1);
+        })){
+          $location.path('/login');
+        }else if (response.data.toLowerCase().indexOf('vous devez ouvrir')){
+          // if logged but without correct right 
+          showError(scope,response.data)            
+        }
+      }
+
+      else if(response.status>0){
+        showError(scope,response.data)
+      }
+
+
+      return $q.reject(response);
+  }
+
+  return function (promise) {
+      scope.WaitText = 'Working...';
+      NProgress.start();
+      return promise.then(success, error);
+  }
+}
 
 //
 // boostrap mobile app

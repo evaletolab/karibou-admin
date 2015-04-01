@@ -5,7 +5,7 @@
   </aside>
 
 
-   <section class="wrapper" tabindex="-1">
+   <section class="wrapper" tabindex="-1" ng-controller="HomeCtrl">
       <div class="wrapper-inner" >
 
         <!--                               -->
@@ -28,8 +28,7 @@
          </div>
 
         <!-- PRODUCTS -->
-        <div ng-controller="HomeCtrl" 
-             infinite-scroll='loadNextPage()'  
+        <div infinite-scroll='loadNextPage()'  
              infinite-scroll-distance='0' 
              class="row wrapheight" >
      
