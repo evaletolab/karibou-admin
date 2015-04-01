@@ -153,7 +153,7 @@ function appConfig( $provide, $routeProvider, $locationProvider, $httpProvider) 
 
   // Without serve side support html5 must be disabled.
   $locationProvider.html5Mode(true);
-  $locationProvider.hashPrefix('!');
+  // $locationProvider.hashPrefix('!');
 }
 
 

@@ -28,7 +28,7 @@ function orderConfig($routeProvider,$locationProvider,$httpProvider) {
     .when('/admin/products', {title:'Manage next orders ',  templateUrl : '/partials/dashboard/dashboard-product.html'})
     .when('/admin/shop/orders', {title:'Manage next orders ',  templateUrl : '/partials/dashboard/dashboard-shop.html'}) 
     .when('/admin/collect', {title:'Manage next orders ',  templateUrl : '/partials/dashboard/dashboard-collect.html'}) 
-    .when('/admin/repport/shop', {title:'Activity repport for shops ',  templateUrl : '/partials/dashboard/dashboard-repport-shop.html'}) 
+    .when('/admin/repport/shop', {title:'Activity report for shops ',  templateUrl : '/partials/dashboard/dashboard-repport-shop.html'}) 
 //    .when('/admin/repport/users', {title:'Activity repport for users ',  templateUrl : '/partials/dashboard/dashboard-repport-user.html'}) 
     .when('/admin/shipping', {title:'Manage next shipping ',  templateUrl : '/partials/dashboard/dashboard-shopper.html'});
 }

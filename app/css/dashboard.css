@@ -201,6 +201,15 @@
   margin-bottom: 100px;
 }
 
+.dashboard .repport address.karibou{
+  margin-left: 0px;
+  vertical-align: middle;
+}
+
+.dashboard .repport address.karibou img{
+  width: 27px;
+}
+
 .dashboard .repport table.resume{
   margin-top: 50px;
   margin-bottom: 80px;
