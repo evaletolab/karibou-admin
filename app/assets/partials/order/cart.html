@@ -36,10 +36,9 @@
           <td class="col-md-2 text-right">{{item.price*item.quantity|number:2}} </td>
         </tr>
           <tr>
-              <td>   </td>
-              <td class="text-right padding">
+              <td class="text-right padding" colspan="2">
                 <strong>Soustotal: </strong><br/>
-                <strong>Livraison: </strong>
+                <strong>Livraison à vélo: </strong>
               <td class="text-right padding">
                 <strong>{{cart.total()|number:2}} </strong></br>
                 <strong><i class="fa fa-bicycle green bold"></i> {{cart.shipping()|number:2}} </strong>
