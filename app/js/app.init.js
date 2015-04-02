@@ -45,28 +45,6 @@ angular.module('app', [
 // Configure application $route, $location and $http services.
 appConfig.$inject=['$provide','$routeProvider','$locationProvider','$httpProvider']
 function appConfig( $provide, $routeProvider, $locationProvider, $httpProvider) {
-  var error_net=0;
-
-  
-  function parseError(err){
-      if(typeof err === 'string') 
-        return err;
-      if(typeof err.responseText === 'string')
-        return err.responseText;
-      if(typeof err.data === 'string')
-        return err.data;       
-      if(typeof err.message === 'string')
-        return err.message;       
-      if(err.data.length){
-        var msg=""
-        err.data.forEach(function(e){
-          msg=msg+"<p>"+e+"</p>";
-        })
-        return msg;
-      }         
-      return "Undefined error! ->"+JSON.stringify(err);
-  };
-
   
   $httpProvider.interceptors.push('errorInterceptor');
 
@@ -97,11 +75,30 @@ function appConfig( $provide, $routeProvider, $locationProvider, $httpProvider) 
   // $locationProvider.hashPrefix('!');
 }
 
+// define default behavior for all http request
+// http://www.webdeveasy.com/interceptors-in-angularjs-and-useful-examples/
+errorInterceptor.$inject = ['$q', '$rootScope', '$location', '$timeout']
+function errorInterceptor($q, scope, $location, $timeout) {
+  var error_net=0;
+  function parseError(err){
+      if(typeof err === 'string') 
+        return err;
+      if(typeof err.responseText === 'string')
+        return err.responseText;
+      if(typeof err.data === 'string')
+        return err.data;       
+      if(typeof err.message === 'string')
+        return err.message;       
+      if(err.data.length){
+        var msg=""
+        err.data.forEach(function(e){
+          msg=msg+"<p>"+e+"</p>";
+        })
+        return msg;
+      }         
+      return "Undefined error! ->"+JSON.stringify(err);
+  }
 
-//
-// implement error interceptor
-errorInterceptor.$inject = ['$rootScope', '$q','$location','$timeout'];
-function errorInterceptor(scope, $q, $location, $timeout) {
   function showError($scope, err, ms){
     $scope.FormErrors=parseError(err);
     $timeout(function(){
@@ -109,57 +106,124 @@ function errorInterceptor(scope, $q, $location, $timeout) {
     }, ms||5000);
   };  
 
-  function success(response, config) {
-      scope.WaitText = false;error_net=0;
-      NProgress.done();
+  return {
+      request: function (config) {
+          scope.WaitText = 'Working...';
+          NProgress.start();
+          return config || $q.when(config);
+      },
+      requestError: function (request) {
+          return $q.reject(request);
+      },
+      response: function (response) {
+          scope.WaitText = false;error_net=0;
+          NProgress.done();
+          return response || $q.when(response);
+      },
+      responseError: function (response) {
+          scope.WaitText = false;
+          // no api
+          if (response.status == 0) {
+              error_net++
+          }
 
 
-      return response;
-  }
+          if (error_net > 1) {
+            $location.path('/the-site-is-currently-down-for-maintenance-reasons');
+          }
 
-  function error(response) {
-      scope.WaitText = false;
-      NProgress.done();
-      response.status||error_net++;
+          // server/api error
+          //
+          // on error analytics log 
+          if(window.ga && response.data && [0,401].indexOf(response.status)==-1 ){
+            window.ga('send', 'event', 'error', response.data);
+          }
 
-      if (error_net > 1) {
-        $location.path('/the-site-is-currently-down-for-maintenance-reasons');
+          //
+          // if we are anonymous in the wrong place ...
+          if(401===response.status){
+            var longpath=$location.path();
+            if(!scope.user.isAuthenticated() && _.find(['/account','/admin'],function(path){
+              return (longpath.indexOf(path)!==-1);
+            })){
+              $location.path('/login');
+            }else if (response.data.toLowerCase().indexOf('vous devez ouvrir')){
+              // if logged but without correct right 
+              showError(scope,response.data)            
+            }
+          }
+
+          else if(response.status>0){
+            showError(scope,response.data)
+          }
+          return $q.reject(response);
       }
+  };
+};
 
-      //
-      // on error analytics log 
-      if(window.ga && response.data && [0,401].indexOf(response.status)==-1 ){
-        window.ga('send', 'event', 'error', response.data);
-      }
+//
+// implement error interceptor
+// errorInterceptor.$inject = ['$rootScope', '$q','$location','$timeout'];
+// function errorInterceptor(scope, $q, $location, $timeout) {
+//   var error_net=0;
+//   function showError($scope, err, ms){
+//     $scope.FormErrors=parseError(err);
+//     $timeout(function(){
+//       $scope.FormErrors=undefined;
+//     }, ms||5000);
+//   };  
 
-      //
-      // if we are anonymous in the wrong place ...
-      if(401===response.status){
-        var longpath=$location.path();
-        if(!scope.user.isAuthenticated() && _.find(['/account','/admin'],function(path){
-          return (longpath.indexOf(path)!==-1);
-        })){
-          $location.path('/login');
-        }else if (response.data.toLowerCase().indexOf('vous devez ouvrir')){
-          // if logged but without correct right 
-          showError(scope,response.data)            
-        }
-      }
-
-      else if(response.status>0){
-        showError(scope,response.data)
-      }
+//   function success(response, config) {
+//       scope.WaitText = false;error_net=0;
+//       NProgress.done();
 
 
-      return $q.reject(response);
-  }
+//       return response;
+//   }
 
-  return function (promise) {
-      scope.WaitText = 'Working...';
-      NProgress.start();
-      return promise.then(success, error);
-  }
-}
+//   function error(response) {
+//       scope.WaitText = false;
+//       NProgress.done();
+//       response.status||error_net++;
+
+//       if (error_net > 1) {
+//         $location.path('/the-site-is-currently-down-for-maintenance-reasons');
+//       }
+
+//       //
+//       // on error analytics log 
+//       if(window.ga && response.data && [0,401].indexOf(response.status)==-1 ){
+//         window.ga('send', 'event', 'error', response.data);
+//       }
+
+//       //
+//       // if we are anonymous in the wrong place ...
+//       if(401===response.status){
+//         var longpath=$location.path();
+//         if(!scope.user.isAuthenticated() && _.find(['/account','/admin'],function(path){
+//           return (longpath.indexOf(path)!==-1);
+//         })){
+//           $location.path('/login');
+//         }else if (response.data.toLowerCase().indexOf('vous devez ouvrir')){
+//           // if logged but without correct right 
+//           showError(scope,response.data)            
+//         }
+//       }
+
+//       else if(response.status>0){
+//         showError(scope,response.data)
+//       }
+
+
+//       return $q.reject(response);
+//   }
+
+//   return function (promise) {
+//       scope.WaitText = 'Working...';
+//       NProgress.start();
+//       return promise.then(success, error);
+//   }
+// }
 
 //
 // boostrap mobile app
