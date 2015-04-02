@@ -223,7 +223,8 @@ function categoryService(config, $location, $rootScope, $routeParams,$resource, 
     return category;
   };    
  
-  return api.wrapDomain(Category,'slug', defaultCategory);  
+  var _category=api.wrapDomain(Category,'slug', defaultCategory);  
+  return _category;
 }
 
 })(window.angular);
