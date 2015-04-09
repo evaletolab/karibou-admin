@@ -8,16 +8,16 @@ angular.module('postfinance.card')
  
 .factory('_Format',['Cards', 'Common', '$filter', function(Cards, Common, $filter){
 
-  var _formats = {}
+  var _formats = {};
 
   var _hasTextSelected = function($target) {
       var ref;
       
-      if (($target.prop('selectionStart') != null) && $target.prop('selectionStart') !== $target.prop('selectionEnd')) {
+      if (($target.prop('selectionStart') !== null) && $target.prop('selectionStart') !== $target.prop('selectionEnd')) {
           return true;
       }
       
-      if (typeof document !== "undefined" && document !== null ? (ref = document.selection) != null ? typeof ref.createRange === "function" ? ref.createRange().text : void 0 : void 0 : void 0) {
+      if (typeof document !== "undefined" && document !== null ? (ref = document.selection) !== null ? typeof ref.createRange === "function" ? ref.createRange().text : void 0 : void 0 : void 0) {
           return true;
       }
       
@@ -50,7 +50,7 @@ angular.module('postfinance.card')
         return;
       }
 
-      if (($target.prop('selectionStart') != null) && $target.prop('selectionStart') !== value.length) {
+      if (($target.prop('selectionStart') !== null) && $target.prop('selectionStart') !== value.length) {
         return;
       }
 
@@ -60,9 +60,9 @@ angular.module('postfinance.card')
       }
 
       if (re.test(value)) {
-        space=''
+        space='';
         if(e.which!==8){
-          space=' '
+          space=' ';
           e.preventDefault();
         }
         //
@@ -119,7 +119,7 @@ angular.module('postfinance.card')
         return;
       }
       
-      if(($target.prop('selectionStart') != null) && $target.prop('selectionStart') !== value.length) {
+      if(($target.prop('selectionStart') !== null) && $target.prop('selectionStart') !== value.length) {
         return;
       }
       
@@ -146,15 +146,15 @@ angular.module('postfinance.card')
       num = num.slice(0, +upperLength + 1 || 9e9);
       
       if(card.format.global) {
-        return (ref = num.match(card.format)) != null ? ref.join(' ') : void 0;
+        return (ref = num.match(card.format)) !== null ? ref.join(' ') : void 0;
       } else {
         groups = card.format.exec(num);
           
-        if (groups != null) {
+        if (groups !== null) {
           groups.shift();
         }
 
-        return groups != null ? groups.join(' ') : void 0;
+        return groups !== null ? groups.join(' ') : void 0;
       }
     };
 
@@ -170,10 +170,10 @@ angular.module('postfinance.card')
   };
 
   var _parseCardNumber = function(value) {
-    return value != null ? value.replace(/\s/g, '') : value;
+    return value !== null ? value.replace(/\s/g, '') : value;
   };
 
-  _formats['card'] = function(elem, ctrl){
+  _formats.card = function(elem, ctrl){
     elem.bind('keypress', _restrictCardNumber);
     elem.bind('keypress', _formatCardNumber);
     elem.bind('keydown', _formatBackCardNumber);
@@ -181,7 +181,7 @@ angular.module('postfinance.card')
 
     ctrl.$parsers.push(_parseCardNumber);
     ctrl.$formatters.push(_getFormattedCardNumber);
-  }
+  };
 
 
   // cvc
@@ -204,11 +204,11 @@ angular.module('postfinance.card')
       e.preventDefault();
       return;
     }
-  }
+  };
 
-  _formats['cvc'] = function(elem){
-    elem.bind('keypress', _formatCVC)
-  }
+  _formats.cvc = function(elem){
+    elem.bind('keypress', _formatCVC);
+  };
 
   // expiry
 
@@ -232,7 +232,7 @@ angular.module('postfinance.card')
     value = value.replace(/\D/g, '');
     
     if (value.length > 6) {
-      e.preventDefault()
+      e.preventDefault();
       return;
     }
   };
@@ -309,7 +309,7 @@ angular.module('postfinance.card')
       return;
     }
     
-    if (($target.prop('selectionStart') != null) && $target.prop('selectionStart') !== value.length) {
+    if (($target.prop('selectionStart') !== null) && $target.prop('selectionStart') !== value.length) {
       return;
     }
     
@@ -325,7 +325,7 @@ angular.module('postfinance.card')
   };
 
   var _parseExpiry = function(value) {
-    if(value != null) {
+    if(value !== null) {
       var obj = Common.parseExpiry(value);
       var expiry = new Date(obj.year, obj.month-1);
       return $filter('date')(expiry, 'MM/yyyy');
@@ -334,7 +334,7 @@ angular.module('postfinance.card')
   };
 
   var _getFormattedExpiry = function(value) {
-    if(value != null) {
+    if(value !== null) {
       var obj = Common.parseExpiry(value);
       var expiry = new Date(obj.year, obj.month-1);
       return $filter('date')(expiry, 'MM / yyyy');
@@ -343,7 +343,7 @@ angular.module('postfinance.card')
   };
 
 
-  _formats['expiry'] = function(elem, ctrl){
+  _formats.expiry = function(elem, ctrl){
     elem.bind('keypress', _restrictExpiry);
     elem.bind('keypress', _formatExpiry);
     elem.bind('keypress', _formatForwardSlash);
@@ -352,7 +352,7 @@ angular.module('postfinance.card')
 
     ctrl.$parsers.push(_parseExpiry);
     ctrl.$formatters.push(_getFormattedExpiry);
-  }
+  };
 
   return function(type, elem, ctrl){
     if(!_formats[type]){
@@ -365,9 +365,9 @@ angular.module('postfinance.card')
       throw errstr;
     }
     return _formats[type](elem, ctrl);
-  }
+  };
 
-}])
+}]);
 
 
 })(window.angular);

@@ -54,13 +54,13 @@ User.factory('user', [
 
       //
       // wrap promise to this object
-      this.$promise=$q.when(this)
-    }
+      this.$promise=$q.when(this);
+    };
 
 
     User.prototype.display=function(){
         if (this.name && (this.name.givenName || this.name.familyName)) {
-          return this.name.givenName+' '+this.name.familyName
+          return this.name.givenName+' '+this.name.familyName;
         }
         if (this.displayName)return this.displayName;
         if (this.id){
@@ -68,20 +68,20 @@ User.factory('user', [
         }
 
         return 'Anonymous';
-    }
+    };
 
 
     User.prototype.loggedTime=function () {
       var time=(Date.now()-(new Date(this.logged)).getTime())/1000;
-      return parseInt(time)
-    }
+      return parseInt(time);
+    };
 
 
     User.prototype.acronym=function(){
-      var d=this.display()
-      res=d.match(/\b(\w)/g).join('')
+      var d=this.display();
+      res=d.match(/\b(\w)/g).join('');
       return (d)?d:'unknow';
-    }
+    };
 
 
     User.prototype.isOwner=function(shopname){
@@ -110,8 +110,8 @@ User.factory('user', [
     };
 
     User.prototype.isReady=function(){
-      return (this.email&&this.email.status == true)
-    }
+      return (this.email&&this.email.status === true);
+    };
 
     User.prototype.hasRole= function (role) {
         for (var i in this.roles){
@@ -134,7 +134,7 @@ User.factory('user', [
             return i;
         }
         return false;
-    }
+    };
 
 
     User.prototype.getEmailStatus=function(){
@@ -146,15 +146,15 @@ User.factory('user', [
 
       return  moment(this.email.status).format('ddd DD MMM YYYY', 'fr');
 
-    }
+    };
 
     User.prototype.populateAdresseName=function(user){
       if (!user)user=this;
       // autofill the address name when available
       if(user.addresses&&user.addresses.length&&!user.addresses[0].name){
-        user.addresses[0].name=user.name.familyName+' '+user.name.givenName
+        user.addresses[0].name=user.name.familyName+' '+user.name.givenName;
       }
-    }
+    };
 
     //
     // init user 
@@ -162,20 +162,20 @@ User.factory('user', [
       var self=this;
 
       // set context for error
-      Raven.setUserContext(self)        
+      Raven.setUserContext(self);        
 
       if(!self.addresses){
-        return
+        return;
       }
       //check address
-      self.populateAdresseName()
+      self.populateAdresseName();
 
       // get geo 
-      self.geo=new Map()
+      self.geo=new Map();
       self.addresses.forEach(function(address,i){
         // address is correct
         if(!address.geo||!address.geo.lat||!address.geo.lng){
-          return
+          return;
         }
         //
         //setup marker
@@ -212,21 +212,21 @@ User.factory('user', [
       var promises=[], dirty=false, self=this;
       // check state
       if(self.geo){
-        return
+        return;
       }
       if(self.addresses.length===0||self.addresses.length && self.addresses[0].geo && self.addresses[0].geo.lat){
-        return
+        return;
       }
 
       //
       // get geo lt/lng
-      if(!self.geo)self.geo=new Map()
+      if(!self.geo)self.geo=new Map();
 
 
       self.addresses.forEach(function(address,i){
         // address is correct
         if(address.geo&&address.geo.lat&&address.geo.lng){
-          return
+          return;
         }
 
         promises.push(self.geo.geocode(address.streetAdress, address.postalCode, address.country, function(geo){
@@ -258,12 +258,12 @@ User.factory('user', [
 
       // should we save the user?
       $q.all(promises).finally(function () {
-        $log('save user geo map',dirty)
-        if(dirty)self.save()
-      })
+        $log('save user geo map',dirty);
+        if(dirty)self.save();
+      });
 
 
-    }
+    };
 
 
     User.prototype.query = function(filter) {
@@ -295,7 +295,7 @@ User.factory('user', [
 
     User.prototype.save = function(user, cb){
       // autofill the address name when available
-      this.populateAdresseName(user)
+      this.populateAdresseName(user);
 
       var u=backend.$user.save(user, function() {
         _user.copy(u);
@@ -316,10 +316,10 @@ User.factory('user', [
     User.prototype.register=function (user, cb){
 
       // FIXME autofill the address name when available
-      this.populateAdresseName(user)
+      this.populateAdresseName(user);
       var u = $resource(config.API_SERVER+'/register').save(user, function() {
         _user.copy(u);
-        _user.updateGeoCode()
+        _user.updateGeoCode();
 
 
         if(cb)cb(_user);
@@ -337,7 +337,7 @@ User.factory('user', [
     User.prototype.login=function (data, cb){
       var u = $resource(config.API_SERVER+'/login').save(data, function() {
         _user.copy(u);
-        _user.updateGeoCode()
+        _user.updateGeoCode();
         if(cb)cb(_user);
       });
       return u;
@@ -355,10 +355,10 @@ User.factory('user', [
 
     User.prototype.remove=function(password,cb){
       var self=this, u=backend.$user.delete({id:this.id},{password:password}, function() {
-        self.delete()
-        cb()
+        self.delete();
+        cb();
       });
-    }
+    };
 
 
     User.prototype.love=function(product,cb){
@@ -377,11 +377,11 @@ User.factory('user', [
     User.prototype.checkPaymentMethod=function(cb){
       var self=this, allAlias=[],alias;
       if(!self.payments || !self.payments.length){
-        return cb({})
+        return cb({});
       }
       allAlias=self.payments.map(function (payment) {
-        return payment.alias
-      })
+        return payment.alias;
+      });
       alias=allAlias.pop();
       backend.$user.save({id:this.id,action:'payment',aid:alias,detail:'check'},{alias:allAlias}, function(methodStatus) {
         if(cb)cb(methodStatus);
@@ -392,7 +392,7 @@ User.factory('user', [
     User.prototype.addPaymentMethod=function(payment,cb){
       var self=this, params={};
       backend.$user.save({id:this.id,action:'payment'},payment, function(u) {
-        self.payments=u.payments
+        self.payments=u.payments;
         if(cb)cb(self);
       });
       return this;
@@ -403,7 +403,7 @@ User.factory('user', [
       backend.$user.save({id:this.id,action:'payment',aid:alias,detail:'delete'}, function() {
         for(var p in self.payments){
           if(self.payments[p].alias===alias){
-            self.payments.splice(p,1)
+            self.payments.splice(p,1);
           }
         }
         if(cb)cb(self);
@@ -414,7 +414,7 @@ User.factory('user', [
     User.prototype.pspForm=function(cb){
       var self=this, params={};
       backend.$user.get({id:this.id,action:'psp'}, function(form) {
-        self.ecommerceForm=form
+        self.ecommerceForm=form;
         if(cb)cb(self);
       });
       return this;

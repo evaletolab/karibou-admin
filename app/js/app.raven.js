@@ -36,17 +36,17 @@ function ngRavenProvider($provide) {
                     // }
 
                     if(errorReport.stacktrace.frames.length>2){
-                        errorReport.stacktrace.frames.splice(0,errorReport.stacktrace.frames.length-3)
+                        errorReport.stacktrace.frames.splice(0,errorReport.stacktrace.frames.length-3);
                     }
                     var url=API_SERVER+"/v1/trace/"+btoa(window.location.origin);
-                    console.log(errorReport)
+                    console.log(errorReport);
                     $.ajax({type: 'POST',data: JSON.stringify(errorReport),
-                            contentType: 'application/json', url:url})
+                            contentType: 'application/json', url:url});
 
 
-                    return false
+                    return false;
                 }
-            }).install()
+            }).install();
 
             return function angularExceptionHandler(ex, cause) {
                 $delegate(ex, cause);

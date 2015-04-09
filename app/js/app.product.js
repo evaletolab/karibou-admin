@@ -1,4 +1,4 @@
-'use strict';
+;(function(angular) {'use strict';
 
 //
 // Define the Product module (app.product)  for controllers, services and models
@@ -61,78 +61,78 @@ Product.controller('ProductCtrl',[
     // console.log('DEBUG-CTRL------------->',product)
     //
     // 
-    $scope.rootProductPath=($routeParams.shop)?'/shop/'+$routeParams.shop:''
+    $scope.rootProductPath=($routeParams.shop)?'/shop/'+$routeParams.shop:'';
 
 
 
     $scope.showPreviousProduct=function(sku){
       var lst=$scope.product.findAll().filter(function(p){
         if(p.categories._id==$scope.product.categories._id)return p;
-      })
+      });
       for(var i=lst.length-1;i>=0;i--){
         if(lst[i]&&lst[i].sku===sku){
-          var sku=(i===0)?lst[lst.length-1]:lst[i-1];
+          var newprod=(i===0)?lst[lst.length-1]:lst[i-1];
           var path=$location.path();
-          return $location.path(path.replace(/products\/.*/,'products/'+sku.sku));
+          return $location.path(path.replace(/products\/.*/,'products/'+newprod.sku));
         }
       }
-    }
+    };
 
     $scope.showNextProduct=function(sku){
       var lst=$scope.product.findAll().filter(function(p){
         if(p.categories._id==$scope.product.categories._id)return p;
-      })
+      });
       for(var i=0;i<lst.length;i++){
         if(lst[i]&&lst[i].sku===sku){
-          var sku=(i===lst.length-1)?lst[0]:lst[i+1];
+          var newprod=(i===lst.length-1)?lst[0]:lst[i+1];
           var path=$location.path();
-          return $location.path(path.replace(/products\/.*/,'products/'+sku.sku));
+          return $location.path(path.replace(/products\/.*/,'products/'+newprod.sku));
         }
       }
-    }
+    };
 
 
     $scope.computeUrl=function(){
       var url;
       // edit from shop
       if($routeParams.shop && $routeParams.sku && $location.path().indexOf('/edit')!=-1){
-        url='/shop/'+$routeParams.shop+'/products/'+$routeParams.sku
+        url='/shop/'+$routeParams.shop+'/products/'+$routeParams.sku;
       }
 
       // edit from products
       else if($routeParams.sku && $location.path().indexOf('/edit')!=-1){
-        url='/products/'+$routeParams.sku
+        url='/products/'+$routeParams.sku;
       }
 
       // from shop
       else if($routeParams.shop){
-        url='/shop/'+$routeParams.shop
+        url='/shop/'+$routeParams.shop;
       }
 
       // from category 
       else if($routeParams.category){
-        url='/products/category/'+$routeParams.category
+        url='/products/category/'+$routeParams.category;
       }
 
       // from sku
       else if($routeParams.sku){
-        url='/products'
+        url='/products';
       }
 
       else if(scope.referrer){
-        $location.path(scope.referrer)
+        $location.path(scope.referrer);
         return;
       }
 
       else{
-        url='/'
+        url='/';
       }
       return url;      
-    }
+    };
 
 
     $scope.save=function(product){
-      $rootScope.WaitText="Waiting ..."
+      $rootScope.WaitText="Waiting ...";
       product.save(function(s){
 
           //
@@ -140,7 +140,7 @@ Product.controller('ProductCtrl',[
           $rootScope.$broadcast("update.product",s);
 
           api.info($scope,"Votre produit a été enregistré!",2000, function(){
-            $location.path("/products/"+product.sku)
+            $location.path("/products/"+product.sku);
           });
       });
     };
@@ -151,23 +151,23 @@ Product.controller('ProductCtrl',[
       if(!user.isAuthenticated()){
           return api.info($scope,"Vous devez vous connecter pour utiliser cette fonctionalité");
       }
-      $rootScope.WaitText="Waiting ..."
+      $rootScope.WaitText="Waiting ...";
       user.love(product,function(u){
           //
           // this product as changed
           $rootScope.$broadcast("update.product",product);
 
           api.info($scope,"Le produit a été placé dans vos préférences!");
-      })
-    }
+      });
+    };
 
     $scope.create=function(shop,p){
       if (!shop){
         return api.info($scope,"Vous devez préciser la boutique");
       }
-      $rootScope.WaitText="Waiting ..."
+      $rootScope.WaitText="Waiting ...";
       product.create(shop,p,function(product){
-          $location.path("/products/"+product.sku)
+          $location.path("/products/"+product.sku);
           $scope.product=product;
       });
       
@@ -175,7 +175,7 @@ Product.controller('ProductCtrl',[
 
     $scope.remove=function(product,password){
       product.remove(password,function(){
-          $location.path("/products")
+          $location.path("/products");
           $scope.product={};
       });
       
@@ -190,7 +190,7 @@ Product.controller('ProductCtrl',[
           return api.info($scope,error);
         }
 
-    }
+    };
     
     $scope.productDetails=function(){
       var detail="", coma;
@@ -198,14 +198,14 @@ Product.controller('ProductCtrl',[
         coma=detail="bio";        
       }
       return detail;
-    }    
+    };    
     
     
     
     // FIXME make shops available in root ctrl
     // load shops for edit
     if(!$scope.shopsSelect){
-      $scope.shopsSelect=shop.query({})        
+      $scope.shopsSelect=shop.query({});        
     }
 
     if($routeParams.sku){
@@ -246,7 +246,7 @@ Product.controller('ProductCtrl',[
             // The generated payload which authenticates users with Disqus
             this.page.remote_auth_s3 = user.context.disqus.auth;
             this.page.api_key = user.context.disqus.pubKey;
-        }          
+        };          
 
       }
       var disqus=document.getElementById('disqus_thread');
@@ -340,16 +340,16 @@ Product.factory('product', [
 
       //
       // wrap promise to this object
-      this.$promise=$q.when(this)
+      this.$promise=$q.when(this);
 
-    }
+    };
 
 
     Product.prototype.hasFixedPortion=function(){
-        var weight=this.pricing.part||''
+        var weight=this.pricing.part||'';
         var m=weight.match(/~([0-9]+) ?(.+)/);
         return(!m||m.length<2);
-    }
+    };
 
     Product.prototype.getPrice=function(){
       if(this.attributes.discount && this.pricing.discount)
@@ -358,14 +358,14 @@ Product.factory('product', [
     };    
 
     Product.prototype.isDiscount=function(){
-      return(this.attributes.discount && this.pricing.discount)
+      return(this.attributes.discount && this.pricing.discount);
     };    
 
     Product.prototype.isAvailableForOrder = function() {
       return (this.attributes.available && this.vendor &&
               this.vendor.status===true &&
-              this.vendor.available.active!=true)
-    }
+              this.vendor.available.active!==true);
+    };
 
 
     //
@@ -380,13 +380,13 @@ Product.factory('product', [
           params=(shop)?{shopname:shop}:{}, 
           rest=(shop)?this.backend.shop:this.backend.products;
 
-      angular.extend(params,filter)
+      angular.extend(params,filter);
       s=rest.get(params, function() {
         products={};
         for (var group in s){
           products[group]=[];
           if (Array.isArray(s[group]) && typeof s[group][0]==="object"){
-            products[group]=product.wrapArray(s[group])
+            products[group]=product.wrapArray(s[group]);
           }
         }
         if(cb)cb(products);
@@ -413,7 +413,7 @@ Product.factory('product', [
       
       var self=this, s=this.backend.products.query({sku:'love'},function() {
         if(cb)cb(self.wrapArray(s));
-        return self
+        return self;
       },err);
       return self;
     };
@@ -421,7 +421,7 @@ Product.factory('product', [
     Product.prototype.findByCategory = function(cat, filter,cb,err) {
       if(!err) err=onerr;
       var products, s,product=this, params={sku:'category'};
-      angular.extend(params,{category:cat},filter)
+      angular.extend(params,{category:cat},filter);
 
       s=this.backend.products.query(params, function() {
         products=product.wrapArray(s);
@@ -437,7 +437,7 @@ Product.factory('product', [
       var loaded=Product.find(sku);if (loaded){
         if(cb)cb(loaded);
         return loaded;
-      };
+      }
       
       var product=this, s=this.backend.products.get({sku:sku},function() {
         if(cb)cb(product.wrap(s));
@@ -501,3 +501,5 @@ Product.factory('product', [
   }
 ]);
 
+
+})(window.angular);

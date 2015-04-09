@@ -45,11 +45,11 @@ function ($rootScope, $http, $resource, $timeout, $q, config) {
       if(cats[i].slug===slug)return cats[i].name;
     }
     return "Inconnu";
-  };
+  }
 
   function info($scope, msg, ms, cb){
-      if(ms === undefined){ var ms=4000; }
-      else if ((typeof ms)==='function'){ var cb=ms;ms=4000; }
+      if(ms === undefined){ ms=4000; }
+      else if ((typeof ms)==='function'){ cb=ms;ms=4000; }
       $rootScope.FormInfos=msg;
       $timeout.cancel(promise);
       promise=$timeout(function(){
@@ -57,13 +57,13 @@ function ($rootScope, $http, $resource, $timeout, $q, config) {
         if (cb) cb($scope);
         promise=false;
       }, ms);
-  };
+  }
 
   
 
 
   function error($scope, ms, cb){
-  };  
+  }  
   
 
   function uploadfile($scope, options, callback){
@@ -157,7 +157,7 @@ function ($rootScope, $http, $resource, $timeout, $q, config) {
       );
 
 
-    })
+    });
 
     return false;      
   }
@@ -181,11 +181,11 @@ function ($rootScope, $http, $resource, $timeout, $q, config) {
     clazz.prototype.chain=function(promise){
       var self=this;
       this.$promise=this.$promise.then(function(data){
-        if(Array.isArray(data))self.wrapArray(data);else self.wrap(data)
-        return promise
-      })
-      return this
-    }
+        if(Array.isArray(data))self.wrapArray(data);else self.wrap(data);
+        return promise;
+      });
+      return this;
+    };
 
 
     /**
@@ -194,16 +194,16 @@ function ($rootScope, $http, $resource, $timeout, $q, config) {
     clazz.prototype.chainAll=function(promise){
      var self=this,
          deferred=$q.defer(),
-         lst=new Array();
+         lst=[];
          
      this.$promise=lst.$promise=this.$promise.then(function(){
           return promise.then(function(l){
-            lst=self.wrapArray(l)
-            return lst
-          })
-     })
-     return lst
-    }
+            lst=self.wrapArray(l);
+            return lst;
+          });
+     });
+     return lst;
+    };
 
     /**
      * wrap json data to Object instance repository
@@ -226,11 +226,11 @@ function ($rootScope, $http, $resource, $timeout, $q, config) {
     clazz.prototype.wrap=function(instance){
       this.copy(instance);
       return this;
-    }
+    };
 
     clazz.prototype.delete=function(){
-      if(_all[this[key]]) delete _all[this[key]]
-    }
+      if(_all[this[key]]) delete _all[this[key]];
+    };
 
 
     
@@ -242,17 +242,17 @@ function ($rootScope, $http, $resource, $timeout, $q, config) {
         return _.map(_all, function(val,key){return val;});
       }
       var lst=_.where(_all,where);
-      if(cb)cb(lst)
+      if(cb)cb(lst);
       return lst;
-    }
+    };
 
     clazz.prototype.findAll=function(where){ 
       return clazz.findAll(where);
-    }
+    };
 
     clazz.prototype.find=function(where){ 
       return clazz.find(where);
-    }
+    };
 
     clazz.find=function(where,cb){
       if (!where){ 
@@ -269,7 +269,7 @@ function ($rootScope, $http, $resource, $timeout, $q, config) {
     };
     
     clazz.load=function(elems){
-      if (!elems) return _.map(_all, function(val,key){return val});
+      if (!elems) return _.map(_all, function(val,key){return val;});
       var list=_singleton.wrapArray(elems);
       return list;
     };
@@ -279,7 +279,7 @@ function ($rootScope, $http, $resource, $timeout, $q, config) {
     var     _all={};
     return _singleton;  
 
-  };
+  }
   return {
     uploadfile:uploadfile,
     wrapDomain:wrapDomain,

@@ -20,8 +20,8 @@ map.factory('Map', [
   
   function (config, $location, $rootScope, $route, $http, api, $q) {
 
-  	// init icon
-  	var icons, statickey=config.staticMapKey;
+    // init icon
+    var icons, statickey=config.staticMapKey;
 
     //
     // make leaflet loading asynchrone
@@ -34,7 +34,7 @@ map.factory('Map', [
             truck:L.AwesomeMarkers.icon({icon: 'truck', markerColor: 'cadetblue', prefix: 'fa', iconColor: 'white'}),
             cart:L.AwesomeMarkers.icon({icon: 'shopping-cart',  prefix: 'fa', markerColor: 'cadetblue'}),
             home:L.AwesomeMarkers.icon({icon: 'home',  prefix: 'fa', markerColor: 'cadetblue'}),
-          }         
+          };         
       }
     });
 
@@ -68,42 +68,42 @@ map.factory('Map', [
 
 
     var Map = function() {
-    	this.map={};
-    	angular.copy(defaultMap,map);
-    }
+      this.map={};
+      angular.copy(defaultMap,map);
+    };
     
     //
     // map contains {
-    //	legend:{
-    //		labels:['Mon addresse']
-	//	}, 
-	//	markers:{
-	//		"key":{lat,lng,message,focus, draggable, icon}
-	//  }
-	// }
+    //  legend:{
+    //    labels:['Mon addresse']
+  //  }, 
+  //  markers:{
+  //    "key":{lat,lng,message,focus, draggable, icon}
+  //  }
+  // }
     Map.prototype.addMarker=function(id, marker){
-    	if(!map.markers[id])
-    		map.markers[id]={};
+      if(!map.markers[id])
+        map.markers[id]={};
 
-    	angular.extend(map.markers[id], marker,{focus:false,draggable:false});
-    	return map;
-    }
+      angular.extend(map.markers[id], marker,{focus:false,draggable:false});
+      return map;
+    };
 
     Map.prototype.removeMarker=function(id){
-    	if(map.markers[id])
-    		delete map.markers[id];
-    	return map;
-	}
+      if(map.markers[id])
+        delete map.markers[id];
+      return map;
+  };
 
     Map.prototype.getMap=function(){
-    	return map;
-	}
+      return map;
+  };
 
 
     //
     // get address
     Map.prototype.geocode=function(street,postal,region, cb){
-      var defer=$q.defer()
+      var defer=$q.defer();
 
       //
       // google format: Route de Chêne 34, 1208 Genève, Suisse
@@ -111,13 +111,13 @@ map.factory('Map', [
       var fulladdress=street+","+postal+", "+region;//"34+route+de+chêne,+Genève,+Suisse
       var url="//maps.googleapis.com/maps/api/geocode/json?address="+fulladdress+"&sensor=false" ;
       $http.get(url,{withCredentials:false}).success(function(geo,status,header,config){
-      	if(cb) return cb(geo,status);
-        defer.resolve(geo,status)
+        if(cb) return cb(geo,status);
+        defer.resolve(geo,status);
       },function (err) {
-        defer.reject(err)
-      })
+        defer.reject(err);
+      });
       return defer.promise;
-    }
+    };
 
 
 
@@ -126,14 +126,14 @@ map.factory('Map', [
     //
     // map contains {legend:{labels:['Mon addresse']}, markers}
     Map.prototype.onClick=function($scope, cb){
-	    $scope.$on('leafletDirectiveMap.click', function(event){
-	        cb()
-	    });    
-    }
+      $scope.$on('leafletDirectiveMap.click', function(event){
+          cb();
+      });    
+    };
 
     Map.prototype.getIcons=function(){
-    	return icons;
-    }
+      return icons;
+    };
 
     //
     // generate a static map to replace interactive map
@@ -145,27 +145,28 @@ map.factory('Map', [
 
       //
       var marker="", 
-          zoom=(zoom)?zoom:12,
           center=(Array.isArray(address))?"":"center="+address.region+"&",
           url="//maps.googleapis.com/maps/api/staticmap?"+center,
           opt="maptype=roadmap&zoom="+zoom+"&size=850x400",
           id="&key="+statickey;
 
+      zoom=(zoom)?zoom:12;
+
       function makeMarker(address){
         if (address.geo&&address.geo.lat&&address.geo.lng)
           return "&markers=color:green%7Xlabel:%7C"+address.geo.lat+","+address.geo.lng;
-        return ""
+        return "";
       }
 
       if(Array.isArray(address)){
 
         for(var i in address)
-          marker+=makeMarker(address[i])
+          marker+=makeMarker(address[i]);
       }else{
-        marker=makeMarker(address)
+        marker=makeMarker(address);
       }
       return url+opt+marker+id;
-    }    
+    };    
 
     
     return Map;

@@ -10,15 +10,15 @@ UI.filter("placehold",function(){
   return function(img,params){
     if (img)return img;
     return "//placehold.it/"+params;
-  }
+  };
 });
 
 UI.filter("categories",function(){
   return function(categories,type){
     if (!categories || type==='*')return categories;
     var t=(type)?type:'Category';
-    return _.filter(categories,function(c){c.type===t});
-  }
+    return _.filter(categories,function(c){return c.type===t;});
+  };
 });
 
 UI.filter('test', function () {
@@ -36,7 +36,7 @@ UI.filter('clean', function () {
 
 UI.filter('reverse', function() {
   return function(items) {
-    if(!items)return
+    if(!items)return;
     return items.slice().reverse();
   };
 });
@@ -128,7 +128,7 @@ UI.directive('ngStaticInclude', [
           //   return includeTpl(element,template,scope)
           // }
          $http.get(templateName, {cache: $templateCache}).then(function(response) {
-           return includeTpl(element,response.data,scope)
+           return includeTpl(element,response.data,scope);
          });
         };
       }
@@ -149,7 +149,7 @@ UI.directive("bgSrc", ['$timeout','config',function ($timeout,config) {
           // url=config.API_SERVER+'/v1/cdn/image/305x1000?source='+url.replace('https','http')
           url+='-/resize/300x/';
         }else{
-          url+='-/progressive/yes/'
+          url+='-/progressive/yes/';
         }
         element[ 0 ].style.backgroundImage = "url("+url+")";
       }
@@ -159,7 +159,7 @@ UI.directive("bgSrc", ['$timeout','config',function ($timeout,config) {
 //Send gg event {category:'',action:''}
 UI.directive('gaSend', ['$parse','$window','config','user',function($parse,$window, config, user) {
   return function(scope, element, attr) {
-    var o = $parse(attr['gaSend'])();
+    var o = $parse(attr.gaSend)();
     //
     // not always send gg analitycs
     if($window.ga && config.API_SERVER.indexOf('localhost')==-1 && config.API_SERVER.indexOf('evaletolab')==-1){
@@ -174,20 +174,20 @@ UI.directive('gaSend', ['$parse','$window','config','user',function($parse,$wind
           }
           $window.ga('send', 'event', o.category, o.action);        
           // if(console)console.log('ga',o)
-      })
+      });
     }
-  }
+  };
 }]);
 
 //
 // reload page
 UI.directive('reload', ['$parse','$timeout', function($parse, $timeout) {
   return function(scope, element, attr) {
-    var path = attr['reload']||'/';
+    var path = attr.reload||'/';
     $timeout(function(){
-        window.location.pathname = path
-    },5000)
-  }
+        window.location.pathname = path;
+    },5000);
+  };
 }]);
 
 
@@ -204,8 +204,8 @@ UI.directive('toggleSidebar', ['$parse','$timeout', function($parse, $timeout) {
         },800);        
     }
     //$(".site-nav-overlay").click(hide);
-    $(document).click(hide)
-  }
+    $(document).click(hide);
+  };
 }]);
 
 
@@ -216,7 +216,8 @@ UI.directive('toggleSidebar', ['$parse','$timeout', function($parse, $timeout) {
 UI.directive('confirmDelete', ['$parse', function($parse) {
   //
   // template
-  var style="width: 300px;position: absolute;border: 2px solid red;padding: 10px;background-color: white;margin-top:-20px;display:none;left:25%;box-shadow:1px 1px 1000px #333"
+  var style="width: 300px;position: absolute;border: 2px solid red;padding: 10px;background-color: white;margin-top:-20px;display:none;left:25%;box-shadow:1px 1px 1000px #333";
+  /*jshint multistr: true */
   var span='\
     <form id="passwd-{{$id}}" style="'+style+'" class="form-inline prompt-passwd" validate>\
       <input type="password" class="form-control" placeholder="valider avec votre mot de passe" required autofocus="true" style="width: 220px;">\
@@ -232,41 +233,41 @@ UI.directive('confirmDelete', ['$parse', function($parse) {
       return function(scope, element, attr, ctrl) { 
         element.bind('click', function(event) {
           angular.element('.prompt-passwd').hide();
-          element.next().show()
+          element.next().show();
         });
         element.next().submit(function(){
           var pwd=element.next().find('input[type=password]').val();
           scope.action({password:pwd});
-          element.next().hide()
+          element.next().hide();
           return false;
-        })
-      }
+        });
+      };
     }
-  }
+  };
 }]);
 
 //
 // Declare global directives here
 UI.directive('ngFocus', ['$parse', function($parse) {
   return function(scope, element, attr) {
-    var fn = $parse(attr['ngFocus']);
+    var fn = $parse(attr.ngFocus);
     element.bind('focus', function(event) {
       scope.$apply(function() {
         fn(scope, {$event:event});
       });
     });
-  }
+  };
 }]);
  
 UI.directive('ngBlur', ['$parse', function($parse) {
   return function(scope, element, attr) {
-    var fn = $parse(attr['ngBlur']);
+    var fn = $parse(attr.ngBlur);
     element.bind('blur', function(event) {
       scope.$apply(function() {
         fn(scope, {$event:event});
       });
     });
-  }
+  };
 }]);
 
 UI.directive('backstretch', ['$parse', function($parse) {
@@ -286,28 +287,28 @@ UI.directive('backstretch', ['$parse', function($parse) {
         // console.log('------------',path)
         if ((path.indexOf('http')!==0) && (path.indexOf('//')!==0))path='/'+path;
         style['background-image']='url('+path+')';
-        e.css(style);	
+        e.css(style); 
               
       }
-      var options=($parse(attr['backstretch']))();
-      var src=(options)?options.src:attr['backstretch']
+      var options=($parse(attr.backstretch))();
+      var src=(options)?options.src:attr.backstretch;
       scope.$watch(src, function(value) {
           if (value){
-            bs(element, value)
-          }else if(options['load']){
-            bs(element, options.load)
+            bs(element, value);
+          }else if(options.load){
+            bs(element, options.load);
           }else{
-            bs(element, src)
+            bs(element, src);
           }
        });
     }
-  }
+  };
 }]);
 
 UI.directive('background', ['$parse', function($parse) {
   return{
     link:function(scope, element, attr, ctrl) {   
-      var options=($parse(attr['background']))();
+      var options=($parse(attr.background))();
       var css={
         'background-size':'100%', 
         '-webkit-background-size':'100%',
@@ -324,8 +325,9 @@ UI.directive('background', ['$parse', function($parse) {
           element.css(css);
        });
     }
-  }
+  };
 }]);
+
 
 
 UI.directive('backfader', ['$parse','$location','$anchorScroll','$routeParams', function($parse,$location,$anchorScroll, $routeParams) {
@@ -341,8 +343,8 @@ UI.directive('backfader', ['$parse','$location','$anchorScroll','$routeParams', 
         referrer=scope.referrer;
       }else{
         var index=referrers.indexOf($location.path());
-        referrers.splice(index,referrers.length-index)
-        referrer=referrers[index-1]
+        referrers.splice(index,referrers.length-index);
+        referrer=referrers[index-1];
         //return;
       }
 
@@ -360,7 +362,7 @@ UI.directive('backfader', ['$parse','$location','$anchorScroll','$routeParams', 
         function onClose(){
           //console.log('output backfader ---------------', referrer, scrollLeft,scrollTop)
           angular.element("body").removeClass('noscroll');
-          var url=referrer
+          var url=referrer;
           if(!url&&scope.computeUrl)
             url=scope.computeUrl();
           
@@ -375,9 +377,9 @@ UI.directive('backfader', ['$parse','$location','$anchorScroll','$routeParams', 
           // }
           window.scrollBy(scrollLeft,scrollTop);
           scope.$apply(function(){
-            $location.path(url)
+            $location.path(url);
           });
-        };
+        }
 
         // FIXME find a best way to clean on exit 
         element.find('a').click(function (e) {
@@ -386,32 +388,32 @@ UI.directive('backfader', ['$parse','$location','$anchorScroll','$routeParams', 
               angular.element("body").removeClass('noscroll');
             }            
           }, 300);
-        })
+        });
         element.find('.on-close').click(function(e){
           e.stopPropagation();
-          onClose()
+          onClose();
           return false;
         });
         element.removeClass('hide').click(function(e) {
           if(e.target === element[0]){
-            onClose()
+            onClose();
           }
         });     
 
       })(referrer,scope.scrollLeft,scope.scrollTop);
-  }
+  };
 }]);
 
 //
 //
 // affix
 UI.directive('appAffix', ['$parse','$timeout', function($parse, $timeout) {
-	  return function(scope, element, attr) {
-	      $timeout(function(){
-	        element.affix({offset: parseInt(attr['appAffix'])});
-	      },200);
-	  }
-	}]);
+    return function(scope, element, attr) {
+        $timeout(function(){
+          element.affix({offset: parseInt(attr.appAffix)});
+        },200);
+    };
+  }]);
 
 //
 // http://dev.dforge.net/projects/sliding-pane/index.html
@@ -419,9 +421,9 @@ UI.directive('appAffix', ['$parse','$timeout', function($parse, $timeout) {
 UI.directive('pageslide', ['$parse','$timeout', function($parse , $timeout) {
   return function(scope, element, attr) {
     var o=scope.$eval(attr.pageslide||"{}");
-    element.pageslide(o)
+    element.pageslide(o);
     //$("img.lazy").show().lazyload();
-  }
+  };
 }]);
 
 //
@@ -430,7 +432,7 @@ UI.directive('pageslide', ['$parse','$timeout', function($parse , $timeout) {
 UI.directive('lazyload', ['$parse','$timeout', function($parse , $timeout) {
   return function(scope, element, attr) {
     //$("img.lazy").show().lazyload();
-  }
+  };
 }]);
 
 UI.directive('autoSubmit', ['$parse','$timeout','user', function($parse , $timeout, user) {
@@ -446,12 +448,12 @@ UI.directive('autoSubmit', ['$parse','$timeout','user', function($parse , $timeo
         //
         // simple check of payment validation
         user.me(function(u){
-          console.log('psp ecommerce payment is live',u.payments)
+          console.log('psp ecommerce payment is live',u.payments);
         });
 
-    };
+    }
     $timeout(tick, 2000);    
-  }
+  };
 }]);
 
 
@@ -467,9 +469,9 @@ return {
                element.css('width', iFrameWidth);
                if(iFrameHeight!==0)
                 element.css('height', iFrameHeight);
-        })
+        });
     }
-}}])
+};}]);
 
 
 //
@@ -489,14 +491,14 @@ UI.directive('masonry', ['$parse','$timeout', function($parse , $timeout) {
 
     },1000);
 
-  }
+  };
 }]);
 
 
 UI.directive('slideOnClick', ['$parse','$timeout', function($parse, $timeout) {
   return function(scope, element, attr) {
       $timeout(function(){
-        var e=angular.element(attr['slideOnClick']);
+        var e=angular.element(attr.slideOnClick);
         if(e.length){
 
           element.click(function(){
@@ -504,62 +506,62 @@ UI.directive('slideOnClick', ['$parse','$timeout', function($parse, $timeout) {
           });
         }
       },0);
-  }
+  };
 }]);
 UI.directive('showOnClick', ['$parse','$timeout', function($parse, $timeout) {
   return function(scope, element, attr) {
       $timeout(function(){
-        var e=angular.element(attr['showOnClick']);
+        var e=angular.element(attr.showOnClick);
         if(e.length){
           element.click(function(){
             e.slideDown();
           });
         }
       },0);
-  }
+  };
 }]);
 UI.directive('hideOnClick', ['$parse','$timeout', function($parse, $timeout) {
   return function(scope, element, attr) {
       $timeout(function(){
-        var e=angular.element(attr['hideOnClick']);
+        var e=angular.element(attr.hideOnClick);
         if(e.length){
           element.click(function(){
             e.slideUp();
           });
         }
       },0);
-  }
+  };
 }]);
 
 UI.directive('toggleOnClick', ['$parse','$timeout', function($parse, $timeout) {
   return function(scope, element, attr) {
       $timeout(function(){
-        var e=angular.element(attr['toggleOnClick']);
+        var e=angular.element(attr.toggleOnClick);
         if(e.length){
           element.click(function(){
             e.toggleClass('hide');
           });
         }
       },1500);
-  }
+  };
 }]);
 
 
 UI.directive('fadeOnHover', ['$parse','$timeout', function($parse, $timeout) {
   return function(scope, element, attr) {
       $timeout(function(){
-        var e=angular.element(attr['fadeOnHover']);
+        var e=angular.element(attr.fadeOnHover);
         if(e.length){
           e.bind('mouseenter', function(){
             element.fadeIn('fast');
           }).bind('mouseleave', function(){
             element.fadeOut('fast');
-          })          
+          });          
         }
       },10);
 
       element.hide();
-  }
+  };
 }]);
 
 UI.directive('infiniteCarousel', ['$parse','$timeout', function($parse , $timeout) {
@@ -568,17 +570,17 @@ UI.directive('infiniteCarousel', ['$parse','$timeout', function($parse , $timeou
     angular.extend(options, expression);        
     $timeout(function(){
        
-       $(element).addClass("infiniteCarousel").infiniteCarousel(options)
+       $(element).addClass("infiniteCarousel").infiniteCarousel(options);
     },0);
 
-  }
+  };
 }]);
 
 UI.directive('backendUrl', ['$parse','config', function($parse, config) {
   return function(scope, element, attr) {
       var name=attr.backendUrl||"href";
       element.attr(name,config.API_SERVER);
-  }
+  };
 }]);
 
 UI.directive('acceptCookie', ['$parse','config','$cookies','$timeout', 
@@ -593,7 +595,7 @@ UI.directive('acceptCookie', ['$parse','config','$cookies','$timeout',
 
     },2000);
 
-  }
+  };
 }]);
 
 UI.directive('lazySrc', ['$document', '$parse', function($document, $parse) {

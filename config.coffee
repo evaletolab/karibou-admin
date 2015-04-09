@@ -28,6 +28,10 @@ exports.config =
           'bower_components/underscore/underscore.js'
         ]
 
+    templates:
+      joinTo:
+        'js/templates.js': /^app\/assets/
+
     stylesheets:
       joinTo:
         'css/vendor.css': /^(bower_components|vendor)/
@@ -43,9 +47,6 @@ exports.config =
           'vendor/styles/bootstrap-theme.css'
         ]
 
-    templates:
-      joinTo:
-        'js/dontUseMe' : /^app/ # dirty hack for Jade compiling.
 
   keyword:
     # file filter
@@ -56,10 +57,29 @@ exports.config =
     # using information from package.json
     map:
       distRelease: -> (Date.now())
+
   plugins:
     signature:
       file: 'signature'
       ignore: /[\\/][.]/
+
+    ng_templates:
+      module: 'app.templates'
+
+    html2js: 
+      options:
+        base: 'app/assets',
+        htmlmin: 
+          removeComments: true
+
+    jshint:
+      pattern: /^app\/.*\.js$/
+      options:
+        bitwise: false
+        curly: false
+      globals:
+        jQuery: true
+      warnOnly: true
 
   #  jade:
   #    pretty: yes # Adds pretty-indentation whitespaces to output (false by default)

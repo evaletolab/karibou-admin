@@ -15,7 +15,7 @@ angular.module('postfinance.card.ui',[])
       link: function(scope, elem, attr, ctrl){
         _Format(attr.paymentsFormat, elem, ctrl);
       }
-    }
+    };
 }])
 
 
@@ -39,7 +39,7 @@ angular.module('postfinance.card.ui',[])
       ctrl.$formatters.push(validateFn);
       ctrl.$parsers.push(validateFn);
     }
-  }
+  };
 }])
 
 .directive('paymentsDate', ['$window', '_Validate', '_ValidateWatch', 
@@ -51,12 +51,12 @@ angular.module('postfinance.card.ui',[])
       var date = attr.paymentsDate;
       var valid = _Validate('expiry', date);
       if(valid)
-        elem.removeClass('invalid-date')
+        elem.removeClass('invalid-date');
       else
-        elem.addClass('invalid-date')
+        elem.addClass('invalid-date');
 
     }
-  }
+  };
 }])
 
 
@@ -78,26 +78,26 @@ angular.module('postfinance.card.ui',[])
                     'cvc', 'name','addressLine1', 
                     'addressLine2', 'addressCity',
                     'addressState', 'addressZip',
-                    'addressCountry']
+                    'addressCountry'];
     
     var camelToSnake = function(str){
       return str.replace(/([A-Z])/g, function(m){
         return "_"+m.toLowerCase();
       });
-    }
+    };
 
     var ret = {};
 
-    for(i in possibleKeys){
+    for(var i in possibleKeys){
         if(possibleKeys.hasOwnProperty(i)){
             ret[camelToSnake(possibleKeys[i])] = angular.copy(data[possibleKeys[i]]);
         }
     }
 
-    ret['number'] = (ret['number'] || '').replace(/ /g,'');
+    ret.number = (ret.number || '').replace(/ /g,'');
 
     return ret;
-  }
+  };
 
   return {
     restrict: 'A',
@@ -111,9 +111,9 @@ angular.module('postfinance.card.ui',[])
         expYearUsed = scope.expYear ? true : false;
 
         if(!(expMonthUsed && expYearUsed)){
-          exp = Common.parseExpiry(scope.expiry)
-          scope.expMonth = exp.month
-          scope.expYear = exp.year
+          exp = Common.parseExpiry(scope.expiry);
+          scope.expMonth = exp.month;
+          scope.expYear = exp.year;
         }
 
         var button = form.find('button');
@@ -122,7 +122,7 @@ angular.module('postfinance.card.ui',[])
         //
         //if form is valid
         if(form.hasClass('ng-valid')) {
-          console.log("SEND PAYMENT")
+          console.log("SEND PAYMENT");
           // $window.Stripe.createToken(_getDataToSend(scope), function() {
           //   var args = arguments;
           //   scope.$apply(function() {
@@ -144,7 +144,7 @@ angular.module('postfinance.card.ui',[])
 
       });
     }
-  }
+  };
 }])
 
 
@@ -161,8 +161,8 @@ angular.module('postfinance.card.ui',[])
           return;
         }
         fields.forEach(function(field){
-          element.append("<")
-        })
+          element.append("<");
+        });
 
         //$compile(el)(scope);
 

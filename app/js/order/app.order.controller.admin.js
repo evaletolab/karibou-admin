@@ -4,7 +4,7 @@
 // Define the Order module (app.shop)  for controllers, services and models
 // the app.shop module depend on app.config and take resources in shop/*.html
 angular.module('app.order.admin', ['app.order.ui','app.config', 'app.api'])
-  .controller('OrderAdminCtrl',OrderAdminCtrl)
+  .controller('OrderAdminCtrl',OrderAdminCtrl);
 
 OrderAdminCtrl.$inject=['$scope', '$routeParams','$location','api','order','user','product','$log', '$controller'];
 function OrderAdminCtrl($scope,$routeParams, $location, api, order, user, product, $log, $controller) {
@@ -14,28 +14,28 @@ function OrderAdminCtrl($scope,$routeParams, $location, api, order, user, produc
 
   $scope.countShops=function(shops){
     if(!shops)return;
-    return Object.keys(shops).length
-  }
+    return Object.keys(shops).length;
+  };
 
   $scope.getAmountTotal=function (shop) {
     var total=0;
     if(!$scope.shops)return total;
     $scope.shops[shop].forEach(function (item) {
       if(item.fulfillment.status!=='failure'){
-        total+=parseFloat(item.finalprice)
+        total+=parseFloat(item.finalprice);
       }
-    })
-    return total
-  }
+    });
+    return total;
+  };
 
   $scope.groupByShops=function(orders){
-    var shops={}
+    var shops={};
     orders.forEach(function(order){
       order.items.forEach(function(item){
 
         // init item for this shop
         if(!shops[item.vendor]){
-          shops[item.vendor]=[]
+          shops[item.vendor]=[];
         }
         // add item to this shop
         item.rank=order.rank;
@@ -46,18 +46,18 @@ function OrderAdminCtrl($scope,$routeParams, $location, api, order, user, produc
         item.fulfillments=order.fulfillments;
         item.when=order.shipping.when;
         shops[item.vendor].push(item);
-      })
-    })
-    return shops
-  }
+      });
+    });
+    return shops;
+  };
 
   $scope.isCollectableShopForDay=function (shop,when) {
     if(!when||!$scope.shops) return true;
     var items=$scope.shops[shop].filter(function(item) {
       return (item.when===when);
-    })
-    return (items.length>0)
-  }
+    });
+    return (items.length>0);
+  };
 
   $scope.isCollectedShopForDay=function (shop,when) {
     for (var i = $scope.orders.length - 1; i >= 0; i--) {
@@ -66,33 +66,33 @@ function OrderAdminCtrl($scope,$routeParams, $location, api, order, user, produc
           if($scope.orders[i].vendors[j].slug===shop){
             return $scope.orders[i].vendors[j].collected;
           }
-        };
+        }
       }
-    };
+    }
 
     return false;
-  }
+  };
 
 
   function findOrder(oid) {
       for (var i = $scope.orders.length - 1; i >= 0; i--) {
-        if($scope.orders[i].oid===order.oid){return $scope.orders[i]}
-      };
+        if($scope.orders[i].oid===order.oid){return $scope.orders[i];}
+      }
     return null;
   }
 
 
   $scope.isSelectedShop=function (shop) {
     if(!$scope.filters.s) return false;
-    return ($scope.filters.s===shop)    
-  }
+    return ($scope.filters.s===shop);    
+  };
 
   $scope.isProductDirty=function (product) {
     return (product.pricing._price!=product.pricing.price||
             product.pricing._stock!=product.pricing.stock||
             product.attributes._available!=product.attributes.available||
-            product.attributes._home!=product.attributes.home)
-  }
+            product.attributes._home!=product.attributes.home);
+  };
 
   $scope.initProductState=function(product){
     product._weight=product.weight;
@@ -100,27 +100,27 @@ function OrderAdminCtrl($scope,$routeParams, $location, api, order, user, produc
     product.attributes._home=product.attributes.home;
     product.pricing._stock=product.pricing.stock;
     product.pricing._price=product.pricing.price;
-  }
+  };
 
   $scope.getDetailledOrderUrl=function (when) {
     var params=($routeParams.closed)?'&closed='+$routeParams.closed:'';
     params+=($routeParams.fulfillments)?'&fulfillments='+$routeParams.fulfillments:'';
     return '/admin/shop/orders?groupby=shop&when='+when+params;
     // body...
-  }
+  };
 
   $scope.getInputDisabled=function(item){
     var orderDisabled=(item.fulfillments&&item.fulfillments.status==='failure');
-    var itemDisabled=(['fulfilled'].indexOf(item.fulfillment.status)!==-1)
+    var itemDisabled=(['fulfilled'].indexOf(item.fulfillment.status)!==-1);
     return itemDisabled||orderDisabled;
-  }
+  };
 
   //
   // display pay button when order is fulfilled
   $scope.showCaptureButton=function(order){
     if(!user.isAdmin()) return false;
-    return (['voided','paid'].indexOf(order.payment.status)===-1) && (order.fulfillments.status==='fulfilled')
-  }
+    return (['voided','paid'].indexOf(order.payment.status)===-1) && (order.fulfillments.status==='fulfilled');
+  };
 
 
   //
@@ -128,10 +128,10 @@ function OrderAdminCtrl($scope,$routeParams, $location, api, order, user, produc
   $scope.orderCapture=function(order){
     order.capture().$promise.then(function(o){
       api.info($scope,"Commande capturée",2000);
-      $log.info('capture result',order.oid, o)
-      order.wrap(o)
-    })
-  }
+      $log.info('capture result',order.oid, o);
+      order.wrap(o);
+    });
+  };
 
 
   //
@@ -139,9 +139,9 @@ function OrderAdminCtrl($scope,$routeParams, $location, api, order, user, produc
   $scope.orderRefund=function(order){
     order.refund().$promise.then(function(o){
       api.info($scope,"Commande remboursée",2000);
-      order.wrap(o)
-    })
-  }
+      order.wrap(o);
+    });
+  };
 
   //
   // cancel and close the order
@@ -149,38 +149,38 @@ function OrderAdminCtrl($scope,$routeParams, $location, api, order, user, produc
     order.remove().$promise.then(function(){
       api.info($scope,"Commande suprimmée",2000);
       for (var i = $scope.orders.length - 1; i >= 0; i--) {
-        if($scope.orders[i].oid===order.oid){$scope.orders.splice(i,1)}
-      };
-    })
-  }
+        if($scope.orders[i].oid===order.oid){$scope.orders.splice(i,1);}
+      }
+    });
+  };
 
 
   $scope.informShopToOrders=function(shop,content){
     order.informShopToOrders(shop,content).$promise.then(function(){
         api.info($scope,"Votre message à bien été envoyé! ");        
     });
-  }
+  };
   
 
 
   $scope.updateItem=function(oid,item,fulfillment){
     for (var o in $scope.orders){
       if($scope.orders[o].oid===oid){
-        console.log('update',oid,item)
+        console.log('update',oid,item);
         return $scope.orders[o].updateItem(item,fulfillment).$promise.then(function(){
           api.info($scope,"Statut commande enregistré",2000);
           item.fulfillment.status=fulfillment;
-        })
+        });
       }
     }
-  }
+  };
 
   $scope.updateCollect=function (shopname,status,when) {
     order.updateCollect(shopname,status,when).$promise
       .then(function (order) {
         api.info($scope,"Collecte enregistrée",2000);
-      })
-  }
+      });
+  };
 
 
   //
@@ -197,19 +197,19 @@ function OrderAdminCtrl($scope,$routeParams, $location, api, order, user, produc
       //
       // is admin?
       if(!user.isAdmin()){
-        filters.action='shops'
+        filters.action='shops';
       }
 
 
       order.findAllOrders(filters).$promise.then(function(orders){
         $scope.orders=orders;filters.f=null;
         $scope.shops=false;
-        $scope.addresses=orders.map(function(order){return order.shipping})
+        $scope.addresses=orders.map(function(order){return order.shipping;});
         $scope.dates=orders.map(function (order) {
-          return ((order.shipping.when))
+          return ((order.shipping.when));
         }).filter(function(v,i,self) {
           return self.indexOf(v)===i;
-        }).sort($scope.sortByDateDESC)
+        }).sort($scope.sortByDateDESC);
 
         // select current shipping
         if($scope.shipping.currentDay){
@@ -222,39 +222,39 @@ function OrderAdminCtrl($scope,$routeParams, $location, api, order, user, produc
         }
         // select default date
         if(filters.when){
-          filters.f=filters.when
+          filters.f=filters.when;
         }
         // default date
         if($scope.dates.length && !filters.f){
-          filters.f=$scope.dates[0]
+          filters.f=$scope.dates[0];
         }
 
 
         //
         // group by shop?
         if(filters.groupby==='shop'){
-          $scope.shops=$scope.groupByShops(orders)
-          $scope.filters.s=Object.keys($scope.shops)[0]
+          $scope.shops=$scope.groupByShops(orders);
+          $scope.filters.s=Object.keys($scope.shops)[0];
         }
         $scope.loading=false;
       });
 
     });
-  }
+  };
 
   $scope.saveProduct=function (product) {
     product.updateAndSave(function () {
       api.info($scope,"Produit enregistré :"+product.title,1000);
-      $scope.initProductState(product)
-    })
-  }
+      $scope.initProductState(product);
+    });
+  };
   $scope.loadAllProducts=function(){
-    $scope.loading=true
+    $scope.loading=true;
     user.$promise.then(function(){
       var params={sort:'categories.weight'};
       // filter with the user shop
       if(!user.isAdmin()){
-        params.shopname=user.shops[0].urlpath
+        params.shopname=user.shops[0].urlpath;
       }
 
       $scope.products=product.query(params,function(products){
@@ -263,7 +263,7 @@ function OrderAdminCtrl($scope,$routeParams, $location, api, order, user, produc
       });
 
     });
-  }
+  };
 
 
 

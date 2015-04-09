@@ -18,7 +18,7 @@ angular.module('app.user.ui', [
   return function(primary,user){
     if (primary)return primary;
     return (user.addresses.length==1)?'true':'false';
-  }
+  };
 })
 
 //

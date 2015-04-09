@@ -12,7 +12,7 @@ angular.module('app.order', [
   'app.config',
   'app.api',
   'postfinance.card'
-]).config(orderConfig)
+]).config(orderConfig);
 
 //
 // define all routes for user api

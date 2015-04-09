@@ -1,8 +1,8 @@
 ;(function(angular) {'use strict';
 
 // chromium-browser --ignore-gpu-blacklist --disable-gpu-sandbox
-// var API_SERVER='http://localhost:4000'
-var API_SERVER='//api.'+window.location.hostname
+// var API_SERVER='http://localhost:4000';
+var API_SERVER='//api.'+window.location.hostname;
 // var API_SERVER='http://192.168.1.35:4000'
 // var API_SERVER='http://karibou-api.cloudfoundry.com'
 // var API_SERVER='http://karibou-evaletolab.rhcloud.com'
@@ -44,7 +44,7 @@ angular.module('app', [
 
 //
 // Configure application $route, $location and $http services.
-appConfig.$inject=['$provide','$routeProvider','$locationProvider','$httpProvider']
+appConfig.$inject=['$provide','$routeProvider','$locationProvider','$httpProvider'];
 function appConfig( $provide, $routeProvider, $locationProvider, $httpProvider) {
   
   $httpProvider.interceptors.push('errorInterceptor');
@@ -78,23 +78,19 @@ function appConfig( $provide, $routeProvider, $locationProvider, $httpProvider) 
 
 // define default behavior for all http request
 // http://www.webdeveasy.com/interceptors-in-angularjs-and-useful-examples/
-errorInterceptor.$inject = ['$q', '$rootScope', '$location', '$timeout']
+errorInterceptor.$inject = ['$q', '$rootScope', '$location', '$timeout'];
 function errorInterceptor($q, scope, $location, $timeout) {
   var error_net=0;
   function parseError(err){
-      if(typeof err === 'string') 
-        return err;
-      if(typeof err.responseText === 'string')
-        return err.responseText;
-      if(typeof err.data === 'string')
-        return err.data;       
-      if(typeof err.message === 'string')
-        return err.message;       
+      if(typeof err === 'string') {return err;}
+      if(typeof err.responseText === 'string'){return err.responseText;}
+      if(typeof err.data === 'string'){return err.data;}       
+      if(typeof err.message === 'string'){return err.message;}       
       if(err.data&&err.data.length){
-        var msg=""
+        var msg="";
         err.data.forEach(function(e){
           msg=msg+"<p>"+e+"</p>";
-        })
+        });
         return msg;
       }         
       return "Undefined error! ->"+JSON.stringify(err);
@@ -105,7 +101,7 @@ function errorInterceptor($q, scope, $location, $timeout) {
     $timeout(function(){
       $scope.FormErrors=undefined;
     }, ms||5000);
-  };  
+  }
 
   return {
       request: function (config) {
@@ -124,8 +120,8 @@ function errorInterceptor($q, scope, $location, $timeout) {
       responseError: function (response) {
           scope.WaitText = false;
           // no api
-          if (response.status == 0) {
-              error_net++
+          if (response.status === 0) {
+              error_net++;
           }
 
 
@@ -150,17 +146,17 @@ function errorInterceptor($q, scope, $location, $timeout) {
               $location.path('/login');
             }else if (response.data.toLowerCase().indexOf('vous devez ouvrir')){
               // if logged but without correct right 
-              showError(scope,response.data)            
+              showError(scope,response.data);            
             }
           }
 
           else if(response.status>0){
-            showError(scope,response.data)
+            showError(scope,response.data);
           }
           return $q.reject(response);
       }
   };
-};
+}
 
 
 //
@@ -189,7 +185,7 @@ function cordovaReady() {
 
 //
 // init the module
-appRun.$inject=['gitHubContent', '$templateCache', '$route', '$http', 'config']
+appRun.$inject=['gitHubContent', '$templateCache', '$route', '$http', 'config'];
 function appRun(gitHubContent, $templateCache, $route, $http, config) {
   gitHubContent.initialize({
         root:'page', // specify the prefix route of your content
@@ -203,7 +199,7 @@ function appRun(gitHubContent, $templateCache, $route, $http, config) {
       // config stripe here
       var pk=config.shop.global.keys&&config.shop.global.keys.pubStripe||'pk_test_PbzvxL5vak34c2GvSFqUXEac';
       Stripe.setPublishableKey(pk);
-  })
+  });
 
   // init uploadcare key here
   uploadcare.start({ publicKey: config.uploadcare, maxSize:153600, locale:'fr' });
@@ -214,7 +210,7 @@ function appRun(gitHubContent, $templateCache, $route, $http, config) {
       $http.get($route.routes[i].templateUrl, {cache: $templateCache});
     }
   }
-};
+}
 
 
 // Bootstrap (= launch) application
@@ -272,7 +268,7 @@ angular.element(document).ready(function () {
       coded = coded.slice(0, coded.length-pad.length) + pad;
        
       return coded;
-    }  
+    };  
   }
 
   Date.prototype.daysInMonth=function(month) {

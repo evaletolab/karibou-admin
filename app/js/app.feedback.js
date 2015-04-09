@@ -41,43 +41,45 @@ function FeedbackCtrl(config, $scope, $rootScope,$timeout, $http, user,api) {
       'J\'aimerai un lieu pour la collecte de ma commande',
       'Le marché est génial'
     ]    
-  }
+  };
 
   user.$promise.finally(function () {
-    if(user.email)feedback.email=user.email.address;
+    if(user.email){feedback.email=user.email.address;}
   });
 
 
   $scope.getTitle=function () {
-    if(feedback.product) return 'Contactez: '+feedback.product.vendor.name
-    if(feedback.shop)return 'Contactez: '+feedback.shop.name
-    return 'Contactez l\'équipe Karibou?'
-  }
+    if(feedback.product) {return 'Contactez: '+feedback.product.vendor.name;}
+    if(feedback.shop){return 'Contactez: '+feedback.shop.name;}
+    return 'Contactez l\'équipe Karibou?';
+  };
 
   $scope.contextSite=function () {
-    return !feedback.shop&&!(feedback.product&&feedback.product.sku)
-  }
+    return !feedback.shop&&!(feedback.product&&feedback.product.sku);
+  };
+
   $scope.contextProduct=function () {
-    return feedback.product&&feedback.product.sku
-  }
+    return feedback.product&&feedback.product.sku;
+  };
+
   $scope.contextShop=function () {
-    return feedback.shop
-  }
+    return feedback.shop;
+  };
 
   $scope.fbCancel=function () {
     feedback.show=false;
-  }
+  };
 
   $scope.sendComment=function () {
     var content={};
     content.text=feedback.comment;
     content.mood=feedback.mood;
     if(feedback.shop&&feedback.shop.urlpath)
-      content.shopname=feedback.shop.urlpath;
+      {content.shopname=feedback.shop.urlpath;}
     if(feedback.email)
-      content.email=feedback.email;
+      {content.email=feedback.email;}
     if(feedback.product&&feedback.product.sku)
-      content.product=feedback.product.title+' ('+feedback.product.sku+')'
+      {content.product=feedback.product.title+' ('+feedback.product.sku+')';}
 
     $http.post(config.API_SERVER+'/v1/comment', content).
       success(function(data, status, headers, config) {
@@ -86,13 +88,13 @@ function FeedbackCtrl(config, $scope, $rootScope,$timeout, $http, user,api) {
         api.info($scope,"Votre question à bien été envoyé! Vous serez contacté dans les plus brefs délais");        
       });
     
-  }
+  };
 
   $scope.$on('$routeChangeSuccess', function (event, route) {
     // console.log('DEBUG-FB------------->',route.current)
     $timeout(function () {
       loadRouteScope(feedback,route);
-    },1000)
+    },1000);
   });
 
   // loadRouteScope(feedback,$route.current)
@@ -107,11 +109,11 @@ function feedbackFactory(config, user, $rootScope,$resource) {
 
 
   var Feedback = function(data) {
-  }
+  };
 
 
   Feedback.prototype.clear=function(){
-  }
+  };
 
   return new Feedback();
 }

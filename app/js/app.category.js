@@ -28,11 +28,11 @@ function CategoryCtrl(config, $scope, $timeout, $routeParams, $location, api, ca
 
   $scope.config=config;
 
-  $scope.selected;
+  $scope.selected=false;
   $scope.category=category;
   
   $scope.selectCategory=function(e,v){
-    if(!$scope.categoryslug)return;
+    if(!$scope.categoryslug){return;}
     category.get($scope.categoryslug,function(c){
       $scope.selected=c;        
     });
@@ -71,11 +71,11 @@ function CategoryCtrl(config, $scope, $timeout, $routeParams, $location, api, ca
   
   $scope.launchModal=function(elem){
     angular.extend($scope.modal,$scope.categories[elem],{index:elem});
-  }
+  };
   
   $scope.modalDissmiss=function(){
     $scope.modal = {name:'',type:'Category',image:'fa fa-leaf', weight:0, saved: false};
-  }
+  };
 
   $scope.modalSave=function(dismiss){
     //
@@ -83,17 +83,17 @@ function CategoryCtrl(config, $scope, $timeout, $routeParams, $location, api, ca
     if($scope.modal.index){
       angular.extend($scope.categories[$scope.modal.index],$scope.modal);
       $scope.save($scope.categories[$scope.modal.index]);
-      $scope.modalDissmiss()
-      return
+      $scope.modalDissmiss();
+      return;
     }
-  }
+  };
 
   $scope.modalAdd=function(dismiss){
     //
     // check if data are correct
-    $scope.create($scope.modal)
-    $scope.modalDissmiss()
-  }
+    $scope.create($scope.modal);
+    $scope.modalDissmiss();
+  };
   
   //
   // upload foreground photo 
@@ -108,7 +108,7 @@ function CategoryCtrl(config, $scope, $timeout, $routeParams, $location, api, ca
       }, 0);
       
     });
-  }    
+  };    
   
   // init
   category.select({stats:true},function(categories){
@@ -125,7 +125,7 @@ function CategoryCtrl(config, $scope, $timeout, $routeParams, $location, api, ca
  * This service serves as a convenient wrapper for other related services.
  */
 
-categoryService.$inject=['config','$location','$rootScope','$routeParams','$resource','api']
+categoryService.$inject=['config','$location','$rootScope','$routeParams','$resource','api'];
 function categoryService(config, $location, $rootScope, $routeParams,$resource, api) {
 
   var defaultCategory = {
@@ -151,18 +151,18 @@ function categoryService(config, $location, $rootScope, $routeParams,$resource, 
           delete: {method:'PUT'},
     });
     angular.extend(this, defaultCategory, data);
-  }
+  };
 
   Category.prototype.getCurrent = function(){
     if(!$routeParams.category)
-      return;
+      {return;}
     return this.find({slug:$routeParams.category});
   };
   
 
   Category.prototype.findNameBySlug = function(slug){
     var cat=this.find({slug:slug});
-    if (cat) return cat.name; else return "Inconnu";      
+    if (cat) {return cat.name;} else {return "Inconnu";}      
   };
 
   Category.prototype.findBySlug = function(slug){
@@ -170,26 +170,26 @@ function categoryService(config, $location, $rootScope, $routeParams,$resource, 
   };
 
   Category.prototype.select = function(filter,cb,err) {
-    if(!err) err=onerr;
+    if(!err){ err=onerr;}
     var categories=[];
     var c=this.backend.query(filter, function() {
       categories=Category.load(c);
-      if(cb)cb(categories);
+      if(cb){cb(categories);}
     },err);
     return categories;
   };
 
 
   Category.prototype.get = function(slug,cb,err) {
-    if(!err) err=onerr;
+    if(!err) {err=onerr;}
     var loaded=Category.find({slug:slug});if (loaded){
-      if(cb)cb(loaded);
+      if(cb){cb(loaded);}
       return loaded;
     }
     
     var category=this, c=this.backend.get({category:slug},function() {
       category.wrap(s);
-      if(cb)cb(category);
+      if(cb){cb(category);}
     },err);
     return category;
   };
@@ -198,27 +198,27 @@ function categoryService(config, $location, $rootScope, $routeParams,$resource, 
   Category.prototype.save = function(cb, err){
     //console.log("model",this.photo)
 
-    if(!err) err=onerr;
+    if(!err){ err=onerr;}
     var category=this, s=this.backend.save({category:this.slug},this, function() {
       category.wrap(s);
-      if(cb)cb(category);
+      if(cb){cb(category);}
     },err);
     return category;
   };
 
   Category.prototype.create=function(cat, cb,err){
-    if(!err) err=function(){};
+    if(!err) {err=function(){};}
     var category=this, s = this.backend.save(cat, function() {
       category=category.wrap(s);
-      if(cb)cb(category);
+      if(cb){cb(category);}
     },err);
     return category;
   };    
   
   Category.prototype.remove=function(password, cb,err){
-    if(!err) err=function(){};
+    if(!err) {err=function(){};}
     var category=this, s = this.backend.delete({category:this.slug},{password:password},function() {
-      if(cb)cb(category);
+      if(cb){cb(category);}
     },err);
     return category;
   };    

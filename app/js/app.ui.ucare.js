@@ -1,4 +1,4 @@
-'use strict';
+;(function(angular) {'use strict';
 
 /**
  * @ngdoc directive
@@ -60,7 +60,10 @@ function uploadcareWidget(config, $parse, $timeout, $log) {
 
         // add data binding for hidden inputs
         $scope.onChange({file: file});
-      })
+      });
     }
   };
-};
+}
+
+
+})(window.angular);

@@ -100,7 +100,7 @@
         }
 
       }
-  }
+  };
 
   var _fromType = function(type) {
       var card, i, len;
@@ -117,13 +117,13 @@
   };
 
   return {
-      fromNumber: function(val) { return _fromNumber(val) },
-      fromType: function(val) { return _fromType(val) },
+      fromNumber: function(val) { return _fromNumber(val); },
+      fromType: function(val) { return _fromType(val); },
       defaultFormat: function() { return defaultFormat;},
       defaultInputFormat: function() { return defaultInputFormat;}
-  }
+  };
 
-}])
+}]);
 
 
 })(window.angular);

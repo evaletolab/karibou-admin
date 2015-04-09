@@ -40,38 +40,38 @@ angular.module('app.order.ui', [
     // config is an asynchrone load
     config.shop.then(function(){
       if(config.shop.global.maintenance.active){
-        return  element.html(config.shop.global.maintenance.reason)
+        return  element.html(config.shop.global.maintenance.reason);
       }
 
       var nextShippingDay=order.findNextShippingDay(),
           delta=nextShippingDay.getTime()-Date.now(),
           timer,
-          append = attr['clockdown']||'';
+          append = attr.clockdown||'';
 
-      element.html(append+' '+moment(nextShippingDay).format('dddd D MMMM', 'fr'))
+      element.html(append+' '+moment(nextShippingDay).format('dddd D MMMM', 'fr'));
     });
-  }
+  };
 }])
 
 
 .filter('dateLabel', function () {
    return function(shipping, prefix) {
-        if (!shipping) return "";
-        if (!prefix) prefix="";
+        if (!shipping) {return "";}
+        if (!prefix) {prefix="";}
 
         var date=(shipping.when)?shipping.when:shipping,
-            time=(shipping.time)?' de '+shipping.time:''
+            time=(shipping.time)?' de '+shipping.time:'';
         return  prefix+moment(date).format('ddd DD MMM YYYY', 'fr')+time;
    };
 })
 
 .filter('dateLabelShort', function () {
    return function(shipping, prefix) {
-        if (!shipping) return "";
-        if (!prefix) prefix="";
+        if (!shipping) {return "";}
+        if (!prefix) {prefix="";}
 
         var date=(shipping.when)?shipping.when:shipping,
-            time=(shipping.time)?' de '+shipping.time:''
+            time=(shipping.time)?' de '+shipping.time:'';
         return  prefix+moment(date).format('ddd DD MMM', 'fr')+time;
    };
 })
@@ -79,31 +79,33 @@ angular.module('app.order.ui', [
 
 .filter('orderInitial', function () {
    return function(order) {
-        if (!order||!order.items.length) return "0.0 CHF";
+        if (!order||!order.items.length) {return "0.0 CHF";}
         var price=0.0;
         for (var i in order.items){
-          price+=parseFloat(order.items[i].price)*order.items[i].quantity
+          price+=parseFloat(order.items[i].price)*order.items[i].quantity;
         }
-        return price.toFixed(2)+" CHF"
+        return price.toFixed(2)+" CHF";
    };
 })
 
 
 .filter('orderFees', ['config',function (config) {
    return function(order) {
-        if (!order||!order.items.length) return "0.0 CHF";
+        if (!order||!order.items.length) {return "0.0 CHF";}
 
         var fees=0.0,total=0.0;
-        order.items&&order.items.forEach(function(item){
-          if(item.fulfillment.status!=='failure'){
-            total+=item.finalprice;
-          }
-        });
+        if(order.items){
+          order.items.forEach(function(item){
+            if(item.fulfillment.status!=='failure'){
+              total+=item.finalprice;
+            }
+          });
+        }
 
         //
         // add gateway fees
         for (var gateway in config.shop.order.gateway){
-          gateway=config.shop.order.gateway[gateway]
+          gateway=config.shop.order.gateway[gateway];
           if (gateway.label===order.payment.issuer){
             fees+=(total+config.shop.marketplace.shipping)*gateway.fees;
             break;
@@ -122,14 +124,14 @@ angular.module('app.order.ui', [
 
 .filter('orderTotal', function () {
    return function(order) {
-        if (!order||!order.items.length) return "0.0 CHF";
+        if (!order||!order.items.length) {return "0.0 CHF";}
         var price=0.0;
         for (var i in order.items){
           if(order.items[i].fulfillment.status!=='failure'){
-            price+=parseFloat(order.items[i].finalprice)
+            price+=parseFloat(order.items[i].finalprice);
           }
         }
-        return price.toFixed(2)+" CHF"
+        return price.toFixed(2)+" CHF";
    };
 });
 

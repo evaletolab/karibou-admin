@@ -61,11 +61,11 @@ User.controller('AccountCtrl',[
   '$http',
 
   function (config, $scope, $location, $rootScope, $routeParams, api, user, Map, Cards, shop, $timeout, $http) {
-    $scope.map=new Map()
+    $scope.map=new Map();
     $scope.user=user;
     $scope.Cards=Cards;
-    $scope.config=config
-    $scope.reg={}
+    $scope.config=config;
+    $scope.reg={};
     $scope.users=[];
     $scope.providers=config.providers;
 
@@ -74,13 +74,13 @@ User.controller('AccountCtrl',[
       'mastercard':'mc.jpg',
       'visa':'visa.jpg',
       'postfinance card':'pfc.jpg'
-    }
+    };
 
     // show payment form
     $scope.options={
       showCreditCard:false,
       showPaymentForm:false
-    }
+    };
 
     // default model for modal view
     $scope.modal = {};
@@ -93,10 +93,10 @@ User.controller('AccountCtrl',[
         // remove user from local repository
         for (var i=0;i<$scope.users.length;i++){
           if($scope.users[i].id===user.id)
-            $scope.users.splice(i,1)
+            $scope.users.splice(i,1);
         }
-      })
-    }
+      });
+    };
 
     //
     // check and init the session
@@ -106,33 +106,33 @@ User.controller('AccountCtrl',[
     });
 
     $scope.modalUserDetails=function(user){
-      $scope.modal=user
-    }
+      $scope.modal=user;
+    };
 
     $scope.modalDissmiss=function(){
       $scope.modal = {};
-    }
+    };
 
     //
     // list all users
     // get list of users
     $scope.findAllUsers=function(){
       user.query({}).$promise.then(function(u){
-          $scope.users=u
-      })
-    }
+          $scope.users=u;
+      });
+    };
 
     //
     // login action
     $scope.login= function(email,password){
-      $rootScope.WaitText="Waiting ..."
+      $rootScope.WaitText="Waiting ...";
       user.login({ email: email, password:password, provider:'local' },function(u){
         api.info($scope,"Merci, vous êtes dès maintenant connecté");
 
         //
         // if referer is in protected path?
         if($scope.referrer&&_.find(config.loginPath,function(path){
-            return ($scope.referrer.indexOf(path)!==-1)})){
+            return ($scope.referrer.indexOf(path)!==-1);})){
           return $location.url($scope.referrer);
         }
 
@@ -169,7 +169,7 @@ User.controller('AccountCtrl',[
 
         });
       }
-    }
+    };
 
 
     //
@@ -178,10 +178,10 @@ User.controller('AccountCtrl',[
       var r={email:u.email.address,firstname:u.name.givenName,lastname:u.name.familyName,
             password:u.password.new,confirm:u.password.copy
       };
-      $rootScope.WaitText="Waiting ..."
+      $rootScope.WaitText="Waiting ...";
 
       user.register(r,function(){
-        api.info($scope,"Votre compte à été créé! Une demande de confirmation vous a été envoyée à votre adresse email")
+        api.info($scope,"Votre compte à été créé! Une demande de confirmation vous a été envoyée à votre adresse email");
         $location.url('/account/profile');
       });
     };
@@ -189,7 +189,7 @@ User.controller('AccountCtrl',[
     //
     // create a new shop
     $scope.createShop=function(s){
-      $rootScope.WaitText="Waiting ..."
+      $rootScope.WaitText="Waiting ...";
       shop.create(user,s,function(){
           api.info($scope,"Votre boutique à été créée ",function(){
             if ($scope.activeNavId==='/account/shop')
@@ -203,7 +203,7 @@ User.controller('AccountCtrl',[
     //
     // save action
     $scope.save=function(u){
-      $rootScope.WaitText="Waiting ..."
+      $rootScope.WaitText="Waiting ...";
       user.save(user,function(){
         api.info($scope,"Profil enregistré");
       });
@@ -212,7 +212,7 @@ User.controller('AccountCtrl',[
     //
     // validate user email
     $scope.changePassword=function(email,password){
-      $rootScope.WaitText="Waiting ..."
+      $rootScope.WaitText="Waiting ...";
       password.email=email;
       user.newpassword(password,function(){
         api.info($scope,"Password modifié");
@@ -225,7 +225,7 @@ User.controller('AccountCtrl',[
     //
     // recover user pass
     $scope.recover=function(email){
-      $rootScope.WaitText="Waiting ..."
+      $rootScope.WaitText="Waiting ...";
       user.recover({token:'Zz7YkTpPPp5YFQnCprtc7O9',email:email},function(){
         api.info($scope,"Merci, une information a été envoyé à votre adresse email");
           if (!user.isAuthenticated())
@@ -243,24 +243,24 @@ User.controller('AccountCtrl',[
             user.me(function(u){
               $scope.FormErrors=false;
               var home=(u.email&&u.email.status===true)?
-                '/products':'/account/profile'
+                '/products':'/account/profile';
               $location.url(home);
-            })
+            });
          },function(error){
           api.info($scopeor);
          });
       });
-    }
+    };
 
 
     $scope.addPaymentMethod=function(name,number,csc,expiry){
-      $rootScope.WaitText="Waiting ..."
+      $rootScope.WaitText="Waiting ...";
     if(!expiry){
-      $rootScope.WaitText=false
+      $rootScope.WaitText=false;
       return api.info($scope,"Date non valide!");
     }
     if(!csc){
-      $rootScope.WaitText=false
+      $rootScope.WaitText=false;
       return api.info($scope,"CVC non valide!");
     }
       Stripe.card.createToken({
@@ -271,7 +271,7 @@ User.controller('AccountCtrl',[
         exp_year: expiry.split('/')[1]
       }, function (status, response) {
         if(response.error){
-          $rootScope.WaitText=false
+          $rootScope.WaitText=false;
           return api.info($scope,response.error.message);
         }
         //
@@ -284,44 +284,44 @@ User.controller('AccountCtrl',[
           expiry:response.card.exp_month+'/'+response.card.exp_year
         },function(u){
           api.info($scope,"Votre méthode de paiement a été enregistrée");
-          $rootScope.WaitText=false
+          $rootScope.WaitText=false;
           $scope.options.showCreditCard=false;
-        })
+        });
 
       });      
-    }
+    };
 
 
     $scope.checkPaymentMethod=function(){
-      $rootScope.WaitText="Waiting ..."
-      $scope.methodStatus={}
+      $rootScope.WaitText="Waiting ...";
+      $scope.methodStatus={};
       user.$promise.then(function () {
         user.checkPaymentMethod(function(methodStatus){
           $scope.methodStatus=methodStatus;
-        })
-      })
-    }
+        });
+      });
+    };
 
     $scope.deletePaymentMethod=function(alias,cvc,expiry){
-      $rootScope.WaitText="Waiting ..."
+      $rootScope.WaitText="Waiting ...";
       user.deletePaymentMethod(alias,function(u){
         api.info($scope,"Votre méthode de paiement a été supprimé");
-      })
-    }
+      });
+    };
 
     $scope.ecommerceForm=function(){
-      $rootScope.WaitText="Waiting ..."
+      $rootScope.WaitText="Waiting ...";
       user.pspForm(function(u){
         
-      })
-    }
+      });
+    };
 
     $scope.updateStatus=function(id,status){
-      $rootScope.WaitText="Waiting ..."
+      $rootScope.WaitText="Waiting ...";
       user.updateStatus(id,status,function(){
         api.info($scope,"Le status à été modifié");
-      })
-    }
+      });
+    };
 
 
     // Functions
@@ -344,7 +344,7 @@ User.controller('AccountCtrl',[
             targetWin.close();
             $scope.FormErrors=false;
             var home=(u.email&&u.email.status===true)?
-              '/products':'/account/profile'
+              '/products':'/account/profile';
             $location.url(home);
           },function(e){
             // still not connected
@@ -352,7 +352,7 @@ User.controller('AccountCtrl',[
             $timeout(tick, 2000);
           });
 
-      };
+      }
       $timeout(tick, 3000);
 
     };
@@ -378,7 +378,7 @@ User.controller('AccountCtrl',[
         user.geo.addMarker(user.addresses.length, {lat:address.geo.lat,lng:address.geo.lng, message:fullAddress});
         //angular.extend($scope,user.geo.getMap());
 
-      })
+      });
     };
 
 

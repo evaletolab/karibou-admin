@@ -10,7 +10,7 @@ angular.module('app.order')
 
 //
 // implement cart
-cartFactory.$inject=['config','$timeout','$rootScope','$window','api']
+cartFactory.$inject=['config','$timeout','$rootScope','$window','api'];
 function cartFactory(config, $timeout,$rootScope,$window, api) {
   var defaultCart={
       namespace:"kariboo_cart",
@@ -41,7 +41,7 @@ function cartFactory(config, $timeout,$rootScope,$window, api) {
 
   config.shop.then(function () {
     defaultCart.shippingFlatRate=config.shop.marketplace.shipping;
-  })
+  });
 
 
   var localStorage;
@@ -59,29 +59,29 @@ function cartFactory(config, $timeout,$rootScope,$window, api) {
   
   var Cart = function(data) {
     this.items = [];
-    this.config={shipping:0,address:undefined, payment:undefined}
-  }
+    this.config={shipping:0,address:undefined, payment:undefined};
+  };
 
   Cart.prototype.clear=function(product){
     for(var i=0;i<this.items.length;i++){
       if(this.items[i].sku===product.sku){
-        this.items.splice(i,1)
+        this.items.splice(i,1);
         return this.items;
       }
     }
     
     return this.save();
-  }
+  };
 
   Cart.prototype.remove=function(product,silent){
     $rootScope.CartText="Waiting";
-    $timeout(function() { $rootScope.CartText=false }, 1000);
+    $timeout(function() { $rootScope.CartText=false; }, 1000);
 
     if(!silent){
       var title=(product.pricing&&product.pricing.part)?
               product.pricing.part+", "+product.title+" a été enlevé du panier":
-              product.title+" a été enlevé du panier"
-      api.info($rootScope,title,2000)
+              product.title+" a été enlevé du panier";
+      api.info($rootScope,title,2000);
     }
 
     for(var i=0;i<this.items.length;i++){
@@ -90,18 +90,18 @@ function cartFactory(config, $timeout,$rootScope,$window, api) {
 
         //
         // update the finalprice
-        this.items[i].finalprice=this.items[i].price*this.items[i].quantity
+        this.items[i].finalprice=this.items[i].price*this.items[i].quantity;
 
         if(this.items[i].quantity===0){
-          this.items.splice(i,1)
+          this.items.splice(i,1);
         }
-        this.save()
+        this.save();
         return this.items;
       }
     }
     
     return this.save();
-  }
+  };
 
   Cart.prototype.addList=function(products){
     var total=0;
@@ -115,12 +115,12 @@ function cartFactory(config, $timeout,$rootScope,$window, api) {
       api.info($rootScope,total+" produits de la liste ont été ajoutés dans le panier.",4000);      
     else
       api.info($rootScope," Seul les produits disponibles peuvent être ajoutés dans le panier.",4000);      
-  }
+  };
 
   Cart.prototype.add=function(product, silent){
     if(!silent){
       $rootScope.CartText="Waiting";
-      $timeout(function() { $rootScope.CartText=false }, 1000);
+      $timeout(function() { $rootScope.CartText=false; }, 1000);
       api.info($rootScope,product.pricing.part+", "+product.title+" a été ajouté dans le panier",2000);
     }
 
@@ -136,7 +136,7 @@ function cartFactory(config, $timeout,$rootScope,$window, api) {
         this.items[i].quantity++;
         //
         // update the finalprice
-        this.items[i].finalprice=this.items[i].price*this.items[i].quantity
+        this.items[i].finalprice=this.items[i].price*this.items[i].quantity;
 
         return this.items;
       }
@@ -159,46 +159,46 @@ function cartFactory(config, $timeout,$rootScope,$window, api) {
       quantity:1
     });
     return this.save();
-  }
+  };
 
   Cart.prototype.setError=function(errors){
     var sku, item;
 
     for(var i=0;i<errors.length;i++){
       sku=Object.keys(errors[i])[0];
-      item=this.findBySku(sku)
+      item=this.findBySku(sku);
       if (item)item.error=errors[i][sku];
     }
-  }
+  };
 
 
 // clear error 
   Cart.prototype.clearErrors=function(){
     for(var i=0;i<this.items.length;i++){
-      if(this.items[i].error )this.items[i].error=undefined
+      if(this.items[i].error )this.items[i].error=undefined;
     }
-  }
+  };
 
 
   Cart.prototype.hasError=function(){
     for(var i=0;i<this.items.length;i++){
       if(this.items[i].error){
-        return true
+        return true;
       }
     }
     return false;
-  }
+  };
   
 
   Cart.prototype.findBySku=function(sku){
     var product = false;
     this.items.forEach(function (item) {
       if(item.sku==sku){
-        product=item
+        product=item;
       }
     });
     return product;      
-  }
+  };
 
   Cart.prototype.quantity=function(){
     var quantity = 0;
@@ -206,7 +206,7 @@ function cartFactory(config, $timeout,$rootScope,$window, api) {
       quantity += item.quantity;
     });
     return quantity;
-  }
+  };
 
   Cart.prototype.total=function(){
     var total = 0;
@@ -214,44 +214,44 @@ function cartFactory(config, $timeout,$rootScope,$window, api) {
       total += (item.price*item.quantity);
     });
     return (Math.round(total*20)/20);
-  }
+  };
 
   Cart.prototype.grandTotal=function(){
     var total=this.total();
-    var fees=this.tax()*(total+this.shipping())
+    var fees=this.tax()*(total+this.shipping());
     total=(total + fees + this.shipping());
     // Rounding up to the nearest 0.05
     return (Math.round(total*20)/20).toFixed(2);
 
-  }
+  };
 
   Cart.prototype.shipping=function(){
     return defaultCart.shippingFlatRate;
-  }
+  };
 
   Cart.prototype.tax=function(){
     return defaultCart.tax;
-  }
+  };
 
   Cart.prototype.taxName=function(){
     return defaultCart.taxName;
-  }
+  };
 
   Cart.prototype.setTax=function(tax, label){
     defaultCart.taxName=label;
     defaultCart.tax=tax;
-  }    
+  };    
 
   Cart.prototype.checkout=function(){
-    alert("Oooops ça marche pas encore...")
-  }
+    alert("Oooops ça marche pas encore...");
+  };
 
 
 
   Cart.prototype.empty=function(){
     this.items=[];      
-    this.save()
-  }
+    this.save();
+  };
 
 
     // storage
@@ -261,7 +261,7 @@ function cartFactory(config, $timeout,$rootScope,$window, api) {
     // sessionStorage[defaultCart.namespace]=angular.toJson(items)
     localStorage.setItem(defaultCart.namespace, angular.toJson(this.items));
     return this;
-  }
+  };
 
   Cart.prototype.load= function () {
     if(!localStorage)return this;
@@ -270,9 +270,9 @@ function cartFactory(config, $timeout,$rootScope,$window, api) {
       this.items = angular.fromJson(localStorage.getItem(defaultCart.namespace ));
       this.items.forEach(function (item) {
         if(item.title && item.sku){
-          verifyItem.push(item)
+          verifyItem.push(item);
         }
-      })
+      });
       this.items=verifyItem;
 
     } catch (e){
@@ -280,10 +280,10 @@ function cartFactory(config, $timeout,$rootScope,$window, api) {
     }
 
     if (!this.items) {
-      this.items=[]
+      this.items=[];
     }
     return this;
-  }
+  };
 
   var _cart=new Cart().load();
   return _cart;

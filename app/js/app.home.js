@@ -47,8 +47,8 @@ Home.controller('HomeCtrl', [
   function ($scope, $route, $location, $rootScope, $routeParams, $q, config, api, category, user, shop, product,Map) {
     var filter={sort:'created'};
     $scope.user = user;
-    $scope.map=new Map()
-    $scope.infinite={}
+    $scope.map=new Map();
+    $scope.infinite={};
     $scope.product=false;
     
 
@@ -57,45 +57,45 @@ Home.controller('HomeCtrl', [
     //
     // generate a set of geo addresses to display map
     $scope.shopsAddress=function(shops){
-      if(!shops)return 
-      var addresses=[]
+      if(!shops){return;}
+      var addresses=[];
       for (var i in shops){
         // for arrays
         if(shops[i].address&&shops[i].address.geo){
-          addresses.push(shops[i].address)
+          addresses.push(shops[i].address);
           continue;
         }
 
         // for groups
         for (var j in shops[i]){
           if(shops[i][j].address&&shops[i][j].address.geo){
-            addresses.push(shops[i][j].address)
+            addresses.push(shops[i][j].address);
           }
         }
       }
       //
       // 
-      return addresses
-    }
+      return addresses;
+    };
 
 
     //
     // use this to group view by Category
-    $scope.currentCategory;
+    $scope.currentCategory=undefined;
     $scope.groupByCategory = function(cat) {
-      var catObj=category.find({name:cat})        
+      var catObj=category.find({name:cat});        
       var showCategory = (catObj!=$scope.currentCategory); 
        $scope.currentCategory = catObj;
       return showCategory;
-    }     
+    };     
 
 
     $scope.findAllUserLoves=function(){
-      $scope.products=[]
+      $scope.products=[];
       product.findLove(function(products){
-        $scope.products=products
+        $scope.products=products;
       });
-    }    
+    };    
 
     $scope.loadHome=function(){
       var deferred = $q.defer();
@@ -108,7 +108,7 @@ Home.controller('HomeCtrl', [
         
         $scope.products=product.findByCategory($routeParams.category,filter,function(products){
           $scope.items=$scope.products=products;
-          deferred.resolve(products)
+          deferred.resolve(products);
         });
         return deferred.promise;
       }
@@ -122,8 +122,8 @@ Home.controller('HomeCtrl', [
         
         $scope.shops=shop.findByCatalog($routeParams.catalog,filter,function(shops){
           $scope.items=$scope.shops=shops;
-          $scope.addresses=$scope.shopsAddress(shops)
-          deferred.resolve(shops)
+          $scope.addresses=$scope.shopsAddress(shops);
+          deferred.resolve(shops);
         });
         return deferred.promise;
       }
@@ -135,8 +135,8 @@ Home.controller('HomeCtrl', [
         filter={sort:'created',group:'catalog.name' };
         $scope.shops=shop.home(filter,function(shops){
           $scope.items=$scope.shops=shops;
-          $scope.addresses=$scope.shopsAddress(shops)
-          deferred.resolve(shops)
+          $scope.addresses=$scope.shopsAddress(shops);
+          deferred.resolve(shops);
         });
         return deferred.promise;
       } 
@@ -144,29 +144,29 @@ Home.controller('HomeCtrl', [
       filter={sort:'categories.weight',group:'categories.name', status:true, home:true, available:true};
       $scope.products=product.home(null,filter,function(products){
         $scope.items=$scope.products=products;
-        deferred.resolve(products)
+        deferred.resolve(products);
       });
       return deferred.promise;
-    }
+    };
 
     $scope.loadNextPage=function(){
       var promise=$q.when(true);
       if(!$scope.items){
-       promise=$scope.loadHome()
+       promise=$scope.loadHome();
       } 
       promise.then(function(){
         var i=0;
         Object.keys($scope.items).every(function(key,i){
           if($scope.items[key].length && !$scope.items[key].loaded){
             $scope.items[key].loaded=true;
-            $scope.infinite[key]=$scope.items[key]
+            $scope.infinite[key]=$scope.items[key];
             return (i++<1);
           }
           return true;
-        })
+        });
 
-      })
-    }
+      });
+    };
     //var promise=$scope.loadHome()
 
 

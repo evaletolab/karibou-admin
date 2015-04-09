@@ -4,7 +4,7 @@
 //
 // Define the application level controllers
 angular.module('app.root', ['app.config','app.user'])
-  .controller('AppCtrl',appCtrl)
+  .controller('AppCtrl',appCtrl);
 
 //
 // the AppCtrl is used in index.html (see app/assets/index.html)
@@ -15,7 +15,7 @@ function appCtrl($scope, $rootScope, $window,  $location, $cookies, $routeParams
   $scope.cart = cart;
   $scope.categories = [];
   $scope.config=config;
-  $scope.cover=config.cover        
+  $scope.cover=config.cover;        
 
 
 
@@ -54,9 +54,9 @@ function appCtrl($scope, $rootScope, $window,  $location, $cookies, $routeParams
   //
   // clear cache
   $rootScope.$on('$viewContentLoaded', function() {
-    if($window.ga && config.API_SERVER.indexOf('localhost')==-1){
+    if($window.ga && config.API_SERVER.indexOf('localhost')==-1 && config.API_SERVER.indexOf('evaletolab')==-1){
       if(!user||(user && !user.isAdmin()))
-      $window.ga('send', 'pageview', { page: $location.path() });        
+      {$window.ga('send', 'pageview', { page: $location.path() });}        
     }
   });
 
@@ -77,7 +77,7 @@ function appCtrl($scope, $rootScope, $window,  $location, $cookies, $routeParams
       var title="Karibou Genève - un marché alimentaire composé d'artisans, de producteurs et de petits commerçants";
       $rootScope.title = (current.$$route.title)?current.$$route.title:title;
 
-    })
+    });
   });
 
 
@@ -100,8 +100,8 @@ function appCtrl($scope, $rootScope, $window,  $location, $cookies, $routeParams
     // $scope.options.welcome=$cookies.welcome=true;
     // var localStorage=$window['localStorage'];
     // $location.path('/')
-    $scope.locationReferrer('/')
-  }
+    $scope.locationReferrer('/');
+  };
 
 
   //
@@ -113,59 +113,59 @@ function appCtrl($scope, $rootScope, $window,  $location, $cookies, $routeParams
       if (browsers[key].test(userAgent)) {
         return key;
       }
-    };
+    }
     // special case for IE>=11
     if((new RegExp("Trident/.*rv:([0-9]{1,}[\.0-9]{0,})").exec(navigator.userAgent))&&(navigator.appName == 'Netscape')){
       return 'ie';
     }
-  }
+  };
 
 
   //
   // this is an helper for avoid the default sorting by ng-repeat
   $scope.keys=function(map){
-    if(!map)return [];
+    if(!map){return [];}
     return Object.keys(map);
-  }
+  };
 
 
   $rootScope.locationReferrer=function(defaultUrl){
-    $location.path($rootScope.referrer?$rootScope.referrer:defaultUrl)
-  }
+    $location.path($rootScope.referrer?$rootScope.referrer:defaultUrl);
+  };
 
 
 
   $rootScope.showMenuOnSwipe=function(){
     //$('nav.site-nav').click();
-  }
+  };
 
   $rootScope.hideMenuOnSwipe=function(){
     //$('nav.site-nav').click();
-  }
+  };
 
 
 
 
   $scope.toggle = function (params,clear) {
     if(clear){
-      $location.search({})
+      $location.search({});
     }
     angular.forEach(params, function (v, k) {
         var t = ($location.search()[k] && $location.search()[k] === v) ? null : v;
-        $location.search(k, t)
+        $location.search(k, t);
     });
-  }
+  };
 
   $scope.getToggleClass=function(key,value, clazz){
-    if(!clazz)clazz='active'
+    if(!clazz){clazz='active';}
     // for '/'
     if(!key) {
       return (Object.keys($routeParams).length===0)?clazz:'';
     }
 
     // search options
-    return ($routeParams[key]==value)?clazz:''
-  }
+    return ($routeParams[key]==value)?clazz:'';
+  };
 
   // getClass compares the current url with the id.
   // If the current url starts with the id it returns 'active'
@@ -174,7 +174,7 @@ function appCtrl($scope, $rootScope, $window,  $location, $cookies, $routeParams
   //  // current url is '/products/1'
   //  getClass('/products'); // returns 'active'
   $scope.getClass = function (id, or) {
-    if (!$scope.activeNavId)return '';
+    if (!$scope.activeNavId){return '';}
     if ($scope.activeNavId.substring(0, id.length) === id) {
       return 'active';
     }
@@ -187,14 +187,14 @@ function appCtrl($scope, $rootScope, $window,  $location, $cookies, $routeParams
 
 
   $scope.getCover=function(){
-    $scope.cover=config.cover        
+    $scope.cover=config.cover;        
     var template='/partials/cover.html';
 
 
     if ($routeParams.category){
        var c=category.findBySlug($routeParams.category);
-       if(c&&c.cover) $scope.cover=c.cover;
-       template='/partials/product/cover.html'
+       if(c&&c.cover) {$scope.cover=c.cover;}
+       template='/partials/product/cover.html';
     }
 
     if(user.isAuthenticated())
@@ -202,20 +202,20 @@ function appCtrl($scope, $rootScope, $window,  $location, $cookies, $routeParams
 
 
     return template;
-  }
+  };
 
   $scope.showOverview=function(){
-    $location.path('/account/overview')
-  }
+    $location.path('/account/overview');
+  };
 
   $scope.showOrder=function(){
-    $location.path('/account/orders')
+    $location.path('/account/orders');
 
-  }
+  };
 
   $scope.showLove=function(){
-    $location.path('/account/love')
-  }
+    $location.path('/account/love');
+  };
 
   //
   // logout (global function)
@@ -228,38 +228,38 @@ function appCtrl($scope, $rootScope, $window,  $location, $cookies, $routeParams
   //
   // validate user email
   $scope.verify=function(user){
-    $rootScope.WaitText="Waiting ..."
+    $rootScope.WaitText="Waiting ...";
     user.validateEmail(function(validate){
       api.info($scope,"Merci, une confirmation a été envoyée à votre adresse email");
       if (!user.isAuthenticated())
-        $location.url('/');
+        {$location.url('/');}
     });
-  }
+  };
   
   //
   // the size of shop and product cart
   $scope.getFormat=function(index){      
-    if (index===undefined) return 'c2';
+    if (index===undefined) {return 'c2';}
     return (!index)?"c3":"c2";
-  }    
+  } ;   
 
 
   $scope.toggleCart=function(sel){
     $scope.options.cart=!$scope.options.cart;
-  }
+  };
   
   $scope.toggleSidebar=function(sel){
     $scope.options.sidebar=!$scope.options.sidebar;
     
-  }
+  };
 
   $scope.addCart=function (item) {
-    cart.add(item, true)    
-  }
+    cart.add(item, true);    
+  };
 
   $scope.removeCart=function (item) {
-    cart.remove(item, true)    
-  }
+    cart.remove(item, true);
+  };
 
 }
 

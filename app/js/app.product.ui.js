@@ -41,18 +41,18 @@ angular.module('app.product.ui', [
         return Math.round(val);
       }
       var N=5;
-      return (Math.round(val / N) * N)
+      return (Math.round(val / N) * N);
    }
    return function(weight,def) {
-        if(!def)def=''
+        if(!def)def='';
         if (!weight) return "";
         var m=weight.match(/~([0-9.,]+) ?(.+)/);
         if(!m&&def)m=def.match(/~([0-9.,]+) ?(.+)/);
         if(!m||m.length<2)return '';
         var w=parseFloat(m[1]), unit=(m[2]).toLowerCase();
-        return 'entre '+roundN(w-w*.07)+unit+' et '+roundN(w+w*.07)+''+unit;
+        return 'entre '+roundN(w-w*0.07)+unit+' et '+roundN(w+w*0.07)+''+unit;
    };
-})
+});
 
 })(window.angular);
 

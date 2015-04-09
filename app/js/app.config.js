@@ -73,7 +73,7 @@ function appConfig($q, $resource, $sce, API_SERVER) {
       angular.extend(defaultConfig.shop,serverSettings);
 
 
-      deferred.resolve(defaultConfig)
+      deferred.resolve(defaultConfig);
   });
 
   return defaultConfig;
@@ -92,8 +92,8 @@ function ConfigCtrl($scope,$resource,config,api){
   $scope.saveConfig=function(){
     $dao.save(config.shop.global,function(){
       api.info($scope,"Configuration sauvée");
-    })
-  }
+    });
+  };
 
 }
 

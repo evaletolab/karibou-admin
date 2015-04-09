@@ -59,10 +59,10 @@ Shop.controller('ShopCtrl',[
       shop.remove(user,password,function(){
           api.info($scope,"Votre boutique a été définitivement supprimée!",2000,function(){
             $location.url('/account');  
-            user.shops.pop(shop)          
+            user.shops.pop(shop);          
           });
       });
-    }
+    };
 
     
     // init
@@ -80,7 +80,7 @@ Shop.controller('ShopCtrl',[
       shop.publish(function(){
           api.info($scope,"Une demande d'activation à bien été envoyée! Vous serez contacté dans les plus brefs délais");        
       });
-    }
+    };
 
     $scope.uploadImageError=function(error){
         //http://ucarecdn.com/c1fab648-f6b7-4623-8070-798165df5ca6/-/resize/300x/
@@ -88,7 +88,7 @@ Shop.controller('ShopCtrl',[
           return api.info($scope,error);
         }
 
-    }
+    };
     
 
 
@@ -96,30 +96,30 @@ Shop.controller('ShopCtrl',[
     // ask a question
     $scope.modal=function(target){
       angular.element('#ask').modal({backdrop:false});
-    }
+    };
     $scope.ask=function(content){
 
       shop.ask(content, function(){
           api.info($scope,"Votre question à bien été envoyé! Vous serez contacté dans les plus brefs délais");        
           
       });
-    }
+    };
     
     $scope.waitingStatus=function(){
-      return ((typeof shop.status)==='number')
-    }
+      return ((typeof shop.status)==='number');
+    };
 
     $scope.activeMarket=function(m){
       return (shop.marketplace&&(shop.marketplace.indexOf(m)>-1));
-    }
+    };
     
     $scope.toggleMarket=function(m){
-      var idx=shop.marketplace.indexOf(m)
+      var idx=shop.marketplace.indexOf(m);
       if(idx>-1)
         shop.marketplace.splice(idx,1);
       else
-        shop.marketplace.push(m)
-    }
+        shop.marketplace.push(m);
+    };
 
 
     //
@@ -142,7 +142,7 @@ Shop.controller('ShopCtrl',[
         $scope.map.addMarker(1, {lat:address.geo.lat,lng:address.geo.lng, message:fullAddress});
         // angular.extend($scope,map.getMap());
 
-      })
+      });
     };    
 
     //
@@ -199,7 +199,7 @@ Shop.factory('shop', [
       });
 
       angular.extend(this, defaultShop, data);
-    }
+    };
 
     //
     // default behavior on error
@@ -219,7 +219,7 @@ Shop.factory('shop', [
         for (var group in s){
           shops[group]=[];
           if (Array.isArray(s[group]) && typeof s[group][0]==="object"){
-            shops[group]=self.wrapArray(s[group])
+            shops[group]=self.wrapArray(s[group]);
           }
         }
         if(cb)cb(shops);
@@ -230,7 +230,7 @@ Shop.factory('shop', [
     Shop.prototype.query = function(filter,cb,err) {
       if(!err) err=this.onerr;
       var shops, s,self=this, params={};
-      angular.extend(params, filter)
+      angular.extend(params, filter);
       s=this.backend.query(params, function() {
         shops=self.wrapArray(s);
         if(cb)cb(shops);
@@ -241,7 +241,7 @@ Shop.factory('shop', [
     Shop.prototype.findByCatalog = function(cat, filter,cb,err) {
       if(!err) err=this.onerr;
       var shops, s,self=this;
-      angular.extend(params, filter,{urlpath:'category',action:cat})      
+      angular.extend(params, filter,{urlpath:'category',action:cat});      
       s=this.backend.query(filter, function() {
         shops=self.wrapArrayp(s);
         if(cb)cb(shops);
@@ -254,7 +254,7 @@ Shop.factory('shop', [
       var err=this.onerr, self=this;      
       var s=this.backend.get({urlpath:urlpath},function() {
         checkimg(s);
-        self.wrap(s)
+        self.wrap(s);
         if(cb)cb(self);
       },err);
       return this;
