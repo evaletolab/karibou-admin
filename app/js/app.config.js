@@ -27,6 +27,8 @@ function appConfig($q, $resource, $sce, API_SERVER) {
     // storage:"//karibou-filepicker.s3-website-eu-west-1.amazonaws.com/",
     storage:"//s3-eu-west-1.amazonaws.com/karibou-filepicker/",
 
+    uploadcare:'b51a13e6bd44bf76e263',
+
     staticMapKey:"AIzaSyD5w46BmWX6hX-uJ2yMycS_cRb2HRvDXQU",
     
     cover:'img/localfood.jpg',

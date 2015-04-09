@@ -166,6 +166,7 @@ function OrderAdminCtrl($scope,$routeParams, $location, api, order, user, produc
   $scope.updateItem=function(oid,item,fulfillment){
     for (var o in $scope.orders){
       if($scope.orders[o].oid===oid){
+        console.log('update',oid,item)
         return $scope.orders[o].updateItem(item,fulfillment).$promise.then(function(){
           api.info($scope,"Statut commande enregistré",2000);
           item.fulfillment.status=fulfillment;

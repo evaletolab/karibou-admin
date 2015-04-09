@@ -24,6 +24,7 @@
     "raven-js": "~1.1.x",
     "ngInfiniteScroll": "~1.2.x",
     "angular-touch": "1.3.x",
-    "angular-cms": "https://github.com/evaletolab/angular-cms/tarball/master"
+    "angular-cms": "https://github.com/evaletolab/angular-cms/tarball/master",
+    "uploadcare": "~2.0.6"
   }
 }

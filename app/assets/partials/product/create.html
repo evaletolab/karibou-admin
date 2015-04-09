@@ -192,7 +192,20 @@
 
                 <div class="col-xs-12" style="margin-left:20%">
                   <!-- Photo -->
-                      <button type="button" id="image" name="image" class=" btn btn-info btn-lg " ng-disabled="!product" ng-click="uploadImage(product,'front')" style="width:210px">Choisir une photo</button>
+                  <uploadcare-widget
+                    ng-model="product.photo.url"
+                    data-locale="fr"
+                    data-tabs="file url facebook flickr"
+                    data-images-only="true"
+                    data-path-value="true"
+                    data-preview-step="true"
+                    data-clearable="true"
+                    data-multiple="false"
+                    data-crop="free"
+                    data-max-size-hide="153600"
+                    on-upload-error="uploadImageError(error)"
+                    value="{{product.photo.url}}"
+                   />
                 </div>
                 
 

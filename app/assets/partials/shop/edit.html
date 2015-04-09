@@ -53,14 +53,47 @@
                       <div class="form-group clearfix ">
                           <label class="control-label">Photos de votre boutique</label>
                           <div class="">
-                            <button type="input" class="btn btn-primary btn-lg btn-block" ng-click="uploadFgPhoto(shop)">photo de la boutique</button>
-                            <img ng-src="{{shop.photo.fg| placehold:'160x160&text=la boutique'}}" class="img-rounded shop">
+
+                            <uploadcare-widget
+                              ng-model="shop.photo.fg"
+                              data-locale="fr"
+                              data-tabs="file url facebook flickr"
+                              data-images-only="true"
+                              data-path-value="true"
+                              data-preview-step="true"
+                              data-clearable="true"
+                              data-multiple="false"
+                              data-crop="free"
+                              data-max-size-hide="153600"
+                              data-on-upload-error="uploadImageError(error)"
+                              value="{{shop.photo.fg}}"
+                             ></uploadcare-widget>
+
+<!--                             <button type="input" class="btn btn-primary btn-lg btn-block" ng-click="uploadFgPhoto(shop)">photo de la boutique</button>
+ -->                            <img ng-src="{{shop.photo.fg| placehold:'160x160&text=la boutique'}}" class="img-rounded shop">
 
                           </div>
+                          <hr/>
 
+                          <label class="control-label">Photos de l'équipe</label>
                           <div class="">
-                            <button type="input" class="btn btn-primary btn-lg btn-block" ng-click="uploadOwnerPhoto(shop)">photo de l'équipe</button>
-                            <img ng-src="{{shop.photo.owner | placehold:'160x160&text=l`équipe'}}"  class="img-circle owner" style="height:120px;margin-top:10px"/>
+                            <uploadcare-widget
+                              ng-model="shop.photo.owner"
+                              data-locale="fr"
+                              data-tabs="file url facebook flickr"
+                              data-images-only="true"
+                              data-path-value="true"
+                              data-preview-step="true"
+                              data-clearable="true"
+                              data-multiple="false"
+                              data-crop="free"
+                              data-max-size-hide="153600"
+                              value="{{shop.photo.owner}}"
+                             ></uploadcare-widget>
+
+<!--                             <button type="input" class="btn btn-primary btn-lg btn-block" ng-click="uploadOwnerPhoto(shop)">photo de l'équipe</button>
+ -->                            <img ng-src="{{shop.photo.owner | placehold:'160x160&text=l`équipe'}}"  class="img-circle owner" style="height:120px;margin-top:10px"/>
+                          <hr/>
 
                           </div>
                       </div> 

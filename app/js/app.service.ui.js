@@ -161,14 +161,17 @@ UI.directive('gaSend', ['$parse','$window','config','user',function($parse,$wind
   return function(scope, element, attr) {
     var o = $parse(attr['gaSend'])();
     //
-    // send gg analitycs
-    if($window.ga && config.API_SERVER.indexOf('localhost')==-1){
+    // not always send gg analitycs
+    if($window.ga && config.API_SERVER.indexOf('localhost')==-1 && config.API_SERVER.indexOf('evaletolab')==-1){
       if(!$window._gaUserId && user.isAuthenticated()){
         $window._gaUserId=user.display();
         $window.ga('set', 'userId', $window._gaUserId);
       }
 
       element.click(function(){
+          if(user.isAdmin()){
+            return;
+          }
           $window.ga('send', 'event', o.category, o.action);        
           // if(console)console.log('ga',o)
       })

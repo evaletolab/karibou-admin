@@ -82,50 +82,14 @@ Shop.controller('ShopCtrl',[
       });
     }
 
-    //
-    // upload foreground photo 
-    $scope.uploadFgPhoto=function(shop){
-      api.uploadfile($scope, {},function(err,fpfile){
-        if(err){
-          api.info($scope,"l'opération à été anullé");
-          return false;
+    $scope.uploadImageError=function(error){
+        //http://ucarecdn.com/c1fab648-f6b7-4623-8070-798165df5ca6/-/resize/300x/
+        if(error){
+          return api.info($scope,error);
         }
-        //
-        // FIXME
-        $log.info("upload fg",shop,fpfile,err,shop.photo)
-        if (!shop.photo)shop.photo={};
-        shop.photo.fg=fpfile.url;
-        shop.photo.fg=(config.storage&&fpfile.key)?config.storage+fpfile.key:fpfile.url;      
-        shop.save(function(s){
-            api.info($scope,"Votre photo a été enregistrée!");            
-        });
-        
-      });
+
     }
-        
-    //
-    // upload owner photo 
-    $scope.uploadOwnerPhoto=function(shop){
-      api.uploadfile($scope, {},function(err,fpfile){
-        if(err){
-          api.info($scope,"l'opération à été anullé");
-          return false;
-        }
-        var filter='/convert?w=260&fit=scale';
-        //
-        // FIXME
-        if(console)console.log("upload ownner",shop)
-        if (!shop.photo)shop.photo={};
-        shop.photo.owner=fpfile.url+filter;
-        shop.photo.owner=(config.storage&&fpfile.key)?config.storage+fpfile.key:fpfile.url;      
-        shop.save(function(s){
-            api.info($scope,"Votre photo a été enregistrée!");            
-            //elem.find('img.photo-owner').attr("src",FPFile.url+filter);
-            
-        });
-        
-      });
-    }
+    
 
 
     //

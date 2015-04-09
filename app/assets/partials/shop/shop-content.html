@@ -31,8 +31,8 @@
         <!-- <div ng-include="'/partials/shop/edit.html'"></div> -->
 
 
-        <article  ng-repeat="(group, _products) in products"  > 
-          <h4 class="article-group-title black ">
+        <article  ng-repeat="(group, _products) in products"  ng-if="_products.length"> 
+          <h4 class="article-group-title black " >
             {{group}}
             <i class="{{category.find({name:group}).image||''}} {{category.find({name:group}).color||gray}}"></i>
           </h4>
@@ -100,7 +100,7 @@
               <br>
               <abbr title="Phone">T:</abbr> <a href="tel:{{shop.address.phone|clean}}">{{shop.address.phone}}</a>
               <p class=" " ng-show="shop.location||shop.url">
-                <abbr title="www">www:</abbr> <a ng-show="shop.url"  href="{{shop.url}}" >{{shop.url}}</a>
+                <a ng-show="shop.url"  href="{{shop.url}}" >{{shop.url}}</a>
               </p>
 
           </address>

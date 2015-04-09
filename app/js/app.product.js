@@ -184,18 +184,12 @@ Product.controller('ProductCtrl',[
     
 
 
-    $scope.uploadImage=function(product, imgKey){
-      api.uploadfile($scope, {},function(err,fpfile){
-        if(err){
-          api.info($scope,err.toString());
-          return false;
+    $scope.uploadImageError=function(error){
+        //http://ucarecdn.com/c1fab648-f6b7-4623-8070-798165df5ca6/-/resize/300x/
+        if(error){
+          return api.info($scope,error);
         }
-        if(!product.photo)product.photo={}
-        //product.photo.url=fpfile.url;        
-        product.photo.url=(config.storage&&fpfile.key)?config.storage+fpfile.key:fpfile.url;
 
-      });
-      return false;
     }
     
     $scope.productDetails=function(){
@@ -203,12 +197,6 @@ Product.controller('ProductCtrl',[
       if (product.details.bio) {
         coma=detail="bio";        
       }
-      /**
-      if (product.details.gluten){ 
-        if(coma)detail+=", "
-        detail+="sans gluten";
-      }
-      */
       return detail;
     }    
     
