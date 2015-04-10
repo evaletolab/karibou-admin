@@ -64,10 +64,15 @@
 }
 
 .popupcontent .price .part{
-   font-size:35%;
-   line-height: 12px;
-   color: #eee;
- }
+  font-size: 35%;
+  line-height: 12px;
+  color: #666;
+  border: 1px solid black;
+  padding: 2px;
+  margin-right: 6px;
+  background-color: rgba(255, 255, 255, 0.73);
+  text-shadow: none;
+}
 
 .popupcontent .price .btn{
   width: 98%
@@ -243,9 +248,7 @@
 
   .popupcontent .price .part{
     clear: both;
-    display: block;
-    text-align: center;
-    margin-bottom: 5px;
+    display: inline-block;
   }
 
 }

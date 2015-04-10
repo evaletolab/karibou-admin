@@ -45,6 +45,7 @@ function uploadcareWidget(config, $parse, $timeout, $log) {
       $scope.widget.onChange(function(file) {
         if(file){
           file.done(function(fileInfo) {
+            console.log('--------------',fileInfo)
             // $timeout(function() {
             //   $parse($attrs.ngModel).assign($scope.$parent, '//ucarecdn.com/'+fileInfo.uuid+'/');
             // },200)

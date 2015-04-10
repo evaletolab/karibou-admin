@@ -43,8 +43,8 @@
 
             <!-- SHOULD BE INLINED IN PHONE -->
             <div class=" em" >{{product.pricing.part}}</div>
-            <div class="part">{{product.pricing.part|portion}}</div>
-
+            <div class="part" ng-show="product.pricing.part[0]==='~'">{{product.pricing.part|portion}}</div>
+            <div class="part" ng-show="product.pricing.part.indexOf('gr')!==-1">Fr {{product.pricing.part|portionBase:product.getPrice()}} / 100gr</div>
             <!-- ACTIONS -->
             <button class="btn btn-danger btn-lg " ng-click="love(product)">
               <i ng-class="{true:'fa fa-heart',false:'fa fa-heart-empty'}[user.hasLike(product)]"></i>&nbsp;J'aime
