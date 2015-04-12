@@ -413,10 +413,10 @@
 
           <!-- ORDER -->
           <div  class="row wrapheight" >
-            <div ng-show="config.shop.global.maintenance.active" >
+            <div ng-show="config.shop.maintenance.active" >
               <div class="alert alert-warning nomargin small">
               <i class="fa fa-info-circle"></i>&nbsp;<strong>Livraisons interrompues</strong><br/>
-              {{config.shop.global.maintenance.reason}}                
+              {{config.shop.maintenance.reason}}                
               </div>
             </div>
 
@@ -433,7 +433,7 @@
             </div>
 
             <button type="button" class="btn btn-success btn-lg btn-block"
-                    ng-disabled="!cg||!user.isReady()||!user.hasPrimaryAddress()||!cart.config.payment||!cart.items.length||WaitText||config.shop.global.maintenance.active"  
+                    ng-disabled="!cg||!user.isReady()||!user.hasPrimaryAddress()||!cart.config.payment||!cart.items.length||WaitText||config.shop.maintenance.active"  
                     ga-send="{category:'order',action:'terminate'}" 
                     ng-click="terminateOrder()" >
                 <i ng-class="{'fa fa-gear':WaitText}"></i>

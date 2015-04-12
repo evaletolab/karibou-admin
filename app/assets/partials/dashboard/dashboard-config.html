@@ -20,39 +20,59 @@
       <div class="col-xs-12  nopadding-xs" ng-if="user.isAdmin()">
 
         <!-- CONFIG -->
-        <h1 class="page-header">Configuration ({{config.shop.global.cid}}) </h1>
+        <h1 class="page-header">Configuration ({{config.shop.cid}}) </h1>
 
-        <!-- GATEWAY KEY -->
+        <!-- KEYS -->
         <h3 class="page-header">Gateway public key (stripe)</h3>
         <div class="form-group ">                        
-            <input type="text" class="form-control input-lg" ng-model="config.shop.global.keys.pubStripe" />
+            <input type="text" class="form-control input-lg" ng-model="config.shop.keys.pubStripe" />
+        </div>
+
+        <h3 class="page-header">Uploadcare public key </h3>
+        <div class="form-group ">                        
+            <input type="text" class="form-control input-lg" ng-model="config.shop.keys.pubUpcare" />
+        </div>
+
+        <h3 class="page-header">Github public key</h3>
+        <div class="form-group ">                        
+            <input type="text" class="form-control input-lg" ng-model="config.shop.keys.pubGithub" />
+        </div>
+
+        <h3 class="page-header">Map public key</h3>
+        <div class="form-group ">                        
+            <input type="text" class="form-control input-lg" ng-model="config.shop.keys.pubMap" />
+        </div>
+
+        <h3 class="page-header">Disqus public key</h3>
+        <div class="form-group ">                        
+            <input type="text" class="form-control input-lg" ng-model="config.shop.keys.pubDisqus" />
         </div>
 
         <!-- MAINTENANCE -->
         <h3 class="page-header">Maintenance</h3>
         <div class="form-group ">                        
           <label class="control-label">Toutes les livraisons sont interrompues
-            <input type="checkbox" ng-model="config.shop.global.maintenance.active">
+            <input type="checkbox" ng-model="config.shop.maintenance.active">
           </label>
           <div class="">
-            <textarea  rows="4" class="form-control input-lg" ng-model="config.shop.global.maintenance.reason" placeholder="Pour quelle raison?"></textarea>            
+            <textarea  rows="4" class="form-control input-lg" ng-model="config.shop.maintenance.reason" placeholder="Pour quelle raison?"></textarea>            
           </div>
         </div>
         <!-- NOSHIPPING -->
         <h3 class="page-header">Interrompre les livraisons </h3>
-        <div class="clearfix" ng-repeat="noshipping in config.shop.global.noshipping" style="border-bottom:1px dotted #ddd;margin-bottom:5px">
+        <div class="clearfix" ng-repeat="noshipping in config.shop.noshipping" style="border-bottom:1px dotted #ddd;margin-bottom:5px">
           <div class="col-xs-7 nopadding">
-            <input type="text" value="{{noshipping.reason}}" ng-model="config.shop.global.noshipping[$index].reason" placeholder="pour quelle raison?" class="form-control input-lg col-md-10">
+            <input type="text" value="{{noshipping.reason}}" ng-model="config.shop.noshipping[$index].reason" placeholder="pour quelle raison?" class="form-control input-lg col-md-10">
           </div>
           <div class="col-xs-4">
-            <input type="date" class="form-control input-lg" ng-model="config.shop.global.noshipping[$index].when" placeholder="yyyy-MM-dd" min="2015-01-01" max="2030-12-31" required />
+            <input type="date" class="form-control input-lg" ng-model="config.shop.noshipping[$index].when" placeholder="yyyy-MM-dd" min="2015-01-01" max="2030-12-31" required />
           </div>           
           <div class="col-xs-1 nopadding">
-            <a class="pull-right btn btn-default btn-lg" href ng-click="config.shop.global.noshipping.splice($index, 1)"><i class="fa fa-remove"></i></a>
+            <a class="pull-right btn btn-default btn-lg" href ng-click="config.shop.noshipping.splice($index, 1)"><i class="fa fa-remove"></i></a>
           </div>           
         </div>
         <div class="clearfix">
-          <button href ng-click="config.shop.global.noshipping.push({})" class="btn btn-transparent btn-lg btn-block ">Ajouter une date <i class="fa fa-plus"></i></button>
+          <button href ng-click="config.shop.noshipping.push({})" class="btn btn-transparent btn-lg btn-block ">Ajouter une date <i class="fa fa-plus"></i></button>
           <p class="help-block"> </p>
         </div>
 

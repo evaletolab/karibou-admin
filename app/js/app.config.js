@@ -30,6 +30,14 @@ function appConfig($q, $resource, $sce, API_SERVER) {
     uploadcare:'b51a13e6bd44bf76e263',
 
     staticMapKey:"AIzaSyD5w46BmWX6hX-uJ2yMycS_cRb2HRvDXQU",
+
+    disqus:'7e23b8cfd1ba48cdb5a3487efcbcdc56', /*karibou dev*/ 
+    // disqus:'a0602093a94647cd948e95fadb9b9e38', /*karibou prod*/
+
+    github:{
+        repo:'evaletolab/karibou-doc',
+        token:'7b24b8ec909903ad91d4548fc6025badaf1501bc'      
+    },
     
     cover:'img/localfood.jpg',
     // cover:'img/home-site.jpg',
@@ -90,7 +98,7 @@ function ConfigCtrl($scope,$resource,config,api){
   //
   // save stored config (admin only)
   $scope.saveConfig=function(){
-    $dao.save(config.shop.global,function(){
+    $dao.save(config.shop,function(){
       api.info($scope,"Configuration sauvée");
     });
   };

@@ -1,8 +1,8 @@
 ;(function(angular) {'use strict';
 
 // chromium-browser --ignore-gpu-blacklist --disable-gpu-sandbox
-// var API_SERVER='http://localhost:4000';
-var API_SERVER='//api.'+window.location.hostname;
+var API_SERVER='http://localhost:4000';
+// var API_SERVER='//api.'+window.location.hostname;
 // var API_SERVER='http://192.168.1.35:4000'
 // var API_SERVER='http://karibou-api.cloudfoundry.com'
 // var API_SERVER='http://karibou-evaletolab.rhcloud.com'
@@ -189,15 +189,15 @@ appRun.$inject=['gitHubContent', '$templateCache', '$route', '$http', 'config'];
 function appRun(gitHubContent, $templateCache, $route, $http, config) {
   gitHubContent.initialize({
         root:'page', // specify the prefix route of your content
-        githubRepo:'evaletolab/karibou-doc',
-        githubToken:'7b24b8ec909903ad91d4548fc6025badaf1501bc'
+        githubRepo:config.github.repo,
+        githubToken:config.github.token
     });
 
 
   // special setup that depends on config 
   config.shop.then(function () {
       // config stripe here
-      var pk=config.shop.global.keys&&config.shop.global.keys.pubStripe||'pk_test_PbzvxL5vak34c2GvSFqUXEac';
+      var pk=config.shop.keys&&config.shop.keys.pubStripe||'pk_test_PbzvxL5vak34c2GvSFqUXEac';
       Stripe.setPublishableKey(pk);
   });
 

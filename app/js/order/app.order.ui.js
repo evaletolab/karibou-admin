@@ -39,8 +39,8 @@ angular.module('app.order.ui', [
     //
     // config is an asynchrone load
     config.shop.then(function(){
-      if(config.shop.global.maintenance.active){
-        return  element.html(config.shop.global.maintenance.reason);
+      if(config.shop.maintenance.active){
+        return  element.html(config.shop.maintenance.reason);
       }
 
       var nextShippingDay=order.findNextShippingDay(),

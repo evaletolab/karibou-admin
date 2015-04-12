@@ -43,16 +43,6 @@ angular.module('app.product.ui', [
 })
 
 .filter('portionBase', function () {
-   function roundN(val){
-      if(val<=5){
-        return val.toFixed(1);
-      }
-      if(val<=50){
-        return Math.round(val);
-      }
-      var N=5;
-      return (Math.round(val / N) * N);
-   }
    return function(weight, price) {
         if (!weight ||!price) return "";
         var portion=weight.split(/(kg|gr)/i);
@@ -64,7 +54,8 @@ angular.module('app.product.ui', [
         if(unit!=='gr'){
           return;
         }
-        var out=roundN(price/w*100)+0;
+
+        var out=Math.round((100*price/w)*20)/20;
         return parseFloat(out).toFixed(2);
 
    };

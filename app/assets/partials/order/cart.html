@@ -1,12 +1,12 @@
 <div class="cart-content">     
   <!-- MESSAGE -->
-  <div ng-show="config.shop.global.maintenance.active" >
+  <div ng-show="config.shop.maintenance.active" >
     <div class="alert alert-warning nomargin small">
     <i class="fa fa-info-circle"></i>&nbsp;<strong>Livraisons interrompues</strong><br/>
-    {{config.shop.global.maintenance.reason}}                
+    {{config.shop.maintenance.reason}}                
     </div>
   </div>
-  <div ng-show="!config.shop.global.maintenance.active" >
+  <div ng-show="!config.shop.maintenance.active" >
     <div class="alert alert-warning nomargin small " 
          clockdown="Prochaine livraison "
          style="padding-left:10px"></div>
@@ -50,7 +50,7 @@
               <td class="text-right"><h4><strong>Total: </strong></h4></td>
               <td class="text-right padding text-success"><h4><strong>{{cart.total()+cart.shipping()|number:2}} CHF</strong></h4></td>
           </tr>
-          <tr ng-cloak ng-show="config.shop.global.maintenance.active" >
+          <tr ng-cloak ng-show="config.shop.maintenance.active" >
             <td  colspan="3">
             </td>
           </tr>
@@ -59,7 +59,7 @@
   </table>
 </div>  
 <div class="cart-bottom">
-  <a  href="/order" class="btn btn-success btn-lg btn-block" ng-class="{'disabled':config.shop.global.maintenance.active}">
+  <a  href="/order" class="btn btn-success btn-lg btn-block" ng-class="{'disabled':config.shop.maintenance.active}">
     Valider la commande
   </a>
   <button type="button" class="btn btn-default btn-lg btn-block" ng-click="cart.empty();toggleCart();">

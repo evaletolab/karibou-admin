@@ -51,7 +51,7 @@
     </script>
   </head>
 
-   <body ng-class="{'display-cart':options.cart,'display-info':config.shop.global.maintenance.active, 'site-nav-transition site-nav-drawer-open':options.sidebar}">
+   <body ng-class="{'display-cart':options.cart,'display-info':config.shop.maintenance.active, 'site-nav-transition site-nav-drawer-open':options.sidebar}">
 
 
       <!-- DISPLAY CART -->
@@ -173,7 +173,7 @@
         </div>
 
          <div class="butter-bar active info hidden-print maintenance" ng-cloak 
-              ng-show="config.shop.global.maintenance.active" 
+              ng-show="config.shop.maintenance.active" 
             ng-animate="{show: 'fadein', hide: 'fadeout'}">
             <p class="butter-bar-message" >
               <i class="fa fa-info-circle"></i>&nbsp;<strong>Livraisons interrompues</strong>
