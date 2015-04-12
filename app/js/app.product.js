@@ -192,14 +192,6 @@ Product.controller('ProductCtrl',[
 
     };
     
-    $scope.productDetails=function(){
-      var detail="", coma;
-      if (product.details.bio) {
-        coma=detail="bio";        
-      }
-      return detail;
-    };    
-    
     
     
     // FIXME make shops available in root ctrl
@@ -218,7 +210,7 @@ Product.controller('ProductCtrl',[
         $rootScope.title='products '+product.sku+' - '+product.title;
         $scope.product=product;
         if(product.attributes.comment){
-          loadDisqus($location.path());
+          loadDisqus($location.path(), product.title);
         }
 
       });
@@ -230,11 +222,13 @@ Product.controller('ProductCtrl',[
      * DISQUS
      */
 
-    function loadDisqus(currentPageId) {
+    function loadDisqus(currentPageId, title) {
       // http://docs.disqus.com/help/2/
       // https://disqus.com/api/applications/
+      // window.disqus_category_id ='';
       window.disqus_shortname = 'karibou';
       window.disqus_identifier = currentPageId;
+      if(title) {window.disqus_title = title;}
       if (['localhost','lo.cal'].indexOf($location.host())>-1) {
         window.disqus_developer = 1;
       }
