@@ -371,6 +371,11 @@ Product.factory('product', [
     //
     // REST api wrapper
     //
+
+    function products_wrap_dates (product) {
+      product.updated=new Date(product.updated);
+      product.created=new Date(product.created);
+    }
     
     Product.prototype.home = function(shop,filter,cb,err) {
       if(!err) err=onerr;
@@ -387,6 +392,9 @@ Product.factory('product', [
           products[group]=[];
           if (Array.isArray(s[group]) && typeof s[group][0]==="object"){
             products[group]=product.wrapArray(s[group]);
+            //
+            // wrap dates for sorting !!!
+            products[group].forEach(products_wrap_dates);
           }
         }
         if(cb)cb(products);
@@ -396,12 +404,17 @@ Product.factory('product', [
 
     
     Product.prototype.query = function(filter,cb,err) {
-      if(!err) err=onerr;
+      if(!err) {err=onerr;}
       var products, s,product=this;
       var rest=(filter.shopname)?this.backend.shop:this.backend.products;
 
       s=rest.query(filter, function() {
         products=product.wrapArray(s);
+
+        //
+        // wrap dates for sorting !!!
+        products.forEach(products_wrap_dates);
+
         if(cb)cb(products);
       },err);
       return products;
@@ -409,10 +422,16 @@ Product.factory('product', [
 
 
     Product.prototype.findLove = function(cb,err) {
-      if(!err) err=onerr;
+      if(!err) {err=onerr;}
+      var products;
       
       var self=this, s=this.backend.products.query({sku:'love'},function() {
-        if(cb)cb(self.wrapArray(s));
+        products=self.wrapArray(s);
+        //
+        // wrap dates for sorting !!!
+        products.forEach(products_wrap_dates);
+
+        if(cb)cb(products);
         return self;
       },err);
       return self;
@@ -425,6 +444,10 @@ Product.factory('product', [
 
       s=this.backend.products.query(params, function() {
         products=product.wrapArray(s);
+        //
+        // wrap dates for sorting !!!
+        products.forEach(products_wrap_dates);
+
         if(cb)cb(products);
       },err);
       return products;
