@@ -37,7 +37,7 @@
               </h5>
 
               <div  style="width:100%;"><!-- MANSORY FIX -->
-                <div  ng-include="'/partials/shop/shop.html'"  ng-repeat="shop in _shops"></div>              
+                <div  ng-include="'/partials/shop/shop.html'"  ng-repeat="shop in _shops" ng-if="shop.name"></div>              
               </div>
             </article>
 <!--             <article>              

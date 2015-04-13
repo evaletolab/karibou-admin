@@ -229,6 +229,10 @@ Product.controller('ProductCtrl',[
       window.disqus_shortname = 'karibou';
       window.disqus_identifier = currentPageId;
       if(title) {window.disqus_title = title;}
+      window.disqus_config = function () {
+          this.language = "fr_CH";
+      };          
+      
       if (['localhost','lo.cal'].indexOf($location.host())>-1) {
         window.disqus_developer = 1;
       }
@@ -240,6 +244,7 @@ Product.controller('ProductCtrl',[
             // The generated payload which authenticates users with Disqus
             this.page.remote_auth_s3 = user.context.disqus.auth;
             this.page.api_key = user.context.disqus.pubKey;
+            this.language = "fr_CH";
         };          
 
       }

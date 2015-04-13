@@ -8,7 +8,7 @@ angular.module('postfinance.card')
 
 .factory('_Validate', ['Cards', 'Common', '$parse', function(Cards, Common, $parse){
 
-  var __indexOf = [].indexOf || _.indexOf;
+  var __indexOf = [].indexOf || function(item) { for (var i = 0, l = this.length; i < l; i++) { if (i in this && this[i] === item) return i; } return -1; };
 
   var _luhnCheck = function(num) {
     var digit, digits, odd, sum, i, len;
@@ -43,7 +43,7 @@ angular.module('postfinance.card')
       var ref, ref1;
 
       // valid if empty - let ng-required handle empty
-      if(cvc === null || cvc.length === 0) {return true;}
+      if(cvc == null || cvc.length == 0) return true;
 
       if (!/^\d+$/.test(cvc)) {
         return false;
@@ -56,7 +56,7 @@ angular.module('postfinance.card')
       }
 
       if (type) {
-        return ref = cvc.length, __indexOf.call((ref1 = Cards.fromType(type)) !== null ? ref1.cvcLength : void 0, ref) >= 0;
+        return ref = cvc.length, __indexOf.call((ref1 = Cards.fromType(type)) != null ? ref1.cvcLength : void 0, ref) >= 0;
       } else {
         return cvc.length >= 3 && cvc.length <= 4;
       }
@@ -77,7 +77,7 @@ angular.module('postfinance.card')
       };
 
       // valid if empty - let ng-required handle empty
-      if(num === null || num.length === 0){
+      if(num == null || num.length == 0){
         clearCard();
         return true;
       }
@@ -108,7 +108,7 @@ angular.module('postfinance.card')
 
   _validators.expiry = function(val){
     // valid if empty - let ng-required handle empty
-    if(val === null || val.length === 0) {return true;}
+    if(val == null || val.length == 0) return true;
 
     var obj = Common.parseExpiry(val);
 
