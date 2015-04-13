@@ -7,6 +7,7 @@
   font-size:80%;
 }
 
-#disqus_thread #footer{
+#disqus_thread #footer, #layout #footer{
 	display: none;
 }
+
