@@ -24,6 +24,10 @@ markdown blockquote{
 	background-color: rgba(128,128,128,0.05);
 }
 
+markdown p{
+	margin-bottom:8px;
+}
+
 /* Desktop large
 ------------------------- */
 @media (min-width: 1200px) {
