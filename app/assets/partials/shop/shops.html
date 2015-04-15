@@ -13,8 +13,8 @@
         </div>          
         <div class="container" ng-show="shops.length" >
           <h2 class=" sexy"><i class="{{category.find({name:group}).image||''}} {{category.find({name:group}).color||gray}}"></i>&nbsp;{{group}}</h2>
-          <div _masonry_>
-            <div  ng-include="'/partials/shop/shop.html'"  ng-repeat="shop in shops" style="padding-left:15px"></div>              
+          <div>
+            <div  ng-include="'/partials/shop/shop.html'"  ng-repeat="shop in shops" style="padding-left:15px" ng-if="shop.name"></div>              
           </div>
         </div>
       

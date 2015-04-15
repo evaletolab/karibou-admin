@@ -49,6 +49,7 @@ function ngRavenProvider($provide) {
             }).install();
 
             return function angularExceptionHandler(ex, cause) {
+                // console.log(ex)
                 $delegate(ex, cause);
                 Raven.captureException(ex, {extra: {cause: cause}});
                 // throw ex

@@ -182,39 +182,35 @@ Shop.factory('shop', [
       info:{},
       faq:[]
     };
+
+    //
+    // this is the restfull backend for angular 
+    var backend=$resource(config.API_SERVER+'/v1/shops/:urlpath/:action',
+          {category:'@id', action:'@action'}, {
+          update: {method:'POST'},
+          delete: {method:'PUT'},
+    });
+
+
     
     function checkimg(s){
         if(!s.photo){
           s.photo={fg:''};
         }
     }    
+
     
     var Shop = function(data) {
-      //
-      // this is the restfull backend for angular 
-      this.backend=$resource(config.API_SERVER+'/v1/shops/:urlpath/:action',
-            {category:'@id', action:'@action'}, {
-            update: {method:'POST'},
-            delete: {method:'PUT'},
-      });
-
       angular.extend(this, defaultShop, data);
     };
 
-    //
-    // default behavior on error
-    Shop.prototype.onerr=function(data,config){
-      this.copy(defaultShop);
-    };    
-    
 
     //
     // REST api wrapper
     //
     Shop.prototype.home = function(filter,cb,err) {
-      if(!err) err=this.onerr;
       var shops, s, self=this;
-      s=this.backend.get(filter, function() {
+      s=backend.get(filter, function() {
         shops={};
         for (var group in s){
           shops[group]=[];
@@ -223,40 +219,38 @@ Shop.factory('shop', [
           }
         }
         if(cb)cb(shops);
-      },err);
+      });
       return shops;
     };
 
     Shop.prototype.query = function(filter,cb,err) {
-      if(!err) err=this.onerr;
       var shops, s,self=this, params={};
       angular.extend(params, filter);
-      s=this.backend.query(params, function() {
+      s=backend.query(params, function() {
         shops=self.wrapArray(s);
         if(cb)cb(shops);
-      },err);
+      });
       return s;
     };
 
     Shop.prototype.findByCatalog = function(cat, filter,cb,err) {
-      if(!err) err=this.onerr;
       var shops, s,self=this;
       angular.extend(params, filter,{urlpath:'category',action:cat});      
-      s=this.backend.query(filter, function() {
+      s=backend.query(filter, function() {
         shops=self.wrapArrayp(s);
         if(cb)cb(shops);
-      },err);
+      });
       return shops;
     };
 
 
     Shop.prototype.get = function(urlpath,cb) {
-      var err=this.onerr, self=this;      
-      var s=this.backend.get({urlpath:urlpath},function() {
+      var self=this;      
+      var s=backend.get({urlpath:urlpath},function() {
         checkimg(s);
         self.wrap(s);
         if(cb)cb(self);
-      },err);
+      });
       return this;
     };
 
@@ -278,8 +272,8 @@ Shop.factory('shop', [
     };    
 
     Shop.prototype.save = function( cb, err){
-      if(!err) err=this.onerr;
-      var me=this, s=this.backend.save({urlpath:this.urlpath},this, function() {
+      if(!err) err=function(){};
+      var me=this, s=backend.save({urlpath:this.urlpath},this, function() {
         if(cb)cb(me.wrap(s));
       },err);
       return this;
@@ -287,7 +281,7 @@ Shop.factory('shop', [
 
     Shop.prototype.create=function(user, data,cb){
       // if(!err) err=function(){};
-      var me=this, s = this.backend.save(data, function() {
+      var me=this, s = backend.save(data, function() {
         var shop=me.wrap(s);
         user.shops.push(shop);
         if(cb)cb(shop);
@@ -297,14 +291,15 @@ Shop.factory('shop', [
     
     Shop.prototype.remove=function(user,password,cb,err){
       if(!err) err=function(){};
-      var me=this, s = this.backend.delete({urlpath:this.urlpath},{password:password},function() {
+      var me=this, s = backend.delete({urlpath:this.urlpath},{password:password},function() {
         user.shops.pop(me);
         if(cb)cb(me);
       },err);
       return this;
     };    
    
-    return api.wrapDomain(Shop, 'urlpath', defaultShop);  
+    var _shops=api.wrapDomain(Shop, 'urlpath', defaultShop);
+    return _shops;
   }
 ]);
 

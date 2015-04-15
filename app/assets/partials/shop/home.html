@@ -30,7 +30,7 @@
              infinite-scroll-distance='0' 
              class="row wrapheight " style="padding:0">
 
-            <article  ng-repeat="(group, _shops) in shops" > 
+            <article  ng-repeat="(group, _shops) in shops" ng-if="_shops.length"> 
               <h5 class="article-group-title ">
                 {{group}}
                 <i class="{{category.find({name:group}).image||''}} {{category.find({name:group}).color||gray}} fa fa-large"></i>

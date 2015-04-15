@@ -96,6 +96,7 @@
     vertical-align: middle;
 }
 
+
 .separator{
   -webkit-box-shadow: 0 1px #fff;
      -moz-box-shadow: 0 1px #fff;
@@ -140,14 +141,10 @@
 h1.sexy, h2.sexy, h3.sexy {
   color: rgba(20, 20, 20, 0.8);
   text-shadow:1px 2px 4px #E3E3E3,0 0 0 black,1px 2px 4px #E3E3E3,0 1px 0 white;
-  -margin:15px 0px 25px 25px;
-  -font-family:'Helvetica Neue', Helvetica, Arial, sans-serif;
 
 	color: #666;
 	text-transform: uppercase;
-	font-weight: 600;
 	letter-spacing: 0.15em;
-	-font-family: 'Open Sans', sans-serif;
 	font-weight: 400;
 
 }

@@ -32,8 +32,9 @@ Service.factory('api', [
   '$resource',
   '$timeout',
   '$q',
+  '$log',
   'config',
-function ($rootScope, $http, $resource, $timeout, $q, config) {  
+function ($rootScope, $http, $resource, $timeout, $q, $log, config) {  
   var _categories=[], promise;
 
   /**
@@ -172,6 +173,7 @@ function ($rootScope, $http, $resource, $timeout, $q, config) {
     //
     // default behavior on error
     clazz.prototype.onerr=function(data,config){
+      $log.info('on error', clazz, this)
       this.copy(defaultClazz);
     };
 

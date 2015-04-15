@@ -7,7 +7,21 @@ markdown img{
 
 markdown ul{
 	list-style: inherit;
-	padding-left: 20px;	
+	padding-left: 40px;	
+	margin-bottom: 15px;
+}
+
+markdown h1{
+  border-bottom: 1px solid #eee;
+  margin-bottom: 10px;	
+}
+markdown h2{
+  margin-bottom: 10px;	
+}
+
+markdown blockquote{
+	margin-bottom: 20px;
+	background-color: rgba(128,128,128,0.05);
 }
 
 /* Desktop large

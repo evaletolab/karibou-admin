@@ -6,9 +6,6 @@
 
 #welcome {
     background-color: white;
-    position: absolute;
-    top:0;right: 0;left: 0;bottom: 0;
-    z-index: 100000;
 }
 
 #welcome p {
@@ -73,7 +70,7 @@
 #welcome header {
     text-align: center;
     color: white;
-    font-weight: 600;
+    font-weight: 700;
     background: white;/*#18bc9c;*/
     text-shadow:0px 0px 10px rgba(7, 56, 46,0.7);
 }

@@ -269,7 +269,11 @@
               <div ng-show="user.payments.length" style="padding:10px" class=" help-block">
                 <a href="" ng-click="options.showPaymentOptions=true" >
                   Ajouter une autre méthode de paiement?
+                </a>&nbsp;
+                <a href="/account/payment" >
+                  Gérer vos méthodes de paiement?
                 </a>
+
               </div>
               <div class="list-group clearfix" ng-show="!user.payments.length || options.showPaymentOptions">
                 <!-- VISA - MC -AE -->

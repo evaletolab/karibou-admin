@@ -72,7 +72,12 @@ label.checkbox{
 /* ---------  ------------ */
 
 .nav-tabs > li > a {
-  color: #44a;
+}
+
+
+.nav-tabs.nav-justified > .active > a, .nav-tabs.nav-justified > .active > a:hover, .nav-tabs.nav-justified > .active > a:focus{
+  border-radius: 0px;
+  border:0px;
 }
 
 .help-block {

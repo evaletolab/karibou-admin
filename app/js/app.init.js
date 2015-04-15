@@ -1,8 +1,8 @@
 ;(function(angular) {'use strict';
 
 // chromium-browser --ignore-gpu-blacklist --disable-gpu-sandbox
-// var API_SERVER='http://localhost:4000';
-var API_SERVER='//api.'+window.location.hostname;
+var API_SERVER='http://localhost:4000';
+// var API_SERVER='//api.'+window.location.hostname;
 // var API_SERVER='http://192.168.1.35:4000'
 // var API_SERVER='http://karibou-api.cloudfoundry.com'
 // var API_SERVER='http://karibou-evaletolab.rhcloud.com'
