@@ -34,7 +34,7 @@ $strap.factory('$modal', [
         // Compile modal content
         $timeout(function() {
           $compile($modal)(scope);
-        });
+        },0);
 
         // Provide scope display functions
         scope.$modal = function(name) {
@@ -45,7 +45,9 @@ $strap.factory('$modal', [
             $modal.modal(name);
           };
         });
-        scope.dismiss = scope.hide;
+        scope.dismiss = function () {
+          scope.hide();
+        }
 
         // Emit modal events
         angular.forEach(['show', 'shown', 'hide', 'hidden'], function(name) {

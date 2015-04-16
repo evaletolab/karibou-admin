@@ -87,14 +87,16 @@ User.controller('AccountCtrl',[
 
 
     // remove an user
-    $scope.remove=function(user, password){
+    $scope.remove=function(user, password, dismiss){
+      $scope.modal = {};
       user.remove(password,function(){
-        api.info($scope,"l'utilisateur est supprimer");
+        api.info($scope,"l'utilisateur est supprimé");
         // remove user from local repository
         for (var i=0;i<$scope.users.length;i++){
           if($scope.users[i].id===user.id)
             $scope.users.splice(i,1);
         }
+        dismiss();
       });
     };
 
