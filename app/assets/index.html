@@ -288,6 +288,7 @@
   <script defer src="/js/vendor.js?cache={!distRelease!}"></script>
   <script defer src="/js/app.js?cache={!distRelease!}"></script>
 
+  <!-- GG analytics -->
   <script>
     (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
     (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -295,6 +296,22 @@
     })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
     ga('require', 'displayfeatures');
     ga('create', 'UA-57032730-1', 'auto');
+  </script>
+
+  <!-- Facebook Conversion Code for Inscriptions - karibou -->
+  <script>(function() {
+    var _fbq = window._fbq || (window._fbq = []);
+    if (!_fbq.loaded) {
+      var fbds = document.createElement('script');
+      fbds.async = true;
+      fbds.src = '//connect.facebook.net/en_US/fbds.js';
+      var s = document.getElementsByTagName('script')[0];
+      s.parentNode.insertBefore(fbds, s);
+      _fbq.loaded = true;
+    }
+  })();
+  window._fbq = window._fbq || [];
+  window._fbq.push(['track', '6024666501534', {'value':'1.00','currency':'CHF'}]);
   </script>
 
 
