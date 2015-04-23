@@ -134,6 +134,8 @@ article:nth-child(even){
     background:none repeat scroll 0 0 rgba(0, 0, 0, 0.6);
     color:white;
     max-width: 40%;
+    /* this is important to fix the display with strike */
+    text-shadow:0 0 0 #000;
 }
 
 
