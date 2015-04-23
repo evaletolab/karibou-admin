@@ -140,7 +140,9 @@ function errorInterceptor($q, scope, $location, $timeout) {
           // if we are anonymous in the wrong place ...
           if(401===response.status){
             var longpath=$location.path();
-            if(!scope.user.isAuthenticated() && _.find(['/account','/admin'],function(path){
+            // user state is updated async after this call, so the current state is wrong!
+            // if(!scope.user.isAuthenticated() && _.find(['/account','/admin','/order/'],function(path){
+            if(_.find(['/account','/admin','/order/'],function(path){
               return (longpath.indexOf(path)!==-1);
             })){
               $location.path('/login');
