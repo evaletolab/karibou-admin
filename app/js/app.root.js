@@ -89,7 +89,7 @@ function appCtrl($scope, $rootScope, $window,  $location, $cookies, $routeParams
 
     //
     // save the referer FIXME path or url??
-    $rootScope.referrer=(path!== old)?old:undefined;
+    window.referrer=$rootScope.referrer=(path!== old)?old:undefined;
   });
 
   //
