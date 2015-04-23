@@ -203,7 +203,11 @@ User.factory('user', [
 
           if(cb)cb(self);
           return self;
-        }).$promise
+        },function (error) {
+        if([0,401].indexOf(error.status)!==-1){
+          self.copy(defaultUser);
+        }
+      }).$promise
       );
     };
 
@@ -385,6 +389,10 @@ User.factory('user', [
       alias=allAlias.pop();
       backend.$user.save({id:this.id,action:'payment',aid:alias,detail:'check'},{alias:allAlias}, function(methodStatus) {
         if(cb)cb(methodStatus);
+      },function (error) {
+        if([0,401].indexOf(error.status)!==-1){
+          self.copy(defaultUser);
+        }
       });
       return this;
     };

@@ -141,7 +141,7 @@ User.controller('AccountCtrl',[
         //
         // if user manage his shop
         if(user.shops.length ||user.isAdmin()){
-          return $location.url('/admin/orders');
+          return $location.url('/admin/collect');
         }
 
         // console.log(user.roles,user.hasRole('logistic'))
