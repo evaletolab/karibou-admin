@@ -39,7 +39,6 @@ function ngRavenProvider($provide) {
                         errorReport.stacktrace.frames.splice(0,errorReport.stacktrace.frames.length-3);
                     }
                     var url=API_SERVER+"/v1/trace/"+btoa(window.location.origin);
-                    console.log(errorReport);
                     $.ajax({type: 'POST',data: JSON.stringify(errorReport),
                             contentType: 'application/json', url:url});
 
@@ -49,9 +48,9 @@ function ngRavenProvider($provide) {
             }).install();
 
             return function angularExceptionHandler(ex, cause) {
-                // console.log(ex)
                 $delegate(ex, cause);
-                Raven.captureException(ex, {extra: {cause: cause}});
+                var referrer=window.referrer||document.referrer;
+                Raven.captureException(ex, {extra: {cause: cause, referer:referrer}});
                 // throw ex
             };
         }
