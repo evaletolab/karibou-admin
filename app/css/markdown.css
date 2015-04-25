@@ -28,6 +28,10 @@ markdown p{
 	margin-bottom:8px;
 }
 
+markdown a.external{
+	color: #428BCA!important;
+}
+
 /* Desktop large
 ------------------------- */
 @media (min-width: 1200px) {

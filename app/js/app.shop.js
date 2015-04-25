@@ -41,7 +41,7 @@ Shop.controller('ShopCtrl',[
   function (config, $scope, $rootScope, $routeParams, $location, api, shop, product, Map,$log) {
 
     $scope.config=config;
-    $scope.shop=shop;
+    $scope.shop=false;
     $scope.map=new Map();
     
     $scope.save=function(shop){
