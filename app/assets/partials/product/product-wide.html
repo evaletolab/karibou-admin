@@ -72,7 +72,8 @@
       
       <!-- DESCRIPTION -->
       <div class="description">
-        <p>{{product.details.description}}</p>
+        <markdown  markdown-content="product.details.description"></markdown>
+
         <span ng-show="product.details.origin" class="small">{{product.details.origin}}</span>
       </div>
 
