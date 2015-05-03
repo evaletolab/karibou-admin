@@ -807,6 +807,11 @@ a {
     text-overflow: ellipsis;
     white-space: nowrap;
 }
+.site-nav-list-item-btn.pull-right{
+    position: absolute;
+    right: 10px;
+    top: 10px;    
+}
 
 .site-nav-list-item-btn.active{
     background-color: #5bc0de;
