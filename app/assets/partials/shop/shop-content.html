@@ -71,7 +71,8 @@
           <ol>
             <li ng-repeat="faq in shop.faq">
               <h4><a href="#" slide-on-click="#faq-{{$index}}">{{faq.q}}</a></h4>
-              <p style="display:none" id="faq-{{$index}}">{{faq.a}} <small>Posté le {{faq.updated}}</small></p>
+              <markdown  style="display:none" id="faq-{{$index}}" markdown-content="faq.a"></markdown>
+              <!-- <p style="display:none" id="faq-{{$index}}">{{faq.a}} <small>Posté le {{faq.updated}}</small></p> -->
             </li>
           </ol>
           <p>

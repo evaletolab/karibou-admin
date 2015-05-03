@@ -47,7 +47,7 @@ $strap.factory('$modal', [
         });
         scope.dismiss = function () {
           scope.hide();
-        }
+        };
 
         // Emit modal events
         angular.forEach(['show', 'shown', 'hide', 'hidden'], function(name) {
