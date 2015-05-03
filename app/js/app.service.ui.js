@@ -165,7 +165,8 @@ UI.directive('gaSend', ['$parse','$window','config','user',function($parse,$wind
     if($window.ga && config.API_SERVER.indexOf('localhost')==-1 && config.API_SERVER.indexOf('evaletolab')==-1){
       if(!$window._gaUserId && user.isAuthenticated()){
         $window._gaUserId=user.id;
-        $window.ga('set', 'userId', $window._gaUserId);
+        // Définir l'ID utilisateur à partir du paramètre user_id de l'utilisateur connecté.        
+        $window.ga('set', '&uid', $window._gaUserId);
       }
 
       element.click(function(){
