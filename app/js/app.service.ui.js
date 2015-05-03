@@ -164,7 +164,7 @@ UI.directive('gaSend', ['$parse','$window','config','user',function($parse,$wind
     // not always send gg analitycs
     if($window.ga && config.API_SERVER.indexOf('localhost')==-1 && config.API_SERVER.indexOf('evaletolab')==-1){
       if(!$window._gaUserId && user.isAuthenticated()){
-        $window._gaUserId=user.display();
+        $window._gaUserId=user.id;
         $window.ga('set', 'userId', $window._gaUserId);
       }
 
@@ -500,10 +500,17 @@ UI.directive('slideOnClick', ['$parse','$timeout', function($parse, $timeout) {
       $timeout(function(){
         var e=angular.element(attr.slideOnClick);
         if(e.length){
-
           element.click(function(){
             e.slideDown();
           });
+          // element.slideToggle('slow');
+          // element.click(function(){
+          //   if(e.is(':visible')){
+          //     e.slideDown();
+          //   }else{
+          //     e.slideDown();              
+          //   }
+          // });
         }
       },0);
   };
