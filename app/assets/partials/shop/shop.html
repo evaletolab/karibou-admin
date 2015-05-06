@@ -1,5 +1,5 @@
 <div class="shop layout-item  "  >
-      <div class="top">
+      <div class="top relative">
         <a href="/shop/{{shop.urlpath}}" >
           <!-- STATUS -->
           <ul class="thumbnails"  style="position:absolute;left:0px;top:0px">
@@ -14,9 +14,13 @@
 
 
         </a>
-      </div>
-      <div class=" message" ng-if="shop.available.active">
-        <span class="shadow white" ng-bind-html="shop.available.comment"></span>
+        <div class=" message " ng-if="shop.available.active">
+          <span class="shadow white">
+          {{shop.available.comment}}
+          <br/><small><small>du {{shop.available.from|date:'d/M'}} au {{shop.available.to|date:'d/M'}}</small></small>      
+          </span>
+        </div>
+
       </div>
 
       <section class="footer" >

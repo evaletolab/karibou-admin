@@ -71,6 +71,9 @@ img.owner{
   background-image:url(/img/rice-paper.jpg);
 }
 
+ .shop-availability ul li div.indicator{
+  color: #a7cf7b;
+}
 
 
 /* Desktop large

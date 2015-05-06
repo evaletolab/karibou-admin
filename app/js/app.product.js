@@ -361,9 +361,12 @@ Product.factory('product', [
     };    
 
     Product.prototype.isAvailableForOrder = function() {
-      return (this.attributes.available && this.vendor &&
-              this.vendor.status===true &&
-              this.vendor.available.active!==true);
+      var ok=(this.attributes.available && this.vendor &&
+              this.vendor.status===true);
+      // if(this.vendor&&this.vendor.active){
+        
+      // }
+      return ok;
     };
 
 

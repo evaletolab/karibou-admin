@@ -192,11 +192,41 @@
                     <!-- form address-->
                     <br/>
                     <hr/>
+                    <div class="clearfix" ng-if="user.isAdmin()">
+                      <h5 class="article-group-title black">Livraisons disponibles</h5>
+                      <div class="list-group">
+                        <a href="" class="list-group-item" 
+                            ng-class="{'list-group-item-success':(shop.available.weekdays.indexOf(1)!==-1)}"
+                            ng-click="toggleShipping(1)">Lundi
+                          </a>
+                        <a href="" class="list-group-item" 
+                            ng-class="{'list-group-item-success':(shop.available.weekdays.indexOf(2)!==-1)}"
+                            ng-click="toggleShipping(2)">Mardi
+                          </a>
+                        <a href="" class="list-group-item" 
+                            ng-class="{'list-group-item-success':(shop.available.weekdays.indexOf(3)!==-1)}"
+                            ng-click="toggleShipping(3)">Mercredi
+                          </a>
+                        <a href="" class="list-group-item" 
+                            ng-class="{'list-group-item-success':(shop.available.weekdays.indexOf(4)!==-1)}"
+                            ng-click="toggleShipping(4)">Jeudi
+                          </a>
+                        <a href="" class="list-group-item" 
+                            ng-class="{'list-group-item-success':(shop.available.weekdays.indexOf(5)!==-1)}"
+                            ng-click="toggleShipping(5)">Vendredi
+                          </a>
+                        <a href="" class="list-group-item" 
+                            ng-class="{'list-group-item-success':(shop.available.weekdays.indexOf(6)!==-1)}"
+                            ng-click="toggleShipping(6)">Samedi
+                          </a>
+                      </div>                                                
+                    </div>
                     <!-- real market place -->
                     <div class="clearfix">
 
                       <!-- Marketplace -->
                       <!--<div class="label-or" >ET</div>-->
+
                       <h5 class="article-group-title black">Vos produits seront collectés dans les lieux suivants</h5>
 
                       <div class="form-group">
@@ -240,14 +270,23 @@
                       Vous pouvez à tout moment fermer votre boutique et ainsi vos produits ne seront pas accessibles à la vente. 
                     </p>
 
-                    <div class="form-group ">                        
-                      <label class="control-label">Ma boutique est fermée
-                        <input type="checkbox" ng-model="shop.available.active">
-                      </label>
-                      <div class="">
-                        
+                    <div class="form-group ">
+                      <div>                        
+                        <label class="control-label">Ma boutique est fermée
+                          <input type="checkbox" ng-model="shop.available.active">
+                        </label>
+                      </div>
+                      <div class="col-xs-12">                        
                         <input class="form-control input-lg" type="text" ng-model="shop.available.comment" ng-minlength="5" placeholder="Pour quelle raison"/>
                         <p class="help-block ">Tous les produits liés à votre boutique seront indisponibles le temps de la fermeture.</p>
+                      </div>
+                      <div class="col-xs-6">
+                        <input type="text" class="form-control input-lg" ng-model="shop.available.from" placeholder="du jj/mm/aaaa" format-date="DD/MM/YYYY" required />
+                        <p class="help-block ">La date de fermeture</p>
+                      </div>
+                      <div class="col-xs-6">
+                        <input type="text" class="form-control input-lg" ng-model="shop.available.to" placeholder="au jj/mm/aaaa" format-date="DD/MM/YYYY" required />
+                        <p class="help-block ">La date de ré-ouverture</p>
                       </div>
                     </div>
 

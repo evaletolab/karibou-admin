@@ -154,6 +154,7 @@ function cartFactory(config, $timeout,$rootScope,$window, api) {
       weight:product.categories.weight,
       vendor:product.vendor._id,
       vendorName:product.vendor.name,
+      vendorImage:product.vendor.photo.owner,
       discount:product.isDiscount(),
       part:product.pricing.part,
       quantity:1

@@ -91,6 +91,36 @@
         </div>
       </div>
 
+      <!-- AVAILABLE -->
+      <div class="product-availability">
+        <ul class="list-inline">
+          <li>
+            <div class="bold">Livraisons:</div>
+            <div class="indicator">&nbsp;</div>
+          </li>
+          <li>
+            <div>Lun.</div>
+            <div class="indicator"><span class="fa " ng-class="(product.vendor.available.weekdays.indexOf(1)!==-1)?'fa-circle':'fa-circle-o'"></span></div>
+          </li>
+          <li>
+            <div>Mar.</div>
+            <div class="indicator"><span class="fa " ng-class="(product.vendor.available.weekdays.indexOf(2)!==-1)?'fa-circle':'fa-circle-o'"></span></div>
+          </li>
+          <li>
+            <div>Mer.</div>
+            <div class="indicator"><span class="fa " ng-class="(product.vendor.available.weekdays.indexOf(3)!==-1)?'fa-circle':'fa-circle-o'"></span></div>
+          </li>
+          <li>
+            <div>Jeu.</div>
+            <div class="indicator"><span class="fa " ng-class="(product.vendor.available.weekdays.indexOf(4)!==-1)?'fa-circle':'fa-circle-o'"></span></div>
+          </li>
+          <li>
+            <div>Ven.</div>
+            <div class="indicator"><span class="fa " ng-class="(product.vendor.available.weekdays.indexOf(5)!==-1)?'fa-circle':'fa-circle-o'"></span></div>
+          </li>
+        </ul>
+      </div>
+      
   	  <!-- VENDOR-->
       <div class="shop clearfix" >
             <img ng-show="product.vendor.photo.owner"

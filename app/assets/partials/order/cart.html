@@ -1,4 +1,4 @@
-<div class="cart-content">     
+<div class="cart-content" ng-controller="OrderCommonCtrl">     
   <!-- MESSAGE -->
   <div ng-show="config.shop.maintenance.active" >
     <div class="alert alert-warning nomargin small">
@@ -7,7 +7,7 @@
     </div>
   </div>
   <div ng-show="!config.shop.maintenance.active" >
-    <div class="alert alert-warning nomargin small " 
+    <div class="alert alert-warning nomargin small text-center bold" 
          clockdown="Prochaine livraison "
          style="padding-left:10px"></div>
   </div>
@@ -21,13 +21,21 @@
           </tr>
       </thead>
       <tbody>
-        <tr  ng-repeat="item in cart.items|orderBy:['weight','vendorName']" >
-          <td class="col-md-8 small"><a href="/products/{{item.sku}}" >{{item.part}} - {{item.title}}</a><br/>
-            <span href="" class="link smallx" ng-if="item.vendorName" title="ajouter une note">
+        <tr ng-repeat-start="item in cart.items|orderBy:['vendorName','weight']" 
+            ng-show="groupByVendor(item.vendorName)" >
+          <td colspan="4" class="cart-header"><div>
+            <img  ng-src="{{item.vendorImage| placehold:'50x50&text=l`équipe'}}" style="">              
+            {{item.vendorName}}</div>
+          </td>
+        </tr>                
+
+        <tr  ng-repeat-end >
+          <td class="col-md-8 small"><a href="/products/{{item.sku}}" >{{item.part}} - {{item.title}}</a>
+            <span href="" class="link smallx hide" ng-if="item.vendorName" title="ajouter une note">
               <i class="fa fa-pencil-"></i> {{item.vendorName||''}}
             </span>
           </td>
-          <td class="col-md-1" style="text-align: center">
+          <td class="col-md-1 nopadding-lr" style="text-align: center">
             {{item.quantity}}
             <button type="button" class="btn btn-xs btn-default" ng-click="addCart(item, true)"><i class="fa fa-plus"></i></button>
             <button type="button" class="btn btn-xs btn-default" ng-click="removeCart(item,true)"><i class="fa fa-minus"></i></button>
@@ -60,7 +68,7 @@
 </div>  
 <div class="cart-bottom">
   <a  href="/order" class="btn btn-success btn-lg btn-block" ng-class="{'disabled':config.shop.maintenance.active}">
-    Valider la commande
+    Continuer la commande
   </a>
   <button type="button" class="btn btn-default btn-lg btn-block" ng-click="cart.empty();toggleCart();">
       Vider le panier

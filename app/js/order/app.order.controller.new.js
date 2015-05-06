@@ -9,12 +9,11 @@ angular.module('app.order.new', ['app.order.ui','app.config', 'app.api'])
 
 //
 // implement 
-OrderNewCtrl.$inject=['$scope','$location','$rootScope','$routeParams','api','Cards','order','cart','user','product','Map','config','$log'];
-function OrderNewCtrl($scope,$location,$rootScope,$routeParams,api,Cards,order,cart,user,product,Map,config,$log) {
+OrderNewCtrl.$inject=['$controller','$scope','$location','$rootScope','$routeParams','api','Cards','order','cart','user','product','Map','config','$log'];
+function OrderNewCtrl($controller, $scope, $location, $rootScope, $routeParams, api, Cards, order, cart, user,product,Map,config,$log) {
 
-  $scope.map=new Map();
-  $scope.config=config;
-  $scope.order=order;
+  $controller('OrderCommonCtrl', {$scope: $scope}); 
+
   $scope.cart=cart;
   $scope.errors=false;
   $scope.orders=[];
@@ -111,6 +110,7 @@ function OrderNewCtrl($scope,$location,$rootScope,$routeParams,api,Cards,order,c
       if(cb)cb(null,address);
     });
   };
+
   //
   // if user => save profile
   // if !user=> register+save profile
@@ -145,6 +145,9 @@ function OrderNewCtrl($scope,$location,$rootScope,$routeParams,api,Cards,order,c
       });
     });
   };
+
+
+
 
   $scope.verify=function(user){
     $rootScope.WaitText="Waiting ...";

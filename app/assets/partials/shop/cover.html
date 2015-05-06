@@ -7,13 +7,16 @@
     <!-- MESSAGES -->
     <div class="shop-info-bar active success " ng-cloak 
          ng-show="shop.info.active">
-      <p ng-bind="shop.info.comment"></p>
+      <p>{{shop.info.comment}}</p>
     </div>
 
 
     <div class="shop-info-bar active warning " ng-cloak 
          ng-show="shop.available.active">
-      <p ng-bind="shop.available.comment" >        </p>
+      <p>        
+        {{shop.available.comment}}
+        <br/><small><small>du {{shop.available.from|date:'d/M'}} au {{shop.available.to|date:'d/M'}}</small></small>
+      </p>
     </div>
 
 

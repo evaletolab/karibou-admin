@@ -126,6 +126,10 @@
   padding: 0px!important;
 }
 
+.nopadding-lr{
+  padding: 10px 0!important ;
+}
+
 .fadein-setup{
   opacity:1;
 }

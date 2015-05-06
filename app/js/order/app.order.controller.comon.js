@@ -84,6 +84,16 @@ function OrderCommonCtrl($scope, $routeParams, api, order, user, product, Map, c
   };
 
   //
+  // use this to group order view by vendor
+  $scope.currentVendor='abcd1';
+  $scope.groupByVendor = function(vendor, idx) {
+    var showHeader = (vendor!==$scope.currentVendor);
+    $scope.currentVendor = vendor;
+    return showHeader||(idx===0);
+  };
+
+
+  //
   // use this to group order view by shipping date
   $scope.currentShippingDate=new Date('1970');
   $scope.groupByShippingDate = function(date, idx) {

@@ -333,14 +333,14 @@
          </div>
 
          <!-- VALIDATION -->
-         <div ng-if="currentFlow(['validation'])" style="padding:20px">
+         <div ng-if="currentFlow(['validation'])" style="padding:10px">
          <!-- ORDER CART -->         
          <div class="cart ">
            <div class="text-center">
                 <h2 class="article-group-title">VOTRE COMMANDE</h2>
             </div>
             </span>
-            <table class="table ">
+            <table class="table relative">
                 <thead>
                     <tr>
                         <th>Produit</th>
@@ -350,19 +350,26 @@
                     </tr>
                 </thead>
                 <tbody>
-                  <tr  ng-repeat="item in cart.items|orderBy:['weight','vendorName']" >                    
+                  <tr ng-repeat-start="item in cart.items|orderBy:['vendorName','weight']" 
+                      ng-show="groupByVendor(item.vendorName)" >
+                    <td colspan="4" class="cart-header"><div>
+                      <img  ng-src="{{item.vendorImage| placehold:'50x50&text=l`équipe'}}" style="">              
+                      {{item.vendorName}}</div>
+                    </td>
+                  </tr>                
+                  <tr  ng-repeat-end ng-class="{'alert-info':item.error}">                    
                     <td class="col-md-8">
                       <a href="/products/{{item.sku}}" >{{item.part}} - {{item.title}}</a><br/>
-                      <span href="" class="link smallx" ng-if="item.vendorName" title="ajouter une note">
-                        <i class="fa fa-pencil-"></i> {{item.vendorName||''}}
+                      <span href="" class="link smallx gray hide" title="ajouter une note">
+                        <i class="fa fa-pencil"></i> 
                       </span>                      
 
-                      <div ng-show="item.error" class="alert alert-warning">{{item.error}}</div>
                       <div class="btn-group btn-group-xs pull-right hidden-xs" style="margin-top:-8px">
                         <button type="button" class="btn btn-default" ng-click="cart.add(item, true)"><i class="fa fa-plus"></i></button>
                         <button type="button" class="btn btn-default" ng-click="cart.remove(item,true)"><i class="fa fa-minus"></i></button>
                         <button type="button" class="btn btn-default" ng-click="cart.clear(item)"><i class="fa fa-remove"></i></button>
                       </div>
+                      <div ng-show="item.error" class="bold text-left">{{item.error}}</div>
                     </td>
                     <td class="col-md-1" style="text-align: center">{{item.quantity}}</td>
                     <td class="col-md-1 text-right padding">{{item.price|number:2}}</td>
@@ -372,7 +379,7 @@
                         <td class="text-right" colspan="3">
                           <strong>Soustotal: </strong> <br/>
                           <strong>Paiement {{updateGatewayFees()}}: {{cart.tax()*100|number:1}}%</strong><br/>                        
-                          <strong>Livraison <i class="fa fa-bicycle  "></i> </strong>
+                          <strong>Livraison à vélo <i class="fa fa-bicycle  "></i> </strong>
                         </td>
                         <td class="text-right padding">
                           <strong>{{cart.total()|number:2}} </strong><br/>
@@ -410,7 +417,7 @@
                       ng-options="a.name +' - ' +a.streetAdress + ' ' + a.postalCode for a in user.addresses">
               </select>
               <p class="help-block">Les courses peuvent également être livrées chez un voisin habitant le même immeuble</p>
-              <div class="help-block alert alert-warning">
+              <div class="help-block alert alert-warning" ng-hide="order.errors">
                 <i class="fa fa-info-circle"></i> Si vous le souhaitez, <a href="" ng-click="feedback.show=true;">nous pouvons contacter</a> un commerçant en bas de chez vous pour y déposer votre commande.
               </div>
            </div>
@@ -421,6 +428,11 @@
               <div class="alert alert-warning nomargin small">
               <i class="fa fa-info-circle"></i>&nbsp;<strong>Livraisons interrompues</strong><br/>
               {{config.shop.maintenance.reason}}                
+              </div>
+            </div>
+            <div ng-show="order.errors" >
+              <div class="alert alert-danger nomargin small">
+              <i class="fa fa-info-circle"></i>&nbsp;<strong>Attention, votre commande doit être corrigée</strong><br/>
               </div>
             </div>
 

@@ -1,5 +1,9 @@
 <!-- SIDEBAR MENU --> 
 <ul class="nav nav-sidebar" ng-if="user.hasRole('logistic')||user.isAdmin()">
+  <!-- boutique -->
+  <li><a ng-href="/">les produits</a></li>
+  <li><a ng-href="/shops">les boutiques</a></li>
+
   <!-- SHIPPING LINKS -->
   <li><h5>Logistique</h5></li>
   <li  ng-class="getClass('/admin/shipping')" >

@@ -48,6 +48,32 @@
   font-weight: bolder;
 }
 
+.cart .table .alert{
+  padding: 30px 10px;
+  position: relative;
+  width: 150%;
+  font-weight: bold;
+  border-radius: 0px;  
+  border: none;
+}
+
+.cart .table  td.cart-header {
+  background-color: rgba(174, 192, 172, 0.08);
+  color: #888;
+  font-weight: 300;
+  font-size:80%;
+  padding:4px; 
+}
+
+.cart .table  .cart-header img{
+  border-radius: 50%;
+  border: 2px solid white;
+  width: 40px;
+  height: 40px;
+}
+
+
+
 select.cart{
   font-size: 23px;
 }

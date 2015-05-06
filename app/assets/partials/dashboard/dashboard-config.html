@@ -57,15 +57,19 @@
           <div class="">
             <textarea  rows="4" class="form-control input-lg" ng-model="config.shop.maintenance.reason" placeholder="Pour quelle raison?"></textarea>            
           </div>
+          <p class="help-block">ATTENTION, utiliser l'interruption avec dates</p>
         </div>
         <!-- NOSHIPPING -->
-        <h3 class="page-header">Interrompre les livraisons </h3>
+        <h3 class="page-header">Interrompre les dates de livraisons suivantes</h3>
         <div class="clearfix" ng-repeat="noshipping in config.shop.noshipping" style="border-bottom:1px dotted #ddd;margin-bottom:5px">
           <div class="col-xs-7 nopadding">
             <input type="text" value="{{noshipping.reason}}" ng-model="config.shop.noshipping[$index].reason" placeholder="pour quelle raison?" class="form-control input-lg col-md-10">
           </div>
-          <div class="col-xs-4">
-            <input type="date" class="form-control input-lg" ng-model="config.shop.noshipping[$index].when" placeholder="yyyy-MM-dd" min="2015-01-01" max="2030-12-31" required />
+          <div class="col-xs-2">
+            <input type="text" class="form-control input-lg" ng-model="config.shop.noshipping[$index].from" placeholder="jj/mm/aaaa" format-date="DD/MM/YYYY" required />
+          </div>           
+          <div class="col-xs-2">
+            <input type="text" format-date="DD/MM/YYYY" class="form-control input-lg" ng-model="config.shop.noshipping[$index].to" placeholder="jj/mm/aaaa"  required />
           </div>           
           <div class="col-xs-1 nopadding">
             <a class="pull-right btn btn-default btn-lg" href ng-click="config.shop.noshipping.splice($index, 1)"><i class="fa fa-remove"></i></a>
@@ -73,7 +77,7 @@
         </div>
         <div class="clearfix">
           <button href ng-click="config.shop.noshipping.push({})" class="btn btn-transparent btn-lg btn-block ">Ajouter une date <i class="fa fa-plus"></i></button>
-          <p class="help-block"> </p>
+          <p class="help-block">Spécifier les dates de fermetures et de réouverture</p>
         </div>
 
         <div>

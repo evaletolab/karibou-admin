@@ -82,7 +82,7 @@
   border-width: 0px
 }
 
-.popupcontent div.certified {
+.popupcontent div.certified{
   border-top: dotted 2px #ddd;
   padding: 10px 20px;
   margin: 0 0 10px;
@@ -120,6 +120,21 @@
   font-size: 80%;
   line-height: 1.42857143;
   color: #999;
+}
+
+.popupcontent .product-availability {
+  padding: 0px 20px 10px;
+}
+
+.popupcontent .product-availability ul{
+  font-size: 70%; 
+}
+.popupcontent .product-availability ul li{
+  text-align: center;
+}
+
+.popupcontent .product-availability ul li div.indicator{
+  color: #a7cf7b;
 }
 
 

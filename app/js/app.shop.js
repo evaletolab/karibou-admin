@@ -122,6 +122,15 @@ Shop.controller('ShopCtrl',[
     };
 
 
+    $scope.toggleShipping=function (idx) {
+      var pos=shop.available.weekdays.indexOf(idx);
+      if(pos===-1){
+        shop.available.weekdays.push(idx);
+      }else{
+        shop.available.weekdays.splice(pos,1);        
+      }
+    }
+
     //
     // geomap init
     $scope.updateMap=function(address){
