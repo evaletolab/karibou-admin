@@ -124,7 +124,7 @@
     -webkit-box-sizing:border-box;
     -moz-box-sizing:border-box;
     box-sizing:border-box;
-    background:none repeat scroll 0 0 rgba(0, 0, 0, 0.2);
+    background:none repeat scroll 0 0 rgba(0, 0, 0, 0.01);
     z-index: 1;
 }
 
@@ -141,7 +141,7 @@
     line-height:1.2;
     color:#fff;
     margin-bottom:14px;
-    text-shadow:0 1px 3px rgba(0,0,0,0.3);
+    text-shadow:0 0px 1px rgba(0,0,0,0.3);
 }
 
 
@@ -253,15 +253,13 @@ ul.cover-list li {
 }
 
 .strong .cover-description, .strong .cover-title, .strong .cover-description a{
-    text-shadow: 0 0px 10px rgba(0,0,0,0.2);
-    font-weight: 300;    
+    text-shadow: 0 0px 1px rgba(0,0,0,0.5);
+    font-weight: 500;    
 }
 
 .light .cover-description, .light .cover-title, .light .cover-description a{
     text-shadow:0 1px 3px rgba(0,0,0,0.1);
 }
-
-
 
 
 @media  (max-width:992px) {
@@ -305,7 +303,8 @@ ul.cover-list li {
 
 .cover-body {
     width:100%;
-    padding-bottom:40px
+    padding-bottom:40px;
+    background:none repeat scroll 0 0 rgba(0, 0, 0, 0.15);
 }
 
 .cover-home.session .cover-user .cover-body{
@@ -563,10 +562,12 @@ ul.cover-list li {
 
 }
 
-
+@media all and (max-width:1300px) {
+}
 
 
 @media all and (max-width:1025px) {
+
     .cover-user {
     -height:auto;
     background-position:center 150px}
@@ -615,6 +616,13 @@ ul.cover-list li {
 
 .cover-resume.categories ul > li {
 }
+
+.cover-resume.categories .site-nav-list-item {
+    font-size: 16px;
+    line-height: 28px;
+    padding: 0px 6px;
+ }
+
 
 }
 
