@@ -48,10 +48,10 @@ function ngRavenProvider($provide) {
             }).install();
 
             return function angularExceptionHandler(ex, cause) {
-                $delegate(ex, cause);
+                // $delegate(ex, cause);
                 var referrer=window.referrer||document.referrer;
                 Raven.captureException(ex, {extra: {cause: cause, referer:referrer}});
-                // throw ex
+                throw ex;
             };
         }
     ]);
