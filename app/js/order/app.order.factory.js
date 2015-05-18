@@ -7,8 +7,8 @@ angular.module('app.order')
   .factory('order',orderFactory);
 
 
-orderFactory.$inject=['config','$resource','$q','user','shop','api'];
-function orderFactory(config, $resource, $q, user,shop, api) {
+orderFactory.$inject=['config','$resource','$q','user','shop','api','cart'];
+function orderFactory(config, $resource, $q, user,shop, api, cart) {
 
   var defaultOrder={
   };
@@ -182,8 +182,8 @@ function orderFactory(config, $resource, $q, user,shop, api) {
     }
 
     // before the payment fees! 
-    // add shipping fees (10CHF)
-    total+=config.shop.marketplace.shipping;
+    // add shipping fees 
+    total+=this.getShippingPrice();
 
     //
     // add gateway fees
@@ -202,6 +202,19 @@ function orderFactory(config, $resource, $q, user,shop, api) {
     return parseFloat((Math.round(total*20)/20).toFixed(2));
   };
 
+  Order.prototype.getShippingPrice=function(){
+      // check if value exist, (after creation) 
+    if(this.payment.fees&&this.payment.fees.shipping){
+      return this.payment.fees.shipping;
+    }
+
+    //
+    // this should be always true, if fulfillment exist then shipping is stored
+    //assert(!this.fulfillment)
+    return cart.shipping();
+
+  };
+
   Order.prototype.getOriginPrice=function(factor){
     var total=0.0;
     if(this.items){
@@ -216,7 +229,7 @@ function orderFactory(config, $resource, $q, user,shop, api) {
 
     // before the payment fees! 
     // add shipping fees (10CHF)
-    total+=config.shop.marketplace.shipping;
+    total+=config.shop.shipping.price;
 
     //
     // add gateway fees
