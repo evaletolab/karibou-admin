@@ -222,6 +222,14 @@
   font-size: 80%;
 }
 
+.dashboard .repport table .repport-last{
+  border-top: 2px solid black;
+}
+
+.dashboard .repport table .repport-separator{
+  border-top: 2px solid #aaa;
+}
+
 .dashboard .repport h4{
   margin-top: 50px;
 }
