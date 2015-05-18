@@ -20,16 +20,15 @@
               <th class="text-right padding">Total</th>
           </tr>
       </thead>
-      <tbody>
-        <tr ng-repeat-start="item in cart.items|orderBy:['vendorName','weight']" 
-            ng-show="groupByVendor(item.vendorName)" >
+      <tbody ng-repeat="group in cart.items|groupBy:'vendorName' " >
+        <tr >
           <td colspan="4" class="cart-header"><div>
-            <img  ng-src="{{item.vendorImage| placehold:'50x50&text=l`équipe'}}" style="">              
-            {{item.vendorName}}</div>
+            <img  ng-src="{{group[0].vendorImage| placehold:'50x50&text=l`équipe'}}" style="">              
+            {{group[0].vendorName}}</div>
           </td>
         </tr>                
 
-        <tr  ng-repeat-end >
+        <tr  ng-repeat="item in group|orderBy:'weight'" >
           <td class="col-md-8 small"><a href="/products/{{item.sku}}" >{{item.part}} - {{item.title}}</a>
             <span href="" class="link smallx hide" ng-if="item.vendorName" title="ajouter une note">
               <i class="fa fa-pencil-"></i> {{item.vendorName||''}}
@@ -43,25 +42,27 @@
           </td>
           <td class="col-md-2 text-right">{{item.price*item.quantity|number:2}} </td>
         </tr>
-          <tr>
-              <td class="text-right padding" colspan="2">
-                <strong>Soustotal: </strong><br/>
-                <strong>Livraison à vélo: </strong>
-              <td class="text-right padding">
-                <strong>{{cart.total()|number:2}} </strong></br>
-                <strong><i class="fa fa-bicycle green bold"></i> {{cart.shipping()|number:2}} </strong>
-              </td>
-          </tr>
-
-          <tr>
-              <td>   </td>
-              <td class="text-right"><h4><strong>Total: </strong></h4></td>
-              <td class="text-right padding text-success"><h4><strong>{{cart.total()+cart.shipping()|number:2}} CHF</strong></h4></td>
-          </tr>
-          <tr ng-cloak ng-show="config.shop.maintenance.active" >
-            <td  colspan="3">
+      </tbody>
+      <tbody>
+        <tr>
+            <td class="text-right padding" colspan="2">
+              <strong>Soustotal: </strong><br/>
+              <strong>Livraison à vélo: </strong>
+            <td class="text-right padding">
+              <strong>{{cart.total()|number:2}} </strong></br>
+              <strong ng-class="{'red':cart.hasShippingReduction()}"><i class="fa fa-bicycle green bold"></i> {{cart.shipping()|number:2}} </strong>
             </td>
-          </tr>
+        </tr>
+
+        <tr>
+            <td>   </td>
+            <td class="text-right"><h4><strong>Total: </strong></h4></td>
+            <td class="text-right padding text-success"><h4><strong>{{cart.total()+cart.shipping()|number:2}} CHF</strong></h4></td>
+        </tr>
+        <tr ng-cloak ng-show="config.shop.maintenance.active" >
+          <td  colspan="3">
+          </td>
+        </tr>
 
       </tbody>
   </table>

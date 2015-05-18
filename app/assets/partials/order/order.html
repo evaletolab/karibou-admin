@@ -349,15 +349,16 @@
                         <th class="text-right padding">Total</th>
                     </tr>
                 </thead>
-                <tbody>
-                  <tr ng-repeat-start="item in cart.items|orderBy:['vendorName','weight']" 
-                      ng-show="groupByVendor(item.vendorName)" >
+                <tbody ng-repeat="group in cart.items|groupBy:'vendorName' " >
+                  <tr >
                     <td colspan="4" class="cart-header"><div>
-                      <img  ng-src="{{item.vendorImage| placehold:'50x50&text=l`équipe'}}" style="">              
-                      {{item.vendorName}}</div>
+                      <img  ng-src="{{group[0].vendorImage| placehold:'50x50&text=l`équipe'}}" style="">              
+                      {{group[0].vendorName}}</div>
                     </td>
                   </tr>                
-                  <tr  ng-repeat-end ng-class="{'alert-info':item.error}">                    
+
+                  <tr ng-repeat="item in group|orderBy:'weight'"  
+                      ng-class="{'alert-info':item.error}">                    
                     <td class="col-md-8">
                       <a href="/products/{{item.sku}}" >{{item.part}} - {{item.title}}</a><br/>
                       <span href="" class="link smallx gray hide" title="ajouter une note">
@@ -375,24 +376,26 @@
                     <td class="col-md-1 text-right padding">{{item.price|number:2}}</td>
                     <td class="col-md-2 text-right padding">{{item.price*item.quantity|number:2}}</td>
                   </tr>
-                    <tr>
-                        <td class="text-right" colspan="3">
-                          <strong>Soustotal: </strong> <br/>
-                          <strong>Paiement {{updateGatewayFees()}}: {{cart.tax()*100|number:1}}%</strong><br/>                        
-                          <strong>Livraison à vélo <i class="fa fa-bicycle  "></i> </strong>
-                        </td>
-                        <td class="text-right padding">
-                          <strong>{{cart.total()|number:2}} </strong><br/>
-                          <strong>{{cart.tax()*(cart.total()+cart.shipping())|number:2}} </strong><br/>
-                          <strong>{{cart.shipping()|number:2}} </strong>
+                </tbody>
+                <tbody>
+                  <tr>
+                      <td class="text-right" colspan="3">
+                        <strong>Soustotal: </strong> <br/>
+                        <strong>Paiement {{updateGatewayFees()}}: {{cart.tax()*100|number:1}}%</strong><br/>                        
+                        <strong>Livraison à vélo <i class="fa fa-bicycle  "></i> </strong>
                       </td>
-                    </tr>
-                    <tr>
-                        <td>   </td>
-                        <td>   </td>
-                        <td class="text-right"><h4><strong>Total: </strong></h4></td>
-                        <td class="text-right padding text-success"><h4><strong>{{cart.grandTotal()|number:2}} CHF</strong></h4></td>
-                    </tr>
+                      <td class="text-right padding">
+                        <strong>{{cart.total()|number:2}} </strong><br/>
+                        <strong>{{cart.tax()*(cart.total()+cart.shipping())|number:2}} </strong><br/>
+                        <strong ng-class="{'red':cart.hasShippingReduction()}">{{cart.shipping()|number:2}} </strong>
+                    </td>
+                  </tr>
+                  <tr>
+                      <td>   </td>
+                      <td>   </td>
+                      <td class="text-right"><h4><strong>Total: </strong></h4></td>
+                      <td class="text-right padding text-success"><h4><strong>{{cart.grandTotal()|number:2}} CHF</strong></h4></td>
+                  </tr>
                 </tbody>
             </table>
          </div>
@@ -432,7 +435,7 @@
             </div>
             <div ng-show="order.errors" >
               <div class="alert alert-danger nomargin small">
-              <i class="fa fa-info-circle"></i>&nbsp;<strong>Attention, votre commande doit être corrigée</strong><br/>
+              <i class="fa fa-arrow-up"></i>&nbsp;<strong>Attention, votre commande doit être corrigée</strong><br/>
               </div>
             </div>
 

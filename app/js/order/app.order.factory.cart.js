@@ -10,29 +10,11 @@ angular.module('app.order')
 
 //
 // implement cart
-cartFactory.$inject=['config','$timeout','$rootScope','$window','api'];
-function cartFactory(config, $timeout,$rootScope,$window, api) {
+cartFactory.$inject=['config','$timeout','$rootScope','$window','$storage','api'];
+function cartFactory(config, $timeout,$rootScope,$window, $storage, api) {
   var defaultCart={
       namespace:"kariboo_cart",
-      cartColumns: [
-        //A custom cart column for putting the quantity and increment and decrement items in one div for easier styling.
-        { view: function(item, column){
-          return  "<span>"+item.get('quantity')+"</span>" + 
-              "<div>" +
-                "<a href='javascript:;' class='simpleCart_increment'><img src='/img/cart/increment.png' title='+1' alt='arrow up'/></a>" +
-                "<a href='javascript:;' class='simpleCart_decrement'><img src='/img/cart/decrement.png' title='-1' alt='arrow down'/></a>" +
-              "</div>";
-        }, attr: 'custom' },
-        //Name of the item
-        { attr: "name" , label: false },
-        { attr: "part" , label: true },
-        //Subtotal of that row (quantity of that item * the price)
-        { view: 'currency', attr: "total" , label: false  }
-      ],
-
-
-      cartStyle:'div',
-      shippingFlatRate: 10,
+      shippingFlatRate: {free:0,half:0,price:10},
       taxName:    'Aucun',
       tax:        0.00,
       currency:   "CHF"
@@ -40,21 +22,11 @@ function cartFactory(config, $timeout,$rootScope,$window, api) {
 
 
   config.shop.then(function () {
-    defaultCart.shippingFlatRate=config.shop.marketplace.shipping;
+    defaultCart.shippingFlatRate=config.shop.shipping;
   });
 
 
-  var localStorage;
-
-  // this check have to be wrapped within a try/catch because on
-  // a SecurityError: Dom Exception 18 on iOS
-  try{
-    if ($window.localStorage !== null) {
-      localStorage=$window.localStorage;
-    }
-  }catch(e){
-    api.info( "Actuellement, l'appareil que vous utilisez n'autorise pas la sauvegarde du panier." );
-  }
+  var localStorage=window.localStorage;
 
   
   var Cart = function(data) {
@@ -226,8 +198,36 @@ function cartFactory(config, $timeout,$rootScope,$window, api) {
 
   };
 
+  Cart.prototype.hasShippingReduction=function () {
+    return (this.shipping()!==defaultCart.shippingFlatRate.price);
+  };
+
   Cart.prototype.shipping=function(){
-    return defaultCart.shippingFlatRate;
+    var total=this.total();
+    //
+    // See order for order part of implementation
+
+    // now compute shipping value to store in order. Several sources:
+    // 1) coupon for freeshipping
+    //   --> this.payment.coupons
+
+
+    // 2) amount depend on price
+    // 3) amount depend on grouped orders
+
+    
+    // implement 3) get free shipping!
+    if (defaultCart.shippingFlatRate.free&&total>=defaultCart.shippingFlatRate.free){
+      return 0;
+    }
+
+    // implement 3) get half shipping!
+    else if (defaultCart.shippingFlatRate.half&&total>=defaultCart.shippingFlatRate.half){
+      return defaultCart.shippingFlatRate.price/2;
+    }
+
+
+    return defaultCart.shippingFlatRate.price;
   };
 
   Cart.prototype.tax=function(){
