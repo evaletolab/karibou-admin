@@ -22,6 +22,11 @@ function OrderRepportCtrl($scope,$routeParams, $location, api, order, user, prod
     return total;
   };
 
+  $scope.multipleShops=function (repport) {
+    if(!repport)return 0;
+    return Object.keys(repport.shops).length;
+  };
+
   $scope.shopName=function (repport) {
     repport=repport||$scope.repport;
     if(!repport)return '';
