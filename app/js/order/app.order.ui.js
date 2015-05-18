@@ -93,6 +93,10 @@ angular.module('app.order.ui', [
    return function(order) {
         if (!order||!order.items.length) {return "0.0 CHF";}
 
+        // get shipping price amount
+        var shipping=order.getShippingPrice();
+
+
         var fees=0.0,total=0.0;
         if(order.items){
           order.items.forEach(function(item){
@@ -107,13 +111,13 @@ angular.module('app.order.ui', [
         for (var gateway in config.shop.order.gateway){
           gateway=config.shop.order.gateway[gateway];
           if (gateway.label===order.payment.issuer){
-            fees+=(total+config.shop.marketplace.shipping)*gateway.fees;
+            fees+=(total+shipping)*gateway.fees;
             break;
           }
         }
 
-        // add shipping fees (10CHF)
-        fees+=config.shop.marketplace.shipping;
+        // add shipping amount fees 
+        fees+=shipping;
 
         return parseFloat((Math.round(fees*20)/20).toFixed(2))+" CHF";
 
