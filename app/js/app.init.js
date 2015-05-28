@@ -1,5 +1,6 @@
 ;(function(angular) {'use strict';
 
+// 
 // chromium-browser --ignore-gpu-blacklist --disable-gpu-sandbox
 // var API_SERVER='http://localhost:4000';
 var API_SERVER='//api.'+window.location.hostname;
@@ -20,7 +21,9 @@ angular.module('app', [
   'ngAnimate',
   'ngUploadcare',  
   'infinite-scroll',
+  'angular.filter',
   'app.config',
+  'app.storage',
   'app.raven',
   'app.api',
   'app.root',
