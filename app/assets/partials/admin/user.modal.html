@@ -31,6 +31,10 @@
         <hr/>
         <div ng-repeat="address in modal.addresses" class="col-xs-12">
           <strong>{{address.name}}, {{address.streetAdress}}/{{address.postalCode}}</strong>
+          <p>
+             <small>étage: {{address.floor}} - {{address.note}}</small>
+          </p>
+
 
           <img ng-src="{{map.resolveStaticmap(address,address.note,13)}}" style="width:80%"/>
         </div>
