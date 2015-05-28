@@ -7,7 +7,8 @@
          ng-class="isCollectedShopForDay(shop,filters.f)?'list-group-item-success':''" 
          ng-show="isCollectableShopForDay(shop,filters.f)">
       <h4 class="list-group-item-heading">
-        <a class="text-capitalize" > {{shop}}</a>
+        <a class="text-capitalize" > {{shop}}</a> 
+
         <form class="form-inline  pull-right">
           <button type="button" class="btn btn-success btn btn-xs"
                   ng-click="updateCollect(shop,true,filters.f)"
@@ -18,8 +19,9 @@
         </form>
 
       </h4>
+      <span class="gray small"><a href="/admin/shop/orders?groupby=shop&when={{filters.f}}">préparé [{{countItemValidated(items,filters.f)}}|{{items.length}}]</a></span>      
       <span ng-repeat="item in items|filter:{when:filters.f}|orderBy:'-rank'|unique:'rank'" class="pull-right small">
-        <span class="label " ng-class="(item.fulfillments==='fulfilled')?'label-success':'label-warning'"
+      <span class="label " ng-class="(item.fulfillments==='fulfilled')?'label-success':'label-warning'"
               title="{{item.email}}" 
               ng-click="modalUserDetails(item.oid)" bs-modal="'/partials/order/order.user.modal.html'">{{item.rank}}</span>&nbsp;        
       </span>
