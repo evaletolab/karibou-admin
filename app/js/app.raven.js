@@ -13,6 +13,7 @@ if (!angular) {
 }
 
 function ngRavenProvider($provide) {
+    var time=Date.now();
     $provide.decorator('$exceptionHandler', ['$delegate','API_SERVER',
         function ($delegate, API_SERVER) {
 
@@ -21,19 +22,9 @@ function ngRavenProvider($provide) {
                 //includePaths:'/*app.js$/',
                 shouldSendCallback:function(errorReport){
 
-                    // {
-                    //     culprit: "http://lo.cal:3000/js/vendor.js"
-                    //     exception: 
-                    //     extra: 
-                    //     logger: "javascript"
-                    //     message: "app.shop.js: testing raven"
-                    //     platform: "javascript"
-                    //     project: "1"
-                    //     request: 
-                    //     site: undefined
-                    //     stacktrace: 
-                    //        frames: Array[9]
-                    // }
+                    //
+                    // do not send if issue equal the last issue 
+
 
                     if(errorReport.stacktrace.frames.length>2){
                         errorReport.stacktrace.frames.splice(0,errorReport.stacktrace.frames.length-3);
@@ -48,10 +39,20 @@ function ngRavenProvider($provide) {
             }).install();
 
             return function angularExceptionHandler(ex, cause) {
-                // $delegate(ex, cause);
+                $delegate(ex, cause);
+
+                //
+                // do not send more than 1 issue each 300ms 
+                // it kills our message box for nothing
+                // this should be done in server side
+                if((Date.now()-time)<500){
+                    return;
+                }
+
+                time=Date.now();
                 var referrer=window.referrer||document.referrer;
                 Raven.captureException(ex, {extra: {cause: cause, referer:referrer}});
-                throw ex;
+                // throw ex;
             };
         }
     ]);
