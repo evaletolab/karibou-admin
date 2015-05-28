@@ -84,7 +84,7 @@
             </tbody>
             <tbody ng-if="multipleShops(repport)>1" class="repport-last">
               <tr><td colspan="2">TOTAL</td><td>{{repport.monthitems}} articles / {{repport.monthorders}} commandes</td><td>{{repport.monthamount|number:2}}</td></tr>
-              <tr><td colspan="2"></td><td>Service Karibou </td><td>{{repport.monthca|number:2}}</td></tr>
+              <tr><td colspan="2"></td><td>Service Karibou à ce jour</td><td>{{repport.monthca|number:2}}</td></tr>
               <tr><td colspan="2"></td><td class="bold">Solde en faveur des boutiques</td><td class="bold">{{repport.monthamount-repport.monthca|number:2}}</td></tr>
             </tbody>
 
