@@ -232,7 +232,7 @@
       </div>
       <div class="loading-bar"></div>
       <!-- FEEDBACK -->
-      <div ng-controller="FeedbackCtrl" class="hidden-print">
+      <div ng-controller="FeedbackCtrl" class="hidden-print" ng-show="disableFeedbackWidget()">
         <button class="ng-cloak  btn btn-circle feedbackbtn " ng-click="feedback.show=true" ng-hide="feedback.show"><i class="fa fa-pencil fa-2x"></i></button>
         <div  class="feedbackform ng-cloak "  unselectable="on" ng-if="feedback.show">
           <div unselectable="on" class="feedbackform-header">
@@ -286,7 +286,7 @@
             <div title="Send a screenshot of this site." 
                  class="btn btn-info"
                  ng-click="sendComment()"
-                 ng-disabled="!feedback.comment||!feedback.email">Envoyer</div>
+                 ng-disabled="disableFeedbackButton()">Envoyer</div>
           </div>
         </div>
         
