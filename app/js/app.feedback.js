@@ -10,8 +10,8 @@ angular.module('app.feedback',['app.config','app.user'])
 
 //
 // Define the application level controllers
-FeedbackCtrl.$inject=['config','$scope','$rootScope','$timeout','$http','user','api'];
-function FeedbackCtrl(config, $scope, $rootScope,$timeout, $http, user,api) {
+FeedbackCtrl.$inject=['config','$scope','$rootScope','$timeout','$http','$location','user','api'];
+function FeedbackCtrl(config, $scope, $rootScope,$timeout, $http, $location, user,api) {
   function loadRouteScope(feedback,route) {
     feedback.shop=feedback.product=false;
     //
@@ -47,6 +47,28 @@ function FeedbackCtrl(config, $scope, $rootScope,$timeout, $http, user,api) {
     if(user.email){feedback.email=user.email.address;}
   });
 
+  $scope.disableFeedbackWidget=function () {
+      var currentPath=$location.path();
+
+      //
+      // if referer is in protected path?
+      if(_.find(config.avoidFeedbackIn,function(path){
+          return (currentPath.indexOf(path)!==-1);})){
+        return false;
+      }
+
+    return true;
+  };
+
+  //
+  // be sure to update user value when it change is state from anonymous to logged
+  $scope.disableFeedbackButton=function () {
+    if(user.email&&user.email.address&&!feedback.email){
+      feedback.email=user.email.address;
+    }
+
+    return (!feedback.comment||!feedback.email);
+  };
 
   $scope.getTitle=function () {
     if(feedback.product) {return 'Contactez: '+feedback.product.vendor.name;}

@@ -200,10 +200,7 @@ html,body,.main {
 
 body {
     -webkit-font-smoothing:antialiased;
-    font-weight:300;
     color:#333332;
-    font-size:18px;
-    line-height:1.4
 }
 
 .chrome body {

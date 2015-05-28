@@ -8,11 +8,12 @@ body {
   background-color: #fff;
   background-image-: url("/img/light_toast.png");
   background-:url("/img/paper.jpg") repeat scroll 0 0 #F7F5F5;
-  -font-family: 'Open Sans', sans-serif;
-  font-family: 'Fira Sans', sans-serif;
+  font-family: Helvetica, sans-serif;
+  font-weight: 200;
+  -font-family: 'Fira Sans', sans-serif;
+  -font-weight: 300;
   font-size:16px;
   height: 100%;
-  font-weight: 300;
 }
 
 body.display-cart, body.site-nav-drawer-open{

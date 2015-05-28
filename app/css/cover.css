@@ -128,6 +128,11 @@
     z-index: 1;
 }
 
+aside>.cover-body{
+    background:none repeat scroll 0 0 rgba(0, 0, 0, 0.15);    
+    padding:30px 12% 10%;
+}
+
 .cover-title {
     font-size:32px;
     line-height:1;
@@ -536,7 +541,7 @@ ul.cover-list li {
     white-space: nowrap;
     font-size: 18px;
     line-height: 32px;
-    padding: 2px 6px;
+    padding: 4px 6px;
     border-radius: 1px;
     color: #fff;
     text-shadow: 0 0 1px rgba(20,20,20,.43);
@@ -544,7 +549,7 @@ ul.cover-list li {
     background: none repeat scroll 0 0 rgba(0, 0, 0, 0.4);
 }
 
-.firefox .cover-resume.categories .site-nav-list-item {
+/*.firefox .cover-resume.categories .site-nav-list-item {
     padding: 4px 6px;    
 }
 
@@ -553,7 +558,7 @@ ul.cover-list li {
     font-size: 16px;
     line-height: 31px;
 }
-
+*/
 .cover-resume.categories .site-nav-list-item:hover,.cover-resume.categories .site-nav-list-item.active{
   color: #81D829;
   border: 0px solid #50944A;
@@ -562,7 +567,13 @@ ul.cover-list li {
 
 }
 
-@media all and (max-width:1300px) {
+@media all and (max-width:1200px) {
+.cover-resume.categories .site-nav-list-item {
+    font-size: 16px;
+    line-height: 26px;
+    padding: 0px 6px;
+    padding: 2px 6px;
+ }
 }
 
 
@@ -617,11 +628,6 @@ ul.cover-list li {
 .cover-resume.categories ul > li {
 }
 
-.cover-resume.categories .site-nav-list-item {
-    font-size: 16px;
-    line-height: 28px;
-    padding: 0px 6px;
- }
 
 
 }
