@@ -145,6 +145,20 @@ function OrderCommonCtrl($scope, $routeParams, api, order, user, product, Map, c
 
   };
 
+
+  $scope.countItemValidated=function (items, when) {
+    var count=0;
+    for (var i = (items||[]).length - 1; i >= 0; i--) {
+      if(when&&items[i].when!==when) continue;
+      if(['failure','fulfilled'].indexOf(items[i].fulfillment.status)!==-1){
+        count++;
+      }
+    };
+    return count;
+  };
+
+
+
   //
   // 
   $scope.getOrderPhones=function(order){
