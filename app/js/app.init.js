@@ -1,6 +1,7 @@
 ;(function(angular) {'use strict';
 
 // 
+// 0766853792
 // chromium-browser --ignore-gpu-blacklist --disable-gpu-sandbox
 // var API_SERVER='http://localhost:4000';
 var API_SERVER='//api.'+window.location.hostname;
@@ -41,6 +42,86 @@ angular.module('app', [
   .factory('cordovaReady',cordovaReady)
   .run(appRun);
 
+
+
+
+//
+// FIX (iOS 8 GM iPhone5C) TypeError: Attempted to assign to readonly property
+// https://github.com/angular/angular.js/issues/9128#issuecomment-88921426
+// https://gist.github.com/harrastia/4a963e62605f73bbfff2
+function rootScopeFIX($provide) {
+ 
+  // Minification-safe hack.
+  var $$watchers = '$$watchers',
+      $$nextSibling = '$$nextSibling',
+      $$childHead = '$$childHead',
+      $$childTail = '$$childTail',
+      $$listeners = '$$listeners',
+      $$listenerCount = '$$listenerCount',
+      $$ChildScope = '$$childScope',
+      $id = '$id',
+      $parent = '$parent',
+      $$prevSibling = '$$prevSibling',
+      $root = '$root';
+ 
+  $provide.decorator('$rootScope', ['$delegate', function($rootScope) {
+    var proto = Object.getPrototypeOf($rootScope);
+ 
+    function nextUid () {
+      return ++$rootScope.$id;
+    }
+ 
+    proto.$new = function(isolate, parent) {
+      var child;
+ 
+      function destroyChild() {
+        child.$$destroyed = true;
+      }
+ 
+      parent = parent || this;
+ 
+      if (isolate) {
+        child = new proto.constructor();
+        child[$root] = this.$root;
+      } else {
+        // Only create a child scope class if somebody asks for one,
+        // but cache it to allow the VM to optimize lookups.
+        if (!this.$$ChildScope) {
+          this[$$ChildScope] = function ChildScope() {
+            this[$$watchers] = this[$$nextSibling] =
+                this[$$childHead] = this[$$childTail] = null;
+            this[$$listeners] = {};
+            this[$$listenerCount] = {};
+            this[$id] = nextUid();
+            this[$$ChildScope] = null;
+          };
+          this[$$ChildScope].prototype = this;
+        }
+        child = new this[$$ChildScope]();
+      }
+ 
+      child[$parent] = parent;
+      child[$$prevSibling] = parent.$$childTail;
+      if (parent.$$childHead) {
+        parent[$$childTail][$$nextSibling] = child;
+        parent[$$childTail] = child;
+      } else {
+        parent[$$childHead] = parent[$$childTail] = child;
+      }
+ 
+      // When the new scope is not isolated or we inherit from `this`, and
+      // the parent scope is destroyed, the property `$$destroyed` is inherited
+      // prototypically. In all other cases, this property needs to be set
+      // when the parent scope is destroyed.
+      // The listener needs to be added after the parent is set
+      if (isolate || parent != this) child.$on('$destroy', destroyChild);
+ 
+      return child;
+    };
+    $rootScope.$new = proto.$new;
+    return $rootScope;
+  }]);
+};
 //
 // Scroll events can be triggered very frequently, which can hurt performance and make scrolling appear jerky.
 //angular.module('infinite-scroll').value('THROTTLE_MILLISECONDS', 500)
@@ -50,6 +131,9 @@ angular.module('app', [
 appConfig.$inject=['$provide','$routeProvider','$locationProvider','$httpProvider'];
 function appConfig( $provide, $routeProvider, $locationProvider, $httpProvider) {
   
+  // FIX IOS error
+  rootScopeFIX($provide);
+
   $httpProvider.interceptors.push('errorInterceptor');
 
   //console.log("$httpProvider.defaults",$httpProvider.defaults);
@@ -78,6 +162,7 @@ function appConfig( $provide, $routeProvider, $locationProvider, $httpProvider) 
   $locationProvider.html5Mode(true);
   // $locationProvider.hashPrefix('!');
 }
+
 
 // define default behavior for all http request
 // http://www.webdeveasy.com/interceptors-in-angularjs-and-useful-examples/
