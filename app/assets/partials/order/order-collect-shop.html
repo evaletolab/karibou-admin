@@ -19,7 +19,7 @@
         </form>
 
       </h4>
-      <span class="gray small"><a href="/admin/shop/orders?groupby=shop&when={{filters.f}}">préparé [{{countItemValidated(items,filters.f)}}|{{items.length}}]</a></span>      
+      <span class="gray small"><a href="/admin/shop/orders?groupby=shop&when={{filters.f}}&s={{shop}}&fulfillments={{filters.fulfillments}}">préparé [{{countItemValidated(items,filters.f)}}|{{items.length}}]</a></span>      
       <span ng-repeat="item in items|filter:{when:filters.f}|orderBy:'-rank'|unique:'rank'" class="pull-right small">
       <span class="label " ng-class="(item.fulfillments==='fulfilled')?'label-success':'label-warning'"
               title="{{item.email}}" 
