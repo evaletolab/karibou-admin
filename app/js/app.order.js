@@ -5,6 +5,7 @@
 angular.module('app.order', [
   'app.order.ui',
   'app.order.common',
+  'app.order.widget',
   'app.order.new',
   'app.order.admin',
   'app.order.shopper',
