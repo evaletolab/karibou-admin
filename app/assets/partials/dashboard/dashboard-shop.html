@@ -14,15 +14,27 @@
            ng-include="'/partials/dashboard/dashboard-sidebar.html'" 
            ng-class="{'menu-off':!options.showMenu}">
       </div>
-      <div class="col-xs-12  nopadding-xs">
+      <div class="col-xs-12  nopadding-xs row-offcanvas _row-offcanvas-right " nclass="{'active':options.showWidget}">
 
         <!-- FILTERS LOGISTIC -->
         <div class="panel panel-default" >
-          <div class="panel-heading"><i class="fa fa-chevron-down "></i> 
-            <a href="" toggle-on-click="#order-filter" > Les boutiques - <strong> Pour le {{shipping.currentDay|dateLabel}}</strong></a>
+          <div class="panel-heading"> 
+            <a href="" class="btn btn-transparent btn-md" toggle-on-click="#order-filter" > <i class="fa fa-chevron-down "></i></a>
+
+            <!-- TITLE -->
+            <span id="ac-{{filters.s}}" >le {{shipping.currentDay|dateLabel}} pour {{filters.s}} </span>
+            <!-- DISPLAY PAD FOR TOUCH UX -->
+            &nbsp;
+            <button class=" btn btn-md btn-transparent hidden-xs " title="Afficher le PAD" 
+                    ng-click="options.showWidget=!options.showWidget" 
+                    ng-class="{'active':options.showWidget}"><i class="fa fa-calculator"></i> PAD</button>
+
+
           </div>
           <div class="panel-body  hide" id="order-filter" >
               <div class="col-xs-12  ">
+                <button ng-click="informShopToOrders(filters.s,shipping.currentDay)" 
+                        type="button" class="btn btn-md btn-transparent btn-block">Envoyer le détail par email</button>
                 <button class="btn btn-md btn-transparent btn-block" 
                         ng-repeat="(shop, items) in shops"
                         ng-click="filters.s=shop" ng-class="{'active':isSelectedShop(shop)}">
@@ -40,10 +52,10 @@
 
 
         <!-- ORDERS BY SHOP -->
-        <div ng-if="shops" class="col-xs-12 col-md-7">
+        <div ng-if="shops" class="col-xs-12 nopadding" ng-class="{'col-md-7':options.showWidget}">
           <div  ng-include="'/partials/order/order-lists-byshop.html'"></div>
         </div>
-        <div class="col-xs-12 col-md-5" ng-include="'/partials/order/order-validate-widget.html'"></div>
+        <div ng-if="options.showWidget" class="col-xs-12 col-md-5 _sidebar-offcanvas" ng-include="'/partials/order/order-validate-widget.html'"></div>
       </div>
     </div>
   </div>
