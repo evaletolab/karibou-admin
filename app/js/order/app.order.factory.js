@@ -204,7 +204,8 @@ function orderFactory(config, $resource, $q, user,shop, api, cart) {
 
   Order.prototype.getShippingPrice=function(){
       // check if value exist, (after creation) 
-    if(this.payment.fees&&this.payment.fees.shipping){
+    if(this.payment.fees &&
+       this.payment.fees.shipping!=null){
       return this.payment.fees.shipping;
     }
 
