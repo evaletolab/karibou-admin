@@ -39,6 +39,10 @@
   font-size: 90%;
 } 
 
+.list-group-item-transparent {
+    background-color: transparent;
+}
+
 .btn-transparent {
   background-color: rgba(90,120,90,.05);
   border-color: #ccc;
