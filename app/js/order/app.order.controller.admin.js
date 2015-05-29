@@ -234,7 +234,7 @@ function OrderAdminCtrl($scope,$routeParams, $location, api, order, user, produc
         // group by shop?
         if(filters.groupby==='shop'){
           $scope.shops=$scope.groupByShops(orders);
-          $scope.filters.s=Object.keys($scope.shops)[0];
+          if(!filters.s)$scope.filters.s=Object.keys($scope.shops)[0];
         }
         $scope.loading=false;
       });
