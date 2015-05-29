@@ -139,18 +139,25 @@ User.controller('AccountCtrl',[
         }
 
         //
-        // if user manage his shop
-        if(user.shops.length ||user.isAdmin()){
+        // admin collect food
+        if(user.isAdmin()){
           return $location.url('/admin/collect');
         }
 
-        // console.log(user.roles,user.hasRole('logistic'))
         //
         // user is a shopper 
         if(user.hasRole('logistic')){
           return $location.url('/admin/shipping');
         }
 
+        //
+        // user manage his shop
+        if(user.shops.length){
+          return $location.url('/admin/orders');
+        }
+
+
+ 
         //
         // else goto '/'
         $location.url('/');
