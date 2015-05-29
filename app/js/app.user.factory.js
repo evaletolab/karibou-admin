@@ -305,7 +305,7 @@ User.factory('user', [
         _user.copy(u);
         if(cb)cb(_user);
       });
-      return u;
+      return _user;
     };
 
     User.prototype.logout=function(cb){
