@@ -128,6 +128,12 @@ function OrderCommonCtrl($scope, $routeParams, api, order, user, product, Map, c
     prefix=prefix||'';
     var orderFailure=(item.fulfillments&&item.fulfillments.status==='failure');
     var itemStatus=item.fulfillment.status;
+    //
+    // PAD widget 
+    if(item.selected){
+      prefix='list-group-item-selected '+prefix;
+    }
+
     if(item.fulfillment.status=='failure' ||orderFailure)
       return prefix+'danger';
 
@@ -136,6 +142,8 @@ function OrderCommonCtrl($scope, $routeParams, api, order, user, product, Map, c
 
     if(item.fulfillment.status=='fulfilled')
       return prefix+'success';
+
+    return prefix;
   };
 
   $scope.isItemValidated=function (item) {
@@ -201,6 +209,22 @@ function OrderCommonCtrl($scope, $routeParams, api, order, user, product, Map, c
       });
 
     });
+  };
+
+
+  //
+  // selected item? 
+  $scope.selectedItem={};
+  $scope.selectItem=function (item,shop) {
+    var items=$scope.shops[shop];
+    for (var i = items.length - 1; i >= 0; i--) {
+      if(items[i].selected){
+        items[i].selected=false;
+        break;
+      }
+    }
+    item.selected=true;
+    $scope.selectedItem=item;
   };
 
 
