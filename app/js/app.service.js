@@ -33,8 +33,10 @@ Service.factory('api', [
   '$timeout',
   '$q',
   '$log',
+  '$location',
+  '$routeParams',
   'config',
-function ($rootScope, $http, $resource, $timeout, $q, $log, config) {  
+function ($rootScope, $http, $resource, $timeout, $q, $log, $location, $routeParams, config) {  
   var _categories=[], promise;
 
   /**
@@ -68,101 +70,44 @@ function ($rootScope, $http, $resource, $timeout, $q, $log, config) {
   
 
   function uploadfile($scope, options, callback){
-    //
-    // load filepicker and set api key
-    // $script("//ucarecdn.com/widget/2.0.4/uploadcare/uploadcare.min.js",function(){
-/*
-      uploadcare.openDialog(null, {
-          publicKey: config.uploadcare,
-          imagesOnly: true,
-          multiple:false,
-          previewStep:true,
-          crop: "free"
-      });      
-      filepicker.setKey(config.filepicker);
-/**
-      filepicker.pick({
-          mimetypes: ['image/*'],
-          maxSize: 150*1024,
-          location: 'S3',
-          access: 'public',
-          services:['COMPUTER', 'URL', 'IMAGE_SEARCH','GOOGLE_DRIVE', 'FLICKR','INSTAGRAM'],
-        },
-        function(FPFile){
-          // console.log(FPFile)
-          // container: "karibou-filepicker"
-          // filename: "oli-avatar-small.png"
-          // isWriteable: true
-          // key: "nQD24l7LSQvI4zyH9Icw_oli-avatar-small.png"
-          // mimetype: "image/png"
-          // size: 14379
-          // url: "https://www.filepicker.io/api/file/bacvRJUQmcbvxdHxwfFQ"
-
-          $scope.$apply(function () {
-            filepicker.stat(FPFile, {width: true, height: true},
-              function(metadata){              
-                callback(null,FPFile,metadata, metadata.height/metadata.width);
-
-            });        
-          });
-        },
-        function(FPError){
-          $scope.$apply(function () {
-            callback(FPError);
-          });
-        }
-      );
-
-
-    })
-*/
     return false;      
   }
 
-  function uploadfile_FP($scope, options, callback){
-    //
-    // load filepicker and set api key
-    $script("//api.filepicker.io/v1/filepicker.js",function(){
-      filepicker.setKey(config.filepicker);
 
-      filepicker.pick({
-          mimetypes: ['image/*'],
-          maxSize: 150*1024,
-          location: 'S3',
-          access: 'public',
-          services:['COMPUTER', 'URL', 'IMAGE_SEARCH','GOOGLE_DRIVE', 'FLICKR','INSTAGRAM'],
-        },
-        function(FPFile){
-          // console.log(FPFile)
-          // container: "karibou-filepicker"
-          // filename: "oli-avatar-small.png"
-          // isWriteable: true
-          // key: "nQD24l7LSQvI4zyH9Icw_oli-avatar-small.png"
-          // mimetype: "image/png"
-          // size: 14379
-          // url: "https://www.filepicker.io/api/file/bacvRJUQmcbvxdHxwfFQ"
+  function computeUrl(oldUrl){
+    var url;
+    // edit from shop
+    if($routeParams.shop && $routeParams.sku && $location.path().indexOf('/edit')!=-1){
+      url='/shop/'+$routeParams.shop+'/products/'+$routeParams.sku;
+    }
 
-          $scope.$apply(function () {
-            filepicker.stat(FPFile, {width: true, height: true},
-              function(metadata){              
-                callback(null,FPFile,metadata, metadata.height/metadata.width);
+    // edit from products
+    else if($routeParams.sku && $location.path().indexOf('/edit')!=-1){
+      url='/products/'+$routeParams.sku;
+    }
 
-            });        
-          });
-        },
-        function(FPError){
-          $scope.$apply(function () {
-            callback(FPError);
-          });
-        }
-      );
+    // from shop
+    else if($routeParams.shop){
+      url='/shop/'+$routeParams.shop;
+    }
 
+    // from category 
+    else if($routeParams.category){
+      url='/products/category/'+$routeParams.category;
+    }
 
-    });
+    // from sku
+    else if($routeParams.sku){
+      url='/products';
+    }
 
-    return false;      
+    else if($rootScope.referrer){
+      url=$rootScope.referrer;
+    }
+
+    return url||oldUrl||'/';      
   }
-  
+
   
   function wrapDomain(clazz, key, defaultClazz){
 
@@ -285,6 +230,7 @@ function ($rootScope, $http, $resource, $timeout, $q, $log, config) {
     uploadfile:uploadfile,
     wrapDomain:wrapDomain,
     findBySlug:findBySlug,
+    computeUrl:computeUrl,
     error:error,
     info:info
   };

@@ -92,43 +92,6 @@ Product.controller('ProductCtrl',[
     };
 
 
-    $scope.computeUrl=function(){
-      var url;
-      // edit from shop
-      if($routeParams.shop && $routeParams.sku && $location.path().indexOf('/edit')!=-1){
-        url='/shop/'+$routeParams.shop+'/products/'+$routeParams.sku;
-      }
-
-      // edit from products
-      else if($routeParams.sku && $location.path().indexOf('/edit')!=-1){
-        url='/products/'+$routeParams.sku;
-      }
-
-      // from shop
-      else if($routeParams.shop){
-        url='/shop/'+$routeParams.shop;
-      }
-
-      // from category 
-      else if($routeParams.category){
-        url='/products/category/'+$routeParams.category;
-      }
-
-      // from sku
-      else if($routeParams.sku){
-        url='/products';
-      }
-
-      else if(scope.referrer){
-        $location.path(scope.referrer);
-        return;
-      }
-
-      else{
-        url='/';
-      }
-      return url;      
-    };
 
 
     $scope.save=function(product){
@@ -346,7 +309,7 @@ Product.factory('product', [
 
     Product.prototype.hasFixedPortion=function(){
         var weight=this.pricing.part||'';
-        var m=weight.match(/~([0-9]+) ?(.+)/);
+        var m=weight.match(/~([0-9.]+) ?(.+)/);
         return(!m||m.length<2);
     };
 

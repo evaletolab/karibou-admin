@@ -21,6 +21,7 @@
          ng-click="selectItem(item,shop)">
       <h4 class="list-group-item-heading"> 
           <span ng-class="(item.quantity>1)?'bold red':''">{{item.quantity}}x</span> <a ng-href="/products/{{item.sku}}">{{item.title}} ({{item.part}})</a> 
+          <div ng-if="item.variant.title" class="small"><span class="fa fa-warning red">option: </span><span>{{item.variant.title}}</span></div>
       </h4>
       <span class="bag-1 " >
           <span class="label" ng-class="isItemValidated(item)?'label-primary':'hide'">sac {{item.rank}}</span>

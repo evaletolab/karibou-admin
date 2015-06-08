@@ -30,14 +30,14 @@
 
         <tr  ng-repeat="item in group|orderBy:'weight'" >
           <td class="col-md-8 small"><a href="/products/{{item.sku}}" >{{item.part}} - {{item.title}}</a>
-            <span href="" class="link smallx hide" ng-if="item.vendorName" title="ajouter une note">
-              <i class="fa fa-pencil-"></i> {{item.vendorName||''}}
-            </span>
+            <div  class="ita gray smallx " ng-if="item.variant" title="Option du produit">
+              {{item.variant.title}}
+            </div>
           </td>
           <td class="col-md-1 nopadding-lr" style="text-align: center">
             {{item.quantity}}
-            <button type="button" class="btn btn-xs btn-default" ng-click="addCart(item, true)"><i class="fa fa-plus"></i></button>
-            <button type="button" class="btn btn-xs btn-default" ng-click="removeCart(item,true)"><i class="fa fa-minus"></i></button>
+            <button type="button" class="btn btn-xs btn-default" ng-click="cart.add(item,item.variant.title, true)"><i class="fa fa-plus"></i></button>
+            <button type="button" class="btn btn-xs btn-default" ng-click="cart.remove(item,item.variant.title,true)"><i class="fa fa-minus"></i></button>
 
           </td>
           <td class="col-md-2 text-right">{{item.price*item.quantity|number:2}} </td>

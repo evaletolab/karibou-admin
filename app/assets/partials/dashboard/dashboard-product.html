@@ -17,12 +17,19 @@
       <div class="col-xs-12  nopadding-xs">
      
         <!-- VIEW STOCKS -->
-        <h2 class="sub-header">
-          Aperçu des stocks disponibles <span ng-show="products.length">({{products.length}})</span>  
-          <button class="btn btn-transparent btn-md" ng-click="loadAllProducts()">
-            <i class="fa fa-refresh"></i>
-          </button>
-        </h2>
+        <div class="panel panel-default" >
+          <div class="panel-heading">
+            <button class="btn btn-transparent btn-md" ng-click="loadAllProducts()">
+              <i class="fa fa-refresh"></i>
+            </button>
+            Produits disponibles <span ng-show="products.length">({{products.length}})</span>  
+            <a class="btn btn-transparent btn-md" ng-href="/products/create">
+              <i class="fa fa-plus"></i> Ajouter un nouveau produit
+            </a>            
+          </div>
+          <div class="panel-body nopadding"></div>
+        </div>
+
         <div  ng-include="'/partials/order/order-lists-stocks.html'"></div>
 
         <!-- WAIT -->

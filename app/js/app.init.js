@@ -1,6 +1,7 @@
 ;(function(angular) {'use strict';
 
 // 
+// 0766853792
 // chromium-browser --ignore-gpu-blacklist --disable-gpu-sandbox
 // var API_SERVER='http://localhost:4000';
 var API_SERVER='//api.'+window.location.hostname;
@@ -24,7 +25,7 @@ angular.module('app', [
   'angular.filter',
   'app.config',
   'app.storage',
-  'app.raven',
+  // 'app.raven',
   'app.api',
   'app.root',
   'app.user',
@@ -287,7 +288,14 @@ function appRun(gitHubContent, $templateCache, $route, $http, config) {
   config.shop.then(function () {
       // config stripe here
       var pk=config.shop.keys&&config.shop.keys.pubStripe||'pk_test_PbzvxL5vak34c2GvSFqUXEac';
-      Stripe.setPublishableKey(pk);
+
+      //
+      // loading Stripe
+      $script("https://js.stripe.com/v2/",function () {
+        Stripe.setPublishableKey(pk);
+      });
+
+
   });
 
   // init uploadcare key here

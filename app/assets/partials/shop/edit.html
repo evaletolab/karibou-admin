@@ -342,7 +342,6 @@
             </div>
             <div class="modal-footer ">
               <input type="button"  confirm-delete="remove(user,shops,password)" title="depth delete for dev only" value="Supprimer" class="btn btn-lg btn-danger pull-left"/>
-              <a href="/shop/{{shop.urlpath}}/products/create" ng-disabled="WaitText" class="btn btn-lg   ">Ajouter un produit</a>
 
               <a ng-disabled="form.$invalid||WaitText" href ng-click="save(shop);"  class="save btn btn-primary btn-lg">{{WaitText || 'Enregistrer'}}</a>
               <a href="/shop/{{shop.urlpath}}" class="undo btn btn-default btn-lg ">Annuler</a>

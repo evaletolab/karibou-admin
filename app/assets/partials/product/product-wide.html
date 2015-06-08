@@ -1,6 +1,6 @@
 <div backfader="" class="backfader ">
    <div class="popupcontent" id="popup">
-      <div class="header"
+      <div class="header clearfix"
           ng-swipe-right="showNextProduct(product.sku)"
           ng-swipe-left="showPreviousProduct(product.sku)" >
         <aside>
@@ -26,8 +26,7 @@
         <section>
           <!-- CLOSE-->
           <div>
-          <a class="btn btn-transparent pull-right on-close"
-                 href="{{computeUrl()}}"><i class="fa fa-remove fa fa-2x white"></i>&nbsp;</a>
+          <a class="btn btn-transparent pull-right on-close" compute-url><i class="fa fa-remove fa fa-2x white"></i>&nbsp;</a>
           </div>
 
           <!-- PRICE-->
@@ -44,15 +43,16 @@
             <!-- SHOULD BE INLINED IN PHONE -->
             <div class=" em" >{{product.pricing.part}}</div>
             <div class="part" ng-show="product.pricing.part[0]==='~'">{{product.pricing.part|portion}}</div>
-            <div class="part" ng-show="product.pricing.part.indexOf('gr')!==-1">Fr {{product.pricing.part|portionBase:product.getPrice()}} / 100gr</div>
+            <div class="part" ng-show="product.pricing.part.indexOf('gr')!==-1">Fr {{product.pricing.part|portionBase:product.getPrice()}} / 100gr</div> <br/>
             <!-- ACTIONS -->
-            <button class="btn btn-danger btn-lg " ng-click="love(product)">
-              <i ng-class="{true:'fa fa-heart',false:'fa fa-heart-empty'}[user.hasLike(product)]"></i>&nbsp;J'aime
-            </button>
+            <div>
+              <button class="btn btn-danger btn-lg " ng-click="love(product)">
+                <i ng-class="{true:'fa fa-heart',false:'fa fa-heart-empty'}[user.hasLike(product)]"></i>&nbsp;J'aime
+              </button>
+            </div>
 
-            <button class="btn btn-primary btn-lg " ng-click="cart.add(product)" ng-hide="!product.isAvailableForOrder()||!product.pricing.stock">
-              <i class="fa fa-ok"></i>&nbsp;J'achète
-            </button>
+            <!-- BY DIRECTIVE -->
+            <cart-button ng-model="product" bt-class="btn-lg" />
 
           </div>
 

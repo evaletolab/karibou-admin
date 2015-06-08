@@ -68,7 +68,10 @@
                   </thead>
                   <tbody>
                     <tr ng-repeat="i in order.items" ng-class="{'strike grayx':(i.fulfillment.status==='failure'||order.fulfillments.status==='failure')}">
-                      <td title="{{i.vendor}}"><a ng-href="/products/{{i.sku}}">{{i.title}}</a></td>
+                      <td title="{{i.vendor}}">
+                        <a ng-href="/products/{{i.sku}}">{{i.title}}</a>
+                        <mark ng-if="i.variant.title" class="small gray">{{i.variant.title}}</mark>
+                      </td>
                       <td>{{i.quantity}}</td>
                       <td>{{i.finalprice|number:'2'}} CHF</td>
                     </tr>

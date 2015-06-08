@@ -57,7 +57,7 @@
   border: none;
 }
 
-.cart .table  td.cart-header {
+.cart .table  td.cart-header,  {
   background-color: rgba(174, 192, 172, 0.08);
   color: #888;
   font-weight: 300;

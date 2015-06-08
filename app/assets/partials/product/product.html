@@ -5,26 +5,31 @@
       <div  class="actions hidden-xs hidden-sm hidden-md" style="position:absolute;top:10px;left:10px"
            fade-on-hover="#product{{product.sku}}"         
            ng-hide="!product.attributes.available||!product.pricing.stock" >
+                       <!-- BY DIRECTIVE -->
             <a class="btn btn-danger " nh-href="" ng-click="love(product)">
               <i ng-class="{true:'fa fa-heart',false:'fa fa-heart-o'}[user.hasLike(product)]"></i>
 
               &nbsp;J'aime
             </a> 
-            <a class="btn btn-primary " ng-click="cart.add(product)" ng-disabled="WaitText"
-                ng-show="product.isAvailableForOrder()&& product.pricing.stock">
-              <i ng-class="{'fa fa-ellipsis-h':CartText, 'fa fa-ok ':!CartText}"></i>
-              &nbsp;J'achète 
+            <cart-button id="bt-{{product.sku}}-md" ng-model="product" bt-class=""/>
+        </div>
+            
+        <!-- BY DIRECTIVE -->
+        <div class="actions hidden-lg" ng-if="product.isAvailableForOrder()&&product.pricing.stock&&!product.variants.length">
+            <!-- WHY THIS IS NOT WORKING HERE? TWO INSTANCES IN THE SAME PARENT SCOPE?? --> 
+            <!-- <cart-button  ng-model="product" bt-class="btn-transparent green hidden-lg" bt-small/> -->
+
+             <a class="btn btn-transparent green" ng-click="cart.add(product)">
+              <i ng-class="{'fa fa-ellipsis-h fa fa-2x':CartText, 'fa fa-plus fa fa-2x ':!CartText}"></i>
             </a>
-      </div>
-      <div class="actions hidden-lg" ng-if="product.isAvailableForOrder()&&product.pricing.stock">
-          <a class="btn btn-transparent green" ng-click="cart.add(product)">
-            <i ng-class="{'fa fa-ellipsis-h fa fa-2x':CartText, 'fa fa-plus fa fa-2x ':!CartText}"></i>
-          </a>
-          <a class="btn btn-transparent green pull-right" ng-click="cart.remove(product)" 
-              ng-show="cart.findBySku(product.sku).quantity">
-            <i ng-class="{'fa fa-ellipsis-h fa fa-2x':CartText, 'fa fa-minus fa fa-2x ':!CartText}"></i>
-          </a>
-      </div>
+            <a class="btn btn-transparent green pull-right" 
+               ng-if="!product.variants.length"
+               ng-click="cart.remove(product)" 
+               ng-show="cart.findBySku(product.sku).quantity">
+              <i ng-class="{'fa fa-ellipsis-h fa fa-2x':CartText, 'fa fa-minus fa fa-2x ':!CartText}"></i>
+            </a>
+        </div>
+
 
       <!-- PRODUCT LINK -->
       <a  ng-href="{{shop.urlpath|test:'/shop/':''}}/products/{{product.sku}}" 

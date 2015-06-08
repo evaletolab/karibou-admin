@@ -361,14 +361,14 @@
                       ng-class="{'alert-info':item.error}">                    
                     <td class="col-md-8">
                       <a href="/products/{{item.sku}}" >{{item.part}} - {{item.title}}</a><br/>
-                      <span href="" class="link smallx gray hide" title="ajouter une note">
-                        <i class="fa fa-pencil"></i> 
-                      </span>                      
+                      <div  class="ita gray smallx " ng-if="item.variant" title="Option du produit">
+                        {{item.variant.title}}
+                      </div>
 
                       <div class="btn-group btn-group-xs pull-right hidden-xs" style="margin-top:-8px">
-                        <button type="button" class="btn btn-default" ng-click="cart.add(item, true)"><i class="fa fa-plus"></i></button>
-                        <button type="button" class="btn btn-default" ng-click="cart.remove(item,true)"><i class="fa fa-minus"></i></button>
-                        <button type="button" class="btn btn-default" ng-click="cart.clear(item)"><i class="fa fa-remove"></i></button>
+                        <button type="button" class="btn btn-default" ng-click="cart.add(item,item.variant.title,true)"><i class="fa fa-plus"></i></button>
+                        <button type="button" class="btn btn-default" ng-click="cart.remove(item,item.variant.title,true)"><i class="fa fa-minus"></i></button>
+                        <button type="button" class="btn btn-default" ng-click="cart.clear(item,item.variant.title)"><i class="fa fa-remove"></i></button>
                       </div>
                       <div ng-show="item.error" class="bold text-left">{{item.error}}</div>
                     </td>

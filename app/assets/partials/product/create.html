@@ -3,12 +3,12 @@
   <form class=" nomargin product-create "  id="popup"
         name="f_product" novalidate style="overflow:hidden">
     <div class="modal-header">
-      <a href="{{computeUrl()}}" class="close on-close" >&times;</a>
+      <a compute-url class="close on-close" >&times;</a>
       <h4 ng-show="product.sku">Modifier le produit {{product.sku}}</h4>
       <h4 ng-hide="product.sku">Ajouter un produit</h4>
     </div>
     <div class="modal-body">
-          <div data-fade="1" bs-tabs style="min-height:450px">
+          <div data-fade="1" bs-tabs style="min-height:450px;background-color:#F2F4F2">
             <div data-title="Informations du produit" class="form-background">
 
               <!-- 1 COLUMN -->
@@ -125,6 +125,33 @@
                 <!-- END TWO COLUMNS -->
                 
             </div>
+            <!-- VARIANT -->
+
+            <div data-title="Les variantes" class="clearfix  form-background ">
+              <div class="form-group">
+                <br/>
+                <label class="control-label">Un client peut choisir une variation pour un même produit au même prix.</label>
+                <div class="clearfix" ng-repeat="variant in product.variants" >
+                  <div class="col-xs-7 nopadding">
+                    <input type="text"  ng-model="product.variants[$index].title" placeholder="La descrition longue de la variation" class="form-control input-md ">
+                    <p class="help-block">Cette description est affichée sur un écran de grande taille</p>
+                  </div>
+                  <div class="col-xs-4 nopadding">
+                    <input type="text"  ng-model="product.variants[$index].short" placeholder="La descrition courte de la variation" class="form-control input-md ">
+                    <p class="help-block"> écran de petite taille</p>
+                  </div>           
+                  <div class="col-xs-1 nopadding">
+                    <a class="pull-right btn btn-default btn-md " href ng-click="product.variants.splice($index, 1)"><i class="fa fa-remove"></i></a>
+                  </div>           
+                </div>
+                <div class="clearfix">
+                  <button href ng-click="product.variants.push({})" class="btn btn-transparent btn-lg btn-block ">Ajouter une nouvelle variation<i class="fa fa-plus"></i></button>
+                  <p class="help-block"> </p>
+                </div>
+
+              </div>
+            </div> <!-- TAB -->              
+            <!-- PRICE -->
             <div data-title="Prix et quantité" class="form-background karibou">
                 <div class="clearfix">
                   <div class="col-xs-5">
@@ -165,7 +192,9 @@
                           <label class="control-label">
                             Une portion                            
                           </label>
-                          <input name="part" type="text" placeholder="exemple ~180gr" pattern="~?([0-9]+pce|[0-9]+gr|[\d.]+kg|1botte|[0-9]+bottes|[\d.]+[\w])" class="input-lg form-control " ng-model="product.pricing.part" required>
+                          <input name="part" type="text" placeholder="exemple ~180gr" 
+                                 pattern="~?[0-9.]+ ?[\w]+" 
+                                 class="input-lg form-control " ng-model="product.pricing.part" required>
                           <p class="help-block gray">
                             100gr/~180gr/1botte/0.75L/0.75litre/1pce<br/>
                           </p>
@@ -238,7 +267,7 @@
           </div>
 
         </div>
-        <a id="close-product-editor"  class="btn  " href="{{computeUrl()}}">Fermer</a>
+        <a id="close-product-editor"  class="btn  " compute-url>Fermer</a>
         <button type="submit" ng-show="product.sku" class="btn  btn-danger" confirm-delete="remove(product,password);">Supprimer</button>
 
         <button type="submit" ng-show="product.sku" ng-disabled="f_product.$invalid || WaitText" 

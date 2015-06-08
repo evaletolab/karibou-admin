@@ -22,9 +22,8 @@
 
     <!-- FOR ADMIN -->
     <div class="cover-actions-top" ng-show="user.isOwnerOrAdmin(shop.name)" fade-on-hover=".site-shop-sidebar" >
-        <a href="/shop/{{shop.urlpath}}/products/create" ng-disabled="WaitText" class="btn btn-lg btn-primary btn-block ">Ajouter un produit</a>
-        <a href="/shop/{{shop.urlpath}}/edit" class=" btn btn-lg btn-primary btn-block ">Editer votre boutique</a>
-        <a href="/admin/orders" class=" btn btn-lg btn-primary btn-block ">Votre dashboard</a>
+        <a ng-href="/shop/{{shop.urlpath}}/edit" class=" btn btn-lg btn-primary btn-block ">Editer votre boutique</a>
+        <a ng-href="/admin/orders" class=" btn btn-lg btn-primary btn-block ">Votre dashboard</a>
     </div>
     <div class="cover-actions-top" style="margin-top:-50px;">
         <a ng-show="shop.status!=true" ng-disabled="WaitText" class="btn btn-primary btn-lg btn-block {{waitingStatus() && 'disabled'}}" ng-click="publish()">Demander la publication de votre boutique</a>

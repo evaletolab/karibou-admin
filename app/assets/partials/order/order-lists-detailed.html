@@ -1,6 +1,6 @@
 <!-- BY ORDERS -->
 <div class="list-group">
-  <div >
+  <div  class="hide">
       <h3>&nbsp;
         <a title="voir le détail par boutique" 
            ng-href="{{getDetailledOrderUrl(filters.f)}}" >{{filters.f|dateLabel}}</a>&nbsp;
@@ -41,12 +41,25 @@
             <thead>
               <tr><th class="col-product">Produit</th><th>Qté</th><th>CHF</th></tr>
             </thead>
-            <tbody>
-              <tr ng-repeat="i in order.items" ng-class="{'strike grayx':(i.fulfillment.status==='failure'||order.fulfillments.status==='failure')}">
-                <td title="{{i.vendor}}"><a ng-href="/products/{{i.sku}}">{{i.title}}</a></td>
-                <td>{{i.quantity}}</td>
-                <td>{{i.finalprice|number:'2'}} CHF</td>
+            <tbody ng-repeat="group in order.items|groupBy:'vendor' " >
+              <tr >
+                <td colspan="4" class="order-header shop" ><div>
+                  <!-- <img  ng-src="{{group[0].vendorImage| placehold:'50x50&text=l`équipe'}}" style="">               -->
+                  {{group[0].vendor}}</div>
+                </td>
+              </tr>                
+
+              <tr  ng-repeat="i in group|orderBy:'weight'" 
+                   ng-class="{'strike grayx':(i.fulfillment.status==='failure'||order.fulfillments.status==='failure')}">
+                <td title="{{i.vendor}}">
+                  <a ng-href="/products/{{i.sku}}">{{i.title}}</a>
+                  <div ng-if="i.variant.title" class="small"><span class="fa fa-warning red">option: </span><span>{{i.variant.title}}</span></div>
+                </td>
+                <td ng-class="(i.quantity>1)?'bold red':''">{{i.quantity}}</td>
+                <td>{{i.finalprice|number:'2'}} CHF</td>                   
               </tr>
+            </tbody>
+            <tbody>
               <!-- info -->
               <tr ng-class="{'strike grayx':order.fulfillments.status==='failure'}">
                 <td colspan="2">Soutotal</td><td >{{order|orderTotal}}</td>

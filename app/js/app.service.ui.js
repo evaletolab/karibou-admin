@@ -311,9 +311,17 @@ UI.directive('background', ['$parse', function($parse) {
   };
 }]);
 
+UI.directive('computeUrl', ['$parse','api', function($parse,api) {
+  return{
+    link:function(scope, element, attr, ctrl) {   
+      var url=($parse(attr.computeUrl))();
+      element.attr('href',api.computeUrl(url))
+    }
+  };
+}]);
 
 
-UI.directive('backfader', ['$parse','$location','$anchorScroll','$routeParams', function($parse,$location,$anchorScroll, $routeParams) {
+UI.directive('backfader', ['$parse','$location','$anchorScroll','$routeParams','api', function($parse,$location,$anchorScroll, $routeParams,api) {
   var referrers=[];
   return function(scope, element, attr) {
 
@@ -343,11 +351,10 @@ UI.directive('backfader', ['$parse','$location','$anchorScroll','$routeParams', 
 
       (function(referrer, scrollLeft,scrollTop){
         function onClose(){
-          //console.log('output backfader ---------------', referrer, scrollLeft,scrollTop)
           angular.element("body").removeClass('noscroll');
           var url=referrer;
-          if(!url&&scope.computeUrl)
-            url=scope.computeUrl();
+          if(!url&&api.computeUrl)
+            url=api.computeUrl();
           
 
           //

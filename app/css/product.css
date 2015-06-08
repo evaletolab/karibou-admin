@@ -41,7 +41,7 @@ article:nth-child(even){
   font-size:13px;
 
   border-radius:3px;
-  overflow: hidden;
+  overflow: visible;
   position: relative;
 }
 
@@ -234,7 +234,7 @@ article:nth-child(even){
   top:0px;
   left:0px;
   width:50.8%;
-  z-index:4;
+  z-index:1;
 }
 .layout-item .actions.hidden-md .btn{
   margin: 5px;
@@ -265,6 +265,43 @@ article:nth-child(even){
   border-radius: 30%;
 }
 
+
+.layout-item ul.dropdown-menu{
+  top: -55px;
+  bottom: -10px;
+  left: -12px;
+  margin: -10px 0;
+  border-radius: 0px;
+  bottom: 0;
+  clear: both;
+  height: 250px;
+  padding-top: 30px;
+  padding-left: 0;
+  background-color: rgba(255, 255, 255, 0.93);
+}
+
+.layout-item ul.dropdown-menu > li:first-child{
+  margin-top: -15px;
+  margin-bottom: 10px;
+  width: 100%;
+  border-bottom: 1px solid #555;
+  padding-bottom: 10px;
+  text-align: center;
+}
+.layout-item ul.dropdown-menu > li:first-child > span{
+  font-weight: normal;
+  color: #555;
+}
+
+
+.layout-item ul.dropdown-menu > li > a{
+  color: #333;
+  padding: 6px 10px;
+}
+.layout-item ul.dropdown-menu > li > a:hover{
+  color: #81D829;
+  background:rgba(0, 0, 0, 0.65) none repeat scroll 0px 0px; 
+}
 
 
 
@@ -298,10 +335,10 @@ article:nth-child(even){
 @media (min-width: 768px) and (max-width: 1023px) {
 
 
-	.layout-item.c1{
-		width: 30%; /* 305px */
+  .layout-item.c1{
+    width: 30%; /* 305px */
     margin:0 3% 3% 0;
-	}
+  }
 
 
 
@@ -335,7 +372,7 @@ article:nth-child(even){
 /* Tablet
 ------------------------- */
 @media (max-width: 767px) {
-	.layout-item.c1{
+  .layout-item.c1{
     width: 49%;
     margin: 0 1% 1% 0;
   }
@@ -376,9 +413,9 @@ article:nth-child(even){
     margin: 0 1% 1% 0%;
   }
 
-	.layout-item.c2, .layout-item.c3{
-		width: 98%; /* 305px */
-	}
+  .layout-item.c2, .layout-item.c3{
+    width: 98%; /* 305px */
+  }
 
 
   .layout-item{
@@ -404,9 +441,9 @@ article:nth-child(even){
 
 
 @media (max-width: 280px) {
-	.layout-item.c1, .layout-item.c2, .layout-item.c3{
-		width: 98%; /* 305px */
-	}
+  .layout-item.c1, .layout-item.c2, .layout-item.c3{
+    width: 98%; /* 305px */
+  }
 
   .layout-item{
     font-size:13px;

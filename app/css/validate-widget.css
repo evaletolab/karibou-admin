@@ -1,0 +1,157 @@
+
+
+.list-group-item.list-group-item-selected{
+	border-bottom: 4px solid rgba(0, 0, 255, 0.44);
+  border-top: 3px solid rgba(0, 0, 255, 0.42);	
+} 
+
+.list-group-item-danger.list-group-item-selected{
+
+	border-bottom: 4px solid rgba(255, 0, 0, 0.44);
+  border-top: 3px solid rgba(255, 0, 0, 0.42);	
+}
+
+.row-offcanvas {
+  position: relative;
+  -webkit-transition: all .25s ease-out;
+		   -o-transition: all .25s ease-out;
+  				transition: all .25s ease-out;
+}
+
+.row-offcanvas-right {
+  right: 0;
+  overflow: hidden;
+}
+.row-offcanvas-right.active {
+  right: 17%;
+  overflow: inherit;
+}
+
+.sidebar-offcanvas {
+  position: absolute;
+  top: 0;
+  width: 40%;
+}
+
+.row-offcanvas-right .sidebar-offcanvas {
+  right: -17%;
+}
+
+#validate-widget{
+	position: fixed;
+  bottom: 0;
+  top: 55px;
+  right: 0;
+  background: white;
+  border-left: 1px solid #ddd;
+}
+
+#validate-widget #who{
+	padding: 4px 15px;
+  font-weight: bold;
+  background-color: #aaf;
+  text-align: left;
+  width: 100%;
+  margin: 0 ;
+  float: left;
+  font-size: 120%;
+}
+
+#validate-widget #who span.bag{
+	font-size:130%;
+	float: right;
+	color: white;
+	text-shadow:0px 0px 2px rgba(0, 0, 0, 0.4);
+}
+
+#validate-widget #title{
+  padding: 4px 15px;
+  font-weight: bold;
+  background-color: #ddd;
+  font-size:130%;
+  text-align: left;
+  width: 100%;
+  margin: 0px ;
+  float: left;
+}
+
+#validate-widget #total {
+	height: 70px;
+	background-color: #FFF;
+	text-align: right;
+	font-size: 50px;
+	width: 100%;
+	margin: 0px;
+	padding: 0px 15px;
+	float: left;
+	border: 1px solid #eee;
+}
+
+#validate-widget #calculator {
+	background-color: transparent;
+	width: 100%;
+	height: 100%;
+	margin: 0px auto;
+	padding: 5px;
+	border-radius: 10px;
+}
+
+
+#validate-widget #numbers,#validate-widget  #operators {
+	padding-top: 10px;
+	clear: both;
+}
+#validate-widget #operators a.ng-click-active , #validate-widget #numbers a.ng-click-active{
+	background-color: black!important;
+	background: transparent linear-gradient(center top , #000, #aaa) repeat scroll 0% 0%;
+	color: white;
+} 
+
+#validate-widget #operators a {
+	display: block;
+	float: left;
+	text-decoration: none;
+	color: #000;
+	text-align: center;
+	font-size: 30px;
+	padding: 5px;
+	border-radius: 10px;
+	width: 46%;
+	margin: 5px 4px;
+	vertical-align: middle;
+	border: 2px solid #ECEFEC !important;
+}
+
+#validate-widget #numbers a {
+	display: block;
+	width: 29%;
+	height: auto;
+	float: left;
+	text-decoration: none;
+	color: #000;
+	text-align: center;
+	font-size: 43px;
+	padding: 10px;
+	margin: 5px 6px;
+	border-radius: 10px;
+	vertical-align: middle;
+}
+
+
+
+/* Landscape phones
+------------------------- */
+@media (max-width: 1023px) {
+	#validate-widget #numbers a { font-size: 13px;width: 28%;}
+	#validate-widget #operators a {font-size: 14px;}
+	#validate-widget #total {font-size: 40px;height: 55px;}
+
+}
+
+ 
+@media ( max-width: 320px ){
+	#validate-widget{
+		display: none;
+	}
+}
+

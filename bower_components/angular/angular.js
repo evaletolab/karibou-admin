@@ -6771,12 +6771,13 @@ function $CompileProvider($provide, $$sanitizeUriProvider) {
         this[key] = value;
 
         // translate normalized key to actual key
+        var $attr = '$attr';
         if (attrName) {
-          this.$attr[key] = attrName;
+          this[$attr][key] = attrName;
         } else {
-          attrName = this.$attr[key];
+          attrName = this[$attr][key];
           if (!attrName) {
-            this.$attr[key] = attrName = snake_case(key, '-');
+            this[$attr][key] = attrName = snake_case(key, '-');
           }
         }
 

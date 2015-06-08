@@ -28,10 +28,18 @@ function cartFactory(config, $timeout,$rootScope,$window, $storage, api) {
 
   var localStorage=window.localStorage;
 
-  
+
   var Cart = function(data) {
     this.items = [];
     this.config={shipping:0,address:undefined, payment:undefined};
+  };
+
+  Cart.prototype.equalItem=function(i,product, variant) {
+    var bSku=(this.items[i].sku===product.sku);
+    return(!variant||
+           this.items[i].variant &&
+           this.items[i].variant.title==variant &&
+           bSku);
   };
 
   Cart.prototype.clear=function(product){
@@ -45,7 +53,7 @@ function cartFactory(config, $timeout,$rootScope,$window, $storage, api) {
     return this.save();
   };
 
-  Cart.prototype.remove=function(product,silent){
+  Cart.prototype.remove=function(product,variant,silent){
     $rootScope.CartText="Waiting";
     $timeout(function() { $rootScope.CartText=false; }, 1000);
 
@@ -57,7 +65,8 @@ function cartFactory(config, $timeout,$rootScope,$window, $storage, api) {
     }
 
     for(var i=0;i<this.items.length;i++){
-      if(this.items[i].sku===product.sku){
+      if(this.equalItem(i,product,variant)){
+      // if(this.items[i].sku===product.sku){
         this.items[i].quantity--;
 
         //
@@ -79,7 +88,7 @@ function cartFactory(config, $timeout,$rootScope,$window, $storage, api) {
     var total=0;
     for(var i in products){
       // if(products[i].isAvailableForOrder()){
-        this.add(products[i], true);
+        this.add(products[i],products[i].variant, true);
         total++;
       // }
     }
@@ -89,7 +98,7 @@ function cartFactory(config, $timeout,$rootScope,$window, $storage, api) {
       api.info($rootScope," Seul les produits disponibles peuvent être ajoutés dans le panier.",4000);      
   };
 
-  Cart.prototype.add=function(product, silent){
+  Cart.prototype.add=function(product, variant, silent){
     if(!silent){
       $rootScope.CartText="Waiting";
       $timeout(function() { $rootScope.CartText=false; }, 1000);
@@ -97,7 +106,8 @@ function cartFactory(config, $timeout,$rootScope,$window, $storage, api) {
     }
 
     for(var i=0;i<this.items.length;i++){
-      if(this.items[i].sku===product.sku){
+      if(this.equalItem(i,product,variant)){
+      // if(this.items[i].sku===product.sku && this.items[i].variant){
 
         //
         // check availability
@@ -118,6 +128,7 @@ function cartFactory(config, $timeout,$rootScope,$window, $storage, api) {
     this.items.push({
       title:product.title,
       sku:product.sku,
+      variant:{title:variant},
       thumb:product.photo.url,
       price:product.getPrice(),
       finalprice:product.getPrice(),
