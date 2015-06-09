@@ -25,7 +25,7 @@ angular.module('app', [
   'angular.filter',
   'app.config',
   'app.storage',
-  // 'app.raven',
+  'app.raven',
   'app.api',
   'app.root',
   'app.user',

@@ -36,8 +36,11 @@ function cartFactory(config, $timeout,$rootScope,$window, $storage, api) {
 
   Cart.prototype.equalItem=function(i,product, variant) {
     var bSku=(this.items[i].sku===product.sku);
-    return(!variant||
-           this.items[i].variant &&
+    if(!variant){
+      return bSku;
+    }
+
+    return(this.items[i].variant &&
            this.items[i].variant.title==variant &&
            bSku);
   };

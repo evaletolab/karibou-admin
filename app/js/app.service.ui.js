@@ -325,7 +325,11 @@ UI.directive('backfader', ['$parse','$location','$anchorScroll','$routeParams','
   var referrers=[];
   return function(scope, element, attr) {
 
-      angular.element("body").addClass('noscroll');
+      // finally remove body scroll
+      setTimeout(function() {
+        angular.element("body").addClass('noscroll');
+      },200);
+
       var referrer;
       referrers.push(scope.referrer);
       // manage state
@@ -336,18 +340,14 @@ UI.directive('backfader', ['$parse','$location','$anchorScroll','$routeParams','
         var index=referrers.indexOf($location.path());
         referrers.splice(index,referrers.length-index);
         referrer=referrers[index-1];
-        //return;
       }
 
+      //
+      // be sure to replace the scroller after quit
+      scope.$on('$routeChangeStart', function (event, route) {
+        angular.element("body").removeClass('noscroll');
+      });
 
-      // var i=setInterval(function(){
-      //   if(!element.is(":visible")){
-      //     angular.element("body").removeClass('noscroll');
-      //     clearInterval(i);
-      //   }
-      // },2000);
-      //if current path is already in referrers => remove all
-      //console.log('input backfader', referrers,referrers.length-1);
 
       (function(referrer, scrollLeft,scrollTop){
         function onClose(){
@@ -357,28 +357,12 @@ UI.directive('backfader', ['$parse','$location','$anchorScroll','$routeParams','
             url=api.computeUrl();
           
 
-          //
-          // FIXME place the RegExp() in the template attr['backfader']
-          // var url=$location.path().replace(/^(.*\/[0-9]+)\/edit$/,"$1");
-          // if (url===$location.path()) url=url.replace(/^(.*)\/[0-9]+$/,"$1");
-          // if (url===$location.path()) {
-          //   window.history.back();
-          //   return;
-          // }
           window.scrollBy(scrollLeft,scrollTop);
           scope.$apply(function(){
             $location.path(url);
           });
         }
 
-        // FIXME find a best way to clean on exit 
-        element.find('a').click(function (e) {
-          setTimeout(function() {
-            if(!element.is(":visible")){
-              angular.element("body").removeClass('noscroll');
-            }            
-          }, 300);
-        });
         element.find('.on-close').click(function(e){
           e.stopPropagation();
           onClose();
@@ -389,6 +373,7 @@ UI.directive('backfader', ['$parse','$location','$anchorScroll','$routeParams','
             onClose();
           }
         });     
+
 
       })(referrer,scope.scrollLeft,scope.scrollTop);
   };
