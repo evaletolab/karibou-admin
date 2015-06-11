@@ -26,6 +26,7 @@
           <div > 
               <span ng-class="(item.quantity>1)?'bold red':''">{{item.quantity}}x</span> 
               <a ng-href="/products/{{item.sku}}">{{item.title}} ({{item.part}})</a> 
+              <div ng-if="item.variant.title" class="small"><span class="fa fa-warning red">option: </span><span>{{item.variant.title}}</span></div>
           </div>
 
         </div>

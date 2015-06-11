@@ -1,7 +1,6 @@
 ;(function(angular) {'use strict';
 
 // 
-// 0766853792
 // chromium-browser --ignore-gpu-blacklist --disable-gpu-sandbox
 // var API_SERVER='http://localhost:4000';
 var API_SERVER='//api.'+window.location.hostname;

@@ -11,6 +11,18 @@ function OrderWidgetCtrl($scope, $routeParams, api, order, user, product, Map, c
   // first time you enter a num, it clear the previous value
   var firstMustClean=true;
 
+
+  var equalItem=function(oldItem,newItem) {
+    var bSku=(oldItem.sku===newItem.sku);
+    if(!newItem.variant){
+      return bSku;
+    }
+
+    return(oldItem.variant &&
+           oldItem.variant.title==newItem.variant.title &&
+           bSku);
+  };
+
   var decimalPlaces=function(num) {
     var match = (''+num).match(/(?:\.(\d+))?(?:[eE]([+-]?\d+))?$/);
     if (!match) { return 0; }
@@ -28,7 +40,8 @@ function OrderWidgetCtrl($scope, $routeParams, api, order, user, product, Map, c
   }, true);
 
   $scope.$watch('selectedItem', function(newVal, oldVal){
-    if(newVal&&newVal.sku && oldVal.sku!==newVal.sku){
+    if(newVal&&!equalItem(oldVal,newVal)){
+    // if(newVal&&newVal.sku && oldVal.sku!==newVal.sku){
       $scope.item=newVal;
       $scope.savedPrice=newVal.finalprice;
     }
@@ -100,7 +113,6 @@ function OrderWidgetCtrl($scope, $routeParams, api, order, user, product, Map, c
 
   $scope.widgetPreviousItem=function () {
     var items=$scope.items;
-    console.log('widgetPreviousItem');
     if(!items.length)return;
     for (var i = items.length - 1; i >= 0; i--) {
       if(items[i].selected){

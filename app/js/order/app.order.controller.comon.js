@@ -165,6 +165,14 @@ function OrderCommonCtrl($scope, $routeParams, api, order, user, product, Map, c
     return count;
   };
 
+  $scope.countItemAvailable=function (items, when) {
+    var count=0;
+    for (var i = (items||[]).length - 1; i >= 0; i--) {
+      if(when&&items[i].when!==when) continue;
+      count++;
+    };
+    return count;
+  };
 
 
   //

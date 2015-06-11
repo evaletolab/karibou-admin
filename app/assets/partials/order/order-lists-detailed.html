@@ -53,7 +53,7 @@
                    ng-class="{'strike grayx':(i.fulfillment.status==='failure'||order.fulfillments.status==='failure')}">
                 <td title="{{i.vendor}}">
                   <a ng-href="/products/{{i.sku}}">{{i.title}}</a>
-                  <div ng-if="i.variant.title" class="small"><span class="fa fa-warning red">option: </span><span>{{i.variant.title}}</span></div>
+                  <mark ng-if="i.variant.title" class="small">option: {{i.variant.title}}</mark>
                 </td>
                 <td ng-class="(i.quantity>1)?'bold red':''">{{i.quantity}}</td>
                 <td>{{i.finalprice|number:'2'}} CHF</td>                   

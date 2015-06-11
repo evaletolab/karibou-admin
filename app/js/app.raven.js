@@ -49,9 +49,15 @@ function ngRavenProvider($provide) {
                     return;
                 }
 
+                var when=(window.KARIBOU_INSTANCE)?new Date(window.KARIBOU_INSTANCE):null;
+
                 time=Date.now();
                 var referrer=window.referrer||document.referrer;
-                Raven.captureException(ex, {extra: {cause: cause, referer:referrer}});
+                Raven.captureException(ex, {extra: {
+                    cause: cause, 
+                    referer:referrer,
+                    release:when
+                }});
                 // throw ex;
             };
         }

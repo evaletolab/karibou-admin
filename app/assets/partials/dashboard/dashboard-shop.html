@@ -38,7 +38,9 @@
                 <button class="btn btn-md btn-transparent btn-block" 
                         ng-repeat="(shop, items) in shops"
                         ng-click="filters.s=shop" ng-class="{'active':isSelectedShop(shop)}">
-                        {{shop}} ({{countItemValidated(shops[shop])}}|{{shops[shop].length}})
+                        {{shop}} 
+                        ({{countItemValidated(shops[shop],filters.f)}}|
+                        {{countItemAvailable(items,filters.f)}})
                 </button> 
               </div>
           </div>

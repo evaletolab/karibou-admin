@@ -230,7 +230,7 @@ function orderFactory(config, $resource, $q, user,shop, api, cart) {
 
     // before the payment fees! 
     // add shipping fees (10CHF)
-    total+=config.shop.shipping.price;
+    total+=this.getShippingPrice();
 
     //
     // add gateway fees
