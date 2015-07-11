@@ -12,6 +12,7 @@ function OrderAdminCtrl($scope,$routeParams, $location, api, order, user, produc
 
 
 
+
   $scope.countShops=function(shops){
     if(!shops)return;
     return Object.keys(shops).length;
@@ -50,6 +51,7 @@ function OrderAdminCtrl($scope,$routeParams, $location, api, order, user, produc
     });
     return shops;
   };
+
 
   $scope.isCollectableShopForDay=function (shop,when) {
     if(!when||!$scope.shops) return true;
@@ -166,7 +168,6 @@ function OrderAdminCtrl($scope,$routeParams, $location, api, order, user, produc
   $scope.updateItem=function(oid,item,fulfillment){
     for (var o in $scope.orders){
       if($scope.orders[o].oid===oid){
-        console.log('update',oid,item);
         return $scope.orders[o].updateItem(item,fulfillment).$promise.then(function(){
           api.info($scope,"Statut commande enregistré",2000);
           item.fulfillment.status=fulfillment;
