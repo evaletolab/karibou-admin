@@ -286,6 +286,7 @@ function OrderNewCtrl($controller, $scope, $location, $rootScope, $routeParams, 
     // prepare shipping
     var shipping=cart.config.address;
     shipping.when=new Date($scope.shippingDays[cart.config.shipping||0].when);
+    shipping.hours=shipping.when.getHours();
 
 
     //
