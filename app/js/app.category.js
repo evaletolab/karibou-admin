@@ -97,18 +97,18 @@ function CategoryCtrl(config, $scope, $timeout, $routeParams, $location, api, ca
   
   //
   // upload foreground photo 
-  $scope.uploadCover=function(cat){
-    api.uploadfile($scope, {},function(err,fpfile){
-      if(err){
-        api.info($scope,"l'opération à été anullé");
-        return false;
-      }
-      $timeout(function() {
-        cat.cover=(config.storage&&fpfile.key)?config.storage+fpfile.key:fpfile.url;
-      }, 0);
+  // $scope.uploadCover=function(cat){
+  //   api.uploadfile($scope, {},function(err,fpfile){
+  //     if(err){
+  //       api.info($scope,"l'opération à été anullé");
+  //       return false;
+  //     }
+  //     $timeout(function() {
+  //       cat.cover=(config.storage&&fpfile.key)?config.storage+fpfile.key:fpfile.url;
+  //     }, 0);
       
-    });
-  };    
+  //   });
+  // };    
   
   // init
   category.select({stats:true},function(categories){
