@@ -6,8 +6,8 @@
 angular.module('app.order.common', ['app.order.ui','app.config', 'app.api'])
   .controller('OrderCommonCtrl',OrderCommonCtrl);
 
-OrderCommonCtrl.$inject=['$scope','$routeParams','api','order','user','product','Map','config'];
-function OrderCommonCtrl($scope, $routeParams, api, order, user, product, Map, config) {
+OrderCommonCtrl.$inject=['$scope','$routeParams','api','order','user','product','shop','Map','config'];
+function OrderCommonCtrl($scope, $routeParams, api, order, user, product,shop, Map, config) {
 
   $scope.map=new Map();
   $scope.user=user;
@@ -28,6 +28,7 @@ function OrderCommonCtrl($scope, $routeParams, api, order, user, product, Map, c
     showMenu:false
   };
 
+  $scope.shopsSelect=shop.query({});
 
   // default model for modal view
   $scope.modal = {};
@@ -58,6 +59,13 @@ function OrderCommonCtrl($scope, $routeParams, api, order, user, product, Map, c
   });
 
 
+  $scope.modalShopDetails=function (shop) {
+    $scope.shopsSelect.forEach(function (s) {
+      if(s.urlpath===shop){
+        $scope.modal=s;
+      }
+    })
+  }
 
 
   $scope.modalUserDetails=function(oid){
