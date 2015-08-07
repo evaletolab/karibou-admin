@@ -1,0 +1,30 @@
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <!-- START MODAL CONTENT -->
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3>{{modal.name}}</h3>
+      </div>
+      <div class="modal-body">
+        <h5 class="article-group-title " >
+          Données personnelles
+        </h5>          
+
+        <ul>
+          <li><b>{{modal.address.name}} </b></li>
+          <li><b><a href="tel:{{modal.address.phone}}">{{modal.address.phone}}</a> </b></li>
+          <li ng-repeat="phone in modal.vendor.phoneNumbers">{{phone.what}}: {{phone.number}}</li>
+          <li><a ng-href="mailto:{{modal.vendor.email.address}}">{{modal.vendor.email.address}}</a></li>
+          <li>{{modal.address.name}}, {{modal.address.streetAdress}}/{{modal.address.postalCode}}</li>
+          <li>étage: {{modal.address.floor}} - {{modal.address.note}}</li>
+
+        </ul>
+
+        <img ng-src="{{map.resolveStaticmap(modal.address)}}" style="width:100%"/>
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn" ng-click="modalDissmiss(dismiss())">Close</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
