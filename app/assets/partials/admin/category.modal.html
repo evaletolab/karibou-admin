@@ -56,7 +56,22 @@
             <div ng-show="modal.cover">
               <img ng-src="{{modal.cover}}" title="{{modal.cover}}" class="img-thumbnail" />
             </div>
-            <button ng-click="uploadCover(modal)" class="btn btn-block ">upload cover image for the {{modal.name}}</button>
+            <!-- COVER -->
+            <uploadcare-widget
+              ng-model="modal.cover"
+              data-locale="fr"
+              data-tabs="file url facebook flickr"
+              data-images-only="true"
+              data-path-value="true"
+              data-preview-step="true"
+              data-clearable="true"
+              data-multiple="false"
+              data-crop="free"
+              data-max-size-hide="153600"
+              value="{{modal.cover}}"
+             />
+
+            <!-- <button ng-click="uploadCover(modal)" class="btn btn-block ">upload cover image for the {{modal.name}}</button> -->
             <button ng-show="modal.cover" ng-click="modal.cover=null" class="btn btn-block ">clear this cover image</button>
           </div>
 
