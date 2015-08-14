@@ -16,8 +16,9 @@
             <div class="bucket-header bucket-header-list show-subtitles-variant">
                <nav class="bucket-sort">
                   <h5 class="bucket-title active" >
-                    <a class="bucket-header-title"><span class="bucket-header-title"><i class="fa fa-heart pink smallx "></i> Mes produits</span> </a>
+                    <a class="bucket-header-title"><span class="bucket-header-title"> Mes produits préférés&nbsp;<i class="fa fa-heart-o pink smallx "></i></span> </a>
                   </h5>
+                  <p class="bucket-sub-title" style="">Produits les plus achetés et mes «J'aime»</p>
                </nav>
             </div>
          </div>
@@ -28,7 +29,7 @@
 
             <article ng-init="findAllUserLoves()">
               <div  style="width:100%;"><!-- MANSORY FIX -->
-                <div  ng-include="'/partials/product/product.html'"  ng-repeat="product in products|orderBy:'-updated'"></div>              
+                <div  ng-include="'/partials/product/product.html'"  ng-repeat="product in products|orderBy:['categories.weight','-updated']"></div>              
               </div>
             </article>
             <button class="btn btn-default btn-lg btn-block " ng-click="cart.addList(products)" ng-disabled="!products.length">

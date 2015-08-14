@@ -8,7 +8,9 @@
      ng-repeat-end ng-class="getOrderStatusClass(order,'list-group-item-')" ng-if="(!filters.f||filters.f===order.shipping.when)">
     <h4 class="list-group-item-heading">
       <a class=" " ng-click="modalUserDetails(order.oid)" bs-modal="'/partials/order/order.user.modal.html'">
-        {{order.shipping.name}}</a> - {{getOrderPhones(order)}}
+        {{order.shipping.name}}</a> - {{getOrderPhones(order)}} - 
+        <span class="label label-price pull-right">{{order|orderTotal}}</span>
+
     </h4>
     <span class="pull-right label label-primary">sac {{order.rank}}</span>
     <p class="list-group-item-text">

@@ -1,13 +1,6 @@
 <!-- BY ORDERS -->
 <div class="list-group">
-  <div class="hide">
-      <h3>&nbsp;
-<!--         <a title="voir le détail par boutique" 
-           ng-href="{{getDetailledOrderUrl(filters.f)}}" >{{filters.f|dateLabel}}</a>&nbsp;
- -->        <a class="btn btn-xs btn-category "
-           ng-href="{{getDetailledOrderUrl(filters.f)}}" >Détail des commandes</a>
-      </h3>
-  </div>
+
   <li  ng-repeat="order in orders|orderBy:['rank']|filter:options.filterTxt" 
        class="list-group-item " 
        ng-if="(!filters.f||filters.f===order.shipping.when)"

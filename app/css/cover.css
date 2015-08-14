@@ -569,8 +569,8 @@ ul.cover-list li {
 
 @media all and (max-width:1200px) {
 .cover-resume.categories .site-nav-list-item {
-    font-size: 16px;
-    line-height: 26px;
+    font-size: 15px;
+    line-height: 23px;
     padding: 0px 6px;
     padding: 2px 6px;
  }
@@ -592,6 +592,9 @@ ul.cover-list li {
     height:360px
 }
 
+.site-shop-sidebar .cover-img {
+    height:460px
+}
 
 .cover-user .cover-body {
     position:relative;

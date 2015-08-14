@@ -18,10 +18,8 @@
         <!-- FILTERS LOGISTIC -->
         <div class="panel panel-default" >
           <div class="panel-heading">
-            <a href="" class="btn btn-transparent btn-md" toggle-on-click="#order-filter" > <i class="fa fa-chevron-down "></i> {{filters.f|dateLabel}}</a>
+            <a href="" class="btn btn-transparent btn-md" toggle-on-click="#order-filter" > <i class="fa fa-chevron-down "></i> </a>
 
-            <a class="btn btn-md btn-transparent "
-               ng-href="{{getDetailledOrderUrl(filters.f)}}" >Détail des commandes</a>
 
             <button class="btn btn-md btn-transparent " title="Imprimer les commandes" 
                     ng-click="filters.print=!filters.print" 
@@ -31,17 +29,11 @@
           <div class="panel-body nopadding" id="order-filter" ng-class="{'hide':orders.length}">
               <div class="col-xs-12 col-md-3 ">
                 <span>Filtrer les commandes: </span>                
-                <button class="btn btn-md btn-transparent btn-block" ng-click="toggle({closed:true})" ng-class="getToggleClass('closed',true)">Toutes les fermées</button>
-                <button class="btn btn-md btn-transparent btn-block" ng-click="toggle({fulfillments:'fulfilled'})" ng-class="getToggleClass('fulfillments','fulfilled')">Seulement les fulfilled</button>
+                <button class="btn btn-md btn-transparent btn-block" ng-click="toggle({closed:true})" ng-class="getToggleClass('closed',true)">Les fermées</button>
+                <button class="btn btn-md btn-transparent btn-block" ng-click="toggle({fulfillments:'fulfilled'})" ng-class="getToggleClass('fulfillments','fulfilled')">Les fulfilled</button>
               </div>
               <div ng-show="!dates.length" class="col-xs-12 col-md-3 gray text-center ">
                 <i class="fa fa-warning fa-1x"></i><br/> Pas de commande à afficher pour {{months_long[filters.month-1]}}
-              </div>
-              <div ng-show="dates.length" class="col-xs-12 col-md-3 ">
-                <div>Jours de livraison: </div>
-                <button class="btn btn-md btn-transparent btn-block" 
-                        ng-repeat="date in dates"
-                        ng-click="filters.f=date" ng-class="{'active':isSelectedDate(date)}">{{date|dateLabelShort}}</button> 
               </div>
               <div class="col-xs-12 col-md-3 ">
                 <div>Mois: </div>
@@ -57,6 +49,23 @@
           </div>
         </div>        
           
+        <form class="clearfix form-inline" >
+            <div ng-show="!dates.length" class="col-xs-12 gray text-center ">
+              <i class="fa fa-warning fa-1x"></i><br/> Pas de commande à afficher pour {{months_long[filters.month-1]}}
+            </div>
+            <div ng-show="dates.length" class="">
+              <button class="btn btn-md btn-transparent btn-block-xs" 
+                      ng-repeat="date in dates.slice().reverse()"
+                      ng-click="filters.f=date" ng-class="{'active':isSelectedDate(date)}">{{date|dateLabel}}
+                    </button> 
+
+              <a class="btn btn-md btn-transparent btn-block"
+                 ng-href="{{getDetailledOrderUrl(filters.f)}}" >Préparations pour la date sélectionnée</a>
+
+            </div>
+        </form>
+          
+
 
         <!-- WAIT -->
         <div ng-show="loading" class="text-center gray">

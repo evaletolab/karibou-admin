@@ -224,7 +224,7 @@ Product.controller('ProductCtrl',[
       // http://docs.disqus.com/developers/universal/
       (function() {
         var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-        dsq.src = 'http://karibou.disqus.com/embed.js';
+        dsq.src = '//karibou.disqus.com/embed.js';
         (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
       })();
 
@@ -386,11 +386,11 @@ Product.factory('product', [
     };
 
 
-    Product.prototype.findLove = function(cb,err) {
+    Product.prototype.findLove = function(body,cb,err) {
       if(!err) {err=onerr;}
       var products;
-      
-      var self=this, s=this.backend.products.query({sku:'love'},function() {
+      var params=angular.extend({},{sku:'love'},body||{})
+      var self=this, s=this.backend.products.query(params,function() {
         products=self.wrapArray(s);
         //
         // wrap dates for sorting !!!

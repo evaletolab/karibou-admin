@@ -17,21 +17,21 @@
         <!-- FILTERS LOGISTIC -->
         <div class="panel panel-default" >
           <div class="panel-heading">
-            <a href="" class="btn btn-transparent btn-md" toggle-on-click="#shopper-filter" > <i class="fa fa-chevron-down "></i> {{filters.f|dateLabel}}</a>
+            <a href="" class="btn btn-transparent btn-md" toggle-on-click="#shopper-filter" > <i class="fa fa-chevron-down "></i></a>
           </div>
           <div class="panel-body nopadding" id="shopper-filter" ng-class="{'hide':orders.length}">
               <div class="col-xs-12 col-md-3 ">
                 <span>Filtrer: </span>                
-                <button class="btn btn-md btn-transparent btn-block" ng-click="toggle({payment:'authorized'})" ng-class="getToggleClass('payment','authorized')">Les commandes incomplètes</button>
+                <button class="btn btn-md btn-transparent btn-block" ng-click="toggle({payment:'authorized'})" ng-class="getToggleClass('payment','authorized')">Les commandes réservées</button>
               </div>
               <div ng-show="!dates.length" class="col-xs-12 col-md-3 gray text-center ">
                 <i class="fa fa-warning fa-1x"></i><br/> Pas de livraison à proposer pour {{months_long[filters.month-1]}}
               </div>
               <div ng-show="dates.length" class="col-xs-12 col-md-3 ">
-                <div>Jours de livraison: </div>
-                <button class="btn btn-md btn-transparent btn-block" 
-                        ng-repeat="date in dates"
-                        ng-click="filters.f=date" ng-class="{'active':isSelectedDate(date)}">{{date|dateLabelShort}}</button> 
+                <div>Carte: </div>
+                <a class="btn btn-md btn-transparent btn-block" ng-href="/admin/shipping/map">
+                  Voir la carte
+                </a>
               </div>
               <div class="col-xs-12 col-md-3 ">
                 <div>Mois: </div>
@@ -47,6 +47,17 @@
           </div>
         </div>        
         
+        <form class="clearfix form-inline" >
+            <div ng-show="!dates.length" class="col-xs-12 gray text-center ">
+              <i class="fa fa-warning fa-1x"></i><br/> Pas de livraison pour {{months_long[filters.month-1]}}
+            </div>
+            <div ng-show="dates.length" class="">
+              <button class="btn btn-md btn-transparent btn-block-xs" 
+                      ng-repeat="date in dates.slice().reverse()"
+                      ng-click="filters.f=date" ng-class="{'active':isSelectedDate(date)}">{{date|dateLabel}}
+                    </button> 
+            </div>
+        </form>
 
         <!-- LOGISTIC -->
         <div ng-show="loading&&!orders.length" class="text-center gray">

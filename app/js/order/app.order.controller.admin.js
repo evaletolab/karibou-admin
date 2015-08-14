@@ -11,6 +11,7 @@ function OrderAdminCtrl($scope,$routeParams, $location, api, order, user, produc
   $controller('OrderCommonCtrl', {$scope: $scope}); 
 
 
+  $scope.addresses=[];
 
 
   $scope.countShops=function(shops){
@@ -92,6 +93,7 @@ function OrderAdminCtrl($scope,$routeParams, $location, api, order, user, produc
   $scope.isProductDirty=function (product) {
     return (product.pricing._price!=product.pricing.price||
             product.pricing._stock!=product.pricing.stock||
+            product.attributes._discount!=product.attributes.discount||
             product.attributes._available!=product.attributes.available||
             product.attributes._home!=product.attributes.home);
   };
@@ -100,6 +102,7 @@ function OrderAdminCtrl($scope,$routeParams, $location, api, order, user, produc
     product._weight=product.weight;
     product.attributes._available=product.attributes.available;
     product.attributes._home=product.attributes.home;
+    product.attributes._discount=product.attributes.discount;
     product.pricing._stock=product.pricing.stock;
     product.pricing._price=product.pricing.price;
   };
@@ -205,6 +208,11 @@ function OrderAdminCtrl($scope,$routeParams, $location, api, order, user, produc
       order.findAllOrders(filters).$promise.then(function(orders){
         $scope.orders=orders;filters.f=null;
         $scope.shops=false;
+
+        //
+        // get addresses
+        $scope.shopAddresses=orders.map(function(order){return order.vendors;});
+        $scope.shopAddresses=_.flatten($scope.shopAddresses)
         $scope.addresses=orders.map(function(order){return order.shipping;});
         $scope.dates=orders.map(function (order) {
           return ((order.shipping.when));
@@ -237,6 +245,8 @@ function OrderAdminCtrl($scope,$routeParams, $location, api, order, user, produc
           $scope.shops=$scope.groupByShops(orders);
           if(!filters.s)$scope.filters.s=Object.keys($scope.shops)[0];
         }
+
+
         $scope.loading=false;
       });
 
@@ -251,8 +261,9 @@ function OrderAdminCtrl($scope,$routeParams, $location, api, order, user, produc
   };
   $scope.loadAllProducts=function(){
     $scope.loading=true;
+
     user.$promise.then(function(){
-      var params={sort:'categories.weight'};
+      var params={sort:'categories.weight',shopname:$scope.filters.shops};
       // filter with the user shop
       if(!user.isAdmin()){
         params.shopname=user.shops[0].urlpath;

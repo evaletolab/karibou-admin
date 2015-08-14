@@ -50,7 +50,7 @@ function OrderNewCtrl($controller, $scope, $location, $rootScope, $routeParams, 
   // user.ready && !process => /order/payment
   // user.ready &&  process => /order/process
   user.$promise.finally(function(){
-    $scope.profileReady=(user.isReady()&&user.hasPrimaryAddress());
+    $scope.profileReady=(user.isReady()&&(user.hasPrimaryAddress()!==false));
     $log.info('in flow',$scope.process, $scope.profileReady);  
 
     if(!user.isAuthenticated() && $scope.process==='profile'){
@@ -69,12 +69,14 @@ function OrderNewCtrl($controller, $scope, $location, $rootScope, $routeParams, 
       $location.path('/order/payment');
     }
 
-    $log.info('out flow',$scope.process);  
 
 
 
     var p=user.hasPrimaryAddress();
     $scope.cart.config.address=(p!=-1)?p:0;
+
+    $log.info('out flow',$scope.process,$scope.cart.config);  
+
     // create an empty address to prefil the form in the wizard
     //if(!user.addresses.length)user.addresses.push({})
     if(!user.phoneNumbers.length)user.phoneNumbers.push({what:'mobile'});

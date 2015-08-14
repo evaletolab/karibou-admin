@@ -50,6 +50,7 @@ Home.controller('HomeCtrl', [
     $scope.map=new Map();
     $scope.infinite={};
     $scope.product=false;
+    $scope.loves=false;
     
 
 
@@ -92,13 +93,33 @@ Home.controller('HomeCtrl', [
 
     $scope.findAllUserLoves=function(){
       $scope.products=[];
-      product.findLove(function(products){
+      product.findLove({popular:true,minhit:1, available:true},function(products){
         $scope.products=products;
       });
     };    
 
     $scope.loadHome=function(){
-      var deferred = $q.defer();
+      var deferred = $q.defer(), waitmylove={$promise:$q.when(true)};
+
+      function resolve (value) {
+          waitmylove.$promise.finally(function (value) {
+            deferred.resolve(value);
+          })
+      }
+
+      //
+      // list popular product for the current user
+      if(!$routeParams.category&&user.isAuthenticated()){
+        waitmylove=$scope.loves=product.findLove({popular:true,minhit:2, available:true},function(products){
+          $scope.loves=products;
+        });
+      }
+
+
+      // $scope.loves.$promise.then(function (loves) {
+      //   console.log('get :mylove')
+      // });
+
       //
       // list products by category
       if ($routeParams.category){
@@ -108,7 +129,7 @@ Home.controller('HomeCtrl', [
         
         $scope.products=product.findByCategory($routeParams.category,filter,function(products){
           $scope.items=$scope.products=products;
-          deferred.resolve(products);
+          resolve(products);
         });
         return deferred.promise;
       }
@@ -123,7 +144,7 @@ Home.controller('HomeCtrl', [
         $scope.shops=shop.findByCatalog($routeParams.catalog,filter,function(shops){
           $scope.items=$scope.shops=shops;
           $scope.addresses=$scope.shopsAddress(shops);
-          deferred.resolve(shops);
+          resolve(shops);
         });
         return deferred.promise;
       }
@@ -136,7 +157,7 @@ Home.controller('HomeCtrl', [
         $scope.shops=shop.home(filter,function(shops){
           $scope.items=$scope.shops=shops;
           $scope.addresses=$scope.shopsAddress(shops);
-          deferred.resolve(shops);
+          resolve(shops);
         });
         return deferred.promise;
       } 
@@ -144,7 +165,7 @@ Home.controller('HomeCtrl', [
       filter={sort:'categories.weight',group:'categories.name', status:true, home:true, available:true};
       $scope.products=product.home(null,filter,function(products){
         $scope.items=$scope.products=products;
-        deferred.resolve(products);
+        resolve(products);
       });
       return deferred.promise;
     };

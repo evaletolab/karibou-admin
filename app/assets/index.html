@@ -101,6 +101,14 @@
                 <a  class="site-nav-list-item-btn" href="" ng-click="logout()"><i class="fa fa-sign-out green"></i>&nbsp;logout</a>
               </li>
 
+              <li class="site-nav-list-item" ng-show="user.isAdmin()">
+                <a  class="site-nav-list-item-btn" ng-href="/admin/collect" ><i class="fa fa-bicycle green"></i>&nbsp;collect</a>
+              </li>
+
+              <li class="site-nav-list-item" ng-show="user.shops.length||user.isAdmin()">
+                <a  class="site-nav-list-item-btn" ng-href="/admin/orders" ><i class="fa fa-cogs green"></i>&nbsp;orders</a>
+              </li>
+
               <!-- MENU -->
               <li class="site-nav-list-item divider visible-xs visible-sm">
                 <span  class="site-nav-list-item-text" >Le marché</span>
@@ -236,7 +244,7 @@
       <div class="loading-bar"></div>
       <!-- FEEDBACK -->
       <div ng-controller="FeedbackCtrl" class="hidden-print" ng-show="disableFeedbackWidget()">
-        <button class="ng-cloak  btn btn-circle feedbackbtn " ng-click="feedback.show=true" ng-hide="feedback.show"><i class="fa fa-pencil fa-2x"></i></button>
+        <button class="ng-cloak  btn btn-feedbk feedbackbtn " ng-click="feedback.show=true" ng-hide="feedback.show"><i class="fa fa-pencil fa-1x"></i> {{getTitle()}}</button>
         <div  class="feedbackform ng-cloak "  unselectable="on" ng-if="feedback.show">
           <div unselectable="on" class="feedbackform-header">
             <b>{{getTitle()}}</b>
@@ -250,8 +258,8 @@
                 <img  ng-src="{{feedback.shop.photo.owner | placehold:'50x50&text=l`équipe'}}" style="">              
               </div>
               <div class="feedback-description">
-              <div ng-if="user.isAuthenticated()">Bonjour {{user.display()}},</div>
-              <span bind="feedback.shop.description">Je suis {{feedback.shop.owner.displayName}} vous pouvez contacter la boutique <span class="bold">{{feedback.shop.name}}</span> ici.</span>
+              <div ng-if="user.isAuthenticated()">Bonjour <span class="text-capitalize">{{user.display()}}</span>,</div>
+              <span bind="feedback.shop.description">Vous avez une question pour <span class="bold">{{feedback.shop.name}}</span>.</span>
                 
               </div>
             </div>
@@ -261,15 +269,15 @@
                 <img  ng-src="{{feedback.product.vendor.photo.owner | placehold:'50x50&text=l`équipe'}}" style="">              
               </div>
               <div class="feedback-description">
-              <div ng-if="user.isAuthenticated()">Bonjour {{user.display()}},</div>
-              <span bind="feedback.shop.description">Vous avez une question à propos du produit <span class="bold">{{feedback.product.title}}</span> vous pouvez contacter la boutique <span class="bold">{{feedback.product.vendor.name}}</span> ici.</span>
+              <div ng-if="user.isAuthenticated()">Bonjour <span class="text-capitalize">{{user.display()}}</span>,</div>
+              <span bind="feedback.shop.description">Vous avez une question à propos du produit <br/><span class="bold">{{feedback.product.title}}</span> de <span class="bold">{{feedback.product.vendor.name}}</span>.</span>
                 
               </div>              
             </div>
             <!-- ON SITE -->
             <div ng-if="contextSite()">
               <div class="feedback-description">
-              <span ng-if="user.isAuthenticated()">Bonjour {{user.display()}},&nbsp;</span>
+              <span ng-if="user.isAuthenticated()">Bonjour <span class="text-capitalize">{{user.display()}}</span>,&nbsp;</span>
               Vous pouvez contacter l'équipe  <span class="bold">Karibou</span> ici.
               </div>
               

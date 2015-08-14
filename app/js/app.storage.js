@@ -66,10 +66,7 @@ function storageService() {
     //
     // testing the service
     try{
-      if (window.localStorage !== null||
-         (typeof window.localStorage == 'undefined')) {
-        window.localStorage.getItem('slkxjljc');
-      }
+      window.localStorage.getItem('slkxjljc');
     }catch(e){
 
       //
@@ -79,6 +76,7 @@ function storageService() {
 
       return {
         length: 0,
+        hooked:true,
         clear: function () {
           data = {};
           this.length = 0;
@@ -109,8 +107,10 @@ function storageService() {
       };
     }
 
+    window.localStorage.hooked=false;
+
     // local storage is ok in this browser
-    return window.localstorage;
+    return window.localStorage;
 
   };
 

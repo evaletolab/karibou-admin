@@ -95,25 +95,27 @@ angular.module('app.product.ui', [
         // tmplSingle=tmplSingleSm;          
       }
       ngModelCtrl.$render=function () {
-        // init scope
-        scope.small=small;
-        scope.cart=cart;
-        var product=scope.product=ngModelCtrl.$viewValue;
-        //
-        // select template
+        // init scope (this is not well done, waiting for state is ugly, FIXME)
+        var wait=(ngModelCtrl.$viewValue.sku)?0:1000;
 
-        var template=(product.variants&&product.variants.length)?tmplMultiple:tmplSingle;
-        //
-        // replace btClass
-        var btClass=attrs.btClass||'';
-        template=template.replace(/_btClass/g, btClass);
+        $timeout(function () {
+          scope.small=small;
+          scope.cart=cart;
+          var product=scope.product=ngModelCtrl.$viewValue;
+          //
+          // select template
 
+          var template=(product.variants&&product.variants.length)?tmplMultiple:tmplSingle;
+          //
+          // replace btClass
+          var btClass=attrs.btClass||'';
+          template=template.replace(/_btClass/g, btClass);
 
-
-        // angular.element('#'+attrs.id).html(el);
-        var el = $compile(template)(scope);
-        // element.html(el);
-        element.replaceWith(el)
+          // angular.element('#'+attrs.id).html(el);
+          var el = $compile(template)(scope);
+          // element.html(el);
+          element.replaceWith(el)
+        },wait);
       };
     }
   };

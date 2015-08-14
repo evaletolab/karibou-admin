@@ -128,7 +128,7 @@ User.factory('user', [
     };
 
     User.prototype.hasPrimaryAddress= function () {
-        if (this.addresses&&this.addresses.length==1)return true;
+        if (this.addresses&&this.addresses.length==1)return 0;
         for (var i in this.addresses){
           if (this.addresses[i].primary===true)
             return i;

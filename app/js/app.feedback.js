@@ -71,9 +71,9 @@ function FeedbackCtrl(config, $scope, $rootScope,$timeout, $http, $location, use
   };
 
   $scope.getTitle=function () {
-    if(feedback.product) {return 'Contactez: '+feedback.product.vendor.name;}
-    if(feedback.shop){return 'Contactez: '+feedback.shop.name;}
-    return 'Contactez l\'équipe Karibou?';
+    if(feedback.product) {return feedback.product.vendor.name;}
+    if(feedback.shop){return feedback.shop.name;}
+    return 'Une question?';
   };
 
   $scope.contextSite=function () {

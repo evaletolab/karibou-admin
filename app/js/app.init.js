@@ -290,15 +290,16 @@ function appRun(gitHubContent, $templateCache, $route, $http, config) {
 
       //
       // loading Stripe
-      $script("https://js.stripe.com/v2/",function () {
+      $script("https://js.stripe.com/v2/","stripe",function () {
         Stripe.setPublishableKey(pk);
       });
 
+      // init uploadcare key here
+      config.uploadcare=config.shop.keys.pubUpcare;
+      uploadcare.start({ publicKey: config.uploadcare, maxSize:153600, locale:'fr' });
 
   });
 
-  // init uploadcare key here
-  uploadcare.start({ publicKey: config.uploadcare, maxSize:153600, locale:'fr' });
 
   // preload templates
   for(var i in $route.routes){

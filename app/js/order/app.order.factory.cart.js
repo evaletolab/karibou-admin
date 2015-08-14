@@ -10,28 +10,54 @@ angular.module('app.order')
 
 //
 // implement cart
-cartFactory.$inject=['config','$timeout','$rootScope','$window','$storage','api'];
-function cartFactory(config, $timeout,$rootScope,$window, $storage, api) {
+cartFactory.$inject=['config','$timeout','$rootScope','$window','$storage','api','user'];
+function cartFactory(config, $timeout,$rootScope,$window, $storage, api,user) {
+  var defaultShipping={
+      discountA:0,
+      discountB:0,
+      price:{
+        hypercenter:10,
+        periphery:17.90
+      }, 
+      periphery:[]
+    };
+
   var defaultCart={
-      namespace:"kariboo_cart",
-      shippingFlatRate: {free:0,half:0,price:10},
+      namespace:"ge_karibou_cart",
+      shippingFlatRate: defaultShipping,
       taxName:    'Aucun',
       tax:        0.00,
-      currency:   "CHF"
+      currency:   "CHF",
+      postalCode:0
   };
 
 
+
+
+  //
+  // part of the config is async loaded
   config.shop.then(function () {
     defaultCart.shippingFlatRate=config.shop.shipping;
   });
 
+  user.$promise.finally(function(){
+    defaultCart.postalCode=user.addresses[_cart.config.address||0].postalCode;
+  });
 
-  var localStorage=window.localStorage;
+
+
+  //
+  // using flexible localStorage
+  var localStorage=$storage;
 
 
   var Cart = function(data) {
     this.items = [];
     this.config={shipping:0,address:undefined, payment:undefined};
+  };
+
+  Cart.prototype.roundCHF=function(value) {
+    return parseFloat((Math.round(value*20)/20).toFixed(2));
   };
 
   Cart.prototype.equalItem=function(i,product, variant) {
@@ -208,12 +234,33 @@ function cartFactory(config, $timeout,$rootScope,$window, $storage, api) {
     var fees=this.tax()*(total+this.shipping());
     total=(total + fees + this.shipping());
     // Rounding up to the nearest 0.05
-    return (Math.round(total*20)/20).toFixed(2);
+    return this.roundCHF(total);
 
   };
 
   Cart.prototype.hasShippingReduction=function () {
-    return (this.shipping()!==defaultCart.shippingFlatRate.price);
+    var total=this.total();
+
+    // implement 3) get free shipping!
+    if (defaultCart.shippingFlatRate.discountB&&total>=defaultCart.shippingFlatRate.discountB){
+      return true;
+    }
+
+    // implement 3) get half shipping!
+    else if (defaultCart.shippingFlatRate.discountA&&total>=defaultCart.shippingFlatRate.discountA){
+      return true;
+    }
+    return false;
+  };
+
+  Cart.prototype.getShippingSectorPrice=function (postalCode) {
+    if(!postalCode ){
+      return 'hypercenter';
+    }
+    if(defaultCart.shippingFlatRate.periphery.indexOf(postalCode)!==-1){
+      return 'periphery';
+    }
+    return 'hypercenter';
   };
 
   Cart.prototype.shipping=function(){
@@ -221,27 +268,30 @@ function cartFactory(config, $timeout,$rootScope,$window, $storage, api) {
     //
     // See order for order part of implementation
 
-    // now compute shipping value to store in order. Several sources:
-    // 1) coupon for freeshipping
-    //   --> this.payment.coupons
-
-
-    // 2) amount depend on price
-    // 3) amount depend on grouped orders
+    //
+    // get the base of price depending the shipping sector
+    if(this.config.address&&this.config.address.postalCode){
+      defaultCart.postalCode=this.config.address.postalCode;
+    }
+    else if(user.addresses&&user.addresses.length){
+      defaultCart.postalCode=user.addresses[this.config.address||0].postalCode;
+    }
+    var distance=this.getShippingSectorPrice(defaultCart.postalCode);
+    var price=defaultCart.shippingFlatRate.price[distance];
 
     
     // implement 3) get free shipping!
-    if (defaultCart.shippingFlatRate.free&&total>=defaultCart.shippingFlatRate.free){
-      return 0;
+    if (defaultCart.shippingFlatRate.discountB&&total>=defaultCart.shippingFlatRate.discountB){
+      return this.roundCHF(price-defaultCart.shippingFlatRate.priceB);
     }
 
     // implement 3) get half shipping!
-    else if (defaultCart.shippingFlatRate.half&&total>=defaultCart.shippingFlatRate.half){
-      return defaultCart.shippingFlatRate.price/2;
+    else if (defaultCart.shippingFlatRate.discountA&&total>=defaultCart.shippingFlatRate.discountA){
+      return this.roundCHF(price-defaultCart.shippingFlatRate.priceA);
     }
 
 
-    return defaultCart.shippingFlatRate.price;
+    return price;
   };
 
   Cart.prototype.tax=function(){

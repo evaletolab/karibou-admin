@@ -47,6 +47,18 @@ UI.filter('unique', function() {
     };
 });
 
+UI.filter('capitalize', function() {
+  return function(input, scope) {
+    if (input!=null)
+    var lst=input.split(' ');
+    for (var i = lst.length - 1; i >= 0; i--) {
+      lst[i]=lst[i].toLowerCase();
+      lst[i]=lst[i].substring(0,1).toUpperCase()+lst[i].substring(1)
+    };
+    return lst.join(' ');
+  }
+});
+
 
 // this is native now
 // http://stackoverflow.com/questions/19992090/angularjs-group-by-directive
@@ -258,7 +270,7 @@ UI.directive('backstretch', ['$parse', function($parse) {
     link:function(scope, element, attr, ctrl) { 
       var style={
         'background-size':'cover',
-        'background-position': 'center center'
+        'background-position': '50% 20%'
       };    
       
       function bs(e, path){

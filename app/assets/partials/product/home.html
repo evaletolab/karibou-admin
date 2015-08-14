@@ -26,6 +26,18 @@
                </nav>
             </div>
          </div>
+        <!-- LOVES & POPULAR -->
+        <article  ng-if="loves.length"> 
+          <h5 class="article-group-title ">
+            <span class="gray">Mes produits</span>
+            <a ng-href="/account/love" class="btn btn btn-category green">Plus &nbsp;<i class="fa fa-angle-right"></i></a>
+          </h5>
+          <p class="bucket-sub-title" style="margin-top:-25px">Produits les plus achetés et mes «J'aime»</p>
+
+          <div  style="width:100%;"><!-- MANSORY FIX -->
+            <div  ng-static-include="'/partials/product/product.html'"  ng-repeat="product in loves|orderBy:['categories.weight','-updated']"></div>              
+          </div>
+        </article>
 
         <!-- PRODUCTS -->
         <div infinite-scroll='loadNextPage()'  

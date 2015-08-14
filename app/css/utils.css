@@ -409,9 +409,19 @@ hr.soften {
 
 
 @media (max-width: 768px) {
-.nopadding-xs{
-  padding: 0px!important;
+  .nopadding-xs{
+    padding: 0px!important;
+  }
+
 }
+
+@media (max-width: 400px) {
+  .btn-block-xs {
+      display: block;
+      width: 100%;
+      padding-right: 0px;
+      padding-left: 0px;
+  }
 }
 
 @media all {

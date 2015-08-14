@@ -30,7 +30,18 @@
           <div class="panel-body nopadding"></div>
         </div>
 
-        <div  ng-include="'/partials/order/order-lists-stocks.html'"></div>
+        <div class="" ng-if="user.isAdmin()">
+          <select class="form-control " 
+                  ng-change="loadAllProducts()"
+                  ng-model="filters.shops" 
+                  ng-options="shop.urlpath as shop.name  for shop in shopsSelect">
+                  <option value=""  selected>-- Choisissez une boutique</option>
+          </select>                        
+        </div>
+
+
+
+        <div class="clearfix" ng-include="'/partials/order/order-lists-stocks.html'"></div>
 
         <!-- WAIT -->
         <div ng-show="loading" class="text-center gray">

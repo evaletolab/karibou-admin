@@ -11,7 +11,7 @@
         </a>
       </th>
       <th style="width:40px" title="Les produits disponibles à la vente">visible</th>
-      <th style="width:80px">
+      <th style="width:80px" class="hide">
         <a href="" ng-click="orderByField='weight';reverseSort=!reverseSort">poids</a>
       </th>
       <th style="width:80px">
@@ -39,7 +39,7 @@
       </td>
 
       <!-- WEIGTH -->
-      <td>
+      <td class="hide">
         <input type="text" type="number"
         ng-model="product.pricing._weight"   class="form-control">
       </td>
@@ -66,8 +66,9 @@
       <td ng-if="user.isAdmin()" >
         <input type="checkbox" ng-checked="product.attributes.home" ng-model="product.attributes.home" >        
       </td>
-      <td>
+      <td style="width:43px;">
         <button type="button" ng-click="saveProduct(product);"
+                ng-show="isProductDirty(product)"
                 class="btn btn-primary btn-xs"><i class="fa fa-save"></i></button>
       </td>
     </tr>
