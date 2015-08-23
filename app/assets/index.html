@@ -201,6 +201,14 @@
             </p>
          </div>
 
+         <div class="butter-bar active info hidden-print maintenance" ng-cloak 
+              ng-show="options.needReload" 
+            ng-animate="{show: 'fadein', hide: 'fadeout'}">
+            <p class="butter-bar-message" >
+              <i class="fa fa-info-circle"></i>&nbsp;<strong>Une nouvelle version est disponible, veuillez <a href="#" onClick="window.location.reload()">recharger la page</a></strong>
+              
+            </p>
+         </div>
 
         <!--[if lt IE 11]>
         <div class="butter-bar active info back " >

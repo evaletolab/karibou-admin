@@ -21,6 +21,7 @@ devel:
 prod:
 	$(BRUNCH) build --production
 	cp app/assets/robots.txt.prod build/robots.txt
+	cp app/assets/google686735a81b08a83b.html build/
 	cd build && rsync -avu --delete -e 'ssh -p22' . evaleto@evaletolab.ch:www/production.karibou.ch/
 
 publish:

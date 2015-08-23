@@ -62,7 +62,18 @@
 
       <!-- ADMIN OR OWNER -->
       <div ng-show="user.isOwnerOrAdmin(product.vendor.name)" class="pull-right">
-        <a href="{{rootProductPath}}/products/{{product.sku}}/edit" class="btn  btn-small"><i class="fa fa-edit"></i>&nbsp;Editer le produit</a>
+        <a href="{{rootProductPath}}/products/{{product.sku}}/edit" class="btn  btn-small"><i class="fa fa-edit"></i>&nbsp;Edition avancée du produit</a>
+      </div>
+      <div ng-show="user.isOwnerOrAdmin(product.vendor.name)" class="quick-stock">
+        <p>Modifié la quantité disponible (actuellement <b>{{product.pricing.stock}}</b>)</p>
+        <div class="btn-group btn-group-justified" role="group" aria-label="Justified button group">
+          <a href="#" class="btn btn-default" role="button" 
+                      ng-click="product.pricing.stock=0;save(product);" ng-disabled="WaitText">0</a>
+          <a href="#" class="btn btn-default" role="button" 
+                      ng-click="product.pricing.stock=10;save(product);" ng-disabled="WaitText">10</a>
+          <a href="#" class="btn btn-default" role="button" 
+                      ng-click="product.pricing.stock=40;save(product);" ng-disabled="WaitText">40</a>
+        </div>      
       </div>
 
       <!-- TITLE -->

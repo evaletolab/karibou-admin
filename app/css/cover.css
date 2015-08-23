@@ -129,8 +129,15 @@
 }
 
 aside>.cover-body{
-    background:none repeat scroll 0 0 rgba(0, 0, 0, 0.15);    
+    background:none repeat scroll 0 0 rgba(0, 0, 0, 0.25);    
     padding:30px 12% 10%;
+}
+
+.cover-logo{
+    width: 100%;
+    max-width: 240px;
+    padding-top: 20px;
+    padding-bottom: 5px;
 }
 
 .cover-title {
@@ -142,11 +149,11 @@ aside>.cover-body{
 }
 
 .cover-description {
-    font-size:16px;
+    font-size:14px;
     line-height:1.2;
     color:#fff;
     margin-bottom:14px;
-    text-shadow:0 0px 1px rgba(0,0,0,0.3);
+    text-shadow:0 0px 1px rgba(0,0,0,0.1);
 }
 
 
@@ -258,7 +265,7 @@ ul.cover-list li {
 }
 
 .strong .cover-description, .strong .cover-title, .strong .cover-description a{
-    text-shadow: 0 0px 1px rgba(0,0,0,0.5);
+    text-shadow: 0 0px 1px rgba(0,0,0,0.3);
     font-weight: 500;    
 }
 
@@ -310,6 +317,11 @@ ul.cover-list li {
     width:100%;
     padding-bottom:40px;
     background:none repeat scroll 0 0 rgba(0, 0, 0, 0.15);
+    top:0;
+}
+
+.cover-logo{
+    padding-top: 25px;
 }
 
 .cover-home.session .cover-user .cover-body{
@@ -328,7 +340,7 @@ ul.cover-list li {
     font-size:32px}
 
 .cover-description {
-    font-size:18px}
+    font-size:16px}
 
 }
 
@@ -355,6 +367,7 @@ ul.cover-list li {
     padding:65px 5% 30px;
     background:none repeat scroll 0 0 rgba(0, 0, 0, 0.15);
 }
+
 
 .cover-title {
     font-size:24px;

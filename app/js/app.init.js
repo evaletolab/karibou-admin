@@ -274,8 +274,8 @@ function cordovaReady() {
 
 //
 // init the module
-appRun.$inject=['gitHubContent', '$templateCache', '$route', '$http', 'config'];
-function appRun(gitHubContent, $templateCache, $route, $http, config) {
+appRun.$inject=['gitHubContent', '$templateCache', '$route', '$http','$timeout', 'config'];
+function appRun(gitHubContent, $templateCache, $route, $http, $timeout, config) {
   gitHubContent.initialize({
         root:'page', // specify the prefix route of your content
         githubRepo:config.github.repo,

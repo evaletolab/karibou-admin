@@ -152,6 +152,15 @@
   color: black;
 }
 
+.popupcontent div.quick-stock>p{
+  padding:10px 20px;
+  margin-bottom: 10px;
+}
+
+.popupcontent div.quick-stock>div{
+  padding:0px 20px;
+}
+
 
 /* Desktop large
 ------------------------- */
@@ -292,5 +301,6 @@
   .popupcontent ul.dropdown-menu {
     left: -200px;
   }
+
 
 }
