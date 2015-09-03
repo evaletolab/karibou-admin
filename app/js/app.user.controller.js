@@ -73,22 +73,43 @@ User.controller('AccountCtrl',[
       'american express':'ae.jpg',
       'mastercard':'mc.jpg',
       'visa':'visa.jpg',
-      'postfinance card':'pfc.jpg'
+      'postfinance card':'pfc.jpg',
+      'invoice':'invoice.png'
     };
 
     // show payment form
     $scope.options={
       showCreditCard:false,
-      showPaymentForm:false
+      showPaymentForm:false,
+      orderByField:'logged',
+      filterByField:false
     };
 
     // default model for modal view
     $scope.modal = {};
 
 
+    $scope.applyTableFilter=function (action) {
+      var options=$scope.options;
+      switch(action){
+        case 'logged':
+        case 'updated':
+        options.orderByField=action;
+        options.reverseSort=!options.reverseSort;
+        break;
+        case 'email':
+        options.filterByField=(options.filterByField===1)?
+          options.filterByField=false:options.filterByField=1;
+
+      }
+      // body...
+    };
+
+
     // remove an user
     $scope.remove=function(user, password, dismiss){
       $scope.modal = {};
+      dismiss();
       user.remove(password,function(){
         api.info($scope,"l'utilisateur est supprimé");
         // remove user from local repository
@@ -96,7 +117,6 @@ User.controller('AccountCtrl',[
           if($scope.users[i].id===user.id)
             $scope.users.splice(i,1);
         }
-        dismiss();
       });
     };
 
@@ -109,11 +129,23 @@ User.controller('AccountCtrl',[
 
     $scope.modalUserDetails=function(user){
       $scope.modal=user;
+      $scope.invoice_name=user.email.address;
     };
 
     $scope.modalDissmiss=function(){
+      var modal=$scope.modal;
+      // for (var i=0;i<$scope.users.length;i++){
+      //   if($scope.users[i].id===modal.id){
+      //     $scope.users[i].email.status=modal.email.status;
+      //     $scope.users[i].invoice=modal.invoice;
+      //     $scope.users[i].merchant=modal.merchant;
+      //   }
+      // }
+
       $scope.modal = {};
+      $scope.findAllUsers();
     };
+
 
     //
     // list all users
@@ -191,7 +223,7 @@ User.controller('AccountCtrl',[
 
       user.register(r,function(){
         api.info($scope,"Votre compte à été créé! Une demande de confirmation vous a été envoyée à votre adresse email");
-        $location.url('/account/profile');
+        $location.url('/');
       });
     };
 
@@ -213,7 +245,7 @@ User.controller('AccountCtrl',[
     // save action
     $scope.save=function(u){
       $rootScope.WaitText="Waiting ...";
-      user.save(user,function(){
+      user.save(u,function(){
         api.info($scope,"Profil enregistré");
       });
     };
@@ -300,6 +332,27 @@ User.controller('AccountCtrl',[
       });      
     };
 
+    $scope.hasMethod=function  (u,issuer) {
+      if(u.payments)for (var i = u.payments.length - 1; i >= 0; i--) {
+        if(u.payments[i].issuer.toLowerCase()===issuer)return true;
+      }
+      return false;
+    };
+
+
+    $scope.addInvoiceMethod=function  (name,expiry,uid) {
+      //
+      // response.id
+      user.addPaymentMethod({
+        name:name,
+        issuer:'invoice',
+        expiry:expiry
+      },uid, function(u){
+        api.info($scope,"Votre méthode de paiement a été enregistrée");
+
+      });    
+    };
+
 
     $scope.checkPaymentMethod=function(){
       $rootScope.WaitText="Waiting ...";
@@ -311,9 +364,9 @@ User.controller('AccountCtrl',[
       });
     };
 
-    $scope.deletePaymentMethod=function(alias,cvc,expiry){
+    $scope.deletePaymentMethod=function(alias,uid){
       $rootScope.WaitText="Waiting ...";
-      user.deletePaymentMethod(alias,function(u){
+      user.deletePaymentMethod(alias,uid,function(u){
         api.info($scope,"Votre méthode de paiement a été supprimé");
       });
     };

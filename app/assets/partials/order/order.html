@@ -180,6 +180,16 @@
                       Votre code postal n'est peut être pas encore disponible pour le moment.
                     </p>-->
 
+                    <div class="colsm10 form-inline well" ng-hide="user.addresses[0].postalCode ||user.mailchimp">
+                        <div class="lead">Votre code postal n'est pour l'instant pas disponible pour la livraison? Accelérez sa mise en service en souscrivant maintenant!</div>
+                        <input id="open-cp" type="number" min="1200" max="1299" size="10" ng-model="open_cp" type="text" placeholder="Votre code postal" class="form-control input-lg" required style="min-width:200px">
+                        <a  href="#" 
+                            ng-disabled="!open_cp"
+                            ng-click="subscribe(user,open_cp)"
+                            class="btn btn-warning btn-lg pull-right">Ouvrir mon secteur !</a>
+
+                    </div>
+
                 </div>
               </div>
 
@@ -234,22 +244,7 @@
 
             <div class="payment" ng-init="checkPaymentMethod()">     
               <div class="list-group clearfix">
-                <!-- THE INVOICE -->
-                <a href="" class="list-group-item hide"                             
-                           ng-click="cart.config.payment={type:'invoice'};" 
-                           ng-class="{'active':cart.config.payment.issuer==='invoice'}" >
-                  <div class="col-xs-3 col-sm-2 nopadding " >
-                    <img ng-src="/img/payments/invoice.png" class="img-thumbnail img-responsive" alt="" />
-                  </div>
-                  <div class="col-xs-9 col-sm-10 " >
-                    <h4 class="list-group-item-heading heading-center">Facture en ligne <span class="bold green" >sans frais</span></h4>
-                    <p class="list-group-item-text comment-text " >
-                        La facture sera disponible en ligne et vous sera envoyée par email le jour suivant la livraison
-                        <span class="link small" ng-href="/docs/facture-en-ligne">plus d'info concernant la facture en ligne</span>
 
-                    </p>
-                  </div>
-                </a>
                 <!-- THE ONES SAVED -->
                 <a href="" class="list-group-item "                             
                            ng-repeat="method in user.payments" 
@@ -259,12 +254,14 @@
                     <img ng-src="/img/payments/{{pm[method.issuer]}}" class="img-thumbnail img-responsive" alt="" />
                   </div>
                   <div class="col-xs-9 col-sm-10 " >
-                    <h4 class="list-group-item-heading heading-center">{{method.number}} <span class="bold green" payments-date="{{method.expiry}}">{{method.expiry}}</span></h4>
+                    <h4 class="list-group-item-heading heading-center"><span ng-show="method.issuer==='invoice'">Facture en ligne &nbsp;</span> {{method.number}} <span class="bold green" payments-date="{{method.expiry}}">{{method.expiry}}</span></h4>
                     <p class="list-group-item-text comment-text " >
+                    <span ng-show="method.issuer==='invoice'">La facture vous sera envoyée par email le jour de la livraison et devra être payée dans les 10 jours.</span>
                     <abbr  ng-show="methodStatus[method.alias]" title="{{methodStatus[method.alias]}}">Cette méthode de paiement n'est plus valide</abbr>
                     </p>
                   </div>
                 </a>
+
               </div>
               <div ng-show="user.payments.length" style="padding:10px" class=" help-block">
                 <a href="" ng-click="options.showPaymentOptions=true" >
@@ -382,12 +379,13 @@
                       <td class="text-right" colspan="3">
                         <strong>Soustotal: </strong> <br/>
                         <strong>Paiement {{updateGatewayFees()}}: {{cart.tax()*100|number:1}}%</strong><br/>                        
-                        <strong><a ng-href="/page/shipping">Livraison à vélo</a> <i class="fa fa-bicycle  "></i> </strong>
+                        <strong ng-if="!cart.hasShippingReduction()"><a href="/page/shipping">Livraison à <i class="bold green fa fa-bicycle  "></i>:</a> </strong>
+                        <strong ng-if="cart.hasShippingReduction()"><a href="/page/shipping">Livraison à <i class="bold green fa fa-bicycle  "></i>, tarif spécial:</a></strong>
                       </td>
                       <td class="text-right padding">
                         <strong>{{cart.total()|number:2}} </strong><br/>
                         <strong>{{cart.tax()*(cart.total()+cart.shipping())|number:2}} </strong><br/>
-                        <strong ng-class="{'red':cart.hasShippingReduction()}">{{cart.shipping()|number:2}} </strong>
+                        <strong ng-class="{'green':cart.hasShippingReduction()}">{{cart.shipping()|number:2}} </strong>
                     </td>
                   </tr>
                   <tr>

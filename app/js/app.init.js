@@ -120,7 +120,7 @@ function rootScopeFIX($provide) {
     $rootScope.$new = proto.$new;
     return $rootScope;
   }]);
-};
+}
 //
 // Scroll events can be triggered very frequently, which can hurt performance and make scrolling appear jerky.
 //angular.module('infinite-scroll').value('THROTTLE_MILLISECONDS', 500)
@@ -302,11 +302,13 @@ function appRun(gitHubContent, $templateCache, $route, $http, $timeout, config) 
 
 
   // preload templates
-  for(var i in $route.routes){
-    if($route.routes[i].templateUrl){
-      $http.get($route.routes[i].templateUrl, {cache: $templateCache});
+  $timeout(function () {
+    for(var i in $route.routes){
+      if($route.routes[i].templateUrl){
+        $http.get($route.routes[i].templateUrl, {cache: $templateCache});
+      }
     }
-  }
+  },5000);
 }
 
 

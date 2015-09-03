@@ -144,6 +144,15 @@
                   </select>
                   <p class="help-block">Codes postaux actuellement disponibles pour la livraison</p>
               </div>
+              <div class="colsm10 form-inline well" ng-hide="user.addresses[$index].postalCode||user.mailchimp">
+                  <div class="lead">Votre code postal n'est pour l'instant pas disponible pour la livraison? Accelérez sa mise en service en souscrivant maintenant!</div>
+                  <input id="open-cp" type="number" min="1200" max="1299" ng-model="open_cp" type="text" placeholder="Votre code postal" class="form-control input-lg" required>
+                  <a  href="#" 
+                      ng-disabled="!open_cp"
+                      ng-click="subscribe(user,open_cp)"
+                      class="btn btn-warning btn-lg pull-right">Ouvrir mon secteur !</a>
+
+              </div>
             </div>
 
             <!-- REGION -->

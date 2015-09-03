@@ -42,7 +42,7 @@ angular.module('app.product.ui', [
   };
 })
 
-
+/*jshint multistr: true */
 .directive("cartButton",['$compile','$timeout','cart',function($compile,$timeout,cart) {
     var tmplSingle='<a class="btn btn-primary _btClass" ng-click="cart.add(product)" ng-disabled="WaitText"\
                       ng-show="product.isAvailableForOrder()&& product.pricing.stock">\
@@ -114,7 +114,7 @@ angular.module('app.product.ui', [
           // angular.element('#'+attrs.id).html(el);
           var el = $compile(template)(scope);
           // element.html(el);
-          element.replaceWith(el)
+          element.replaceWith(el);
         },wait);
       };
     }

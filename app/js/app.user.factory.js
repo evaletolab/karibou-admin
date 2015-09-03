@@ -121,9 +121,14 @@ User.factory('user', [
     };
 
     User.prototype.hasLike= function (product) {
-        for (var i in this.likes){
-          if (this.likes[i]==product.sku) return true;
+        if(this.likes&&this.likes.length){
+          if(this.likes.indexOf(product.sku)!==-1){
+            return true;
+          }
         }
+        // for (var i in this.likes){
+        //   if (this.likes[i]==product.sku) return true;
+        // }
         return false;
     };
 
@@ -397,18 +402,26 @@ User.factory('user', [
       return this;
     };
 
-    User.prototype.addPaymentMethod=function(payment,cb){
+    User.prototype.addPaymentMethod=function(payment,uid, cb){
       var self=this, params={};
-      backend.$user.save({id:this.id,action:'payment'},payment, function(u) {
+      // 
+      // we can now update different user
+      if(cb===undefined){cb=uid;uid=this.id;}
+      if(uid===undefined) uid=this.id;
+      backend.$user.save({id:uid,action:'payment'},payment, function(u) {
         self.payments=u.payments;
         if(cb)cb(self);
       });
       return this;
     };
 
-    User.prototype.deletePaymentMethod=function(alias,cb){
+    User.prototype.deletePaymentMethod=function(alias,uid,cb){
       var self=this, params={};
-      backend.$user.save({id:this.id,action:'payment',aid:alias,detail:'delete'}, function() {
+      // 
+      // we can now update different user
+      if(cb===undefined){cb=uid;uid=this.id;}
+      if(uid===undefined) uid=this.id;
+      backend.$user.save({id:uid,action:'payment',aid:alias,detail:'delete'}, function() {
         for(var p in self.payments){
           if(self.payments[p].alias===alias){
             self.payments.splice(p,1);

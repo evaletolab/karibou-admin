@@ -30,7 +30,7 @@ exports.config =
 
     templates:
       joinTo:
-        'js/templates.js': /^app\/assets/
+        'js/templates.js': /^app\/assets\/partial/
 
     stylesheets:
       joinTo:
@@ -57,6 +57,7 @@ exports.config =
     # using information from package.json
     map:
       distRelease: -> (Date.now())
+
 
   plugins:
     signature:

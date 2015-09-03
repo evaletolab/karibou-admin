@@ -14,6 +14,10 @@
   background-color: #f7f7f7;
 }
 
+.dropdown-menu{
+  z-index: 1999999
+}
+
 .vertical-divider>div{
   padding:0 8px 4px;
 }

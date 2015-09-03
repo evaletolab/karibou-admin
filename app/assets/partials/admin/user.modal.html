@@ -11,10 +11,17 @@
         </h5>          
 
         <ul>
+          <li>{{modal.id}}</li>
           <li><b>{{modal.name.givenName}} {{modal.name.familyName}}</b></li>
           <li ng-repeat="phone in modal.phoneNumbers">{{phone.what}}: {{phone.number}}</li>
           <li><a ng-href="mailto:{{modal.email.address}}">{{modal.email.address}}</a></li>
-
+          <li>
+            <ul>
+              <li ng-repeat="payment in modal.payments"> {{payment.name}} - {{payment.expiry}} - {{payment.issuer}} 
+              <button  ng-show="hasMethod(modal,payment.issuer) "class="btn btn-danger btn-xs" ng-click="deletePaymentMethod(payment.alias,modal.id)">enlever </button>
+              </li>
+            </ul>
+          </li>
         </ul>
         <hr/>
         <div>
@@ -23,9 +30,28 @@
           </div>          
 
           <div class="checkbox">
-            <label><input type="checkbox" name="status" ng-click="activateMail(modal.id)"  ng-model="modal.email.status"/>{{modal.email.address}} activé</label>
+            <label><input type="checkbox" name="status"  ng-model="modal.email.status"/>{{modal.email.address}} </label>
+          </div>          
+          <div class="checkbox">
+            <label><input type="checkbox" name="status"  ng-model="modal.merchant"/>compte pro </label>
           </div>          
 
+
+          <!-- INVOICE -->
+          <form class="form-inline inline" 
+                ng-if="!hasMethod(modal,'invoice')">
+            <span class="">
+              <label for="u_name">Invoice for</label>
+              <input type="text" class="form-control input-sm"  disabled="true" ng-model="invoice_name" placeholder="Nom prénom" >
+            </span>
+            <span class="">
+              <input type="text" class="form-control input-sm"  ng-model="invoice_expiry" placeholder="MM/YYYY" style="width:100px">
+            </span>
+            <button  class="btn btn-default btn-sm" ng-click="addInvoiceMethod(invoice_name,invoice_expiry, modal.id);dismiss()">+ paiement par facture</button>
+          </form>
+          <div>
+            
+          </div>
 
         </div>
         <hr/>
@@ -41,10 +67,14 @@
       </div>
 
       <div class="modal-footer">
+        <br/>
+        <button class="btn btn-primary" ng-click="save(modal);dismiss();">
+          Save
+        </button>
         <button class="btn btn-danger" confirm-delete="remove(modal,password,dismiss)">
           Delete
         </button>
-        <button class="btn" ng-click="modalDissmiss(dismiss())">Close</button>
+        <button class="btn" ng-click="modalDissmiss();dismiss();">Close</button>
       </div>
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->

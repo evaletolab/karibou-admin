@@ -297,7 +297,7 @@ ul.cover-list li {
 }
 
 .cover.cover-order {
-    height:0px;    
+    height:150px;    
     min-height: 0px;
 }
 
@@ -559,7 +559,7 @@ ul.cover-list li {
     color: #fff;
     text-shadow: 0 0 1px rgba(20,20,20,.43);
     font-weight: 400;
-    background: none repeat scroll 0 0 rgba(0, 0, 0, 0.4);
+    background: none repeat scroll 0 0 rgba(0, 0, 0, 0.7);
 }
 
 /*.firefox .cover-resume.categories .site-nav-list-item {

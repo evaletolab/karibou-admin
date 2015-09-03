@@ -64,8 +64,8 @@ function OrderCommonCtrl($scope, $routeParams, api, order, user, product,shop, M
       if(s.urlpath===shop){
         $scope.modal=s;
       }
-    })
-  }
+    });
+  };
 
 
   $scope.modalUserDetails=function(oid){
@@ -169,7 +169,7 @@ function OrderCommonCtrl($scope, $routeParams, api, order, user, product,shop, M
       if(['failure','fulfilled'].indexOf(items[i].fulfillment.status)!==-1){
         count++;
       }
-    };
+    }
     return count;
   };
 
@@ -178,7 +178,7 @@ function OrderCommonCtrl($scope, $routeParams, api, order, user, product,shop, M
     for (var i = (items||[]).length - 1; i >= 0; i--) {
       if(when&&items[i].when!==when) continue;
       count++;
-    };
+    }
     return count;
   };
 

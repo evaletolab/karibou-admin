@@ -49,14 +49,18 @@ UI.filter('unique', function() {
 
 UI.filter('capitalize', function() {
   return function(input, scope) {
-    if (input!=null)
-    var lst=input.split(' ');
+    var lst=[];
+    if (!input){
+      return '';
+    }
+
+    lst=input.split(' ');
     for (var i = lst.length - 1; i >= 0; i--) {
       lst[i]=lst[i].toLowerCase();
-      lst[i]=lst[i].substring(0,1).toUpperCase()+lst[i].substring(1)
-    };
+      lst[i]=lst[i].substring(0,1).toUpperCase()+lst[i].substring(1);
+    }
     return lst.join(' ');
-  }
+  };
 });
 
 
@@ -327,7 +331,7 @@ UI.directive('computeUrl', ['$parse','api', function($parse,api) {
   return{
     link:function(scope, element, attr, ctrl) {   
       var url=($parse(attr.computeUrl))();
-      element.attr('href',api.computeUrl(url))
+      element.attr('href',api.computeUrl(url));
     }
   };
 }]);

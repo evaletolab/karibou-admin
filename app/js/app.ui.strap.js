@@ -45,6 +45,7 @@ $strap.factory('$modal', [
             $modal.modal(name);
           };
         });
+
         scope.dismiss = function () {
           scope.hide();
         };
@@ -67,7 +68,10 @@ $strap.factory('$modal', [
 
         // Garbage collection
         scope.$on('$destroy', function() {
-          $modal.remove();
+          scope.hide();
+          $timeout(function() {
+            $modal.remove();
+          },0);
         });
 
         $modal.modal(options);

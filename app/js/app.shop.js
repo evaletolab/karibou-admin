@@ -129,7 +129,7 @@ Shop.controller('ShopCtrl',[
       }else{
         shop.available.weekdays.splice(pos,1);        
       }
-    }
+    };
 
     //
     // geomap init

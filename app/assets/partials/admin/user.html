@@ -41,30 +41,34 @@
            ng-class="{'menu-off':!options.showMenu}">
       </div>
       <div class="col-xs-12  nopadding-xs">
-        <h1 class="page-header">Gestion des utilisateurs </h1>
+        <h1 class="page-header">Gestion des utilisateurs 
+            <button class="btn btn-transparent btn-md" ng-click="findAllUsers()"><i class="fa fa-refresh"></i></button>
+        </h1>
 
         <!-- FORM -->
           <table class="table  table-responsive ">
             <thead>
               <tr>
-                <th>status</th>
+                <th>id</th>
                 <th>name</th>
-                <th><a href="" ng-click="orderByField='logged';reverseSort=!reverseSort">login</a></th>
-                <th><a ng-click="orderByField='updated';reverseSort=!reverseSort">update</a></th>
-                <th><a ng-click="orderByField='email.status';reverseSort=!reverseSort">validate</a></th>
+                <th><a ng-click="applyTableFilter('logged')">login</a></th>
+                <th><a ng-click="applyTableFilter('updated')">update</a></th>
+                <th><a ng-click="applyTableFilter('email')">validate</a></th>
                 <th>address</th>
                 <th>role</th>
                 <th>shops</th>
               </tr>
             </thead>
             <tbody>
-              <tr ng-repeat="u in users|orderBy:orderByField:reverseSort|filter:options.filterTxt" ng-class="{'danger':u.status!==true}">
-                <td>{{u.status}}</td>
-                <td ng-class="{'danger':u.email.status!==true}">
-                  <a  ng-click="modalUserDetails(u)" title="{{u.getEmailStatus()}}"
+              <tr ng-repeat="u in users|orderBy:options.orderByField:options.reverseSort|filterBy:['email.status']:options.filterByField|filter:options.filterTxt" ng-class="{'danger':u.status!==true}">
+                <td class="small">
+                    <a  ng-click="modalUserDetails(u)" title="{{u.getEmailStatus()}}"
                       bs-modal="'/partials/admin/user.modal.html'">
+                      {{u.id}}
+                    </a>
+                </td>
+                <td ng-class="{'danger':u.email.status!==true}">
                     {{u.displayName}}
-                  </button>                  
                 </td>
                 <td>{{u.logged|dateLabelShort}}</td>
                 <td>{{u.updated|dateLabelShort}}</td>

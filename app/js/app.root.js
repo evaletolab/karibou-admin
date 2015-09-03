@@ -8,8 +8,8 @@ angular.module('app.root', ['app.config','app.user'])
 
 //
 // the AppCtrl is used in index.html (see app/assets/index.html)
-appCtrl.$inject=['$scope','$rootScope','$window','$location','$cookies','$routeParams','config','api','user','cart','category','product'];
-function appCtrl($scope, $rootScope, $window,  $location, $cookies, $routeParams, config, api, user, cart, category, product) {
+appCtrl.$inject=['$scope','$rootScope','$window','$location','$cookies','$routeParams','$timeout','$http','config','api','user','cart','category','product'];
+function appCtrl($scope, $rootScope, $window,  $location, $cookies, $routeParams, $timeout, $http, config, api, user, cart, category, product) {
 
   $rootScope.user=$scope.user = user;
   $scope.cart = cart;
@@ -22,6 +22,8 @@ function appCtrl($scope, $rootScope, $window,  $location, $cookies, $routeParams
   $scope.options={
     cart:false,
     sidebar:false,
+    wellSubscribed:false,
+    needReload:false,
     welcome:($cookies.welcome||true)
   };
 
@@ -43,6 +45,11 @@ function appCtrl($scope, $rootScope, $window,  $location, $cookies, $routeParams
     $scope.user = u;
   });
 
+  //
+  // after N days without reloading the page, 
+  $timeout(function () {
+    $scope.options.needReload=true;
+  },86400000*2);
   
   //
   // get categories
@@ -101,6 +108,24 @@ function appCtrl($scope, $rootScope, $window,  $location, $cookies, $routeParams
     // var localStorage=$window['localStorage'];
     // $location.path('/')
     $scope.locationReferrer('/');
+  };
+
+  $scope.subscribe=function (user, subject) {
+    var content={
+      fname:user.name.givenName,
+      lname:user.name.familyName,
+      email:user.email.address
+    };
+    if(!subject){
+      return api.info($scope,"Hoho, vous devez préciser votre code postal ;)");        
+    }
+
+    $http.post(config.API_SERVER+'/v1/message/aHR0cDovL2thcmlib3UuZXZhbGV0b2xhYi5jaA==/'+subject, content).
+      success(function(data, status, headers, config) {
+        api.info($scope,"Votre requête a bien été envoyée! ");        
+        user.mailchimp=true;
+      });
+    
   };
 
 

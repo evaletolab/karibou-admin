@@ -38,7 +38,7 @@
                 <select class="form-control " 
                         ng-change="findAllShopRepport()"
                         ng-model="filters.shops" 
-                        ng-options="shop.urlpath as shop.name  for shop in shopsSelect">
+                        ng-options="shop.urlpath as shop.name  for shop in shopsSelect| orderBy:'name'">
                         <option value=""  selected>-- Choisissez une boutique</option>
                 </select>                        
               </div>

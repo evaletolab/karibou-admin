@@ -83,7 +83,7 @@
       </form> 
       </div>
       <div class="modal-footer">
-        <button class="btn" ng-click="modalDissmiss(dismiss())">Close</button>
+        <button class="btn" ng-click="modalDissmiss(dismiss)">Close</button>
         <button ng-hide="modal.index" class="btn btn-primary" ng-click="modal.saved=true;modalAdd(dismiss())" ng-disabled="!modal.name || !modal.type">Add item</button>
         <button ng-show="modal.index" class="btn btn-primary" ng-click="modal.saved=true;modalSave(dismiss())" ng-disabled="!modal.name || !modal.type">Save changes</button>
       </div>

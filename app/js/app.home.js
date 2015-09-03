@@ -104,7 +104,7 @@ Home.controller('HomeCtrl', [
       function resolve (value) {
           waitmylove.$promise.finally(function (value) {
             deferred.resolve(value);
-          })
+          });
       }
 
       //

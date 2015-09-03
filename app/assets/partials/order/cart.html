@@ -47,10 +47,11 @@
         <tr>
             <td class="text-right padding" colspan="2">
               <strong>Soustotal: </strong><br/>
-              <strong><a href="/page/shipping">Livraison à vélo:</a> </strong>
+              <strong ng-if="!cart.hasShippingReduction()"><a href="/page/shipping">Livraison à <i class="bold green fa fa-bicycle  "></i>:</a> </strong>
+              <strong ng-if="cart.hasShippingReduction()"><a href="/page/shipping">Livraison à <i class="bold green fa fa-bicycle  "></i>, tarif spécial!:</a></strong>
             <td class="text-right padding">
               <strong>{{cart.total()|number:2}} </strong></br>
-              <strong ng-class="{'red':cart.hasShippingReduction()}"><i class="fa fa-bicycle green bold"></i> {{cart.shipping()|number:2}} </strong>
+              <strong ng-class="{'green':cart.hasShippingReduction()}"> {{cart.shipping()|number:2}} </strong>
             </td>
         </tr>
 

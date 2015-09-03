@@ -250,6 +250,13 @@ function cartFactory(config, $timeout,$rootScope,$window, $storage, api,user) {
     else if (defaultCart.shippingFlatRate.discountA&&total>=defaultCart.shippingFlatRate.discountA){
       return true;
     }
+
+    //
+    // TODO TESTING MERCHANT ACCOUNT
+    if (user.merchant===true){
+      return true;
+    }
+
     return false;
   };
 
@@ -278,6 +285,12 @@ function cartFactory(config, $timeout,$rootScope,$window, $storage, api,user) {
     }
     var distance=this.getShippingSectorPrice(defaultCart.postalCode);
     var price=defaultCart.shippingFlatRate.price[distance];
+
+    //
+    // TODO TESTING MERCHANT ACCOUNT
+    if (user.merchant===true){
+      return this.roundCHF(price-defaultCart.shippingFlatRate.priceB);
+    }
 
     
     // implement 3) get free shipping!

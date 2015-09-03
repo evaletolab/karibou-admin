@@ -212,7 +212,7 @@ function OrderAdminCtrl($scope,$routeParams, $location, api, order, user, produc
         //
         // get addresses
         $scope.shopAddresses=orders.map(function(order){return order.vendors;});
-        $scope.shopAddresses=_.flatten($scope.shopAddresses)
+        $scope.shopAddresses=_.flatten($scope.shopAddresses);
         $scope.addresses=orders.map(function(order){return order.shipping;});
         $scope.dates=orders.map(function (order) {
           return ((order.shipping.when));

@@ -34,7 +34,8 @@ function OrderNewCtrl($controller, $scope, $location, $rootScope, $routeParams, 
     'american express':'ae.jpg',
     'mastercard':'mc.jpg',
     'visa':'visa.jpg',
-    'postfinance card':'pfc.jpg'
+    'postfinance card':'pfc.jpg',
+    'invoice':'invoice.png'
   };
 
 
