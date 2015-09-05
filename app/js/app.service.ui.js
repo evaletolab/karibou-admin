@@ -27,6 +27,26 @@ UI.filter('test', function () {
    };
 });
 
+UI.filter('cut', function () {
+        return function (value, wordwise, max, tail) {
+            if (!value) return '';
+
+            max = parseInt(max, 10);
+            if (!max) return value;
+            if (value.length <= max) return value;
+
+            value = value.substr(0, max);
+            if (wordwise) {
+                var lastspace = value.lastIndexOf(' ');
+                if (lastspace != -1) {
+                    value = value.substr(0, lastspace);
+                }
+            }
+
+            return value + (tail || ' …');
+        };
+    });
+
 UI.filter('clean', function () {
    return function(input) {
         if (!input) return "";
@@ -193,7 +213,7 @@ UI.directive('reload', ['$parse','$timeout', function($parse, $timeout) {
 
 //
 // Declare global directives here
-UI.directive('toggleSidebar', ['$parse','$timeout', function($parse, $timeout) {
+UI.directive('toggleSidebar', ['$parse','$timeout','$rootScope', function($parse, $timeout, $rootScope) {
   return function(scope, element, attr) {
     function hide(){
         if(scope.options.sidebar)return;
@@ -203,7 +223,9 @@ UI.directive('toggleSidebar', ['$parse','$timeout', function($parse, $timeout) {
         },800);        
     }
     //$(".site-nav-overlay").click(hide);
-    $(document).click(hide);
+    document.addEventListener("click", hide);
+
+    // $rootScope.$on('documentClicked',hide);
   };
 }]);
 

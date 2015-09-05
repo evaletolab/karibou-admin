@@ -64,9 +64,8 @@
           </span>
       </button>
       <!-- DISPLAY SIDEBAR -->
-      <nav class="site-nav hidden-print" tabindex="-1" toggle-sidebar  ng-click="toggleSidebar()" >
-         <button class="site-nav-logo hidden-print" 
-                 >
+      <nav class="site-nav hidden-print" tabindex="-1" toggle-sidebar   ng-sipe-left="options.sidebar=false;">
+         <button class="site-nav-logo hidden-print" ng-click="options.sidebar=true;">
             <span class=""><i class="fa fa-reorder white fa fa-2"></i>
               &nbsp;Menu
             </span>
@@ -81,16 +80,19 @@
             <ul class="site-nav-list fill">
               <!-- HOME -->              
               <li class="site-nav-list-item navigable-list-item site-nav-list-item-home">
-                <span class=""><a class="site-nav-list-item-btn" title="Go home" href="/" tabindex="-1"><span class="fa fa-home green"></span>&nbsp;Home</a></span>
-                <span><a class="site-nav-list-item-btn pull-right" title="Close this menu" href="#" tabindex="-1"><span class="fa fa-reorder fa-2x green"></span></span>
+                <span class=""><a class="site-nav-list-item-btn" title="Go home" ng-href="/" tabindex="-1"><span class="fa fa-home green"></span>&nbsp;Home</a></span>
+                <span>
+                  <a class="site-nav-list-item-btn pull-right" 
+                     title="Close this menu" ng-href="#" ng-click="options.sidebar=false;"
+                     tabindex="-1"><span class="fa fa-reorder fa-2x green"></span></span>
               </li>
 
 
               <li class="site-nav-list-item" ng-hide="user.isAuthenticated()">
-                <a ng-class="getClass('/login')" class="btn  btn-success btn btn-md site-nav-list-item-btn-bootstrap " href="/login"><i class="fa fa-user"></i>&nbsp;Login</a>
+                <a ng-class="getClass('/login')" class="btn  btn-success btn btn-md site-nav-list-item-btn-bootstrap " ng-href="/login"><i class="fa fa-user"></i>&nbsp;Login</a>
               </li>
               <li class="site-nav-list-item" ng-hide="user.isAuthenticated()">
-                <a ng-class="getClass('/signup') " class="btn  btn-md  btn-info site-nav-list-item-btn-bootstrap" href="/signup"><i class="fa fa-fire"> </i>&nbsp;Sign Up</a>
+                <a ng-class="getClass('/signup') " class="btn  btn-md  btn-info site-nav-list-item-btn-bootstrap" ng-href="/signup"><i class="fa fa-fire"> </i>&nbsp;Sign Up</a>
               </li>
 
               <!-- SIGNED -->
@@ -117,7 +119,7 @@
               <li  class="site-nav-list-item visible-xs visible-sm" ng-repeat="category in category.findAll()|filter:{type:'Category'}|orderBy:'weight'">
                 <a class="site-nav-list-item-btn  " title="{{category.name}}" 
                    ng-class="getClass('/products/category/{{category.slug}}')"
-                   href="/products/category/{{category.slug}}" tabindex="-1"><i class=""></i>&nbsp;{{category.name}}</a>
+                   ng-href="/products/category/{{category.slug}}" tabindex="-1"><i class=""></i>&nbsp;{{category.name}}</a>
               </li>
 
               <li class="site-nav-list-item divider visible-xs visible-sm">
@@ -125,7 +127,7 @@
               </li>
 
               <li class="site-nav-list-item ">
-                <a class="site-nav-list-item-btn " ng-class="getClass('/shops')" title="Les boutiques" href="/shops" tabindex="-1"><i class="fa fa-group green"></i>&nbsp;Les boutiques</a>
+                <a class="site-nav-list-item-btn " ng-class="getClass('/shops')" title="Les boutiques" ng-href="/shops" tabindex="-1"><i class="fa fa-group green"></i>&nbsp;Les boutiques</a>
               </li>
               
               <!-- INFO -->
@@ -133,27 +135,27 @@
                 <span  class="site-nav-list-item-text" >Informations</span>
               </li>
               <li class="site-nav-list-item">
-                <a  class="site-nav-list-item-btn" title="Qui sommes-nous?" href="/page/team">Qui sommes-nous?</a
+                <a  class="site-nav-list-item-btn" title="Qui sommes-nous?" ng-href="/page/team">Qui sommes-nous?</a
               </li>
               <li class="site-nav-list-item">
-                <a  class="site-nav-list-item-btn" title="Lire notre Charte " href="/page/la-charte">Lire notre Charte</a>
-              </li>
-
-              <li class="site-nav-list-item">
-                <a  class="site-nav-list-item-btn" title="Conditions générales de vente" href="/page/conditions-generales">Conditions générales de vente</a>
+                <a  class="site-nav-list-item-btn" title="Lire notre Charte " ng-href="/page/la-charte">Lire notre Charte</a>
               </li>
 
               <li class="site-nav-list-item">
-                <a  class="site-nav-list-item-btn" title="Comment ça marche" href="/page/about">Comment ça marche</a>
+                <a  class="site-nav-list-item-btn" title="Conditions générales de vente" ng-href="/page/conditions-generales">Conditions générales de vente</a>
               </li>
 
               <li class="site-nav-list-item">
-                <a  class="site-nav-list-item-btn" title="Comment ça marche" href="/page/shops">
+                <a  class="site-nav-list-item-btn" title="Comment ça marche" ng-href="/page/about">Comment ça marche</a>
+              </li>
+
+              <li class="site-nav-list-item">
+                <a  class="site-nav-list-item-btn" title="Comment ça marche" ng-href="/page/shops">
                 FAQ pour les vendeurs</a>
               </li>
 
               <li class="site-nav-list-item">
-                <a  class="site-nav-list-item-btn" title="Notre page facebook" href="https://www.facebook.com/KaribouFresh"> <i class="fa fa-facebook-square green fa-2x"></i>
+                <a  class="site-nav-list-item-btn" title="Notre page facebook" ng-href="https://www.facebook.com/KaribouFresh"> <i class="fa fa-facebook-square green fa-2x"></i>
                   Notre page
                 </a>
               </li>

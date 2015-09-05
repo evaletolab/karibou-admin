@@ -130,6 +130,8 @@
               <p class=" " ng-show="shop.location||shop.url">
                 <a ng-show="shop.url"  href="{{shop.url}}" >{{shop.url}}</a>
               </p>
+              <br/>
+              <a class="" ng-show="shop.photo.source&&user.isOwnerOrAdmin(shop.name)" ng-href="{{shop.photo.source}}" target="_new">[Votre galerie photo]</a>
 
           </address>
         </section>

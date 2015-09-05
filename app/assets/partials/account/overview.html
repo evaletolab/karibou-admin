@@ -36,18 +36,22 @@
           <h5 class="article-group-title ">
             <span class="bucket-header-title"><i class="fa fa-line-chart gray"></i>&nbsp;Mon dashboard</span>
           </h5>
-          <ul>
-            <li><a class="" href="/admin/orders">La gestion de ma boutique</a> </li>
-          </ul>
+          <div class="list-group">
+            <a class="list-group-item" href="/admin/orders">La gestion de ma boutique</a> 
+            <a class="list-group-item" href="/admin/products">Mes stocks</a> 
+            <a ng-if="user.isAdmin()" class="list-group-item" href="/admin/products">Mes rapports d'activités</a> 
+            <a ng-if="user.isAdmin()" class="list-group-item" href="/admin/user">Les utilisateurs</a> 
+          </div>
       </div>
 
       <div class="well well-small white  clearfix"  ng-if="user.hasRole('logistic')&&!user.isAdmin()">
           <h5 class="article-group-title ">
             <span class="bucket-header-title"><i class="fa fa-bicycle gray"></i>&nbsp;Mon dashboard</span>
           </h5>
-          <ul>
-            <li><a class="" href="/admin/shipping">La gestion des livraisons</a> </li>
-          </ul>
+          <div class="list-group">
+            <a class="list-group-item" href="/admin/shipping">La gestion des livraisons</a> 
+            <a ng-if="user.isAdmin()" class="list-group-item" href="/admin/collect">La collecte</a> 
+          </div>
       </div>
 
       <!-- LAST ORDERS -->
@@ -57,7 +61,7 @@
           <span class="bucket-header-title"><i class="fa fa-shopping-cart gray"></i>&nbsp;Mes dernières commandes</span> 
         </h5>
         <p>
-          <a href="/account/orders"><i class="fa fa-angle-right"></i>&nbsp;L'historique de mes commandes</a>
+          <a class="list-group-item" href="/account/orders"><i class="fa fa-angle-right"></i>&nbsp;L'historique de mes commandes</a>
         </p>
       </div>    
 
@@ -71,7 +75,7 @@
           <span class="bucket-header-title">Mes coups de coeur</span> 
         </h5>
         <p>
-          <a href="/account/love"><i class="fa fa-angle-right"></i>&nbsp;Ma liste principale</a>
+          <a class="list-group-item" href="/account/love"><i class="fa fa-angle-right"></i>&nbsp;Ma liste principale</a>
         </p>
       </div>          
 
@@ -89,7 +93,7 @@
 
 
         <p>
-          <a href="/account/profile"><i class="fa fa-angle-right"></i>&nbsp;Modifier mes données personnelles</a>
+          <a class="list-group-item" href="/account/profile"><i class="fa fa-angle-right"></i>&nbsp;Modifier mes données personnelles</a>
         </p>
       </div>
         
@@ -97,10 +101,10 @@
         <h5  class="article-group-title " >
           <span class="bucket-header-title"><i class="fa fa-lock gray"></i>&nbsp;Sécurité</span> 
         </h5>
-        <ul>
-          <li><a href="/account/password"><i class="fa fa-angle-right"></i>&nbsp;Modifier mon mot de passe</a></li>
-          <li><a href="/account/payment"><i class="fa fa-angle-right"></i>&nbsp;Mes méthodes de paiement <i class="fa fa-credit-card"></i></a></li>
-        </ul>
+        <div class="list-group">
+          <a class="list-group-item" href="/account/password"><i class="fa fa-angle-right"></i>&nbsp;Modifier mon mot de passe</a>
+          <a class="list-group-item" href="/account/payment"><i class="fa fa-angle-right"></i>&nbsp;Mes méthodes de paiement <i class="fa fa-credit-card"></i></a>
+        </div>
       </div>          
 
     
@@ -114,16 +118,12 @@
           Je n'ai pas de boutique.
         </h5>
 
-          <ul ng-repeat="shop in user.shops" class="-unstyled " ng-show="user.shops.length" >
-            <li class="block col-md-12">              
-              <p class="-well-small">
-                <i class="fa fa-fire"></i>
-                <a href="/shop/{{shop.urlpath}}">{{shop.name}}</a><span ng-hide="shop.status == true" class="help-inline"><i class="fa fa-ok"></i>&nbsp;</span>
-                <span ng-bind-html-unsafe="shop.description"></span><i ng-show="shop.status==true" class="fa fa-ok green"></i>
-              </p>
-              
-            </li>
-          </ul>
+          <div class="list-group"  ng-show="user.shops.length" >
+            <a class="list-group-item" href="/shop/{{shop.urlpath}}" ng-repeat="shop in user.shops">
+              <i class="fa fa-fire"></i> {{shop.name}}
+              <span ng-hide="shop.status == true" class="help-inline"><i class="fa fa-ok"></i>&nbsp;</span>
+            </a>
+          </div>
       </div>
  
 

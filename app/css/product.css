@@ -3,7 +3,37 @@
 -------------------------------------------------- */
 
 
+article{
+  transition: color .1s linear;
+  height: auto;
+  float:left;
+  width:100%; 
+}
 
+.article-group-title{
+  padding-left: 0px;
+  padding-bottom: 12px;
+  padding-top: 12px;
+  font-size: 26px;
+  letter-spacing: -1px;
+  -text-transform: uppercase;
+  -color: #b3b3b1;
+  -webkit-transition: color .1s linear;
+  -moz-transition: color .1s linear;
+  -ms-transition: color .1s linear;
+  -o-transition: color .1s linear;
+  margin-bottom: 20px;
+  border-bottom: 1px solid #eee;
+  text-shadow:0px 1px 0px rgba(255, 255, 255, 0.9);
+}
+.article-group-title.black{
+  color: black;
+}
+.article-group-title.list{
+  float:left;
+  padding-right: 15px;
+  
+}
 
 
 article:nth-child(odd){

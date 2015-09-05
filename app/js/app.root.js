@@ -71,6 +71,7 @@ function appCtrl($scope, $rootScope, $window,  $location, $cookies, $routeParams
   // get the head title up2date 
   $rootScope.$on('$routeChangeStart', function (event, current, previous) {
     $scope.options.cart=false;
+    $scope.options.sidebar=false;
     var longpath=$location.path();
     user.$promise.finally(function(){
       if (!user.isAuthenticated()){
@@ -273,10 +274,6 @@ function appCtrl($scope, $rootScope, $window,  $location, $cookies, $routeParams
     $scope.options.cart=!$scope.options.cart;
   };
   
-  $scope.toggleSidebar=function(sel){
-    $scope.options.sidebar=!$scope.options.sidebar;
-    
-  };
 
   $scope.addCart=function (item) {
     cart.add(item, true);    

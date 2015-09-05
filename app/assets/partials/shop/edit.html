@@ -47,6 +47,15 @@
                           <p class="help-block">L'adresse Internet de votre boutique.</p>
                         </div>
                       </div>
+
+                     <!-- URL -->
+                      <div class="form-group clearfix">
+                        <a class="pull-right small" ng-show="shop.photo.source" ng-href="{{shop.photo.source}}" target="_new">(votre galerie ici)</a>
+                        <label class="control-label">Votre Gallerie photo</label>
+                        <div class="">
+                          <input type="url" class="form-control input-lg" ng-model="shop.photo.source"  placeholder="Votre gallerie"/>         
+                        </div>
+                      </div>
                    
                       <hr/>
                      <!-- Photos -->

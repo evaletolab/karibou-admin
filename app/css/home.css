@@ -48,6 +48,7 @@ html,body,.main {
 }
 .wrapper.shop{
     margin-left: 40%;
+    background-color:transparent;
 }
 
 .wrapper.paysage{
