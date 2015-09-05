@@ -95,10 +95,11 @@
           <li ng-show="product.shelflife.display">{{product.shelflife.comment}}</li>
         </ul>
         <div>
-          <span ng-if="product.details.bio" class="label label-product">BIO</span>
-          <span ng-if="product.details.natural" class="label label-product" title="Naturel">Sans chimie de synthèse</span>
           <span ng-if="product.details.homemade" class="label label-product">Artisanal</span>
           <span ng-if="product.details.local" class="label label-product">Local</span>
+          <span ng-if="product.details.gluten" class="label label-product">Sans gluten</span>
+          <span ng-if="product.details.bio" class="label label-product">BIO</span>
+          <span ng-if="product.details.natural" class="label label-product" title="Naturel">Sans chimie de synthèse</span>
         </div>
       </div>
 
