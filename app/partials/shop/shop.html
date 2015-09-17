@@ -1,0 +1,31 @@
+<div class="shop col-xs-12 ">
+  <!-- producers-list item -->
+  <a class="" ng-href="/shop/{{shop.urlpath}}">
+    <div class="row-content">
+      <div class="photo col-xs-12 col-md-6 ">
+        <div alt="" class="img-responsive " bg-src="{{shop.photo.fg|placehold:'470x400'}}"/>
+      </div>
+      <div class="content-wrapper col-xs-12 col-md-6 ">
+        <div class="item-header">
+          <h3 class="title ">{{shop.name}}</h3>
+        </div>
+        <div class="item-content">
+          <markdown class="" markdown-content="shop.description|cut:true:170"></markdown>
+        </div>
+      <div class="item-footer hidden-sm">
+        <div class="producer-city">
+          <i class="fa-map-marker fa"></i>
+          {{shop.address.region}}
+          </div>
+        </div>
+      </div>
+      <div class="item-closed" ng-if="shop.available.active">
+          <h4>Fermeture!</h4>
+          {{shop.available.comment}}
+          <br/>
+          <small>du {{shop.available.from|date:'d/M'}} au {{shop.available.to|date:'d/M'}}</small>      
+        
+      </div>
+    </div>
+  </a>
+</div>

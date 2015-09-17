@@ -14,7 +14,7 @@
     "test": "node_modules/.bin/testacular start test/testacular.conf.js"
   },
   "dependencies": {
-    "angular-templates-brunch": "0.0.6",
+    "angularjs-templates-brunch": "1.x",
     "auto-reload-brunch": ">=1.7",
     "brunch": ">=1.8",
     "brunch-signature": "~1.0.1",

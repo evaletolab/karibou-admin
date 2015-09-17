@@ -1,21 +1,23 @@
 
 <!-- PRODUCTS FORM -->
 <table class="table  table-responsive "
-       ng-init="orderByField='vendor.urlpath';reverseSort=false">
+       ng-init="options.orderByField='pricing.stock';reverseSort=false">
   <thead>
     <tr>
-      <th style="width:40%">#sku</th>
-      <th>
-        <a href="" ng-click="orderByField='vendor.urlpath';reverseSort=!reverseSort">
-          boutique
+      <th style="width:40%">
+        <a href="" ng-click="options.orderByField='vendor.name';reverseSort=!reverseSort">
+          #sku
         </a>
+      </th>
+      <th>
+          boutique
       </th>
       <th style="width:40px" title="Les produits disponibles à la vente">visible</th>
       <th style="width:80px" class="hide">
-        <a href="" ng-click="orderByField='weight';reverseSort=!reverseSort">poids</a>
+        <a href="" ng-click="options.orderByField='weight';reverseSort=!reverseSort">poids</a>
       </th>
       <th style="width:80px">
-        <a href="" ng-click="orderByField='pricing.stock';reverseSort=!reverseSort">stock</a>
+        <a href="" ng-click="options.orderByField='pricing.stock';reverseSort=!reverseSort">stock</a>
       </th>
       <th style="width:100px">prix</th>
       <th style="width:110px" class="text-center small">prix promotion</th>
@@ -24,7 +26,7 @@
     </tr>
   </thead>
   <tbody>
-    <tr ng-repeat-start="product in products|filter:options.filterTxt|orderBy:orderByField:reverseSort" >
+    <tr ng-repeat-start="product in products|filter:options.filterTxt|orderBy:options.orderByField:reverseSort" >
     </tr>
     <tr ng-repeat-end  
         ng-class="{'info':isProductDirty(product),'warning':!product.attributes.available}">

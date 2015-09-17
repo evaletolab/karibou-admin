@@ -11,7 +11,7 @@
 }
 
 [ng-view]{
-  background-color: #f7f7f7;
+  background-color: rgba(196, 177, 156, 0.1);
 }
 
 .dropdown-menu{

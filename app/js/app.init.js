@@ -290,9 +290,10 @@ function appRun(gitHubContent, $templateCache, $route, $http, $timeout, config) 
 
       //
       // loading Stripe
-      $script("https://js.stripe.com/v2/","stripe",function () {
-        Stripe.setPublishableKey(pk);
-      });
+      window.Stripe.setPublishableKey(pk);
+
+      // basket.ready('app').then(function() {
+      // })
 
       // init uploadcare key here
       config.uploadcare=config.shop.keys.pubUpcare;
@@ -301,14 +302,6 @@ function appRun(gitHubContent, $templateCache, $route, $http, $timeout, config) 
   });
 
 
-  // preload templates
-  $timeout(function () {
-    for(var i in $route.routes){
-      if($route.routes[i].templateUrl){
-        $http.get($route.routes[i].templateUrl, {cache: $templateCache});
-      }
-    }
-  },5000);
 }
 
 

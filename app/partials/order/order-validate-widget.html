@@ -1,5 +1,5 @@
 <!-- ORDERS VALIDATE WIDGET -->
-<div id="validate-widget" ng-controller="OrderWidgetCtrl" class="col-xs-5">
+<div  ng-controller="OrderWidgetCtrl" >
   <div ng-if="!item.sku">
     <br/>
     <div class="alert alert-success" role="alert">
@@ -45,7 +45,7 @@
                   ng-click="updateItem(item.oid,item,'failure')"
                 ><span class="fa fa-thumbs-down fa-1x bold"></span> Annulez</a>
         </div>
-        <div id="numbers">
+        <div id="numbers" class="clearfix">
            <a href="" class="btn btn-default" ng-click="passNum(1)">1</a>
            <a href="" class="btn btn-default" ng-click="passNum(2)">2</a>
            <a href="" class="btn btn-default" ng-click="passNum(3)">3</a>

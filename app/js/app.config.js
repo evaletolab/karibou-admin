@@ -59,7 +59,6 @@ function appConfig($q, $resource, $sce, API_SERVER) {
     loginPath:['/admin','/account'],
     avoidFeedbackIn:['/admin','/login','/signup']
   };
-  defaultConfig.ACCEPT_COOKIE=defaultConfig.API_SERVER+'/acceptcookie';
 
   defaultConfig.providers = [
     {name: 'twitter',   url: defaultConfig.API_SERVER + '/auth/twitter'},

@@ -13,6 +13,7 @@ function OrderAdminCtrl($scope,$routeParams, $location, api, order, user, produc
 
   $scope.addresses=[];
 
+  $scope.options.orderByField=null;
 
   $scope.countShops=function(shops){
     if(!shops)return;
@@ -261,6 +262,8 @@ function OrderAdminCtrl($scope,$routeParams, $location, api, order, user, produc
   };
   $scope.loadAllProducts=function(){
     $scope.loading=true;
+    $scope.options.orderByField='pricing.stock';
+
 
     user.$promise.then(function(){
       var params={sort:'categories.weight',shopname:$scope.filters.shops};

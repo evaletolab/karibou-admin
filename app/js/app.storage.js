@@ -66,7 +66,7 @@ function storageService() {
     //
     // testing the service
     try{
-      window.localStorage.getItem('slkxjljc');
+      window.localStorage.setItem('slkxjljc',1);
     }catch(e){
 
       //

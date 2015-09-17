@@ -25,7 +25,7 @@
             <span id="ac-{{filters.s}}" >le {{shipping.currentDay|dateLabel}} pour {{filters.s}} </span>
             <!-- DISPLAY PAD FOR TOUCH UX -->
             &nbsp;
-            <button class=" btn btn-md btn-transparent hidden-xs " title="Afficher le PAD" 
+            <button class=" btn btn-md btn-transparent  " title="Afficher le PAD" 
                     ng-click="options.showWidget=!options.showWidget" 
                     ng-class="{'active':options.showWidget}"><i class="fa fa-calculator"></i> PAD</button>
 
@@ -54,10 +54,17 @@
 
 
         <!-- ORDERS BY SHOP -->
-        <div ng-if="shops" class="col-xs-12 nopadding" ng-class="{'col-md-7':options.showWidget}">
-          <div  ng-include="'/partials/order/order-lists-byshop.html'"></div>
-        </div>
-        <div ng-if="options.showWidget" class="col-xs-12 col-md-5 _sidebar-offcanvas" ng-include="'/partials/order/order-validate-widget.html'"></div>
+        <div  ng-if="shops" 
+              class=" nopadding" 
+              ng-class="{'col-xs-4 col-md-6':options.showWidget,'col-xs-12':!options.showWidget}"
+              ng-include="'/partials/order/order-lists-byshop.html'"></div>
+
+        <!-- WIDGET -->
+        <div ng-if="options.showWidget"  id="validate-widget"
+             class="col-xs-8 col-md-6 " 
+             ng-include="'/partials/order/order-validate-widget.html'"></div>
+
+
       </div>
     </div>
   </div>

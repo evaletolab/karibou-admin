@@ -167,7 +167,9 @@ User.factory('user', [
       var self=this;
 
       // set context for error
-      Raven.setUserContext(self);        
+      if(window.Raven){
+        Raven.setUserContext({id:self.id,email:self.email});        
+      }
 
       if(!self.addresses){
         return;
@@ -307,7 +309,11 @@ User.factory('user', [
       this.populateAdresseName(user);
 
       var u=backend.$user.save(user, function() {
-        _user.copy(u);
+        //
+        // only same user should be sync
+        if(u.id===_user.id){
+          _user.copy(u);
+        }
         if(cb)cb(_user);
       });
       return _user;

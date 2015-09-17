@@ -4,6 +4,132 @@
 /* Shop details
 -------------------------------------------------- */
 
+.shop{
+  background: #FFF none repeat scroll 0% 0%;
+  color: #585858;
+  display: block;
+  margin: 0px auto 18px;  
+  height: 250px;
+  padding: 0px 0px 10px 0px;
+
+}
+
+.shop:hover:{
+  background: #DDD none repeat scroll 0% 0%;
+}
+
+.shop>a {
+  outline: 0;
+}
+
+.shop .photo {
+  margin: 0;
+  padding: 0;
+  height: 250px;
+  background-color: transparent;
+  outline: 0;
+  border: 0;
+  color: white;
+}
+
+.shop .photo div, .shop .photo img{
+  width: 100%;
+  height: 250px;
+  background-size: cover;
+  background-position:50% 50%;
+  overflow: hidden;
+
+}
+
+.shop div.row-content{
+  display: relative;
+}
+
+.shop .content-wrapper {
+    padding: 10px 25px 15px 10px;
+    background-color: white;
+}
+
+.shop .item-header .title {
+    margin-bottom: 10px;
+    color: #585858;
+    font-size: 22px;
+}
+
+.shop .item-content {
+    color: #8F877F;
+    font-size: 13px;
+    font-style: italic;
+    margin-bottom: 25px;
+}
+
+.shop markdown {
+    text-align: left;
+    padding-top: 0px;
+}
+
+.shop .item-footer {
+    bottom: 0px;
+    font-size: 14px;
+    position: absolute;
+}
+
+.shop .item-footer {
+    font-size: 14px;
+}
+
+
+.shop .item-info, .shop .item-closed{
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  padding: 50px;
+  background-color: rgba(255, 255, 255, 0.77);
+  color: #452d16;
+}
+
+
+.hours {
+  color: #959ba2;
+  margin: 10px 0 -6px;
+  overflow: hidden;
+  font-weight: 300!important;
+}
+
+.hours-label {
+  clear: both;
+  float: left;
+  width: 100px;
+}
+
+.hours-open {
+  display: block;
+  float: right;
+  text-align: right;
+  white-space: nowrap;
+  width: -webkit-calc(100% - 100px);
+  width: calc(100% - 100px);
+}
+
+.hours-open p{
+  margin-bottom:5px;
+}
+
+.label-or{
+  margin: -45px auto;
+  border-radius: 25px;
+  border: 1px solid #ddd;
+  width: 50px;
+  height: 50px;
+  background-color: white;
+  padding: 13px;
+  z-index: 10;
+  font-weight: bold;
+  margin-bottom: 10px;  
+}
+
+
+
 .shop-info-bar{
   position: absolute;
   left: 0;
@@ -29,19 +155,7 @@
 }
 
 
-img.photo-owner{
-  width:120px;
-  padding:1px;
-  border: 2px solid #ddd;
-  margin-right: 10px;
-}
 
-img.shop{
-  width: 400px;
-  margin: 0 auto;
-  display: block;
-  padding: 5px;  
-}
 img.owner{
   margin: 0 auto;
   width:120px;
@@ -50,80 +164,54 @@ img.owner{
   border: 2px solid #ddd;  
 }
 
-.shop-row{
-  padding-top:5px;
-  padding-bottom:10px;
-}
-.shop-row:nth-child(even), .products-row:nth-child(even){
-  background-color: #EEF2EA;
-  background-color: #FdFfFd;
-  border-bottom:1px solid #ccc;
-  --background:#eeeeee url(/img/pattern-diamond.png) center;
-}
 
-.shop-row:nth-child(odd), .products-row:nth-child(odd){
-  border-bottom:1px solid #ddd;
-  -background:url("/img/paper.jpg") repeat scroll 0 0 #F7F5F5;
-  background:#eeeeee url(/img/pattern-diamond.png) center;
-}
 
-.shop-rice-paper{
-  background-image:url(/img/rice-paper.jpg);
-}
-
- .shop-availability ul li div.indicator{
+.shop-availability ul li div.indicator{
   color: #a7cf7b;
 }
 
 
-/* Desktop large
-------------------------- */
-@media (min-width: 1200px) {
-
+.products .cover-user .cover-body {
+    -webkit-box-shadow:none;
+       -moz-box-shadow:none;
+            box-shadow:none;
 }
 
 
-/* Desktop
-------------------------- */
-@media (max-width: 980px) {
-}
 
-/* Tablet to desktop
-------------------------- */
-@media (min-width: 200px) and (max-width: 979px) {
-
-  .shop-page{
-    margin-top:-60px;
-    padding-top:0px;
-    height:100%;
-    width:100%;
-  }
-
-}
-    
-
-}
-
-/* Tablet
-------------------------- */
-@media (max-width: 767px) {
-
-}
 
 /* Landscape phones
 ------------------------- */
-@media (max-width: 480px) {
-  .shop-row{
-    padding-top:0px;
-    padding-bottom:0px;
+@media (max-width: 1024px) {
+  .shop{
+    height: auto;    
   }
-  
+
+  .shop .item-header .title {
+      font-size: 18px;
+  }
+}
+
+@media (max-width: 767px) {
+  .shop{
+    height: 500px;    
+  }
+  .shop .photo {
+    height: 350px;
+  }
+
+  .shop .photo img, .shop .photo div{
+    height: 350px;
+  }
+
+  .shop .item-content{
+    margin-bottom: 15px;
+  }
 
 }
 
  
 @media only screen and ( max-width: 320px ) /* 320px */{
-
 
 }
 

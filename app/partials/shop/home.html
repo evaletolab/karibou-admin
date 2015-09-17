@@ -1,10 +1,5 @@
-<div tabindex="-1"  id="null" class="screen-content">
-  <aside ng-include="getCover()" class=" cover cover-home cover-category img-loaded" ng-class="{'session':user.isAuthenticated()}">
-  </aside>
+<div tabindex="-1"   class="container" ng-controller="HomeCtrl" style="margin-top:50px;">
 
-
-   <section class="wrapper" tabindex="-1" ng-controller="HomeCtrl" >
-      <div class="wrapper-inner wide">
 
 
         <!--                               -->
@@ -28,18 +23,21 @@
         <!-- SHOPS -->
         <div infinite-scroll='loadNextPage()'  
              infinite-scroll-distance='0' 
-             class="row wrapheight " style="padding:0">
+             class="row wrapheight " style="padding:8px;background-color:transparent">
 
-            <article  ng-repeat="(group, _shops) in shops" ng-if="_shops.length"> 
-              <h5 class="article-group-title ">
+            <div  ng-repeat="(group, _shops) in shops" ng-if="_shops.length"> 
+<!--               <h5 class="article-group-title ">
                 {{group}}
                 <i class="{{category.find({name:group}).image||''}} {{category.find({name:group}).color||gray}} fa fa-large"></i>
               </h5>
-
+ -->
               <div  style="width:100%;"><!-- MANSORY FIX -->
-                <div  ng-include="'/partials/shop/shop.html'"  ng-repeat="shop in _shops" ng-if="shop.name"></div>              
+                <div  class="col-sm-6 col-md-6 col-xs-12 " style="background-color:transparent" 
+                      ng-include="'/partials/shop/shop.html'"  
+                      ng-repeat="shop in _shops" 
+                      ng-if="shop.name"></div>              
               </div>
-            </article>
+            </div>
 <!--             <article>              
               <div class=" layout-item c3 "  >
                 <div style="position:relative;overflow:hidden;height:auto">          
@@ -51,6 +49,4 @@
  -->        </div>
 
         <footer class="wrapper-footer wide" ng-include="'/footer.html'"></footer>
-      </div>
-   </section>
 </div>

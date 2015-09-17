@@ -227,6 +227,16 @@ User.controller('AccountCtrl',[
       });
     };
 
+
+    //
+    // save action
+    $scope.save=function(u){
+      $rootScope.WaitText="Waiting ...";
+      user.save(u,function(){
+        api.info($scope,"Profil enregistré");
+      });
+    };
+
     //
     // create a new shop
     $scope.createShop=function(s){
@@ -239,16 +249,6 @@ User.controller('AccountCtrl',[
       });
     };
 
-
-
-    //
-    // save action
-    $scope.save=function(u){
-      $rootScope.WaitText="Waiting ...";
-      user.save(u,function(){
-        api.info($scope,"Profil enregistré");
-      });
-    };
 
     //
     // validate user email

@@ -26,6 +26,62 @@
                </nav>
             </div>
          </div>
+
+        <!-- MAILING EVENT -->
+        <div class="col-xs-12 col-lg-10 form-inline kb-card-info first-child"  >
+            <div class="col-xs-1 kb-card-image">
+              <img src="/img/k-puce.png" class=" " >
+            </div>
+            <div class="col-xs-11 kb-card-content">
+              <small>Mercredi 23 septembre<br/>11 rue de la navigation<br/>à 18h00</small>
+              <h5>Atelier-cuisine chez MU-Food.</h5>
+              Apprenez à cuisiner des spécialités végétariennes indonésiennes avec <a href="/shop/vemma-creations-graines">Vemma</a>. Une cuisine réalisée uniquement avec des produits locaux. Cours gratuit, vos dons seront les bienvenus!
+              <p>Cet évennement à lieu dans le cadre de la Semaine du goût</p>
+              <div class="kb-card-action" ng-if="!options.atelier">
+                Je m'inscris! 
+                <span ng-if="!user.isAuthenticated()">                  
+                  <a  href="https://www.facebook.com/events/1631556170449036/" 
+                      class="smallx">FB.ME/KARIBOUFRESH</a>
+
+                  ou
+                  <a  class="smallx" href="mailto:hello@karibou.ch?Subject=Atelier+Cuisine">HELLO@KARIBOU.ch</a>
+                </span>
+
+
+                <a  href="#" 
+                    ng-if="user.isAuthenticated()"
+                    ng-click="subscribe(user,'atelier')"
+                    class="">ici!</a>
+              </div>
+            </div>
+
+        </div>
+        <div class="col-xs-12 col-lg-10 form-inline kb-card-info last-child" >
+            <div class="col-xs-1 kb-card-image">
+              <img src="/img/k-puce.png" class=" " >
+            </div>
+            <div class="col-xs-11 kb-card-content">
+              <small>Jeudi 24 septembre<br/>11 rue de la navigation<br/>dès 18h00</small>
+              <h5>Apéro et dégustation en présence des boutiques!</h5>
+              A l’occasion de la Semaine du goût, retrouvez-nous chez Mu-Food et rencontrez les personnes qui animent les boutiques sur karibou.ch. Nous proposons un moment convivial autour d'un apéro dégustation.
+              <p>Cet évennement à lieu dans le cadre de la Semaine du goût</p>
+              <div class="kb-card-action" ng-if="!options.apero" >
+                Je m'inscris! 
+                <span ng-if="!user.isAuthenticated()">                  
+                  <a  href="https://www.facebook.com/events/1631556170449036/" 
+                      class="smallx">FB.ME/KARIBOUFRESH</a>
+                </span>
+
+                <a  href="#" 
+                    ng-if="user.isAuthenticated()"
+                    ng-click="subscribe(user,'apero')"
+                    class="">ici!</a>
+              </div>
+            </div>
+
+        </div>
+
+
         <!-- LOVES & POPULAR -->
         <article  ng-if="loves.length"> 
           <h5 class="article-group-title ">
