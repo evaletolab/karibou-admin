@@ -1,0 +1,82 @@
+<!-- BY ORDERS -->
+<div class="list-group">
+
+  <li  ng-repeat="order in orders|orderBy:['rank']|filter:options.filterTxt" 
+       class="list-group-item " 
+       ng-if="(!filters.f||filters.f===order.shipping.when)"
+       ng-class="getOrderStatusClass(order,'list-group-item-')" >
+
+    <!-- ORDER ID BUTTON -->
+    <div class="btn-group " style="float: left; margin-right: 5px;">
+      <button type="button" class="btn btn-transparent btn-xs dropdown-toggle" data-toggle="dropdown">
+        <i class="fa fa-cog"></i> {{order.oid}} <span class="caret"></span>
+      </button>
+      <ul class="dropdown-menu" role="menu">
+        <li>
+            <a href="#" ng-click="orderCancel(order,'customer')" >Annuler cette commande sur demande de l'utilisateur</a>
+        </li>
+        <li>
+            <a href="#" ng-click="orderCancel(order,'fraud')" >Annuler cette commande pour fraude</a>
+        </li>
+        <li>
+            <a href="#" ng-click="orderCancel(order,'inventory')" >Annuler cette commande pour inventaire</a>
+        </li>
+        <li>
+            <a href="#" ng-click="orderCancel(order,'other')" >Annuler cette commande pour une autre raison</a>
+        </li>
+        <ul>
+          <li class="divider"></li>
+          <li><a href="#" ng-click="orderRefund(order)">Rembourser cette commande</a></li>
+          <li><a href="#" ng-click="orderDelete(order)">Supprimer cette commande</a></li>
+        </ul>
+      </ul>
+    </div>
+
+    <!-- ORDER TITLE -->
+    <h4 class="list-group-item-heading">
+      <a class=" text-capitalize" ng-click="modalUserDetails(order.oid)" bs-modal="'/partials/order/order.user.modal.html'">
+        <span class="hidden-xs">{{order.customer.name.givenName}}</span> 
+        {{order.customer.name.familyName}}</a>  <!-- {{order.created|dateLabelShort}} -->
+        <span class="label label-title hidden-xs">{{order.fulfillments.status}}</span>
+        <span class="label label-title" ng-show="!showCaptureButton(order)">
+            {{order.payment.status}}|{{order.getOriginPrice()}}|{{order.getTotalPrice()}}CHF
+        </span>
+        <button class="btn btn-transparent bold red btn-xs" 
+                ng-show="showCaptureButton(order)" 
+                ng-click="orderCapture(order)"><span class="hidden-xs">{{order.payment.status}}</span> {{order.getOriginPrice()}}|{{order.getTotalPrice()}}CHF
+        </button>
+
+    </h4>
+    <!-- ORDER SAC -->
+    <span class="bag-1 label label-primary ">sac {{order.rank}}</span>
+    
+
+    <p class="list-group-item-text">
+
+        <div class="col-xs-5 col-sm-3 col-md-2 progress-container">
+          <div class="progress-bar " role="progressbar" order-progress="order"
+            ng-class="{'progress-bar-danger':order.fulfillments.status=='failure',
+                       'progress-bar-info':order.fulfillments.status!=='failure'}">
+            <span class="sr-only-">({{order.getFulfilledStats()}}) {{order.getProgress()|number:0}}<b>%</b></span>
+          </div>          
+          
+        </div>
+        <div class="col-xs-1 col-sm-6 col-md-7 nopadding">
+          &nbsp;
+        </div>
+        <div class="col-xs-6 col-sm-3 nopadding">
+          <span class="label label-price pull-right">{{order|orderTotal}}</span>
+<!--          <div class="input-group">
+            <span class="input-group-addon hidden-xs">{{order|orderInitial}}</span>
+            <span class="input-group-addon ">{{order|orderTotal}}</span>
+          </div> -->
+
+        </div>
+
+        
+    </p>
+  </li>
+</div>
+
+
+

@@ -1,0 +1,74 @@
+
+          <div class="row clearfix postfinance payment">
+              <div class="col-xs-0 col-md-1"></div>
+              <div class="col-xs-12 col-md-10 content">
+                <form accept-charset="UTF-8"  name="card">
+                  <div class="hidden-fields" style="margin:0;padding:0;display:inline">
+                  </div>
+                  <div>
+                  </div>
+                  <div class="form-row">
+                    <div class="col-xs-12 form-group required">
+                      <label class="control-label">Titulaire de la carte de crédit</label>
+                      <input class="form-control  input-lg" ng-model="name" type="text"  ng-init="name=user.display()">
+                    </div>
+                  </div>
+                  <div class="form-row">
+                    <div class="col-xs-12 form-group card required">
+                      <label class="control-label">Numéro de carte de crédit <b>{{Cards.fromNumber(number).type}}</b></label>
+                      <input type="text" class="input-block-level form-control card-number input-lg" 
+                              ng-model="number" payments-validate="card" payments-format="card" payments-type-model="type" 
+                              ng-class="card.number.$card.type"/>
+                      <span ng-show="Cards.fromNumber(number).type" class="accout-field-valid"><i class="fa fa-ok green"></i></span>
+                      <p class="help-block hide"> mc 5555555555554444, visa 4012888888881881, ae 371449635398431
+                      </p>
+                    </div>
+                  </div>
+                  <div class="form-row">
+                    <div class="col-xs-4 form-group cvc required">
+                      <label class="control-label">CVC code de vérification</label>
+                      <input type="text" class="input-block-level form-control card-cvc  input-lg" 
+                             autocomplete="off" placeholder="ex. 311" size="4"
+                             ng-model="csc" payments-validate="cvc" payments-format="cvc" payments-type-model="type"/>
+                      <p class="help-block">
+                        Le CVC est un code de <b>{{Cards.fromNumber(number)?Cards.fromNumber(number).cvcLength:3}}</b> chiffres qui se trouve sur le dos de la carte
+                      </p>
+
+                    </div>
+                    <div class="col-xs-8 form-group expiration required">
+                      <label class="control-label">Date d'expiration</label>
+                      <input type="text" class="form-control input-lg input-block-level card-expiry-month" placeholder="MMYY"
+                             ng-model="expiry" payments-validate="expiry" payments-format="expiry" />
+
+                    </div>
+
+<!--                     <div class="col-xs-4 form-group expiration required">
+                      <label class="control-label"> </label>
+                      <input class="form-control card-expiry-year" placeholder="YYYY" size="4" type="text">
+                    </div>
+
+ -->                  
+                  </div>
+                  <div class="form-row">
+                    <div class="col-md-12 form-group">
+                      <button class="form-control btn btn-primary submit-button input-lg" 
+                      ng-disabled="!Cards.fromNumber(number).type||WaitText"
+                      ng-click="addPaymentMethod(name,number,csc,expiry)">Enregistrez cette méthode de paiement</button>
+                    </div>
+                  </div>
+                  <div class="form-row">
+                    <div class="col-md-12 error form-group hide">
+                      <div class="alert-danger alert">
+                        Please correct the errors and try again.
+                      </div>
+                    </div>
+                  </div>
+                </form>
+              </div>
+              <div class="security clearfix">
+                <div class="lock"><img src="/img/payments/lock.png" /></div>
+                <div class="content"><p class="help-block">Les transactions et le stockage des cartes sont effectués de façon sécurisée par Stripe</p></div>
+                <div class="logo"><img src="/img/payments/solid.png" /></div>
+              </div>
+
+          </div>

@@ -1,0 +1,142 @@
+
+<div tabindex="-1"  id="null" class="screen-content">
+  <aside ng-include="getCover()" class=" cover cover-home cover-category img-loaded" 
+         ng-class="{'session':user.isAuthenticated()}">
+  </aside>
+
+
+   <section class="wrapper" tabindex="-1" ng-controller="HomeCtrl">
+      <div class="wrapper-inner" >
+
+        <!--                               -->
+        <!-- CATEGORIES PRODUITS/BOUTIQUES -->
+        <!--                               -->
+                          
+         <div  class="bucket post-bucket homepage-posts">
+            <div class="bucket-header bucket-header-list show-subtitles-variant">
+               <nav class="bucket-sort">
+                  <h5 class="bucket-title active hidden-xs" >
+                    <a href="/products" title="Les produits"><span class="bucket-header-title">Les produits</span> </a>
+                  </h5>
+                  <h5 class="bucket-title hidden-xs" >
+                    <a href="/shops" title="Collections"><span class="bucket-header-title">Les boutiques</span> </a>
+                  </h5>
+                  <h4 class="bucket-sub-title " clockdown="Prochaine livraison "></h4>
+
+               </nav>
+            </div>
+         </div>
+
+        <!-- MAILING EVENT -->
+        <div class="col-xs-12 col-lg-10 form-inline kb-card-info first-child"  >
+            <div class="col-xs-1 kb-card-image">
+              <img src="/img/k-puce.png" class=" " >
+            </div>
+            <div class="col-xs-11 kb-card-content">
+              <small>Mercredi 23 septembre<br/>11 rue de la navigation<br/>à 18h00</small>
+              <h5>Atelier-cuisine chez MU-Food.</h5>
+              Apprenez à cuisiner des spécialités végétariennes indonésiennes avec <a href="/shop/vemma-creations-graines">Vemma</a>. Une cuisine réalisée uniquement avec des produits locaux. Cours gratuit, vos dons seront les bienvenus!
+              <p>Cet évennement à lieu dans le cadre de la Semaine du goût</p>
+              <div class="kb-card-action" ng-if="!options.atelier">
+                Je m'inscris! 
+                <span ng-if="!user.isAuthenticated()">                  
+                  <a  href="https://www.facebook.com/events/1631556170449036/" 
+                      class="smallx">FB.ME/KARIBOUFRESH</a>
+
+                  ou
+                  <a  class="smallx" href="mailto:hello@karibou.ch?Subject=Atelier+Cuisine">HELLO@KARIBOU.ch</a>
+                </span>
+
+
+                <a  href="#" 
+                    ng-if="user.isAuthenticated()"
+                    ng-click="subscribe(user,'atelier')"
+                    class="">ici!</a>
+              </div>
+            </div>
+
+        </div>
+        <div class="col-xs-12 col-lg-10 form-inline kb-card-info last-child" >
+            <div class="col-xs-1 kb-card-image">
+              <img src="/img/k-puce.png" class=" " >
+            </div>
+            <div class="col-xs-11 kb-card-content">
+              <small>Jeudi 24 septembre<br/>11 rue de la navigation<br/>dès 18h00</small>
+              <h5>Apéro et dégustation en présence des boutiques!</h5>
+              A l’occasion de la Semaine du goût, retrouvez-nous chez Mu-Food et rencontrez les personnes qui animent les boutiques sur karibou.ch. Nous proposons un moment convivial autour d'un apéro dégustation.
+              <p>Cet évennement à lieu dans le cadre de la Semaine du goût</p>
+              <div class="kb-card-action" ng-if="!options.apero" >
+                Je m'inscris! 
+                <span ng-if="!user.isAuthenticated()">                  
+                  <a  href="https://www.facebook.com/events/1631556170449036/" 
+                      class="smallx">FB.ME/KARIBOUFRESH</a>
+                </span>
+
+                <a  href="#" 
+                    ng-if="user.isAuthenticated()"
+                    ng-click="subscribe(user,'apero')"
+                    class="">ici!</a>
+              </div>
+            </div>
+
+        </div>
+
+
+        <!-- LOVES & POPULAR -->
+        <article  ng-if="loves.length"> 
+          <h5 class="article-group-title ">
+            <span class="gray">Mes produits</span>
+            <a ng-href="/account/love" class="btn btn btn-category green">Plus &nbsp;<i class="fa fa-angle-right"></i></a>
+          </h5>
+          <p class="bucket-sub-title" style="margin-top:-25px">Produits les plus achetés et mes «J'aime»</p>
+
+          <div  style="width:100%;"><!-- MANSORY FIX -->
+            <div  ng-static-include="'/partials/product/product.html'"  ng-repeat="product in loves|orderBy:['categories.weight','-updated']"></div>              
+          </div>
+        </article>
+
+        <!-- LOVES & POPULAR -->
+        <article  class="hide"> 
+          <h5 class="article-group-title ">
+            <span class="gray">Partenariat</span>
+          </h5>
+
+          <div  style="width:100%;" class="text-left"><!-- MANSORY FIX -->
+            <a href="http://www.lacite.info/webcite/"><img src="//ucarecdn.com/369e39ce-6c5b-4a47-8e78-4abfeb549199/-/resize/800x/" style="width: 90%;margin-left:-15px;padding-bottom: 20px;" /></a>
+          </div>
+        </article>
+
+        <!-- PRODUCTS -->
+        <div infinite-scroll='loadNextPage()'  
+             infinite-scroll-distance='1'
+             class="row wrapheight" >
+     
+
+
+            <article  ng-repeat="group in keys(infinite)"  ng-if="infinite[group].length"> 
+              <h5 class="article-group-title ">
+                <span class="gray">{{group}}</span>
+                <i class="{{category.find({name:group}).image||''}} {{category.find({name:group}).color||gray}}"></i>
+                <a ng-href="/products/category/{{category.find({name:group}).slug||''}}" class="btn btn btn-category green">Plus &nbsp;<i class="fa fa-angle-right"></i></a>
+              </h5>
+
+              <div  style="width:100%;"><!-- MANSORY FIX -->
+                <div  ng-static-include="'/partials/product/product.html'"  ng-repeat="product in infinite[group]|orderBy:['-updated']"></div>              
+              </div>
+            </article>
+
+<!--             <article class="article-group-title">
+              <h5>{{currentCategory}}</h5>
+              <i class="{{category.find({name:currentCategory}).image||''}} {{category.find({name:currentCategory}).color||gray}}"></i>
+            </article>
+ -->          
+
+        </div>
+              
+
+        <footer class="wrapper-footer" ng-include="'/footer.html'"></footer>
+      </div>
+   </section>
+</div>
+
+

@@ -1,0 +1,121 @@
+<div class="dashboard" ng-controller="OrderRepportCtrl">
+
+  <!-- MENU -->
+  <nav  class="navbar navbar-inverse navbar-fixed-top hidden-print" role="navigation"
+        ng-include="'/partials/dashboard/dashboard-header.html'"></nav>
+
+
+  <!-- MAIN CONTENT -->
+  <div class="container-fluid " ng-init="findAllShopRepport()">
+    <div class="row">
+      <!-- SIDEBAR MENU -->
+      <div class="col-xs-8 col-sm-4 col-lg-2 sidebar hidden-print " 
+           ng-include="'/partials/dashboard/dashboard-sidebar.html'" 
+           ng-class="{'menu-off':!options.showMenu}">
+      </div>
+      <div class="col-xs-12  nopadding-xs">
+
+        <!-- FILTERS LOGISTIC -->
+        <div class="panel panel-default hidden-print" >
+          <div class="panel-heading">
+            <a href="" class="btn btn-transparent btn-md" toggle-on-click="#shopper-filter" > <i class="fa fa-chevron-down "></i></a>
+
+          </div>
+          <div class="panel-body nopadding" id="shopper-filter" ng-class="{'hide':repport.products.length}">
+              <div class="col-xs-12 col-md-4 ">
+                <div>Mois: </div>
+                <span ng-repeat="month in months"><button class="btn btn-xs btn-transparent" ng-click="toggle({month:month})" ng-class="getToggleClass('month',month)">{{months_short[month-1]}}</button> </span>                
+              </div>
+              <div class="col-xs-12 col-md-4 ">
+                <span>Année: </span>
+                <button class="btn btn-md btn-transparent btn-block" 
+                        ng-repeat="year in years"
+                        ng-click="toggle({year:year})" ng-class="getToggleClass('year',year)">{{year}}</button>                 
+                <br/>
+              </div>
+              <div class="col-xs-12  col-md-4" ng-if="user.isAdmin()">
+                <span>Par boutique: </span>
+                <select class="form-control " 
+                        ng-change="findAllShopRepport()"
+                        ng-model="filters.shops" 
+                        ng-options="shop.urlpath as shop.name  for shop in shopsSelect| orderBy:'name'">
+                        <option value=""  selected>-- Choisissez une boutique</option>
+                </select>                        
+              </div>
+
+          </div>
+        </div>  
+
+              
+        <div class=" repport">
+          <address class="karibou small">
+            <img src="/img/k-small.png"  />
+            <span class="text-underline bold" >Karibou</span> | 
+            <span class="text-capitalize">Delphine Cluzel Evalet</span> | 
+            <span >34 route de chêne | 1208 | Genève</span> 
+          </address>
+
+          <address>
+            <!-- <strong class="text-capitalize">{{user.display()}}</strong><br> -->
+            <span class="text-underline bold" >{{shopName()}}</span><br>
+            <span >{{firstShop().streetAdress}}</span><br>
+            <span >{{firstShop().postalCode}} / {{firstShop().region}}</span><br>
+          </address>
+
+          <h4 ng-if="repport.from">Relevé d'activité du {{repport.to|dateLabel}}</h4>
+          <ul >
+            <li>Date du relevé: {{today|dateLabel}}</li>
+            <li>Boutique(s): {{shopName()}}</li>
+            <li>Période comptable:  {{repport.from|dateLabel}} au {{repport.to|dateLabel}}</li>
+            <li></li>
+          </ul>
+
+          <div  >
+          <table class="table table-condensed resume">
+            <thead>
+              <tr>
+                <th>Info</th>
+                <th></th>
+                <th>Transaction</th>  
+                <th>CHF</th>
+              </tr>
+            </thead>
+            <tbody ng-repeat="(slug, repportOneShop) in repport.shops" class="repport-separator">
+              <tr><td colspan="2"></td><td>{{repportOneShop.monthitems}} articles / {{repportOneShop.monthorders}} commandes</td><td>{{repportOneShop.monthamount|number:2}}</td></tr>
+              <tr><td colspan="2"></td><td>Service Karibou  {{repportOneShop.details.fees*100}}% </td><td>{{repportOneShop.monthfees|number:2}}</td></tr>
+              <tr><td colspan="2"></td><td class="bold">Solde en faveur de {{repportOneShop.details.name}}</td><td class="bold">{{repportOneShop.monthamount-repportOneShop.monthfees|number:2}}</td></tr>
+            </tbody>
+            <tbody ng-if="multipleShops(repport)>1" class="repport-last">
+              <tr><td colspan="2">TOTAL</td><td>{{repport.monthitems}} articles / {{repport.monthorders}} commandes</td><td>{{repport.monthamount|number:2}}</td></tr>
+              <tr><td colspan="2"></td><td>Service Karibou à ce jour</td><td>{{repport.monthca|number:2}}</td></tr>
+              <tr><td colspan="2"></td><td class="bold">Solde en faveur des boutiques</td><td class="bold">{{repport.monthamount-repport.monthca|number:2}}</td></tr>
+            </tbody>
+
+          </table>
+
+          </div>
+
+          <p>
+            Avec nos meilleures salutations,<br/>
+            L'équipe Karibou
+          </p>
+
+          <div class="page-break"></div>
+          <div  ng-include="'/partials/order/order-repport-shop.html'"></div>
+
+          <!-- MAP -->
+          <div ng-if="addresses" class="text-center">
+            <img bg-src="{{map.resolveStaticmap(addresses)}}" class="img-cover" style="height:500px"/>
+          </div>
+          <hr/>
+        </div>
+
+        <!-- LOGISTIC -->
+        <div ng-show="loading&&!orders.length" class="text-center gray">
+          <i class="fa fa-refresh fa-2x fa-spin"></i>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>

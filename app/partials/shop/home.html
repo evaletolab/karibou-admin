@@ -1,0 +1,52 @@
+<div tabindex="-1"   class="container" ng-controller="HomeCtrl" style="margin-top:50px;">
+
+
+
+        <!--                               -->
+        <!-- CATEGORIES PRODUITS/BOUTIQUES -->
+        <!--                               -->
+                          
+         <div  class="bucket post-bucket homepage-posts">
+            <div class="bucket-header bucket-header-list show-subtitles-variant">
+               <nav class="bucket-sort">
+                  <h5 class="bucket-title hidden-xs" >
+                    <a href="/products" title="Les produits"><span class="bucket-header-title">Les produits</span> </a>
+                  </h5>
+                  <h5 class="bucket-title active hidden-xs">
+                    <a href="/shops" title="Collections"><span class="bucket-header-title">Les boutiques</span> </a>
+                  </h5>
+               </nav>
+            </div>
+         </div>
+
+        
+        <!-- SHOPS -->
+        <div infinite-scroll='loadNextPage()'  
+             infinite-scroll-distance='0' 
+             class="row wrapheight " style="padding:8px;background-color:transparent">
+
+            <div  ng-repeat="(group, _shops) in shops" ng-if="_shops.length"> 
+<!--               <h5 class="article-group-title ">
+                {{group}}
+                <i class="{{category.find({name:group}).image||''}} {{category.find({name:group}).color||gray}} fa fa-large"></i>
+              </h5>
+ -->
+              <div  style="width:100%;"><!-- MANSORY FIX -->
+                <div  class="col-sm-6 col-md-6 col-xs-12 " style="background-color:transparent" 
+                      ng-include="'/partials/shop/shop.html'"  
+                      ng-repeat="shop in _shops" 
+                      ng-if="shop.name"></div>              
+              </div>
+            </div>
+<!--             <article>              
+              <div class=" layout-item c3 "  >
+                <div style="position:relative;overflow:hidden;height:auto">          
+                  <img ng-src="{{map.resolveStaticmap(addresses)}}" 
+                  style="width:100%"/>
+                </div>
+                </div>
+            </article>
+ -->        </div>
+
+        <footer class="wrapper-footer wide" ng-include="'/footer.html'"></footer>
+</div>

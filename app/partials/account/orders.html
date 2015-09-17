@@ -1,0 +1,259 @@
+
+
+<div tabindex="-1"  id="null" class="screen-content" ng-controller="AccountCtrl">
+  <aside ng-include="'/partials/account/cover.html'"
+         class="cover cover-home img-loaded" ng-class="{'session':user.isAuthenticated()}">
+  </aside>
+
+
+   <section class="wrapper" tabindex="-1" ng-controller="OrderCommonCtrl">
+      <div class="wrapper-inner" ng-init="findOrdersByUser()">
+
+
+
+      <!--                               -->
+      <!-- NAVIGATION -->
+      <!--                               -->
+
+      <!--                               -->
+      <!-- CONTENT                       -->
+      <!--                               -->
+
+
+      <h5 class="article-group-title " >
+        <span class="bucket-header-title box">Statut de mes commandes</span>
+      </h5>
+
+
+    <ul class="timeline"  ng-show="orders.length">
+        <li ng-repeat="order in orders" ng-class="{'timeline-inverted':$odd}">
+          <!-- timeline start -->
+          <div class="timeline-badge "><i class="fa fa-shopping-cart green"></i></div>
+          <div class="timeline-panel">
+            <div class="timeline-heading">
+              <h4 class="timeline-title">{{order.getTitle()}}</h4>
+              <p><small class="text-muted"><i class="fa fa-time"></i>Créée {{order.created|dateLabel}}, N° {{order.oid}}</small>
+
+              </p>
+            </div>
+            <div class="timeline-body">
+              <h5 style="margin-bottom:5px" class="text-muted">Statut de la commande</h5>
+              <div class="progress">
+                <div class="progress-bar  " role="progressbar" order-progress="order"
+                  ng-class="{'progress-bar-danger':order.fulfillments.status=='failure',
+                             'progress-bar-success':order.fulfillments.status!=='failure'}">
+                  <span class="sr-only-">{{order.fulfillments.status}}</span>
+                </div>
+              </div>
+
+              <div class="panel panel-default">
+                <!-- Default panel contents -->
+                <div class="panel-heading smallx"><a href="" toggle-on-click="#detail-{{order.oid}}">Voir le détail</a></div>
+                <div class="">
+                  <div class="cart">
+                    {{order.payment.status}}<br/>
+                    <span>{{order.payment.issuer}}</span>
+                  </div>
+                  <div class="cart">
+                    {{order.getTotalPrice().toFixed(2)}} CHF<br/>
+                    <span>total</span>
+                  </div>
+
+                </div>
+
+                <!-- ITEMS DETAILS-->
+                <table class="table table-condensed smallx hide" id="detail-{{order.oid}}" style="">
+                  <thead>
+                    <tr><th>Produit</th><th>Qté</th><th>CHF</th></tr>
+                  </thead>
+                  <tbody>
+                    <tr ng-repeat="i in order.items" ng-class="{'strike grayx':(i.fulfillment.status==='failure'||order.fulfillments.status==='failure')}">
+                      <td title="{{i.vendor}}">
+                        <a ng-href="/products/{{i.sku}}">{{i.title}}</a>
+                        <mark ng-if="i.variant.title" class="small gray">{{i.variant.title}}</mark>
+                      </td>
+                      <td>{{i.quantity}}</td>
+                      <td>{{i.finalprice|number:'2'}} CHF</td>
+                    </tr>
+                    <!-- info -->
+                    <tr ng-class="{'strike grayx':order.fulfillments.status==='failure'}">
+                      <td colspan="2">Soutotal</td><td >{{order|orderTotal}}</td>
+                    </tr>
+                    <tr ng-class="{'strike grayx':order.fulfillments.status==='failure'}">
+                      <td colspan="2">Livraison & Paiement</td><td >{{order|orderFees}}</td>
+                    </tr>
+                    <tr class="bold" ng-class="{'strike grayx':order.fulfillments.status==='failure'}">
+                      <td colspan="2">TOTAL</td><td >{{order.getTotalPrice().toFixed(2)}} CHF</td>
+                    </tr>
+
+                  </tbody>
+                </table>
+    
+              </div>
+
+              <div class="btn-group">
+                <button type="button" class="btn btn-transparent btn-sm dropdown-toggle" data-toggle="dropdown">
+                  <i class="fa fa-cog"></i> actions <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu" role="menu">
+                  <li ng-class="{'disabled':order.fulfillments.status!=='reserved'}">
+                      <a href="#" ng-click="orderCancel(order,'customer')" 
+                         title="il est possible d'annuler votre commande tant que la logistique n'a pas commencé">Annuler cette commande</a></li>
+                  <li><a href="#" ng-click="">Copier cette commande dans le panier</a></li>
+                  <li ng-class="{'disabled':order.payment.status!=='paid'}">
+                      <a href="#" ng-click="orderInvoice(order)" >Recevoir la facture par e-mail</a></li>
+<!--                  <li class="divider"></li>
+                  <li><a href="#">Signaler un problème avec cette commande</a></li>
+-->                  
+                </ul>
+              </div>
+
+<!--               <div class="btn-group">
+                <button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown">
+                  <i class="fa fa-cog"></i> <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu" role="menu">
+                  <li><a href="#" ng-click="cart.addList(order.items)" ng-disabled="!order.items.length">Copier cette commande</a></li>
+                  <li class="divider"></li>
+                  <li><a href="#">Signaler un problème</a></li>
+                </ul>
+              </div>   -->
+
+            </div>
+          </div>
+          <!-- timeline end -->
+        </li>
+<!--
+        <li class="timeline-inverted">
+          <div class="timeline-badge warning"><i class="fa fa-credit-card"></i></div>
+          <div class="timeline-panel">
+            <div class="timeline-heading">
+              <h4 class="timeline-title">Livrée 1 avril 2013, CHF 120.-</h4>
+              <p><small class="text-muted"><i class="fa fa-time"></i>commandé le 28 mars, N° #10020135</small></p>
+            </div>
+            <div class="timeline-body">
+              <table class="table table-condensed small">
+                <thead>
+                  <tr><th>Produit</th><th>Qté</th><th>CHF</th></tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td title="La Bergerie de Satigny">Fromage de brebis aux truffes</td>
+                    <td>5</td>
+                    <td>25.-</td>
+                  </tr>
+                  <tr>
+                    <td title="La Boucherie de Chêne">Cuisses de poulet fermier <span class="gree">(bio)</span></td>
+                    <td>4</td>
+                    <td>50.-</td>
+                  </tr>
+                  <tr >
+                    <td title="Vins de Genève">Stellar Cabernet Sauvignon 2007 <span class="gree">(bio)</span></td>
+                    <td>1</td>
+                    <td>25.-</td>
+                  </tr>
+
+                  <tr>
+                    <td colspan="2">paypal (1.8%)</td><td >0.90</td>
+                  </tr>
+                  <tr>
+                    <td colspan="2">livraison</td><td >12.-</td>
+                  </tr>
+                  <tr class="bold">
+                    <td colspan="2">TOTAL</td><td >100.-</td>
+                  </tr>
+                </tbody>
+              </table>
+
+
+              <hr>
+              <div class="btn-group">
+                <button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown">
+                  <i class="fa fa-cog"></i> <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu" role="menu">
+                  <li><a href="#">Copier cette commande</a></li>
+                  <li><a href="#">Envoyer pas mail</a></li>
+                  <li class="divider"></li>
+                  <li><a href="#">Signaler un problème</a></li>
+                </ul>
+              </div>
+
+            </div>
+          </div>
+        </li>
+        <li>
+          <div class="timeline-badge danger"><i class="fa fa-leaf"></i></div>
+          <div class="timeline-panel">
+            <div class="timeline-heading">
+              <h4 class="timeline-title">20 mars 2013, CHF 70.50</h4>
+            </div>
+            <div class="timeline-body">
+              <p>Mussum ipsum cacilds, vidis litro abertis. Consetis adipiscings elitis. Pra lá , depois divoltis porris, paradis. Paisis, filhis, espiritis santis. Mé faiz elementum girarzis, nisi eros vermeio, in elementis mé pra quem é amistosis quis leo. Manduma pindureta quium dia nois paga. Sapien in monti palavris qui num significa nadis i pareci latim. Interessantiss quisso pudia ce receita de bolis, mais bolis eu num gostis.</p>
+            </div>
+          </div>
+        </li>
+        <li class="timeline-inverted">
+          <div class="timeline-badge info"><i class="fa fa-leaf"></i></div>
+          <div class="timeline-panel">
+            <div class="timeline-heading">
+              <h4 class="timeline-title">10 mars 2013, CHF 170.10</h4>
+            </div>
+            <div class="timeline-body">
+              <p>Mussum ipsum cacilds, vidis litro abertis. Consetis adipiscings elitis. Pra lá , depois divoltis porris, paradis. Paisis, filhis, espiritis santis. Mé faiz elementum girarzis, nisi eros vermeio, in elementis mé pra quem é amistosis quis leo. Manduma pindureta quium dia nois paga. Sapien in monti palavris qui num significa nadis i pareci latim. Interessantiss quisso pudia ce receita de bolis, mais bolis eu num gostis.</p>
+            </div>
+          </div>
+        </li>
+        <li>
+          <div class="timeline-badge info"><i class="fa fa-lemon"></i></div>
+          <div class="timeline-panel">
+            <div class="timeline-heading">
+              <h4 class="timeline-title">2 mars 2013, CHF 80.40</h4>
+            </div>
+            <div class="timeline-body">
+              <p>Mussum ipsum cacilds, vidis litro abertis. Consetis adipiscings elitis. Pra lá , depois divoltis porris, paradis. Paisis, filhis, espiritis santis. Mé faiz elementum girarzis, nisi eros vermeio, in elementis mé pra quem é amistosis quis leo. Manduma pindureta quium dia nois paga. Sapien in monti palavris qui num significa nadis i pareci latim. Interessantiss quisso pudia ce receita de bolis, mais bolis eu num gostis.</p>
+              <hr>
+              <div class="btn-group">
+                <button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown">
+                  <i class="fa fa-cog"></i> <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu" role="menu">
+                  <li><a href="#">Copier</a></li>
+                  <li><a href="#">Envoyer pas mail</a></li>
+                  <li class="divider"></li>
+                  <li><a href="#">Signaler un problème</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </li>
+        <li>
+          <div class="timeline-panel">
+            <div class="timeline-heading">
+              <h4 class="timeline-title">28 février 2013, CHF 100.-</h4>
+            </div>
+            <div class="timeline-body">
+              <p>Mussum ipsum cacilds, vidis litro abertis. Consetis adipiscings elitis. Pra lá , depois divoltis porris, paradis. Paisis, filhis, espiritis santis. Mé faiz elementum girarzis, nisi eros vermeio, in elementis mé pra quem é amistosis quis leo. Manduma pindureta quium dia nois paga. Sapien in monti palavris qui num significa nadis i pareci latim. Interessantiss quisso pudia ce receita de bolis, mais bolis eu num gostis.</p>
+            </div>
+          </div>
+        </li>
+        <li class="timeline-inverted">
+          <div class="timeline-badge success"><i class="fa fa-thumbs-up"></i></div>
+          <div class="timeline-panel">
+            <div class="timeline-heading">
+              <h4 class="timeline-title">20 février 2013, CHF 100.00</h4>
+            </div>
+            <div class="timeline-body">
+              <p>Mussum ipsum cacilds, vidis litro abertis. Consetis adipiscings elitis. Pra lá , depois divoltis porris, paradis. Paisis, filhis, espiritis santis. Mé faiz elementum girarzis, nisi eros vermeio, in elementis mé pra quem é amistosis quis leo. Manduma pindureta quium dia nois paga. Sapien in monti palavris qui num significa nadis i pareci latim. Interessantiss quisso pudia ce receita de bolis, mais bolis eu num gostis.</p>
+            </div>
+          </div>
+        </li>
+    </ul>
+-->
+
+      <!-- FOOTER -->
+        <footer class="wrapper-footer" ng-include="'/footer.html'"></footer>
+
+      </section>
+   </section>
+</div>

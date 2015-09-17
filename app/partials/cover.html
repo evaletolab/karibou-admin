@@ -1,0 +1,49 @@
+  <div class="cover-img bg-black" backstretch="cover">
+
+
+  </div>
+  <!-- DIPLAY CATEGORY -->
+  <div class="cover-row">
+    <div class="cover-body" style="top:0;background:none">
+      <div class="cover-body-inner">
+        <div class="cover-resume categories hidden-xs hidden-sm" >
+          <ul>
+              <li>
+                <a class="site-nav-list-item  " title="Tous les produits" 
+                   href="/" tabindex="-1"><i class=""></i>&nbsp;Tous les produits</a>
+              </li>
+              <li  class="" ng-repeat="category in category.findAll()|filter:{type:'Category'}|orderBy:'weight'">
+                <a class="site-nav-list-item  " title="{{category.name}}" 
+                   ng-class="getClass('/products/category/{{category.slug}}')"
+                   href="/products/category/{{category.slug}}" tabindex="-1"><i class=""></i>&nbsp;{{category.name}}</a>
+              </li>
+          </ul>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="cover-body " hide="cart.items.length">
+
+    <!-- HOME -->
+     <div  class="cover-body-inner strong " >
+        <img src="img/k-big.png" class="cover-logo " />
+        <!-- <h1  class="cover-title hidden-md">Karibou</h1> -->
+        <div class="cover-description ">
+          <br/>
+          <span>Votre maraîcher, boulanger, fromager, boucher... livrés à votre porte!</span>
+<!--           <ul class="cover-list hidden-xs" >
+            <li>1 - Faites votre marché</li>
+            <li>2 - Identifiez-vous</li>
+            <li>3 - Nous livrons chez vous !</li>  
+          </ul>
+ -->
+         <br><a ng-href="/page/about" class="link">Comment ça marche?</a>
+        </div>
+
+        <div class="cover-actions"><a href="/signup" class="btn btn-success btn-lg btn-new-post"><span class="icons icons-new-post"></span>Inscrivez-vous</a><span class="white">ou <a href="/login" class="white">Login</a></span></div>
+     </div>
+  </div>
+
+

@@ -1,0 +1,16 @@
+<div tabindex="-1"  id="null" class="screen-content">
+  <aside ng-include="getCover()" class=" cover cover-home cover-category img-loaded" ng-class="{'session':user.isAuthenticated()}">
+  </aside>
+
+
+   <section class="wrapper" tabindex="-1" ng-controller="ContentCtrl">
+     <div class="wrapper-inner markdown">
+
+			<markdown markdown-slug="{{article}}" ></markdown>
+			<div class="clearfix">
+				<hr/>
+				<button class="btn btn-primary pull-right btn-xs" edit-markdown="{{article}}">Improve this page</button>
+			</div>
+		</div>
+	</section>
+</div>

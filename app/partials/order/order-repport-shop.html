@@ -1,0 +1,42 @@
+<!-- BY PRODUCT -->
+<h4>Les ventes par produit</h4>
+<table class="table table-condensed items">
+  <thead>
+    <tr>
+      <th>Produit</th>
+      <th>Qté</th>
+      <th>CHF</th>  
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="product in repport.products">
+      <td>{{product.title}}</td><td>{{product.count}}</td><td>{{product.amount|number:2}}</td>
+    </tr>
+  </tbody>
+</table>
+<!--
+<h4>Les ventes par utilisateur</h4>
+<table class="table table-condensed items">
+  <thead>
+    <tr>
+      <th>Utilisateur</th>
+      <th>Produit</th>
+      <th></th>
+      <th class="text-center">Qté/CHF</th>  
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="(who,items) in repport.users">
+      <td>{{who}}</td>
+      <td colspan="3">
+        <table style="width:90%">
+          <tr ng-repeat="product in items|orderBy:'-amount'">
+            <td>{{product.title}}</td><td class="text-right">{{product.count}}</td><td class="text-right">{{product.amount|number:2}}</td>          
+          </tr>
+        </table>
+      </td>
+    </tr>
+  </tbody>
+</table>
+-->
+<!-- BY SHOP -->
