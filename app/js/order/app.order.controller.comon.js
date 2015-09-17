@@ -25,7 +25,8 @@ function OrderCommonCtrl($scope, $routeParams, api, order, user, product,shop, M
   $scope.loading=true;
 
   $scope.options={
-    showMenu:false
+    showMenu:false,
+    showWidget:false
   };
 
   $scope.shopsSelect=shop.query({});
@@ -229,13 +230,21 @@ function OrderCommonCtrl($scope, $routeParams, api, order, user, product,shop, M
 
 
   //
-  // selected item? 
+  // selected item? TODO this should be a directive
   $scope.selectedItem={};
-  $scope.selectItem=function (item,shop) {
-    var items=$scope.shops[shop];
+  $scope.selectItem=function (item,shop, $event) {
+    var items=$scope.shops[shop], options=$scope.options;
+    console.log($event)
+    if($event){
+      $event.stopPropagation();
+    }
+
     for (var i = items.length - 1; i >= 0; i--) {
       if(items[i].selected){
         items[i].selected=false;
+        if(options.showWidget){
+
+        }
         break;
       }
     }

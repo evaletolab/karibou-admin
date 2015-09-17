@@ -18,7 +18,7 @@ function ngRavenProvider($provide) {
         function ($delegate, API_SERVER) {
 
             Raven.config('https://public@getsentry.com/1',{
-                maxMessageLength:500,
+                maxMessageLength:600,
                 release:window.KARIBOU_INSTANCE,
                 fetchContext:true,
                 //includePaths:'/*app.js$/',

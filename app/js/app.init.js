@@ -2,8 +2,8 @@
 
 // 
 // chromium-browser --ignore-gpu-blacklist --disable-gpu-sandbox
-var API_SERVER='http://localhost:4000';
-// var API_SERVER='//api.'+window.location.hostname;
+// var API_SERVER='http://localhost:4000';
+var API_SERVER='//api.'+window.location.hostname;
 // var API_SERVER='http://192.168.1.35:4000'
 // var API_SERVER='http://karibou-api.cloudfoundry.com'
 // var API_SERVER='http://karibou-evaletolab.rhcloud.com'
@@ -290,9 +290,10 @@ function appRun(gitHubContent, $templateCache, $route, $http, $timeout, config) 
 
       //
       // loading Stripe
-      $script("https://js.stripe.com/v2/","stripe",function () {
-        window.Stripe.setPublishableKey(pk);
-      });
+      window.Stripe.setPublishableKey(pk);
+
+      // basket.ready('app').then(function() {
+      // })
 
       // init uploadcare key here
       config.uploadcare=config.shop.keys.pubUpcare;
@@ -301,14 +302,6 @@ function appRun(gitHubContent, $templateCache, $route, $http, $timeout, config) 
   });
 
 
-  // preload templates
-  $timeout(function () {
-    for(var i in $route.routes){
-      if($route.routes[i].templateUrl){
-        $http.get($route.routes[i].templateUrl, {cache: $templateCache});
-      }
-    }
-  },5000);
 }
 
 

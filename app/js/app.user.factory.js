@@ -167,7 +167,9 @@ User.factory('user', [
       var self=this;
 
       // set context for error
-      Raven.setUserContext(self);        
+      if(window.Raven){
+        Raven.setUserContext({id:self.id,email:self.email});        
+      }
 
       if(!self.addresses){
         return;

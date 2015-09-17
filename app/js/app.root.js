@@ -24,7 +24,9 @@ function appCtrl($scope, $rootScope, $window,  $location, $cookies, $routeParams
     sidebar:false,
     wellSubscribed:false,
     needReload:false,
-    welcome:($cookies.welcome||true)
+    welcome:($cookies.welcome||true),
+    apero:$cookies.apero,
+    atelier:$cookies.atelier
   };
 
   //
@@ -120,6 +122,8 @@ function appCtrl($scope, $rootScope, $window,  $location, $cookies, $routeParams
     if(!subject){
       return api.info($scope,"Hoho, vous devez préciser votre code postal ;)");        
     }
+
+    $cookies[subject]=true;
 
     $http.post(config.API_SERVER+'/v1/message/aHR0cDovL2thcmlib3UuZXZhbGV0b2xhYi5jaA==/'+subject, content).
       success(function(data, status, headers, config) {

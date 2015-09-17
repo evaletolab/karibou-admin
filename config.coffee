@@ -6,12 +6,16 @@ exports.config =
   modules:
     definition: false
     wrapper: false
+  workers:
+    enabled: true
   paths:
+    watched: ['loader','app','test','vendor']
     public: 'build'
   files:
     javascripts:
       joinTo:
         'js/app.js': /^app/
+        'js/loader.js': /^loader/
         'js/vendor.js': /^(bower_components|vendor)/
         'test/scenarios.js': /^test(\/|\\)e2e/
       order:
@@ -30,7 +34,7 @@ exports.config =
 
     templates:
       joinTo:
-        'js/templates.js': /^app\/assets\/partial/
+        'js/templates.js': /^app/
 
     stylesheets:
       joinTo:
@@ -64,8 +68,9 @@ exports.config =
       file: 'signature'
       ignore: /[\\/][.]/
 
-    ng_templates:
+    angular_templates:
       module: 'app.templates'
+      path_transform: (path) -> path.replace('app', '')
 
     html2js: 
       options:

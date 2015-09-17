@@ -603,20 +603,6 @@ UI.directive('backendUrl', ['$parse','config', function($parse, config) {
   };
 }]);
 
-UI.directive('acceptCookie', ['$parse','config','$cookies','$timeout', 
-  function($parse, config, $cookies, $timeout) {
-  return function(scope, element, attr) {
-    $timeout(function(){
-      if ($cookies['session.sid']){
-        return;        
-      }
-      element.attr("src",config.ACCEPT_COOKIE);
-      element.attr("style","height:100px;width:100%");
-
-    },2000);
-
-  };
-}]);
 
 UI.directive('lazySrc', ['$document', '$parse', function($document, $parse) {
         return {

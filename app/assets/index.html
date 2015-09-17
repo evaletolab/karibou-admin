@@ -207,7 +207,7 @@
               ng-show="options.needReload" 
             ng-animate="{show: 'fadein', hide: 'fadeout'}">
             <p class="butter-bar-message" >
-              <i class="fa fa-info-circle"></i>&nbsp;<strong>Vous session est restée innactive trop longtemps. Veuillez <a href="#" onClick="window.location.reload()">recharger la page</a></strong>
+              <i class="fa fa-info-circle"></i>&nbsp;<strong>Votre session est restée inactive trop longtemps. Veuillez <a href="#" onClick="window.location.reload()">recharger la page</a></strong>
               
             </p>
          </div>
@@ -315,10 +315,25 @@
    </body>
 
   <!-- Placed at the end of the document so the pages load faster &callback=initCall -->
-  <!-- <script src="cordova.js"></script> -->
+  <script src="https://js.stripe.com/v2/"></script>
   <script defer src="/js/vendor.js?cache={!distRelease!}"></script>
+  <script defer src="/js/templates.js?cache={!distRelease!}"></script>
   <script defer src="/js/app.js?cache={!distRelease!}"></script>
-
+  <!-- MAYBE
+  <script src="/js/loader.js"></script>
+  <script type="text/javascript">
+    basket.require(
+      { url: '/js/vendor.js', key: 'vendor', unique:KARIBOU_INSTANCE }
+    ).then(function () {
+      //
+      // dependency chain
+      return basket.require(
+          { url: '/js/templates.js', key: 'templates', unique:KARIBOU_INSTANCE },
+          { url: '/js/app.js', key: 'app', unique:KARIBOU_INSTANCE }
+      );
+    });
+  </script>
+  -->
   <!-- GG analytics -->
   <script>
   if(location.origin.indexOf('evaletolab')==-1){

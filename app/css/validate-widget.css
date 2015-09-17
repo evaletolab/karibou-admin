@@ -40,13 +40,13 @@
 #validate-widget{
 	position: fixed;
   bottom: 0;
-  top: 55px;
-  right: 0;
-  background: white;
-  border-left: 1px solid #ddd;
+  top: 70px;
+  right: 0px;
 }
 
+
 #validate-widget #who{
+	background-color: white;
 	padding: 4px 15px;
   font-weight: bold;
   background-color: #aaf;
@@ -87,8 +87,13 @@
 	border: 1px solid #eee;
 }
 
+#validate-widget #numbers{
+  background: white;	
+  clear: both;
+}
+
 #validate-widget #calculator {
-	background-color: transparent;
+	background-color: white;
 	width: 100%;
 	height: 100%;
 	margin: 0px auto;

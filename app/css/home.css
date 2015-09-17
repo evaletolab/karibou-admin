@@ -32,6 +32,69 @@ html,body,.main {
 .body-scroll,.body-scroll body,.body-scroll .surface {
     height:auto}
 
+
+.kb-card-info{
+    background-color: #FFF;
+    padding: 15px;
+    border: 1px solid rgba(128, 128, 128, 0.17);
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size:88%;
+    padding-bottom: 30px;
+    color: #726658;
+}
+
+.kb-card-info.first-child {
+    border-radius: 5px 5px 0 0;
+    border-bottom: none;
+}
+
+.kb-card-info.last-child{
+    border-radius: 0px 0px 5px 5px ;
+    margin-bottom: 20px;
+}
+
+
+.kb-card-info .kb-card-image {
+    padding: 6px 0;
+}
+.kb-card-info .kb-card-image img{
+    width: 70%;
+}
+
+.kb-card-info .kb-card-content{
+    padding: 10px 0px 0px 15px;
+    color: inherit;
+    font-family: inherit;
+}
+.kb-card-info .kb-card-content small{
+    max-width: 140px;
+    float: right;
+    color: #8dc63f;
+    font-family: inherit;
+    text-align: right;
+    font-weight: bold;
+}
+.kb-card-info h5,.kb-card-info h4{
+    font-family: inherit;
+    font-weight: 600
+}
+.kb-card-info .kb-card-content form{
+    padding-top: 15px;
+}
+
+.kb-card-info .kb-card-content p{
+    color: rgba(128, 128, 128, 0.73);
+    padding: 10px 0;
+    margin: 0;    
+}
+
+.kb-card-info  .kb-card-action{
+    padding-top: 20px;
+}
+.kb-card-info  .kb-card-action a{
+    -text-transform:uppercase;
+}
+
 .wrapper {
     outline:0;
     position:relative;
@@ -39,7 +102,7 @@ html,body,.main {
     right:0;
     top:0;
     bottom:0;
-    background-color:#F2F4F2;
+    -background-color:#F2F4F2;
     -webkit-overflow-scrolling:touch;
     -overflow-y:auto;
     padding-top: 0px;
