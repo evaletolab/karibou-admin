@@ -22,6 +22,7 @@ angular.module('app', [
   'ngUploadcare',  
   'infinite-scroll',
   'angular.filter',
+  'app.templates',
   'app.config',
   'app.storage',
   'app.raven',
@@ -33,6 +34,7 @@ angular.module('app', [
   'app.product',
   'app.category',
   'app.order',
+  'app.stats',
   'app.home'
 ])
   .value('API_SERVER',API_SERVER)

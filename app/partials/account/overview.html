@@ -39,7 +39,9 @@
           <div class="list-group">
             <a class="list-group-item" href="/admin/orders">Mes commandes</a> 
             <a class="list-group-item" href="/admin/products">Mes stocks</a> 
-            <a ng-if="user.isAdmin()" class="list-group-item" href="/admin/products">Mes rapports d'activités</a> 
+            <a class="list-group-item" href="/admin/repport/shop">Mes rapports d'activités</a> 
+            <a ng-if="user.isAdmin()" class="list-group-item" href="/admin/collect">La collecte</a> 
+            <a ng-if="user.isAdmin()" class="list-group-item" href="/admin/stats">Les statistiques</a> 
             <a ng-if="user.isAdmin()" class="list-group-item" href="/admin/user">Les utilisateurs</a> 
           </div>
       </div>

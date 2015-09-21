@@ -27,8 +27,8 @@
   -->
 
   <!-- PRODUCTS LINKS -->
-  <li ng-if="user.shops.length||user.isAdmin()"><h5>Produits</h5></li>
-  <li ng-if="user.shops.length||user.isAdmin()" ng-class="getClass('/admin/products')"><a href="/admin/products">Vos produits</a></li>
+  <li><h5>Produits</h5></li>
+  <li ng-class="getClass('/admin/products')"><a href="/admin/products">Vos produits</a></li>
 
 </ul>
   <!-- ADMIN LINKS -->
@@ -37,6 +37,7 @@
   <li ng-class="getClass('/admin/category')"><a href="/admin/category">Categories</a></li>
   <li ng-class="getClass('/admin/user')"><a href="/admin/user">Users</a></li>
   <li ng-class="getClass('/admin/config')"><a href="/admin/config">Config</a></li>
+  <li ng-class="getClass('/admin/stats')"><a href="/admin/stats">Statistic</a></li>
   
 
 </ul>

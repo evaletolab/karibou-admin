@@ -6,8 +6,6 @@ exports.config =
   modules:
     definition: false
     wrapper: false
-  workers:
-    enabled: true
   paths:
     watched: ['loader','app','test','vendor']
     public: 'build'
@@ -21,7 +19,7 @@ exports.config =
       order:
         before: [
           'bower_components/jquery/dist/jquery.js',
-          '/bower_components/raven-js/dist/raven.js',
+          'bower_components/raven-js/dist/raven.js',
           'bower_components/bootstrap/dist/js/bootstrap.js',
           'bower_components/fastclick/lib/fastclick.js',
           'bower_components/angular/angular.js',
