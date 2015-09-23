@@ -83,6 +83,23 @@ UI.filter('capitalize', function() {
   };
 });
 
+//
+// ngRepeat filter from/to dates
+UI.filter("betweenDates", function() {
+  return function(items,field, from, to, isNull) {
+        var df = (from)?new Date(from):new Date('1970');
+        var dt = (to)?new Date(to):new Date('2080');
+        var result = [];        
+        for (var i=0; i<items.length; i++){
+            var tf = new Date(items[i][field]),
+                tt = new Date(items[i][field]);
+            if (tf > df && tt < dt || (isNull&&!items[i][field]&&!from&&!to))  {
+                result.push(items[i]);
+            }
+        }            
+        return result;
+  };
+});
 
 // this is native now
 // http://stackoverflow.com/questions/19992090/angularjs-group-by-directive

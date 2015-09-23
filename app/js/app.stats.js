@@ -25,6 +25,12 @@ StatsCtrl.$inject=['$scope','$http','$timeout','$controller','config','api','$lo
 function StatsCtrl($scope, $http, $timeout, $controller, config, api, $log) {
 
   $controller('OrderCommonCtrl', {$scope: $scope}); 
+  $scope.options={
+    limit:new Date(Date.now()-60*86400000),
+    from:null,
+    to:null,
+    count:null
+  };
   $scope.colors=["120,120,220","220,120,120","120,220,120","20,220,220","220,20,220","220,220,20",
                  "40,40,220","40,220,40","220,40,40","40,220,220","220,40,220","220,220,40",
                  "80,150,220","150,80,220","150,220,80","80,220,150","220,80,150","220,150,80",
@@ -58,6 +64,28 @@ function StatsCtrl($scope, $http, $timeout, $controller, config, api, $log) {
     };
     data.datasets.push(set);
     return data.datasets.length-1;
+  }
+
+  $scope.before=function () {
+    $scope.options.to=$scope.options.limit;
+    $scope.options.from=null;
+    $scope.options.count=null;
+  }
+  $scope.after=function () {
+    $scope.options.from=$scope.options.limit;
+    $scope.options.to=null;
+    $scope.options.count=null;
+  }
+  $scope.clear=function () {
+    $scope.options.from=null;
+    $scope.options.to=null;
+    $scope.options.count=null;
+  }
+
+  $scope.without=function () {
+    $scope.options.from=null;
+    $scope.options.to=null;
+    $scope.options.count=0;
   }
 
   $scope.isHighlight=function(chart, label) {
@@ -181,12 +209,22 @@ function StatsCtrl($scope, $http, $timeout, $controller, config, api, $log) {
           addDataSets(data,shop,$scope.colors[i]);
         });
 
+        //
+        // add total amount
+        var total={
+          labels: Object.keys(stats.axis.x).reverse(),
+          datasets: []        
+        }
+        addDataSets(total,"karibou.ch",$scope.colors[$scope.colors.length-1]);
+
         ca.data=data;
+        ca.total=total;
 
         //
         // map data in axis
         Object.keys(stats).forEach(function(year){
             Object.keys(stats[year]).forEach(function (month) {
+              total.datasets[0].data[stats.axis.x[year+'.'+month]]=stats[year][month].fees;
               Object.keys(stats[year][month]).forEach(function (shop) {
                   var idx=addDataSets(data,shop);
                   if(idx!==-1){
@@ -196,10 +234,6 @@ function StatsCtrl($scope, $http, $timeout, $controller, config, api, $log) {
             });
         })
 
-        // data.datasets.forEach(function (set) {
-        //   console.log('getCAByYearMonthAndVendors =>',set.label,set.data.join(','));
-        // })
-        // Get the context of the canvas element we want to select
         if(!$scope.ca.Chart){
           var ctx = document.getElementById("ca-chart").getContext("2d");
           $scope.ca.Chart=new Chart(ctx).Line(data, {
@@ -208,7 +242,14 @@ function StatsCtrl($scope, $http, $timeout, $controller, config, api, $log) {
             bezierCurveTension:0.3,
             animationSteps:30
           });
-          $scope.ca.legends=ca.Chart.generateLegend();
+          
+          var ctx = document.getElementById("total-chart").getContext("2d");
+          $scope.ca.TotalChart=new Chart(ctx).Line(total, {
+            tooltipTemplate: "<%= value %>%",
+            multiTooltipTemplate:"<%= datasetLabel %> - <%= value %>",
+            bezierCurveTension:0.3,
+            animationSteps:30
+          });
 
         }
       });
@@ -229,7 +270,7 @@ function StatsCtrl($scope, $http, $timeout, $controller, config, api, $log) {
 
   $scope.loadStats=function(){
     $scope.getCAByYearMonthAndVendors();
-    $scope.getSellsByYearAndWeek();
+    // $scope.getSellsByYearAndWeek();
     $scope.ordersByUsers();
   }
 }

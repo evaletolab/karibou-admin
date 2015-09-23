@@ -49,12 +49,13 @@
         </div>
 
 
-        <!-- ORDERS BY SHOP -->
-        <div >
-          <div class="col-xs-12 col-sm-8 ">
+        <!-- CA BY SHOP -->
+        <div class="col-xs-12 col-md-6">
+          <h1>Les ventes par commerçant</h1>
+          <div class="col-xs-12 col-sm-6 col-lg-8 ">
             <canvas id="ca-chart" width="400" height="800" style="width:100%;height:800px"></canvas>
           </div>
-          <div class="col-xs-12 col-sm-4 ">
+          <div class="col-xs-12 col-sm-6 col-lg-4">
             <div class="list-group">
               <a ng-repeat="set in ca.data.datasets" 
                  class="list-group-item" 
@@ -65,24 +66,37 @@
             </div>
           </div>
         </div>
-        <div >
-          <div class="col-xs-12 col-sm-12 ">
-            <canvas id="sells-chart" width="400" height="400" style="width:100%;height:500px"></canvas>
+        <!-- ORDERS BY WEEK -->
+        <div class="col-xs-12 col-md-6">
+          <h1>Le total pour karibou.ch</h1>
+          <canvas id="total-chart" width="400" height="400" style="width:100%;height:800px"></canvas>
+        </div>
+
+        <!-- ORDERS BY WEEK -->
+        <div class="col-xs-12 col-lg-6">
+          <div class="well well-xs hidden-print">Voir les utilisateurs avec une commande  
+            <a class="btn btn-md btn-default" ng-class="{'active':options.to}" ng-click="before()">avant </a> ou 
+            <a class="btn btn-md btn-default" ng-class="{'active':options.from}" ng-click="after()">après </a> le {{options.limit|dateLabelShort}}
+             <a class="btn btn-md btn-default" ng-click="clear()" ng-hide="!options.to&&!options.from">(clear)</a>. Les utilisateurs <a class="btn btn-md btn-default" ng-class="{'active':options.count!==null}" ng-click="without()">sans</a> commandes
           </div>
-<!--           <div class="col-xs-12 col-sm-4 ">&nbsp;
-          </div>
- -->        </div>
-        <div class="col-xs-6">
-          <table class="table table-condensed">
-            <tr ng-repeat="user in oByUsers">
+          <table class="table table-condensed table-hover table-striped">
+            <tr>
+              <th>#</th>
+              <th>Mail</th>
+              <th>Nom/Prénom</th>
+              <th>Dernière commande</th>
+              <th>Nb cmd</th>
+            </tr>          
+            <tr ng-repeat="user in oByUsers|orderBy:['-count','-last','-from']|betweenDates:'last':options.from:options.to:true|filterBy:['count']:options.count">
               <td>{{$index}}</td>
-              <td><a hred="mailto:{{user._id}}">{{user._id}}</a></td>
-              <td>{{user.name.familyName}} {{user.name.givenName}}</td>
+              <td><a hred="mailto:{{user._id}}" info="{{user.name.famillyName}} {{user.name.givenName}}">{{user._id}}</a></td>
+              <td>{{user.from| date:'dd/MM/yyyy'}}</td>
               <td>{{user.last| date:'dd/MM/yyyy'}}</td>
               <td>{{user.count}}</td>
             </tr>
           </table>
         </div>
+        <!-- END -->
       </div>
     </div>
   </div>
