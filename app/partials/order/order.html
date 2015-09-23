@@ -421,6 +421,13 @@
               <div class="help-block alert alert-warning" ng-hide="order.errors">
                 <i class="fa fa-info-circle"></i> Si vous le souhaitez, <a href="" ng-click="feedback.show=true;">nous pouvons contacter</a> un commerçant en bas de chez vous pour y déposer votre commande.
               </div>
+
+              <!-- SHIPPING NOTE -->
+              <div>
+                <label class="collg2 control-label small">Vous pouvez modifier la note laissée au livreur pour cette commande</label>
+                <input id="full-name"  ng-model="cart.config.address.note" type="text" placeholder="Note au livreur, code, C/O, batiment, ... "
+                class="form-control input-lg" >
+              </div>
            </div>
 
           <!-- ORDER -->
