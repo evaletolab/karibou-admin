@@ -1,0 +1,35 @@
+<div class="dashboard" ng-controller="OrderAdminCtrl">
+
+  <!-- MENU -->
+  <nav  class="navbar navbar-inverse navbar-fixed-top" role="navigation"
+        ng-include="'/partials/dashboard/dashboard-header.html'"></nav>
+
+  <!-- MAIN CONTENT -->
+  <div class="container-fluid " ng-init="findAllOrders({fulfillments:'fulfilled',payment:'invoice'})">
+    <div class="row">
+      <!-- SIDEBAR MENU -->
+      <div class="col-xs-8 col-sm-4 col-lg-2 sidebar " 
+           ng-include="'/partials/dashboard/dashboard-sidebar.html'" 
+           ng-class="{'menu-off':!options.showMenu}">
+      </div>
+      <div class="col-xs-12  nopadding-xs">
+ 
+        <!-- INVOICES -->
+        <h2>Factures ouvertes</h2>
+        <div ng-show="loading&&!orders.length" class="text-center gray">
+          <i class="fa fa-refresh fa-2x fa-spin"></i>
+        </div>
+
+        <div ng-if="orders.length ">
+          <div ng-include="'/partials/order/order-lists.html'"></div>
+
+          <!-- MAP -->
+<!--           <div ng-if="addresses" class="text-center">
+            <img bg-src="{{map.resolveStaticmap(addresses)}}" class="img-cover" style="height:500px"/>
+          </div>
+ -->          <hr/>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

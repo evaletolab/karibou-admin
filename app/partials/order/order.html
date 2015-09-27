@@ -256,8 +256,9 @@
                   <div class="col-xs-9 col-sm-10 " >
                     <h4 class="list-group-item-heading heading-center"><span ng-show="method.issuer==='invoice'">Facture en ligne &nbsp;</span> {{method.number}} <span class="bold green" payments-date="{{method.expiry}}">{{method.expiry}}</span></h4>
                     <p class="list-group-item-text comment-text " >
-                    <span ng-show="method.issuer==='invoice'">La facture vous sera envoyée par email le jour de la livraison et devra être payée dans les 10 jours.</span>
-                    <abbr  ng-show="methodStatus[method.alias]" title="{{methodStatus[method.alias]}}">Cette méthode de paiement n'est plus valide</abbr>
+                    <span ng-show="method.issuer==='invoice' && !methodStatus[method.alias]">La facture vous sera envoyée par email le jour de la livraison et devra être payée dans les 10 jours.</span>
+                    <span ng-show="methodStatus[method.alias]">Cette méthode de paiement n'est plus valide!
+                    <abbr>{{methodStatus[method.alias]}}</abbr></span>
                     </p>
                   </div>
                 </a>

@@ -139,6 +139,24 @@ function OrderAdminCtrl($scope,$routeParams, $location, api, order, user, produc
     });
   };
 
+  //
+  // capture and close the order
+  $scope.orderNewInvoice=function(order){
+    order.capture({reason:'invoice'}).$promise.then(function(o){
+      api.info($scope,"Nouvelle facture capturée",2000);
+      $log.info('new invoice result',order.oid, o);
+      order.wrap(o);
+    });
+  };
+
+  //
+  // capture and close the order
+  $scope.orderRefund=function(order){
+    order.refund().$promise.then(function(o){
+      api.info($scope,"Commande remboursée",2000);
+      order.wrap(o);
+    });
+  };
 
   //
   // capture and close the order
@@ -194,7 +212,7 @@ function OrderAdminCtrl($scope,$routeParams, $location, api, order, user, produc
 
     var filters=$scope.filters=angular.extend({},$routeParams,defaultParams||{padding:true});
     var today=new Date();
-    if(!filters.month &&!filters.when)filters.month=today.getMonth()+1;
+    if(!defaultParams&&!filters.month &&!filters.when)filters.month=today.getMonth()+1;
     $scope.loading=true;
 
     user.$promise.then(function(){

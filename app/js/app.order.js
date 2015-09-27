@@ -28,6 +28,7 @@ function orderConfig($routeProvider,$locationProvider,$httpProvider) {
     .when('/admin/orders', {title:'Manage next orders ',  templateUrl : '/partials/dashboard/dashboard-admin.html'})
     .when('/admin/products', {title:'Manage next orders ',  templateUrl : '/partials/dashboard/dashboard-product.html'})
     .when('/admin/shop/orders', {title:'Manage next orders ',  templateUrl : '/partials/dashboard/dashboard-shop.html'}) 
+    .when('/admin/invoice', {title:'Manage next orders ',  templateUrl : '/partials/dashboard/dashboard-invoice.html'}) 
     .when('/admin/collect', {title:'Manage next orders ',  templateUrl : '/partials/dashboard/dashboard-collect.html'}) 
     .when('/admin/collect/map', {title:'Manage next orders ',  templateUrl : '/partials/dashboard/dashboard-collect-map.html'}) 
     .when('/admin/repport/shop', {title:'Activity report for shops ',  templateUrl : '/partials/dashboard/dashboard-repport-shop.html'}) 

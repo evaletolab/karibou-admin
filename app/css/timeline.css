@@ -50,9 +50,14 @@
     -webkit-box-shadow: 0 1px 6px rgba(0, 0, 0, 0.175);
     box-shadow: 0 1px 6px rgba(0, 0, 0, 0.175);
     background-color: white;
+    z-index: 10;
 }
 
-.timeline > li > .timeline-panel:before {
+.timeline > li > .timeline-panel.invoice {
+    border:red solid 2px;
+}
+
+.timeline-OFF > li > .timeline-panel:before {
     position: absolute;
     top: 26px;
     right: -15px;
@@ -67,13 +72,14 @@
 .timeline > li > .timeline-panel:after {
     position: absolute;
     top: 27px;
-    right: -14px;
+    right: -16px;
     display: inline-block;
     border-top: 14px solid transparent;
     border-left: 14px solid #fff;
     border-right: 0 solid #fff;
     border-bottom: 14px solid transparent;
     content: " ";
+    z-index: 0;
 }
 
 div.timeline-heading  p {
@@ -119,8 +125,9 @@ div.timeline-heading  p {
             .timeline > li.timeline-inverted > .timeline-panel:after {
                 border-left-width: 0;
                 border-right-width: 14px;
-                left: -14px;
+                left: -15px;
                 right: auto;
+                z-index: 100;
             }
 
 .timeline-badge.primary {
