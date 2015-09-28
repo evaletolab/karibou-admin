@@ -29,29 +29,31 @@
         <li ng-repeat="order in orders" ng-class="{'timeline-inverted':$odd}">
           <!-- timeline start -->
           <div class="timeline-badge "><i class="fa fa-shopping-cart green"></i></div>
-          <div class="timeline-panel">
+          <div class="timeline-panel" ng-class="order.payment.status">
             <div class="timeline-heading">
               <h4 class="timeline-title">{{order.getTitle()}}</h4>
               <p><small class="text-muted"><i class="fa fa-time"></i>Créée {{order.created|dateLabel}}, N° {{order.oid}}</small>
 
               </p>
             </div>
-            <div class="timeline-body">
-              <h5 style="margin-bottom:5px" class="text-muted">Statut de la commande</h5>
-              <div class="progress">
-                <div class="progress-bar  " role="progressbar" order-progress="order"
-                  ng-class="{'progress-bar-danger':order.fulfillments.status=='failure',
-                             'progress-bar-success':order.fulfillments.status!=='failure'}">
-                  <span class="sr-only-">{{order.fulfillments.status}}</span>
-                </div>
+            <div class="timeline-body" >
+              <div ng-hide="order.fulfillments.status=='failure'">
+                <h5 style="margin-bottom:5px" class="text-muted">Statut de la commande</h5>
+                <div class="progress">
+                  <div class="progress-bar  " role="progressbar" order-progress="order"
+                    ng-class="{'progress-bar-danger':order.fulfillments.status=='failure',
+                               'progress-bar-success':order.fulfillments.status!=='failure'}">
+                    <span class="sr-only-">{{options.fulfillments[order.fulfillments.status]}}</span>
+                  </div>
+                </div>                
               </div>
 
               <div class="panel panel-default">
                 <!-- Default panel contents -->
                 <div class="panel-heading smallx"><a href="" toggle-on-click="#detail-{{order.oid}}">Voir le détail</a></div>
                 <div class="">
-                  <div class="cart">
-                    {{order.payment.status}}<br/>
+                  <div class="cart" ng-class="order.payment.status">
+                    {{options.payment[order.payment.status]}}<br/>
                     <span>{{order.payment.issuer}}</span>
                   </div>
                   <div class="cart">

@@ -341,8 +341,9 @@ function orderFactory(config, $resource, $q, user,shop, api, cart) {
     return this.chain(backend.$order.save({action:this.oid,id:'remove'}).$promise);
   };
 
-  Order.prototype.capture=function(){
-    return this.chain(backend.$order.save({action:this.oid,id:'capture'}).$promise);
+  Order.prototype.capture=function(opts){
+    opts=opts||{};
+    return this.chain(backend.$order.save({action:this.oid,id:'capture'},opts).$promise);
   };
 
   Order.prototype.refund=function(){

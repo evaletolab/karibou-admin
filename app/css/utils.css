@@ -248,9 +248,11 @@ img.img-cover {
 .red{
   color:red!important;
 }
+
 .green{
-  color:#6EB823!important;
+  color:#8dc63f!important;
 }
+
 .white{
   color:white!important;
 }
@@ -260,30 +262,41 @@ img.img-cover {
 }
 
 .gray{
-  color:#777!important;
+  color:#726658!important;
 }
+
 .grayx{
   color:#aaa!important;
 }
 
 .pink{
+  color:#da1c5c!important;
+}
+
+.pink1{
   color:#ff0985!important;
+}
+
+.blue,.turquoise{
+  color: #00a79d!important;
 }
 
 .blue-king{
   color:blue!important;
 }
 
-.pink1{
-  color:pink!important;
-}
 
 .bg-black{
-  background-color:#111;
+  background-color:#452d16;
 }
 
 .bg-gray{
   background-color:#efefef;
+}
+
+.link{
+  border-bottom: 1px dotted;
+  text-decoration: none!important;
 }
 
 .headline{
@@ -298,10 +311,7 @@ img.img-cover {
   padding-left: 0px!important;
 }
 
-.link{
-  border-bottom: 1px dotted;
-  text-decoration: none!important;
-}
+
 
 .stick-bl{
   position: absolute;

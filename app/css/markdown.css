@@ -1,5 +1,11 @@
 /* markdown layout
 -------------------------------------------------- */
+markdown{
+	line-height: 1.5;
+	font-size: 22px;
+	font-weight: 400;
+	letter-spacing: 0.01rem;	
+}
 
 markdown img{
   max-width: 100%;
@@ -8,15 +14,29 @@ markdown img{
 markdown ul{
 	list-style: inherit;
 	padding-left: 40px;	
-	margin-bottom: 15px;
+	margin-bottom: 35px;
 }
 
 markdown h1{
-  border-bottom: 1px solid #eee;
-  margin-bottom: 10px;	
+	border-bottom: 1px solid #EEE;
+	text-align: center;
+	font-weight: 300;
+	font-style: italic;
+	color: #444;
+	margin:  40px 0;
+	margin-left: -40px;  
 }
+
+
 markdown h2{
-  margin-bottom: 10px;	
+	border-bottom: 0px solid #EEE;
+	text-align: center;
+	font-weight: 300;
+	font-style: italic;
+	color: #888;
+	border-left: 3px solid #444;
+	margin:  40px 0;
+	margin-left: -40px;  
 }
 
 markdown blockquote{
@@ -25,12 +45,19 @@ markdown blockquote{
 }
 
 markdown p{
-	margin-bottom:8px;
+	margin-bottom:25px;
 }
 
 markdown a.external{
 	color: #428BCA!important;
 }
+
+.wrapper-inner.markdown{
+    margin:0; 
+    background-color: white;
+    padding: 60px 60px;
+}
+
 
 /* Desktop large
 ------------------------- */
@@ -53,6 +80,9 @@ markdown a.external{
 /* Tablet
 ------------------------- */
 @media (max-width: 767px) {
+    .wrapper-inner.markdown {
+        padding: 60px 5px;
+    }
 
 }
 
