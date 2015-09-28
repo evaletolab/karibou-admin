@@ -141,11 +141,6 @@ html,body,.main {
     margin-top:0;   
 }
 
-.wrapper-inner.markdown{
-    margin:0; 
-    background-color: white;
-    padding: 60px 60px;
-}
 
 
 .wrapper-inner.wide>div:nth-child(odd),
@@ -235,9 +230,6 @@ html,body,.main {
         -background:         linear-gradient(#ffffff,#fafbfa)    
     }
 
-    .wrapper-inner.markdown {
-        padding: 5px;
-    }
 }
 
 @media all and (min-width:1666px) {

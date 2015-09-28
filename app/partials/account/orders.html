@@ -37,21 +37,23 @@
               </p>
             </div>
             <div class="timeline-body" >
-              <h5 style="margin-bottom:5px" class="text-muted">Statut de la commande</h5>
-              <div class="progress">
-                <div class="progress-bar  " role="progressbar" order-progress="order"
-                  ng-class="{'progress-bar-danger':order.fulfillments.status=='failure',
-                             'progress-bar-success':order.fulfillments.status!=='failure'}">
-                  <span class="sr-only-">{{order.fulfillments.status}}</span>
-                </div>
+              <div ng-hide="order.fulfillments.status=='failure'">
+                <h5 style="margin-bottom:5px" class="text-muted">Statut de la commande</h5>
+                <div class="progress">
+                  <div class="progress-bar  " role="progressbar" order-progress="order"
+                    ng-class="{'progress-bar-danger':order.fulfillments.status=='failure',
+                               'progress-bar-success':order.fulfillments.status!=='failure'}">
+                    <span class="sr-only-">{{options.fulfillments[order.fulfillments.status]}}</span>
+                  </div>
+                </div>                
               </div>
 
               <div class="panel panel-default">
                 <!-- Default panel contents -->
                 <div class="panel-heading smallx"><a href="" toggle-on-click="#detail-{{order.oid}}">Voir le détail</a></div>
                 <div class="">
-                  <div class="cart">
-                    {{order.payment.status}}<br/>
+                  <div class="cart" ng-class="order.payment.status">
+                    {{options.payment[order.payment.status]}}<br/>
                     <span>{{order.payment.issuer}}</span>
                   </div>
                   <div class="cart">

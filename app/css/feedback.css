@@ -12,6 +12,7 @@
 .feedbackbtn.btn-feedbk {
   background-color: #5bc0de;
   color: #fff;
+  padding: 10px 20px;
 }
 
 .feedbackbtn.btn-circle:hover, .feedbackbtn.btn-feedbk:hover {

@@ -74,7 +74,7 @@ User.controller('AccountCtrl',[
       'mastercard':'mc.jpg',
       'visa':'visa.jpg',
       'postfinance card':'pfc.jpg',
-      'invoice':'invoice.png'
+      'invoice':'bvr.jpg'
     };
 
     // show payment form

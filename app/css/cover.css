@@ -76,10 +76,7 @@
 
 .cover.img-loaded {
     -background-color:#f7f7f7;
-    background: -webkit-linear-gradient(#fbfcfb 20%, #f1faf1 ); /*Safari 5.1-6*/
-    background:       o-linear-gradient(#fbfcfb 20%, #f1faf1 ); /*Opera 11.1-12*/
-    background:     moz-linear-gradient(#fbfcfb 20%, #f1faf1 ); /*Fx 3.6-15*/    
-    background:         linear-gradient(#fbfcfb 20%, #f1faf1 );    
+    background:transparent linear-gradient(rgba(196, 177, 156, 0.1) 20%, rgb(196, 177, 156,0.2)) repeat scroll 0% 0%;
 }
 
 .cover.session {

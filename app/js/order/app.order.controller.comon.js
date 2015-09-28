@@ -26,8 +26,29 @@ function OrderCommonCtrl($scope, $routeParams, api, order, user, product,shop, M
 
   $scope.options={
     showMenu:false,
-    showWidget:false
+    showWidget:false,
+    payment:{},
+    fulfillments:{}
   };
+
+  $scope.options.payment={
+    "pending":"pending",
+    "authorized":"authorized",
+    "partially_paid":"partially_paid",
+    "invoice":"facture à payer",
+    "paid":"payée et livrée",
+    "partially_refunded":"partially_refunded",
+    "refunded":"refunded",
+    "voided":"voided"
+  };
+
+  $scope.options.fulfillments={
+    "failure":"failure",
+    "created":"created",
+    "reserved":"reserved",
+    "partial":"partial",
+    "fulfilled":"complétée"
+  }
 
   $scope.shopsSelect=shop.query({});
 

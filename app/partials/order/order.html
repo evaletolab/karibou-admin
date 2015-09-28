@@ -258,7 +258,7 @@
                     <p class="list-group-item-text comment-text " >
                     <span ng-show="method.issuer==='invoice' && !methodStatus[method.alias]">La facture vous sera envoyée par email le jour de la livraison et devra être payée dans les 10 jours.</span>
                     <span ng-show="methodStatus[method.alias]">Cette méthode de paiement n'est plus valide!
-                    <abbr>{{methodStatus[method.alias]}}</abbr></span>
+                    <abbr class="red">{{methodStatus[method.alias]}}.</abbr> </span>
                     </p>
                   </div>
                 </a>
@@ -269,7 +269,10 @@
                   Ajouter une autre méthode de paiement?
                 </a>&nbsp;
                 <a href="/account/payment" >
-                  Gérer vos méthodes de paiement?
+                  Vos méthodes de paiement
+                </a>&nbsp;
+                <a href="/account/orders" >
+                  Vos commandes
                 </a>
 
               </div>
