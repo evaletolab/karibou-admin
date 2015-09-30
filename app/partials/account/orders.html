@@ -61,6 +61,26 @@
                     <span>total</span>
                   </div>
 
+                  <!-- ACCOUNT -->
+                  <div class="payment-bvr" ng-show="order.payment.issuer==='invoice'&&order.payment.status==='invoice'">
+                    <div class="cart">
+                      <span>Versement pour</span><br/>
+                      Karibou Delphine Cluzel Evalet et Olivier Evalet,<br/> CH-1208
+                    </div>
+                    <div class="cart">
+                      <div>
+                        <span>compte</span>
+                        <div>14-615643-8</div>
+                      </div>
+                      <div>
+                        <span>Motif versement</span> 
+                        <div>{{order.customer.id}}{{order.oid}}</div>    
+                      </div>
+                    </div>
+
+
+
+                  </div>
                 </div>
 
                 <!-- ITEMS DETAILS-->
@@ -109,8 +129,8 @@
 -->                  
                 </ul>
               </div>
-
-<!--               <div class="btn-group">
+<!--
+              <div class="btn-group">
                 <button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown">
                   <i class="fa fa-cog"></i> <span class="caret"></span>
                 </button>
@@ -119,8 +139,8 @@
                   <li class="divider"></li>
                   <li><a href="#">Signaler un problème</a></li>
                 </ul>
-              </div>   -->
-
+              </div>  
+-->
             </div>
           </div>
           <!-- timeline end -->

@@ -125,7 +125,7 @@ function OrderAdminCtrl($scope,$routeParams, $location, api, order, user, produc
   // display pay button when order is fulfilled
   $scope.showCaptureButton=function(order){
     if(!user.isAdmin()) return false;
-    return (['voided','paid'].indexOf(order.payment.status)===-1) && (order.fulfillments.status==='fulfilled');
+    return (['voided','paid','invoice'].indexOf(order.payment.status)===-1) && (order.fulfillments.status==='fulfilled');
   };
 
 

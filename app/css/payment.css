@@ -1,3 +1,21 @@
+.payment-bvr{
+  background-color: #FFE1CB;
+  font-size: 90%;
+}
+
+.payment-bvr .cart{
+  border-right:0!important;
+}
+
+.payment-bvr .cart label{
+  color: #F60;
+}
+
+.payment-bvr .cart div>div{
+  color: black;
+  border:2px solid #F60;
+}
+
 .payment{
   padding-top: 20px;
   clear: both;
