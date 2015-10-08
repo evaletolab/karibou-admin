@@ -1,0 +1,36 @@
+<!-- BY ORDERS -->
+<div class="list-group">
+  <div ng-repeat-start="order in orders|orderBy:['-shipping.when','shipping.postalCode']|filter:options.filterTxt" 
+       ng-show="groupByShippingDate(order.shipping.when, $index) && (!filters.f||filters.f===order.shipping.when)" >
+      <!-- <h3>&nbsp;{{order.shipping.when|dateLabel}}</h3> -->
+  </div>
+  <li class="list-group-item " 
+      ng-repeat-end ng-class="getOrderStatusClass(order,'list-group-item-')" 
+      ng-if="(!filters.f||filters.f===order.shipping.when)&&order.payment.fees.shipping">
+    <h4 class="list-group-item-heading">
+      <a class=" " ng-click="modalUserDetails(order.oid)" bs-modal="'/partials/order/order.user.modal.html'">
+        {{order.shipping.name}}</a> - {{getOrderPhones(order)}} - 
+        <div class="btn-group pull-right">
+          <button type="button" class="btn btn-xs btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <span ng-if="!order.shipping.bags">{{order|orderTotal}}</span>
+            <span ng-if="order.shipping.bags" class="bold">~{{order.shipping.bags}} cabas</span>
+            <span class="caret"></span>
+          </button>
+          <ul class="dropdown-menu">
+            <li><a href="#" ng-click="updateBagsCount(order,1)">1 cabas</a></li>
+            <li><a href="#" ng-click="updateBagsCount(order,2)">2 cabas</a></li>
+            <li><a href="#" ng-click="updateBagsCount(order,3)">3 cabas</a></li>
+            <li><a href="#" ng-click="updateBagsCount(order,4)">4 cabas</a></li>
+          </ul>
+        </div>
+
+    </h4>
+    <span class="pull-right label label-primary">sac {{order.rank}}</span>
+    <p class="list-group-item-text">
+       {{order.shipping.streetAdress}}/{{order.shipping.postalCode}}<br/>
+       <small>étage: {{order.shipping.floor}} - {{order.shipping.note}}</small>
+    </p>
+  </li>
+</div>
+
+

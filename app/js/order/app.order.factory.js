@@ -337,6 +337,11 @@ function orderFactory(config, $resource, $q, user,shop, api, cart) {
     return this.chain(backend.$order.save({action:shop,id:'email'},{when:when,content:content}).$promise);
   };
 
+  Order.prototype.updateBagsCount=function(value){
+    var status=this.shipping.shipped;
+    return this.chain(backend.$order.save({action:this.oid,id:'shipping'},{bags:value,status:status}).$promise);
+  };
+
   Order.prototype.remove=function(){
     return this.chain(backend.$order.save({action:this.oid,id:'remove'}).$promise);
   };

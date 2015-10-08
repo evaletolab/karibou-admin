@@ -11,6 +11,11 @@ function OrderShopperCtrl($scope,$routeParams, $log, $controller, order) {
   $controller('OrderCommonCtrl', {$scope: $scope}); 
 
 
+  $scope.updateBagsCount=function (order,value) {
+    order.updateBagsCount(value).$promise.then(function () {
+      order.shipping.bags=value;
+    });
+  }
 
   //
   // get all orders by default for the current month

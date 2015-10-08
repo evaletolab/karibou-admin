@@ -1,9 +1,8 @@
 <!-- BY ORDERS -->
 <div class="list-group">
 
-  <li  ng-repeat="order in orders|orderBy:['rank']|filter:options.filterTxt" 
+  <li  ng-repeat="order in orders|orderBy:['shipping.when']" 
        class="list-group-item " 
-       ng-if="(!filters.f||filters.f===order.shipping.when)"
        ng-class="getOrderStatusClass(order,'list-group-item-')" >
 
     <!-- ORDER ID BUTTON -->
