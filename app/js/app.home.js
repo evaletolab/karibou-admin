@@ -92,7 +92,7 @@ Home.controller('HomeCtrl', [
 
     $scope.findAllUserLoves=function(){
       $scope.products=[];
-      product.findLove({popular:true,minhit:1, available:true},function(products){
+      product.findLove({popular:true,minhit:2, available:true},function(products){
         $scope.products=products;
       });
     };    
