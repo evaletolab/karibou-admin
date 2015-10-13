@@ -23,16 +23,19 @@ Product.config([
       .when('/shop/:shop/products/create', {
           title:'Créer un nouveau produit ',clear:true, modal:true, view:'modal',controller:'ProductCtrl', templateUrl : '/partials/product/create.html'
        })
-      .when('/products/:sku', {
-          modal:true,view:'modal',controller:'ProductCtrl', templateUrl : '/partials/product/product-wide.html'
-       })
+      .when('/products/category/:category', {
+          title:'Les produits ',  templateUrl : '/partials/product/products.html'
+      })
       .when('/shop/:shop/products/:sku/edit', {
           title:'Votre produit ', modal:true, edit:true, view:'modal',controller:'ProductCtrl', templateUrl : '/partials/product/create.html'
        })
       .when('/products/:sku/edit', {
           title:'Votre produit ', modal:true, edit:true, view:'modal',controller:'ProductCtrl', templateUrl : '/partials/product/create.html'
        })
-      .when('/shop/:shop/products/:sku', {
+      .when('/products/:sku/:title?', {
+          modal:true,view:'modal',controller:'ProductCtrl', templateUrl : '/partials/product/product-wide.html'
+       })
+      .when('/shop/:shop/products/:sku/:title?', {
           modal:true,view:'modal',controller:'ProductCtrl', templateUrl : '/partials/product/product-wide.html'
        });
   }

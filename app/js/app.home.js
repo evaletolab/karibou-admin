@@ -21,7 +21,6 @@ Home.config([
       .when('/', { templateUrl : '/partials/product/home.html'})
       .when('/shops', {title:'Les boutiques ',  templateUrl : '/partials/shop/home.html'})
       .when('/products', {title:'Les produits ',  templateUrl : '/partials/product/home.html'})
-      .when('/products/category/:category', {title:'Les produits ',  templateUrl : '/partials/product/products.html'})
       .when('/shops/category/:catalog', {title:'Les boutiques ',  templateUrl : '/partials/shop/shops.html'});
   }
 ]);
