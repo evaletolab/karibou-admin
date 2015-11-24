@@ -1,0 +1,53 @@
+<div class="dashboard" ng-controller="WalletCtrl">
+
+  <!-- MENU -->
+  <nav  class="navbar navbar-inverse navbar-fixed-top" role="navigation"
+        ng-include="'/partials/dashboard/dashboard-header.html'"></nav>
+
+
+  <div class="container-fluid" ng-init="findGiftWallets()">
+    <div class="row">
+      <!-- SIDEBAR MENU -->
+      <div class="col-xs-8 col-sm-4 col-lg-2 sidebar " 
+           ng-include="'/partials/dashboard/dashboard-sidebar.html'" 
+           ng-class="{'menu-off':!options.showMenu}">
+      </div>
+      <div class="col-xs-12  nopadding-xs">
+        <h1 class="page-header">Suivi des cartes karibou flotantes
+            <button class="btn btn-transparent btn-md" ng-click="findGiftWallets()"><i class="fa fa-refresh"></i></button>
+        </h1>
+
+        <!-- FORM -->
+          <table class="table  table-responsive ">
+            <thead>
+              <tr>
+                <th style="width:200px">id</th>
+                <th>owner</th>
+                <th>sold</th>
+                <th>code</th>
+                <th>expiry</th>
+                <th>updated</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat="wallet in wallets|orderBy:'-updated'">
+                <td><a href="/admin/wallets/{{wallet.wid}}">{{wallet.wid}}</a></td>
+                <td class="small">
+                    <a ng-href="mailto:{{wallet.email}}" title="{{wallet.id}}" class="link">
+                      {{wallet.email}} ({{wallet.id}})
+                    </a>
+                </td>
+                <td><b>{{wallet.balance/100}} fr</b></td>
+                <td>{{wallet.card.number}}</td>
+                <td>{{wallet.card.expiry|dateLabel}}</td>
+                <td>{{wallet.updated|dateLabelShort}}</td>
+              </tr>
+            </tbody>
+          </table>
+
+
+      <!-- FOOTER -->              
+      </div>
+    </div>
+  </div>
+</div>

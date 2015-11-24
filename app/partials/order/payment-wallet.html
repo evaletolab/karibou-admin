@@ -1,0 +1,50 @@
+
+          <div class="row clearfix postfinance payment wallet" ng-init="loadMyWallet(payment.alias)">
+              <div class="col-xs-0 col-md-1"></div>
+              <div class="col-xs-12  well well-sm text-center hide">
+                L'état actuel de votre compte commercial: 
+                <a href="/account/wallet" class="link small">{{wallet.balance/100|number:2}} Fr</a>
+              </div>
+              <div class="col-xs-12  content  "  >
+                <form accept-charset="UTF-8"  name="card">
+                  <label class="control-label bold">
+                  Ajouter une carte cadeau sur votre compte
+                  </label>
+                  <div class="form-row">
+                    <div class="col-xs-12 form-group card required nopadding">
+                      <label class="control-label text-muted">Utiliser le numéro de la carte karibou (votre code vous a été envoyé par email) </label>
+                      <input type="text" class="input-block-level form-control card-number input-lg" 
+                              ng-model="number"  payments-format="card"  
+                              ng-class="card.number.$card.type"/>
+                      <span ng-show="Cards.fromNumber(number).type" class="accout-field-valid"><i class="fa fa-ok green"></i></span>
+                      <p class="help-block hide"> mc 5555555555554444, visa 4012888888881881, ae 371449635398431
+                      </p>
+                    </div>
+                  </div>
+                  <div class="form-row" ng-show="!showBVR">
+                    <div class="col-md-12 form-group nopadding">
+                      <button class="form-control btn btn-primary submit-button input-lg" 
+                      ng-disabled="!number||WaitText"
+                      ng-click="registerGiftcode(number)">Enregistrez votre carte Karibou</button>
+                    </div>
+                  </div>
+                  <div class="form-row">
+                    <div class="col-md-12 error form-group hide">
+                      <div class="alert-danger alert">
+                        Please correct the errors and try again.
+                      </div>
+                    </div>
+                  </div>
+
+                </form>
+              </div>
+
+
+              <div class="security clearfix">
+                <div class="lock"><img src="/img/payments/lock.png" /></div>
+                <div class="content"><p class="help-block pull-right">
+                  <a href="/account/wallet/create">Comment se procurer une carte cadeau karibou?</a>
+                </p></div>
+              </div>
+
+          </div>
