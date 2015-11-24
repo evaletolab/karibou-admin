@@ -64,6 +64,22 @@
     max-width:550px}
 
 }
+
+.cover.img-loaded {
+    background: -webkit-linear-gradient(#b0d6c3 40%,#452d16 80%); /*Safari 5.1-6*/
+    background:       o-linear-gradient(#b0d6c3 40%,#452d16 80%); /*Opera 11.1-12*/
+    background:     moz-linear-gradient(#b0d6c3 40%,#452d16 80%); /*Fx 3.6-15*/    
+    background:         linear-gradient(#b0d6c3 40%,#452d16 80%);    
+}
+
+.cover.img-loaded.session {
+    background: -webkit-linear-gradient(#b0d6c3 40%,#c4b19c 80%); /*Safari 5.1-6*/
+    background:       o-linear-gradient(#b0d6c3 40%,#c4b19c 80%); /*Opera 11.1-12*/
+    background:     moz-linear-gradient(#b0d6c3 40%,#c4b19c 80%); /*Fx 3.6-15*/    
+    background:         linear-gradient(#b0d6c3 40%,#c4b19c 80%);    
+}
+
+
 .cover.cover-shop{
     width:40%;
     max-width:inherit;
@@ -73,11 +89,6 @@
     position: absolute;
 }
    
-
-.cover.img-loaded {
-    -background-color:#f7f7f7;
-    background:transparent linear-gradient(rgba(196, 177, 156, 0.1) 20%, rgb(196, 177, 156,0.2)) repeat scroll 0% 0%;
-}
 
 .cover.session {
     overflow-y:hidden;
@@ -126,8 +137,8 @@
 }
 
 aside>.cover-body{
-    background:none repeat scroll 0 0 rgba(0, 0, 0, 0.25);    
-    padding:30px 12% 10%;
+    background:none repeat scroll 0 0 rgba(0, 0, 0, 0.05);    
+    padding:50px 12% 10%;
 }
 
 .cover-logo{
@@ -152,7 +163,12 @@ aside>.cover-body{
     margin-bottom:14px;
     text-shadow:0 0px 1px rgba(0,0,0,0.1);
 }
-
+.cover-signature{
+    margin-top: -10px;
+    font-size: 90%;
+    margin-bottom: 10px;
+    color: #aaa;
+}
 
 .cover-description a {
     color:#fff;
@@ -289,8 +305,14 @@ ul.cover-list li {
 }
 
 .cover-category{
-    height:350px;    
-    min-height:350px;    
+    min-height:300px;    
+}
+
+.cover.img-loaded {
+    background: -webkit-linear-gradient(#b0d6c3 20%, #452d16 ); /*Safari 5.1-6*/
+    background:       o-linear-gradient(#b0d6c3 20%, #452d16 ); /*Opera 11.1-12*/
+    background:     moz-linear-gradient(#b0d6c3 20%, #452d16 ); /*Fx 3.6-15*/    
+    background:         linear-gradient(#b0d6c3 20%, #452d16 );    
 }
 
 .cover.cover-order {
@@ -298,16 +320,6 @@ ul.cover-list li {
     min-height: 0px;
 }
 
-.cover.img-loaded {
-    -background-color:#f7f7f7;    
-}
-
-.cover.img-loaded {
-    background: -webkit-linear-gradient(#fbfcfb 20%, #f1faf1 ); /*Safari 5.1-6*/
-    background:       o-linear-gradient(#fbfcfb 20%, #f1faf1 ); /*Opera 11.1-12*/
-    background:     moz-linear-gradient(#fbfcfb 20%, #f1faf1 ); /*Fx 3.6-15*/    
-    background:         linear-gradient(#fbfcfb 20%, #f1faf1 );    
-}
 
 
 .cover-body {
@@ -397,6 +409,12 @@ ul.cover-list li {
     border:0;
     border-spacing:0}
 
+.session .cover-table {
+    background-image: url(/img/k-footer-br.png);
+    background-position: left bottom!important;
+    background-repeat: no-repeat;    
+}
+
 .cover-user .cover-row {
     display:table-row}
 
@@ -417,9 +435,9 @@ ul.cover-list li {
     position:relative;
     text-align:center;
     background-color:transparent;
-    -webkit-box-shadow:inset -1px 0 0 rgba(0,0,0,0.3);
-       -moz-box-shadow:inset -1px 0 0 rgba(0,0,0,0.3);
-            box-shadow:inset -1px 0 0 rgba(0,0,0,0.3);
+    -webkit-box-shadow:inset 1px 0 0 rgba(0,0,0,0.3);
+       -moz-box-shadow:inset 1px 0 0 rgba(0,0,0,0.3);
+            box-shadow:inset 1px 0 0 rgba(0,0,0,0.3);
 
     }
 
@@ -517,7 +535,7 @@ ul.cover-list li {
 .cover-resume.categories{
     clear: both;
     border-top: 0px none;
-    margin-top: 100px;
+    margin-top: 95px;
     text-align: left;
 }
 
@@ -549,9 +567,9 @@ ul.cover-list li {
 .cover-resume.categories .site-nav-list-item {
     text-overflow: ellipsis;
     white-space: nowrap;
-    font-size: 18px;
-    line-height: 32px;
-    padding: 4px 6px;
+    font-size: 17px;
+    line-height: 27px;
+    padding: 3px 6px;
     border-radius: 1px;
     color: #fff;
     text-shadow: 0 0 1px rgba(20,20,20,.43);
@@ -596,7 +614,9 @@ ul.cover-list li {
 
 
 .cover-table {
-    width:100%}
+    width:100%; 
+    background-image:inherit!important;
+}
 
 .cover-user .cover-img {
     height:360px

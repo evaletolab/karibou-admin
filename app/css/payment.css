@@ -57,7 +57,6 @@
 
 .payment .list-group-item-heading.heading-center{
   padding-top: 12px;
-  text-transform: capitalize;
   font-family: 'sans-serif';
 }
 
@@ -87,6 +86,20 @@
   position: relative;
 }
 
+.wallet{
+  border-radius: 8px;
+  clear: both;
+  margin: 20px 0px;
+  padding: 20px 10px;
+  position: relative;
+}
+
+.wallet .card-number{
+  font-weight: bold;
+  text-align: center;
+  color: black;
+}
+
 .postfinance.content{
   padding: 60px 20px;    
 }
@@ -96,7 +109,7 @@
 }
 
 .postfinance .security div.lock{
-  max-height: 40px;
+  max-height: 70px;
   float: left;
   padding: 10px;
 }

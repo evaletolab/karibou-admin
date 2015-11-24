@@ -39,7 +39,7 @@ function appConfig($q, $resource, $sce, API_SERVER) {
         token:'7b24b8ec909903ad91d4548fc6025badaf1501bc'      
     },
     
-    cover:'img/localfood.jpg',
+    cover:'',
     // cover:'img/home-site.jpg',
     
     postfinance:{
@@ -57,6 +57,7 @@ function appConfig($q, $resource, $sce, API_SERVER) {
       }
     },
     loginPath:['/admin','/account'],
+    readonlyPath:['/wallet/create'],
     avoidFeedbackIn:['/admin','/login','/signup']
   };
 

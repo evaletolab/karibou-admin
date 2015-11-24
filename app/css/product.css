@@ -10,18 +10,12 @@ article{
   width:100%; 
 }
 
-.article-group-title{
+.article-group-title, .markdown-recipe h3{
   padding-left: 0px;
   padding-bottom: 12px;
   padding-top: 12px;
   font-size: 26px;
   letter-spacing: -1px;
-  -text-transform: uppercase;
-  -color: #b3b3b1;
-  -webkit-transition: color .1s linear;
-  -moz-transition: color .1s linear;
-  -ms-transition: color .1s linear;
-  -o-transition: color .1s linear;
   margin-bottom: 20px;
   border-bottom: 1px solid #eee;
   text-shadow:0px 1px 0px rgba(255, 255, 255, 0.9);
@@ -70,7 +64,7 @@ article:nth-child(even){
   font-weight:300;
   font-size:13px;
 
-  border-radius:3px;
+  -border-radius:3px;
   overflow: visible;
   position: relative;
 }
@@ -91,6 +85,9 @@ article:nth-child(even){
 
 
   margin: -2px 0;
+}
+.layout-item.c1:nth-child(3n+3),.layout-item.c2:nth-child(3n+3) { 
+  margin-right: 0; 
 }
 
 .layout-item.c1 img, .layout-item.c2 img{
@@ -130,11 +127,16 @@ article:nth-child(even){
 
 .layout-item .shop-owner{
   min-height:inherit;
-  border-radius: 3px 3px 3px 3px;
+  border-radius: 45%;
   float: left;
   height: 30px;
-  margin-right: 5px;
-  width: 30px;    
+  margin: 5px 5px 0 -7px !important;
+  padding: 0!important;
+  width: 30px!important;    
+
+}
+.layout-item .shop-title-prefix{
+  color:#bbb;
 }
 .layout-item .shop-title{
   color: #aaa;
@@ -184,8 +186,7 @@ article:nth-child(even){
 
 .layout-item .title{
   overflow: hidden;
-  font-family: Halant,serif;
-  font-family: 'Gentium Book Basic', serif;
+  font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, serif;
   font-size: 15px;
   padding: 8px 4px 1px 8px;
   height: 45px;
@@ -340,7 +341,7 @@ article:nth-child(even){
 @media (min-width: 1300px) {
   .layout-item.c1, form .layout-item.c1 {
       min-height: 130px;
-      width: 24%;
+      width: 22.5%;
       margin: 0px 2% 2% 0px;
   }
 }
@@ -408,7 +409,7 @@ article:nth-child(even){
   }
 
   .layout-item.c1{
-    width: 31%;
+    width: 48%;
     margin: 0 1% 1% 0%;
   }
   
@@ -439,7 +440,7 @@ article:nth-child(even){
 ------------------------- */
 @media (max-width: 480px) {
   .layout-item.c1{
-    width: 31%;
+    width: 48%;
     margin: 0 1% 1% 0%;
   }
 

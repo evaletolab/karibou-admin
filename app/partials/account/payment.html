@@ -16,13 +16,11 @@
 
         <div>
           <div>
-            <h4 class="article-group-title black">Quelle méthode de paiement utiliser?</h4>
-            <p class="help-block">Toutes les transactions sont effectuées via une connexion sécurisée.
-            </p>
+            <h4 class="article-group-title black">Modes de paiement et carte cadeau</h4>
           </div>
 
-          <div class="payment">     
-            <ul class="list-group clearfix">
+          <div class="payment" ng-hide="number">     
+            <ul class="list-group clearfix" >
               <!-- THE ONES SAVED -->
               <li class="list-group-item clearfix"                             
                          ng-repeat="method in user.payments" 
@@ -31,26 +29,45 @@
                   <img ng-src="/img/payments/{{pm[method.issuer.toLowerCase()]}}" class="img-thumbnail img-responsive" alt="" />
                 </div>
                 <div class="col-xs-9 col-sm-10 " >
-                  <h4 class="list-group-item-heading "><span ng-show="method.issuer==='invoice'">Facture en ligne &nbsp;</span>{{method.number}} <span class="bold green" payments-date="{{method.expiry}}">{{method.expiry}}</span></h4>
+                  <h4 class="list-group-item-heading ">
+                  <span ng-show="method.issuer==='invoice'">Facture en ligne &nbsp;</span>
+                  <span ng-show="method.issuer==='wallet'">Votre compte privé &nbsp;</span>
+                  {{method.number}} 
+                  <span class="bold green" payments-date="{{method.expiry}}">{{method.expiry|formatExpiry}}</span>
+                  </h4>
                   <p class="list-group-item-text comment-text" >
+                    <!-- CREDIT CARD -->
+                    <span ng-show="(method.issuer==='visa'||method.issuer==='mastercard')">
+                      Pour effectuer une mise à jour de votre carte vous devez supprimer celle-ci et en créer une nouvelle. 
+                    </span>
+
+                    <!-- WALLET -->
+                    <span ng-show="method.issuer==='wallet'">
+                        Votre compte privé vous permet d'effectuer des paiements sans carte de crédit.                  
+                    </span>
+                    <!-- INVOICE -->
                     <span ng-show="method.issuer==='invoice' && !methodStatus[method.alias]">La facture vous sera envoyée par email le jour de la livraison et devra être payée dans les 10 jours.</span>
                     <span ng-show="methodStatus[method.alias]">Cette méthode de paiement n'est plus valide!
                     <abbr>{{methodStatus[method.alias]}}.</abbr> <a href="/account/orders">Mes dernières commandes</a></span>
                     <button class="btn btn-xs btn-danger pull-right"
-                            ng-hide="method.issuer==='invoice'"
+                            ng-hide="method.issuer==='invoice'||method.issuer==='wallet'"
                             ng-click="deletePaymentMethod(method.alias)">supprimer</button>
                   </p>
                 </div>
               </li>
               <!-- END OF CARD -->
             </ul>
-            <div ng-show="user.payments.length" style="padding:10px" class=" help-block">
-              <a href="" ng-click="options.showPaymentOptions=true" >
+            <div ng-show="user.payments.length" style="padding:10px" class=" ">
+              <a href="" ng-click="options.showPaymentOptions=true;options.showWallet=false" >
                 Ajouter une méthode de paiement?
               </a>
+              <a class="pull-right" href="#"
+                      ng-click="options.showWallet=!options.showWallet;options.showPaymentOptions=false">Ajouter une carte-cadeau sur votre compte?</a>
+
             </div>
 
-            <div class="list-group clearfix" ng-show="!user.payments.length || options.showPaymentOptions">
+            <div class="list-group clearfix" 
+                 ng-show="!user.payments.length || options.showPaymentOptions">
               <!-- VISA - MC -AE -->
               <a href="" class="list-group-item" 
                          ng-class="{'active':options.showCreditCard==='vma'}" 
@@ -62,29 +79,16 @@
                   <h5 class="list-group-item-heading heading-center">VISA - MasterCard - American Express</h5>
                 </div>
               </a>
-              <!-- POSTFINANCE CARD -->
-<!--               <a href="" class="list-group-item" ng-class="{'active':options.showCreditCard=='pf'}" ng-click="options.showCreditCard='pf';">
-                <div class="col-xs-3 col-sm-2 nopadding">
-                  <img ng-src="/img/payments/pfc.jpg" class="img-thumbnail img-responsive" alt="" /></div>
-                <div class="col-xs-9 col-sm-10 ">
-                  <h5 class="list-group-item-heading">Postfinance Card</h5>
-                  <p class="list-group-item-text comment-text hide">
-                    Nécessitera l'utilisation de votre lecteur de carte.
-                  </p>
 
-                </div>
-
-              </a>
- -->            </div>
-
-            <!-- new card -->
-            <div ng-include="'/partials/order/payment-card.html'" 
-                 ng-if="options.showCreditCard=='vma'"></div>
-
-<!--             <div ng-include="'/partials/order/payment-postfinance-ecommerce.html'" 
-                 ng-if="options.showCreditCard=='pf'"></div>
- -->
+           </div>
           </div>
+          <!-- new card -->
+          <div ng-include="'/partials/order/payment-wallet.html'" 
+               ng-controller="WalletCtrl"
+               ng-if="options.showWallet"></div>
+
+          <div ng-include="'/partials/order/payment-card.html'" 
+               ng-if="options.showCreditCard=='vma'"></div>
 
 
           <div class="row col-xs-12">

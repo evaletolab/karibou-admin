@@ -10,131 +10,158 @@ angular.module('app.feedback',['app.config','app.user'])
 
 //
 // Define the application level controllers
-FeedbackCtrl.$inject=['config','$scope','$rootScope','$timeout','$http','$location','user','api'];
-function FeedbackCtrl(config, $scope, $rootScope,$timeout, $http, $location, user,api) {
-  function loadRouteScope(feedback,route) {
-    feedback.shop=feedback.product=false;
-    //
-    // handle on the path scope
-    if(route.scope){
-      if(route.scope.product&&route.scope.product.sku){
-        feedback.product=route.scope.product;
-      }
-      else if(route.scope.$$childHead&&route.scope.$$childHead.shop){
-        feedback.shop=route.scope.$$childHead.shop;
-      }
-    }
-  }
-  $scope.config=config;
-  $scope.user=user;
-  var feedback=$rootScope.feedback={
-    product:false,
-    shop:false,
-    show:false,
-    email:'',
-    mood:'J\'ai une question a propos de Karibou' ,
-    moods:[
-      'Le site de fonctionne pas',
-      'Je ne trouve pas comment faire',
-      'J\'ai une question a propos de Karibou',
-      'J\'aimerai un nouveau produit',
-      'J\'aimerai un lieu pour la collecte de ma commande',
-      'Le marché est génial'
-    ]    
-  };
+FeedbackCtrl.$inject=['config','$scope','$rootScope','$timeout','$location','user','api','feedback'];
+function FeedbackCtrl(config, $scope, $rootScope,$timeout,  $location, user,api,feedback) {
+
+  var fb=$scope.feedback=feedback;
+  var currentPath=$location.path();
 
   user.$promise.finally(function () {
-    if(user.email){feedback.email=user.email.address;}
+    if(user.email.address){
+      feedback.setUser(user.email.address);      
+    }
   });
 
-  $scope.disableFeedbackWidget=function () {
-      var currentPath=$location.path();
+  $scope.showFeedbackWidget=function () {
 
-      //
-      // if referer is in protected path?
-      if(_.find(config.avoidFeedbackIn,function(path){
-          return (currentPath.indexOf(path)!==-1);})){
-        return false;
-      }
-
+    //
+    // if referer is in protected path?
+    if(_.find(config.avoidFeedbackIn,function(path){
+        return (currentPath.indexOf(path)!==-1);})){
+      return false;
+    }
     return true;
   };
 
   //
   // be sure to update user value when it change is state from anonymous to logged
   $scope.disableFeedbackButton=function () {
-    if(user.email&&user.email.address&&!feedback.email){
-      feedback.email=user.email.address;
+    if(user.email.address){
+      feedback.setUser(user.email.address)
     }
 
-    return (!feedback.comment||!feedback.email);
+    return (!fb.comment||!fb.email);
   };
 
   $scope.getTitle=function () {
-    if(feedback.product) {return feedback.product.vendor.name;}
-    if(feedback.shop){return feedback.shop.name;}
+    if(fb.product) {return fb.product.vendor.name;}
+    if(fb.shop){return fb.shop.name;}
     return 'Une question?';
   };
 
   $scope.contextSite=function () {
-    return !feedback.shop&&!(feedback.product&&feedback.product.sku);
+    return !fb.shop&&!(fb.product&&fb.product.sku);
   };
 
   $scope.contextProduct=function () {
-    return feedback.product&&feedback.product.sku;
+    return fb.product&&fb.product.sku;
   };
 
   $scope.contextShop=function () {
-    return feedback.shop;
+    return fb.shop;
   };
 
-  $scope.fbCancel=function () {
-    feedback.show=false;
-  };
 
   $scope.sendComment=function () {
     var content={};
-    content.text=feedback.comment;
-    content.mood=feedback.mood;
-    if(feedback.shop&&feedback.shop.urlpath)
-      {content.shopname=feedback.shop.urlpath;}
-    if(feedback.email)
-      {content.email=feedback.email;}
-    if(feedback.product&&feedback.product.sku)
-      {content.product=feedback.product.title+' ('+feedback.product.sku+')';}
+    content.text=fb.comment;
+    content.mood=fb.mood;
+    if(fb.shop&&fb.shop.urlpath){
+      content.shopname=fb.shop.urlpath;
+    }
+    if(fb.email){
+      content.email=fb.email;
+    }
+    if(fb.product&&fb.product.sku){
+      content.product=fb.product.title+' ('+fb.product.sku+')';
+    }
 
-    $http.post(config.API_SERVER+'/v1/comment', content).
-      success(function(data, status, headers, config) {
-        feedback.show=false;
-        feedback.comment=undefined;
-        api.info($scope,"Votre question à bien été envoyé! Vous serez contacté dans les plus brefs délais");        
-      });
-    
+    feedback.send(content).success(function(data, status, headers, config) {
+      fb.show=false;
+      fb.comment=undefined;
+      api.info($scope,"Votre question à bien été envoyé! Vous serez contacté dans les plus brefs délais");        
+    });    
   };
 
-  $scope.$on('$routeChangeSuccess', function (event, route) {
-    // console.log('DEBUG-FB------------->',route.current)
+  // update feedback state 
+  $rootScope.$on('$routeChangeSuccess', function (event, route) {
     $timeout(function () {
-      loadRouteScope(feedback,route);
-    },1000);
+      currentPath=$location.path();
+
+
+      feedback.updateScope(route);
+    },500);
   });
 
-  // loadRouteScope(feedback,$route.current)
 }
   
 
  
 //
 // define dependency injection and implement servie
-feedbackFactory.$inject=['config','user','$rootScope','$resource'];
-function feedbackFactory(config, user, $rootScope,$resource) {
+feedbackFactory.$inject=['config','user','$rootScope','$http'];
+function feedbackFactory(config, user, $rootScope,$http) {
 
 
   var Feedback = function(data) {
+    this.shop=false;
+    this.product=false;
+    this.email=false;
+    this.show=false;
+    this.mood="J'ai une question a propos de Karibou";
+    this.COMMENT='Un nouveau commentaire à été publié';
+    this.moods=[
+      'Le site ne fonctionne pas',
+      'Je ne trouve pas comment faire',
+      'J\'ai une question a propos de Karibou.ch',
+      'J\'aimerai un nouveau produit',
+      'J\'aimerai un lieu pour la collecte de ma commande',
+      'Le marché est génial'
+    ];    
   };
 
 
-  Feedback.prototype.clear=function(){
+  Feedback.prototype.updateScope=function(route) {
+    this.shop=this.product=false;
+
+    if(route&&route.urlpath){
+      this.shop=route;
+    }
+    if(route&&route.sku){
+      this.product=route;
+    }
+    if(route&&route.scope){
+      //
+      // case of product
+      if(route.scope.product&&route.scope.product.sku){
+        return this.product=route.scope.product;
+      }
+      //
+      // case of shop
+      if(route.scope.$$childHead&&route.scope.$$childHead.shop){
+        return this.shop=route.scope.$$childHead.shop;
+      }
+    }
+  }
+
+  Feedback.prototype.setUser=function(email) {
+    this.email=email;
+  };
+
+  Feedback.prototype.setProduct=function(product) {
+    this.product=product;
+  };
+
+  //
+  // send feedback 
+  //  content:
+  //    - shopname
+  //    - product
+  //    - email
+  //    - text
+  //    - mood
+  Feedback.prototype.send=function(content){
+    return $http.post(config.API_SERVER+'/v1/comment', content);
   };
 
   return new Feedback();

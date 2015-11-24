@@ -13,58 +13,92 @@
            ng-include="'/partials/dashboard/dashboard-sidebar.html'" 
            ng-class="{'menu-off':!options.showMenu}">
       </div>
-      <div class="col-xs-12  nopadding-xs">
+      <div class="container-content" >
 
         <!-- FILTERS LOGISTIC -->
-        <div class="panel panel-default" >
+        <div class="panel panel-default panel-dashboard" >
           <div class="panel-heading">
-            <a href="" class="btn btn-transparent btn-md" toggle-on-click="#order-filter" > <i class="fa fa-chevron-down "></i> </a>
+
+            <!-- NAV BAR -->
+            <nav class="navbar navbar-default navbar-dashboard">
+              <div class="container-fluid">
+                <div class="navbar-header">
+                  <button type="button" class="navbar-toggle collapsed" 
+                          data-toggle="collapse" 
+                          data-target="#kb-navbar-shipping" ng-click="navbarShipping=!navbarShipping;">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                  </button>
+                  <button class="navbar-btn btn btn-md btn-transparent " title="Détails"
+                          toggle-on-click="#order-filter" ><i class="fa fa-chevron-down"></i></button>
+
+                  <button class="navbar-btn btn btn-md btn-transparent " title="Imprimer les commandes" 
+                          ng-click="filters.print=!filters.print" 
+                          ng-class="{'active':filters.print}"><i class="fa fa-print"></i></button>
+                </div>
+
+                <div class="collapse navbar-collapse" ng-class="{'in':navbarShipping}" id="kb-navbar-shipping">
+                  <p class="pink navbar-text navbar-right" ng-show="filters.s&&dates.length<4">{{filters.s}}</p>
+                  <form class="navbar-form navbar-left" role="options">                
 
 
-            <button class="btn btn-md btn-transparent " title="Imprimer les commandes" 
-                    ng-click="filters.print=!filters.print" 
-                    ng-class="{'active':filters.print}"><i class="fa fa-print"></i></button>
+                    <!-- DISPLAY ITEMS BY USER -->
+
+                  </form>
+                  <ul class="nav navbar-nav">
+                    <li ng-class="{'active':isSelectedDate(date)}" ng-repeat="date in dates.slice().reverse()|limitTo:8">
+                      <a  href="#" ng-click="filters.f=date" >{{date|dateLabelShort}}</a>
+                    </li>
+                  </ul>
+
+                </div><!-- /.navbar-collapse -->
+              </div>
+            </nav>              
 
           </div>
-          <div class="panel-body nopadding" id="order-filter" ng-class="{'hide':orders.length}">
-              <div class="col-xs-12 col-md-3 ">
+          <div class="panel-body bg-gray" id="order-filter" ng-class="{'hide':orders.length}">
+              <div class="col-xs-12 col-md-4 ">
                 <span>Filtrer les commandes: </span>                
                 <button class="btn btn-md btn-transparent btn-block" ng-click="toggle({closed:true})" ng-class="getToggleClass('closed',true)">Les fermées</button>
                 <button class="btn btn-md btn-transparent btn-block" ng-click="toggle({fulfillments:'fulfilled'})" ng-class="getToggleClass('fulfillments','fulfilled')">Les fulfilled</button>
+
+
               </div>
-              <div ng-show="!dates.length" class="col-xs-12 col-md-3 gray text-center ">
+              <div ng-show="!dates.length" class="col-xs-12 col-md-4 gray text-center ">
                 <i class="fa fa-warning fa-1x"></i><br/> Pas de commande à afficher pour {{months_long[filters.month-1]}}
               </div>
-              <div class="col-xs-12 col-md-3 ">
+              <div class="col-xs-12 col-md-4 ">
                 <div>Mois: </div>
                 <span ng-repeat="month in months"><button class="btn btn-xs btn-transparent" ng-click="toggle({month:month})" ng-class="getToggleClass('month',month)">{{months_short[month-1]}}</button> </span>                
               </div>
-              <div class="col-xs-12 col-md-3 ">
-                <span>Année: </span>
+              <div class="col-xs-12 col-md-4 ">
+                <em>Année: </em>
                 <button class="btn btn-md btn-transparent btn-block" 
                         ng-repeat="year in years"
                         ng-click="toggle({year:year})" ng-class="getToggleClass('year',year)">{{year}}</button>                 
                 <br/>
               </div>
+              <div class="col-xs-12" >
+                <button ng-click="informShopToOrders(filters.s,filters.f,filters.fulfillments)" 
+                        type="button" class=" btn btn-md btn-warning">
+                        <span class="hidden-xs">Envoyer par</span> Email
+                </button>                
+
+                <!-- FILTER ITEMS BY SHOP --> 
+                <select class="form-control pull-right " style="width:50%" 
+                        ng-model="filters.s" 
+                        ng-disabled="!isShopSelectionAvailable()"
+                        ng-options="shop as shop for shop in orders|filterBy:['shipping.when']:filters.f|mapOrdersByShop track by shop">
+                        <option value=""  selected>-- Toutes les boutiques</option>
+                </select>                        
+              </div>
           </div>
-        </div>        
-          
-        <form class="clearfix form-inline" >
-            <div ng-show="!dates.length" class="col-xs-12 gray text-center ">
-              <i class="fa fa-warning fa-1x"></i><br/> Pas de commande à afficher pour {{months_long[filters.month-1]}}
-            </div>
-            <div ng-show="dates.length" class="">
-              <button class="btn btn-md btn-transparent btn-block-xs" 
-                      ng-repeat="date in dates.slice().reverse()"
-                      ng-click="filters.f=date" ng-class="{'active':isSelectedDate(date)}">{{date|dateLabel}}
-                    </button> 
 
-              <a class="btn btn-md btn-transparent btn-block"
-                 ng-href="{{getDetailledOrderUrl(filters.f)}}" >Préparations pour la date sélectionnée</a>
+        </div>  
+        <!-- END FILTERS TOP -->
 
-            </div>
-        </form>
-          
 
 
         <!-- WAIT -->
@@ -73,14 +107,29 @@
         </div>
 
         <!-- ORDERS -->
-        <div ng-if="orders.length && !shops">
-          <div ng-if="!filters.print" ng-include="'/partials/order/order-lists.html'"></div>
-          <div ng-if="filters.print" ng-include="'/partials/order/order-lists-detailed.html'"></div>
+<!--         <div ng-if="orders.length&&filters.print" class="col-xs-12 nopadding container-scroll">
+          <div ng-static-include="'/partials/order/order-lists-detailed.html'"></div>
+        </div>
+ -->
+
+
+        <div ng-if="orders.length" class="col-md-6 col-xs-12 nopadding container-scroll">
+          <div ng-static-include="'/partials/order/order-lists.html'"></div>
           <!-- MAP -->
 <!--           <div ng-if="addresses" class="text-center">
             <img ng-src="{{map.resolveStaticmap(addresses)}}" style=""/>
           </div>
- -->          <hr/>
+ -->          
+        </div>
+        <!-- ORDER ITEMS -->
+        <div ng-static-include="'/partials/order/order-lists-items.html'" 
+             ng-if="selected.order&&!filters.print"
+             class="order-list-items col-md-6 col-xs-12 container-scroll">          
+        </div>
+
+        <div ng-static-include="'/partials/order/order-lists-items-detailed.html'"
+             ng-if="selected.order&&filters.print" 
+             class="order-list-items col-md-6 col-xs-12 container-scroll">
         </div>
 
       </div>

@@ -67,6 +67,8 @@ UI.filter('unique', function() {
     };
 });
 
+
+
 UI.filter('capitalize', function() {
   return function(input, scope) {
     var lst=[];
@@ -104,6 +106,22 @@ UI.filter("betweenDates", function() {
 // this is native now
 // http://stackoverflow.com/questions/19992090/angularjs-group-by-directive
 // UI.filter('groupBy', ['$parse', function ($parse) {
+
+UI.filter('dateMoment', function () {
+   return function(date, prefix) {
+        if (!date) {return "";}
+        if (!prefix) {prefix="";}
+        return  prefix+moment(date).format('ddd DD MMM YYYY', 'fr');
+   };
+});
+
+UI.filter('dateMomentShort', function () {
+   return function(date, prefix) {
+        if (!date) {return "";}
+        if (!prefix) {prefix="";}
+        return  prefix+moment(date).format('ddd DD MMM', 'fr');
+   };
+});
   
 
 //
@@ -121,7 +139,9 @@ UI.directive('formatDate', function ($window) {
                 dateFormat = newValue;
                 ctrl.$modelValue = new Date(ctrl.$setViewValue);
             });
-
+            
+            //
+            // what you return here will be passed to the text field
             ctrl.$formatters.unshift(function (modelValue) {
                 scope = scope;
                 if (!dateFormat || !modelValue) return "";
@@ -129,6 +149,8 @@ UI.directive('formatDate', function ($window) {
                 return retVal;
             });
 
+            // put the inverse logic, to transform formatted data into model data
+            // what you return here, will be stored in the $scope            
             ctrl.$parsers.unshift(function (viewValue) {
                 scope = scope;
                 var date = moment(viewValue, dateFormat);
@@ -142,6 +164,7 @@ UI.directive('formatDate', function ($window) {
 //
 // simple ngInclude
 // http://zachsnow.com/#!/blog/2014/angularjs-faster-ng-include/
+// scope http://stackoverflow.com/questions/14049480/what-are-the-nuances-of-scope-prototypal-prototypical-inheritance-in-angularjs
 UI.directive('ngStaticInclude', [
   '$compile',
   '$templateCache',
@@ -154,14 +177,10 @@ UI.directive('ngStaticInclude', [
     }
     return {
       restrict: 'A',
-      priority: 400,
+      priority: 500,
       compile: function(element, attrs){
         var templateName = $sce.parseAsResourceUrl(attrs.ngStaticInclude)();
         return function(scope, element){
-          // var template = $templateCache.get(templateName);
-          // if(template){
-          //   return includeTpl(element,template,scope)
-          // }
          $http.get(templateName, {cache: $templateCache}).then(function(response) {
            return includeTpl(element,response.data,scope);
          });
@@ -313,16 +332,11 @@ UI.directive('backstretch', ['$parse', function($parse) {
     link:function(scope, element, attr, ctrl) { 
       var style={
         'background-size':'cover',
+        'background-color':'transparent',
         'background-position': '50% 20%'
       };    
       
       function bs(e, path){
-        // if($.browser && $.browser.msie && $.browser.version<8){
-        //   e.find('div.backstretch').remove();
-        //   e.backstretch(path);
-        //   return;
-        // }
-        // console.log('------------',path)
         if ((path.indexOf('http')!==0) && (path.indexOf('//')!==0))path='/'+path;
         style['background-image']='url('+path+')';
         e.css(style); 
@@ -333,10 +347,10 @@ UI.directive('backstretch', ['$parse', function($parse) {
       scope.$watch(src, function(value) {
           if (value){
             bs(element, value);
-          }else if(options.load){
+          }else if(options&&options.load){
             bs(element, options.load);
-          }else{
-            bs(element, src);
+          }else if(src){
+            //bs(element, src);
           }
        });
     }
@@ -379,6 +393,7 @@ UI.directive('computeUrl', ['$parse','api', function($parse,api) {
 UI.directive('backfader', ['$parse','$location','$anchorScroll','$routeParams','api', function($parse,$location,$anchorScroll, $routeParams,api) {
   var referrers=[];
   return function(scope, element, attr) {
+      var path=$location.path();
 
       // finally remove body scroll
       setTimeout(function() {
@@ -386,13 +401,13 @@ UI.directive('backfader', ['$parse','$location','$anchorScroll','$routeParams','
       },200);
 
       var referrer;
-      referrers.push(scope.referrer);
+      scope.referrer&&referrers.push(scope.referrer);
       // manage state
       //if current path is not on referrer, ok
-      if(referrers.indexOf($location.path())===-1){
+      if(referrers.indexOf(path)===-1){
         referrer=scope.referrer;
       }else{
-        var index=referrers.indexOf($location.path());
+        var index=referrers.indexOf(path);
         referrers.splice(index,referrers.length-index);
         referrer=referrers[index-1];
       }
@@ -403,17 +418,27 @@ UI.directive('backfader', ['$parse','$location','$anchorScroll','$routeParams','
         angular.element("body").removeClass('noscroll');
       });
 
+      // console.log('open --------------',path);
+  
 
       (function(referrer, scrollLeft,scrollTop){
         function onClose(){
+          var refid, path=$location.path(),url;
           angular.element("body").removeClass('noscroll');
-          var url=referrer;
-          if(!url&&api.computeUrl)
-            url=api.computeUrl();
+          // cases
+          // - product is open in edit mode
+          // - product is open in normal mode and then edited
+          if(api.computeUrl){
+            url=api.computeUrl(referrers)
+          }
+          else{
+            url=path;
+          }
           
 
           window.scrollBy(scrollLeft,scrollTop);
           scope.$apply(function(){
+            referrers=_.uniq(referrers);
             $location.path(url);
           });
         }

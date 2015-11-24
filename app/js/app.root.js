@@ -8,26 +8,31 @@ angular.module('app.root', ['app.config','app.user'])
 
 //
 // the AppCtrl is used in index.html (see app/assets/index.html)
-appCtrl.$inject=['$scope','$rootScope','$window','$location','$cookies','$routeParams','$timeout','$http','config','api','user','cart','category','product'];
-function appCtrl($scope, $rootScope, $window,  $location, $cookies, $routeParams, $timeout, $http, config, api, user, cart, category, product) {
+appCtrl.$inject=[
+  '$scope','$rootScope','$window','$location','$routeParams','$timeout','$http','config','api','user','cart','category','product','shop','document'];
+function appCtrl($scope, $rootScope, $window,  $location, $routeParams, $timeout, $http, config, api, user, cart, category, product,shop,document) {
 
   $rootScope.user=$scope.user = user;
   $scope.cart = cart;
   $scope.categories = [];
   $scope.config=config;
+  $scope.api=api;
   $scope.cover=config.cover;        
-
+  $scope.browserName;
+  $scope.userDocuments;
+  window.referrers=[];
 
 
   $scope.options={
     cart:false,
     sidebar:false,
     wellSubscribed:false,
-    needReload:false,
-    welcome:($cookies.welcome||true),
-    apero:$cookies.apero,
-    atelier:$cookies.atelier
+    needReload:false
   };
+
+  //
+  // export shops context for all Ctrl
+  $scope.shops=$scope.shopsSelect=shop.query({});
 
   //
   // welcome page
@@ -47,6 +52,7 @@ function appCtrl($scope, $rootScope, $window,  $location, $cookies, $routeParams
     $scope.user = u;
   });
 
+
   //
   // after N days without reloading the page, 
   $timeout(function () {
@@ -59,6 +65,11 @@ function appCtrl($scope, $rootScope, $window,  $location, $cookies, $routeParams
     $scope.category=category;
   });
 
+  //
+  // load campaign data
+  $http.get(config.API_SERVER+'/v1/wallets/giftcard/count').then(function (result) {
+    $scope.campaign=result.data;
+  });
 
   //
   // clear cache
@@ -84,7 +95,7 @@ function appCtrl($scope, $rootScope, $window,  $location, $cookies, $routeParams
         }
       }
 
-      var title="Karibou Genève - un marché alimentaire composé d'artisans, de producteurs et de petits commerçants";
+      var title="Karibou.ch Genève - le bon goût du marché en ligne";
       $rootScope.title = (current.$$route.title)?current.$$route.title:title;
 
     });
@@ -94,12 +105,18 @@ function appCtrl($scope, $rootScope, $window,  $location, $cookies, $routeParams
 
   // Uses the url to determine if the selected
   // menu item should have the class active.
-  $rootScope.$watch(function(){return $location.path();}, function (path, old) {
+  $rootScope.$watch(function(){return $location.url();}, function (path, old) {
     $scope.activeNavId = path || '/';
 
     //
     // save the referer FIXME path or url??
     window.referrer=$rootScope.referrer=(path!== old)?old:undefined;
+    if(window.referrer){
+      window.referrers.push(window.referrer);
+      if(window.referrers.length>2){
+        window.referrers.shift();
+      }
+    }
   });
 
   //
@@ -123,7 +140,8 @@ function appCtrl($scope, $rootScope, $window,  $location, $cookies, $routeParams
       return api.info($scope,"Hoho, vous devez préciser votre code postal ;)");        
     }
 
-    $cookies[subject]=true;
+    // TODO FIX ISSUE WITH NG AND COOKIES
+    //$cookies[subject]=true;
 
     $http.post(config.API_SERVER+'/v1/message/aHR0cDovL2thcmlib3UuZXZhbGV0b2xhYi5jaA==/'+subject, content).
       success(function(data, status, headers, config) {
@@ -137,11 +155,14 @@ function appCtrl($scope, $rootScope, $window,  $location, $cookies, $routeParams
   //
   // browser detection    
   $scope.browser=function() {
+    if($scope.browserName){
+      return $scope.browserName;
+    }
     var userAgent = $window.navigator.userAgent;
     var browsers = {chrome: /chrome/i, safari: /safari/i, firefox: /firefox/i, ie: /internet explorer/i};
     for(var key in browsers) {
       if (browsers[key].test(userAgent)) {
-        return key;
+        return $scope.browserName=key;
       }
     }
     // special case for IE>=11
@@ -285,6 +306,14 @@ function appCtrl($scope, $rootScope, $window,  $location, $cookies, $routeParams
 
   $scope.removeCart=function (item) {
     cart.remove(item, true);
+  };
+
+  $scope.uploadImageError=function(error){
+      //http://ucarecdn.com/c1fab648-f6b7-4623-8070-798165df5ca6/-/resize/300x/
+      if(error){
+        return api.info($scope,error);
+      }
+
   };
 
 }

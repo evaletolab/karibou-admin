@@ -1,36 +1,8 @@
 <div class="dashboard" ng-controller="AccountCtrl">
+
   <!-- MENU -->
-  <nav class="navbar navbar-inverse navbar-fixed-top hidden-print" role="navigation">
-    <div class="container-fluid">
-      <div class="navbar-header">
-        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-          <span class="sr-only">Toggle navigation</span>
-          <span class="fa fa-bar"></span>
-          <span class="fa fa-bar"></span>
-          <span class="fa fa-bar"></span>
-        </button>
-        <a class="navbar-brand" href="" ng-click="options.showMenu=!options.showMenu;"><i class="fa fa-reorder white_ fa fa-2"></i> MENU</a>
-      </div>
-      <div id="navbar" class="navbar-collapse collapse">
-        <ul class="nav navbar-nav navbar-right">
-          <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Boutiques <span class="caret"></span></a>
-            <ul class="dropdown-menu" role="menu">
-              <li ng-repeat="shop in user.shops"><a ng-href="/shop/{{shop.urlpath}}">{{shop.name}}</a></li>
-            </ul>
-          </li>        
-          <li><a href="/account">{{user.display()}} <span ng-show="user.isAdmin()" class="label label-danger">ADMIN</span></a></li>
-          <li ng-if="user.isAuthenticated()"><a href="" ng-click="logout()">logout</a></li>
-        </ul>
-        <!-- FILTER CONTENT -->
-        <form class="navbar-form navbar-right" role="search">
-          <div class="form-group">
-            <input type="text" class="form-control" placeholder="Filter" ng-model="options.filterTxt">
-          </div>
-        </form>        
-      </div>
-    </div>
-  </nav>
+  <nav  class="navbar navbar-inverse navbar-fixed-top" role="navigation"
+        ng-include="'/partials/dashboard/dashboard-header.html'"></nav>
 
 
   <div class="container-fluid" ng-init="findAllUsers()">
@@ -42,8 +14,18 @@
       </div>
       <div class="col-xs-12  nopadding-xs">
         <h1 class="page-header">Gestion des utilisateurs 
-            <button class="btn btn-transparent btn-md" ng-click="findAllUsers()"><i class="fa fa-refresh"></i></button>
+            <button class="btn btn-transparent btn-md" ng-click="findAllUsers(_user)"><i class="fa fa-refresh"></i></button>
         </h1>
+
+        <form class="form-inline">
+          <div class="form-group">
+            <input type="text" class="form-control form-inline"  placeholder="Nom" ng-model="_user.name">
+            <input type="text" class="form-control "  placeholder=">= orders count" ng-model="_user.orders">
+            <input type="text" class="form-control"  placeholder=">= Wallet amount" ng-model="_user.amount">
+            <input type="text" class="form-control"  placeholder=">= Giftcode count" ng-model="_user.gifts">
+          </div>
+          
+        </form>
 
         <!-- FORM -->
           <table class="table  table-responsive ">
@@ -60,8 +42,8 @@
               </tr>
             </thead>
             <tbody>
-              <tr ng-repeat="u in users|orderBy:options.orderByField:options.reverseSort|filterBy:['email.status']:options.filterByField|filter:options.filterTxt" ng-class="{'danger':u.status!==true}">
-                <td class="small">
+              <tr ng-repeat="u in users|orderBy:options.orderByField:options.reverseSort|filterBy:['email.status']:options.filterByField|filter:options.filterTxt|limitTo:80" ng-class="{'danger':u.status!==true}">
+                <td class="small">{{$index+1}}
                     <a  ng-click="modalUserDetails(u)" title="{{u.getEmailStatus()}}"
                       bs-modal="'/partials/admin/user.modal.html'">
                       {{u.id}}

@@ -14,6 +14,32 @@
   background-color: rgba(196, 177, 156, 0.1);
 }
 
+.tagline{
+  -background-image: url(/img/tagline.png);
+  background-repeat: no-repeat;
+  height: 40px;
+  margin: 0 auto;
+  padding: 20px 0
+;  margin-bottom: 70px;
+}
+
+.tagline:after {
+  content: '';
+  display: block;
+  width: 100%;
+  height: 1px;
+  background: #dedede;
+  margin-top: -30px; 
+}
+
+.btn-done,.input-done{
+  opacity: .2;
+}
+
+.cursor-pointer{
+  cursor:pointer;
+}
+
 .dropdown-menu{
   z-index: 1999999
 }
@@ -56,7 +82,7 @@
 .btn-category{
   -color: rgba(220,250,220,.9);  
   border-color: #ccc;
-  text-transform: uppercase;
+  -text-transform: uppercase;
   margin-left: 10px;
 }
 
@@ -175,10 +201,11 @@ h1.sexy, h2.sexy, h3.sexy {
 
 .text-center{text-align: center;}
 .text-left{text-align: left;}
-.text-left.padding{padding-left: 10px!important}
+.text-left.padding{padding-left: 10px!important;}
 .text-right{text-align: right;}
-.text-right.padding{padding-right: 10px!important}
+.text-right.padding{padding-right: 10px!important;}
 .text-capitalize{text-transform: capitalize;}
+.text-strike{text-decoration: line-through!important;}
 .navbar-inner{
   min-height-:40px;
 }
@@ -193,9 +220,6 @@ ul.nav li{
   line-height:30px;
 }
 
-.navbar .nav .dropdown-toggle .caret {
-  margin-top-: 13px;
-}
 
 .fill{
   height:100%;
@@ -251,6 +275,9 @@ img.img-cover {
 
 .green{
   color:#8dc63f!important;
+}
+.green-1{
+  color:#5C8623!important;
 }
 
 .white{

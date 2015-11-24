@@ -16,6 +16,15 @@ angular.module('postfinance.card')
     var month, prefix, year, _ref;
 
     value = value || '';
+    //
+    // no parsing needed
+    if(value.indexOf('/')===-1){
+      value=new Date(value);
+      return {
+        month:value.getMonth(),
+        year:value.getFullYear()
+      };
+    }
 
     value = value.replace(/\s/g, '');
     _ref = value.split('/', 2), month = _ref[0], year = _ref[1];

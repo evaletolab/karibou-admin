@@ -37,12 +37,11 @@
               </p>
             </div>
             <div class="timeline-body" >
-              <div ng-hide="order.fulfillments.status=='failure'">
+              <div ng-hide="order.fulfillments.status=='failure'||order.getProgress()===0">
                 <h5 style="margin-bottom:5px" class="text-muted">Statut de la commande</h5>
                 <div class="progress">
-                  <div class="progress-bar  " role="progressbar" order-progress="order"
-                    ng-class="{'progress-bar-danger':order.fulfillments.status=='failure',
-                               'progress-bar-success':order.fulfillments.status!=='failure'}">
+                  <div class="progress-bar  progress-bar-success" 
+                       role="progressbar" order-progress="order">
                     <span class="sr-only-">{{options.fulfillments[order.fulfillments.status]}}</span>
                   </div>
                 </div>                
@@ -121,7 +120,7 @@
                   <li ng-class="{'disabled':order.fulfillments.status!=='reserved'}">
                       <a href="#" ng-click="orderCancel(order,'customer')" 
                          title="il est possible d'annuler votre commande tant que la logistique n'a pas commencé">Annuler cette commande</a></li>
-                  <li><a href="#" ng-click="">Copier cette commande dans le panier</a></li>
+                  <li><a href="#" ng-click="copyOrder(order)">Copier cette commande dans le panier</a></li>
                   <li ng-class="{'disabled':order.payment.status!=='paid'}">
                       <a href="#" ng-click="orderInvoice(order)" >Recevoir la facture par e-mail</a></li>
 <!--                  <li class="divider"></li>

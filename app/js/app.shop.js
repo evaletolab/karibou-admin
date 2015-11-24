@@ -3,7 +3,7 @@
 //
 // Define the Shop module (app.shop)  for controllers, services and models
 // the app.shop module depend on app.config and take resources in shop/*.html 
-var Shop=angular.module('app.shop', ['app.config', 'app.api']);
+var Shop=angular.module('app.shop', ['app.config', 'app.api','app.shop.ui']);
 
 //
 // define all routes for user api
@@ -48,7 +48,6 @@ Shop.controller('ShopCtrl',[
       shop.save(function(s){
           //
           // inform all listeners this has changed
-          $rootScope.$broadcast("update.shop",shop);
           api.info($scope,"Votre boutique a été modifié!",2000,function(){
             $location.url('/shop/'+shop.urlpath);            
           });
@@ -82,13 +81,6 @@ Shop.controller('ShopCtrl',[
       });
     };
 
-    $scope.uploadImageError=function(error){
-        //http://ucarecdn.com/c1fab648-f6b7-4623-8070-798165df5ca6/-/resize/300x/
-        if(error){
-          return api.info($scope,error);
-        }
-
-    };
     
 
 
@@ -213,6 +205,9 @@ Shop.factory('shop', [
       angular.extend(this, defaultShop, data);
     };
 
+    Shop.prototype.isAvailable=function () {
+      return (this.status!==true&&this.available&&this.available.active==true)
+    }
 
     //
     // REST api wrapper
@@ -283,6 +278,7 @@ Shop.factory('shop', [
     Shop.prototype.save = function( cb, err){
       if(!err) err=function(){};
       var me=this, s=backend.save({urlpath:this.urlpath},this, function() {
+        $rootScope.$broadcast("shop.update",me);
         if(cb)cb(me.wrap(s));
       },err);
       return this;
@@ -302,6 +298,7 @@ Shop.factory('shop', [
       if(!err) err=function(){};
       var me=this, s = backend.delete({urlpath:this.urlpath},{password:password},function() {
         user.shops.pop(me);
+        $rootScope.$broadcast("shop.remove",me);
         if(cb)cb(me);
       },err);
       return this;

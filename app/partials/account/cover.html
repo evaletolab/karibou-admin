@@ -2,7 +2,7 @@
   <div class="cover-row">
     <div class="cover-body">
       <div class="cover-body-inner">
-        <h1 class="cover-title">{{user.display()}}</h1>
+        <h1 class="cover-title text-capitalize">{{user.display()}}</h1>
         <div>
           <a href="/account/overview" class="btn  btn-profile btn btn-md btn-split">Mon profil</a>
           <a ng-if="!user.shops.length" href="/account/love" class="btn btn-profile btn btn-md btn-split">
@@ -17,6 +17,11 @@
               <li>
                 <a class="site-nav-list-item  " title="Tous les produits" 
                    href="/" tabindex="-1"><i class=""></i>&nbsp;Tous les produits</a>
+              </li>
+              <li >
+                <a class="site-nav-list-item  " title="Toutes les boutiques" 
+                   ng-class="getClass('/shops')"
+                   ng-href="/shops" tabindex="-1"><i class=""></i>&nbsp;Toutes les boutiques</a>
               </li>
               <li  class="" ng-repeat="category in category.findAll()|filter:{type:'Category'}|orderBy:'weight'">
                 <a class="site-nav-list-item  " title="{{category.name}}" 

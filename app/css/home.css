@@ -19,7 +19,7 @@
     font-style:italic}
 
 html,body,.main {
-    height:100%;
+    height:99%;
     padding-right:0;
     padding-left:0;
     padding:0;
@@ -34,12 +34,12 @@ html,body,.main {
 
 
 .kb-card-info{
-    background-color: #FFF;
-    padding: 15px;
-    border: 1px solid rgba(128, 128, 128, 0.17);
+    -background-color: #FFF;
+    padding: 5px;
+    -border: 1px solid rgba(128, 128, 128, 0.17);
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-    font-size:88%;
-    padding-bottom: 30px;
+    -font-size:88%;
+    padding-bottom: 15px;
     color: #726658;
 }
 
@@ -50,7 +50,6 @@ html,body,.main {
 
 .kb-card-info.last-child{
     border-radius: 0px 0px 5px 5px ;
-    margin-bottom: 20px;
 }
 
 
@@ -62,7 +61,7 @@ html,body,.main {
 }
 
 .kb-card-info .kb-card-content{
-    padding: 10px 0px 0px 15px;
+    padding: 5px 0px 0px 15px;
     color: inherit;
     font-family: inherit;
 }
@@ -264,12 +263,10 @@ body {
 }
 
 .main {
-    background:#fff
 }
 
 h1,h2,h3,h4,h5 {
-    font-family:"Halant",Serif;
-    font-family: 'Gentium Book Basic', serif;
+    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica,Arial, serif;
     font-weight:500;
     padding-bottom: 10px;
 }
@@ -343,7 +340,6 @@ a {
 
 .bucket-sub-title{
     color: #aaa;
-    font-style: italic;
     margin-top: 10px;
     text-align: left;
     font-family: serif;
@@ -370,8 +366,8 @@ a {
     -o-transition:color .1s linear;
     transition:color .1s linear;
     text-decoration: inherit;
-    font-family: 'Halant',Serif;
-    font-family: 'Gentium Book Basic', serif;
+    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica,Arial, serif;
+    letter-spacing:-1px;
 }
 
 .bucket-title:hover a {

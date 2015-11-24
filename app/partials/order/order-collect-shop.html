@@ -21,9 +21,9 @@
  -->        </form>
 
       </h4>
-      <span class="gray small"><a href="/admin/shop/orders?groupby=shop&when={{filters.f}}&s={{shop}}&fulfillments={{filters.fulfillments}}">préparé [{{countItemValidated(items,filters.f)}}|{{countItemAvailable(items,filters.f)}}]</a></span>      
-      <span ng-repeat="item in items|filter:{when:filters.f}|orderBy:'-rank'|unique:'rank'" class="pull-right small">
-      <span class="label " ng-class="(item.fulfillments==='fulfilled')?'label-success':'label-warning'"
+      <span class="gray small"><a ng-href="/admin/orders/{{shop}}?when={{filters.f}}&fulfillments={{filters.fulfillments}}">préparé [{{countItemValidated(items,filters.f)}}|{{countItemAvailable(items,filters.f)}}]</a></span>      
+<!--       <span ng-repeat="item in items|filter:{when:filters.f}|orderBy:'-rank'|unique:'rank'" class="pull-right small">
+ -->      <span class="label " ng-class="(item.fulfillments==='fulfilled')?'label-success':'label-warning'"
               title="{{item.email}}" 
               ng-click="modalUserDetails(item.oid)" bs-modal="'/partials/order/order.user.modal.html'">{{item.rank}}</span>&nbsp;        
       </span>

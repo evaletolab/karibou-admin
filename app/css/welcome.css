@@ -98,8 +98,7 @@
 
 #welcome header .intro-text .name {
     display: block;
-    -text-transform: uppercase;
-    font-family: 'Gentium Book Basic','Fira Sans',"Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica,Arial,sans-serif;
     font-size: 2em;
     font-weight: 300;
 }

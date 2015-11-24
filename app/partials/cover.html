@@ -1,4 +1,4 @@
-  <div class="cover-img bg-black" backstretch="cover">
+  <div class="cover-img " backstretch="cover">
 
 
   </div>
@@ -12,6 +12,12 @@
                 <a class="site-nav-list-item  " title="Tous les produits" 
                    href="/" tabindex="-1"><i class=""></i>&nbsp;Tous les produits</a>
               </li>
+              <li >
+                <a class="site-nav-list-item  " title="Toutes les boutiques" 
+                   ng-class="getClass('/shops')"
+                   ng-href="/shops" tabindex="-1"><i class=""></i>&nbsp;Toutes les boutiques</a>
+              </li>
+
               <li  class="" ng-repeat="category in category.findAll()|filter:{type:'Category'}|orderBy:'weight'">
                 <a class="site-nav-list-item  " title="{{category.name}}" 
                    ng-class="getClass('/products/category/{{category.slug}}')"
@@ -29,16 +35,9 @@
     <!-- HOME -->
      <div  class="cover-body-inner strong " >
         <img src="img/k-big.png" class="cover-logo " />
-        <!-- <h1  class="cover-title hidden-md">Karibou</h1> -->
-        <div class="cover-description ">
+        <div class="cover-description visible-lg-block visible-lg- hide">
           <br/>
           <span>Votre maraîcher, boulanger, fromager, boucher... livrés à votre porte!</span>
-<!--           <ul class="cover-list hidden-xs" >
-            <li>1 - Faites votre marché</li>
-            <li>2 - Identifiez-vous</li>
-            <li>3 - Nous livrons chez vous !</li>  
-          </ul>
- -->
          <br><a ng-href="/page/about" class="link">Comment ça marche?</a>
         </div>
 

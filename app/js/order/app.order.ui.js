@@ -30,7 +30,6 @@ angular.module('app.order.ui', [
 })
 
 
-
 //
 // clockdown for the next shipping day
 .directive('clockdown', ['$parse','$timeout','order','config', function($parse, $timeout,order,config) {
@@ -53,6 +52,73 @@ angular.module('app.order.ui', [
   };
 }])
 
+.filter('gatewayFees',['config',function (config) {
+  return function (issuer,amount,sum) {
+    if(!issuer||!amount){
+      return '0.00';
+    }
+    // important
+    amount=parseFloat(amount);
+    for(var p in config.shop.order.gateway){
+      if(config.shop.order.gateway[p].label===issuer){
+        var fees=(config.shop.order.gateway[p].fees*amount);
+        return (sum)?(amount+fees).toFixed(2):fees.toFixed(2);
+      }
+    }
+  };
+}])
+
+
+.filter('filterItemsByShop', function () {
+   return function(items,vendor) {
+        if(!items||!items.length||!vendor){
+          return items;
+        }
+        var lst=[];
+        items.forEach(function (item) {
+          if(item.vendor===vendor){
+            lst.push(item);
+          }
+        });
+        return lst;
+   };
+})
+
+.filter('mapOrdersByShop', function () {
+   return function(orders) {
+        if(!orders||!orders.length){
+          return [];
+        }
+        var lst=[];
+        orders.forEach(function (order) {
+          order.vendors.forEach(function (vendor) {
+            if(lst.indexOf(vendor.slug)===-1){
+              lst.push(vendor.slug);
+            }
+          });
+        });
+        return _.uniq(lst).sort();
+   };
+})
+
+.filter('filterOrdersByShop', function () {
+   return function(orders,vendor) {
+        if(!orders||!orders.length||!vendor){
+          return orders;
+        }
+        var lst=[];
+        orders.forEach(function (order) {
+          order.items.every(function (item) {
+            if(item.vendor===vendor){
+              lst.push(order);
+              return false;
+            }
+            return true;
+          });
+        });
+        return lst;
+   };
+})
 
 .filter('dateLabel', function () {
    return function(shipping, prefix) {
@@ -125,13 +191,45 @@ angular.module('app.order.ui', [
    };
 }])
 
+.filter('orderProgress',function(){
+  return function (order) {
+
+    //
+    // end == 100%
+    var end=order.items.length+2;
+    var progress=0;
+    //
+    // failure, create, partial, fulfilled
+    if(['fulfilled','failure'].indexOf(order.fulfillments.status)!==-1){
+      return 100.00;
+    }
+    progress++;
+
+    //
+    // pending, paid, voided, refunded
+    if(order.payment.status==='pending'){
+      return (progress/end*100.00);
+    }
+
+    //
+    // progress order items
+    progress++;
+    for (var i in order.items){
+      if(['fulfilled','failure'].indexOf(order.items[i].fulfillment.status)!==-1){
+        progress++;
+      }
+    }
+    return (progress/end*100.00);
+
+  };
+})
 
 .filter('orderTotal', function () {
    return function(order) {
         if (!order||!order.items.length) {return "0.0 CHF";}
         var price=0.0;
         for (var i in order.items){
-          if(order.items[i].fulfillment.status!=='failure'){
+          if(order.items[i].fulfillment&&order.items[i].fulfillment.status!=='failure'){
             price+=parseFloat(order.items[i].finalprice);
           }
         }

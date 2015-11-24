@@ -74,15 +74,17 @@ function ($rootScope, $http, $resource, $timeout, $q, $log, $location, $routePar
   }
 
 
-  function computeUrl(oldUrl){
-    var url;
+  function computeUrl(){
+    var url, path=$location.path();
+
+
     // edit from shop
-    if($routeParams.shop && $routeParams.sku && $location.path().indexOf('/edit')!=-1){
+    if($routeParams.shop && $routeParams.sku && path.indexOf('/edit')!=-1){
       url='/shop/'+$routeParams.shop+'/products/'+$routeParams.sku;
     }
 
     // edit from products
-    else if($routeParams.sku && $location.path().indexOf('/edit')!=-1){
+    else if($routeParams.sku && path.indexOf('/edit')!=-1){
       url='/products/'+$routeParams.sku;
     }
 
@@ -96,16 +98,24 @@ function ($rootScope, $http, $resource, $timeout, $q, $log, $location, $routePar
       url='/products/category/'+$routeParams.category;
     }
 
+
+
     // from sku
     else if($routeParams.sku){
-      url='/products';
+      if(referrers&&referrers.length){
+        for (var i = referrers.length - 1; i >= 0; i--) {
+          if(referrers[i].indexOf('/products/category')!==-1){
+            url=referrers[i];
+            break;
+          }
+        }
+      }
+
+      url=url||'/products';
     }
 
-    else if($rootScope.referrer){
-      url=$rootScope.referrer;
-    }
 
-    return url||oldUrl||'/';      
+    return url||referrer||'/';      
   }
 
   
@@ -205,10 +215,10 @@ function ($rootScope, $http, $resource, $timeout, $q, $log, $location, $routePar
         return;
       }
       var lst;
-      if ((typeof where) === "string"){
-        lst=_all[where];
-      }else{
+      if ((typeof where) === "object"){
         lst=_.findWhere(_all,where);
+      }else{
+        lst=_all[where];
       }
       if(cb)cb(lst);      
       return lst;

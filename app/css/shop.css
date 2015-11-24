@@ -4,25 +4,27 @@
 /* Shop details
 -------------------------------------------------- */
 
-.shop{
+.shop-card{
   background: #FFF none repeat scroll 0% 0%;
   color: #585858;
   display: block;
   margin: 0px auto 18px;  
   height: 250px;
   padding: 0px 0px 10px 0px;
-
+  overflow: hidden;
+  width: 98%;
 }
 
-.shop:hover:{
+
+.shop-card:hover:{
   background: #DDD none repeat scroll 0% 0%;
 }
 
-.shop>a {
+.shop-card>a {
   outline: 0;
 }
 
-.shop .photo {
+.shop-card .photo {
   margin: 0;
   padding: 0;
   height: 250px;
@@ -32,54 +34,69 @@
   color: white;
 }
 
-.shop .photo div, .shop .photo img{
+.shop-card .photo>div, .shop-card .photo img{
   width: 100%;
   height: 250px;
   background-size: cover;
-  background-position:50% 50%;
+  background-position:50% 30%;
   overflow: hidden;
 
 }
 
-.shop div.row-content{
+.shop-card div.row-content{
   display: relative;
 }
 
-.shop .content-wrapper {
+.shop-card .content-wrapper {
     padding: 10px 25px 15px 10px;
     background-color: white;
 }
 
-.shop .item-header .title {
+.shop-card .item-header .title {
     margin-bottom: 10px;
     color: #585858;
     font-size: 22px;
 }
 
-.shop .item-content {
+.shop-card .item-content {
     color: #8F877F;
-    font-size: 13px;
+    font-size: 16px;
     font-style: italic;
-    margin-bottom: 25px;
+    margin-bottom: 2px;
 }
 
-.shop markdown {
+.shop-card markdown {
     text-align: left;
     padding-top: 0px;
 }
 
-.shop .item-footer {
+.shop-card markdown h1, .shop-card markdown h2, .shop-card markdown h3, .shop-card markdown h4{
+    font-size: 16px;
+    font-style: normal;  
+}
+.shop-card markdown p{
+  margin-bottom: 10px;
+}
+
+.shop-card .item-footer {
     bottom: 0px;
     font-size: 14px;
     position: absolute;
 }
 
-.shop .item-footer {
+.shop-card .item-footer {
     font-size: 14px;
 }
 
+.shop-card .item-footer .signature{
+  color: white;
+  text-shadow: 0 0 1px rgba(0, 0, 0, 0.53);
+  position: absolute;
+  bottom: 0px;
+  padding: 10px;
+}
 
-.shop .item-info, .shop .item-closed{
+.shop-card .item-info, .shop-card .item-closed{
   position: absolute;
   width: 100%;
   height: 100%;
@@ -183,28 +200,29 @@ img.owner{
 /* Landscape phones
 ------------------------- */
 @media (max-width: 1024px) {
-  .shop{
+  .shop-card{
     height: auto;    
+    min-height: 450px;
   }
 
-  .shop .item-header .title {
+  .shop-card .item-header .title {
       font-size: 18px;
   }
 }
 
 @media (max-width: 767px) {
-  .shop{
+  .shop-card{
     height: 500px;    
   }
-  .shop .photo {
+  .shop-card .photo {
     height: 350px;
   }
 
-  .shop .photo img, .shop .photo div{
+  .shop-card .photo img, .shop-card .photo div{
     height: 350px;
   }
 
-  .shop .item-content{
+  .shop-card .item-content{
     margin-bottom: 15px;
   }
 

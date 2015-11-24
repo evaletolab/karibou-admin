@@ -1,14 +1,5 @@
 ;(function(angular) {'use strict';
 
-/**
- * Define the Product directives for (app.product) 
- * provides directives for interacting with Product on views.
- */
-
-function init($scope, elem, product){
-
-        
-}
 
 function roundN(val){
   if(val<=5){
@@ -26,21 +17,44 @@ angular.module('app.product.ui', [
   'app.api'
 ])
 
-.directive("product", function () {
-  return {
-      restrict: 'E',
-      link: function(scope, element, attrs)
-      {
-          scope.$watch( 'product', function(product) {
-              
-              if(product){
-                init(scope,element, product);
-              }
-           
-          }, true );
-      }
-  };
+//
+// limite the set of products (groupBy category) to N elements
+// 
+.filter('leanProducts', function() {
+    return function (input, size) {
+      if (!Array.isArray(input) || !input.length ) 
+        return input;
+
+      //
+      // the default size is 6
+      size=size||6;
+      var out=[], i=0, group={}, elems=[], subSize=0;
+
+      //
+      // order elements
+      for (var i = input.length - 1; i >= 0; i--) {
+        if(!group[input[i].categories.name]){
+          group[input[i].categories.name]=[];
+        }
+        group[input[i].categories.name].push(input[i]);
+      };
+
+      Object.keys(group).forEach(function (cat) {
+        // for each Shop
+        elems=group[cat];subSize=parseInt((elems.length/input.length)*size+.5);
+        if(subSize>elems.length){
+          subSize=elems.length;
+        }
+        for (var i = 0; i < subSize; i++) {
+          out.push(elems[i]);
+        };
+
+      });
+      
+      return out;
+    };
 })
+
 
 /*jshint multistr: true */
 .directive("cartButton",['$compile','$timeout','cart',function($compile,$timeout,cart) {

@@ -1,0 +1,42 @@
+
+<div tabindex="-1"  id="null" class="screen-content" ng-controller="AccountCtrl">
+  <aside ng-include="'/partials/account/cover.html'"
+         class="cover cover-home img-loaded" ng-class="{'session':user.isAuthenticated()}">
+  </aside>
+
+
+  <section class="wrapper" tabindex="-1" ng-controller="DocumentCtrl">
+    <div class="wrapper-inner" >
+
+      <!--                               -->
+      <!-- CONTENT                       -->
+      <!--                               -->
+
+
+      <h5 class="article-group-title " >
+        <span class="bucket-header-title box">Mes publiations</span>
+      </h5>
+      <p>Retrouvez vos publications sur cette page. </p>
+
+      <div ng-if="!user.documents.length && !WaitText" class="text-center grayx">
+          <i class="fa fa-frown-o fa-7x "></i>
+          <h4>La liste est vide</h4>
+      </div>
+
+      <table class="table ">
+        <tr ng-repeat="doc in user.documents">
+          <td><a ng-href="/content/{{doc.slug}}">{{doc.title}}</a></td>
+          <td>{{doc.updated|dateMoment}}</td>
+          <td>{{defaultLabel[doc.type]}}</td>
+          <td><a ng-href="/content/{{doc.slug}}/edit" class="btn btn-default btn-xs">edit</a></td>
+        </tr>
+      </table>
+
+      <div>
+        <h4>
+        <a href="/content/create" class="btn btn-default">Ajouter une nouvelle publication</a>
+        </h4>
+      </div>
+    </div>
+  </section>
+</div>

@@ -84,12 +84,14 @@
               <th>#</th>
               <th>Mail</th>
               <th>Nom/Prénom</th>
+              <th>Inscription</th>
               <th>Dernière commande</th>
               <th>Nb cmd</th>
             </tr>          
             <tr ng-repeat="user in oByUsers|orderBy:['-count','-last','-from']|betweenDates:'last':options.from:options.to:true|filterBy:['count']:options.count">
               <td>{{$index}}</td>
               <td><a hred="mailto:{{user._id}}" info="{{user.name.famillyName}} {{user.name.givenName}}">{{user._id}}</a></td>
+              <td>{{user.name.givenName}}</td>
               <td>{{user.from| date:'dd/MM/yyyy'}}</td>
               <td>{{user.last| date:'dd/MM/yyyy'}}</td>
               <td>{{user.count}}</td>

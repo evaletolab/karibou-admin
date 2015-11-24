@@ -1,0 +1,34 @@
+
+<div tabindex="-1"  id="null" class="screen-content document" ng-controller="DocumentCtrl">
+  <aside ng-include="'/partials/document/cover.html'"
+         class="cover-shop cover cover-home img-loaded" >
+  </aside>
+
+
+  <section class="wrapper shop" tabindex="-1" ng-init="findOneDocument()">
+    <div class="wrapper-inner markdown-{{document.model.type}}" >
+
+      <!--                               -->
+      <!-- CONTENT                       -->
+      <!--                               -->
+
+      <markdown  markdown-content="document.model.content"></markdown>
+
+
+      <article   style="width:103%"> 
+        <h4 class="article-group-title black " >
+          Les produits associés
+          <i class="-fa-heart-o fa"></i>
+        </h4>
+
+        <div  ng-include="'/partials/product/product.html'"  ng-repeat="product in document.model.products|orderBy:['categories.weight','updated']"/>
+      </article>
+      <button class="btn btn-success btn-lg btn-block " ng-click="cart.addList(products)" ng-disabled="!document.model.products.length">
+        Commander la liste complète
+      </button>          
+
+
+    </div>
+  <footer class="wrapper-footer wide" ng-include="'/footer.html'"></footer>
+  </section>
+</div>

@@ -254,25 +254,33 @@
                     <img ng-src="/img/payments/{{pm[method.issuer]}}" class="img-thumbnail img-responsive" alt="" />
                   </div>
                   <div class="col-xs-9 col-sm-10 " >
-                    <h4 class="list-group-item-heading heading-center"><span ng-show="method.issuer==='invoice'">Facture en ligne &nbsp;</span> {{method.number}} <span class="bold green" payments-date="{{method.expiry}}">{{method.expiry}}</span></h4>
+                    <h4 class="list-group-item-heading heading-center">
+                      <span ng-show="method.issuer==='invoice'">Facture en ligne &nbsp;</span> 
+                      <span ng-show="method.issuer==='wallet'">Votre compte privé &nbsp;</span>
+                      {{method.number}} <span class="bold green" payments-date="{{method.expiry}}">{{method.expiry|formatExpiry}}</span>
+                    </h4>
                     <p class="list-group-item-text comment-text " >
-                    <span ng-show="method.issuer==='invoice' && !methodStatus[method.alias]">La facture vous sera envoyée par email le jour de la livraison et devra être payée dans les 10 jours.</span>
-                    <span ng-show="methodStatus[method.alias]">Cette méthode de paiement n'est plus valide!
-                    <abbr class="red">{{methodStatus[method.alias]}}.</abbr> </span>
+
+                      <!-- WALLET -->
+                      <span ng-show="method.issuer==='wallet'">
+                          Votre compte privé vous permet d'effectuer des paiements sans carte de crédit. 
+                      </span>
+                      <!-- INVOICE -->                    
+                      <span ng-show="method.issuer==='invoice' && !methodStatus[method.alias]">La facture vous sera envoyée par email le jour de la livraison et devra être payée dans les 10 jours.</span>
+                      <span ng-show="methodStatus[method.alias]">Cette méthode de paiement n'est plus valide!
+                      <abbr class="red">{{methodStatus[method.alias]}}.</abbr> </span>
                     </p>
                   </div>
                 </a>
 
               </div>
-              <div ng-show="user.payments.length" style="padding:10px" class=" help-block">
+              <div ng-show="user.payments.length" style="padding:10px;margin-top:20px;" class="">
+                <i class="fa fa-caret-right"></i>
                 <a href="" ng-click="options.showPaymentOptions=true" >
                   Ajouter une autre méthode de paiement?
-                </a>&nbsp;
+                </a>&nbsp;<i class="fa fa-caret-right"></i>
                 <a href="/account/payment" >
-                  Vos méthodes de paiement
-                </a>&nbsp;
-                <a href="/account/orders" >
-                  Vos commandes
+                  Modifier une méthode de paiement existante.
                 </a>
 
               </div>

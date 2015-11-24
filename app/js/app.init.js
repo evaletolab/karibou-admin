@@ -34,7 +34,10 @@ angular.module('app', [
   'app.product',
   'app.category',
   'app.order',
+  'app.order.admin',
   'app.stats',
+  'app.document',
+  'app.wallet',
   'app.home'
 ])
   .value('API_SERVER',API_SERVER)
@@ -238,12 +241,16 @@ function errorInterceptor($q, scope, $location, $timeout) {
             }else if (response.data.toLowerCase().indexOf('vous devez ouvrir')){
               // if logged but without correct right 
               showError(scope,response.data);            
+            }else if(response.config.url.indexOf('/v1/users/me')===-1){
+              showError(scope,"Access denied!")
             }
           }
 
           else if(response.status>0){
             showError(scope,response.data);
           }
+          NProgress.done();
+
           return $q.reject(response);
       }
   };
@@ -299,7 +306,8 @@ function appRun(gitHubContent, $templateCache, $route, $http, $timeout, config) 
 
       // init uploadcare key here
       config.uploadcare=config.shop.keys.pubUpcare;
-      uploadcare.start({ publicKey: config.uploadcare, maxSize:153600, locale:'fr' });
+      uploadcare.start({ publicKey: config.uploadcare, maxSize:153600});  
+
 
   });
 

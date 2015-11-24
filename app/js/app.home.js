@@ -21,7 +21,6 @@ Home.config([
       .when('/', { templateUrl : '/partials/product/home.html'})
       .when('/shops', {title:'Les boutiques ',  templateUrl : '/partials/shop/home.html'})
       .when('/products', {title:'Les produits ',  templateUrl : '/partials/product/home.html'})
-      .when('/products/category/:category', {title:'Les produits ',  templateUrl : '/partials/product/products.html'})
       .when('/shops/category/:catalog', {title:'Les boutiques ',  templateUrl : '/partials/shop/shops.html'});
   }
 ]);
@@ -51,9 +50,9 @@ Home.controller('HomeCtrl', [
     $scope.infinite={};
     $scope.product=false;
     $scope.loves=false;
-    
-
-
+    $scope.shops.$promise.then(function () {
+      // body...
+    })
 
     //
     // generate a set of geo addresses to display map
@@ -79,21 +78,9 @@ Home.controller('HomeCtrl', [
       return addresses;
     };
 
-
-    //
-    // use this to group view by Category
-    $scope.currentCategory=undefined;
-    $scope.groupByCategory = function(cat) {
-      var catObj=category.find({name:cat});        
-      var showCategory = (catObj!=$scope.currentCategory); 
-       $scope.currentCategory = catObj;
-      return showCategory;
-    };     
-
-
     $scope.findAllUserLoves=function(){
       $scope.products=[];
-      product.findLove({popular:true,minhit:1, available:true},function(products){
+      product.findLove({popular:true,minhit:2, available:true},function(products){
         $scope.products=products;
       });
     };    
@@ -188,28 +175,6 @@ Home.controller('HomeCtrl', [
 
       });
     };
-    //var promise=$scope.loadHome()
-
-
-
-
-/**    
-    if($location.path()==='/products'||$routeParams.sku){
-      filter={sort:'created',group:'categories.name'};
-      $scope.products=product.home(null, filter,function(products){
-        $scope.products=products;
-      });
-      return;
-    }
-    
-    //
-    // get shops for the front page
-    filter={sort:'created',group:'catalog.name' };
-    $scope.shops=shop.home(filter,function(shops){
-      $scope.shops=shops;
-    });
-*/    
-
         
   }
 ]);
