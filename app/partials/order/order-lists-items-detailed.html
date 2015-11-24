@@ -1,0 +1,75 @@
+<!-- ORDER ID  -->
+
+<!-- ORDER TITLE -->
+<h4 class="list-group-item-heading">
+  &nbsp;{{selected.order.oid}}&nbsp;
+  <span class="link text-capitalize" >
+    <span class="hidden-xs">{{selected.order.customer.name.givenName}}</span> 
+    {{selected.order.customer.name.familyName}}
+  </span>  
+
+
+  <button 
+    type="button" 
+    class="pull-right btn btn-sm btn-primary  " 
+    ng-click="selectOrder(selected.order)"><span class="fa fa-close"></span> sac {{selected.order.rank}}</button>
+
+</h4>
+<!-- ORDER SAC -->
+
+
+<p class="list-group-item-text">
+      <!-- ITEMS DETAILS-->
+      <table class="table table-condensed smallx " id="detail-{{selected.order.oid}}" style="">
+        <thead>
+          <tr><th class="col-product">Produit</th><th>Qté</th><th>CHF</th></tr>
+        </thead>
+        <tbody ng-repeat="group in selected.order.items|groupBy:'vendor' " >
+          <tr >
+            <td colspan="4" class="order-header " ><div>
+              <!-- <img  ng-src="{{group[0].vendorImage| placehold:'50x50&text=l`équipe'}}" style="">               -->
+              {{group[0].vendor}}</div>
+            </td>
+          </tr>                
+
+          <tr  ng-repeat="i in group|orderBy:'weight'" 
+               ng-class="{'strike grayx':(i.fulfillment.status==='failure'||selected.order.fulfillments.status==='failure')}">
+            <td title="{{i.vendor}}">
+              <a ng-href="/products/{{i.sku}}">{{i.title}}</a>
+              <mark ng-if="i.variant.title" class="small">option: {{i.variant.title}}</mark>
+            </td>
+            <td ng-class="(i.quantity>1)?'bold red':''">{{i.quantity}}</td>
+            <td>{{i.finalprice|number:'2'}} CHF</td>                   
+          </tr>
+        </tbody>
+        <tbody>
+          <!-- info -->
+          <tr ng-class="{'strike grayx':selected.order.fulfillments.status==='failure'}">
+            <td colspan="2">Soutotal</td><td >{{order|orderTotal}}</td>
+          </tr>
+          <tr ng-class="{'strike grayx':selected.order.fulfillments.status==='failure'}">
+            <td colspan="2">Livraison & Paiement</td><td >{{order|orderFees}}</td>
+          </tr>
+          <tr class="bold" ng-class="{'strike grayx':selected.order.fulfillments.status==='failure'}">
+            <td colspan="2">TOTAL</td><td >{{selected.order.getTotalPrice().toFixed(2)}} CHF</td>
+          </tr>
+
+        </tbody>
+      </table>
+
+    <!-- CUSTOMER -->
+    <div class="col-xs-12  nopadding">
+      <span class="label label-title hidden-xs">{{selected.order.fulfillments.status}}</span>
+      <span class="label label-title" >
+          {{selected.order.payment.status}}|{{selected.order.getOriginPrice()}}|{{selected.order.getTotalPrice()}}CHF|{{selected.order.getProgress()|number:0}}
+      </span>
+      <button 
+        type="button" 
+        class="pull-right btn btn-sm btn-default  " 
+        ng-show="hasNextOrder()"
+        ng-click="selectNextOrder()"><span class="fa fa-chevron-circle-right "> Client suivant</span></button>
+    </div>
+
+    
+</p>
+

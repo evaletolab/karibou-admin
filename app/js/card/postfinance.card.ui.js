@@ -6,6 +6,16 @@
 
 angular.module('postfinance.card.ui',[]) 
 
+.filter('formatExpiry',function () {
+  return function (input) {
+    if(!input)return input;
+    if(input.indexOf('/')===-1){
+      input=new Date(input);
+      return input.getMonth()+'/'+input.getFullYear()
+    }
+    return input;
+  }
+})
 
 .directive('paymentsFormat', ['$window', '_Format', 
   function($window, _Format){

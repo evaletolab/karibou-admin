@@ -34,7 +34,7 @@ markdown h2{
 	font-weight: 300;
 	font-style: italic;
 	color: #888;
-	border-left: 3px solid #444;
+	-border-left: 3px solid #444;
 	margin:  40px 0;
 	margin-left: -40px;  
 }
@@ -44,12 +44,15 @@ markdown blockquote{
 	background-color: rgba(128,128,128,0.05);
 }
 
-markdown p{
-	margin-bottom:25px;
-}
 
 markdown a.external{
 	color: #428BCA!important;
+}
+
+.markdown.page markdown p{
+	margin-bottom:25px;
+  font-size: 19px;
+  letter-spacing: 0px;
 }
 
 .wrapper-inner.markdown{

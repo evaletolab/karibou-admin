@@ -158,14 +158,19 @@ img.photo-owner{
   color: black;
 }
 
-.popupcontent div.quick-stock>p{
-  padding:10px 20px;
+.popupcontent div.quick-stock>p,.popupcontent div.product-document p{
   margin-bottom: 10px;
 }
 
-.popupcontent div.quick-stock>div{
-  padding:0px 20px;
+.popupcontent div.quick-stock{
+  padding:10px 20px;
 }
+
+.popupcontent div.product-document{
+  padding:10px 20px;
+  border-bottom: 2px dotted #DDD;
+}
+
 
 
 /* Desktop large

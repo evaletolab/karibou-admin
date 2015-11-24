@@ -21,6 +21,7 @@ function orderFactory(config, $resource, $q, user,shop, api, cart) {
           {action:'@action',id:'@id'}, {
           update: {method:'POST'},
           collect:{method:'POST',isArray:true, headers:{}},
+          inform:{method:'POST',isArray:false},
           delete: {method:'PUT'},
   });
 
@@ -250,6 +251,27 @@ function orderFactory(config, $resource, $q, user,shop, api, cart) {
   };
 
 
+  Order.prototype.getPriceDistance=function(item){
+    var original=0.0,validated=0.0;
+    if(!item&&this.items){
+      this.items.forEach(function(item){
+        //
+        // item should not be failure (fulfillment)
+        if(item.fulfillment.status!=='failure'){
+          original+=(item.price*item.quantity);
+          validated+=parseFloat(item.finalprice);
+        }
+      });
+    }else if(item){
+      original=(item.price*item.quantity);
+      validated=parseFloat(item.finalprice);      
+    }
+
+
+    return parseInt((validated/original*100)-100);
+  };
+
+
   Order.prototype.getShippingLabels=function(){
       var when=new Date(this.shipping.when);
       var time=config.shop.order.shippingtimes[when.getHours()];
@@ -261,24 +283,21 @@ function orderFactory(config, $resource, $q, user,shop, api, cart) {
   Order.prototype.getProgress=function(){
       //
       // end == 100%
-      var end=this.items.length+2;
+      var end=this.items.length;
       var progress=0;
       //
       // failure, create, partial, fulfilled
       if(['fulfilled','failure'].indexOf(this.fulfillments.status)!==-1){
         return 100.00;
       }
-      progress++;
 
       //
       // pending, paid, voided, refunded
       if(this.payment.status==='pending'){
         return (progress/end*100.00);
       }
-
       //
       // progress order items
-      progress++;
       for (var i in this.items){
         if(['fulfilled','failure'].indexOf(this.items[i].fulfillment.status)!==-1){
           progress++;
@@ -333,8 +352,9 @@ function orderFactory(config, $resource, $q, user,shop, api, cart) {
     return self;
   };
 
-  Order.prototype.informShopToOrders=function(shop,when,content){
-    return this.chain(backend.$order.save({action:shop,id:'email'},{when:when,content:content}).$promise);
+  Order.prototype.informShopToOrders=function(shop,when,fulfillment){
+    shop=shop||'shops';
+    return this.chain(backend.$order.inform({action:shop,id:'email'},{when:when,fulfillments:fulfillment}).$promise);
   };
 
   Order.prototype.updateBagsCount=function(value){
@@ -360,9 +380,12 @@ function orderFactory(config, $resource, $q, user,shop, api, cart) {
   };
 
   Order.prototype.updateItem=function(item,fulfillment, cb){
-    var tosave=angular.copy(item);
+    var tosave=angular.copy(item), me=this;
     tosave.fulfillment.status=fulfillment;
-    return this.chain(backend.$order.save({action:this.oid,id:'items'},[tosave]).$promise);
+    this.chain(backend.$order.save({action:this.oid,id:'items'},[tosave]).$promise).$promise.then(function () {
+      _.find(me.items,function(i){return i.sku===item.sku}).fulfillment.status=fulfillment;
+    })
+    return this;
   };
 
   Order.prototype.updateShipping=function(oid,status){
@@ -370,7 +393,7 @@ function orderFactory(config, $resource, $q, user,shop, api, cart) {
   };
 
   Order.prototype.updateCollect=function(shopname,status,when){
-    return this.chain(backend.$order.collect({action:shopname,id:'collect'},{status:status,when:when}).$promise);
+    return this.chain(backend.$order.collect({action:shopname,id:'collect'},{status:status,when:when}).$promise)
   };
 
   Order.prototype.findOrdersByUser=function(user){

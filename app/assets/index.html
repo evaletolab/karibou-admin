@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="fr" ng-controller="AppCtrl" class="-screen-scroll" ng-class="browser()">
+<html lang="fr" ng-controller="AppCtrl" class="-screen-scroll loading" ng-class="browser()">
   <head>
 
     <!--                                 
@@ -30,6 +30,13 @@
     <meta name="twitter:site" content="@kariboulab">
     <meta name="keywords" content="yoga,tofu,alimentation,pizza,traiteur,artisan,paysan,maraîcher,maraicher,boucher,boulanger,fromager,fruit,légume,bio">
 
+    <!-- PROMO -->
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/github-fork-ribbon-css/0.1.1/gh-fork-ribbon.min.css" />
+    <!--[if lt IE 9]>
+        <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/github-fork-ribbon-css/0.1.1/gh-fork-ribbon.ie.min.css" />
+    <![endif]-->
+
+
     <!--[if lt IE 9]>
       <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
@@ -39,7 +46,7 @@
     <!-- <link defer href='//fonts.googleapis.com/css?family=Halant:500|Fira+Sans:300' rel='stylesheet' type='text/css'> -->
 <!--     <link href="//code.cdn.mozilla.net/fonts/fira.css" rel="stylesheet" >    
  -->    
-    <link href='//fonts.googleapis.com/css?family=Gentium+Book+Basic:700' rel='stylesheet' type='text/css'>
+    <!-- <link href='//fonts.googleapis.com/css?family=Gentium+Book+Basic:700' rel='stylesheet' type='text/css'> -->
     <link defer rel="stylesheet" href="/css/vendor.css?cache={!distRelease!}">
     <link defer rel="stylesheet" href="/css/app.css?cache={!distRelease!}">
     <base  href="/" />
@@ -49,10 +56,30 @@
       UPLOADCARE_MANUAL_START = true;
       var ngCMSSettings={};
     </script>
+
+    <!-- GG analytics -->
+    <script>
+    if(location.origin.indexOf('evaletolab')==-1){
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('require', 'displayfeatures');
+      ga('create', 'UA-57032730-1', 'auto');
+    }
+    </script>
+    
   </head>
 
-   <body ng-class="{'display-cart':options.cart,'display-info':config.shop.maintenance.active, 'site-nav-transition site-nav-drawer-open':options.sidebar}">
+   <body  ng-class="{'display-cart':options.cart,'display-info':config.shop.maintenance.active, 'site-nav-transition site-nav-drawer-open':options.sidebar}">
 
+      <div class="github-fork-ribbon-wrapper right" ng-show="!cart.items.length&&showFeedbackWidget()">
+          <div class="github-fork-ribbon">
+              <a href="#" style="font-size:120%">
+              5fr de rabais ! <i class="fa fa-bicycle bold"></i> 
+              </a>
+          </div>
+      </div>
 
       <!-- DISPLAY CART -->
       <button class="site-nav-logo-cart hidden-print" 
@@ -104,17 +131,13 @@
                 <a  class="site-nav-list-item-btn" href="" ng-click="logout()"><i class="fa fa-sign-out green"></i>&nbsp;logout</a>
               </li>
 
-              <li class="site-nav-list-item" ng-show="user.isAdmin()">
-                <a  class="site-nav-list-item-btn" ng-href="/admin/collect" ><i class="fa fa-bicycle green"></i>&nbsp;collect</a>
-              </li>
-
-              <li class="site-nav-list-item" ng-show="user.shops.length||user.isAdmin()">
-                <a  class="site-nav-list-item-btn" ng-href="/admin/orders" ><i class="fa fa-cogs green"></i>&nbsp;orders</a>
-              </li>
-
               <!-- MENU -->
               <li class="site-nav-list-item divider visible-xs visible-sm">
                 <span  class="site-nav-list-item-text" >Le marché</span>
+              </li>
+              <li  class="site-nav-list-item " >
+                <a class="site-nav-list-item-btn  " title="Les boutiques" 
+                   ng-href="/products" tabindex="-1"><i class="fa fa-heart green "></i>&nbsp;La sélection</a>
               </li>
 
               <li  class="site-nav-list-item visible-xs visible-sm" ng-repeat="category in category.findAll()|filter:{type:'Category'}|orderBy:'weight'">
@@ -259,9 +282,12 @@
       </div>
       <div class="loading-bar"></div>
       <!-- FEEDBACK -->
-      <div ng-controller="FeedbackCtrl" class="hidden-print" ng-show="disableFeedbackWidget()">
-        <button class="ng-cloak  btn btn-feedbk feedbackbtn " ng-click="feedback.show=true" ng-hide="feedback.show"><i class="fa fa-pencil fa-1x"></i> {{getTitle()}}</button>
-        <div  class="feedbackform ng-cloak "  unselectable="on" ng-if="feedback.show">
+      <div ng-controller="FeedbackCtrl" class="hidden-print" ng-show="showFeedbackWidget()">
+        <button class="ng-cloak  btn btn-feedbk feedbackbtn " 
+                ng-click="feedback.show=true" 
+                ng-hide="feedback.show"><i class="fa fa-pencil fa-1x"></i> {{getTitle()}}
+        </button>
+        <div  class="feedbackform ng-cloak "  ng-show="feedback.show">
           <div unselectable="on" class="feedbackform-header">
             <b>{{getTitle()}}</b>
             <!-- <a title="Display the help screen." href="#" class="size-button help">?</a> -->
@@ -309,7 +335,7 @@
             </textarea>
           </div>
           <div unselectable="on" class="feedbackform-footer">
-            <a href="#" class="btn btn-transparent" ng-click="fbCancel()">Annuler</a>
+            <a href="#" class="btn btn-transparent" ng-click="feedback.show=false">Annuler</a>
             <div title="Send a screenshot of this site." 
                  class="btn btn-info"
                  ng-click="sendComment()"
@@ -329,28 +355,17 @@
   <script src="/js/loader.js"></script>
   <script type="text/javascript">
     basket.require(
-      { url: '/js/vendor.js', key: 'vendor', unique:KARIBOU_INSTANCE }
+      { url: '/js/vendor.js', key: 'vendor', unique:KARIBOU_INSTANCE },
+      { url: '/js/templates.js', key: 'templates', unique:KARIBOU_INSTANCE }
     ).then(function () {
       //
       // dependency chain
       return basket.require(
-          { url: '/js/templates.js', key: 'templates', unique:KARIBOU_INSTANCE },
-          { url: '/js/app.js', key: 'app', unique:KARIBOU_INSTANCE }
+        { url: '/js/app.js', key: 'app', unique:KARIBOU_INSTANCE }
       );
     });
   </script>
   -->
-  <!-- GG analytics -->
-  <script>
-  if(location.origin.indexOf('evaletolab')==-1){
-    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-    ga('require', 'displayfeatures');
-    ga('create', 'UA-57032730-1', 'auto');
-  }
-  </script>
 
 
   <!-- Google Code for karibou web Conversion Page -->

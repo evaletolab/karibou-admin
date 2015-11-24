@@ -1,0 +1,46 @@
+
+
+.document{
+	margin-top: 10px;
+}
+
+.edit.document h1{
+	border-bottom:1px solid #eee;
+}
+
+.edit.document h1.title, .edit.document h2.title, .edit.document h3.title, .edit.document h4.title{
+    margin-bottom: -12px;
+    margin-top: 20px;
+    color: #aaa;
+    letter-spacing: -1px;
+}
+
+.edit.document .field{
+	border:1px dotted #ddd;
+	padding: 5px 0;
+}
+
+.edit.document .field:hover{
+	border:1px solid #aaa;
+	padding: 5px 0;
+}
+
+
+.document p{
+	margin: 0px;
+  letter-spacing: -1px;
+}
+
+.edit.document label.valid{
+	padding: 10px;
+  background-color: pink;	
+}
+
+.edit.document label.published{
+	padding: 10px;
+  background-color: #efefef;	
+}
+
+.document img{
+	max-width:100%;
+}

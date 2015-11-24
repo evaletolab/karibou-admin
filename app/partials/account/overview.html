@@ -42,7 +42,9 @@
             <a class="list-group-item blue" href="/admin/repport/shop">Mes rapports d'activités</a> 
             <a ng-if="user.isAdmin()" class="list-group-item blue" href="/admin/collect">La collecte</a> 
             <a ng-if="user.isAdmin()" class="list-group-item blue" href="/admin/stats">Les statistiques</a> 
+            <a ng-if="user.isAdmin()" class="list-group-item blue" href="/admin/activities">L'activité</a> 
             <a ng-if="user.isAdmin()" class="list-group-item blue" href="/admin/user">Les utilisateurs</a> 
+            <a ng-if="user.isAdmin()" class="list-group-item blue" href="/admin/giftcards">Les cartes cadeaux</a>
           </div>
       </div>
 
@@ -56,6 +58,7 @@
           </div>
       </div>
 
+
       <!-- LAST ORDERS -->
       <div  class="well well-small white clearfix" >
         
@@ -64,6 +67,31 @@
         </h5>
         <p>
           <a class="list-group-item blue" href="/account/orders"><i class="fa fa-angle-right"></i>&nbsp;L'historique de mes commandes</a>
+        </p>
+      </div>    
+        
+      <div class="well well-small white  clearfix" >
+        <h5  class="article-group-title " >
+          <span class="bucket-header-title"><i class="fa fa-lock gray"></i>&nbsp;Mon compte commercial</span> 
+        </h5>
+        <div class="list-group">
+          <a class="list-group-item blue" href="/account/wallet"><i class="fa fa-angle-right"></i>&nbsp;Voir le solde de mon compte <i class="fa fa-money pull-right"></i></a>
+          <a class="list-group-item blue" href="/account/payment"><i class="fa fa-angle-right"></i>&nbsp;Mes méthodes de paiement <i class="fa fa-credit-card pull-right"></i></a>
+
+          <a class="list-group-item blue" href="/account/wallet/create"><i class="fa fa-angle-right"></i>&nbsp;Acheter une carte cadeau <i class="fa fa-heart pink pull-right"></i></a>
+
+        </div>
+      </div>          
+
+
+      <!-- MY DOCS -->
+      <div  class="well well-small white clearfix" >
+        
+        <h5  class="article-group-title " >
+          <span class="bucket-header-title"><i class="fa fa-file-text-o gray"></i>&nbsp;Mes publications</span> 
+        </h5>
+        <p>
+          <a class="list-group-item blue" href="/account/documents"><i class="fa fa-angle-right"></i>&nbsp;Toutes mes publications</a>
         </p>
       </div>    
 
@@ -105,7 +133,6 @@
         </h5>
         <div class="list-group">
           <a class="list-group-item blue" href="/account/password"><i class="fa fa-angle-right"></i>&nbsp;Modifier mon mot de passe</a>
-          <a class="list-group-item blue" href="/account/payment"><i class="fa fa-angle-right"></i>&nbsp;Mes méthodes de paiement <i class="fa fa-credit-card"></i></a>
         </div>
       </div>          
 

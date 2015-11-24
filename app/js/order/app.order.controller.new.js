@@ -35,7 +35,8 @@ function OrderNewCtrl($controller, $scope, $location, $rootScope, $routeParams, 
     'mastercard':'mc.jpg',
     'visa':'visa.jpg',
     'postfinance card':'pfc.jpg',
-    'invoice':'bvr.jpg'
+    'invoice':'bvr.jpg',
+    'wallet':'wallet.jpg'
   };
 
 
@@ -52,7 +53,7 @@ function OrderNewCtrl($controller, $scope, $location, $rootScope, $routeParams, 
   // user.ready &&  process => /order/process
   user.$promise.finally(function(){
     $scope.profileReady=(user.isReady()&&(user.hasPrimaryAddress()!==false));
-    $log.info('in flow',$scope.process, $scope.profileReady);  
+    $log.info('in flow',$scope.process, $scope.profileReady, cart.config.payment);  
 
     if(!user.isAuthenticated() && $scope.process==='profile'){
       $location.path('/order/profile');

@@ -1,4 +1,4 @@
-  <div class="cover-img bg-black" backstretch="cover">
+  <div class="cover-img " backstretch="cover">
 
   </div>
   <!-- DIPLAY CATEGORY -->
@@ -11,6 +11,12 @@
                 <a class="site-nav-list-item  " title="Tous les produits" 
                    href="/" tabindex="-1"><i class=""></i>&nbsp;Tous les produits</a>
               </li>
+              <li >
+                <a class="site-nav-list-item  " title="Toutes les boutiques" 
+                   ng-class="getClass('/shops')"
+                   ng-href="/shops" tabindex="-1"><i class=""></i>&nbsp;Toutes les boutiques</a>
+              </li>
+              
               <li  class="" ng-repeat="category in category.findAll()|filter:{type:'Category'}|orderBy:'weight'">
                 <a class="site-nav-list-item  " title="{{category.name}}" 
                    ng-class="getClass('/products/category/{{category.slug}}')"

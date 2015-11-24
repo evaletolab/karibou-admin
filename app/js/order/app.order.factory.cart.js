@@ -45,6 +45,11 @@ function cartFactory(config, $timeout,$rootScope,$window, $storage, api,user) {
   });
 
 
+  $rootScope.$on("user.update.payment",function () {
+    if(cart.config){cart.config.payment=undefined;}
+  });
+
+
 
   //
   // using flexible localStorage
@@ -112,6 +117,7 @@ function cartFactory(config, $timeout,$rootScope,$window, $storage, api,user) {
     
     return this.save();
   };
+
 
   Cart.prototype.addList=function(products){
     var total=0;

@@ -33,11 +33,12 @@ User.config([
       .when('/account/payment', {_view:'main', templateUrl : '/partials/account/payment.html'})
       .when('/account/orders', {_view:'main', templateUrl : '/partials/account/orders.html'})
       .when('/account/overview', {auth : true, _view:'main', templateUrl : '/partials/account/overview.html'})
+      .when('/account/wallet', {auth : true, _view:'main', templateUrl : '/partials/account/wallet.html'})
+      .when('/account/wallet/create', {auth : true, _view:'main', templateUrl : '/partials/account/wallet-create.html'})
       .when('/account/password', {auth : true, _view:'main', templateUrl : '/partials/account/password.html'})
       .when('/account/profile', {auth : true, _view:'main', templateUrl : '/partials/account/profile.html'})
       .when('/account/signup', {view:'main', templateUrl : '/partials/account/profile.html'})
 
-      .when('/admin/config', {title:'Configuration ', templateUrl : '/partials/dashboard/dashboard-config.html'})
       .when('/admin/user', {title:'Admin of users ', templateUrl : '/partials/admin/user.html'});
   }
 ]);
@@ -74,7 +75,8 @@ User.controller('AccountCtrl',[
       'mastercard':'mc.jpg',
       'visa':'visa.jpg',
       'postfinance card':'pfc.jpg',
-      'invoice':'bvr.jpg'
+      'invoice':'bvr.jpg',
+      'wallet':'wallet.jpg'
     };
 
     // show payment form
@@ -87,6 +89,11 @@ User.controller('AccountCtrl',[
 
     // default model for modal view
     $scope.modal = {};
+
+    if($routeParams.gift!==undefined){
+      $scope.options.showWallet=true;
+      $scope.number=$routeParams.gift;
+    }
 
 
     $scope.applyTableFilter=function (action) {
@@ -150,8 +157,9 @@ User.controller('AccountCtrl',[
     //
     // list all users
     // get list of users
-    $scope.findAllUsers=function(){
-      user.query({}).$promise.then(function(u){
+    $scope.findAllUsers=function(filter){
+      filter=filter||{};
+      user.query(filter).$promise.then(function(u){
           $scope.users=u;
       });
     };
@@ -166,6 +174,10 @@ User.controller('AccountCtrl',[
         //
         // if referer is in protected path?
         if($scope.referrer&&_.find(config.loginPath,function(path){
+            return ($scope.referrer.indexOf(path)!==-1);})){
+          return $location.url($scope.referrer);
+        }
+        if($scope.referrer&&_.find(config.readonlyPath,function(path){
             return ($scope.referrer.indexOf(path)!==-1);})){
           return $location.url($scope.referrer);
         }
@@ -223,6 +235,12 @@ User.controller('AccountCtrl',[
 
       user.register(r,function(){
         api.info($scope,"Votre compte à été créé! Une demande de confirmation vous a été envoyée à votre adresse email");
+
+        if($scope.referrer&&_.find(config.readonlyPath,function(path){
+            return ($scope.referrer.indexOf(path)!==-1);})){
+          return $location.url($scope.referrer);
+        }
+
         $location.url('/');
       });
     };
@@ -327,6 +345,7 @@ User.controller('AccountCtrl',[
           api.info($scope,"Votre méthode de paiement a été enregistrée");
           $rootScope.WaitText=false;
           $scope.options.showCreditCard=false;
+          $scope.user.payments=u.payments;
         });
 
       });      
@@ -334,11 +353,10 @@ User.controller('AccountCtrl',[
 
     $scope.hasMethod=function  (u,issuer) {
       if(u.payments)for (var i = u.payments.length - 1; i >= 0; i--) {
-        if(u.payments[i].issuer.toLowerCase()===issuer)return true;
+        if((issuer||'').indexOf(u.payments[i].issuer.toLowerCase())!==-1)return true;
       }
       return false;
     };
-
 
     $scope.addInvoiceMethod=function  (name,expiry,uid) {
       //
@@ -370,6 +388,7 @@ User.controller('AccountCtrl',[
         api.info($scope,"Votre méthode de paiement a été supprimé");
       });
     };
+
 
     $scope.ecommerceForm=function(){
       $rootScope.WaitText="Waiting ...";

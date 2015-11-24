@@ -1,0 +1,150 @@
+
+<div tabindex="-1"  id="null" class="screen-content document edit" ng-controller="DocumentCtrl">
+  <aside ng-include="'/partials/account/cover.html'"
+         class="cover cover-home img-loaded" ng-class="{'session':user.isAuthenticated()}">
+  </aside>
+
+
+  <section class="wrapper" tabindex="-1" >
+    <div class="wrapper-inner markdown" ng-init="findOneDocument()">
+
+      <h1>Nouvelle {{defaultLabel[document.model.type]||'publication'}} </h1>
+
+
+      <!--                               -->
+      <!-- CONTENT                       -->
+      <!--                               -->
+      <label  class="pull-right published">
+        <input type="checkbox"   ng-model="document.model.published" ng-disabled="!user.isAdmin()">&nbsp;Publiée
+        </label>
+      <label  class="pull-right valid">
+        <input type="checkbox"   ng-model="document.model.available">&nbsp;Valide 
+        </label>
+
+      <h3 class="title">Titre</h3>
+      <div contentEditable="true" 
+           contentMakrdown="false"  
+           ng-model="document.model.title" class="field">{{document.model.title}}</div>
+      <h3 class="title">En tête</h3>
+      <div contentEditable="true"  ng-model="document.model.header" class="field" style="min-height:100px">
+        document.model.header
+      </div>
+
+      <h3 class="title">Contenu</h3>
+      <div contentEditable="true"  
+           ng-model="document.model.content"  
+           class="field" style="min-height:300px">
+        document.model.content
+      </div>
+
+      <h3 class="title">Signature</h3>
+      <div contentEditable="true" contentMakrdown="false"  
+           ng-model="document.model.signature" 
+           class="field">
+        
+      </div>
+
+      <!-- TYPE -->
+      <div ng-if="!document.model.type">
+        <h3 class="title">Type du document</h3>
+        <select class="form-control  " 
+                ng-model="document.model.type" 
+                ng-options="type as type for type in types track by type">
+                <option value=""  selected>-- Choisir un type de document</option>
+        </select>                     
+        
+      </div>
+
+      <!-- PRODUCTS -->
+      <h3 class="title">Associations</h3>
+      <!-- PHOTOS -->
+      <div class="clearfix  ">
+        <table class="table condensed">
+          <thead>
+            <tr>
+              <th>Produits associées</th>
+              <th>sku</th>
+            </tr>
+          </thead>          
+          <tbody>
+          <tr ng-repeat="sku in document.model.skus">
+            <td><a ng-href="/products/{{sku}}">{{sku}}</a></td>
+            <td><button class="btn btn-xs btn-default" ng-click="removeSku(sku)">enlever</button></td>
+          </tr>
+        </tbody>
+      </table>
+
+
+      <!-- PHOTOS -->
+      <div class="clearfix  ">
+        <table class="table condensed">
+          <thead>
+            <tr>
+              <th>Photos associées</th>
+              <th></th>
+            </tr>
+          </thead>          
+          <tbody>
+          <tr>
+            <td>
+              <img ng-src="{{document.model.photo.header| placehold:'160x160&text=header'}}" class="img-rounded " style="width:50px">
+            </td>
+            <td>
+              <uploadcare-widget
+                    ng-model="document.model.photo.header"
+                    data-locale="fr"
+                    data-tabs="file url facebook flickr"
+                    data-images-only="true"
+                    data-path-value="true"
+                    data-preview-step="true"
+                    data-clearable="true"
+                    data-multiple="false"
+                    data-crop="free"
+                    data-max-size-hide="153600"
+                    data-on-upload-error="uploadImageError(error)"
+                    value="{{document.model.photo.header}}">
+              </uploadcare-widget>              
+            </td>
+          </tr>
+          <tr>
+            <td colspan="2">Copier le lien dans le contenu ci dessus pour voir l'image</td>
+          </tr>
+          <tr ng-repeat="photo in document.model.photo.bundle">
+            <td colspan="2">
+              <img ng-src="{{document.model.photo.bundle[$index]| placehold:'160x160&text=header'}}" class="img-rounded shop" style="width:50px">
+
+              <uploadcare-widget
+                    ng-model="document.model.photo.bundle[$index]"
+                    data-locale="fr"
+                    data-tabs="file url facebook flickr"
+                    data-images-only="true"
+                    data-path-value="true"
+                    data-preview-step="true"
+                    data-clearable="true"
+                    data-multiple="false"
+                    data-crop="free"
+                    data-max-size-hide="153600"
+                    data-on-upload-error="uploadImageError(error)"
+                    value="{{document.model.photo.bundle[$index]}}">
+              </uploadcare-widget>              
+
+              <div ng-if="document.model.photo.bundle[$index]" class="gray link">![titre image]({{document.model.photo.bundle[$index]}})</div>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="2">
+              <button  ng-click="document.model.photo.bundle.push({})" class="btn btn-primary btn-xs  btn-block">Ajouter <i class="fa fa-plus"></i></button>              
+            </td>
+          </tr>
+          </tbody>          
+        </table>
+      </div>
+
+      <!-- FOOTER -->
+      <a ng-href="/content/{{document.model.slug}}" class="btn btn-default btn-lg" ng-show="document.model.slug" >Visionner</a>
+
+      <button class="btn btn-primary btn-lg" ng-show="document.model.slug" ng-click="save()">Enregistrer</button>
+      <button class="btn btn-primary btn-lg" ng-show="!document.model.slug" ng-click="create()">Créer</button>
+    </div>
+  </section>
+</div>

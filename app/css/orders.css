@@ -55,6 +55,11 @@ div.shipping-date{
   top: 5px;
   right: 30px;  
   padding: 4px;
+  background-color: white;
+}
+
+.list-group-item.list-group-item-active{
+  background-color: rgba(246, 227, 206, 0.9);
 }
 
 
@@ -62,6 +67,7 @@ div.list-group-item{
   margin: 5px;
   padding: 15px 5px;  
 }
+
 
 table th.col-product{
   width: 70%;
@@ -90,14 +96,22 @@ table.table > tbody + tbody{
 
 /* Desktop large
 ------------------------- */
-@media (min-width: 1200px) {
+@media (min-width: 980px) {
 
 }
+
 
 
 /* Desktop
 ------------------------- */
 @media (max-width: 980px) {
+div.order-list-items{
+    position: absolute;
+    padding: 1px;
+    height: 100%;
+    background-color: white;
+}
+
 }
 
 /* Tablet to desktop
@@ -109,6 +123,7 @@ table.table > tbody + tbody{
 /* Tablet
 ------------------------- */
 @media (max-width: 767px) {
+
 
 .wizard.login a.link{
   position: relative;

@@ -1,0 +1,72 @@
+  <!-- ITEMS BY SHOPS -->
+  <!-- ITEMS -->
+  <ul class="list-group" ng-repeat="group in selected.items|filterItemsByShop:filters.s|groupBy:'rank' " >
+
+    <!-- FOOTER -->
+    <li class="list-group-item list-group-item clearfix" style="padding:25px 20px;">
+        <div>
+          <span class="bold  label-lg label label-primary">sac {{selected.order.rank}}</span>&nbsp;
+          <span class="text-capitalize ">{{selected.order.customer.name.givenName}} {{selected.order.customer.name.familyName}}</span>, {{getAmountTotal(group)|number:2}} CHF
+          
+
+          <button 
+            type="button" 
+            class="pull-right btn btn-sm btn-default  " 
+            ng-click="selectOrder(selected.order)"><span class="fa fa-close"></span></button>
+
+        </div>
+    </li>
+
+
+    <!-- BODY -->
+    <li  class="list-group-item " 
+         ng-repeat="item in group|orderBy:['rank','vendor']" >
+      <h4 class="list-group-item-heading"> 
+          <span ng-class="(item.quantity>1)?'bold red':''">{{item.quantity}}x</span> <a ng-href="/products/{{item.sku}}">{{item.title}} ({{item.part}})</a> 
+          <div ng-if="item.variant.title" class="small"><span class="fa fa-warning red">option: </span><span>{{item.variant.title}}</span></div>
+          <span class="bag-1 green fa fa-thumbs-up fa-1x" ng-show="item.fulfillment.status==='fulfilled'"></span>
+          <span class="bag-1 red fa fa-thumbs-down fa-1x" ng-show="item.fulfillment.status==='failure'"></span>
+
+      </h4>
+      <span  title="Le pourcentage au dessus ou dessous du prix d'origine" ng-show="selected.order.getPriceDistance(item)>0"
+            class="bag-2 grayx smallx link">{{selected.order.getPriceDistance(item)}}%</span>
+
+      <div class="list-group-item-text clearfix">
+        <div class="col-xs-10 col-sm-7  nopadding">
+          <form class="form-inline    " ng-hide="options.showWidget" style="margin:0">
+            <button type="button" class="btn btn-default btn-xs "
+                    ng-class="{'btn-done':['fulfilled','failure'].indexOf(item.fulfillment.status)!==-1}"
+                    ng-click="updateItem(selected.order.oid,item,'failure')"
+                    ><i class="fa fa-thumbs-down"></i> Annulez</button>
+
+            <input type="text" type="number"  
+                   class="form-control input-xs" 
+                   ng-class="{'input-done':['fulfilled','failure'].indexOf(item.fulfillment.status)!==-1}"
+                   style="margin-top: -4px; width: 60px; display: inline;"
+                   ng-model="item.finalprice" >&nbsp;
+            <button type="button" class="btn btn-default btn-xs "
+                    ng-class="{'btn-done':['fulfilled','failure'].indexOf(item.fulfillment.status)!==-1}"
+                    ng-click="updateItem(selected.order.oid,item,'fulfilled')"
+                    ><i class="fa fa-check"></i> Validez</button>
+          </form>
+
+        </div>
+      </div>
+    </li>
+    <!-- FOOTER -->
+    <li class="list-group-item list-group-item clearfix" style="padding:25px 20px;">
+        <div>
+          <span class="bold  label-lg label label-primary">sac {{selected.order.rank}}</span>&nbsp;
+          <span class="text-capitalize ">{{selected.order.customer.name.givenName}} {{selected.order.customer.name.familyName}}</span>, {{getAmountTotal(group)|number:2}} CHF
+          
+          <button 
+            type="button" 
+            class="pull-right btn btn-sm btn-default  " 
+            ng-show="hasNextOrder()"
+            ng-click="selectNextOrder()"><span class="fa fa-chevron-circle-right "> Client suivant</span></button>
+
+        </div>
+    </li>
+
+  </ul>
+

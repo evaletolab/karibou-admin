@@ -2,8 +2,8 @@
 
 // 
 // chromium-browser --ignore-gpu-blacklist --disable-gpu-sandbox
-var API_SERVER='http://localhost:4000';
-// var API_SERVER='//api.'+window.location.hostname;
+// var API_SERVER='http://localhost:4000';
+var API_SERVER='//api.'+window.location.hostname;
 // var API_SERVER='http://192.168.1.35:4000'
 // var API_SERVER='http://karibou-api.cloudfoundry.com'
 // var API_SERVER='http://karibou-evaletolab.rhcloud.com'
@@ -34,7 +34,10 @@ angular.module('app', [
   'app.product',
   'app.category',
   'app.order',
+  'app.order.admin',
   'app.stats',
+  'app.document',
+  'app.wallet',
   'app.home'
 ])
   .value('API_SERVER',API_SERVER)
@@ -238,12 +241,16 @@ function errorInterceptor($q, scope, $location, $timeout) {
             }else if (response.data.toLowerCase().indexOf('vous devez ouvrir')){
               // if logged but without correct right 
               showError(scope,response.data);            
+            }else if(response.config.url.indexOf('/v1/users/me')===-1){
+              showError(scope,"Access denied!")
             }
           }
 
           else if(response.status>0){
             showError(scope,response.data);
           }
+          NProgress.done();
+
           return $q.reject(response);
       }
   };

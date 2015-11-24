@@ -59,10 +59,12 @@ User.factory('user', [
 
 
     User.prototype.display=function(){
+        if (this.displayName){
+          return this.displayName;
+        }
         if (this.name && (this.name.givenName || this.name.familyName)) {
           return this.name.givenName+' '+this.name.familyName;
         }
-        if (this.displayName)return this.displayName;
         if (this.id){
           return this.id+'@'+this.provider;
         }
@@ -205,8 +207,13 @@ User.factory('user', [
           self.wrap(_u);
           self.shops=shop.wrapArray(self.shops);
 
+          //
           // init
           self.init();
+
+          //
+          // broadcast info
+          $rootScope.$broadcast("user.init");
 
           if(cb)cb(self);
           return self;
@@ -314,6 +321,8 @@ User.factory('user', [
         if(u.id===_user.id){
           _user.copy(u);
         }
+        $rootScope.$broadcast("user.update",self);
+
         if(cb)cb(_user);
       });
       return _user;
@@ -371,6 +380,7 @@ User.factory('user', [
     User.prototype.remove=function(password,cb){
       var self=this, u=backend.$user.delete({id:this.id},{password:password}, function() {
         self.delete();
+        $rootScope.$broadcast("user.remove",self);
         cb();
       });
     };
@@ -380,6 +390,9 @@ User.factory('user', [
       var self=this, params={};
       var u = backend.$user.save({id:this.id,action:'like',aid:product.sku}, function() {
         self.copy(u);
+
+        $rootScope.$broadcast("user.update.love",self);
+
         if(cb)cb(self);
       });
       return this;
@@ -433,6 +446,7 @@ User.factory('user', [
             self.payments.splice(p,1);
           }
         }
+        $rootScope.$broadcast("user.update.payment");
         if(cb)cb(self);
       });
       return this;

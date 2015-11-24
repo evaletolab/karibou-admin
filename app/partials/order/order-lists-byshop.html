@@ -1,6 +1,4 @@
-<!-- ORDERS BY SHOPS -->
-<div  ng-repeat="(shop, items) in shops" ng-if="shops" >
-
+  <!-- ITEMS BY SHOPS -->
   <!-- ITEMS -->
   <ul class="list-group" ng-repeat="group in items|filterBy:['vendor']:filters.s|groupBy:'rank' " >
     <li class="list-group-item list-group-item-transparent" 
@@ -39,7 +37,7 @@
             <input type="text" type="number"  
                    class="form-control input-sm" 
                    ng-model="item.finalprice" 
-                   ng-disabled="getInputDisabled(item)" >
+                   ng-disabled="isInputItemPriceDisabled(item)" >
             <span class="input-group-btn">
               <button type="button" class="btn btn-success btn-sm "
                       ng-click="updateItem(item.oid,item,'fulfilled')"
@@ -53,5 +51,4 @@
   </ul>
   <!-- ITEMS TOTAL -->
   <p ng-show="(!filters.s||filters.s===shop)" class="gray small">Total commandé : {{getAmountTotal(shop)|number:2}} CHF</p>
-</div>
 

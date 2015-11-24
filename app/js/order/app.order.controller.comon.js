@@ -24,6 +24,11 @@ function OrderCommonCtrl($scope, $routeParams, api, order, user, product,shop, M
   $scope.years=[2014,2015];
   $scope.loading=true;
 
+  $scope.selected={
+    order:false,
+    items:[]
+  }
+
   $scope.options={
     showMenu:false,
     showWidget:false,
@@ -45,12 +50,12 @@ function OrderCommonCtrl($scope, $routeParams, api, order, user, product,shop, M
   $scope.options.fulfillments={
     "failure":"failure",
     "created":"created",
-    "reserved":"reserved",
+    "reserved":"reservée",
     "partial":"partial",
     "fulfilled":"complétée"
   }
 
-  $scope.shopsSelect=shop.query({});
+  // $scope.shopsSelect=shop.query({});
 
   // default model for modal view
   $scope.modal = {};
@@ -105,6 +110,18 @@ function OrderCommonCtrl($scope, $routeParams, api, order, user, product,shop, M
     $scope.modal = {};
   };
 
+  //
+  // when displaying orders, the select can be blocked
+  $scope.isShopSelectionAvailable=function () {
+    if($routeParams.s){
+      return false;
+    }
+    if(!user.isAdmin()&&user.shops.length<2){
+      return false;
+    }
+    return true;
+  }
+
 
   //
   //
@@ -141,16 +158,31 @@ function OrderCommonCtrl($scope, $routeParams, api, order, user, product,shop, M
     // order.payment.status
     // "pending","authorized","partially_paid","paid","partially_refunded","refunded","voided"
     prefix=prefix||'';
-    if(order.fulfillments.status=='failure')
-      return prefix+'danger';
 
-    if(order.fulfillments.status=='partial')
-      return prefix+'warning';
+    //
+    // SELECT ITEM
+    var selected=''
+    if($scope.selected.order&&$scope.selected.order.oid===order.oid){
+      selected=prefix+'active ';
+    }
+
+
+    if(order.fulfillments.status=='failure')
+      return selected+prefix+'danger';
+
+    //
+    // for this case it depends if you are admin or vendor
+    if(order.fulfillments.status=='partial'){
+      if(order.getProgress()===100){
+        return selected+prefix+'success';
+      }
+      return selected+prefix+'warning';
+    }
 
     if(order.fulfillments.status=='fulfilled')
-      return prefix+'success';
+      return selected+prefix+'success';
 
-    return '';
+    return selected;
   };
 
 
@@ -163,6 +195,7 @@ function OrderCommonCtrl($scope, $routeParams, api, order, user, product,shop, M
     if(item.selected){
       prefix='list-group-item-selected '+prefix;
     }
+
 
     if(item.fulfillment.status=='failure' ||orderFailure)
       return prefix+'danger';
@@ -212,6 +245,20 @@ function OrderCommonCtrl($scope, $routeParams, api, order, user, product,shop, M
       return p.number;
     }).join(';');
   };
+
+
+  //
+  // copy an order in the new bask
+  $scope.copyOrder=function (order) {
+    var skus=[];
+    order.items.forEach(function (item) {
+      var sku={};
+      sku[item.sku]=item.quantity;
+      skus.push(sku);
+      
+      // body...
+    })
+  }
 
 
 

@@ -1,0 +1,40 @@
+
+<div tabindex="-1"  id="null" class="screen-content" ng-controller="DocumentCtrl">
+  <aside ng-include="'/partials/account/cover.html'"
+         class="cover cover-home img-loaded hide" ng-class="{'session':user.isAuthenticated()}">
+  </aside>
+
+
+  <section class="container" tabindex="-1" style="margin-top:50px;"
+           ng-init="findDocuments()" >
+    <div class=" " >
+
+      <!--                               -->
+      <!-- CONTENT                       -->
+      <!--                               -->
+
+      <div  class="bucket post-bucket homepage-posts ">
+        <div class="bucket-header bucket-header-list show-subtitles-variant">
+           <nav class="bucket-sort">
+              <h5 class="bucket-title active " >
+                <a href="/content/category/{{type}}" ><span class="bucket-header-title">{{defaultTitle[type]}}</span> </a>
+              </h5>
+
+           </nav>
+        </div>
+      </div>
+
+
+      <div ng-if="!document.models.length && !WaitText" class="text-center grayx">
+          <i class="fa fa-frown-o fa-7x "></i>
+          <h4>La liste est vide</h4>
+      </div>
+
+      <!-- ONE RANDOM SHOPS -->
+      <div  class="nopadding col-sm-6 col-md-6 col-xs-12" style="background-color:transparent" 
+          ng-static-include="'/partials/document/document-image.html'"  
+          ng-repeat="doc in documents" >
+      </div> 
+    </div>
+  </section>
+</div>

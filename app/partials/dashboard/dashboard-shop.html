@@ -56,8 +56,11 @@
         <!-- ORDERS BY SHOP -->
         <div  ng-if="shops" 
               class=" nopadding" 
-              ng-class="{'col-xs-4 col-md-6':options.showWidget,'col-xs-12':!options.showWidget}"
-              ng-include="'/partials/order/order-lists-byshop.html'"></div>
+              ng-class="{'col-xs-4 col-md-6':options.showWidget,'col-xs-12':!options.showWidget}">
+              <div  ng-repeat="(shop, items) in shops" ng-include="'/partials/order/order-lists-byshop.html'">
+              </div>
+
+        </div>
 
         <!-- WIDGET -->
         <div ng-if="options.showWidget"  id="validate-widget"

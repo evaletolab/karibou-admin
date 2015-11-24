@@ -16,6 +16,15 @@ body {
   height: 100%;
 }
 
+.loading{
+  background-color: black;
+}
+
+.loading.ng-scope{
+  background-color: inherit;
+
+}
+
 body.display-cart, body.site-nav-drawer-open{
   overflow-y: hidden;
 }
