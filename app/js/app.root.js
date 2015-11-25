@@ -119,6 +119,19 @@ function appCtrl($scope, $rootScope, $window,  $location, $routeParams, $timeout
     }
   });
 
+  $scope.showShopWidgets=function () {
+    var currentPath=$location.path();
+  
+    //
+    // if referer is in protected path?
+    if(_.find(config.avoidShopUIIn,function(path){
+        return (currentPath.indexOf(path)!==-1);})){
+      return false;
+    }
+    return true;
+  };
+
+
   //
   // welcome click 
   $scope.onWelcome=function () {
