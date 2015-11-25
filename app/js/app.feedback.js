@@ -14,7 +14,6 @@ FeedbackCtrl.$inject=['config','$scope','$rootScope','$timeout','$location','use
 function FeedbackCtrl(config, $scope, $rootScope,$timeout,  $location, user,api,feedback) {
 
   var fb=$scope.feedback=feedback;
-  var currentPath=$location.path();
 
   user.$promise.finally(function () {
     if(user.email.address){
@@ -22,16 +21,6 @@ function FeedbackCtrl(config, $scope, $rootScope,$timeout,  $location, user,api,
     }
   });
 
-  $scope.showFeedbackWidget=function () {
-
-    //
-    // if referer is in protected path?
-    if(_.find(config.avoidFeedbackIn,function(path){
-        return (currentPath.indexOf(path)!==-1);})){
-      return false;
-    }
-    return true;
-  };
 
   //
   // be sure to update user value when it change is state from anonymous to logged
@@ -86,8 +75,6 @@ function FeedbackCtrl(config, $scope, $rootScope,$timeout,  $location, user,api,
   // update feedback state 
   $rootScope.$on('$routeChangeSuccess', function (event, route) {
     $timeout(function () {
-      currentPath=$location.path();
-
 
       feedback.updateScope(route);
     },500);
