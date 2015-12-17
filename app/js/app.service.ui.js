@@ -391,7 +391,7 @@ UI.directive('computeUrl', ['$parse','api', function($parse,api) {
 
 
 UI.directive('backfader', ['$parse','$location','$anchorScroll','$routeParams','api', function($parse,$location,$anchorScroll, $routeParams,api) {
-  var referrers=[];
+  var referrers=[], map={};
   return function(scope, element, attr) {
       var path=$location.path();
 
@@ -418,7 +418,10 @@ UI.directive('backfader', ['$parse','$location','$anchorScroll','$routeParams','
         angular.element("body").removeClass('noscroll');
       });
 
-      // console.log('open --------------',path);
+      // save 
+      map[path]=referrer;
+
+      // console.log('open --------------['+path+']',referrer);
   
 
       (function(referrer, scrollLeft,scrollTop){
@@ -429,10 +432,10 @@ UI.directive('backfader', ['$parse','$location','$anchorScroll','$routeParams','
           // - product is open in edit mode
           // - product is open in normal mode and then edited
           if(api.computeUrl){
-            url=api.computeUrl(referrers)
+            url=api.computeUrl(map[path])
           }
           else{
-            url=path;
+            url=map[path]||path;
           }
           
 

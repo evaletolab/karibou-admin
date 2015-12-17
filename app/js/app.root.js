@@ -71,6 +71,16 @@ function appCtrl($scope, $rootScope, $window,  $location, $routeParams, $timeout
     $scope.campaign=result.data;
   });
 
+  $scope.displayBundle=function (){
+    document.get(config.shop.home.path).model.$promise.then(function(model){
+      $rootScope.title='documents '+model.slug+' - '+model.title;
+      if(model.products){
+        model.products=product.wrapArray(model.products);
+      }
+      $scope.bundle=model;
+    });
+  };
+
   //
   // clear cache
   $rootScope.$on('$viewContentLoaded', function() {
@@ -321,10 +331,13 @@ function appCtrl($scope, $rootScope, $window,  $location, $routeParams, $timeout
     cart.remove(item, true);
   };
 
-  $scope.uploadImageError=function(error){
+  $rootScope.uploadImageError=function(error){
       //http://ucarecdn.com/c1fab648-f6b7-4623-8070-798165df5ca6/-/resize/300x/
       if(error){
-        return api.info($scope,error);
+        console.log('-----------------',error)
+        $timeout(function () {
+          api.info($rootScope,error);
+        });
       }
 
   };

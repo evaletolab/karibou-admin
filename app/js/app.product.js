@@ -109,7 +109,7 @@ function productCtrl ($scope,$rootScope, $location, $routeParams, config, catego
     $rootScope.WaitText="Waiting ...";
     product.save(function(s){
         api.info($scope,"Votre produit a été enregistré!",2000, function(){
-          $location.path(api.computeUrl());
+          window.history.back();
         });
     });
   };
@@ -146,18 +146,6 @@ function productCtrl ($scope,$rootScope, $location, $routeParams, config, catego
     
   };
 
-  
-
-
-  $scope.uploadImageError=function(error){
-      //http://ucarecdn.com/c1fab648-f6b7-4623-8070-798165df5ca6/-/resize/300x/
-      if(error){
-        return api.info($scope,error);
-      }
-
-  };
-  
-  
   
 
   if($routeParams.sku){

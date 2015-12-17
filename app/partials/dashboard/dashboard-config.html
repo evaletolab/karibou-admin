@@ -49,6 +49,19 @@
         </div>
 
         <!-- MAINTENANCE -->
+        <h3 class="page-header">Home</h3>
+        <div class="form-group ">                        
+          <label class="control-label">Afficher les produits préférés
+            <input type="checkbox" ng-model="config.shop.home.love">
+          </label>
+        </div>
+        <div class="form-group ">                        
+            <input type="text" class="form-control input-lg" ng-model="config.shop.home.path" />
+            <p class="help-block">Afficher un bundle</p>
+        </div>
+
+
+        <!-- MAINTENANCE -->
         <h3 class="page-header">Maintenance</h3>
         <div class="form-group ">                        
           <label class="control-label">Toutes les livraisons sont interrompues

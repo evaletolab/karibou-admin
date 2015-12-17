@@ -50,12 +50,12 @@ function uploadcareWidget(config, $parse, $timeout, $log) {
               // $timeout(function() {
               //   $parse($attrs.ngModel).assign($scope.$parent, '//ucarecdn.com/'+fileInfo.uuid+'/');
               // },200)
-              $scope.$apply(function () {
+              $timeout(function () {
                 $parse($attrs.ngModel).assign($scope.$parent, '//ucarecdn.com/'+fileInfo.uuid+'/');
-              });
+              },100);
             }).fail(function(error, fileInfo) {
               $log.error('Uploadcare upload error',error,fileInfo);
-              $scope.onUploadError({error: error});
+              // $scope.onUploadError({error: error});
             });        
 
           }

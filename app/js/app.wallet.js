@@ -128,7 +128,7 @@ function walletCtrl ($scope,$rootScope, $routeParams, $location, config, feedbac
   };   
 
   $scope.loadMyGiftcards=function () {
-    $http.get(config.API_SERVER+'/v1/wallets',{id:user.id}).then(function (result) {
+    $http.get(config.API_SERVER+'/v1/wallets?id='+user.id).then(function (result) {
       $scope.giftcards=result.data;
     });
   };

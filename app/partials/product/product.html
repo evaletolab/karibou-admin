@@ -50,10 +50,6 @@
           <img ng-cloak ng-if="!product.pricing.stock" ng-src="/img/product-stock.gif" class="available">
 
 
-          <!-- CLOSE-->
-          <div class="closed" ng-if="product.vendor.available.active">
-            <!-- {{product.vendor.available.comment}} -->
-          </div>
           <!-- PRICE-->
           <div class="price" itemprop="price">
             <!-- REGULAR -->
@@ -80,8 +76,13 @@
           <div class="row-fluid vertical-divider border "  ng-hide="shop.name">
             <div ng-show="product.vendor" >
               <span  ng-show="product.vendor.photo.owner" >
-                <img ng-src="{{product.vendor.photo.owner| placehold:'80x80&text=l`équipe'}}"  alt="160x160" class="shop-owner" >
+                <img ng-src="{{product.vendor.photo.owner}}-/resize/100x/"  alt="160x160" class="shop-owner" >
               </span>
+              <!-- CLOSE-->
+              <div class="closed" ng-if="product.vendor.available.active">
+                <i class="fa fa-info fa-2x"></i> 
+              </div>
+
             
               <span class="shop-title-prefix"  >Vendu par</span>
               <a class="shop-title " 

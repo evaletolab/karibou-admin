@@ -41,9 +41,10 @@ Home.controller('HomeCtrl', [
   'user',
   'shop',
   'product',
+  'document',
   'Map',
 
-  function ($scope, $route, $location, $rootScope, $routeParams, $q, config, api, category, user, shop, product,Map) {
+  function ($scope, $route, $location, $rootScope, $routeParams, $q, config, api, category, user, shop, product,document, Map) {
     var filter={sort:'created'};
     $scope.user = user;
     $scope.map=new Map();
@@ -77,6 +78,7 @@ Home.controller('HomeCtrl', [
       // 
       return addresses;
     };
+
 
     $scope.findAllUserLoves=function(){
       $scope.products=[];
@@ -140,7 +142,10 @@ Home.controller('HomeCtrl', [
       //
       // get shops for the front page
       if($location.path()==='/shops'){
-        filter={sort:'created',group:'catalog.name' };
+        filter={sort:'created',group:'catalog.name'};
+        if(!user.isAdmin()){
+          filter.status=true;
+        }
         $scope.shops=shop.home(filter,function(shops){
           $scope.items=$scope.shops=shops;
           $scope.addresses=$scope.shopsAddress(shops);

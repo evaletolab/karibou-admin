@@ -257,7 +257,8 @@
                     <h4 class="list-group-item-heading heading-center">
                       <span ng-show="method.issuer==='invoice'">Facture en ligne &nbsp;</span> 
                       <span ng-show="method.issuer==='wallet'">Votre compte privé &nbsp;</span>
-                      {{method.number}} <span class="bold green" payments-date="{{method.expiry}}">{{method.expiry|formatExpiry}}</span>
+                      <span ng-hide="method.issuer==='wallet'">{{method.number}}</span>
+                      <span class="bold green" payments-date="{{method.expiry}}">{{method.expiry|formatExpiry}}</span>
                     </h4>
                     <p class="list-group-item-text comment-text " >
 

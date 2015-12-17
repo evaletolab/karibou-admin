@@ -6,8 +6,8 @@
 angular.module('app.order.common', ['app.order.ui','app.config', 'app.api'])
   .controller('OrderCommonCtrl',OrderCommonCtrl);
 
-OrderCommonCtrl.$inject=['$scope','$routeParams','api','order','user','product','shop','Map','config'];
-function OrderCommonCtrl($scope, $routeParams, api, order, user, product,shop, Map, config) {
+OrderCommonCtrl.$inject=['$scope','$routeParams','api','order','user','product','shop','Map','config','$q'];
+function OrderCommonCtrl($scope, $routeParams, api, order, user, product,shop, Map, config, $q) {
 
   $scope.map=new Map();
   $scope.user=user;
@@ -68,7 +68,7 @@ function OrderCommonCtrl($scope, $routeParams, api, order, user, product,shop, M
     return 0;
   };
 
-  config.shop.then(function(){
+  $q.all([config.shop,user.$promise]).then(function(){
     var currentDay=order.findCurrentShippingDay();
 
     //
