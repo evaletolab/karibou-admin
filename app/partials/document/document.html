@@ -23,7 +23,7 @@
 
         <div  ng-include="'/partials/product/product.html'"  ng-repeat="product in document.model.products|orderBy:['categories.weight','updated']"/>
       </article>
-      <button class="btn btn-success btn-lg btn-block " ng-click="cart.addList(products)" ng-disabled="!document.model.products.length">
+      <button class="btn btn-success btn-lg btn-block hide" ng-click="cart.addList(products)" ng-disabled="!document.model.products.length">
         Commander la liste complète
       </button>          
 

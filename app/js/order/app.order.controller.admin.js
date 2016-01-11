@@ -6,8 +6,8 @@
 angular.module('app.order.manager', ['app.order.ui','app.config', 'app.api'])
   .controller('OrderAdminCtrl',OrderAdminCtrl);
 
-OrderAdminCtrl.$inject=['$scope', '$routeParams','$timeout','$http','api','order','user','product','$log', '$controller'];
-function OrderAdminCtrl($scope,$routeParams, $timeout, $http, api, order, user, product, $log, $controller) {
+OrderAdminCtrl.$inject=['$scope', '$routeParams','$timeout','$http','api','order','user','product','config','$log', '$controller','$q'];
+function OrderAdminCtrl($scope,$routeParams, $timeout, $http, api, order, user, product, config, $log, $controller,$q) {
   $controller('OrderCommonCtrl', {$scope: $scope}); 
 
 
@@ -232,8 +232,7 @@ function OrderAdminCtrl($scope,$routeParams, $timeout, $http, api, order, user, 
     if(!defaultParams&&!filters.month &&!filters.when)filters.month=today.getMonth()+1;
     $scope.loading=true;
 
-
-    user.$promise.then(function(){
+    $q.all([config.shop,user.$promise]).then(function(){
 
       //
       // is admin?

@@ -1,6 +1,6 @@
 /* markdown layout
 -------------------------------------------------- */
-div.markdown markdown{
+div.markdown markdown, div.markdown-bundle markdown{
 	line-height: 1.5;
 	font-size: 22px;
 	font-weight: 400;

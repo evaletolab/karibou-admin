@@ -299,7 +299,10 @@ function appRun(gitHubContent, $templateCache, $route, $http, $timeout, config) 
 
       //
       // loading Stripe
-      window.Stripe.setPublishableKey(pk);
+      setTimeout(function() {
+        console.log('window.Stripe.setPublishableKey',pk,window.Stripe)
+        window.Stripe.setPublishableKey(pk);          
+      }, 500);
 
       // basket.ready('app').then(function() {
       // })

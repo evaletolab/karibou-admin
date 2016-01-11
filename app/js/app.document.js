@@ -57,7 +57,6 @@ function docCtrl ($scope,$rootScope, $routeParams, config, document, product, fe
     'page':'Les pages'
   };
 
-  $scope.WaitText=true;
 
   //
   // current category

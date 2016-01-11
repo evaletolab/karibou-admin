@@ -49,31 +49,37 @@
         </div>
 
         <!-- CAMPAIGN -->
-        <div class="col-xs-12 col-lg-12 nopadding" >
+        <div class="col-xs-12 col-lg-12 nopadding hidden-xs" >
             <div class=" text-center" style="margin:50px 0;">
-              <div><i class="fa fa-gift pink"></i> Notre campagne de fin d'année, <b>100 promesses d'achats!</b></div>
-              <a href="/wallet/create">Offrez des cartes cadeaux à votre famille, à vos amis, a vos collègues, et même à vous!</a>
-
-
-              <div class="progress" style="border-radius:8px;width:98%;background-color:#dbd0c3;height:10px">
-                <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: {{campaign.quatity}}%;">
-                </div>
-              </div>                
-
-
+              <div>
+                <i class="fa fa-gift pink"></i><b> Offrez Karibou!</b> <a href="/wallet/create">Offrez du vin, des légumes BIO, un tiramisu et bien plus encore avec la Carte Cadeau Karibou</a>
+              </div>
+              
             </div>
         </div>
 
         <!-- LOVES & POPULAR -->
-        <article  ng-if="loves.length" style="width:103%"> 
+        <article  ng-if="loves.length&&config.shop.home.love" style="width:103%"> 
           <h5 class="article-group-title ">
             <span class="gray">Mes produits préférés</span>
             <a ng-href="/account/love" class="btn btn btn-category green-1">Voir Plus &nbsp;<i class="fa fa-angle-right"></i></a>
           </h5>
-          <p class="bucket-sub-title" style="margin-top:-25px">Produits les plus achetés et mes «J'aime»</p>
+          <p class="bucket-sub-title" style="margin-top:-15px">Produits les plus achetés et mes «J'aime»</p>
 
           <div  ng-static-include="'/partials/product/product.html'"  
                 ng-repeat="product in loves|leanProducts:8|orderBy:['categories.weight','-updated']"/>
+        </article>
+
+        <!-- CHRISTMAS OR SELECTION -->
+        <article  ng-if="config.shop.home.path" style="width:103%" ng-init="displayBundle()"> 
+          <h5 class="article-group-title ">
+            <span class="gray">{{bundle.title}}</span>
+            <a ng-href="/content/{{config.shop.home.path}}" class="btn btn btn-category bold green-1">Voir Plus &nbsp;<i class="fa fa-angle-right"></i></a>
+          </h5>
+          <p class="bucket-sub-title" style="margin-top:-15px">{{bundle.header}}</p>
+
+          <div  ng-static-include="'/partials/product/product.html'"  
+                ng-repeat="product in bundle.products|limitTo:4|orderBy:['categories.weight','-updated']"/>
         </article>
 
 

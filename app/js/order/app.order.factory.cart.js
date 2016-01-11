@@ -278,6 +278,8 @@ function cartFactory(config, $timeout,$rootScope,$window, $storage, api,user) {
 
   Cart.prototype.shipping=function(){
     var total=this.total();
+    var addressIdx=this.config.address||0;
+    
     //
     // See order for order part of implementation
 
@@ -287,7 +289,7 @@ function cartFactory(config, $timeout,$rootScope,$window, $storage, api,user) {
       defaultCart.postalCode=this.config.address.postalCode;
     }
     else if(user.addresses&&user.addresses.length){
-      defaultCart.postalCode=user.addresses[this.config.address||0].postalCode;
+      defaultCart.postalCode=user.addresses[addressIdx].postalCode;
     }
     var distance=this.getShippingSectorPrice(defaultCart.postalCode);
     var price=defaultCart.shippingFlatRate.price[distance];

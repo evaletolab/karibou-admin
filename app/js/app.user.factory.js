@@ -163,6 +163,11 @@ User.factory('user', [
       }
     };
 
+    User.prototype.getBVR=function(){
+      var self=this;
+      
+    };
+
     //
     // init user 
     User.prototype.init=function () {
@@ -438,7 +443,7 @@ User.factory('user', [
       var self=this, params={};
       // 
       // we can now update different user
-      if(cb===undefined){cb=uid;uid=this.id;}
+      if(cb===undefined){cb=uid;uid=self.id;}
       if(uid===undefined) uid=this.id;
       backend.$user.save({id:uid,action:'payment',aid:alias,detail:'delete'}, function() {
         for(var p in self.payments){
