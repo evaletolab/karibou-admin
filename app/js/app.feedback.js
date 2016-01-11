@@ -93,7 +93,7 @@ function feedbackFactory(config, user, $rootScope,$http) {
   var Feedback = function(data) {
     this.shop=false;
     this.product=false;
-    this.email=false;
+    this.email=undefined;
     this.show=false;
     this.mood="J'ai une question a propos de Karibou";
     this.COMMENT='Un nouveau commentaire à été publié';
@@ -111,24 +111,24 @@ function feedbackFactory(config, user, $rootScope,$http) {
   Feedback.prototype.updateScope=function(route) {
     this.shop=this.product=false;
 
-    if(route&&route.urlpath){
-      this.shop=route;
+    if(route&&route.params.urlpath){
+      this.shop=route.scope.shop;
+      return;
     }
-    if(route&&route.sku){
-      this.product=route;
+    if(route&&route.params.sku){
+      this.product=route.scope.product;
+      this.shop=this.product.vendor;
+      return;
     }
     if(route&&route.scope){
       //
-      // case of product
-      if(route.scope.product&&route.scope.product.sku){
-        return this.product=route.scope.product;
-      }
-      //
       // case of shop
       if(route.scope.$$childHead&&route.scope.$$childHead.shop){
+        console.log('feedback.updateScope',route.scope.$$childHead.shop);
         return this.shop=route.scope.$$childHead.shop;
       }
     }
+
   }
 
   Feedback.prototype.setUser=function(email) {
@@ -137,6 +137,8 @@ function feedbackFactory(config, user, $rootScope,$http) {
 
   Feedback.prototype.setProduct=function(product) {
     this.product=product;
+    this.shop=product.vendor;
+    console.log('feedback.setProduct',this);
   };
 
   //

@@ -67,9 +67,9 @@ function appCtrl($scope, $rootScope, $window,  $location, $routeParams, $timeout
 
   //
   // load campaign data
-  $http.get(config.API_SERVER+'/v1/wallets/giftcard/count').then(function (result) {
-    $scope.campaign=result.data;
-  });
+  // $http.get(config.API_SERVER+'/v1/wallets/giftcard/count').then(function (result) {
+  //   $scope.campaign=result.data;
+  // });
 
   $scope.displayBundle=function (){
     document.get(config.shop.home.path).model.$promise.then(function(model){
@@ -334,7 +334,6 @@ function appCtrl($scope, $rootScope, $window,  $location, $routeParams, $timeout
   $rootScope.uploadImageError=function(error){
       //http://ucarecdn.com/c1fab648-f6b7-4623-8070-798165df5ca6/-/resize/300x/
       if(error){
-        console.log('-----------------',error)
         $timeout(function () {
           api.info($rootScope,error);
         });
