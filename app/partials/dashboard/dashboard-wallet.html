@@ -12,10 +12,23 @@
            ng-include="'/partials/dashboard/dashboard-sidebar.html'" 
            ng-class="{'menu-off':!options.showMenu}">
       </div>
+      <!-- OPTIONS -->
+      <form class="form-inline col-xs-12  nopadding-xs">
+        <div class="form-group">
+          <input type="text" class="form-control form-inline"  placeholder="mail" ng-model="_options.email">
+          <input type="text" class="form-control "  placeholder="> Amount" ng-model="_options.gt">
+          <input type="text" class="form-control "  placeholder="< Amount" ng-model="_options.lt">
+        </div>          
+      </form>
+      <!-- GIFTCARD -->
       <div class="col-xs-12  nopadding-xs">
-        <h1 class="page-header">Suivi des cartes karibou flotantes
-            <button class="btn btn-transparent btn-md" ng-click="findGiftWallets()"><i class="fa fa-refresh"></i></button>
-        </h1>
+        <h2 class="page-header">Suivi des cartes karibou flotantes
+            <button class="btn btn-transparent btn-md" ng-click="findGiftWallets(_options)"><i class="fa fa-refresh"></i></button>
+        </h2>
+        <h2 class="page-header">Suivi des Wallets
+            <button class="btn btn-transparent btn-md" ng-click="findOtherWallets(_options)"><i class="fa fa-refresh"></i></button>
+        </h2>
+
 
         <!-- FORM -->
           <table class="table  table-responsive ">
@@ -44,10 +57,9 @@
               </tr>
             </tbody>
           </table>
-
-
-      <!-- FOOTER -->              
       </div>
+
+
     </div>
   </div>
 </div>

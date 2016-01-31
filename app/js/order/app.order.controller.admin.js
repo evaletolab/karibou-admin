@@ -43,6 +43,14 @@ function OrderAdminCtrl($scope,$routeParams, $timeout, $http, api, order, user, 
   };
 
   //
+  //
+  $scope.selectOrderByShop=function(shop,when,fulfillments){
+    $scope.selected.items=$scope.shops[shop];
+    $scope.selected.shop=shop;
+  };
+
+
+  //
   // select order 
   $scope.selectOrder=function (o) {
     if($scope.selected.order&&$scope.selected.order.oid===o.oid){
@@ -204,6 +212,12 @@ function OrderAdminCtrl($scope,$routeParams, $timeout, $http, api, order, user, 
     });
   };
   
+  $scope.updateShippingPrice=function(order,amount){
+    order.updateShippingPrice(amount).$promise.then(function(o){
+      api.info($scope,"Commande modifée",2000);
+      order.wrap(o);
+    });
+  };
 
 
   $scope.updateItem=function(oid,item,fulfillment){

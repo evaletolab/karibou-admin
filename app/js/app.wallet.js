@@ -16,8 +16,8 @@ function walletConfig($routeProvider, $locationProvider, $httpProvider){
 
   // List of routes of the application
   $routeProvider
-    .when('/admin/giftcards', {
-        title:'Les giftcards ',  templateUrl : '/partials/dashboard/dashboard-wallet.html'
+    .when('/admin/wallets', {
+        title:'Les Wallets ',  templateUrl : '/partials/dashboard/dashboard-wallet.html'
     })
     .when('/wallet/create', {
         title:'Acheter une carte cadeau ',  templateUrl : '/partials/account/wallet-create.html'
@@ -76,11 +76,22 @@ function walletCtrl ($scope,$rootScope, $routeParams, $location, config, feedbac
   $scope.findGiftWallets=function (options) {
     $rootScope.WaitText="Waiting ...";    
     options=options||_.extend({},$routeParams)
-    $http.get(config.API_SERVER+'/v1/wallets').then(function (result) {
+    $http({url:config.API_SERVER+'/v1/wallets/giftcard',method:"GET",params:options||{}}).then(function (result) {
       $scope.wallets=result.data;
     });
   };
  
+  
+  //
+  // load docs from user.id, or/and category
+  $scope.findOtherWallets=function (options) {
+    $rootScope.WaitText="Waiting ...";    
+    options=options||_.extend({},$routeParams)
+    $http({url:config.API_SERVER+'/v1/wallets',method:"GET",params:options||{}}).then(function (result) {
+      $scope.wallets=result.data;
+    });
+  };
+
 
   $scope.registerGiftcode=function (card) {
     $rootScope.WaitText="Waiting ...";    
@@ -128,7 +139,7 @@ function walletCtrl ($scope,$rootScope, $routeParams, $location, config, feedbac
   };   
 
   $scope.loadMyGiftcards=function () {
-    $http.get(config.API_SERVER+'/v1/wallets?id='+user.id).then(function (result) {
+    $http.get(config.API_SERVER+'/v1/wallets/giftcard?id='+user.id).then(function (result) {
       $scope.giftcards=result.data;
     });
   };

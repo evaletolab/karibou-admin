@@ -389,7 +389,11 @@ function orderFactory(config, $resource, $q, user,shop, api, cart) {
   };
 
   Order.prototype.updateShipping=function(oid,status){
-    return this.chain(backend.$order.save({action:oid,id:'shipping'},{status:status}).$promise);
+    return this.chain(backend.$order.save({action:oid,id:'shipping'},{amount:status}).$promise);
+  };
+
+  Order.prototype.updateShippingPrice=function(amount){
+    return this.chain(backend.$order.save({action:this.oid,id:'shipping'},{amount:amount}).$promise);
   };
 
   Order.prototype.updateCollect=function(shopname,status,when){
