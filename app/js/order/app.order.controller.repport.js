@@ -6,8 +6,8 @@
 angular.module('app.order.repport', ['app.order.ui','app.config', 'app.api'])
   .controller('OrderRepportCtrl',OrderRepportCtrl);
 
-OrderRepportCtrl.$inject=['$scope', '$routeParams','$location','api','order','user','product','shop','$log', '$controller'];
-function OrderRepportCtrl($scope,$routeParams, $location, api, order, user, product,shop, $log, $controller) {
+OrderRepportCtrl.$inject=['$scope','$rootScope', '$routeParams','$location','api','order','user','product','shop','$log', '$controller'];
+function OrderRepportCtrl($scope,$rootScope,$routeParams, $location, api, order, user, product,shop, $log, $controller) {
   $controller('OrderCommonCtrl', {$scope: $scope}); 
 
   $scope.today=new Date();
@@ -30,7 +30,9 @@ function OrderRepportCtrl($scope,$routeParams, $location, api, order, user, prod
   $scope.shopName=function (repport) {
     repport=repport||$scope.repport;
     if(!repport)return '';
-    return Object.keys(repport.shops).map(function(name){return repport.shops[name].details.name;}).join(', ');
+    var strName=Object.keys(repport.shops).map(function(name){return repport.shops[name].details.name;}).join(', ');
+    $rootScope.title='Activity report for - '+strName;
+    return strName;
   };
 
   $scope.firstShop=function (repport) {
