@@ -47,19 +47,82 @@ function walletCtrl ($scope,$rootScope, $routeParams, $location, config, feedbac
   //
   // init an empty list
   $scope.wallets=[];
-  
+  $scope.modal = {};
+
   config.shop.then(function () {
   });
 
   var api=$scope.api, config=$scope.config, user=$scope.user;
 
+  $scope.modalWalletDetails=function (wallet) {
+    var expiry=new Date(wallet.card.expiry);
+    $scope.modal = wallet;
+    $scope.modal.bank ={};
+    $scope.modal.card.expiry=(expiry.getMonth()+1)+'/'+expiry.getFullYear();
 
-  $scope.save=function(wallet){
-    $rootScope.WaitText="Waiting ...";
-    $http.post(config.API_SERVER+'/v1/wallets/'+wallet.wid).then(function (result) {
-      _.extend(wallet,result.data)
-    });
+    //
+    //
+    $scope.modal.name=$scope.modal.card.name;
+    $scope.modal.expiry=$scope.modal.card.expiry;
+    angular.extend($scope.modal.bank,$scope.modal.external_account||{});
+  }
+
+  $scope.modalDissmiss=function(){
+    var modal=$scope.modal;
+    $scope.modal = {};
   };
+
+  $scope.dirtyWallet=function () {
+    return !(($scope.modal.name!==$scope.modal.card.name) || ($scope.modal.expiry!==$scope.modal.card.expiry));
+  }
+
+  $scope.updateWallet=function (wid,password) {
+    $rootScope.WaitText="Waiting ...";    
+
+    //
+    // update name
+    if($scope.modal.name!==$scope.modal.card.name){
+      $http.post(config.API_SERVER+'/v1/wallets/'+encodeURIComponent(wid),{name:$scope.modal.name}).then(function (result) {
+        api.info($scope,"Name saved ...");
+      });
+    }
+
+    //
+    // update expriry (ADMIN ONLY)
+    if($scope.modal.expiry!==$scope.modal.card.expiry){
+      $http.post(config.API_SERVER+'/v1/wallets/expiry/'+encodeURIComponent(wid),{expiry:$scope.modal.expiry,password:password}).then(function (result) {
+        api.info($scope,"Expiry saved ...");
+      });
+    }
+
+  }
+
+  $scope.updateBANK=function (wid,bank,password) {
+    $rootScope.WaitText="Waiting ..."; 
+
+    $http.post(config.API_SERVER+'/v1/wallets/'+encodeURIComponent(wid),{external_account:bank,password:password}).then(function (result) {
+      api.info($scope,"BANC saved ...");
+    });
+  }
+
+  $scope.creditWallet=function (wid,bank,amount,description,refid,credit,password) {
+    $rootScope.WaitText="Waiting ...";    
+    console.log(amount,description,refid,credit)
+    var transfer={
+      amount:amount,
+      description:description,
+      bank:bank,
+      refid:refid,
+      type:credit,
+      password:password
+    };
+    $http.post(config.API_SERVER+'/v1/wallets/credit/'+encodeURIComponent(wid),transfer).then(function (result) {
+      api.info($scope,"CREDIT saved ...");
+      $scope.modalWalletDetails(result.data);
+    });
+  }
+
+
   
   
   $scope.create=function(){
