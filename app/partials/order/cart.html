@@ -3,7 +3,7 @@
   <div ng-show="config.shop.maintenance.active" >
     <div class="alert alert-warning nomargin small">
     <i class="fa fa-info-circle"></i>&nbsp;<strong>Livraisons interrompues</strong><br/>
-    {{config.shop.maintenance.reason}}                
+    <span i18n-render="config.shop.maintenance"></span>                
     </div>
   </div>
   <div ng-show="!config.shop.maintenance.active" >
@@ -59,10 +59,6 @@
             <td>   </td>
             <td class="text-right"><h4><strong>Total: </strong></h4></td>
             <td class="text-right padding text-success"><h4><strong>{{cart.total()+cart.shipping()|number:2}} CHF</strong></h4></td>
-        </tr>
-        <tr ng-cloak ng-show="config.shop.maintenance.active" >
-          <td  colspan="3">
-          </td>
         </tr>
 
       </tbody>

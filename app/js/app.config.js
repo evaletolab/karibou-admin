@@ -9,8 +9,8 @@ angular.module('app.config', [])
 
 //
 // implement service
-appConfig.$inject=['$q','$resource','$sce','API_SERVER']; 
-function appConfig($q, $resource, $sce, API_SERVER) {
+appConfig.$inject=['$q','$http','$sce','$translate','API_SERVER']; 
+function appConfig($q, $http, $sce, $translate, API_SERVER) {
   var deferred = $q.defer();
   
   var defaultConfig = {
@@ -78,10 +78,8 @@ function appConfig($q, $resource, $sce, API_SERVER) {
   //
   // get server side config
   defaultConfig.shop=deferred.promise;
-  var serverSettings=$resource(defaultConfig.API_SERVER+'/v1/config').get(function(){
-      angular.extend(defaultConfig.shop,serverSettings);
-
-
+  $http.get(defaultConfig.API_SERVER+'/v1/config?lang='+$translate.use()).then(function(response){
+      angular.extend(defaultConfig.shop,response.data);
       deferred.resolve(defaultConfig);
   });
 
@@ -95,7 +93,14 @@ ConfigCtrl.$inject=['$scope','$resource','config','api'];
 function ConfigCtrl($scope,$resource,config,api){
   var $dao=$resource(config.API_SERVER+'/v1/config');
   $scope.config=config;
-
+ 
+  $scope.menuSplice=function (lst, menu) {
+    for (var i = lst.length - 1; i >= 0; i--) {
+      if(lst[i].name===menu.name){
+        lst.splice(i, 1);
+      }
+    }
+  };
   //
   // save stored config (admin only)
   $scope.saveConfig=function(){

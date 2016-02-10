@@ -25,10 +25,10 @@
 
       <table class="table ">
         <tr ng-repeat="doc in user.documents">
-          <td><a ng-href="/content/{{doc.slug}}">{{doc.title}}</a></td>
-          <td>{{doc.updated|dateMoment}}</td>
+          <td><a ng-href="/content/{{doc.slug[0]}}" i18n-render="doc.title"></a></td>
+          <td>{{doc.updated|dateMomentShort}}</td>
           <td>{{defaultLabel[doc.type]}}</td>
-          <td><a ng-href="/content/{{doc.slug}}/edit" class="btn btn-default btn-xs">edit</a></td>
+          <td><a ng-href="/content/{{doc.slug[0]}}/edit" class="btn btn-default btn-xs">edit</a></td>
         </tr>
       </table>
 

@@ -4,6 +4,8 @@
 // Define the Document module (app.document)  for controllers, services and models
 // the app.document module depend on app.config and take resources in document/*.html 
 angular.module('app.document.ui', [])
+  .directive('i18nRender',i18nRender)
+  .directive('markdownRender',markdownRender)
   .directive('contenteditable',inlineEdit);
 
 
@@ -46,7 +48,6 @@ function inlineEdit ($parse) {
       elm.on('focus', function () {
         var text = ngModel.$viewValue;
 
-        // console.log('----------------FOCUS',value)
         if (text) {
           text = text.replace(OPEN_TAG_REVERSE_REGEX, "```&lt;");
           text = text.replace(OPEN_TAG_NEWLINE_REVERSE_REGEX, "```\n&lt;");
@@ -100,6 +101,99 @@ function inlineEdit ($parse) {
           event.preventDefault();                        
         }
       });
+    }
+  };
+}
+
+
+//
+// compile markdown
+markdownRender.$inject=['$compile','$timeout','$translate','config'];
+function markdownRender($compile,$timeout,$translate,config) {
+  return {
+    restrict: 'E',
+    replace: true, 
+    scope:true,
+    require:'ngModel',
+    priority:1,
+    link: function(scope, element, attrs, ngModelCtrl) {
+      var self=this;
+      var converter = new Remarkable();
+
+      ngModelCtrl.$render=function () {
+
+        //
+        var template=ngModelCtrl.$viewValue;
+        if(!template)template=element.html();
+
+        //$timeout
+        var el = $compile(template)(scope);
+        element.replaceWith(converter.render(el));
+      };
+    }
+  };
+}
+
+
+
+//
+// use default i18n
+// options: parseMarkdown
+//
+i18nRender.$inject=['$rootScope','$compile','$timeout','$translate','config'];
+function i18nRender($rootScope,$compile,$timeout,$translate,config) {
+  return {
+    restrict: 'A',
+    replace: true, 
+    scope:{i18nRender:'='},
+    priority:1,
+    link: function(scope, element, attrs) {
+      var self=this;
+      var converter = new Remarkable();
+
+      function  render() {
+        // init
+        var lang=$translate.use(),
+            defaultLang=config.shop.i18n.defaultLocale,
+            content=undefined;
+
+        // init content
+        if(scope['i18nRender']){
+          content=scope['i18nRender'][lang];
+        }
+
+        // run
+        if(!content && scope['i18nRender']){
+          content=scope['i18nRender'][defaultLang];
+        }
+
+        if(attrs.parseMarkdown){
+          content=converter.render(content);
+        }
+
+        try{
+          content=content||'';
+          var el = (content.length>=6)?$compile(content)(scope):content;          
+          element.html(el.length?el:content);
+        }catch(e){
+          element.html(content);
+        }
+      }
+
+      scope.$watch('i18nRender', function (i18nRender) {
+        if (scope['i18nRender']) {
+          $timeout(render,100);
+          // scope.$parent.$watch(function () {
+          //   angular.extend(scope.interpolateParams, $parse(interpolateParams)(scope.$parent));
+          // });
+        }
+      });
+
+      // trigger rendering of translation
+      $rootScope.$on('$translateChangeSuccess', render);
+      // config.shop.then(function (argument) {
+      //   $timeout(render,100);
+      // });
     }
   };
 }

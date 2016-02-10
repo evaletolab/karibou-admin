@@ -61,22 +61,77 @@
         </div>
 
 
-        <!-- MAINTENANCE -->
-        <h3 class="page-header">Maintenance</h3>
+      <!-- LE SITE -->
+      <div class="clearfix" ng-if="user.isAdmin()">
+        <h4 class="page-header"><i class="fa fa-edit gray"></i>&nbsp;<span translate="sitename"></span></h4>
         <div class="form-group ">                        
-          <label class="control-label">Toutes les livraisons sont interrompues
-            <input type="checkbox" ng-model="config.shop.maintenance.active">
+          <div class="form-group ">                        
+              <input type="text" class="form-control input-lg" ng-model="config.shared.home.siteName[locale()]" />
+          </div>
+        </div>
+
+        <h4 class="page-header"><i class="fa fa-edit gray"></i>&nbsp;<span translate="sitetitle"></span></h4>
+        <div class="form-group ">                        
+          <div class="form-group ">                        
+              <input type="text" class="form-control input-lg" ng-model="config.shared.home.tagLine[locale()]" />
+          </div>
+        </div>
+
+        <!-- ABOUT -->
+        <h4 class="page-header"><i class="fa fa-edit gray"></i>&nbsp;<span translate="siteabout"></span></h4>
+        <div class="form-group ">                        
+          <div class="">
+            <textarea  rows="4" class="form-control input-lg" ng-model="config.shared.home.about[locale()]" placeholder="A propos?"></textarea>            
+          </div>
+        </div>
+
+        <!-- IMG HOME -->
+        <h4 class="page-header"><i class="fa fa-edit gray"></i>&nbsp;Image Home</h4>
+        <div class="form-group ">                        
+          <div class="" style="width:100%">
+            <!-- Photo -->
+            <uploadcare-widget
+              ng-model="config.shared.home.image"
+              data-locale="{{locale()}}"
+              data-tabs="file url facebook flickr"
+              data-images-only="true"
+              data-path-value="true"
+              data-preview-step="true"
+              data-clearable="true"
+              data-multiple="false"
+              data-crop="free"
+              data-max-size-hide="203600"
+              on-upload-error="uploadImageError(error)"
+              value="{{config.shared.home.image}}"
+             />          
+          </div>
+        </div>
+
+        <!-- FOOTER -->
+        <h4 class="page-header"><i class="fa fa-edit gray"></i>&nbsp;Footer</h4>
+        <div class="form-group ">                        
+          <div class="">
+            <textarea  rows="4" class="form-control input-lg" ng-model="config.shared.home.footer[locale()]" ></textarea>            
+          </div>
+        </div>
+
+        
+        <!-- MAINTENANCE -->
+        <h4 class="page-header"><i class="fa fa-edit gray"></i>&nbsp;<span translate="sitemessage"></span></h4>
+        <div class="form-group ">                        
+          <label class="control-label">Information
+            <input type="checkbox" ng-model="config.shared.maintenance.active">
           </label>
           <div class="">
-            <textarea  rows="4" class="form-control input-lg" ng-model="config.shop.maintenance.reason" placeholder="Pour quelle raison?"></textarea>            
+            <textarea  rows="4" class="form-control input-lg" ng-model="config.shared.maintenance.reason[locale()]" placeholder="Pour quelle raison?"></textarea>            
           </div>
-          <p class="help-block">ATTENTION, utiliser l'interruption avec dates</p>
         </div>
+
         <!-- NOSHIPPING -->
         <h3 class="page-header">Interrompre les dates de livraisons suivantes</h3>
         <div class="clearfix" ng-repeat="noshipping in config.shop.noshipping" style="border-bottom:1px dotted #ddd;margin-bottom:5px">
           <div class="col-xs-7 nopadding">
-            <input type="text" value="{{noshipping.reason}}" ng-model="config.shop.noshipping[$index].reason" placeholder="pour quelle raison?" class="form-control input-lg col-md-10">
+            <input type="text" value="{{noshipping.reason}}" ng-model="config.shop.noshipping[$index].reason[locale()]" placeholder="pour quelle raison?" class="form-control input-lg col-md-10">
           </div>
           <div class="col-xs-2">
             <input type="text" class="form-control input-lg" ng-model="config.shop.noshipping[$index].from" placeholder="jj/mm/aaaa" format-date="DD/MM/YYYY" required />

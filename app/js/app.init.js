@@ -3,8 +3,8 @@
 // 
 // chromium-browser --ignore-gpu-blacklist --disable-gpu-sandbox
 // var API_SERVER='http://api.karibou.ch'
-// var API_SERVER='http://localhost:4000';
-var API_SERVER='//api.'+window.location.hostname;
+var API_SERVER='http://localhost:4000';
+// var API_SERVER='//api.'+window.location.hostname;
 // var API_SERVER='http://192.168.1.35:4000'
 // var API_SERVER='http://karibou-evaletolab.rhcloud.com'
 // var API_SERVER='http://karibou-api.jit.su'
@@ -20,6 +20,7 @@ angular.module('app', [
   'ngCMS',
   'ngAnimate',
   'ngUploadcare',  
+  'pascalprecht.translate',
   'infinite-scroll',
   'angular.filter',
   'app.templates',
@@ -132,8 +133,8 @@ function rootScopeFIX($provide) {
 
 //
 // Configure application $route, $location and $http services.
-appConfig.$inject=['$provide','$routeProvider','$locationProvider','$httpProvider'];
-function appConfig( $provide, $routeProvider, $locationProvider, $httpProvider) {
+appConfig.$inject=['$provide','$routeProvider','$locationProvider','$httpProvider','$translateProvider'];
+function appConfig( $provide, $routeProvider, $locationProvider, $httpProvider,$translateProvider) {
   
   // FIX IOS error
   rootScopeFIX($provide);
@@ -161,6 +162,60 @@ function appConfig( $provide, $routeProvider, $locationProvider, $httpProvider) 
     .when('/404', {title:'404',templateUrl : '/partials/errors/404.html'})
     // Catch all
     .otherwise({redirectTo : '/404'});
+
+  //
+  // i18n
+  $translateProvider.translations('en', {
+    sitemessage:'Home page message',
+    siteabout:'About the site',
+    sitetitle:'Site tagline',
+    sitename:'Site name',
+    hello: 'Hello',
+    logout: 'Logout',
+    login: 'Login',
+    signup: 'Signup',
+    general: 'General',
+    navigation: 'Navigation',
+    users:'Users',
+    activity:'Activity',
+    config:'Settings',
+    publication:'Publications',
+    allpubli:'My publications',
+    security:"Security",
+    password:"Change password",
+    profile:"Update profile",
+    furthermore:"Furthermore",
+    formlogintitle:'Have an account ?',
+    formlogincreate:'Or create an account?'
+  });
+  $translateProvider.translations('fr', {
+    sitemessage:'Message sur la home du site',
+    siteabout:'A propos du site',
+    sitetitle:'Titre du site',
+    sitename:'Nom du site',
+    hello:'Bonjour',
+    logout: 'Logout',
+    login: 'Connexion',
+    signup: 'S\'inscrire',
+    general: 'Général',
+    navigation: 'Navigation',
+    users:'Utilisateur',
+    activity:'Activité',
+    config:'Configuration',    
+    publication:'Publications',
+    allpubli:"Mes publications",
+    security:"Sécurité",
+    password:"Modifier mon mot de passe",
+    profile:"Mes données personnelles",
+    furthermore:"A lire aussi",
+    formlogintitle:'Vous avez déjà un compte ?',
+    formlogincreate:'Ou créer un compte?'
+  });
+
+
+  $translateProvider.preferredLanguage('fr');
+  $translateProvider.useStorage('$storage');
+  $translateProvider.useSanitizeValueStrategy(null);
 
   // Without serve side support html5 must be disabled.
   $locationProvider.html5Mode(true);
