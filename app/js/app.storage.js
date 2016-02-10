@@ -85,6 +85,9 @@ function storageService() {
         getItem: function (key) {
           return data[key] === undefined ? null : data[key];
         },
+        get: function (key) {
+          return data[key] === undefined ? null : data[key];
+        },
         key: function (i) {
           // not perfect, but works
           var ctr = 0;
@@ -103,21 +106,52 @@ function storageService() {
           data[key] = value+''; // forces the value to a string
           this.length++;
           setData(data);
+        },
+        put: function (key, value) {
+          data[key] = value+''; // forces the value to a string
+          this.length++;
+          setData(data);
         }
       };
     }
 
     window.localStorage.hooked=false;
-
-    // local storage is ok in this browser
-    return window.localStorage;
-
+    return {
+      length: 0,
+      hooked:false,
+      clear: function () {
+        this.length = 0;
+        window.localStorage.clear();        
+      },
+      getItem: function (key) {
+        return window.localStorage.getItem(key);        
+      },
+      get: function (key) {
+        return window.localStorage.getItem(key);        
+      },
+      key: function (i) {
+        window.localStorage.key(i);        
+      },
+      removeItem: function (key) {
+        window.localStorage.removeItem(key);        
+        this.length--;
+      },
+      setItem: function (key, value) {
+        window.localStorage.setItem(key,value);        
+        this.length++;
+      },
+      put: function (key, value) {
+        window.localStorage.setItem(key,value);        
+        this.length++;
+      }
+    };
   };
+
 
   //
   // return the functional localStorage instance
-  window.localstorage=new Storage();
-  return window.localstorage;
+  var storage=new Storage();//window.localStorage=
+  return storage;
 }
 
 })(window.angular);

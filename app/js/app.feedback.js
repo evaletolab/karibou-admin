@@ -33,7 +33,7 @@ function FeedbackCtrl(config, $scope, $rootScope,$timeout,  $location, user,api,
   };
 
   $scope.getTitle=function () {
-    if(fb.product) {return fb.product.vendor.name;}
+    if(fb.product&&fb.product.vendor) {return fb.product.vendor.name;}
     if(fb.shop){return fb.shop.name;}
     return 'Une question?';
   };
@@ -63,6 +63,7 @@ function FeedbackCtrl(config, $scope, $rootScope,$timeout,  $location, user,api,
     }
     if(fb.product&&fb.product.sku){
       content.product=fb.product.title+' ('+fb.product.sku+')';
+      content.shopname=fb.product.vendor.urlpath;
     }
 
     feedback.send(content).success(function(data, status, headers, config) {
@@ -117,14 +118,12 @@ function feedbackFactory(config, user, $rootScope,$http) {
     }
     if(route&&route.params.sku){
       this.product=route.scope.product;
-      this.shop=this.product.vendor;
       return;
     }
     if(route&&route.scope){
       //
       // case of shop
       if(route.scope.$$childHead&&route.scope.$$childHead.shop){
-        console.log('feedback.updateScope',route.scope.$$childHead.shop);
         return this.shop=route.scope.$$childHead.shop;
       }
     }
@@ -137,8 +136,6 @@ function feedbackFactory(config, user, $rootScope,$http) {
 
   Feedback.prototype.setProduct=function(product) {
     this.product=product;
-    this.shop=product.vendor;
-    console.log('feedback.setProduct',this);
   };
 
   //

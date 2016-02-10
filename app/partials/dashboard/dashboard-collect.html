@@ -13,26 +13,49 @@
            ng-include="'/partials/dashboard/dashboard-sidebar.html'" 
            ng-class="{'menu-off':!options.showMenu}">
       </div>
-      <div class="col-xs-12  nopadding-xs">
+      <div class="container-content">
 
         <!-- FILTERS LOGISTIC -->
-        <div class="panel panel-dashboard" >
+        <div class="panel panel-default panel-dashboard" >
           <div class="panel-heading">
-            <form class="clearfix form-inline" style="">
-              <a href="" class="btn btn-transparent btn-md" toggle-on-click="#order-filter" > <i class="fa fa-chevron-down "></i> </a>
+            <!-- NAV BAR -->
+            <nav class="navbar navbar-default navbar-dashboard">
+              <div class="container-fluid">
+                <div class="navbar-header">
+                  <button type="button" class="navbar-toggle collapsed" 
+                          data-toggle="collapse" 
+                          data-target="#kb-navbar-shipping" ng-click="navbarShipping=!navbarShipping;">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                  </button>
+                  <button class="navbar-btn btn btn-md btn-transparent " title="Détails"
+                          toggle-on-click="#order-filter" ><i class="fa fa-chevron-down"></i></button>
 
-              <div ng-show="!dates.length" class=" gray text-center ">
-                <i class="fa fa-warning fa-1x"></i> Pas de livraison pour {{months_long[filters.month-1]}}
+                </div>
+
+                <div class="collapse navbar-collapse" ng-class="{'in':navbarShipping}" id="kb-navbar-shipping">
+                  <p class="pink navbar-text navbar-right" ng-show="filters.s&&dates.length<4">{{filters.s}}</p>
+                  <form class="navbar-form navbar-left" role="options">                
+
+
+                    <!-- DISPLAY ITEMS BY USER -->
+
+                  </form>
+                  <ul class="nav navbar-nav">
+                    <li ng-class="{'active':isSelectedDate(date)}" ng-repeat="date in dates.slice().reverse()|limitTo:8">
+                      <a  href="#" ng-click="filters.f=date" >{{date|dateLabelShort}}</a>
+                    </li>
+                  </ul>
+
+                </div><!-- /.navbar-collapse -->
               </div>
-              <span ng-show="dates.length" class="">
-                <button class="btn btn-md btn-transparent btn-block-xs" 
-                        ng-repeat="date in dates.slice().reverse()"
-                        ng-click="filters.f=date" ng-class="{'active':isSelectedDate(date)}">{{date|dateLabel}}
-                      </button> 
-              </span>
-            </form>
+            </nav>  
           </div>
-          <div class="panel-body nopadding" id="order-filter" ng-class="{'hide':orders.length}">
+
+
+          <div class="panel-body bg-gray nopadding" id="order-filter" ng-class="{'hide':orders.length}">
               <div class="col-xs-12 col-md-3 " ng-if="user.isAdmin()">
                 <span>Filtrer les commandes: </span>                
                 <button class="btn btn-md btn-transparent btn-block" ng-click="toggle({closed:true})" ng-class="getToggleClass('closed',true)">Toutes les fermées</button>
@@ -72,9 +95,15 @@
 
 
         <!-- ORDERS BY SHOP -->
-        <div ng-if="shops">
-          <div  ng-include="'/partials/order/order-collect-shop.html'"></div>
+        <div ng-if="shops" class="col-md-6 col-xs-12 nopadding container-scroll">
+          <div  ng-static-include="'/partials/order/order-collect-shop.html'"></div>
         </div>
+
+        <div ng-if="selected.shop"
+             ng-static-include="'/partials/order/order-lists-byshop.html'" 
+             class="order-list-items col-md-6 col-xs-12 container-scroll">          
+        </div>
+
       </div>
     </div>
   </div>

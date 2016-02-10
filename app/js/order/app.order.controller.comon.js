@@ -21,7 +21,7 @@ function OrderCommonCtrl($scope, $routeParams, api, order, user, product,shop, M
   $scope.months_short="janv._févr._mars_avr._mai_juin_juil._août_sept._oct._nov._déc.".split("_");
   $scope.months_long="janvier_février_mars_avril_mai_juin_juillet_août_septembre_octobre_novembre_décembre".split("_");
 
-  $scope.years=[2014,2015];
+  $scope.years=[2014,2015,2016];
   $scope.loading=true;
 
   $scope.selected={
@@ -302,7 +302,6 @@ function OrderCommonCtrl($scope, $routeParams, api, order, user, product,shop, M
   $scope.selectedItem={};
   $scope.selectItem=function (item,shop, $event) {
     var items=$scope.shops[shop], options=$scope.options;
-    console.log($event)
     if($event){
       $event.stopPropagation();
     }

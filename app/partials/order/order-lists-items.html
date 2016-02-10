@@ -24,8 +24,8 @@
       <h4 class="list-group-item-heading"> 
           <span ng-class="(item.quantity>1)?'bold red':''">{{item.quantity}}x</span> <a ng-href="/products/{{item.sku}}">{{item.title}} ({{item.part}})</a> 
           <div ng-if="item.variant.title" class="small"><span class="fa fa-warning red">option: </span><span>{{item.variant.title}}</span></div>
-          <span class="bag-1 green fa fa-thumbs-up fa-1x" ng-show="item.fulfillment.status==='fulfilled'"></span>
-          <span class="bag-1 red fa fa-thumbs-down fa-1x" ng-show="item.fulfillment.status==='failure'"></span>
+          <span class="bag-1 green fa fa-check-circle fa-2x" ng-show="item.fulfillment.status==='fulfilled'"></span>
+          <span class="bag-1 red fa fa-minus-circle fa-2x" ng-show="item.fulfillment.status==='failure'"></span>
 
       </h4>
       <span  title="Le pourcentage au dessus ou dessous du prix d'origine" ng-show="selected.order.getPriceDistance(item)>0"

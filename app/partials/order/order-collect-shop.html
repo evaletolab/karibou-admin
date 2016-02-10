@@ -4,7 +4,7 @@
   <div class="list-group">
     <li  class="list-group-item " 
          ng-repeat="(shop, items) in shops" 
-         ng-class="isCollectedShopForDay(shop,filters.f)?'list-group-item-success':''" 
+         ng-class="{'list-group-item-success':isCollectedShopForDay(shop,filters.f),'list-group-item-info':(selected.shop===shop)}" 
          ng-show="isCollectableShopForDay(shop,filters.f)">
       <h4 class="list-group-item-heading">
         <a class="text-capitalize" 
@@ -13,17 +13,17 @@
 
         <form class="form-inline  pull-right">
           <button type="button" class="btn btn-success btn btn-xs"
-                  ng-click="updateCollect(shop,true,filters.f)"
-                  ng-disabled=""><i class="fa fa-thumbs-up"></i> ok</button>&nbsp;
-<!--           <button type="button" class="btn btn-danger btn btn-xs "
-                  ng-click="updateCollect(shop,false,filters.f)"
-                  ng-disabled=""><i class="fa fa-thumbs-down"></i>  ko</button>&nbsp;
- -->        </form>
+                  ng-click="updateCollect(shop,true,filters.f)">
+            <i class="fa fa-thumbs-up"></i> ok
+          </button>&nbsp;
+        </form>
 
       </h4>
-      <span class="gray small"><a ng-href="/admin/orders/{{shop}}?when={{filters.f}}&fulfillments={{filters.fulfillments}}">préparé [{{countItemValidated(items,filters.f)}}|{{countItemAvailable(items,filters.f)}}]</a></span>      
-<!--       <span ng-repeat="item in items|filter:{when:filters.f}|orderBy:'-rank'|unique:'rank'" class="pull-right small">
- -->      <span class="label " ng-class="(item.fulfillments==='fulfilled')?'label-success':'label-warning'"
+
+      <span class="nopadding gray small col-xs-10" ng-click="selectOrderByShop(shop,filters.f,filters.fulfillments)">
+      <a ng-href="" class="btn btn-xs btn-default">détail préparé [{{countItemValidated(items,filters.f)}}|{{countItemAvailable(items,filters.f)}}]</a></span>      
+
+      <span class="label " ng-class="(item.fulfillments==='fulfilled')?'label-success':'label-warning'"
               title="{{item.email}}" 
               ng-click="modalUserDetails(item.oid)" bs-modal="'/partials/order/order.user.modal.html'">{{item.rank}}</span>&nbsp;        
       </span>

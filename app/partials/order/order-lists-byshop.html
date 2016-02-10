@@ -1,48 +1,61 @@
-  <!-- ITEMS BY SHOPS -->
-  <!-- ITEMS -->
-  <ul class="list-group" ng-repeat="group in items|filterBy:['vendor']:filters.s|groupBy:'rank' " >
-    <li class="list-group-item list-group-item-transparent" 
-        style="padding:30px 20px;font-size:130%"
-        >
-        <span  >
-            <a class="text-capitalize link bold" 
-               ng-click="modalUserDetails(group[0].oid)" 
-               bs-modal="'/partials/order/order.user.modal.html'">
-              {{group[0].customer.name.givenName}} {{group[0].customer.name.familyName}} 
-            </a>&nbsp;
-        </span>      
+  <ul class="list-group" ng-if="selected.shop">
+    <!-- HEADER -->
+    <li class="list-group-item " 
+        style="padding:15px;">
+      <div>
+        <button 
+          type="button" 
+          class="pull-right btn btn-sm btn-default  " 
+          ng-click="selected.items=false;selected.shop=false;"><span class="fa fa-close"></span></button>
+        <h3>{{selected.shop}}</h3>        
+      </div>
+    </li>    
+  </ul>
+  <ul class="list-group" ng-repeat="group in selected.items|filterBy:['vendor']|groupBy:'rank'|orderBy:'rank' " >
+    <!-- USER -->
+    <li class="list-group-item " style="padding:15px;" ng-if="group[0].when===filters.f">
+        <div  >
+          <a class="text-capitalize link bold" 
+             ng-click="modalUserDetails(group[0].oid)" 
+             bs-modal="'/partials/order/order.user.modal.html'">
+            {{group[0].customer.name.givenName}} {{group[0].customer.name.familyName}} 
+          </a>&nbsp;
+          <!-- ORDER BAG -->
+          <span class="bag-1 label label-primary ">sac {{group[0].rank}}</span>
+
+        </div>
+
     </li>
+
+    <!-- BODY -->
     <li  class="list-group-item " 
-         ng-repeat="item in group|orderBy:['rank']|filter:options.filterTxt" 
-         ng-class="getOrderItemStatusClass(item,'list-group-item-')" >
+         ng-repeat="item in group|orderBy:['rank','vendor']" 
+         ng-if="item.when===filters.f">
       <h4 class="list-group-item-heading"> 
           <span ng-class="(item.quantity>1)?'bold red':''">{{item.quantity}}x</span> <a ng-href="/products/{{item.sku}}">{{item.title}} ({{item.part}})</a> 
           <div ng-if="item.variant.title" class="small"><span class="fa fa-warning red">option: </span><span>{{item.variant.title}}</span></div>
+          <span class="bag-1 green fa fa-check-circle fa-2x" ng-show="item.fulfillment.status==='fulfilled'"></span>
+          <span class="bag-1 red fa fa-minus-circle fa-2x" ng-show="item.fulfillment.status==='failure'"></span>
+
       </h4>
-      <span class="bag-1 " ng-click="selectItem(item,shop,$event)">
-          <span class="label" 
-                ng-class="isItemValidated(item)?'label-primary':'hide'">sac {{item.rank}}</span>
-      </span>
-      <span class="bag-2 label " 
-            ng-class="isItemValidated(item)?'label-price':'hide'"
-            ng-hide="options.showWidget">{{item.finalprice|number:'2'}}CHF</span>
+
       <div class="list-group-item-text clearfix">
-        <div class="col-xs-10 col-sm-6 col-md-4 nopadding">
-          <form class="form-inline   input-group " ng-hide="options.showWidget">
-            <span class="input-group-btn">
-              <button type="button" class="btn btn-default btn-sm "
-                      ng-click="updateItem(item.oid,item,'failure')"
-                      ><i class="fa fa-thumbs-down"></i> Annulez</button>
-            </span>
+        <div class="col-xs-10 col-sm-7  nopadding">
+          <form class="form-inline    " ng-hide="options.showWidget" style="margin:0">
+            <button type="button" class="btn btn-default btn-xs "
+                    ng-class="{'btn-done':['fulfilled','failure'].indexOf(item.fulfillment.status)!==-1}"
+                    ng-click="updateItem(item.oid,item,'failure')"
+                    ><i class="fa fa-thumbs-down"></i> Annulez</button>
+
             <input type="text" type="number"  
-                   class="form-control input-sm" 
-                   ng-model="item.finalprice" 
-                   ng-disabled="isInputItemPriceDisabled(item)" >
-            <span class="input-group-btn">
-              <button type="button" class="btn btn-success btn-sm "
-                      ng-click="updateItem(item.oid,item,'fulfilled')"
-                      ><i class="fa fa-check"></i> Validez</button>
-            </span>
+                   class="form-control input-xs" 
+                   ng-class="{'input-done':['fulfilled','failure'].indexOf(item.fulfillment.status)!==-1, 'border-red':(item.fulfillment.status==='failure')}"
+                   style="margin-top: -4px; width: 60px; display: inline;"
+                   ng-model="item.finalprice" >&nbsp;
+            <button type="button" class="btn btn-default btn-xs "
+                    ng-class="{'btn-done':['fulfilled','failure'].indexOf(item.fulfillment.status)!==-1}"
+                    ng-click="updateItem(item.oid,item,'fulfilled')"
+                    ><i class="fa fa-check"></i> Validez</button>
           </form>
 
         </div>
@@ -50,5 +63,7 @@
     </li>
   </ul>
   <!-- ITEMS TOTAL -->
-  <p ng-show="(!filters.s||filters.s===shop)" class="gray small">Total commandé : {{getAmountTotal(shop)|number:2}} CHF</p>
+  <p ng-show="(!filters.s||filters.s===shop)" class="gray small">
+    Total commandé :  CHF
+  </p>
 
