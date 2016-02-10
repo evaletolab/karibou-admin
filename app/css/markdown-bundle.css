@@ -1,0 +1,66 @@
+
+
+.markdown-bundle .text{
+  font-family: "PT Serif",serif;
+  color: #555;
+  text-rendering: optimizelegibility;
+  line-height: 1.8em;  
+  font-size: 20px;
+}
+
+.markdown-bundle {
+  max-width: 800px;
+  -margin: 0px auto;
+  margin-top: 45px;
+}
+
+.markdown-bundle .byline{
+  color: #ddd;
+  font-size: 1.2em;
+  font-weight: 400;
+  line-height: 1.5em;
+}
+.markdown-bundle .home-header{
+  border-bottom: 1px solid #EEE;
+  height: 300px;  
+  position: relative;
+}
+
+
+.markdown-bundle img{
+  max-width: 100%;
+}
+
+.markdown-bundle .home-header h1{
+  margin-top: 0em;
+  padding-top: 0em;
+  padding-bottom: 0em;
+  margin-bottom: 0.24em;
+  font-size: 2.5em;
+  line-height: 1.08em;  
+  bottom:40px;
+  width: 100%;
+  color: white;
+  text-shadow:0 0 1px rgba(0,0,0,1);
+}
+.markdown-bundle h2.header, .markdown-bundle .header{
+  color: #999;
+}
+.markdown-bundle  h2{
+  font-weight: normal;
+  font-style: italic;  
+}
+
+.markdown-bundle h1, .markdown-bundle.h1, .markdown-bundle h2, .markdown-bundle.h2, .markdown-bundle h3, .markdown-bundle.h3 {
+    margin-top: 25px;
+    margin-bottom: 25px;
+}
+
+.markdown-bundle p{
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.markdown-bundle ul, .markdown-bundle ol{
+  padding-left: 20px; 
+}
