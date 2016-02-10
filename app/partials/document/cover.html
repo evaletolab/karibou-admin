@@ -1,15 +1,15 @@
 <div class="cover-table cover-user site-shop-sidebar">
   <div class="cover-row relative">
-    <div class="cover-img" backstretch="{src:'document.model.photo.header'}">
+    <div class="cover-img" backstretch="{src:'doc.model.photo.header'}">
     
     </div>
 
 
 
     <!-- FOR ADMIN -->
-    <div class="cover-actions-top" ng-show="isOwnerOrAdmin(document.model)" fade-on-hover=".site-shop-sidebar" >
-        <a ng-href="/content/{{document.model.slug}}/edit" class=" btn btn-lg btn-primary btn-block ">Editer votre document</a>
-        <a ng-show="document.model.published!=true" ng-disabled="WaitText" class="btn btn-primary btn-lg btn-block {{waitingStatus() && 'disabled'}}" ng-click="publish()">Demander la publication de votre page</a>
+    <div class="cover-actions-top" ng-show="isOwnerOrAdmin(doc.model)" fade-on-hover=".site-shop-sidebar" >
+        <a ng-href="/content/{{doc.model.slug[0]}}/edit" class=" btn btn-lg btn-primary btn-block ">Editer votre document</a>
+        <a ng-show="doc.model.published!=true" ng-disabled="WaitText" class="btn btn-primary btn-lg btn-block {{waitingStatus() && 'disabled'}}" ng-click="publish()">Demander la publication de votre page</a>
 
     </div>
 
@@ -22,11 +22,13 @@
         <span class="cover-avatar">
           <span><img ng-src="/img/pattern-k.png"  ></span>
         </span>
-        <h1 class="black cover-title">{{document.model.title}}</h1>
+        <h1 i18n-render="doc.model.title" class="black cover-title"></h1> 
+
         <div class="cover-signature" >
-          Par {{document.model.signature}}
+          Published <time>{{doc.model.created|dateMomentShort}}</time> by {{doc.model.signature}}
         </div>
-        <markdown class="cover-description" markdown-content="document.model.header"></markdown>
+        <h2 i18n-render="doc.model.header" class="cover-description" 
+         parse-markdown="true"></h2>
 
       </div>
     </div>

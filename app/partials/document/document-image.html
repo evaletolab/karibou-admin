@@ -1,6 +1,6 @@
 <div class="shop-card col-xs-12 ">
   <!-- producers-list item -->
-  <a class="" ng-href="/content/{{doc.slug}}">
+  <a class="" ng-href="/content/{{doc.slug[0]}}">
     <div class="row-content">
       <div class="photo col-xs-12 col-md-6 ">
         <div alt="" class="img-responsive " bg-src="{{doc.photo.header}}"/>
@@ -13,11 +13,10 @@
       </div>
       <div class="content-wrapper col-xs-12 col-md-6 ">
         <div class="item-header">
-          <h3 class="title ">{{doc.title}}</h3>
+          <h3 class="title " i18n-render="doc.title"></h3>
         </div>
-        <div class="item-content">
-          <markdown class="" markdown-content="doc.content|cut:true:170"></markdown>
-        </div>
+        <!-- http://stackoverflow.com/questions/802175/truncating-long-strings-with-css-feasible-yet -->
+        <div class="item-content" i18n-render="doc.content"></div>
       </div>
       <div class="item-closed hide" ng-if="!doc.published">
           <h4>Fermeture!</h4>

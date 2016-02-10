@@ -25,7 +25,7 @@
       </div>
 
 
-      <div ng-if="!document.models.length && !WaitText" class="text-center grayx">
+      <div ng-if="!doc.models.length && !WaitText" class="text-center grayx">
           <i class="fa fa-frown-o fa-7x "></i>
           <h4>La liste est vide</h4>
       </div>
@@ -33,7 +33,7 @@
       <!-- ONE RANDOM SHOPS -->
       <div  class="nopadding col-sm-6 col-md-6 col-xs-12" style="background-color:transparent" 
           ng-static-include="'/partials/document/document-image.html'"  
-          ng-repeat="doc in documents" >
+          ng-repeat="doc in docs" >
       </div> 
     </div>
   </section>
