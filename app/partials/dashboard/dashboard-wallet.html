@@ -22,10 +22,10 @@
       </form>
       <!-- GIFTCARD -->
       <div class="col-xs-12  nopadding-xs">
-        <h2 class="page-header">Suivi des cartes karibou flotantes
+        <h2 class="page-header">Les cartes cadeaux
             <button class="btn btn-transparent btn-md" ng-click="findGiftWallets(_options)"><i class="fa fa-refresh"></i></button>
         </h2>
-        <h2 class="page-header">Suivi des Wallets
+        <h2 class="page-header">Les Wallets
             <button class="btn btn-transparent btn-md" ng-click="findOtherWallets(_options)"><i class="fa fa-refresh"></i></button>
         </h2>
 
@@ -44,7 +44,11 @@
             </thead>
             <tbody>
               <tr ng-repeat="wallet in wallets|orderBy:'-updated'">
-                <td><a href="/admin/wallets/{{wallet.wid}}">{{wallet.wid}}</a></td>
+                <td>
+                  <a  ng-click="modalWalletDetails(wallet)"  bs-modal="'/partials/admin/wallet.modal.html'">
+                    {{wallet.wid}}
+                  </a>
+                </td>
                 <td class="small">
                     <a ng-href="mailto:{{wallet.email}}" title="{{wallet.id}}" class="link">
                       {{wallet.email}} ({{wallet.id}})
