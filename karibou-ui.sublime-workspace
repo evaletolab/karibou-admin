@@ -120,8 +120,8 @@
 				"wallet"
 			],
 			[
-				"crée",
-				"créée"
+				"crÃ©e",
+				"crÃ©Ã©e"
 			],
 			[
 				"di",
@@ -364,6 +364,13 @@
 				"background-color"
 			],
 			[
+<<<<<<< HEAD
+				"pay",
+				"payÃ©e"
+			],
+			[
+=======
+>>>>>>> d39c82efd38b729eb6a5d294205c8d2a6fe0aaad
 				"res",
 				"reserved"
 			],
@@ -763,7 +770,7 @@
 			}
 		},
 		{
-			"contents": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<Document xmlns=\"urn:iso:std:iso:20022:tech:xsd:camt.054.001.02\" xmlns:xs=\"http://www.w3.org/2001/XMLSchema\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\">\n  <BkToCstmrDbtCdtNtfctn>\n    <GrpHdr>\n      <MsgId>KOBE150928779452</MsgId>\n      <CreDtTm>2015-09-28T04:16:00.00Z</CreDtTm>\n    </GrpHdr>\n    <Ntfctn>\n      <Id>KOBE150928779452</Id>\n      <CreDtTm>2015-09-28T04:16:00.00Z</CreDtTm>\n      <Acct>\n        <Id>\n          <IBAN>CH7609000000146156438</IBAN>\n        </Id>\n      </Acct>\n      <Ntry>\n        <Amt Ccy=\"CHF\">300.00</Amt>\n        <CdtDbtInd>DBIT</CdtDbtInd>\n        <Sts>BOOK</Sts>\n        <BookgDt>\n          <Dt>2015-09-28</Dt>\n        </BookgDt>\n        <ValDt>\n          <Dt>2015-09-28</Dt>\n        </ValDt>\n        <AcctSvcrRef>20150927000800573105017000000103</AcctSvcrRef>\n        <BkTxCd>\n          <Domn>\n            <Cd>PMNT</Cd>\n            <Fmly>\n              <Cd>ICDT</Cd>\n              <SubFmlyCd>BOOK</SubFmlyCd>\n            </Fmly>\n          </Domn>\n        </BkTxCd>\n        <NtryDtls>\n          <TxDtls>\n            <Refs>\n              <AcctSvcrRef>20150927000800573105017000000103</AcctSvcrRef>\n            </Refs>\n            <BkTxCd>\n              <Domn>\n                <Cd>PMNT</Cd>\n                <Fmly>\n                  <Cd>ICDT</Cd>\n                  <SubFmlyCd>BOOK</SubFmlyCd>\n                </Fmly>\n              </Domn>\n            </BkTxCd>\n          </TxDtls>\n        </NtryDtls>\n        <AddtlNtryInf>E-FINANCE 80-2-2 UBS SWITZERLAND AG CH050024024037931729E CAROLE PARODI 11 CHEMIN DE LA FLORENCE 1208 GENÈVE</AddtlNtryInf>\n      </Ntry>\n    </Ntfctn>\n  </BkToCstmrDbtCdtNtfctn>\n</Document>",
+			"contents": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<Document xmlns=\"urn:iso:std:iso:20022:tech:xsd:camt.054.001.02\" xmlns:xs=\"http://www.w3.org/2001/XMLSchema\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\">\n  <BkToCstmrDbtCdtNtfctn>\n    <GrpHdr>\n      <MsgId>KOBE150928779452</MsgId>\n      <CreDtTm>2015-09-28T04:16:00.00Z</CreDtTm>\n    </GrpHdr>\n    <Ntfctn>\n      <Id>KOBE150928779452</Id>\n      <CreDtTm>2015-09-28T04:16:00.00Z</CreDtTm>\n      <Acct>\n        <Id>\n          <IBAN>CH7609000000146156438</IBAN>\n        </Id>\n      </Acct>\n      <Ntry>\n        <Amt Ccy=\"CHF\">300.00</Amt>\n        <CdtDbtInd>DBIT</CdtDbtInd>\n        <Sts>BOOK</Sts>\n        <BookgDt>\n          <Dt>2015-09-28</Dt>\n        </BookgDt>\n        <ValDt>\n          <Dt>2015-09-28</Dt>\n        </ValDt>\n        <AcctSvcrRef>20150927000800573105017000000103</AcctSvcrRef>\n        <BkTxCd>\n          <Domn>\n            <Cd>PMNT</Cd>\n            <Fmly>\n              <Cd>ICDT</Cd>\n              <SubFmlyCd>BOOK</SubFmlyCd>\n            </Fmly>\n          </Domn>\n        </BkTxCd>\n        <NtryDtls>\n          <TxDtls>\n            <Refs>\n              <AcctSvcrRef>20150927000800573105017000000103</AcctSvcrRef>\n            </Refs>\n            <BkTxCd>\n              <Domn>\n                <Cd>PMNT</Cd>\n                <Fmly>\n                  <Cd>ICDT</Cd>\n                  <SubFmlyCd>BOOK</SubFmlyCd>\n                </Fmly>\n              </Domn>\n            </BkTxCd>\n          </TxDtls>\n        </NtryDtls>\n        <AddtlNtryInf>E-FINANCE 80-2-2 UBS SWITZERLAND AG CH050024024037931729E CAROLE PARODI 11 CHEMIN DE LA FLORENCE 1208 GENÃˆVE</AddtlNtryInf>\n      </Ntry>\n    </Ntfctn>\n  </BkToCstmrDbtCdtNtfctn>\n</Document>",
 			"settings":
 			{
 				"buffer_size": 1692,
@@ -1138,7 +1145,7 @@
 			".green",
 			"wrapArray",
 			"",
-			"userName:\"Olivier Evalet\", note:\"code entrée 12345\", status:",
+			"userName:\"Olivier Evalet\", note:\"code entrÃ©e 12345\", status:",
 			"",
 			"li class=\"site-nav-list-item\""
 		],
@@ -2761,3 +2768,4 @@
 	{
 	}
 }
+

@@ -11,15 +11,12 @@
       <!--                               -->
       <!-- CONTENT                       -->
       <!--                               -->
+      <h2 class="header" >{{document.model.header}}</h2>
 
-      <markdown  markdown-content="document.model.content"></markdown>
+      <markdown  class="text" markdown-content="document.model.content"></markdown>
 
 
       <article   style="width:103%"> 
-        <h4 class="article-group-title black " >
-          Les produits associés
-          <i class="-fa-heart-o fa"></i>
-        </h4>
 
         <div  ng-include="'/partials/product/product.html'"  ng-repeat="product in document.model.products|orderBy:['categories.weight','updated']"/>
       </article>

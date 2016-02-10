@@ -17,28 +17,6 @@ markdown ul{
 	margin-bottom: 35px;
 }
 
-markdown h1{
-	border-bottom: 1px solid #EEE;
-	text-align: center;
-	font-weight: 300;
-	font-style: italic;
-	color: #444;
-	margin:  40px 0;
-	margin-left: -40px;  
-}
-
-
-markdown h2{
-	border-bottom: 0px solid #EEE;
-	text-align: center;
-	font-weight: 300;
-	font-style: italic;
-	color: #888;
-	-border-left: 3px solid #444;
-	margin:  40px 0;
-	margin-left: -40px;  
-}
-
 markdown blockquote{
 	margin-bottom: 20px;
 	background-color: rgba(128,128,128,0.05);
