@@ -218,7 +218,7 @@ form.nomargin{
 
 .modal-body{
   min-height:480px;
-  max-height:700px!important;
+  -max-height:700px!important;
 }
 .modal-body.gradient{
   background-image: -moz-linear-gradient(center top , #eee 0px, #efefef 60%);
