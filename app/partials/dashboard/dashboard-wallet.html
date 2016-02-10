@@ -12,10 +12,23 @@
            ng-include="'/partials/dashboard/dashboard-sidebar.html'" 
            ng-class="{'menu-off':!options.showMenu}">
       </div>
+      <!-- OPTIONS -->
+      <form class="form-inline col-xs-12  nopadding-xs">
+        <div class="form-group">
+          <input type="text" class="form-control form-inline"  placeholder="mail" ng-model="_options.email">
+          <input type="text" class="form-control "  placeholder="> Amount" ng-model="_options.gt">
+          <input type="text" class="form-control "  placeholder="< Amount" ng-model="_options.lt">
+        </div>          
+      </form>
+      <!-- GIFTCARD -->
       <div class="col-xs-12  nopadding-xs">
-        <h1 class="page-header">Suivi des cartes karibou flotantes
-            <button class="btn btn-transparent btn-md" ng-click="findGiftWallets()"><i class="fa fa-refresh"></i></button>
-        </h1>
+        <h2 class="page-header">Les cartes cadeaux
+            <button class="btn btn-transparent btn-md" ng-click="findGiftWallets(_options)"><i class="fa fa-refresh"></i></button>
+        </h2>
+        <h2 class="page-header">Les Wallets
+            <button class="btn btn-transparent btn-md" ng-click="findOtherWallets(_options)"><i class="fa fa-refresh"></i></button>
+        </h2>
+
 
         <!-- FORM -->
           <table class="table  table-responsive ">
@@ -31,7 +44,11 @@
             </thead>
             <tbody>
               <tr ng-repeat="wallet in wallets|orderBy:'-updated'">
-                <td><a href="/admin/wallets/{{wallet.wid}}">{{wallet.wid}}</a></td>
+                <td>
+                  <a  ng-click="modalWalletDetails(wallet)"  bs-modal="'/partials/admin/wallet.modal.html'">
+                    {{wallet.wid}}
+                  </a>
+                </td>
                 <td class="small">
                     <a ng-href="mailto:{{wallet.email}}" title="{{wallet.id}}" class="link">
                       {{wallet.email}} ({{wallet.id}})
@@ -44,10 +61,9 @@
               </tr>
             </tbody>
           </table>
-
-
-      <!-- FOOTER -->              
       </div>
+
+
     </div>
   </div>
 </div>

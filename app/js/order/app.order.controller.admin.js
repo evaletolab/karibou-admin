@@ -6,8 +6,8 @@
 angular.module('app.order.manager', ['app.order.ui','app.config', 'app.api'])
   .controller('OrderAdminCtrl',OrderAdminCtrl);
 
-OrderAdminCtrl.$inject=['$scope', '$routeParams','$timeout','$http','api','order','user','product','$log', '$controller'];
-function OrderAdminCtrl($scope,$routeParams, $timeout, $http, api, order, user, product, $log, $controller) {
+OrderAdminCtrl.$inject=['$scope', '$routeParams','$timeout','$http','api','order','user','product','config','$log', '$controller','$q'];
+function OrderAdminCtrl($scope,$routeParams, $timeout, $http, api, order, user, product, config, $log, $controller,$q) {
   $controller('OrderCommonCtrl', {$scope: $scope}); 
 
 
@@ -41,6 +41,14 @@ function OrderAdminCtrl($scope,$routeParams, $timeout, $http, api, order, user, 
     });
     return shops;
   };
+
+  //
+  //
+  $scope.selectOrderByShop=function(shop,when,fulfillments){
+    $scope.selected.items=$scope.shops[shop];
+    $scope.selected.shop=shop;
+  };
+
 
   //
   // select order 
@@ -204,6 +212,12 @@ function OrderAdminCtrl($scope,$routeParams, $timeout, $http, api, order, user, 
     });
   };
   
+  $scope.updateShippingPrice=function(order,amount){
+    order.updateShippingPrice(amount).$promise.then(function(o){
+      api.info($scope,"Commande modifée",2000);
+      order.wrap(o);
+    });
+  };
 
 
   $scope.updateItem=function(oid,item,fulfillment){
@@ -232,8 +246,7 @@ function OrderAdminCtrl($scope,$routeParams, $timeout, $http, api, order, user, 
     if(!defaultParams&&!filters.month &&!filters.when)filters.month=today.getMonth()+1;
     $scope.loading=true;
 
-
-    user.$promise.then(function(){
+    $q.all([config.shop,user.$promise]).then(function(){
 
       //
       // is admin?

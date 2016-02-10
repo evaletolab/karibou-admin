@@ -1,0 +1,125 @@
+  <div class="modal-dialog" ng-if="modal.wid">
+    <div class="modal-content">
+      <!-- START MODAL CONTENT -->
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h4>{{modal.wid}}</h4>
+      </div>
+      <div class="modal-body clearfix">
+        <h6 class="article-group-title " >
+          {{modal.email}} - {{modal.card.name}} expiry date: {{modal.card.expiry}} 
+          <label class="pull-right"><input type="checkbox" name="status" ng-click="updateStatus(modal.wid)"  ng-model="modal.available"/>activé</label>
+        </h6>          
+
+
+
+        <div class="clearfix">
+        <h4>Wallet balance {{modal.balance/100}} CHF - credit {{modal.amount_negative/100}} CHF</h4>
+          <!-- NAME-EXPIRY -->
+          <form  class="form-horizontal">
+            <div class="nopadding form-group- col-xs-5">
+              <input type="text" class="form-control input-sm"  ng-model="modal.name" placeholder="Nom prénom" >
+            </div>
+            <div class="col-xs-4">
+              <input type="text" class="form-control input-sm"  ng-model="modal.expiry" placeholder="MM/YYYY">
+            </div>
+            <div class="col-xs-3 nopadding">
+              <button  class="btn btn-primary btn-sm btn-block" ng-disabled="dirtyWallet()" confirm-delete="updateWallet(modal.wid,password);" > Save</button>            
+            </div>
+          </form>
+
+        </div>
+        <hr/>
+        <div class="col-xs-12 nopadding">
+          <form>
+            <div class="form-group">
+              <div class=" nopadding col-xs-6">
+                <input  ng-model="modal.bank.bic" placeholder="BIC" type="text"  class="form-control input-md"/>
+              </div>
+              <div class=" nopadding col-xs-6">
+                <input  ng-model="modal.bank.iban" placeholder="IBAN" type="text"  class="form-control input-md"/>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class=" nopadding col-xs-6">
+                <input  ng-model="modal.bank.sic" placeholder="SIC" type="text"  class="form-control input-md"/>
+              </div>
+              <div class=" nopadding col-xs-6">
+                <input  ng-model="modal.bank.account" placeholder="ACCOUNT" type="text"  class="form-control input-md"/>
+            </div>
+            </div>
+
+            <div class="form-group">
+              <input  ng-model="modal.bank.name" placeholder="Name" type="text"  class="form-control input-md"/>
+            </div>
+
+            <div class="form-group">
+              <input  ng-model="modal.bank.address1" placeholder="address1" type="text"  class="form-control input-md"/>
+            </div>
+            <div class="form-group">
+              <input  ng-model="modal.bank.address2" placeholder="address2" type="text"  class="form-control input-md"/>
+            </div>
+
+            <div class="form-group">
+              <button  class="btn btn-primary btn-sm btn-block" confirm-delete="updateBANK(modal.wid,modal.bank);"> Save Wallet bank details</button>
+            </div>
+            <!-- CREDIT/DEBIT -->
+            <div class="form-group">
+              <div class=" nopadding col-xs-8">
+                <input  ng-model="description" placeholder="description" type="text"  class="form-control input-sm"/>
+              </div>
+              <div class=" nopadding col-xs-4">
+                <input  ng-model="refid" placeholder="ref id" type="text"  class="form-control input-sm"/>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class=" nopadding col-xs-4">
+                <input  ng-model="amount" placeholder="CHF" type="text"  class="form-control input-sm"/>
+              </div>
+              <div class=" col-xs-4">
+              <button  class="btn btn-danger btn-sm btn-block" 
+                      ng-disabled="!amount||!description"
+                      confirm-delete="creditWallet(modal.wid,modal.bank,amount,description,refid,'credit',password)"> 
+                  CREDIT 
+              </button>
+              </div>
+              <div class=" nopadding col-xs-4">
+              <button  class="btn btn-info btn-sm btn-block" 
+                      ng-disabled="!amount||!description"
+                      confirm-delete="creditWallet(modal.wid,modal.bank,amount,description,refid,'debit',password)"> 
+                  DEBIT 
+              </button>
+                
+              </div>
+
+            </div>
+            
+          </form>
+        </div>
+        <ul class="list-group col-xs-12 nopadding">
+          <li class="list-group-item"><h6>Transactions</h6></li>
+          <li ng-repeat="transaction in modal.transactiona" class="list-group-item">
+            <strong>{{transaction.id}} - {{transaction.type}}</strong> {{transaction.amount/100}} Fr
+            <div ng-if="transaction.amount_refunded">refunded: {{transaction.amount_refunded/100}} Fr</div>
+            <div>{{transaction.description}} / created {{transaction.created|dateMomentShort}} / {{transfer.limited|dateMomentShort}}</div>
+          </li>
+        </ul>
+        <ul class="list-group col-xs-12 nopadding">
+          <li class="list-group-item"><h6>Transfers</h6></li>
+          <li ng-repeat="transfer in modal.transfers"  class="list-group-item">
+            <strong>{{transfer.type}}</strong> {{transfer.amount/100}} Fr
+            <div ng-if="transfer.reversed">reversed: {{transfer.amount_reversed/100}} Fr</div>
+            <div class="small">{{transfer.description}} / created {{transfer.created|dateMomentShort}}</div>
+          </li>
+        </ul>
+      </div>
+
+      <div class="modal-footer">
+        <br/>
+        <button class="btn btn-danger" confirm-delete="remove(modal,password,password);dismiss();">
+          Delete
+        </button>
+        <button class="btn" ng-click="modalDissmiss();dismiss();">Close</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->

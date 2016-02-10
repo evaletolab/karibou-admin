@@ -127,7 +127,7 @@ article:nth-child(even){
 
 .layout-item .shop-owner{
   min-height:inherit;
-  border-radius: 45%;
+  border-radius: 50%;
   float: left;
   height: 30px;
   margin: 5px 5px 0 -7px !important;
@@ -175,12 +175,15 @@ article:nth-child(even){
     overflow: visible;
     position: absolute;
     left: 1px;
-    bottom:0px;
-    padding:1px;
-    background:none repeat scroll 0 0 rgba(200, 0, 0, 0.6);
-    color:white;
-    width: 50%;
-    height: 0px;
+    bottom: 0px;
+    padding: 3px;
+    background: none repeat scroll 0 0 rgba(200, 0, 0, 0.4);
+    color: white;
+    height: 32px;
+    font-weight: bold;
+    width: 30px;
+    margin: 8px;
+    border-radius: 20%;
 }
 
 

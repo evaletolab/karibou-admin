@@ -73,14 +73,14 @@
 
    <body  ng-class="{'display-cart':options.cart,'display-info':config.shop.maintenance.active, 'site-nav-transition site-nav-drawer-open':options.sidebar}">
 
-      <div class="github-fork-ribbon-wrapper right" ng-show="!cart.items.length&&showFeedbackWidget()">
+<!--       <div class="github-fork-ribbon-wrapper right" ng-show="!cart.items.length&&showShopWidgets()">
           <div class="github-fork-ribbon">
               <a href="#" style="font-size:120%">
               5fr de rabais ! <i class="fa fa-bicycle bold"></i> 
               </a>
           </div>
       </div>
-
+ -->
       <!-- DISPLAY CART -->
       <button class="site-nav-logo-cart hidden-print" 
              ng-cloak  ng-click="toggleCart()" 
@@ -88,7 +88,7 @@
           <span ng-show="cart.items.length">
             <i class="fa fa-chevron-down hidden-xs"></i>&nbsp;
             <i class="fa fa-shopping-cart green "></i>&nbsp;({{cart.quantity()}}) 
-            <span class="pull-right">{{cart.total()|number:2}} CHF  <span class="hidden-xs"><i class=" fa fa-bicycle"></i>&nbsp;</span></span></span>
+            <span class="pull-right">{{cart.total()|number:2}} CHF  <span class="hidden-xs"><i class=" fa fa-bicycle"></i>&nbsp;</span></span>
           </span>
       </button>
       <!-- DISPLAY SIDEBAR -->
@@ -108,11 +108,16 @@
             <ul class="site-nav-list fill">
               <!-- HOME -->              
               <li class="site-nav-list-item navigable-list-item site-nav-list-item-home">
-                <span class=""><a class="site-nav-list-item-btn" title="Go home" ng-href="/" tabindex="-1"><span class="fa fa-home green"></span>&nbsp;Home</a></span>
+                <span class="">
+                  <a class="site-nav-list-item-btn" title="Go home" ng-href="/" tabindex="-1"><span class="fa fa-home green"></span>
+                    &nbsp;Home
+                  </a>
+                </span>
                 <span>
                   <a class="site-nav-list-item-btn pull-right" 
                      title="Close this menu" ng-href="#" ng-click="options.sidebar=false;"
-                     tabindex="-1"><span class="fa fa-reorder fa-2x green"></span></span>
+                     tabindex="-1"><span class="fa fa-reorder fa-2x green"></span></a>
+                </span>
               </li>
 
 
@@ -248,7 +253,6 @@
           </p>
         </div>
         <![endif]-->
-
          <div class="butter-bar active success " ng-cloak ng-show="FormInfos" 
             ng-animate="{show: 'fadein', hide: 'fadeout'}">
             <p class="butter-bar-message" ng-cloak ng-show="FormInfos">
@@ -282,7 +286,7 @@
       </div>
       <div class="loading-bar"></div>
       <!-- FEEDBACK -->
-      <div ng-controller="FeedbackCtrl" class="hidden-print" ng-show="showFeedbackWidget()">
+      <div ng-controller="FeedbackCtrl" class="hidden-print" ng-show="showShopWidgets()">
         <button class="ng-cloak  btn btn-feedbk feedbackbtn " 
                 ng-click="feedback.show=true" 
                 ng-hide="feedback.show"><i class="fa fa-pencil fa-1x"></i> {{getTitle()}}

@@ -14,7 +14,6 @@ FeedbackCtrl.$inject=['config','$scope','$rootScope','$timeout','$location','use
 function FeedbackCtrl(config, $scope, $rootScope,$timeout,  $location, user,api,feedback) {
 
   var fb=$scope.feedback=feedback;
-  var currentPath=$location.path();
 
   user.$promise.finally(function () {
     if(user.email.address){
@@ -22,16 +21,6 @@ function FeedbackCtrl(config, $scope, $rootScope,$timeout,  $location, user,api,
     }
   });
 
-  $scope.showFeedbackWidget=function () {
-
-    //
-    // if referer is in protected path?
-    if(_.find(config.avoidFeedbackIn,function(path){
-        return (currentPath.indexOf(path)!==-1);})){
-      return false;
-    }
-    return true;
-  };
 
   //
   // be sure to update user value when it change is state from anonymous to logged
@@ -44,7 +33,7 @@ function FeedbackCtrl(config, $scope, $rootScope,$timeout,  $location, user,api,
   };
 
   $scope.getTitle=function () {
-    if(fb.product) {return fb.product.vendor.name;}
+    if(fb.product&&fb.product.vendor) {return fb.product.vendor.name;}
     if(fb.shop){return fb.shop.name;}
     return 'Une question?';
   };
@@ -74,6 +63,7 @@ function FeedbackCtrl(config, $scope, $rootScope,$timeout,  $location, user,api,
     }
     if(fb.product&&fb.product.sku){
       content.product=fb.product.title+' ('+fb.product.sku+')';
+      content.shopname=fb.product.vendor.urlpath;
     }
 
     feedback.send(content).success(function(data, status, headers, config) {
@@ -86,8 +76,6 @@ function FeedbackCtrl(config, $scope, $rootScope,$timeout,  $location, user,api,
   // update feedback state 
   $rootScope.$on('$routeChangeSuccess', function (event, route) {
     $timeout(function () {
-      currentPath=$location.path();
-
 
       feedback.updateScope(route);
     },500);
@@ -106,7 +94,7 @@ function feedbackFactory(config, user, $rootScope,$http) {
   var Feedback = function(data) {
     this.shop=false;
     this.product=false;
-    this.email=false;
+    this.email=undefined;
     this.show=false;
     this.mood="J'ai une question a propos de Karibou";
     this.COMMENT='Un nouveau commentaire à été publié';
@@ -124,24 +112,22 @@ function feedbackFactory(config, user, $rootScope,$http) {
   Feedback.prototype.updateScope=function(route) {
     this.shop=this.product=false;
 
-    if(route&&route.urlpath){
-      this.shop=route;
+    if(route&&route.params.urlpath){
+      this.shop=route.scope.shop;
+      return;
     }
-    if(route&&route.sku){
-      this.product=route;
+    if(route&&route.params.sku){
+      this.product=route.scope.product;
+      return;
     }
     if(route&&route.scope){
-      //
-      // case of product
-      if(route.scope.product&&route.scope.product.sku){
-        return this.product=route.scope.product;
-      }
       //
       // case of shop
       if(route.scope.$$childHead&&route.scope.$$childHead.shop){
         return this.shop=route.scope.$$childHead.shop;
       }
     }
+
   }
 
   Feedback.prototype.setUser=function(email) {

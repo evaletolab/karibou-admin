@@ -4,6 +4,406 @@
 		"selected_items":
 		[
 			[
+				"pay",
+				"payment"
+			],
+			[
+				"get",
+				"getItem"
+			],
+			[
+				"upd",
+				"updateScope"
+			],
+			[
+				"pro",
+				"product"
+			],
+			[
+				"con",
+				"config"
+			],
+			[
+				"pr",
+				"products"
+			],
+			[
+				"for",
+				"forceUrl"
+			],
+			[
+				"fo",
+				"forceUrl"
+			],
+			[
+				"re",
+				"referrer"
+			],
+			[
+				"add",
+				"addressIdx"
+			],
+			[
+				"time",
+				"timeout	setTimeout function"
+			],
+			[
+				"ref",
+				"referrer"
+			],
+			[
+				"pa",
+				"payment"
+			],
+			[
+				"font",
+				"font-weight"
+			],
+			[
+				"ac",
+				"activity"
+			],
+			[
+				"f",
+				"form	Tag"
+			],
+			[
+				"te",
+				"text-transform"
+			],
+			[
+				"gi",
+				"giftcards"
+			],
+			[
+				"ba",
+				"background-image"
+			],
+			[
+				"s",
+				"sum"
+			],
+			[
+				"is",
+				"issuer"
+			],
+			[
+				"gift",
+				"giftcode"
+			],
+			[
+				"i",
+				"i	Tag"
+			],
+			[
+				"it",
+				"item"
+			],
+			[
+				"fu",
+				"fun	Function"
+			],
+			[
+				"proto",
+				"prototype"
+			],
+			[
+				"to",
+				"toFixed"
+			],
+			[
+				"meh",
+				"methodStatus"
+			],
+			[
+				"wal",
+				"wallet"
+			],
+			[
+				"crée",
+				"créée"
+			],
+			[
+				"di",
+				"disabled	Attr"
+			],
+			[
+				"in",
+				"input"
+			],
+			[
+				"p",
+				"payments"
+			],
+			[
+				"el",
+				"elements"
+			],
+			[
+				"sub",
+				"subSize"
+			],
+			[
+				"or",
+				"order"
+			],
+			[
+				"com",
+				"computeUrl"
+			],
+			[
+				"inde",
+				"indexOf"
+			],
+			[
+				"refe",
+				"referrers"
+			],
+			[
+				"do",
+				"documents"
+			],
+			[
+				"use",
+				"user"
+			],
+			[
+				"mde",
+				"models"
+			],
+			[
+				"mode",
+				"models"
+			],
+			[
+				"d",
+				"documents"
+			],
+			[
+				"ro",
+				"routeParams"
+			],
+			[
+				"rout",
+				"routeParams"
+			],
+			[
+				"wid",
+				"width"
+			],
+			[
+				"mar",
+				"margin-right"
+			],
+			[
+				"pad",
+				"padding-left"
+			],
+			[
+				"ma",
+				"margin-bottom"
+			],
+			[
+				"background",
+				"background-repeat"
+			],
+			[
+				"bor",
+				"border-bottom"
+			],
+			[
+				"back",
+				"background-image"
+			],
+			[
+				"sk",
+				"skus"
+			],
+			[
+				"pars",
+				"parse"
+			],
+			[
+				"displ",
+				"displayName"
+			],
+			[
+				"mod",
+				"model"
+			],
+			[
+				"cle",
+				"clearAll"
+			],
+			[
+				"cl",
+				"colspan	Attr"
+			],
+			[
+				"def",
+				"defaultDocument"
+			],
+			[
+				"vi",
+				"viewValue"
+			],
+			[
+				"mo",
+				"model"
+			],
+			[
+				"th",
+				"this"
+			],
+			[
+				"l",
+				"log"
+			],
+			[
+				"ty",
+				"types"
+			],
+			[
+				"doc",
+				"document"
+			],
+			[
+				"docu",
+				"document"
+			],
+			[
+				"docuem",
+				"documents"
+			],
+			[
+				"shop",
+				"shop"
+			],
+			[
+				"font-",
+				"font-weight"
+			],
+			[
+				"bord",
+				"border-top"
+			],
+			[
+				"full",
+				"fulfillments"
+			],
+			[
+				"bak",
+				"background-color"
+			],
+			[
+				"ord",
+				"orders"
+			],
+			[
+				"sh",
+				"shopname"
+			],
+			[
+				"sho",
+				"show"
+			],
+			[
+				"bro",
+				"browser"
+			],
+			[
+				"op",
+				"option	Tag"
+			],
+			[
+				"fil",
+				"filterItems"
+			],
+			[
+				"item",
+				"items"
+			],
+			[
+				"sele",
+				"selected"
+			],
+			[
+				"ven",
+				"vendor"
+			],
+			[
+				"order",
+				"order"
+			],
+			[
+				"ite",
+				"items"
+			],
+			[
+				"orde",
+				"orders"
+			],
+			[
+				"o",
+				"oid"
+			],
+			[
+				"ful",
+				"fulfillment"
+			],
+			[
+				"fun",
+				"fun	Function"
+			],
+			[
+				"cat",
+				"category"
+			],
+			[
+				"bac",
+				"background-color"
+			],
+			[
+				"res",
+				"reserved"
+			],
+			[
+				"str",
+				"strokeColor"
+			],
+			[
+				"ca",
+				"caChart"
+			],
+			[
+				"da",
+				"datasets"
+			],
+			[
+				"lab",
+				"labels"
+			],
+			[
+				"le",
+				"length"
+			],
+			[
+				"la",
+				"labels"
+			],
+			[
+				"data",
+				"datasets"
+			],
+			[
+				"dat",
+				"datasets"
+			],
+			[
+				"sel",
+				"sellsChart"
+			],
+			[
 				"remove",
 				"removeItem"
 			],
@@ -12,76 +412,16 @@
 				"setItem"
 			],
 			[
-				"con",
-				"config"
-			],
-			[
-				"pro",
-				"promises"
-			],
-			[
-				"font",
-				"font-weight"
-			],
-			[
-				"sh",
-				"showWidget"
-			],
-			[
-				"pa",
-				"padding-top"
-			],
-			[
 				"text",
 				"text-align"
-			],
-			[
-				"ma",
-				"margin-bottom"
-			],
-			[
-				"fo",
-				"form	Tag"
 			],
 			[
 				"fon",
 				"font-family"
 			],
 			[
-				"di",
-				"display"
-			],
-			[
-				"mar",
-				"margin-bottom"
-			],
-			[
-				"shop",
-				"shops"
-			],
-			[
-				"add",
-				"address"
-			],
-			[
-				"ord",
-				"orderByField"
-			],
-			[
 				"lo",
 				"logged"
-			],
-			[
-				"s",
-				"scope"
-			],
-			[
-				"l",
-				"length"
-			],
-			[
-				"pay",
-				"payments"
 			],
 			[
 				"e",
@@ -90,22 +430,6 @@
 			[
 				"the",
 				"then"
-			],
-			[
-				"sho",
-				"shopAddresses"
-			],
-			[
-				"or",
-				"orders"
-			],
-			[
-				"pr",
-				"products"
-			],
-			[
-				"to",
-				"toLowerCase"
 			],
 			[
 				"shi",
@@ -124,20 +448,8 @@
 				"discountB"
 			],
 			[
-				"is",
-				"isAvailableForOrder"
-			],
-			[
 				"pri",
 				"pricing"
-			],
-			[
-				"fu",
-				"fun	Function"
-			],
-			[
-				"bor",
-				"border-bottom"
 			],
 			[
 				"a",
@@ -150,10 +462,6 @@
 			[
 				"fix",
 				"hasFixedPortion"
-			],
-			[
-				"com",
-				"computeUrl"
 			],
 			[
 				"var",
@@ -172,28 +480,8 @@
 				"tmplSingle"
 			],
 			[
-				"f",
-				"finalprice"
-			],
-			[
-				"re",
-				"return"
-			],
-			[
-				"item",
-				"items"
-			],
-			[
 				"co",
 				"color"
-			],
-			[
-				"ful",
-				"fulfilled"
-			],
-			[
-				"get",
-				"getItem"
 			],
 			[
 				"inf",
@@ -202,10 +490,6 @@
 			[
 				"de",
 				"defaultClazz"
-			],
-			[
-				"mo",
-				"moduleName"
 			],
 			[
 				"upload",
@@ -228,483 +512,18 @@
 				"title"
 			],
 			[
-				"ro",
-				"rootScope"
-			],
-			[
-				"te",
-				"text-decoration"
-			],
-			[
 				"tex",
 				"text-decoration"
-			],
-			[
-				"loc",
-				"locationReferrer"
-			],
-			[
-				"pad",
-				"padding"
-			],
-			[
-				"in",
-				"info"
-			],
-			[
-				"tem",
-				"templateUrl"
-			],
-			[
-				"key",
-				"keyCode"
-			],
-			[
-				"ne",
-				"newVal"
-			],
-			[
-				"g",
-				"geo"
-			],
-			[
-				"p",
-				"prototype"
-			],
-			[
-				"pop",
-				"populateAdresseName"
-			],
-			[
-				"app",
-				"appCtrl"
-			],
-			[
-				"font-",
-				"font-size"
-			],
-			[
-				"metho",
-				"methodStatus"
-			],
-			[
-				"max",
-				"max-width"
-			],
-			[
-				"fun",
-				"fun	Function"
-			],
-			[
-				"S",
-				"sans-serif"
-			],
-			[
-				"met",
-				"method"
-			],
-			[
-				"paym",
-				"payment"
-			],
-			[
-				"meth",
-				"methodStatus"
-			],
-			[
-				"curr",
-				"currentRoute"
-			],
-			[
-				"ba",
-				"background-color"
-			],
-			[
-				"i",
-				"i	Tag"
-			],
-			[
-				"fa",
-				"false"
-			],
-			[
-				"first",
-				"firstTime"
-			],
-			[
-				"it",
-				"item"
-			],
-			[
-				"mi",
-				"min-height"
-			],
-			[
-				"iF",
-				"iFrameHeight"
-			],
-			[
-				"bo",
-				"border"
-			],
-			[
-				"r",
-				"route"
-			],
-			[
-				"rou",
-				"routes"
-			],
-			[
-				"us",
-				"userId"
-			],
-			[
-				"opt",
-				"options"
-			],
-			[
-				"border-r",
-				"border-radius"
-			],
-			[
-				"ven",
-				"vendors"
-			],
-			[
-				"for",
-				"for	for (…) {…} (Improved Native For-Loop)"
-			],
-			[
-				"orde",
-				"order"
-			],
-			[
-				"def",
-				"defaultParams"
-			],
-			[
-				"th",
-				"th	Tag"
-			],
-			[
-				"dat",
-				"date2"
-			],
-			[
-				"date",
-				"date1"
-			],
-			[
-				"wh",
-				"when"
-			],
-			[
-				"wid",
-				"width"
-			],
-			[
-				"ht",
-				"httpProvider"
-			],
-			[
-				"t",
-				"true"
-			],
-			[
-				"max-",
-				"max-height"
-			],
-			[
-				"input",
-				"input"
-			],
-			[
-				"ap",
-				"appConfig"
-			],
-			[
-				"cu",
-				"currentView"
-			],
-			[
-				"ref",
-				"referrers"
-			],
-			[
-				"len",
-				"length"
-			],
-			[
-				"refe",
-				"referrer"
-			],
-			[
-				"back",
-				"backfader"
-			],
-			[
-				"la",
-				"labels"
-			],
-			[
-				"ca",
-				"cancel"
-			],
-			[
-				"ad",
-				"address"
-			],
-			[
-				"time",
-				"timeLeftNextDay"
-			],
-			[
-				"next",
-				"nextDay"
-			],
-			[
-				"tim",
-				"timelimitH"
-			],
-			[
-				"res",
-				"reason"
-			],
-			[
-				"htt",
-				"http"
-			],
-			[
-				"li",
-				"line-height"
-			],
-			[
-				"el",
-				"element"
-			],
-			[
-				"new",
-				"newContainer"
-			],
-			[
-				"le",
-				"length-1"
-			],
-			[
-				"prod",
-				"product"
-			],
-			[
-				"par",
-				"params"
-			],
-			[
-				"ini",
-				"initContext"
-			],
-			[
-				"getP",
-				"getPaymentFees"
-			],
-			[
-				"padd",
-				"padding-right"
-			],
-			[
-				"cl",
-				"clear"
 			]
 		]
 	},
 	"buffers":
 	[
 		{
-			"contents": "<div class=\"dashboard\" ng-controller=\"AccountCtrl\">\n  <!-- MENU -->\n  <nav class=\"navbar navbar-inverse navbar-fixed-top hidden-print\" role=\"navigation\">\n    <div class=\"container-fluid\">\n      <div class=\"navbar-header\">\n        <button type=\"button\" class=\"navbar-toggle collapsed\" data-toggle=\"collapse\" data-target=\"#navbar\" aria-expanded=\"false\" aria-controls=\"navbar\">\n          <span class=\"sr-only\">Toggle navigation</span>\n          <span class=\"fa fa-bar\"></span>\n          <span class=\"fa fa-bar\"></span>\n          <span class=\"fa fa-bar\"></span>\n        </button>\n        <a class=\"navbar-brand\" href=\"\" ng-click=\"options.showMenu=!options.showMenu;\"><i class=\"fa fa-reorder white_ fa fa-2\"></i> MENU</a>\n      </div>\n      <div id=\"navbar\" class=\"navbar-collapse collapse\">\n        <ul class=\"nav navbar-nav navbar-right\">\n          <li class=\"dropdown\">\n            <a href=\"#\" class=\"dropdown-toggle\" data-toggle=\"dropdown\" role=\"button\" aria-expanded=\"false\">Boutiques <span class=\"caret\"></span></a>\n            <ul class=\"dropdown-menu\" role=\"menu\">\n              <li ng-repeat=\"shop in user.shops\"><a ng-href=\"/shop/{{shop.urlpath}}\">{{shop.name}}</a></li>\n            </ul>\n          </li>        \n          <li><a href=\"/account\">{{user.display()}} <span ng-show=\"user.isAdmin()\" class=\"label label-danger\">ADMIN</span></a></li>\n          <li ng-if=\"user.isAuthenticated()\"><a href=\"\" ng-click=\"logout()\">logout</a></li>\n        </ul>\n        <!-- FILTER CONTENT -->\n        <form class=\"navbar-form navbar-right\" role=\"search\">\n          <div class=\"form-group\">\n            <input type=\"text\" class=\"form-control\" placeholder=\"Filter\" ng-model=\"options.filterTxt\">\n          </div>\n        </form>        \n      </div>\n    </div>\n  </nav>\n\n\n  <div class=\"container-fluid\" ng-init=\"findAllUsers()\">\n    <div class=\"row\">\n      <!-- SIDEBAR MENU -->\n      <div class=\"col-xs-8 col-sm-4 col-lg-2 sidebar \" \n           ng-include=\"'/partials/dashboard/dashboard-sidebar.html'\" \n           ng-class=\"{'menu-off':!options.showMenu}\">\n      </div>\n      <div class=\"col-xs-12  nopadding-xs\">\n        <h1 class=\"page-header\">Gestion des utilisateurs \n            <button class=\"btn btn-transparent btn-md\" ng-click=\"findAllUsers()\"><i class=\"fa fa-refresh\"></i></button>\n        </h1>\n\n        <!-- FORM -->\n          <table class=\"table  table-responsive \">\n            <thead>\n              <tr>\n                <th>id</th>\n                <th>name</th>\n                <th><a ng-click=\"applyTableFilter('logged')\">login</a></th>\n                <th><a ng-click=\"applyTableFilter('updated')\">update</a></th>\n                <th><a ng-click=\"applyTableFilter('email')\">validate</a></th>\n                <th>address</th>\n                <th>role</th>\n                <th>shops</th>\n              </tr>\n            </thead>\n            <tbody>\n              <tr ng-repeat=\"u in users|orderBy:options.orderByField:options.reverseSort|filterBy:['email.status']:options.filterByField|filter:options.filterTxt\" ng-class=\"{'danger':u.status!==true}\">\n                <td class=\"small\">\n                    <a  ng-click=\"modalUserDetails(u)\" title=\"{{u.getEmailStatus()}}\"\n                      bs-modal=\"'/partials/admin/user.modal.html'\">\n                      {{u.id}}\n                    </a>\n                </td>\n                <td ng-class=\"{'danger':u.email.status!==true}\">\n                    {{u.displayName}}\n                </td>\n                <td>{{u.logged|dateLabelShort}}</td>\n                <td>{{u.updated|dateLabelShort}}</td>\n                <td ng-class=\"{'danger':u.email.status!==true}\">{{u.getEmailStatus()}}</td>\n                <td>{{u.hasPrimaryAddress()}}</td>\n                <td>{{u.roles}}</td>\n                <td>{{u.shops.length}}</td>\n              </tr>\n            </tbody>\n          </table>\n\n\n      <!-- FOOTER -->              \n      </div>\n    </div>\n  </div>\n</div>\n",
-			"file": "app/assets/partials/admin/user.html",
-			"file_size": 3921,
-			"file_write_time": 130857403886659844,
-			"settings":
-			{
-				"buffer_size": 3921,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"contents": "\n// Init the Pins used for PWM\nconst int redPin = 9;\nconst int greenPin = 10;\nconst int bluePin = 11;\n\n// Init the Pins used for 10K pots\nconst int redPotPin = 0;\nconst int greenPotPin = 1;\nconst int bluePotPin = 2;\n\n// Init our Vars\nint currentColorValueRed;\nint currentColorValueGreen;\nint currentColorValueBlue;\n\nvoid setup()\n{\n  pinMode(redPin, OUTPUT);\n  pinMode(greenPin, OUTPUT);\n  pinMode(bluePin, OUTPUT);\n}\n\nvoid fadePin(pin){\n  int delayTime=10;\n  for( int i = 0 ; i < 255 ; i += 1 ){\n\n    analogWrite(pin, i);\n    delay( delayTime );\n  }\n}\n\nvoid loop()\n{\n// Read the voltage on each analog pin then scale down to 0-255 and inverting the value for common anode\n  currentColorValueRed = (255 - map( analogRead(redPotPin), 0, 1024, 0, 255 ) ); \n  currentColorValueBlue = (255 - map( analogRead(bluePotPin), 0, 1024, 0, 255 ) );\n  currentColorValueGreen = (255 - map( analogRead(greenPotPin), 0, 1024, 0, 255 ) );\n\n// Write the color to each pin using PWM and the value gathered above\n  analogWrite(redPin, currentColorValueRed);\n  analogWrite(bluePin, currentColorValueBlue);\n  analogWrite(greenPin, currentColorValueGreen);\n\n \n}",
-			"settings":
-			{
-				"buffer_size": 1138,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"contents": "<div tabindex=\"-1\"   class=\"container\" ng-controller=\"HomeCtrl\" style=\"margin-top:50px;\">\n\n\n\n        <!--                               -->\n        <!-- CATEGORIES PRODUITS/BOUTIQUES -->\n        <!--                               -->\n                          \n         <div  class=\"bucket post-bucket homepage-posts\">\n            <div class=\"bucket-header bucket-header-list show-subtitles-variant\">\n               <nav class=\"bucket-sort\">\n                  <h5 class=\"bucket-title hidden-xs\" >\n                    <a href=\"/products\" title=\"Les produits\"><span class=\"bucket-header-title\">Les produits</span> </a>\n                  </h5>\n                  <h5 class=\"bucket-title active hidden-xs\">\n                    <a href=\"/shops\" title=\"Collections\"><span class=\"bucket-header-title\">Les boutiques</span> </a>\n                  </h5>\n               </nav>\n            </div>\n         </div>\n\n        \n        <!-- SHOPS -->\n        <div infinite-scroll='loadNextPage()'  \n             infinite-scroll-distance='0' \n             class=\"row wrapheight \" style=\"padding:8px;background-color:transparent\">\n\n            <div  ng-repeat=\"(group, _shops) in shops\" ng-if=\"_shops.length\"> \n<!--               <h5 class=\"article-group-title \">\n                {{group}}\n                <i class=\"{{category.find({name:group}).image||''}} {{category.find({name:group}).color||gray}} fa fa-large\"></i>\n              </h5>\n -->\n              <div  style=\"width:100%;\"><!-- MANSORY FIX -->\n                <div  class=\"col-sm-6 col-md-6 col-xs-12 \" style=\"background-color:transparent\" \n                      ng-include=\"'/partials/shop/shop.html'\"  \n                      ng-repeat=\"shop in _shops\" \n                      ng-if=\"shop.name\"></div>              \n              </div>\n            </div>\n<!--             <article>              \n              <div class=\" layout-item c3 \"  >\n                <div style=\"position:relative;overflow:hidden;height:auto\">          \n                  <img ng-src=\"{{map.resolveStaticmap(addresses)}}\" \n                  style=\"width:100%\"/>\n                </div>\n                </div>\n            </article>\n -->        </div>\n\n        <footer class=\"wrapper-footer wide\" ng-include=\"'/footer.html'\"></footer>\n</div>\n",
-			"file": "app/assets/partials/shop/home.html",
-			"file_size": 2258,
-			"file_write_time": 130857591502700552,
-			"settings":
-			{
-				"buffer_size": 2258,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"contents": "<div class=\"shop col-xs-12 \">\n  <!-- producers-list item -->\n  <a class=\"\" ng-href=\"/shop/{{shop.urlpath}}\">\n    <div class=\"row-content\">\n      <div class=\"photo col-xs-12 col-md-6 \">\n        <div alt=\"\" class=\"img-responsive \" bg-src=\"{{shop.photo.fg|placehold:'470x400'}}\"/>\n      </div>\n      <div class=\"content-wrapper col-xs-12 col-md-6 \">\n        <div class=\"item-header\">\n          <h3 class=\"title \">{{shop.name}}</h3>\n        </div>\n        <div class=\"item-content\">\n          <markdown class=\"\" markdown-content=\"shop.description|cut:true:170\"></markdown>\n        </div>\n      <div class=\"item-footer hidden-sm\">\n        <div class=\"producer-city\">\n          <i class=\"fa-map-marker fa\"></i>\n          {{shop.address.region}}\n          </div>\n        </div>\n      </div>\n      <div class=\"item-closed\" ng-if=\"shop.available.active\">\n          <h4>Fermeture!</h4>\n          {{shop.available.comment}}\n          <br/>\n          <small>du {{shop.available.from|date:'d/M'}} au {{shop.available.to|date:'d/M'}}</small>      \n        \n      </div>\n    </div>\n  </a>\n</div>\n",
-			"file": "app/assets/partials/shop/shop.html",
-			"file_size": 1081,
-			"file_write_time": 130857670591230130,
-			"settings":
-			{
-				"buffer_size": 1081,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "app/assets/partials/product/home.html",
-			"settings":
-			{
-				"buffer_size": 6444,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "app/css/shop.css",
-			"settings":
-			{
-				"buffer_size": 3156,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "bower_components/angular-cms/dist/ng-cms.js",
-			"settings":
-			{
-				"buffer_size": 16389,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "bower_components/angular-cms/bower.json",
-			"settings":
-			{
-				"buffer_size": 773,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "app/js/order/app.order.controller.comon.js",
-			"settings":
-			{
-				"buffer_size": 6618,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"contents": "<!-- ORDERS BY SHOPS -->\n<div  ng-repeat=\"(shop, items) in shops\" ng-if=\"shops\" >\n\n  <!-- ITEMS -->\n  <ul class=\"list-group\" ng-repeat=\"group in items|filterBy:['vendor']:filters.s|groupBy:'rank' \" >\n    <li class=\"list-group-item list-group-item-transparent\" \n        style=\"padding:30px 20px;font-size:130%\"\n        >\n        <span  >\n            <a class=\"text-capitalize link bold\" \n               ng-click=\"modalUserDetails(group[0].oid)\" \n               bs-modal=\"'/partials/order/order.user.modal.html'\">\n              {{group[0].customer.name.givenName}} {{group[0].customer.name.familyName}} \n            </a>&nbsp;\n        </span>      \n    </li>\n    <li  class=\"list-group-item \" \n         ng-repeat=\"item in group|orderBy:['rank']|filter:options.filterTxt\" \n         ng-class=\"getOrderItemStatusClass(item,'list-group-item-')\" >\n      <h4 class=\"list-group-item-heading\"> \n          <span ng-class=\"(item.quantity>1)?'bold red':''\">{{item.quantity}}x</span> <a ng-href=\"/products/{{item.sku}}\">{{item.title}} ({{item.part}})</a> \n          <div ng-if=\"item.variant.title\" class=\"small\"><span class=\"fa fa-warning red\">option: </span><span>{{item.variant.title}}</span></div>\n      </h4>\n      <span class=\"bag-1 \" ng-click=\"selectItem(item,shop,$event)\">\n          <span class=\"label\" \n                ng-class=\"isItemValidated(item)?'label-primary':'hide'\">sac {{item.rank}}</span>\n      </span>\n      <span class=\"bag-2 label \" \n            ng-class=\"isItemValidated(item)?'label-price':'hide'\"\n            ng-hide=\"options.showWidget\">{{item.finalprice|number:'2'}}CHF</span>\n      <div class=\"list-group-item-text clearfix\">\n        <div class=\"col-xs-10 col-sm-6 col-md-4 nopadding\">\n          <form class=\"form-inline   input-group \" ng-hide=\"options.showWidget\">\n            <span class=\"input-group-btn\">\n              <button type=\"button\" class=\"btn btn-default btn-sm \"\n                      ng-click=\"updateItem(item.oid,item,'failure')\"\n                      ><i class=\"fa fa-thumbs-down\"></i> Annulez</button>\n            </span>\n            <input type=\"text\" type=\"number\"  \n                   class=\"form-control input-sm\" \n                   ng-model=\"item.finalprice\" \n                   ng-disabled=\"getInputDisabled(item)\" >\n            <span class=\"input-group-btn\">\n              <button type=\"button\" class=\"btn btn-success btn-sm \"\n                      ng-click=\"updateItem(item.oid,item,'fulfilled')\"\n                      ><i class=\"fa fa-check\"></i> Validez</button>\n            </span>\n          </form>\n\n        </div>\n      </div>\n    </li>\n  </ul>\n  <!-- ITEMS TOTAL -->\n  <p ng-show=\"(!filters.s||filters.s===shop)\" class=\"gray small\">Total commandé : {{getAmountTotal(shop)|number:2}} CHF</p>\n</div>\n\n",
-			"file": "app/assets/partials/order/order-lists-byshop.html",
-			"file_size": 2749,
-			"file_write_time": 130862700492759652,
-			"settings":
-			{
-				"buffer_size": 2748,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"contents": "<div class=\"dashboard\" ng-controller=\"OrderAdminCtrl\">\n\n  <!-- MENU -->\n  <nav  class=\"navbar navbar-inverse navbar-fixed-top\" role=\"navigation\"\n        ng-include=\"'/partials/dashboard/dashboard-header.html'\"></nav>\n\n\n  <!-- MAIN CONTENT -->\n  <div class=\"container-fluid \" ng-init=\"findAllOrders()\">\n    <div class=\"row\">\n\n      <!-- LEFT MENU -->\n      <div class=\"col-xs-8 col-sm-4 col-lg-2 sidebar \" \n           ng-include=\"'/partials/dashboard/dashboard-sidebar.html'\" \n           ng-class=\"{'menu-off':!options.showMenu}\">\n      </div>\n      <div class=\"col-xs-12  nopadding-xs row-offcanvas _row-offcanvas-right \" nclass=\"{'active':options.showWidget}\">\n\n        <!-- FILTERS LOGISTIC -->\n        <div class=\"panel panel-default\" >\n          <div class=\"panel-heading\"> \n            <a href=\"\" class=\"btn btn-transparent btn-md\" toggle-on-click=\"#order-filter\" > <i class=\"fa fa-chevron-down \"></i></a>\n\n            <!-- TITLE -->\n            <span id=\"ac-{{filters.s}}\" >le {{shipping.currentDay|dateLabel}} pour {{filters.s}} </span>\n            <!-- DISPLAY PAD FOR TOUCH UX -->\n            &nbsp;\n            <button class=\" btn btn-md btn-transparent  \" title=\"Afficher le PAD\" \n                    ng-click=\"options.showWidget=!options.showWidget\" \n                    ng-class=\"{'active':options.showWidget}\"><i class=\"fa fa-calculator\"></i> PAD</button>\n\n\n          </div>\n          <div class=\"panel-body  hide\" id=\"order-filter\" >\n              <div class=\"col-xs-12  \">\n                <button ng-click=\"informShopToOrders(filters.s,shipping.currentDay)\" \n                        type=\"button\" class=\"btn btn-md btn-transparent btn-block\">Envoyer le détail par email</button>\n                <button class=\"btn btn-md btn-transparent btn-block\" \n                        ng-repeat=\"(shop, items) in shops\"\n                        ng-click=\"filters.s=shop\" ng-class=\"{'active':isSelectedShop(shop)}\">\n                        {{shop}} \n                        ({{countItemValidated(shops[shop],filters.f)}}|\n                        {{countItemAvailable(items,filters.f)}})\n                </button> \n              </div>\n          </div>\n        </div>        \n          \n\n        <!-- ORDERS -->\n        <div ng-show=\"loading\" class=\"text-center gray\">\n          <i class=\"fa fa-refresh fa-2x fa-spin\"></i>\n        </div>\n\n\n        <!-- ORDERS BY SHOP -->\n        <div  ng-if=\"shops\" \n              class=\" nopadding\" \n              ng-class=\"{'col-xs-4 col-md-6':options.showWidget,'col-xs-12':!options.showWidget}\"\n              ng-include=\"'/partials/order/order-lists-byshop.html'\"></div>\n\n        <!-- WIDGET -->\n        <div ng-if=\"options.showWidget\"  id=\"validate-widget\"\n             class=\"col-xs-8 col-md-6 \" \n             ng-include=\"'/partials/order/order-validate-widget.html'\"></div>\n\n\n      </div>\n    </div>\n  </div>\n</div>\n",
-			"file": "app/assets/partials/dashboard/dashboard-shop.html",
-			"file_size": 2859,
-			"file_write_time": 130862697884835830,
-			"settings":
-			{
-				"buffer_size": 2858,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "app/css/validate-widget.css",
-			"settings":
-			{
-				"buffer_size": 2884,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "app/js/app.home.js",
-			"settings":
-			{
-				"buffer_size": 5944,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "app/css/cover.css",
-			"settings":
-			{
-				"buffer_size": 15443,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"contents": "\n<!-- MENU -->\n  <div class=\"container-fluid\">\n    <div class=\"navbar-header\">\n      <button type=\"button\" class=\"navbar-toggle collapsed\" data-toggle=\"collapse\" data-target=\"#navbar\" aria-expanded=\"false\" aria-controls=\"navbar\">\n        <span class=\"sr-only\">Toggle navigation</span>\n        <span class=\"fa fa-bar\"></span>\n        <span class=\"fa fa-bar\"></span>\n        <span class=\"fa fa-bar\"></span>\n      </button>\n      <a class=\"navbar-brand\" href=\"\" ng-click=\"options.showMenu=!options.showMenu;\"><i class=\"fa fa-reorder fa fa-2\"></i> MENU</a>\n    </div>\n    <div id=\"navbar\" class=\"navbar-collapse collapse\">\n      <ul class=\"nav navbar-nav navbar-right\">\n        <li class=\"dropdown\">\n          <a href=\"#\" class=\"dropdown-toggle\" data-toggle=\"dropdown\" role=\"button\" aria-expanded=\"false\">Boutiques <span class=\"caret\"></span></a>\n          <ul class=\"dropdown-menu\" role=\"menu\">\n            <li ng-repeat=\"shop in user.shops\">\n              <a ng-href=\"/shop/{{shop.urlpath}}/edit\">{{shop.name}} (edit)</a>\n            </li>\n          </ul>\n        </li>        \n        <li><a href=\"/account\">{{user.display()}} <span ng-show=\"user.isAdmin()\" class=\"label label-danger\">ADMIN</span></a></li>\n        <li ng-if=\"user.isAuthenticated()\"><a href=\"\" ng-click=\"logout()\">logout</a></li>\n      </ul>\n      <!-- FILTER CONTENT -->\n      <form class=\"navbar-form navbar-left\" role=\"search\">\n        <div class=\"form-group\">\n          <input type=\"text\" class=\"form-control\" placeholder=\"Filter\" ng-model=\"options.filterTxt\">\n        </div>\n      </form>        \n    </div>\n  </div>\n",
-			"file": "app/assets/partials/dashboard/dashboard-header.html",
-			"file_size": 1588,
-			"file_write_time": 130857403886659844,
-			"settings":
-			{
-				"buffer_size": 1588,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "app/js/app.raven.js",
-			"settings":
-			{
-				"buffer_size": 2314,
-				"line_ending": "Unix"
-			}
-		},
-		{
 			"file": "app/assets/index.html",
 			"settings":
 			{
-				"buffer_size": 17761,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "config.coffee",
-			"settings":
-			{
-				"buffer_size": 2531,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "vendor/scripts/ui.bootstrap.tabs.js",
-			"settings":
-			{
-				"buffer_size": 9481,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"contents": "/*!\n* basket.js\n* v0.5.2 - 2015-02-07\n* http://addyosmani.github.com/basket.js\n* (c) Addy Osmani;  License\n* Created by: Addy Osmani, Sindre Sorhus, Andrée Hansson, Mat Scales\n* Contributors: Ironsjp, Mathias Bynens, Rick Waldron, Felipe Morais\n* Uses rsvp.js, https://github.com/tildeio/rsvp.js\n*/(function( window, document ) {\n	'use strict';\n\n	var head = document.head || document.getElementsByTagName('head')[0];\n	var storagePrefix = 'basket-';\n	var defaultExpiration = 5000;\n	var inBasket = [];\n	var mapKeyPromises={};\n\n\n\n	var addLocalStorage = function( key, storeObj ) {\n		try {\n			localStorage.setItem( storagePrefix + key, JSON.stringify( storeObj ) );\n			return true;\n		} catch( e ) {\n			if ( e.name.toUpperCase().indexOf('QUOTA') >= 0 ) {\n				var item;\n				var tempScripts = [];\n\n				for ( item in localStorage ) {\n					if ( item.indexOf( storagePrefix ) === 0 ) {\n						tempScripts.push( JSON.parse( localStorage[ item ] ) );\n					}\n				}\n\n				if ( tempScripts.length ) {\n					tempScripts.sort(function( a, b ) {\n						return a.stamp - b.stamp;\n					});\n\n					basket.remove( tempScripts[ 0 ].key );\n\n					return addLocalStorage( key, storeObj );\n\n				} else {\n					// no files to remove. Larger than available quota\n					return;\n				}\n\n			} else {\n				// some other error\n				return;\n			}\n		}\n\n	};\n\n	var getUrl = function( url ) {\n		var promise = new RSVP.Promise( function( resolve, reject ){\n\n			var xhr = new XMLHttpRequest();\n			xhr.open( 'GET', url );\n\n			xhr.onreadystatechange = function() {\n				if ( xhr.readyState === 4 ) {\n					if ( ( xhr.status === 200 ) ||\n							( ( xhr.status === 0 ) && xhr.responseText ) ) {\n						resolve( {\n							content: xhr.responseText,\n							type: xhr.getResponseHeader('content-type')\n						} );\n					} else {\n						reject( new Error( xhr.statusText ) );\n					}\n				}\n			};\n\n\n			// By default XHRs never timeout, and even Chrome doesn't implement the\n			// spec for xhr.timeout. So we do it ourselves.\n			setTimeout( function () {\n				if( xhr.readyState < 4 ) {\n					xhr.abort();\n				}\n			}, basket.timeout );\n\n			xhr.send();\n		});\n\n		return promise;\n	};\n\n	var saveUrl = function( obj ) {\n		return getUrl( obj.url ).then( function( result ) {\n			var storeObj = wrapStoreData( obj, result );\n\n			if (!obj.skipCache) {\n				addLocalStorage( obj.key , storeObj );\n			}\n\n			return storeObj;\n		});\n	};\n\n	var wrapStoreData = function( obj, data ) {\n		var now = +new Date();\n		obj.data = data.content;\n		obj.originalType = data.type;\n		obj.type = obj.type || data.type;\n		obj.skipCache = obj.skipCache || false;\n		obj.stamp = now;\n		obj.expire = now + ( ( obj.expire || defaultExpiration ) * 60 * 60 * 1000 );\n\n		return obj;\n	};\n\n	var isCacheValid = function(source, obj) {\n		return !source ||\n			source.expire - +new Date() < 0  ||\n			obj.unique !== source.unique ||\n			(basket.isValidItem && !basket.isValidItem(source, obj));\n	};\n\n	var handleStackObject = function( obj ) {\n		var source, promise, shouldFetch;\n\n		if ( !obj.url ) {\n			return;\n		}\n\n		obj.key =  ( obj.key || obj.url );\n		source = basket.get( obj.key );\n                \n		obj.execute = obj.execute !== false;\n\n		shouldFetch = isCacheValid(source, obj);\n\n		if( obj.live || shouldFetch ) {\n			if ( obj.unique ) {\n				// set parameter to prevent browser cache\n				obj.url += ( ( obj.url.indexOf('?') > 0 ) ? '&' : '?' ) + 'basket-unique=' + obj.unique;\n			}\n			promise = saveUrl( obj );\n\n			if( obj.live && !shouldFetch ) {\n				promise = promise\n					.then( function( result ) {\n						// If we succeed, just return the value\n						// RSVP doesn't have a .fail convenience method\n						return result;\n					}, function() {\n						return source;\n					});\n			}\n		} else {\n			source.type = obj.type || source.originalType;\n			source.execute = obj.execute;\n			promise = new RSVP.Promise( function( resolve ){\n				resolve( source );\n			});\n		}\n\n		//\n		// map the proise with this obj.key\n		mapKeyPromises[obj.key]=promise;\n\n		return promise;\n	};\n\n	var injectScript = function( obj ) {\n		var script = document.createElement('script');\n		script.defer = true;\n		// Have to use .text, since we support IE8,\n		// which won't allow appending to a script\n		script.text = obj.data;\n		head.appendChild( script );\n	};\n\n	var handlers = {\n		'default': injectScript\n	};\n\n	var execute = function( obj ) {\n		if( obj.type && handlers[ obj.type ] ) {\n			return handlers[ obj.type ]( obj );\n		}\n\n		return handlers['default']( obj ); // 'default' is a reserved word\n	};\n\n	var performActions = function( resources ) {\n		return resources.map( function( obj ) {\n			if( obj.execute ) {\n				execute( obj );\n			}\n\n			return obj;\n		} );\n	};\n\n	var fetch = function() {\n		var i, l, promises = [];\n\n		for ( i = 0, l = arguments.length; i < l; i++ ) {\n			promises.push( handleStackObject( arguments[ i ] ) );\n		}\n\n		return RSVP.all( promises );\n	};\n\n	var thenRequire = function() {\n		var resources = fetch.apply( null, arguments );\n		var promise = this.then( function() {\n			return resources;\n		}).then( performActions );\n		promise.thenRequire = thenRequire;\n		return promise;\n	};\n\n\n	window.basket = {\n		require: function() {\n			for ( var a = 0, l = arguments.length; a < l; a++ ) {\n				arguments[a].execute = arguments[a].execute !== false;\n				\n				if ( arguments[a].once && inBasket.indexOf(arguments[a].url) >= 0 ) {\n					arguments[a].execute = false;\n				} else if ( arguments[a].execute !== false && inBasket.indexOf(arguments[a].url) < 0 ) {  \n					inBasket.push(arguments[a].url);\n				}\n			}\n                        \n			var promise = fetch.apply( null, arguments ).then( performActions );\n\n			promise.thenRequire = thenRequire;\n			return promise;\n		},\n\n		ready:function (key) {\n			return mapKeyPromises[key];\n		},\n\n		remove: function( key ) {\n			localStorage.removeItem( storagePrefix + key );\n			return this;\n		},\n\n		get: function( key ) {\n			var item = localStorage.getItem( storagePrefix + key );\n			try	{\n				return JSON.parse( item || 'false' );\n			} catch( e ) {\n				return false;\n			}\n		},\n\n		clear: function( expired ) {\n			var item, key;\n			var now = +new Date();\n\n			for ( item in localStorage ) {\n				key = item.split( storagePrefix )[ 1 ];\n				if ( key && ( !expired || this.get( key ).expire <= now ) ) {\n					this.remove( key );\n				}\n			}\n\n			return this;\n		},\n\n		isValidItem: null,\n\n		timeout: 5000,\n\n		addHandler: function( types, handler ) {\n			if( !Array.isArray( types ) ) {\n				types = [ types ];\n			}\n			types.forEach( function( type ) {\n				handlers[ type ] = handler;\n			});\n		},\n\n		removeHandler: function( types ) {\n			basket.addHandler( types, undefined );\n		}\n	};\n\n	// delete expired keys\n	basket.clear( true );\n\n})( this, document );\n",
-			"file": "app/loader/basket.js",
-			"file_size": 6643,
-			"file_write_time": 130865179218874672,
-			"settings":
-			{
-				"buffer_size": 6644,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "loader/basket.js",
-			"settings":
-			{
-				"buffer_size": 7081,
+				"buffer_size": 18814,
 				"line_ending": "Unix"
 			}
 		},
@@ -712,66 +531,82 @@
 			"file": "app/js/app.storage.js",
 			"settings":
 			{
-				"buffer_size": 2919,
+				"buffer_size": 3912,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"contents": "  ;(function(angular) {'use strict';\n\n\nvar Service=angular.module('app.api',['app.config','app.ui']);\n\n\nService.factory(\"flash\", function($rootScope) {\n  var queue = [], currentMessage = '';\n  \n  $rootScope.$on('$routeChangeSuccess', function() {\n    if (queue.length > 0) \n      currentMessage = queue.shift();\n    else\n      currentMessage = '';\n  });\n  \n  return {\n    set: function(message) {\n      queue.push(message);\n    },\n    get: function(message) {\n      return currentMessage;\n    }\n  };\n});\n\n\n\nService.factory('api', [\n  '$rootScope',\n  '$http',\n  '$resource',\n  '$timeout',\n  '$q',\n  '$log',\n  '$location',\n  '$routeParams',\n  'config',\nfunction ($rootScope, $http, $resource, $timeout, $q, $log, $location, $routeParams, config) {  \n  var _categories=[], promise;\n\n  /**\n   * get category object\n   */\n  function findBySlug(slug){\n    var cats=_categories;\n    for (var i in cats){\n      if(cats[i].slug===slug)return cats[i].name;\n    }\n    return \"Inconnu\";\n  }\n\n  function info($scope, msg, ms, cb){\n      if(ms === undefined){ ms=4000; }\n      else if ((typeof ms)==='function'){ cb=ms;ms=4000; }\n      $rootScope.FormInfos=msg;\n      $timeout.cancel(promise);\n      promise=$timeout(function(){\n        $rootScope.FormInfos=false;\n        if (cb) cb($scope);\n        promise=false;\n      }, ms);\n  }\n\n  \n\n\n  function error($scope, ms, cb){\n  }  \n  \n\n  function uploadfile($scope, options, callback){\n    return false;      \n  }\n\n\n  function computeUrl(oldUrl){\n    var url;\n    // edit from shop\n    if($routeParams.shop && $routeParams.sku && $location.path().indexOf('/edit')!=-1){\n      url='/shop/'+$routeParams.shop+'/products/'+$routeParams.sku;\n    }\n\n    // edit from products\n    else if($routeParams.sku && $location.path().indexOf('/edit')!=-1){\n      url='/products/'+$routeParams.sku;\n    }\n\n    // from shop\n    else if($routeParams.shop){\n      url='/shop/'+$routeParams.shop;\n    }\n\n    // from category \n    else if($routeParams.category){\n      url='/products/category/'+$routeParams.category;\n    }\n\n    // from sku\n    else if($routeParams.sku){\n      url='/products';\n    }\n\n    else if($rootScope.referrer){\n      url=$rootScope.referrer;\n    }\n\n    return url||oldUrl||'/';      \n  }\n\n  \n  function wrapDomain(clazz, key, defaultClazz){\n\n    clazz.prototype.copy = function(data) {\n        angular.extend(this,defaultClazz, data);\n    };\n\n    //\n    // default behavior on error\n    clazz.prototype.onerr=function(data,config){\n      this.copy(defaultClazz);\n    };\n\n    /**\n     * chain a Object resource as the next promise\n     */\n    clazz.prototype.chain=function(promise){\n      var self=this;\n      this.$promise=this.$promise.then(function(data){\n        if(Array.isArray(data))self.wrapArray(data);else self.wrap(data);\n        return promise;\n      });\n      return this;\n    };\n\n\n    /**\n     * chain a Array resource as the next promise\n     */\n    clazz.prototype.chainAll=function(promise){\n     var self=this,\n         deferred=$q.defer(),\n         lst=[];\n         \n     this.$promise=lst.$promise=this.$promise.then(function(){\n          return promise.then(function(l){\n            lst=self.wrapArray(l);\n            return lst;\n          });\n     });\n     return lst;\n    };\n\n    /**\n     * wrap json data to Object instance repository\n     */\n    clazz.prototype.wrapArray=function(values){\n      var list=[];\n      values.forEach(function(instance){\n        //\n        // manage cache on multiple instance\n        if(!_all[instance[key]]){\n          _all[instance[key]]=new clazz();          \n        }\n        _all[instance[key]].copy(instance);\n        list.push(_all[instance[key]]);\n      });\n      return list;  \n    };\n    \n   \n    clazz.prototype.wrap=function(instance){\n      this.copy(instance);\n      return this;\n    };\n\n    clazz.prototype.delete=function(){\n      if(_all[this[key]]) delete _all[this[key]];\n    };\n\n\n    \n    /**\n     * find data in repository \n     */\n    clazz.findAll=function(where, cb){\n      if (!where){\n        return _.map(_all, function(val,key){return val;});\n      }\n      var lst=_.where(_all,where);\n      if(cb)cb(lst);\n      return lst;\n    };\n\n    clazz.prototype.findAll=function(where){ \n      return clazz.findAll(where);\n    };\n\n    clazz.prototype.find=function(where){ \n      return clazz.find(where);\n    };\n\n    clazz.find=function(where,cb){\n      if (!where){ \n        return;\n      }\n      var lst;\n      if ((typeof where) === \"string\"){\n        lst=_all[where];\n      }else{\n        lst=_.findWhere(_all,where);\n      }\n      if(cb)cb(lst);      \n      return lst;\n    };\n    \n    clazz.load=function(elems){\n      if (!elems) return _.map(_all, function(val,key){return val;});\n      var list=_singleton.wrapArray(elems);\n      return list;\n    };\n    //\n    //default singleton for user \n    var     _singleton=new clazz({});\n    var     _all={};\n    return _singleton;  \n\n  }\n  return {\n    uploadfile:uploadfile,\n    wrapDomain:wrapDomain,\n    findBySlug:findBySlug,\n    computeUrl:computeUrl,\n    error:error,\n    info:info\n  };\n}]);\n  \n\n\n})(window.angular);\n\n\n",
-			"file": "app/js/app.service.js",
-			"file_size": 5089,
-			"file_write_time": 130785047736892396,
+			"file": "app/js/order/app.order.factory.cart.js",
 			"settings":
 			{
-				"buffer_size": 5091,
+				"buffer_size": 9498,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "app/js/app.product.ui.js",
+			"file": "app/js/app.wallet.js",
 			"settings":
 			{
-				"buffer_size": 5290,
+				"buffer_size": 6143,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "app/css/product.css",
+			"file": "app/partials/order/order-lists.html",
 			"settings":
 			{
-				"buffer_size": 8271,
+				"buffer_size": 3719,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "app.js",
+			"file": "app/partials/dashboard/dashboard-wallet.html",
 			"settings":
 			{
-				"buffer_size": 1945,
+				"buffer_size": 2539,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "app/js/app.init.js",
+			"file": "app/partials/account/overview.html",
 			"settings":
 			{
-				"buffer_size": 11757,
+				"buffer_size": 7458,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "app/css/utils.css",
+			"contents": "<div class=\"dashboard\" ng-controller=\"AccountCtrl\">\n\n  <!-- MENU -->\n  <nav  class=\"navbar navbar-inverse navbar-fixed-top\" role=\"navigation\"\n        ng-include=\"'/partials/dashboard/dashboard-header.html'\"></nav>\n\n\n  <div class=\"container-fluid\" ng-init=\"findAllUsers()\">\n    <div class=\"row\">\n      <!-- SIDEBAR MENU -->\n      <div class=\"col-xs-8 col-sm-4 col-lg-2 sidebar \" \n           ng-include=\"'/partials/dashboard/dashboard-sidebar.html'\" \n           ng-class=\"{'menu-off':!options.showMenu}\">\n      </div>\n      <div class=\"col-xs-12  nopadding-xs\">\n        <h1 class=\"page-header\">Gestion des utilisateurs \n            <button class=\"btn btn-transparent btn-md\" ng-click=\"findAllUsers(_user)\"><i class=\"fa fa-refresh\"></i></button>\n        </h1>\n\n        <form class=\"form-inline\">\n          <div class=\"form-group\">\n            <input type=\"text\" class=\"form-control form-inline\"  placeholder=\"Nom\" ng-model=\"_user.name\">\n            <input type=\"text\" class=\"form-control \"  placeholder=\">= orders count\" ng-model=\"_user.orders\">\n            <input type=\"text\" class=\"form-control\"  placeholder=\">= Wallet amount\" ng-model=\"_user.amount\">\n            <input type=\"text\" class=\"form-control\"  placeholder=\">= Giftcode count\" ng-model=\"_user.gifts\">\n          </div>          \n        </form>\n\n        <!-- FORM -->\n          <table class=\"table  table-responsive \">\n            <thead>\n              <tr>\n                <th>id</th>\n                <th>name</th>\n                <th><a ng-click=\"applyTableFilter('logged')\">login</a></th>\n                <th><a ng-click=\"applyTableFilter('updated')\">update</a></th>\n                <th><a ng-click=\"applyTableFilter('email')\">validate</a></th>\n                <th>address</th>\n                <th>role</th>\n                <th>shops</th>\n              </tr>\n            </thead>\n            <tbody>\n              <tr ng-repeat=\"u in users|orderBy:options.orderByField:options.reverseSort|filterBy:['email.status']:options.filterByField|filter:options.filterTxt|limitTo:80\" ng-class=\"{'danger':u.status!==true}\">\n                <td class=\"small\">{{$index+1}}\n                    <a  ng-click=\"modalUserDetails(u)\" title=\"{{u.getEmailStatus()}}\"\n                      bs-modal=\"'/partials/admin/user.modal.html'\">\n                      {{u.id}}\n                    </a>\n                </td>\n                <td ng-class=\"{'danger':u.email.status!==true}\">\n                    {{u.displayName}}\n                </td>\n                <td>{{u.logged|dateLabelShort}}</td>\n                <td>{{u.updated|dateLabelShort}}</td>\n                <td ng-class=\"{'danger':u.email.status!==true}\">{{u.getEmailStatus()}}</td>\n                <td>{{u.hasPrimaryAddress()}}</td>\n                <td>{{u.roles}}</td>\n                <td>{{u.shops.length}}</td>\n              </tr>\n            </tbody>\n          </table>\n\n\n      <!-- FOOTER -->              \n      </div>\n    </div>\n  </div>\n</div>\n",
+			"file": "app/partials/admin/user.html",
+			"file_size": 2949,
+			"file_write_time": 130948320578624722,
 			"settings":
 			{
-				"buffer_size": 6910,
+				"buffer_size": 2948,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "app/js/app.service.ui.js",
+			"file": "app/partials/order/order.html",
 			"settings":
 			{
-				"buffer_size": 18883,
+				"buffer_size": 25993,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "app/js/order/app.order.controller.new.js",
+			"settings":
+			{
+				"buffer_size": 9664,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "app/js/app.feedback.js",
+			"settings":
+			{
+				"buffer_size": 3762,
 				"line_ending": "Unix"
 			}
 		},
@@ -779,64 +614,87 @@
 			"file": "app/js/app.root.js",
 			"settings":
 			{
-				"buffer_size": 7289,
+				"buffer_size": 8623,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"contents": ";(function(angular) {'use strict';\n\n//\nvar map=angular.module('app.ui.map',['app.config']);\n\n\n/**\n * app.shop provides a model for interacting with Shop.\n * This service serves as a convenient wrapper for other related services.\n */\n\nmap.factory('Map', [\n  'config',\n  '$location',\n  '$rootScope',\n  '$route',\n  '$http',\n  'api',\n  '$q',\n  \n  function (config, $location, $rootScope, $route, $http, api, $q) {\n\n    // init icon\n    var icons, statickey=config.staticMapKey;\n\n    //\n    // make leaflet loading asynchrone\n    $script.ready(\"leaflet\",function(){\n      // prepare Leaflet\n      if (L.AwesomeMarkers){\n          icons={\n            user:L.AwesomeMarkers.icon({icon: 'user', prefix: 'fa', markerColor: 'red', spin:false}),\n            coffe:L.AwesomeMarkers.icon({icon: 'coffee', markerColor: 'orange', prefix: 'fa', iconColor: 'black'}),\n            truck:L.AwesomeMarkers.icon({icon: 'truck', markerColor: 'cadetblue', prefix: 'fa', iconColor: 'white'}),\n            cart:L.AwesomeMarkers.icon({icon: 'shopping-cart',  prefix: 'fa', markerColor: 'cadetblue'}),\n            home:L.AwesomeMarkers.icon({icon: 'home',  prefix: 'fa', markerColor: 'cadetblue'}),\n          };         \n      }\n    });\n\n\n    // init openstreetmap\n    var defaultMap={\n      icons:{},\n      geneva: {\n          lat: 46.2017559, \n          lng: 6.1466014,\n          zoom: 12\n      },\n      legend: {\n          position: 'bottomleft',\n          colors: [  '#ff0000', '#0000ff'],\n          labels: [  'Livraison', 'Collecte' ]\n      },\n      defaults: {\n        tileLayer: \"http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png\",\n        _tileLayer: \"http://{s}.tile.opencyclemap.org/cycle/{z}/{x}/{y}.png\"\n      },\n      events: {\n          map: {\n              enable: ['click'],\n              logic: 'emit'\n          }\n      },      \n      markers: {}      \n    };  \n\n\n\n    var Map = function() {\n      this.map={};\n      angular.copy(defaultMap,map);\n    };\n    \n    //\n    // map contains {\n    //  legend:{\n    //    labels:['Mon addresse']\n  //  }, \n  //  markers:{\n  //    \"key\":{lat,lng,message,focus, draggable, icon}\n  //  }\n  // }\n    Map.prototype.addMarker=function(id, marker){\n      if(!map.markers[id])\n        map.markers[id]={};\n\n      angular.extend(map.markers[id], marker,{focus:false,draggable:false});\n      return map;\n    };\n\n    Map.prototype.removeMarker=function(id){\n      if(map.markers[id])\n        delete map.markers[id];\n      return map;\n  };\n\n    Map.prototype.getMap=function(){\n      return map;\n  };\n\n\n    //\n    // get address\n    Map.prototype.geocode=function(street,postal,region, cb){\n      var defer=$q.defer();\n\n      //\n      // google format: Route de Chêne 34, 1208 Genève, Suisse\n      if(!region)region=\"Suisse\";\n      var fulladdress=street+\",\"+postal+\", \"+region;//\"34+route+de+chêne,+Genève,+Suisse\n      var url=\"//maps.googleapis.com/maps/api/geocode/json?address=\"+fulladdress+\"&sensor=false\" ;\n      $http.get(url,{withCredentials:false}).success(function(geo,status,header,config){\n        if(cb) return cb(geo,status);\n        defer.resolve(geo,status);\n      },function (err) {\n        defer.reject(err);\n      });\n      return defer.promise;\n    };\n\n\n\n    \n\n    //\n    // map contains {legend:{labels:['Mon addresse']}, markers}\n    Map.prototype.onClick=function($scope, cb){\n      $scope.$on('leafletDirectiveMap.click', function(event){\n          cb();\n      });    \n    };\n\n    Map.prototype.getIcons=function(){\n      return icons;\n    };\n\n    //\n    // generate a static map to replace interactive map\n    Map.prototype.resolveStaticmap=function(address, label, zoom){\n      // no address, no map\n      if(!address) return;\n\n\n      \n      //\n      var marker=\"\", \n          center=(Array.isArray(address))?\"\":\"center=\"+address.region+\"&\",\n          url=\"//maps.googleapis.com/maps/api/staticmap?\"+center,\n          opt=\"maptype=roadmap&zoom=\"+zoom+\"&size=850x400\",\n          id=\"&key=\"+statickey;\n\n      zoom=(zoom)?zoom:12;\n\n      function makeMarker(address){\n        if (address.geo&&address.geo.lat&&address.geo.lng)\n          return \"&markers=color:green%7Xlabel:%7C\"+address.geo.lat+\",\"+address.geo.lng;\n        return \"\";\n      }\n\n      if(Array.isArray(address)){\n\n        for(var i in address)\n          marker+=makeMarker(address[i]);\n      }else{\n        marker=makeMarker(address);\n      }\n      return url+opt+marker+id;\n    };    \n\n    \n    return Map;\n  }\n]);\n\n})(window.angular);\n",
-			"file": "app/js/app.ui.map.js",
-			"file_size": 4445,
-			"file_write_time": 130731275116989453,
+			"file": "config.coffee",
 			"settings":
 			{
-				"buffer_size": 4447,
+				"buffer_size": 2523,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "app/js/app.order.js",
+			"file": "app/js/app.shop.js",
 			"settings":
 			{
-				"buffer_size": 2106,
+				"buffer_size": 8160,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "app/js/app.category.js",
+			"file": "app/js/app.init.js",
 			"settings":
 			{
-				"buffer_size": 6012,
+				"buffer_size": 12113,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"contents": "\n<!-- PRODUCTS FORM -->\n<table class=\"table  table-responsive \"\n       ng-init=\"options.orderByField='pricing.stock';reverseSort=false\">\n  <thead>\n    <tr>\n      <th style=\"width:40%\">\n        <a href=\"\" ng-click=\"options.orderByField='vendor.name';reverseSort=!reverseSort\">\n          #sku\n        </a>\n      </th>\n      <th>\n          boutique\n      </th>\n      <th style=\"width:40px\" title=\"Les produits disponibles à la vente\">visible</th>\n      <th style=\"width:80px\" class=\"hide\">\n        <a href=\"\" ng-click=\"options.orderByField='weight';reverseSort=!reverseSort\">poids</a>\n      </th>\n      <th style=\"width:80px\">\n        <a href=\"\" ng-click=\"options.orderByField='pricing.stock';reverseSort=!reverseSort\">stock</a>\n      </th>\n      <th style=\"width:100px\">prix</th>\n      <th style=\"width:110px\" class=\"text-center small\">prix promotion</th>\n      <th style=\"width:40px\"  class=\"text-center small\" ng-if=\"user.isAdmin()\">home</th>\n      <th>-</th>\n    </tr>\n  </thead>\n  <tbody>\n    <tr ng-repeat-start=\"product in products|filter:options.filterTxt|orderBy:options.orderByField:reverseSort\" >\n    </tr>\n    <tr ng-repeat-end  \n        ng-class=\"{'info':isProductDirty(product),'warning':!product.attributes.available}\">\n      <td ng-init=\"initProductState(product)\">\n        <a ng-href=\"/products/{{product.sku}}\">{{product.title}}</a>\n      </td>\n      <td>{{product.vendor.urlpath}}</td>\n\n      <!-- DISPO -->\n      <td>\n        <input type=\"checkbox\" ng-checked=\"product.attributes.available\" ng-model=\"product.attributes.available\" >        \n      </td>\n\n      <!-- WEIGTH -->\n      <td class=\"hide\">\n        <input type=\"text\" type=\"number\"\n        ng-model=\"product.pricing._weight\"   class=\"form-control\">\n      </td>\n\n      <!-- STOCK -->\n      <td>\n        <input type=\"text\" type=\"number\"\n        ng-model=\"product.pricing._stock\"   class=\"form-control\">\n      </td>\n      <td>\n        <input type=\"text\" type=\"number\"\n        ng-model=\"product.pricing._price\"  class=\"form-control\">\n      </td>\n      <!-- DISCOUNT -->\n      <td>\n        <div class=\"input-group\" ng-class=\"{'discount':product.attributes.discount}\">\n          <span class=\"input-group-addon\">\n            <input type=\"checkbox\" ng-checked=\"product.attributes.discount\" ng-model=\"product.attributes.discount\">\n          </span>\n          <input type=\"text\" class=\"form-control\" type=\"number\" ng-disabled=\"!product.attributes.discount\" ng-model=\"product.pricing.discount\">\n        </div>      \n      </td>\n      <!-- HOME -->\n      <td ng-if=\"user.isAdmin()\" >\n        <input type=\"checkbox\" ng-checked=\"product.attributes.home\" ng-model=\"product.attributes.home\" >        \n      </td>\n      <td style=\"width:43px;\">\n        <button type=\"button\" ng-click=\"saveProduct(product);\"\n                ng-show=\"isProductDirty(product)\"\n                class=\"btn btn-primary btn-xs\"><i class=\"fa fa-save\"></i></button>\n      </td>\n    </tr>\n  </tbody>\n</table>\n\n",
-			"file": "app/assets/partials/order/order-lists-stocks.html",
-			"file_size": 2944,
-			"file_write_time": 130859381342143102,
+			"file": "app/partials/dashboard/dashboard-sidebar.html",
 			"settings":
 			{
-				"buffer_size": 2943,
+				"buffer_size": 1989,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"contents": "<div class=\"dashboard\" ng-controller=\"OrderAdminCtrl\">\n\n  <!-- MENU -->\n  <nav  class=\"navbar navbar-inverse navbar-fixed-top\" role=\"navigation\"\n        ng-include=\"'/partials/dashboard/dashboard-header.html'\"></nav>\n\n\n  <!-- MAIN CONTENT -->\n  <div class=\"container-fluid \" ng-init=\"loadAllProducts()\">\n    <div class=\"row\">\n\n      <!-- LEFT MENU -->\n      <div class=\"col-xs-8 col-sm-4 col-lg-2 sidebar \" \n           ng-include=\"'/partials/dashboard/dashboard-sidebar.html'\" \n           ng-class=\"{'menu-off':!options.showMenu}\">\n      </div>\n      <div class=\"col-xs-12  nopadding-xs\">\n     \n        <!-- VIEW STOCKS -->\n        <div class=\"panel panel-default\" >\n          <div class=\"panel-heading\">\n            <button class=\"btn btn-transparent btn-md\" ng-click=\"loadAllProducts()\">\n              <i class=\"fa fa-refresh\"></i>\n            </button>\n            Produits disponibles <span ng-show=\"products.length\">({{products.length}})</span>  \n            <a class=\"btn btn-transparent btn-md\" ng-href=\"/products/create\">\n              <i class=\"fa fa-plus\"></i> Ajouter un nouveau produit\n            </a>            \n          </div>\n          <div class=\"panel-body nopadding\"></div>\n        </div>\n\n        <div class=\"\" ng-if=\"user.isAdmin()\">\n          <select class=\"form-control \" \n                  ng-change=\"loadAllProducts()\"\n                  ng-model=\"filters.shops\" \n                  ng-options=\"shop.urlpath as shop.name  for shop in shopsSelect| orderBy:'name'\">\n                  <option value=\"\"  selected>-- Choisissez une boutique</option>\n          </select>                        \n        </div>\n\n\n\n        <div class=\"clearfix\" ng-include=\"'/partials/order/order-lists-stocks.html'\"></div>\n\n        <!-- WAIT -->\n        <div ng-show=\"loading\" class=\"text-center gray\">\n          <i class=\"fa fa-refresh fa-2x fa-spin\"></i>\n        </div>\n\n          \n\n\n      </div>\n    </div>\n  </div>\n</div>\n",
-			"file": "app/assets/partials/dashboard/dashboard-product.html",
-			"file_size": 1927,
-			"file_write_time": 130857403886659844,
+			"file": "app/partials/product/product.html",
 			"settings":
 			{
-				"buffer_size": 1927,
+				"buffer_size": 4420,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "app/css/product.wide.css",
+			"file": "app/js/app.document.js",
 			"settings":
 			{
-				"buffer_size": 5281,
+				"buffer_size": 6662,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "app/js/app.user.factory.js",
+			"settings":
+			{
+				"buffer_size": 11331,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "app/partials/cover.html",
+			"settings":
+			{
+				"buffer_size": 2216,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "app/partials/account/cover.html",
+			"settings":
+			{
+				"buffer_size": 2068,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "app/js/app.product.js",
+			"settings":
+			{
+				"buffer_size": 13304,
 				"line_ending": "Unix"
 			}
 		},
@@ -844,8 +702,73 @@
 			"file": "app/css/home.css",
 			"settings":
 			{
-				"buffer_size": 33805,
+				"buffer_size": 33663,
 				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "app/js/app.home.js",
+			"settings":
+			{
+				"buffer_size": 5169,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "app/css/markdown.css",
+			"settings":
+			{
+				"buffer_size": 1565,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "app/js/app.config.js",
+			"settings":
+			{
+				"buffer_size": 2904,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "app/partials/product/home.html",
+			"settings":
+			{
+				"buffer_size": 4677,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "app/partials/account/wallet-create.html",
+			"settings":
+			{
+				"buffer_size": 5924,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "app/js/order/app.order.controller.admin.js",
+			"settings":
+			{
+				"buffer_size": 10120,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "app/js/order/app.order.factory.js",
+			"settings":
+			{
+				"buffer_size": 12426,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"contents": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<Document xmlns=\"urn:iso:std:iso:20022:tech:xsd:camt.054.001.02\" xmlns:xs=\"http://www.w3.org/2001/XMLSchema\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\">\n  <BkToCstmrDbtCdtNtfctn>\n    <GrpHdr>\n      <MsgId>KOBE150928779452</MsgId>\n      <CreDtTm>2015-09-28T04:16:00.00Z</CreDtTm>\n    </GrpHdr>\n    <Ntfctn>\n      <Id>KOBE150928779452</Id>\n      <CreDtTm>2015-09-28T04:16:00.00Z</CreDtTm>\n      <Acct>\n        <Id>\n          <IBAN>CH7609000000146156438</IBAN>\n        </Id>\n      </Acct>\n      <Ntry>\n        <Amt Ccy=\"CHF\">300.00</Amt>\n        <CdtDbtInd>DBIT</CdtDbtInd>\n        <Sts>BOOK</Sts>\n        <BookgDt>\n          <Dt>2015-09-28</Dt>\n        </BookgDt>\n        <ValDt>\n          <Dt>2015-09-28</Dt>\n        </ValDt>\n        <AcctSvcrRef>20150927000800573105017000000103</AcctSvcrRef>\n        <BkTxCd>\n          <Domn>\n            <Cd>PMNT</Cd>\n            <Fmly>\n              <Cd>ICDT</Cd>\n              <SubFmlyCd>BOOK</SubFmlyCd>\n            </Fmly>\n          </Domn>\n        </BkTxCd>\n        <NtryDtls>\n          <TxDtls>\n            <Refs>\n              <AcctSvcrRef>20150927000800573105017000000103</AcctSvcrRef>\n            </Refs>\n            <BkTxCd>\n              <Domn>\n                <Cd>PMNT</Cd>\n                <Fmly>\n                  <Cd>ICDT</Cd>\n                  <SubFmlyCd>BOOK</SubFmlyCd>\n                </Fmly>\n              </Domn>\n            </BkTxCd>\n          </TxDtls>\n        </NtryDtls>\n        <AddtlNtryInf>E-FINANCE 80-2-2 UBS SWITZERLAND AG CH050024024037931729E CAROLE PARODI 11 CHEMIN DE LA FLORENCE 1208 GENÈVE</AddtlNtryInf>\n      </Ntry>\n    </Ntfctn>\n  </BkToCstmrDbtCdtNtfctn>\n</Document>",
+			"settings":
+			{
+				"buffer_size": 1692,
+				"line_ending": "Unix",
+				"name": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
 			}
 		}
 	],
@@ -900,141 +823,150 @@
 	[
 		"/home/evaleto/nodejs/karibou-mockup",
 		"/home/evaleto/nodejs/karibou-mockup/app",
-		"/home/evaleto/nodejs/karibou-mockup/app/js/card",
+		"/home/evaleto/nodejs/karibou-mockup/app/assets",
+		"/home/evaleto/nodejs/karibou-mockup/app/css",
+		"/home/evaleto/nodejs/karibou-mockup/app/js",
 		"/home/evaleto/nodejs/karibou-mockup/app/js/order",
+		"/home/evaleto/nodejs/karibou-mockup/app/partials",
+		"/home/evaleto/nodejs/karibou-mockup/app/partials/account",
+		"/home/evaleto/nodejs/karibou-mockup/app/partials/admin",
+		"/home/evaleto/nodejs/karibou-mockup/app/partials/dashboard",
+		"/home/evaleto/nodejs/karibou-mockup/app/partials/order",
+		"/home/evaleto/nodejs/karibou-mockup/app/partials/product",
 		"/home/evaleto/nodejs/karibou-mockup/loader",
+		"/home/evaleto/nodejs/karibou-mockup/vendor",
 		"/home/evaleto/nodejs/karibou-mockup/vendor/scripts"
 	],
 	"file_history":
 	[
-		"/home/evaleto/nodejs/karibou-mockup/app/loader/rsvp.js",
-		"/home/evaleto/nodejs/karibou-mockup/node_modules/angularjs-templates-brunch/lib/index.js",
-		"/home/evaleto/nodejs/karibou-mockup/app/js/app.user.factory.js",
-		"/home/evaleto/nodejs/karibou-mockup/app/js/app.user.controller.js",
-		"/home/evaleto/nodejs/karibou-mockup/app/assets/index.html",
-		"/home/evaleto/nodejs/karibou-mockup/app/css/home.css",
-		"/home/evaleto/nodejs/karibou-mockup/app/assets/partials/order/order-validate-widget.html",
-		"/home/evaleto/nodejs/karibou-mockup/app/assets/partials/order/order-lists-detailed.html",
-		"/home/evaleto/nodejs/karibou-mockup/app/assets/partials/order/order-lists.html",
-		"/home/evaleto/nodejs/karibou-mockup/app/assets/partials/dashboard/dashboard-admin.html",
-		"/home/evaleto/nodejs/karibou-mockup/app/assets/partials/account/overview.html",
-		"/home/evaleto/nodejs/karibou-mockup/app/assets/partials/product/create.html",
-		"/home/evaleto/nodejs/karibou-mockup/node_modules/angular-templates-brunch/lib/index.js",
-		"/home/evaleto/nodejs/karibou-mockup/app/js/order/app.order.controller.admin.js",
-		"/home/evaleto/nodejs/karibou-mockup/app/js/app.angular-filter.js",
-		"/home/evaleto/nodejs/karibou-mockup/app/js/app.config.js",
-		"/home/evaleto/nodejs/karibou-mockup/app/assets/partials/shop/shop-content.html",
-		"/home/evaleto/nodejs/karibou-mockup/node_modules/angular-templates-brunch/src/index.coffee",
-		"/home/evaleto/nodejs/karibou-mockup/config.coffee",
-		"/home/evaleto/nodejs/karibou-mockup/app/assets/partials/account/cover.html",
-		"/home/evaleto/nodejs/karibou-mockup/app/js/app.root.js",
-		"/home/evaleto/nodejs/karibou-mockup/app/js/app.shop.js",
-		"/home/evaleto/nodejs/karibou-mockup/app/assets/partials/admin/user.modal.html",
-		"/home/evaleto/nodejs/karibou-mockup/app/css/utils.css",
-		"/home/evaleto/nodejs/karibou-mockup/app/js/app.ui.strap.js",
-		"/home/evaleto/nodejs/karibou-mockup/bower.json",
-		"/home/evaleto/nodejs/karibou-mockup/app/css/shop2.css",
-		"/home/evaleto/nodejs/karibou-mockup/app/css/product.css",
-		"/home/evaleto/nodejs/karibou-mockup/app/assets/partials/product/product-wide.html",
-		"/home/evaleto/nodejs/karibou-mockup/app/css/validate-widget.css",
-		"/home/evaleto/nodejs/karibou-mockup/app/assets/partials/order/order-logistic-lists.html",
-		"/home/evaleto/nodejs/karibou-mockup/app/assets/partials/dashboard/dashboard-shopper.html",
-		"/home/evaleto/nodejs/karibou-mockup/app/assets/partials/order/order.shop.modal.html",
-		"/home/evaleto/nodejs/karibou-mockup/app/assets/partials/order/order.user.modal.html",
-		"/home/evaleto/nodejs/karibou-mockup/app/assets/partials/admin/category.modal.html",
-		"/home/evaleto/nodejs/karibou-mockup/app/assets/partials/dashboard/dashboard-collect-map.html",
-		"/home/evaleto/nodejs/karibou-mockup/app/js/app.user.ui.js",
-		"/home/evaleto/nodejs/karibou-mockup/app/assets/partials/product/home.html",
-		"/home/evaleto/nodejs/karibou-mockup/app/js/app.service.ui.js",
-		"/home/evaleto/nodejs/karibou-mockup/app/assets/partials/dashboard/dashboard-repport-shop.html",
-		"/home/evaleto/nodejs/karibou-mockup/app/assets/partials/product/product.html",
-		"/home/evaleto/nodejs/karibou-mockup/app/assets/partials/shop/edit.html",
-		"/home/evaleto/nodejs/karibou-mockup/app/assets/partials/order/cover.html",
-		"/home/evaleto/nodejs/karibou-mockup/app/assets/partials/cover.html",
-		"/home/evaleto/nodejs/karibou-mockup/Makefile",
-		"/home/evaleto/nodejs/karibou-mockup/app/assets/partials/order/order.html",
-		"/home/evaleto/nodejs/karibou-mockup/app/assets/partials/account/payment.html",
-		"/home/evaleto/nodejs/karibou-mockup/app/assets/partials/account/profile.html",
-		"/home/evaleto/nodejs/karibou-mockup/app/js/order/app.order.factory.js",
-		"/home/evaleto/nodejs/karibou-mockup/app/js/order/app.order.controller.comon.js",
-		"/tmp/karibou-api/test/api.category.js",
-		"/tmp/karibou-api/test/category.js",
-		"/home/evaleto/nodejs/karibou-mockup/app/assets/partials/order/cart.html",
-		"/home/evaleto/nodejs/karibou-mockup/app/assets/partials/account/orders.html",
-		"/home/evaleto/nodejs/karibou-mockup/app/js/order/app.order.factory.cart.js",
-		"/home/evaleto/nodejs/karibou-mockup/app/js/app.product.js",
-		"/home/evaleto/nodejs/karibou-mockup/app/assets/partials/dashboard/dashboard-sidebar.html",
-		"/home/evaleto/nodejs/karibou-mockup/app/js/app.feedback.js",
-		"/home/evaleto/nodejs/karibou-mockup/app/js/order/app.order.controller.new.js",
-		"/home/evaleto/nodejs/karibou-mockup/app/assets/partials/dashboard/dashboard-collect.html",
-		"/home/evaleto/nodejs/karibou-mockup/app/assets/partials/dashboard/dashboard-product.html",
-		"/home/evaleto/nodejs/karibou-mockup/app/assets/google686735a81b08a83b.html",
-		"/home/evaleto/nodejs/karibou-mockup/app/css/product.wide.css",
-		"/home/evaleto/nodejs/karibou-mockup/app/css/orders.css",
-		"/home/evaleto/nodejs/karibou-mockup/app/assets/partials/product/love.html",
-		"/home/evaleto/nodejs/karibou-mockup/app/css/feedback.css",
-		"/home/evaleto/nodejs/karibou-mockup/app/js/order/app.order.controller.widget.js",
-		"/home/evaleto/nodejs/karibou-mockup/app/css/dashboard.css",
-		"/home/evaleto/nodejs/karibou-mockup/app/js/app.product.ui.js",
-		"/home/evaleto/nodejs/karibou-mockup/app/css/cover.css",
-		"/home/evaleto/nodejs/karibou-mockup/app/js/app.ui.ucare.js",
-		"/home/evaleto/nodejs/karibou-mockup/app/js/app.user.js",
-		"/home/evaleto/nodejs/karibou-mockup/app/assets/partials/order/order-collect-shop.html",
-		"/home/evaleto/nodejs/karibou-mockup/app/assets/partials/shop/address.html",
-		"/home/evaleto/nodejs/karibou-mockup/app/assets/partials/dashboard/dashboard-shop.html",
-		"/home/evaleto/nodejs/karibou-mockup/app/js/app.service.js",
-		"/home/evaleto/nodejs/karibou-mockup/app/assets/partials/shop/cover.html",
-		"/home/evaleto/nodejs/karibou-mockup/app/assets/partials/order/order-lists-byshop.html",
-		"/home/evaleto/nodejs/karibou-mockup/app/css/form.css",
-		"/home/evaleto/nodejs/karibou-mockup/app/js/app.raven.js",
-		"/home/evaleto/nodejs/karibou-mockup/app/css/cart.css",
-		"/home/evaleto/nodejs/karibou-mockup/app/js/order/app.order.ui.js",
-		"/home/evaleto/nodejs/karibou-mockup/app/css/header.css",
-		"/home/evaleto/nodejs/karibou-mockup/app/assets/partials/account/validate.html",
-		"/home/evaleto/nodejs/karibou-mockup/keep/app.order.controller.comon.js",
-		"/home/evaleto/nodejs/karibou-mockup/app/js/app.order.js",
-		"/home/evaleto/nodejs/karibou-mockup/bower_components/angular/angular.js",
-		"/home/evaleto/Vidéos/popcorn/Appleseed-Ex-Machina-2007-720p-BluRay-x264-THORA-french.srt",
-		"/home/evaleto/nodejs/karibou-mockup/app/js/app.storage.js",
-		"/home/evaleto/nodejs/karibou-mockup/app/css/markdown.css",
-		"/home/evaleto/nodejs/karibou-mockup/app/js/order/app.order.controller.repport.js",
-		"/home/evaleto/nodejs/karibou-mockup/app/assets/partials/order/payment-card.html",
-		"/home/evaleto/nodejs/karibou-mockup/app/js/order/app.order.controller.shopper.js",
-		"/home/evaleto/nodejs/karibou-mockup/app/css/shop.css",
-		"/home/evaleto/nodejs/karibou-mockup/app/assets/partials/account/recovery.html",
-		"/home/evaleto/nodejs/karibou-mockup/app/assets/partials/dashboard/dashboard-config.html",
-		"/home/evaleto/nodejs/karibou-mockup/app/assets/partials/shop/shop.html",
-		"/home/evaleto/nodejs/karibou-mockup/app/js/card/postfinance.format.js",
-		"/home/evaleto/nodejs/karibou-mockup/app/css/comment.css",
-		"/home/evaleto/nodejs/karibou-mockup/app/assets/footer.html",
-		"/home/evaleto/nodejs/karibou-mockup/app/js/card/postfinance.validate.js",
-		"/home/evaleto/nodejs/karibou-mockup/bower_components/angular-cms/dist/ng-cms.js",
-		"/home/evaleto/nodejs/karibou-mockup/app/assets/partials/shop/home.html",
-		"/home/evaleto/nodejs/karibou-mockup/build/js/app.js",
-		"/home/evaleto/nodejs/karibou-mockup/app/css/welcome.css",
-		"/home/evaleto/nodejs/karibou-mockup/app/assets/partials/shop/shops.html",
-		"/home/evaleto/nodejs/karibou-mockup/app/assets/partials/errors/down.html",
-		"/home/evaleto/nodejs/karibou-mockup/app/js/app.category.js",
-		"/home/evaleto/nodejs/karibou-mockup/app/js/app.home.js",
-		"/home/evaleto/nodejs/karibou-mockup/app/assets/partials/product/products.html",
-		"/home/evaleto/nodejs/karibou-mockup/app/js/card/postfinance.common.js",
-		"/home/evaleto/Téléchargements/google686735a81b08a83b.html",
-		"/home/evaleto/nodejs/karibou-mockup/package.json",
-		"/home/evaleto/nodejs/karibou-mockup/node_modules/html2js-brunch/html2js.js",
-		"/home/evaleto/nodejs/karibou-mockup/app/js/card/postfinance.card.ui.js",
-		"/home/evaleto/nodejs/karibou-mockup/app/js/card/postfinance.card.js",
-		"/home/evaleto/nodejs/karibou-mockup/app/js/app.postfinance.js",
-		"/home/evaleto/nodejs/karibou-mockup/app/js/app.ui.map.js",
 		"/home/evaleto/nodejs/karibou-mockup/app/js/app.init.js",
-		"/home/evaleto/.config/sublime-text-3/Packages/FixMyJS/fixmyjs.js",
-		"/home/evaleto/.config/sublime-text-3/Packages/User/FixMyJS.sublime-settings",
-		"/home/evaleto/.config/sublime-text-3/Packages/FixMyJS/FixMyJS.sublime-settings",
-		"/home/evaleto/nodejs/karibou-mockup/app/assets/partials/order/order-repport-shop.html",
-		"/home/evaleto/nodejs/karibou-mockup/app/css/filepicker.css",
-		"/tmp/angular-route.js",
+		"/home/evaleto/nodejs/karibou-mockup/vendor/scripts/script.js",
+		"/home/evaleto/nodejs/karibou-mockup/app/partials/document/document-image.html",
+		"/home/evaleto/nodejs/karibou-mockup/app/partials/admin/user.html",
+		"/home/evaleto/nodejs/karibou-mockup/app/partials/account/payment.html",
+		"/home/evaleto/nodejs/karibou-mockup/app/partials/order/order.html",
+		"/home/evaleto/nodejs/karibou-mockup/app/partials/order/payment-postfinance-ecommerce.html",
+		"/home/evaleto/nodejs/karibou-mockup/app/partials/admin/category.modal.html",
+		"/home/evaleto/nodejs/karibou-mockup/app/js/app.user.controller.js",
+		"/home/evaleto/nodejs/karibou-mockup/app/partials/product/home.html",
+		"/home/evaleto/nodejs/karibou-mockup/app/partials/shop/home.html",
+		"/home/evaleto/nodejs/karibou-mockup/app/partials/dashboard/dashboard-stats.html",
+		"/home/evaleto/nodejs/karibou-mockup/app/partials/account/overview.html",
+		"/home/evaleto/nodejs/karibou-mockup/app/js/app.document.js",
+		"/home/evaleto/nodejs/karibou-mockup/app/partials/dashboard/dashboard-config.html",
+		"/home/evaleto/nodejs/karibou-mockup/app/js/app.product.js",
+		"/home/evaleto/nodejs/karibou-mockup/app/partials/document/document.html",
+		"/home/evaleto/nodejs/karibou-mockup/app/js/app.home.js",
+		"/home/evaleto/nodejs/karibou-mockup/app/js/app.wallet.js",
+		"/home/evaleto/nodejs/karibou-mockup/app/partials/document/documents-category.html",
+		"/home/evaleto/nodejs/karibou-mockup/app/js/app.shop.ui.js",
+		"/home/evaleto/nodejs/karibou-mockup/app/partials/order/order-lists-items-detailed.html",
+		"/home/evaleto/nodejs/karibou-mockup/app/js/order/app.order.ui.js",
+		"/home/evaleto/nodejs/karibou-mockup/app/js/order/app.order.controller.comon.js",
+		"/home/evaleto/nodejs/karibou-mockup/app/partials/shop/edit.html",
+		"/home/evaleto/nodejs/karibou-mockup/app/js/app.ui.ucare.js",
+		"/home/evaleto/nodejs/karibou-mockup/app/js/order/app.order.controller.admin.js",
+		"/home/evaleto/nodejs/karibou-mockup/app/partials/shop/cover.html",
+		"/home/evaleto/nodejs/karibou-mockup/app/partials/document/cover.html",
+		"/home/evaleto/nodejs/karibou-mockup/app/js/order/app.order.factory.cart.js",
+		"/home/evaleto/nodejs/karibou-mockup/app/js/order/app.order.controller.new.js",
+		"/home/evaleto/nodejs/karibou-mockup/app/js/app.root.js",
+		"/home/evaleto/nodejs/karibou-mockup/app/assets/index.html",
+		"/home/evaleto/nodejs/karibou-mockup/app/js/app.service.ui.js",
+		"/home/evaleto/nodejs/karibou-mockup/app/js/app.user.factory.js",
+		"/home/evaleto/nodejs/karibou-mockup/app/js/app.product.ui.js",
+		"/home/evaleto/nodejs/karibou-mockup/app/js/app.service.js",
+		"/home/evaleto/nodejs/karibou-mockup/app/partials/product/create.html",
+		"/home/evaleto/nodejs/karibou-mockup/app/partials/order/payment-wallet.html",
+		"/home/evaleto/nodejs/karibou-mockup/app/partials/account/wallet-create.html",
+		"/home/evaleto/nodejs/karibou-mockup/app/partials/account/wallet.html",
+		"/home/evaleto/nodejs/karibou-mockup/app/js/app.config.js",
+		"/home/evaleto/nodejs/karibou-mockup/app/css/product.css",
+		"/home/evaleto/nodejs/karibou-mockup/app/js/app.feedback.js",
+		"/home/evaleto/nodejs/karibou-mockup/app/css/markdown.css",
+		"/home/evaleto/nodejs/karibou-mockup/app/partials/product/product-wide.html",
+		"/home/evaleto/nodejs/karibou-mockup/app/partials/dashboard/dashboard-activity.html",
+		"/home/evaleto/nodejs/karibou-mockup/app/partials/cover.html",
+		"/home/evaleto/nodejs/karibou-mockup/app/css/utils.css",
+		"/home/evaleto/nodejs/karibou-mockup/app/css/payment.css",
+		"/home/evaleto/nodejs/karibou-mockup/app/css/cover.css",
+		"/home/evaleto/nodejs/karibou-mockup/app/css/document.css",
+		"/home/evaleto/nodejs/karibou-mockup/app/partials/document/documents.html",
+		"/home/evaleto/nodejs/karibou-mockup/app/css/dashboard.css",
+		"/home/evaleto/nodejs/karibou-mockup/app/partials/dashboard/dashboard-admin.html",
+		"/home/evaleto/nodejs/karibou-mockup/app/partials/document/document-create.html",
+		"/home/evaleto/nodejs/karibou-mockup/app/partials/account/orders.html",
+		"/home/evaleto/nodejs/karibou-mockup/app/partials/dashboard/dashboard-wallet.html",
+		"/home/evaleto/nodejs/karibou-mockup/app/js/order/app.order.factory.js",
+		"/home/evaleto/nodejs/karibou-mockup/app/js/app.order.js",
+		"/home/evaleto/nodejs/karibou-mockup/app/js/app.order.admin.js",
+		"/home/evaleto/nodejs/karibou-mockup/app/css/orders.css",
+		"/home/evaleto/nodejs/karibou-mockup/app/partials/dashboard/dashboard-sidebar.html",
+		"/home/evaleto/nodejs/karibou-mockup/app/js/app.shop.js",
+		"/home/evaleto/nodejs/karibou-mockup/app/js/card/postfinance.card.ui.js",
+		"/home/evaleto/nodejs/karibou-mockup/app/js/card/postfinance.common.js",
+		"/home/evaleto/nodejs/karibou-mockup/app/partials/shop/shop.html",
+		"/home/evaleto/nodejs/karibou-mockup/app/partials/product/product.html",
+		"/home/evaleto/nodejs/karibou-mockup/app/partials/order/order-lists.html",
+		"/home/evaleto/nodejs/karibou-mockup/app/partials/order/order-lists-items.html",
+		"/home/evaleto/nodejs/karibou-mockup/app/js/app.document.ui.js",
+		"/home/evaleto/nodejs/karibou-mockup/app/css/shop.css",
+		"/home/evaleto/nodejs/karibou-mockup/app/partials/document/create.html",
+		"/home/evaleto/nodejs/karibou-mockup/app/partials/pages/page.html",
+		"/home/evaleto/nodejs/karibou-mockup/app/css/product.wide.css",
+		"/home/evaleto/nodejs/karibou-mockup/app/js/app.ui.strap.js",
+		"/home/evaleto/nodejs/karibou-mockup/app/partials/shop/shop-content.html",
+		"/home/evaleto/nodejs/karibou-mockup/app/partials/product/love.html",
+		"/home/evaleto/nodejs/karibou-mockup/app/partials/product/products.html",
+		"/home/evaleto/nodejs/karibou-mockup/app/partials/dashboard/dashboard-collect.html",
+		"/home/evaleto/nodejs/karibou-mockup/app/js/app.user.ui.js",
+		"/home/evaleto/nodejs/karibou-mockup/app/css/welcome.css",
+		"/home/evaleto/nodejs/karibou-mockup/app/css/home.css",
+		"/home/evaleto/nodejs/karibou-mockup/app/js/app.raven.js",
+		"/home/evaleto/nodejs/karibou-mockup/app/partials/dashboard/dashboard-shopper.html",
+		"/home/evaleto/nodejs/karibou-mockup/app/partials/dashboard/dashboard-repport-shop.html",
+		"/home/evaleto/nodejs/karibou-mockup/app/partials/dashboard/dashboard-product.html",
+		"/home/evaleto/nodejs/karibou-mockup/build/js/templates.js",
+		"/home/evaleto/nodejs/karibou-mockup/app/partials/account/cover.html",
+		"/home/evaleto/nodejs/karibou-mockup/app/partials/product/cover.html",
+		"/home/evaleto/nodejs/karibou-mockup/app/partials/order/cover.html",
+		"/home/evaleto/nodejs/karibou-mockup/app/partials/cover-minimal.html",
+		"/home/evaleto/nodejs/karibou-mockup/keep/app.order.controller.comon.js",
+		"/home/evaleto/nodejs/karibou-mockup/app/assets/partials/dashboard/dashboard-product.html",
+		"/home/evaleto/nodejs/karibou-mockup/app/assets/partials/order/order-lists-stocks.html",
+		"/home/evaleto/nodejs/karibou-mockup/app/partials/order/order-lists-byshop.html",
+		"/home/evaleto/nodejs/karibou-mockup/app/partials/order/order-collect-shop.html",
+		"/home/evaleto/nodejs/karibou-mockup/app/css/header.css",
+		"/home/evaleto/nodejs/karibou-mockup/bower_components/raven-js/src/raven.js",
+		"/home/evaleto/nodejs/karibou-mockup/app/partials/dashboard/dashboard-shop.html",
+		"/home/evaleto/nodejs/karibou-mockup/app/css/overlay.css",
+		"/home/evaleto/nodejs/karibou-mockup/bower_components/nprogress/nprogress.js",
+		"/home/evaleto/nodejs/karibou-mockup/app/js/order/app.order.controller.shopper.js",
+		"/home/evaleto/nodejs/karibou-mockup/app/assets/partials/shop/shop.html",
+		"/home/evaleto/nodejs/karibou-mockup/app/assets/partials/admin/user.html",
+		"/home/evaleto/nodejs/karibou-mockup/app/assets/partials/shop/home.html",
+		"/home/evaleto/nodejs/karibou-mockup/bower_components/angular-cms/bower.json",
+		"/home/evaleto/nodejs/karibou-mockup/bower_components/angular-cms/dist/ng-cms.js",
+		"/home/evaleto/nodejs/karibou-mockup/app.js",
+		"/home/evaleto/nodejs/karibou-mockup/app/partials/dashboard/dashboard-invoice.html",
+		"/home/evaleto/nodejs/karibou-mockup/app/partials/order/order-lists-invoice.html",
+		"/home/evaleto/nodejs/karibou-mockup/app/partials/order/order-lists-logistic.html",
+		"/home/evaleto/nodejs/karibou-mockup/app/js/app.angular-filter.js",
 		"/home/evaleto/nodejs/karibou-mockup/vendor/scripts/angular-route.js",
+		"/home/evaleto/nodejs/karibou-mockup/app/js/app.stats.js",
+		"/home/evaleto/nodejs/karibou-mockup/app/css/timeline.css",
+		"/home/evaleto/nodejs/karibou-mockup/app/css/feedback.css",
+		"/home/evaleto/nodejs/karibou-mockup/app/js/app.category.js",
+		"/home/evaleto/nodejs/karibou-mockup/app/assets/partials/order/order-lists-byshop.html",
+		"/home/evaleto/nodejs/karibou-mockup/app/assets/partials/dashboard/dashboard-shop.html",
+		"/home/evaleto/nodejs/karibou-mockup/app/css/validate-widget.css",
 		"/home/evaleto/nodejs/karibou-mockup/app/assets/partials/dashboard/dashboard-header.html",
-		"/home/evaleto/nodejs/karibou-mockup/app/assets/partials/order/order-lists-stocks.html"
+		"/home/evaleto/nodejs/karibou-mockup/build/js/vendor.js",
+		"/home/evaleto/nodejs/karibou-mockup/app/js/app.storage.js",
+		"/home/evaleto/nodejs/karibou-mockup/loader/basket.js",
+		"/home/evaleto/nodejs/karibou-mockup/app/loader/basket.js",
+		"/home/evaleto/nodejs/karibou-mockup/config.coffee",
+		"/home/evaleto/nodejs/karibou-mockup/build/js/app.js"
 	],
 	"find":
 	{
@@ -1045,6 +977,7 @@
 		"height": 140.0,
 		"where_history":
 		[
+			"/home/evaleto/nodejs/karibou-mockup/app",
 			"/home/evaleto/nodejs/karibou-mockup/loader",
 			""
 		]
@@ -1054,134 +987,134 @@
 		"case_sensitive": true,
 		"find_history":
 		[
-			"mapPromisesAndKey",
-			"mapKeyPromises",
-			"setIte",
-			"localStorage",
-			"cons",
-			"handleStackObject",
-			"handlers['default']",
-			"injectScript",
-			"execute",
-			"thenRequire",
-			"basket.then",
-			"performActions",
-			"thenRequire",
-			".then",
-			"$scri",
-			"$scr",
-			"tripe",
-			"selectItem",
-			"timeou",
-			"cooki",
-			"cookies",
-			"cart",
-			"validateEmail",
-			"3px",
-			"reverseSort",
-			"href",
-			"owner",
-			"in_expiry",
-			"in_name",
-			"roundN",
-			"modalDissmiss",
-			".cover-resume.categories .site-nav-list-item",
-			"console",
-			"user",
-			"selectPaymentMethod",
-			"getShippingPrice",
-			"$timeout",
-			"span",
-			"cover-description",
+			"position:",
+			",\n  ",
+			"informShopToOrders",
+			"$log",
+			"uploadcare",
+			"currentDay",
+			"textarea",
+			"displayBundle",
+			"loves",
+			"locat",
+			"ecommerceForm",
+			"||0].postalCode",
+			".config.address||0].postalCode",
+			"show",
+			"$location",
+			"showShopWidget",
+			"showFeedbackWidget",
+			"$location.path()",
+			"getUrl",
+			"_activity",
+			"http",
+			"activity",
+			"WaitText",
+			"showWallet",
+			"docConfig",
+			"cover-ta",
+			"cover-table",
+			"shippingtimes",
+			"discountB",
+			"5555",
+			"rootScop",
+			"emi",
+			"Cards",
+			"cart.config.payment",
+			"payment",
+			"Document",
+			"docFactory",
+			"docCtrl",
+			"DocumentCtrl",
+			"char",
+			"giftcode",
+			"$http",
+			"lock",
+			"_Validate",
+			"paymentsDate",
+			"7",
+			"category",
+			"arr",
+			"elem",
 			"resolve",
-			"à v",
-			"findAllShopRepport",
-			"capitalize",
-			".cover-user .cover-img",
-			"loadHome",
-			"input",
-			"roundCHF",
-			"consol",
-			"config.address",
-			"postalCode",
-			"roundC",
-			"Code Po",
-			"roundCHF",
-			"Math.round",
-			"window.localStorage",
-			"localStorage",
-			".cover-resume.categories .site-nav-list-item",
-			"checkPaymentMethod",
-			"modalUserDetails",
-			"groupByShops",
-			"Stripe",
-			"countItemValidated",
-			"item",
-			"tmplSingleMd",
-			"tmplMultipleMd",
-			"produit",
-			"prod",
-			"computeUrl",
-			"comput",
-			"computeUrl",
-			"compute",
-			"computU",
-			"computeU",
+			"compute-",
+			"z-inde",
+			"1050",
+			"border-b",
+			"background-ima",
+			"oldUrl",
+			"api.",
+			"broadcast",
+			"shad",
+			"gree",
+			"divi",
+			"parse",
+			"sign",
+			"span",
+			"label",
+			"field",
+			"setViewValue",
+			"h4",
+			"document",
+			"button",
+			"shipping",
+			"dat",
+			"shop",
+			"upl",
+			"faq",
+			"errorInterceptor",
+			"document",
+			"ctrl",
+			"document",
+			"rootScope",
+			"// /v1",
+			"app.post('",
+			"app.get ('",
+			"\n  ",
+			"  \n",
+			"v1",
+			"app.get ('/",
+			"app.get ('",
+			"this.backend",
 			"sku",
-			"addList",
-			"items[i].sku=",
-			"Strip",
-			"list",
-			"item",
-			"shado",
-			"widgetCurrentItem",
-			"99%",
-			"%;\n",
-			"99%;",
-			"99%",
-			"      $scope.item.finalprice",
-			"$scope.item.",
-			"click",
-			"createChildScopeClass",
-			"$new:function",
-			"$new: function(isolate) {",
-			"decorator(.\\$rootScope",
-			"decorator('$rootScope'",
-			"Object.getPrototypeOf($rootScope);",
-			"var proto = Object.getPrototypeOf($rootScope);",
-			"config(['$provide', function($provide)",
-			"OrderCommonCtrl",
-			"passNum",
-			"a href",
-			"ng",
-			"href=\"\" ",
-			"href=\"\"",
-			"ng",
-			"href=\"\" ",
-			"href=\"\"",
-			"snake_case(key, '-')",
-			"cover-resume.categories .site-nav-list-item",
-			"cover-body",
-			"cover-resume.categories .site-nav-list-item",
-			"createCookie",
-			"a8m.filter-watcher",
-			"a8m",
-			"1300p",
-			"1300",
-			".cover-body",
+			"''",
+			"filters",
+			",\n  ",
+			"produit ",
+			"/doc",
+			"/documents",
+			"documents",
+			"produits",
+			"produit",
+			"product",
+			"Product",
+			"defaultProduct",
+			"Product",
+			"product",
+			"productFactory",
+			"productCtrl",
+			"productConfig",
+			"shop",
+			"text-shadow",
+			"c4b19c",
+			"aside>.cover-body",
+			"bucket",
+			".cover-resume.categories",
 			".cover-resume.categories .site-nav-list-item",
-			"taxName",
-			"cartStyle",
-			"cartColumns",
-			"defaultCart.shippingFlatRate",
-			"shippingFlatRate",
-			"repportOneShop",
-			"repport",
-			"-help",
-			"type",
-			"categoryService",
-			"config.shop.marketplace.shipping",
-			"repea"
+			"c4b19c",
+			"cover.img-loaded",
+			"aside>.cover-body",
+			"cover.img-loaded",
+			"Gentium",
+			"lst",
+			"arr",
+			"scope.shops",
+			"shops",
+			".shops",
+			".cover ",
+			"order.",
+			"order",
+			"linear-gradient"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -1189,6 +1122,7 @@
 		"regex": false,
 		"replace_history":
 		[
+			"",
 			"340px",
 			"'partials/",
 			"'partials",
@@ -1217,566 +1151,55 @@
 	"groups":
 	[
 		{
-			"selected": 20,
+			"selected": 2,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "app/assets/partials/admin/user.html",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 3921,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								2211,
-								2211
-							]
-						],
-						"settings":
-						{
-							"history_list_is_closing": true,
-							"syntax": "Packages/HTML/HTML.tmLanguage",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 839.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 33,
-					"type": "text"
-				},
-				{
-					"buffer": 1,
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 1138,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								551,
-								551
-							]
-						],
-						"settings":
-						{
-							"auto_name": "",
-							"syntax": "Packages/Text/Plain text.tmLanguage",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 11,
-					"type": "text"
-				},
-				{
-					"buffer": 2,
-					"file": "app/assets/partials/shop/home.html",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 2258,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								900,
-								900
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/HTML/HTML.tmLanguage",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 24,
-					"type": "text"
-				},
-				{
-					"buffer": 3,
-					"file": "app/assets/partials/shop/shop.html",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 1081,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								661,
-								661
-							]
-						],
-						"settings":
-						{
-							"history_list_is_closing": true,
-							"syntax": "Packages/HTML/HTML.tmLanguage",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 23,
-					"type": "text"
-				},
-				{
-					"buffer": 4,
-					"file": "app/assets/partials/product/home.html",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 6444,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								2290,
-								2290
-							]
-						],
-						"settings":
-						{
-							"history_list_is_closing": true,
-							"syntax": "Packages/HTML/HTML.tmLanguage",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 837.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 12,
-					"type": "text"
-				},
-				{
-					"buffer": 5,
-					"file": "app/css/shop.css",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 3156,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								600,
-								600
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/CSS/CSS.tmLanguage",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 405.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 15,
-					"type": "text"
-				},
-				{
-					"buffer": 6,
-					"file": "bower_components/angular-cms/dist/ng-cms.js",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 16389,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								0,
-								0
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 27,
-					"type": "text"
-				},
-				{
-					"buffer": 7,
-					"file": "bower_components/angular-cms/bower.json",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 773,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								697,
-								697
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/JavaScript/JSON.tmLanguage",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 26,
-					"type": "text"
-				},
-				{
-					"buffer": 8,
-					"file": "app/js/order/app.order.controller.comon.js",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 6618,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								6453,
-								6453
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 5481.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 20,
-					"type": "text"
-				},
-				{
-					"buffer": 9,
-					"file": "app/assets/partials/order/order-lists-byshop.html",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 2748,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								625,
-								625
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/HTML/HTML.tmLanguage",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 18,
-					"type": "text"
-				},
-				{
-					"buffer": 10,
-					"file": "app/assets/partials/dashboard/dashboard-shop.html",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 2858,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								2696,
-								2696
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/HTML/HTML.tmLanguage",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 486.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 19,
-					"type": "text"
-				},
-				{
-					"buffer": 11,
-					"file": "app/css/validate-widget.css",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 2884,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								671,
-								671
-							]
-						],
-						"settings":
-						{
-							"history_list_is_closing": true,
-							"syntax": "Packages/CSS/CSS.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 729.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 17,
-					"type": "text"
-				},
-				{
-					"buffer": 12,
-					"file": "app/js/app.home.js",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 5944,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1088,
-								1088
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 567.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 5,
-					"type": "text"
-				},
-				{
-					"buffer": 13,
-					"file": "app/css/cover.css",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 15443,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								11527,
-								11527
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/CSS/CSS.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 13798.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 34,
-					"type": "text"
-				},
-				{
-					"buffer": 14,
-					"file": "app/assets/partials/dashboard/dashboard-header.html",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 1588,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								939,
-								939
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/HTML/HTML.tmLanguage",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 36,
-					"type": "text"
-				},
-				{
-					"buffer": 15,
-					"file": "app/js/app.raven.js",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 2314,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								988,
-								988
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 10,
-					"type": "text"
-				},
-				{
-					"buffer": 16,
 					"file": "app/assets/index.html",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 17761,
+						"buffer_size": 18814,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								15749,
-								15749
+								3633,
+								3633
 							]
 						],
 						"settings":
 						{
+							"history_list_is_closing": true,
 							"syntax": "Packages/HTML/HTML.tmLanguage",
 							"tab_size": 2,
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 11259.0,
+						"translation.y": 581.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 4,
+					"stack_index": 16,
 					"type": "text"
 				},
 				{
-					"buffer": 17,
-					"file": "config.coffee",
+					"buffer": 1,
+					"file": "app/js/app.storage.js",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 2531,
+						"buffer_size": 3912,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								940,
-								940
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Text/Plain text.tmLanguage",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 729.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 6,
-					"type": "text"
-				},
-				{
-					"buffer": 18,
-					"file": "vendor/scripts/ui.bootstrap.tabs.js",
-					"semi_transient": true,
-					"settings":
-					{
-						"buffer_size": 9481,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								0,
-								0
+								3912,
+								3912
 							]
 						],
 						"settings":
@@ -1786,85 +1209,27 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 7,
-					"type": "text"
-				},
-				{
-					"buffer": 19,
-					"file": "app/loader/basket.js",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 6644,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								525,
-								525
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": -0.0,
-						"translation.y": 0.0,
+						"translation.y": 2702.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 2,
 					"type": "text"
 				},
 				{
-					"buffer": 20,
-					"file": "loader/basket.js",
+					"buffer": 2,
+					"file": "app/js/order/app.order.factory.cart.js",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 7081,
+						"buffer_size": 9498,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								5998,
-								5998
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 6237.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 0,
-					"type": "text"
-				},
-				{
-					"buffer": 21,
-					"file": "app/js/app.storage.js",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 2919,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1719,
-								1719
+								440,
+								440
 							]
 						],
 						"settings":
@@ -1881,154 +1246,55 @@
 					"type": "text"
 				},
 				{
-					"buffer": 22,
-					"file": "app/js/app.service.js",
+					"buffer": 3,
+					"file": "app/js/app.wallet.js",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 5091,
+						"buffer_size": 6143,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								102,
-								102
+								2684,
+								2684
 							]
 						],
 						"settings":
 						{
-							"history_list_is_closing": true,
 							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
 							"tab_size": 2,
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 798.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 28,
+					"stack_index": 10,
 					"type": "text"
 				},
 				{
-					"buffer": 23,
-					"file": "app/js/app.product.ui.js",
+					"buffer": 4,
+					"file": "app/partials/order/order-lists.html",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 5290,
+						"buffer_size": 3719,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								4830,
-								4830
+								1665,
+								1665
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 2843.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 32,
-					"type": "text"
-				},
-				{
-					"buffer": 24,
-					"file": "app/css/product.css",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 8271,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								4599,
-								4599
-							]
-						],
-						"settings":
-						{
-							"history_list_is_closing": true,
-							"syntax": "Packages/CSS/CSS.tmLanguage",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 35,
-					"type": "text"
-				},
-				{
-					"buffer": 25,
-					"file": "app.js",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 1945,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								830,
-								830
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 37,
-					"type": "text"
-				}
-			]
-		},
-		{
-			"selected": 0,
-			"sheets":
-			[
-				{
-					"buffer": 26,
-					"file": "app/js/app.init.js",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 11757,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								160,
-								160
-							]
-						],
-						"settings":
-						{
-							"history_list_is_closing": true,
-							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"syntax": "Packages/HTML/HTML.tmLanguage",
 							"tab_size": 2,
 							"translate_tabs_to_spaces": true
 						},
@@ -2040,26 +1306,85 @@
 					"type": "text"
 				},
 				{
-					"buffer": 27,
-					"file": "app/css/utils.css",
+					"buffer": 5,
+					"file": "app/partials/dashboard/dashboard-wallet.html",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 6910,
+						"buffer_size": 2539,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								410,
-								410
+								737,
+								737
 							]
 						],
 						"settings":
 						{
-							"history_list_is_closing": true,
-							"syntax": "Packages/CSS/CSS.tmLanguage",
+							"syntax": "Packages/HTML/HTML.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 11,
+					"type": "text"
+				},
+				{
+					"buffer": 6,
+					"file": "app/partials/account/overview.html",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 7458,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2145,
+								2145
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/HTML/HTML.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 12,
+					"type": "text"
+				},
+				{
+					"buffer": 7,
+					"file": "app/partials/admin/user.html",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2948,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								758,
+								758
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/HTML/HTML.tmLanguage",
 							"tab_size": 2,
 							"translate_tabs_to_spaces": true
 						},
@@ -2071,171 +1396,20 @@
 					"type": "text"
 				},
 				{
-					"buffer": 28,
-					"file": "app/js/app.service.ui.js",
+					"buffer": 8,
+					"file": "app/partials/order/order.html",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 18883,
+						"buffer_size": 25993,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								16461,
-								16461
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 15552.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 21,
-					"type": "text"
-				},
-				{
-					"buffer": 29,
-					"file": "app/js/app.root.js",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 7289,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								985,
-								985
-							]
-						],
-						"settings":
-						{
-							"history_list_is_closing": true,
-							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 1215.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 9,
-					"type": "text"
-				},
-				{
-					"buffer": 30,
-					"file": "app/js/app.ui.map.js",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 4447,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								632,
-								632
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 8,
-					"type": "text"
-				},
-				{
-					"buffer": 31,
-					"file": "app/js/app.order.js",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 2106,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								322,
-								322
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 22,
-					"type": "text"
-				},
-				{
-					"buffer": 32,
-					"file": "app/js/app.category.js",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 6012,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								2701,
-								2701
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 2187.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 31,
-					"type": "text"
-				},
-				{
-					"buffer": 33,
-					"file": "app/assets/partials/order/order-lists-stocks.html",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 2943,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								326,
-								326
+								11606,
+								11606
 							]
 						],
 						"settings":
@@ -2245,27 +1419,215 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 5792.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 26,
+					"type": "text"
+				},
+				{
+					"buffer": 9,
+					"file": "app/js/order/app.order.controller.new.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 9664,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								3920,
+								3920
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 2781.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 25,
 					"type": "text"
 				},
 				{
-					"buffer": 34,
-					"file": "app/assets/partials/dashboard/dashboard-product.html",
+					"buffer": 10,
+					"file": "app/js/app.feedback.js",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 1927,
+						"buffer_size": 3762,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								242,
-								242
+								222,
+								222
+							]
+						],
+						"settings":
+						{
+							"history_list_is_closing": true,
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 17,
+					"type": "text"
+				},
+				{
+					"buffer": 11,
+					"file": "app/js/app.root.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 8623,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1494,
+								1494
+							]
+						],
+						"settings":
+						{
+							"history_list_is_closing": true,
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 18,
+					"type": "text"
+				},
+				{
+					"buffer": 12,
+					"file": "config.coffee",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2523,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								593,
+								593
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Text/Plain text.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 20,
+					"type": "text"
+				}
+			]
+		},
+		{
+			"selected": 1,
+			"sheets":
+			[
+				{
+					"buffer": 13,
+					"file": "app/js/app.shop.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 8160,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								3587,
+								3587
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 2430.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 15,
+					"type": "text"
+				},
+				{
+					"buffer": 14,
+					"file": "app/js/app.init.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 12113,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								804,
+								804
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 15,
+					"file": "app/partials/dashboard/dashboard-sidebar.html",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1989,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1936,
+								1936
 							]
 						],
 						"settings":
@@ -2278,60 +1640,29 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 30,
+					"stack_index": 14,
 					"type": "text"
 				},
 				{
-					"buffer": 5,
-					"file": "app/css/shop.css",
+					"buffer": 16,
+					"file": "app/partials/product/product.html",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 3156,
+						"buffer_size": 4420,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								701,
-								701
+								786,
+								786
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/CSS/CSS.tmLanguage",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 486.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 29,
-					"type": "text"
-				},
-				{
-					"buffer": 35,
-					"file": "app/css/product.wide.css",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 5281,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								231,
-								231
-							]
-						],
-						"settings":
-						{
-							"history_list_is_closing": true,
-							"syntax": "Packages/CSS/CSS.tmLanguage",
+							"syntax": "Packages/HTML/HTML.tmLanguage",
 							"tab_size": 2,
 							"translate_tabs_to_spaces": true
 						},
@@ -2339,24 +1670,237 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 16,
+					"stack_index": 21,
 					"type": "text"
 				},
 				{
-					"buffer": 36,
-					"file": "app/css/home.css",
+					"buffer": 17,
+					"file": "app/js/app.document.js",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 33805,
+						"buffer_size": 6662,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1837,
-								1837
+								1876,
+								1876
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 2106.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 30,
+					"type": "text"
+				},
+				{
+					"buffer": 10,
+					"file": "app/js/app.feedback.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 3762,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								3762
+							]
+						],
+						"settings":
+						{
+							"history_list_is_closing": true,
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 921.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 19,
+					"type": "text"
+				},
+				{
+					"buffer": 18,
+					"file": "app/js/app.user.factory.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 11331,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								9503,
+								9503
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 5558.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 6,
+					"type": "text"
+				},
+				{
+					"buffer": 19,
+					"file": "app/partials/cover.html",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2216,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								350,
+								350
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/HTML/HTML.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 27,
+					"type": "text"
+				},
+				{
+					"buffer": 20,
+					"file": "app/partials/account/cover.html",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2068,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								897,
+								897
+							]
+						],
+						"settings":
+						{
+							"history_list_is_closing": true,
+							"syntax": "Packages/HTML/HTML.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 29,
+					"type": "text"
+				},
+				{
+					"buffer": 11,
+					"file": "app/js/app.root.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 8623,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1196,
+								1196
+							]
+						],
+						"settings":
+						{
+							"history_list_is_closing": true,
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 1055.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 23,
+					"type": "text"
+				},
+				{
+					"buffer": 21,
+					"file": "app/js/app.product.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 13304,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								5037,
+								5037
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 3402.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 7,
+					"type": "text"
+				},
+				{
+					"buffer": 22,
+					"file": "app/css/home.css",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 33663,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								10393,
+								10393
 							]
 						],
 						"settings":
@@ -2366,10 +1910,250 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 1377.0,
+						"translation.y": 12987.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 14,
+					"stack_index": 28,
+					"type": "text"
+				},
+				{
+					"buffer": 23,
+					"file": "app/js/app.home.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 5169,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2017,
+								2017
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 1404.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 8,
+					"type": "text"
+				},
+				{
+					"buffer": 24,
+					"file": "app/css/markdown.css",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1565,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								211,
+								211
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/CSS/CSS.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 31,
+					"type": "text"
+				},
+				{
+					"buffer": 25,
+					"file": "app/js/app.config.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2904,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								494,
+								494
+							]
+						],
+						"settings":
+						{
+							"history_list_is_closing": true,
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 9,
+					"type": "text"
+				},
+				{
+					"buffer": 26,
+					"file": "app/partials/product/home.html",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 4677,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								954,
+								954
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/HTML/HTML.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 486.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 22,
+					"type": "text"
+				},
+				{
+					"buffer": 27,
+					"file": "app/partials/account/wallet-create.html",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 5924,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								347,
+								347
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/HTML/HTML.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 24,
+					"type": "text"
+				},
+				{
+					"buffer": 28,
+					"file": "app/js/order/app.order.controller.admin.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 10120,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								5529,
+								5529
+							]
+						],
+						"settings":
+						{
+							"history_list_is_closing": true,
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 2408.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 4,
+					"type": "text"
+				},
+				{
+					"buffer": 29,
+					"file": "app/js/order/app.order.factory.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 12426,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								11544,
+								11544
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 5082.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 5,
+					"type": "text"
+				},
+				{
+					"buffer": 30,
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1692,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								338,
+								338
+							]
+						],
+						"settings":
+						{
+							"auto_name": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>",
+							"syntax": "Packages/Text/Plain text.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 32,
 					"type": "text"
 				}
 			]
@@ -2403,7 +2187,7 @@
 		"cols":
 		[
 			0.0,
-			0.670304951338,
+			0.606565087912,
 			1.0
 		],
 		"rows":
@@ -2431,516 +2215,516 @@
 		"selected_items":
 		[
 			[
-				"inde",
-				"app/assets/index.html"
-			],
-			[
-				"ho",
-				"app/css/home.css"
-			],
-			[
-				"ind",
-				"app/assets/index.html"
-			],
-			[
-				"in",
-				"app/assets/index.html"
-			],
-			[
-				"wid",
-				"app/assets/partials/order/order-validate-widget.html"
-			],
-			[
-				"ap.co",
-				"app/js/app.config.js"
-			],
-			[
-				"u.fa",
-				"app/js/app.user.factory.js"
-			],
-			[
-				"create",
-				"app/assets/partials/product/create.html"
-			],
-			[
-				"uti",
-				"app/css/utils.css"
-			],
-			[
-				"sh",
-				"app/css/shop.css"
-			],
-			[
-				"prod",
-				"app/assets/partials/product/product-wide.html"
-			],
-			[
-				"pr",
-				"app/css/product.css"
-			],
-			[
-				"a.se.",
-				"app/js/app.service.ui.js"
-			],
-			[
-				"ser.u",
-				"app/js/app.user.ui.js"
-			],
-			[
-				"shop",
-				"app/css/shop2.css"
-			],
-			[
-				"shop-",
-				"app/assets/partials/shop/shop-content.html"
-			],
-			[
-				"ap.se",
-				"app/js/app.service.ui.js"
-			],
-			[
-				"a.ro",
-				"app/js/app.root.js"
-			],
-			[
-				"cov",
-				"app/css/cover.css"
-			],
-			[
-				"fee",
-				"app/css/feedback.css"
-			],
-			[
-				"ap.f",
-				"app/js/app.feedback.js"
-			],
-			[
-				"app.or",
-				"app/js/order/app.order.controller.admin.js"
-			],
-			[
-				"cat.mo",
-				"app/assets/partials/admin/category.modal.html"
-			],
-			[
-				"a.ca",
-				"app/js/app.category.js"
-			],
-			[
-				"con",
-				"app/js/app.config.js"
-			],
-			[
-				"a.o.c.",
-				"app/js/order/app.order.controller.new.js"
-			],
-			[
-				"a.o.a",
-				"app/js/order/app.order.controller.admin.js"
-			],
-			[
-				"or",
-				"app/css/orders.css"
-			],
-			[
-				"o.com",
-				"app/js/order/app.order.controller.comon.js"
-			],
-			[
-				"o.ad",
-				"app/js/order/app.order.controller.admin.js"
-			],
-			[
-				"a.o.ca",
-				"app/js/order/app.order.factory.cart.js"
-			],
-			[
-				"o.ca",
-				"app/js/order/app.order.factory.cart.js"
-			],
-			[
-				"pro",
-				"app/css/product.css"
-			],
-			[
-				"for",
-				"app/css/form.css"
-			],
-			[
-				"ord",
-				"app/assets/partials/order/order.html"
-			],
-			[
-				"o.cart",
-				"app/js/order/app.order.factory.cart.js"
-			],
-			[
-				"cart",
-				"app/css/cart.css"
-			],
-			[
-				"apra",
-				"app/js/app.raven.js"
-			],
-			[
-				"a.u",
-				"app/js/app.user.controller.js"
-			],
-			[
-				"o.a",
-				"app/js/order/app.order.controller.admin.js"
-			],
-			[
-				"a.u.c",
-				"app/js/app.user.controller.js"
-			],
-			[
-				"ap.or",
-				"app/js/order/app.order.controller.comon.js"
-			],
-			[
-				"a.o.com",
-				"keep/app.order.controller.comon.js"
-			],
-			[
-				"or-col",
-				"app/assets/partials/order/order-collect-shop.html"
-			],
-			[
-				"ap.o.co",
-				"app/js/order/app.order.controller.comon.js"
-			],
-			[
-				"a.in",
+				"ap.in",
 				"app/js/app.init.js"
-			],
-			[
-				"he",
-				"app/css/header.css"
-			],
-			[
-				"head",
-				"app/css/header.css"
-			],
-			[
-				"a.fee",
-				"app/js/app.feedback.js"
-			],
-			[
-				"a.ra",
-				"app/js/app.raven.js"
-			],
-			[
-				"a.co",
-				"app/js/app.config.js"
-			],
-			[
-				"a.us",
-				"app/js/app.user.controller.js"
-			],
-			[
-				"a.o.re",
-				"app/js/order/app.order.controller.repport.js"
-			],
-			[
-				"a.rav",
-				"app/js/app.raven.js"
-			],
-			[
-				"a.o.",
-				"app/js/order/app.order.controller.comon.js"
-			],
-			[
-				"a.or.f",
-				"app/js/order/app.order.factory.js"
-			],
-			[
-				"da",
-				"app/css/dashboard.css"
-			],
-			[
-				"a.o",
-				"app/js/order/app.order.factory.js"
-			],
-			[
-				"pro-",
-				"app/assets/partials/product/product-wide.html"
-			],
-			[
-				"car",
-				"app/css/cart.css"
-			],
-			[
-				"a.o.c",
-				"app/js/order/app.order.controller.comon.js"
-			],
-			[
-				"a.i",
-				"app/js/app.init.js"
-			],
-			[
-				"s",
-				"app/css/shop2.css"
-			],
-			[
-				"conf",
-				"app/assets/partials/dashboard/dashboard-config.html"
-			],
-			[
-				"hom",
-				"app/css/home.css"
-			],
-			[
-				"ap.u",
-				"app/js/app.user.factory.js"
-			],
-			[
-				"ap.sh",
-				"app/js/app.shop.js"
-			],
-			[
-				"mar",
-				"app/css/markdown.css"
-			],
-			[
-				"sho",
-				"app/assets/partials/shop/shop-content.html"
-			],
-			[
-				"foot",
-				"app/assets/footer.html"
-			],
-			[
-				"a.sh",
-				"app/js/app.shop.js"
-			],
-			[
-				"ap.pr",
-				"app/js/app.product.js"
-			],
-			[
-				"ap.ca",
-				"app/js/app.category.js"
-			],
-			[
-				"a.se",
-				"app/js/app.service.js"
-			],
-			[
-				"ord.n",
-				"app/js/order/app.order.controller.new.js"
-			],
-			[
-				"a.pr",
-				"app/js/app.product.js"
-			],
-			[
-				"ap.hom",
-				"app/js/app.home.js"
-			],
-			[
-				"ord.",
-				"app/assets/partials/order/order.html"
-			],
-			[
-				"a.or",
-				"app/js/order/app.order.ui.js"
-			],
-			[
-				"a.o.f",
-				"app/js/order/app.order.factory.js"
-			],
-			[
-				"pr.w",
-				"app/css/product.wide.css"
-			],
-			[
-				"prowi",
-				"app/css/product.wide.css"
-			],
-			[
-				"ap.ad",
-				"app/js/order/app.order.controller.admin.js"
-			],
-			[
-				"po.",
-				"app/js/card/postfinance.format.js"
-			],
-			[
-				"ap.us",
-				"app/js/app.user.controller.js"
-			],
-			[
-				"ap.ser",
-				"app/js/app.service.ui.js"
-			],
-			[
-				"a.o.co",
-				"app/js/order/app.order.controller.comon.js"
-			],
-			[
-				".comon",
-				"app/js/order/app.order.controller.comon.js"
-			],
-			[
-				".conr",
-				"app/js/app.user.controller.js"
-			],
-			[
-				"o.ne",
-				"app/js/order/app.order.controller.new.js"
-			],
-			[
-				"a.rep",
-				"app/js/order/app.order.controller.repport.js"
-			],
-			[
-				"a.or.sh",
-				"app/js/order/app.order.controller.shopper.js"
-			],
-			[
-				"a.o.fa",
-				"app/js/order/app.order.factory.js"
-			],
-			[
-				"a.hom",
-				"app/js/app.home.js"
-			],
-			[
-				"a.fe",
-				"app/js/app.feedback.js"
-			],
-			[
-				"a.con",
-				"app/js/app.config.js"
-			],
-			[
-				"a.o.u",
-				"app/js/order/app.order.ui.js"
-			],
-			[
-				"cove",
-				"app/css/cover.css"
-			],
-			[
-				"ap.p",
-				"app/js/app.product.js"
-			],
-			[
-				"ini",
-				"app/js/app.init.js"
-			],
-			[
-				"a.conf",
-				"app/js/app.config.js"
-			],
-			[
-				"cover",
-				"app/css/cover.css"
-			],
-			[
-				"rave",
-				"app/js/app.raven.js"
-			],
-			[
-				"das",
-				"app/css/dashboard.css"
-			],
-			[
-				"dash",
-				"app/css/dashboard.css"
-			],
-			[
-				"ap.o",
-				"app/js/order/app.order.factory.js"
-			],
-			[
-				"a.ho",
-				"app/js/app.home.js"
-			],
-			[
-				"",
-				"app/js/app.init.js"
-			],
-			[
-				"ap.o.ca",
-				"app/js/order/app.order.factory.cart.js"
-			],
-			[
-				"wel",
-				"app/css/welcome.css"
-			],
-			[
-				"welc",
-				"app/assets/partials/pages/welcome.html"
-			],
-			[
-				"a.rot",
-				"app/js/app.root.js"
-			],
-			[
-				"order",
-				"app/assets/partials/order/order.html"
-			],
-			[
-				"orde",
-				"app/css/orders.css"
-			],
-			[
-				"ut",
-				"app/css/utils.css"
-			],
-			[
-				"ap.or.",
-				"app/js/order/app.order.factory.js"
-			],
-			[
-				"valida",
-				"app/assets/partials/account/validate.html"
-			],
-			[
-				"pro-w",
-				"app/assets/partials/product/product-wide.html"
-			],
-			[
-				"or-lo",
-				"app/assets/partials/order/order-logistic-lists.html"
-			],
-			[
-				"ap.ma",
-				"app/js/app.ui.map.js"
-			],
-			[
-				"a.o.s",
-				"app/js/order/app.order.controller.shopper.js"
-			],
-			[
-				"mark",
-				"app/css/markdown.css"
-			],
-			[
-				"a.se.ui",
-				"app/js/app.service.ui.js"
-			],
-			[
-				"a.c",
-				"app/js/app.config.js"
-			],
-			[
-				"ap.ro",
-				"app/js/app.root.js"
-			],
-			[
-				"a.pro",
-				"app/js/app.product.js"
 			],
 			[
 				"a.ini",
 				"app/js/app.init.js"
 			],
 			[
-				"app.ord",
+				"a.in",
+				"app/js/app.init.js"
+			],
+			[
+				"ind",
+				"app/assets/index.html"
+			],
+			[
+				"a.i",
+				"app/js/app.init.js"
+			],
+			[
+				"wa",
+				"app/partials/account/wallet-create.html"
+			],
+			[
+				"hom",
+				"app/partials/product/home.html"
+			],
+			[
+				"app.fe",
+				"app/js/app.feedback.js"
+			],
+			[
+				"a.ro",
+				"app/js/app.root.js"
+			],
+			[
+				"ap.f",
+				"app/js/app.feedback.js"
+			],
+			[
+				"ap.or.ne",
 				"app/js/order/app.order.controller.new.js"
+			],
+			[
+				"ap.or",
+				"app/js/order/app.order.controller.admin.js"
+			],
+			[
+				"inde",
+				"app/assets/index.html"
+			],
+			[
+				"cov",
+				"app/partials/shop/cover.html"
+			],
+			[
+				"ap.r",
+				"app/js/app.root.js"
+			],
+			[
+				"edi",
+				"app/partials/shop/edit.html"
+			],
+			[
+				"ap.us.",
+				"app/js/app.user.factory.js"
+			],
+			[
+				"ho",
+				"app/css/home.css"
+			],
+			[
+				"prod",
+				"app/js/app.product.js"
+			],
+			[
+				"ap.ro",
+				"app/js/app.root.js"
+			],
+			[
+				"docu",
+				"app/partials/document/document.html"
+			],
+			[
+				"co",
+				"app/partials/account/cover.html"
+			],
+			[
+				"ap.hom",
+				"app/js/app.home.js"
+			],
+			[
+				"ap.ho",
+				"app/js/app.home.js"
+			],
+			[
+				"home",
+				"app/partials/product/home.html"
+			],
+			[
+				"mar",
+				"app/css/markdown.css"
+			],
+			[
+				"conf",
+				"app/partials/dashboard/dashboard-config.html"
+			],
+			[
+				"pay",
+				"app/partials/account/payment.html"
+			],
+			[
+				"ap.con",
+				"app/js/app.config.js"
+			],
+			[
+				"ap.doc",
+				"app/js/app.document.js"
+			],
+			[
+				"doc",
+				"app/partials/document/document.html"
+			],
+			[
+				"ap.do",
+				"app/js/app.document.js"
+			],
+			[
+				"ap.p.u",
+				"app/js/app.product.ui.js"
+			],
+			[
+				"cat",
+				"app/partials/admin/category.modal.html"
+			],
+			[
+				"pa-po",
+				"app/partials/order/payment-postfinance-ecommerce.html"
+			],
+			[
+				"ap.us.fa",
+				"app/js/app.user.factory.js"
+			],
+			[
+				"ap.us",
+				"app/js/app.user.controller.js"
+			],
+			[
+				"w-c",
+				"app/partials/account/wallet-create.html"
+			],
+			[
+				"a.pr",
+				"app/js/app.product.js"
+			],
+			[
+				"a.se",
+				"app/js/app.service.ui.js"
+			],
+			[
+				"ap.ser",
+				"app/js/app.service.js"
+			],
+			[
+				"ord",
+				"app/partials/order/order.html"
+			],
+			[
+				"wal",
+				"app/partials/account/wallet.html"
+			],
+			[
+				"a.or.ne",
+				"app/js/order/app.order.controller.new.js"
+			],
+			[
+				"a.or.c",
+				"app/js/order/app.order.factory.cart.js"
+			],
+			[
+				"ap.sh",
+				"app/js/app.shop.js"
+			],
+			[
+				"pro",
+				"app/css/product.css"
+			],
+			[
+				"w-cr",
+				"app/partials/account/wallet-create.html"
+			],
+			[
+				"ap.or.ca",
+				"app/js/order/app.order.factory.cart.js"
+			],
+			[
+				"a.o.ne",
+				"app/js/order/app.order.controller.new.js"
+			],
+			[
+				"ap.us.f",
+				"app/js/app.user.factory.js"
+			],
+			[
+				"ap.u",
+				"app/js/app.user.controller.js"
+			],
+			[
+				"wall",
+				"app/partials/account/wallet.html"
+			],
+			[
+				"ap",
+				"app/js/app.feedback.js"
+			],
+			[
+				"ap.cf",
+				"app/js/app.config.js"
+			],
+			[
+				"ove",
+				"app/partials/account/overview.html"
+			],
+			[
+				"dashbo",
+				"app/partials/dashboard/dashboard-stats.html"
+			],
+			[
+				"ap.pro",
+				"app/js/app.product.js"
+			],
+			[
+				"crea",
+				"app/partials/product/create.html"
+			],
+			[
+				"con",
+				"app/js/app.config.js"
+			],
+			[
+				"ap.w",
+				"app/js/app.wallet.js"
+			],
+			[
+				"orde",
+				"app/partials/order/order.html"
+			],
+			[
+				"over",
+				"app/partials/account/overview.html"
+			],
+			[
+				"ap.fe",
+				"app/js/app.feedback.js"
+			],
+			[
+				"ut",
+				"app/css/utils.css"
+			],
+			[
+				"a.ser",
+				"app/js/app.service.ui.js"
+			],
+			[
+				"a.or.ad",
+				"app/js/order/app.order.controller.admin.js"
+			],
+			[
+				"",
+				"app/js/order/app.order.controller.comon.js"
+			],
+			[
+				"ap.o",
+				"app/js/order/app.order.ui.js"
+			],
+			[
+				"ap.wa",
+				"app/js/app.wallet.js"
+			],
+			[
+				"pa",
+				"app/partials/order/payment-wallet.html"
+			],
+			[
+				"ap.or.co",
+				"app/js/order/app.order.controller.comon.js"
+			],
+			[
+				"ap.o.co",
+				"app/js/order/app.order.controller.comon.js"
+			],
+			[
+				"paym",
+				"app/css/payment.css"
+			],
+			[
+				"a.o.u",
+				"app/js/order/app.order.ui.js"
+			],
+			[
+				"a.sh",
+				"app/js/app.shop.js"
+			],
+			[
+				"ap.p",
+				"app/js/app.product.js"
+			],
+			[
+				"pa-w",
+				"app/partials/order/payment-wallet.html"
+			],
+			[
+				"ov",
+				"app/partials/account/overview.html"
+			],
+			[
+				"a.us",
+				"app/js/app.user.controller.js"
+			],
+			[
+				"a.pu",
+				"app/js/app.user.factory.js"
+			],
+			[
+				"a.se.u",
+				"app/js/app.service.ui.js"
+			],
+			[
+				"cre",
+				"app/partials/product/create.html"
+			],
+			[
+				"in",
+				"app/assets/index.html"
+			],
+			[
+				"dash",
+				"app/css/dashboard.css"
+			],
+			[
+				"cove",
+				"app/css/cover.css"
+			],
+			[
+				"shop",
+				"app/partials/shop/shop.html"
+			],
+			[
+				"a.roo",
+				"app/js/app.root.js"
+			],
+			[
+				"ap.se",
+				"app/js/app.service.js"
+			],
+			[
+				"a.pro",
+				"app/js/app.product.js"
+			],
+			[
+				"prod-",
+				"app/partials/product/product-wide.html"
+			],
+			[
+				"a.shop",
+				"app/js/app.shop.js"
+			],
+			[
+				"uti",
+				"app/css/utils.css"
+			],
+			[
+				"a.doc",
+				"app/js/app.document.js"
+			],
+			[
+				"ap.ui.s",
+				"app/js/app.ui.strap.js"
+			],
+			[
+				"ap.se.u",
+				"app/js/app.service.ui.js"
+			],
+			[
+				"lov",
+				"app/partials/product/love.html"
+			],
+			[
+				"prod-w",
+				"app/partials/product/product-wide.html"
+			],
+			[
+				"create",
+				"app/partials/product/create.html"
+			],
+			[
+				"a.ser.u",
+				"app/js/app.user.ui.js"
+			],
+			[
+				"a.or.a",
+				"app/js/order/app.order.controller.admin.js"
+			],
+			[
+				"edit",
+				"app/partials/shop/edit.html"
+			],
+			[
+				"a.do",
+				"app/js/app.document.js"
+			],
+			[
+				"das",
+				"app/css/dashboard.css"
+			],
+			[
+				"ap.or.fa",
+				"app/js/order/app.order.factory.js"
+			],
+			[
+				"a.o.",
+				"app/js/order/app.order.controller.comon.js"
+			],
+			[
+				"cover",
+				"app/partials/cover.html"
+			],
+			[
+				"a.ui",
+				"app/js/app.service.ui.js"
+			],
+			[
+				"wel",
+				"app/css/welcome.css"
+			],
+			[
+				"a.or.co",
+				"app/js/order/app.order.controller.comon.js"
+			],
+			[
+				"a.o.c",
+				"keep/app.order.controller.comon.js"
+			],
+			[
+				"a.ra",
+				"app/js/app.raven.js"
+			],
+			[
+				"a.ho",
+				"app/js/app.home.js"
+			],
+			[
+				"a.r",
+				"app/js/app.root.js"
+			],
+			[
+				".ui",
+				"app/js/app.service.ui.js"
+			],
+			[
+				"or",
+				"app/css/orders.css"
+			],
+			[
+				"o.ui",
+				"app/js/order/app.order.ui.js"
+			],
+			[
+				"a.o.co",
+				"app/js/order/app.order.controller.comon.js"
+			],
+			[
+				"or-c",
+				"app/partials/order/order-collect-shop.html"
+			],
+			[
+				"ap.or.f",
+				"app/js/order/app.order.factory.js"
+			],
+			[
+				"np",
+				"bower_components/nprogress/nprogress.js"
+			],
+			[
+				"or-co",
+				"app/partials/order/order-collect-shop.html"
+			],
+			[
+				"a.o.f",
+				"app/js/order/app.order.factory.js"
+			],
+			[
+				"da",
+				"app/partials/dashboard/dashboard-sidebar.html"
+			],
+			[
+				"a.or.s",
+				"app/js/order/app.order.controller.shopper.js"
+			],
+			[
+				"o.a",
+				"app/js/order/app.order.controller.admin.js"
+			],
+			[
+				"sh",
+				"app/partials/shop/shop.html"
+			],
+			[
+				"feed",
+				"app/css/feedback.css"
 			]
 		],
 		"width": 0.0
@@ -2971,7 +2755,7 @@
 	"show_open_files": false,
 	"show_tabs": true,
 	"side_bar_visible": true,
-	"side_bar_width": 600.0,
+	"side_bar_width": 537.0,
 	"status_bar_visible": true,
 	"template_settings":
 	{

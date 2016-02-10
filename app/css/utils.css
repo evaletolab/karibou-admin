@@ -199,6 +199,11 @@ h1.sexy, h2.sexy, h3.sexy {
   border:1px solid #0f0!important;
 }
 
+.border-red{
+  border:1px solid red!important;
+}
+
+
 .text-center{text-align: center;}
 .text-left{text-align: left;}
 .text-left.padding{padding-left: 10px!important;}

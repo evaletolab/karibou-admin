@@ -58,7 +58,7 @@ function appConfig($q, $resource, $sce, API_SERVER) {
     },
     loginPath:['/admin','/account'],
     readonlyPath:['/wallet/create'],
-    avoidFeedbackIn:['/admin','/login','/signup']
+    avoidShopUIIn:['/admin','/login','/signup','/page']
   };
 
   defaultConfig.providers = [

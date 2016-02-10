@@ -95,6 +95,10 @@ User.controller('AccountCtrl',[
       $scope.number=$routeParams.gift;
     }
 
+    // autofill email
+    if($routeParams.email){
+      $scope.email=$routeParams.email;
+    }
 
     $scope.applyTableFilter=function (action) {
       var options=$scope.options;
@@ -331,7 +335,10 @@ User.controller('AccountCtrl',[
       }, function (status, response) {
         if(response.error){
           $rootScope.WaitText=false;
-          return api.info($scope,response.error.message);
+          $timeout(function() {
+             api.info($scope,response.error.message);
+          },100);
+          return;
         }
         //
         // response.id

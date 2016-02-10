@@ -9,8 +9,8 @@ angular.module('app.order.new', ['app.order.ui','app.config', 'app.api'])
 
 //
 // implement 
-OrderNewCtrl.$inject=['$controller','$scope','$location','$rootScope','$routeParams','api','Cards','order','cart','user','product','Map','config','$log'];
-function OrderNewCtrl($controller, $scope, $location, $rootScope, $routeParams, api, Cards, order, cart, user,product,Map,config,$log) {
+OrderNewCtrl.$inject=['$controller','$scope','$location','$rootScope','$timeout','$routeParams','api','Cards','order','cart','user','product','Map','config','$log'];
+function OrderNewCtrl($controller, $scope, $location, $rootScope, $timeout, $routeParams, api, Cards, order, cart, user,product,Map,config,$log) {
 
   $controller('OrderCommonCtrl', {$scope: $scope}); 
 
@@ -232,7 +232,10 @@ function OrderNewCtrl($controller, $scope, $location, $rootScope, $routeParams, 
     }, function (status, response) {
       if(response.error){
         $rootScope.WaitText=false;
-        return api.info($scope,response.error.message);
+        $timeout(function() {
+        api.info($scope,response.error.message);          
+        }, 100);
+        return
       }
       //
       // response.id
@@ -248,7 +251,7 @@ function OrderNewCtrl($controller, $scope, $location, $rootScope, $routeParams, 
         $scope.options.showCreditCard=false;
 
         //
-        // select default method
+        // select the last as default method
         if(user.payments.length>0){
           cart.config.payment=user.payments[user.payments.length-1];
         }

@@ -74,9 +74,12 @@ function ($rootScope, $http, $resource, $timeout, $q, $log, $location, $routePar
   }
 
 
-  function computeUrl(){
+  function computeUrl(forceUrl){
     var url, path=$location.path();
 
+    if(forceUrl){
+      return forceUrl;
+    }
 
     // edit from shop
     if($routeParams.shop && $routeParams.sku && path.indexOf('/edit')!=-1){
@@ -114,6 +117,7 @@ function ($rootScope, $http, $resource, $timeout, $q, $log, $location, $routePar
       url=url||'/products';
     }
 
+    // console.log('close -------------------',url||referrer||'/')
 
     return url||referrer||'/';      
   }

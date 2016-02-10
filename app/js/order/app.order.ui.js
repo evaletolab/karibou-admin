@@ -68,6 +68,27 @@ angular.module('app.order.ui', [
   };
 }])
 
+.filter('giftCodeTotal',['config',function (config) {
+  return function (gift,sum) {
+    if(!gift||!gift.amount){
+      return '0.00';
+    }
+    // important
+    var amount=parseFloat(gift.amount);
+    if(gift.print){
+      amount+=1;
+    }
+    var issuer=gift.payment&&gift.payment.issuer||'none'
+
+    for(var p in config.shop.order.gateway){
+      if(config.shop.order.gateway[p].label===issuer){
+        var fees=(config.shop.order.gateway[p].fees*amount);
+        return (sum)?(amount+fees).toFixed(2):fees.toFixed(2);
+      }
+    }
+    return (sum)?(amount).toFixed(2):'0.00';
+  };
+}])
 
 .filter('filterItemsByShop', function () {
    return function(items,vendor) {
