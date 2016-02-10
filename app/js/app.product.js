@@ -53,7 +53,7 @@ productCtrl.$inject=[
   'product',
   'cart',
   'shop',
-  'document',
+  'documents',
   'feedback',
 ];
 

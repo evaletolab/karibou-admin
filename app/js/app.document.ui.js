@@ -154,7 +154,7 @@ function i18nRender($rootScope,$compile,$timeout,$translate,config) {
       function  render() {
         // init
         var lang=$translate.use(),
-            defaultLang=config.shared.i18n.defaultLocale,
+            defaultLang=config.shop.i18n.defaultLocale,
             content=undefined;
 
         // init content
@@ -191,7 +191,7 @@ function i18nRender($rootScope,$compile,$timeout,$translate,config) {
 
       // trigger rendering of translation
       $rootScope.$on('$translateChangeSuccess', render);
-      // config.shared.then(function (argument) {
+      // config.shop.then(function (argument) {
       //   $timeout(render,100);
       // });
     }

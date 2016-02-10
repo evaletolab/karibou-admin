@@ -131,7 +131,7 @@
         <h3 class="page-header">Interrompre les dates de livraisons suivantes</h3>
         <div class="clearfix" ng-repeat="noshipping in config.shop.noshipping" style="border-bottom:1px dotted #ddd;margin-bottom:5px">
           <div class="col-xs-7 nopadding">
-            <input type="text" value="{{noshipping.reason}}" ng-model="config.shop.noshipping[$index].reason" placeholder="pour quelle raison?" class="form-control input-lg col-md-10">
+            <input type="text" value="{{noshipping.reason}}" ng-model="config.shop.noshipping[$index].reason[locale()]" placeholder="pour quelle raison?" class="form-control input-lg col-md-10">
           </div>
           <div class="col-xs-2">
             <input type="text" class="form-control input-lg" ng-model="config.shop.noshipping[$index].from" placeholder="jj/mm/aaaa" format-date="DD/MM/YYYY" required />

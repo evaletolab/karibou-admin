@@ -9,8 +9,9 @@ angular.module('app.root', ['app.config','app.user'])
 //
 // the AppCtrl is used in index.html (see app/assets/index.html)
 appCtrl.$inject=[
-  '$scope','$rootScope','$window','$location','$routeParams','$timeout','$http','$translate','config','api','user','cart','category','product','shop','document'];
-function appCtrl($scope, $rootScope, $window,  $location, $routeParams, $timeout, $http, $translate, config, api, user, cart, category, product,shop,document) {
+  '$scope','$rootScope','$window','$location','$routeParams','$timeout','$http','$translate','config','api','user','cart','category','product','shop','documents'
+  ];
+function appCtrl($scope, $rootScope, $window,  $location, $routeParams, $timeout, $http, $translate, config, api, user, cart, category, product,shop,doc) {
 
   $rootScope.user=$scope.user = user;
   $scope.cart = cart;
@@ -27,7 +28,7 @@ function appCtrl($scope, $rootScope, $window,  $location, $routeParams, $timeout
     cart:false,
     sidebar:false,
     wellSubscribed:false,
-    needReload:false
+    needReload:false,
     locale:$translate.use()
   };
 
@@ -88,7 +89,7 @@ function appCtrl($scope, $rootScope, $window,  $location, $routeParams, $timeout
   // });
 
   $scope.displayBundle=function (){
-    document.get(config.shop.home.path).model.$promise.then(function(model){
+    doc.get(config.shop.home.path).model.$promise.then(function(model){
       $rootScope.title='documents '+model.slug+' - '+model.title;
       if(model.products){
         model.products=product.wrapArray(model.products);

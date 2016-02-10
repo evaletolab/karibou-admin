@@ -41,10 +41,9 @@ Home.controller('HomeCtrl', [
   'user',
   'shop',
   'product',
-  'document',
   'Map',
 
-  function ($scope, $route, $location, $rootScope, $routeParams, $q, config, api, category, user, shop, product,document, Map) {
+  function ($scope, $route, $location, $rootScope, $routeParams, $q, config, api, category, user, shop, product, Map) {
     var filter={sort:'created'};
     $scope.user = user;
     $scope.map=new Map();

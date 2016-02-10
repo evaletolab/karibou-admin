@@ -9,8 +9,8 @@ angular.module('app.config', [])
 
 //
 // implement service
-appConfig.$inject=['$q','$resource','$sce','$translate','API_SERVER']; 
-function appConfig($q, $resource, $sce, $translate, API_SERVER) {
+appConfig.$inject=['$q','$http','$sce','$translate','API_SERVER']; 
+function appConfig($q, $http, $sce, $translate, API_SERVER) {
   var deferred = $q.defer();
   
   var defaultConfig = {

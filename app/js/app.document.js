@@ -20,7 +20,7 @@ function docConfig($routeProvider, $locationProvider, $httpProvider){
         title:'Créer un nouveau document ',controller:'DocumentCtrl', templateUrl : '/partials/document/document-create.html'
      })
     .when('/account/documents', {
-        title:'Les documents ',  templateUrl : '/partials/account/documents.html'
+        title:'Les documents ',  templateUrl : '/partials/document/documents.html'
     })
     .when('/content/category/:category', {
         title:'Les documents ',  templateUrl : '/partials/document/documents-category.html'
