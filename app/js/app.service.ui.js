@@ -273,11 +273,11 @@ UI.directive('toggleSidebar', ['$parse','$timeout','$rootScope', function($parse
 UI.directive('confirmDelete', ['$parse', function($parse) {
   //
   // template
-  var style="width: 300px;position: absolute;border: 2px solid red;padding: 10px;background-color: white;margin-top:-20px;display:none;left:25%;box-shadow:1px 1px 1000px #333";
+  var style="z-index:1;left:0;right:0;min-width: 350px;position: absolute;border: 2px solid red;padding: 10px;background-color: white;margin-top:-20px;display:none;left:25%;box-shadow:1px 1px 1000px #333";
   /*jshint multistr: true */
   var span='\
     <form id="passwd-{{$id}}" style="'+style+'" class="form-inline prompt-passwd" validate>\
-      <input type="password" class="form-control" placeholder="valider avec votre mot de passe" required autofocus="true" style="width: 220px;">\
+      <input type="password" class="form-control" placeholder="valider avec votre mot de passe" required autofocus="true" style="width: 280px;">\
       <button class="btn btn-primary" ><i class="fa fa-unlock"></i></button>\
     </form>\
   ';
@@ -287,7 +287,12 @@ UI.directive('confirmDelete', ['$parse', function($parse) {
     scope:{action:"&confirmDelete"},
     compile: function (element) {
       var e=element.after(span);
-      return function(scope, element, attr, ctrl) { 
+      return function(scope, element, attr, ctrl) {
+        element.keyup(function(e) {
+          if (e.keyCode == 27) {
+            element.next('.prompt-passwd').remove();  
+          }
+        });
         element.bind('click', function(event) {
           angular.element('.prompt-passwd').hide();
           element.next().show();
@@ -295,7 +300,7 @@ UI.directive('confirmDelete', ['$parse', function($parse) {
         element.next().submit(function(){
           var pwd=element.next().find('input[type=password]').val();
           scope.action({password:pwd});
-          element.next().hide();
+          element.next().hide('.prompt-passwd');
           return false;
         });
       };
