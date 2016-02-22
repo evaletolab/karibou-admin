@@ -22,15 +22,12 @@
         
         <!-- SHOPS -->
         <div infinite-scroll='loadNextPage()'  
-             infinite-scroll-distance='0' 
              class="row wrapheight " style="background-color:transparent">
-
-            <div  ng-repeat="(group, _shops) in shops" ng-if="_shops.length" style="width:100%"> 
-              <div  class="nopadding col-sm-6 col-md-6 col-xs-12 " style="background-color:transparent" 
-                    ng-include="'/partials/shop/shop.html'"  
-                    ng-repeat="shop in _shops" 
-                    ng-if="shop.name"></div>              
-            </div>
+          <div  class="nopadding col-sm-6 col-md-6 col-xs-12 " 
+                style="background-color:transparent" 
+                ng-include="'/partials/shop/shop.html'"  
+                ng-repeat="shop in infinite" 
+                ng-if="shop.name"></div>              
         </div>
 
         <footer class="wrapper-footer wide" ng-include="'/footer.html'"></footer>

@@ -38,7 +38,7 @@ User.config([
       .when('/account/password', {auth : true, _view:'main', templateUrl : '/partials/account/password.html'})
       .when('/account/profile', {auth : true, _view:'main', templateUrl : '/partials/account/profile.html'})
       .when('/account/signup', {view:'main', templateUrl : '/partials/account/profile.html'})
-
+      .when('/admin/navigation', {title:'Navigation ', templateUrl : '/partials/dashboard/dashboard-navigation.html'})
       .when('/admin/user', {title:'Admin of users ', templateUrl : '/partials/admin/user.html'});
   }
 ]);

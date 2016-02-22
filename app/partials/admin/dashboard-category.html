@@ -23,6 +23,8 @@
           <table  class="table table-responsive" >
               <thead>
                 <tr>
+                  <th style="width:80px">Active</th>
+                  <th style="width:80px">Home</th>
                   <th>Nom</th>
                   <th>Liens</th>
                   <th>Poid</th>
@@ -34,6 +36,8 @@
               </thead>
 
               <tr  ng-repeat="c in categories" >
+                  <td ng-click="c.active=!c.active;save(c)"><i class="fa green" ng-class="c.active?'fa-check-circle':'fa-circle-o'"></i> </td>
+                  <td ng-click="c.home=!c.home;save(c)"><i class="fa green" ng-class="c.home?'fa-check-circle':'fa-circle-o'"></i> </td>
                   <td>{{c.name}} </td>
                   <td title="{{c.usedBy}}">{{c.usedBy.length}} </td>
                   <td>{{c.weight}} </td>

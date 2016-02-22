@@ -20,7 +20,7 @@
       <div class="col-xs-12  nopadding-xs" ng-if="user.isAdmin()">
 
         <!-- CONFIG -->
-        <h1 class="page-header">Configuration ({{config.shop.cid}}) </h1>
+        <h1 class="page-header">Config </h1>
 
         <!-- KEYS -->
         <h3 class="page-header">Gateway public key (stripe)</h3>
@@ -62,36 +62,28 @@
 
 
       <!-- LE SITE -->
+        <h3 class="page-header">Site</h3>
       <div class="clearfix" ng-if="user.isAdmin()">
         <h4 class="page-header"><i class="fa fa-edit gray"></i>&nbsp;<span translate="sitename"></span></h4>
         <div class="form-group ">                        
           <div class="form-group ">                        
-              <input type="text" class="form-control input-lg" ng-model="config.shared.home.siteName[locale()]" />
+              <input type="text" class="form-control input-lg" ng-model="config.shop.home.siteName[locale()]" />
           </div>
         </div>
 
         <h4 class="page-header"><i class="fa fa-edit gray"></i>&nbsp;<span translate="sitetitle"></span></h4>
         <div class="form-group ">                        
           <div class="form-group ">                        
-              <input type="text" class="form-control input-lg" ng-model="config.shared.home.tagLine[locale()]" />
+              <input type="text" class="form-control input-lg" ng-model="config.shop.home.tagLine[locale()]" />
           </div>
         </div>
-
-        <!-- ABOUT -->
-        <h4 class="page-header"><i class="fa fa-edit gray"></i>&nbsp;<span translate="siteabout"></span></h4>
-        <div class="form-group ">                        
-          <div class="">
-            <textarea  rows="4" class="form-control input-lg" ng-model="config.shared.home.about[locale()]" placeholder="A propos?"></textarea>            
-          </div>
-        </div>
-
-        <!-- IMG HOME -->
-        <h4 class="page-header"><i class="fa fa-edit gray"></i>&nbsp;Image Home</h4>
+        <!-- IMG TAGLINE -->
+        <h4 class="page-header"><i class="fa fa-edit gray"></i>&nbsp;Image Footer</h4>
         <div class="form-group ">                        
           <div class="" style="width:100%">
             <!-- Photo -->
             <uploadcare-widget
-              ng-model="config.shared.home.image"
+              ng-model="config.shop.home.tagLine.image"
               data-locale="{{locale()}}"
               data-tabs="file url facebook flickr"
               data-images-only="true"
@@ -102,16 +94,69 @@
               data-crop="free"
               data-max-size-hide="203600"
               on-upload-error="uploadImageError(error)"
-              value="{{config.shared.home.image}}"
+              value="{{config.shop.home.tagLine.image}}"
              />          
           </div>
         </div>
+
+
+        <!-- ABOUT -->
+        <h4 class="page-header"><i class="fa fa-edit gray"></i>&nbsp;<span translate="siteabout"></span></h4>
+        <div class="form-group ">                        
+          <div class="">
+            <textarea  rows="4" class="form-control input-lg" ng-model="config.shop.home.about[locale()]" placeholder="A propos?"></textarea>            
+          </div>
+        </div>
+
+        <!-- IMG ABOUT -->
+        <h4 class="page-header"><i class="fa fa-edit gray"></i>&nbsp;Image About</h4>
+        <div class="form-group ">                        
+          <div class="" style="width:100%">
+            <!-- Photo -->
+            <uploadcare-widget
+              ng-model="config.shop.home.about.image"
+              data-locale="{{locale()}}"
+              data-tabs="file url facebook flickr"
+              data-images-only="true"
+              data-path-value="true"
+              data-preview-step="true"
+              data-clearable="true"
+              data-multiple="false"
+              data-crop="free"
+              data-max-size-hide="203600"
+              on-upload-error="uploadImageError(error)"
+              value="{{config.shop.home.about.image}}"
+             />          
+          </div>
+        </div>
+
 
         <!-- FOOTER -->
         <h4 class="page-header"><i class="fa fa-edit gray"></i>&nbsp;Footer</h4>
         <div class="form-group ">                        
           <div class="">
-            <textarea  rows="4" class="form-control input-lg" ng-model="config.shared.home.footer[locale()]" ></textarea>            
+            <textarea  rows="4" class="form-control input-lg" ng-model="config.shop.home.footer[locale()]" ></textarea>            
+          </div>
+        </div>
+        <!-- IMG FOOTER -->
+        <h4 class="page-header"><i class="fa fa-edit gray"></i>&nbsp;Image Footer</h4>
+        <div class="form-group ">                        
+          <div class="" style="width:100%">
+            <!-- Photo -->
+            <uploadcare-widget
+              ng-model="config.shop.home.footer.image"
+              data-locale="{{locale()}}"
+              data-tabs="file url facebook flickr"
+              data-images-only="true"
+              data-path-value="true"
+              data-preview-step="true"
+              data-clearable="true"
+              data-multiple="false"
+              data-crop="free"
+              data-max-size-hide="203600"
+              on-upload-error="uploadImageError(error)"
+              value="{{config.shop.home.footer.image}}"
+             />          
           </div>
         </div>
 
@@ -120,10 +165,10 @@
         <h4 class="page-header"><i class="fa fa-edit gray"></i>&nbsp;<span translate="sitemessage"></span></h4>
         <div class="form-group ">                        
           <label class="control-label">Information
-            <input type="checkbox" ng-model="config.shared.maintenance.active">
+            <input type="checkbox" ng-model="config.shop.maintenance.active">
           </label>
           <div class="">
-            <textarea  rows="4" class="form-control input-lg" ng-model="config.shared.maintenance.reason[locale()]" placeholder="Pour quelle raison?"></textarea>            
+            <textarea  rows="4" class="form-control input-lg" ng-model="config.shop.maintenance.reason[locale()]" placeholder="Pour quelle raison?"></textarea>            
           </div>
         </div>
 

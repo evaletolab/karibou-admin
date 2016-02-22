@@ -44,12 +44,14 @@ Home.controller('HomeCtrl', [
   'Map',
 
   function ($scope, $route, $location, $rootScope, $routeParams, $q, config, api, category, user, shop, product, Map) {
-    var filter={sort:'created'};
+    var filter={sort:'created'}, promise,scrollBusy=false;
     $scope.user = user;
     $scope.map=new Map();
-    $scope.infinite={};
+    $scope.items=[];
+    $scope.infinite=[];
     $scope.product=false;
     $scope.loves=false;
+
     $scope.shops.$promise.then(function () {
       // body...
     })
@@ -87,26 +89,8 @@ Home.controller('HomeCtrl', [
     };    
 
     $scope.loadHome=function(){
-      var deferred = $q.defer(), waitmylove={$promise:$q.when(true)};
+      var deferred = $q.defer();
 
-      function resolve (value) {
-          waitmylove.$promise.finally(function (value) {
-            deferred.resolve(value);
-          });
-      }
-
-      //
-      // list popular product for the current user
-      if(!$routeParams.category&&user.isAuthenticated()){
-        waitmylove=$scope.loves=product.findLove({popular:true,minhit:2, available:true},function(products){
-          $scope.loves=products;
-        });
-      }
-
-
-      // $scope.loves.$promise.then(function (loves) {
-      //   console.log('get :mylove')
-      // });
 
       //
       // list products by category
@@ -115,68 +99,63 @@ Home.controller('HomeCtrl', [
         $scope.$parent.title="Les produits - "+$scope.group;
         filter={sort:'title',status:true,available:true};
         
-        $scope.products=product.findByCategory($routeParams.category,filter,function(products){
-          $scope.items=$scope.products=products;
-          resolve(products);
+        product.findByCategory($routeParams.category,filter,function(products){
+          $scope.items=products;
+          deferred.resolve(products);
         });
         return deferred.promise;
       }
       
-      //
-      // list shops by catalog
-      if($routeParams.catalog){
-        $scope.group=category.findNameBySlug($routeParams.catalog);
-        $scope.$parent.title="Les boutiques - "+$scope.group;
-        filter={sort:'created'};
-        
-        $scope.shops=shop.findByCatalog($routeParams.catalog,filter,function(shops){
-          $scope.items=$scope.shops=shops;
-          $scope.addresses=$scope.shopsAddress(shops);
-          resolve(shops);
-        });
-        return deferred.promise;
-      }
 
       
       //
       // get shops for the front page
       if($location.path()==='/shops'){
-        filter={sort:'created',group:'catalog.name'};
-        if(!user.isAdmin()){
-          filter.status=true;
-        }
-        $scope.shops=shop.home(filter,function(shops){
-          $scope.items=$scope.shops=shops;
+        filter={};
+        // admin filter
+        if(!user.isAdmin()){filter.status=true;}
+        shop.query(filter,function(shops){
+          $scope.items=shops;
           $scope.addresses=$scope.shopsAddress(shops);
-          resolve(shops);
+          deferred.resolve(shops);
         });
         return deferred.promise;
       } 
 
-      filter={sort:'categories.weight',group:'categories.name', status:true, home:true, available:true};
-      $scope.products=product.home(null,filter,function(products){
-        $scope.items=$scope.products=products;
-        resolve(products);
+      //
+      // get products in front page
+      // /v1/products?available=true&group=categories.name&home=true&sort=categories.weight&status=true
+      filter={popular:true, status:true, home:true, discount:true, available:true,maxcat:4};
+      product.query(filter,function(products){
+        $scope.items=products;
+        deferred.resolve(products);
       });
       return deferred.promise;
     };
 
-    $scope.loadNextPage=function(){
-      var promise=$q.when(true);
-      if(!$scope.items){
-       promise=$scope.loadHome();
-      } 
-      promise.then(function(){
-        var i=0;
-        Object.keys($scope.items).every(function(key,i){
-          if($scope.items[key].length && !$scope.items[key].loaded){
-            $scope.items[key].loaded=true;
-            $scope.infinite[key]=$scope.items[key];
-            return (i++<1);
-          }
-          return true;
-        });
 
+    $scope.getCategoryByName=function(name) {
+      return category.find({name:name});
+    }
+
+    $scope.loadNextPage=function(){
+      if($scope.scrollBusy) return;
+      if(!promise){
+       promise=$scope.loadHome();
+       $scope.scrollBusy=true;
+      } 
+
+
+      // scroll
+      promise.then(function(h){        
+        var position=$scope.infinite.length;
+        $scope.scrollBusy=false;
+        for (var i = 0; i<8; i++) {
+          if(($scope.infinite.length)>=$scope.items.length){
+            return;
+          }
+          $scope.infinite.push($scope.items[position+i]);
+        }
       });
     };
         

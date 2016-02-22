@@ -820,13 +820,18 @@ angular.module('a8m.fuzzy', [])
 angular.module('a8m.group-by', [ 'a8m.filter-watcher' ])
 
   .filter('groupBy', [ '$parse', 'filterWatcher', function ( $parse, filterWatcher ) {
-    return function (collection, property) {
+    return function (collection, property,sorted) {
 
       if(!isObject(collection) || isUndefined(property)) {
         return collection;
       }
 
-      var getterFn = $parse(property);
+      var getterFn = $parse(property), getterSortFn=function () {};
+
+      //if sorted keys group
+      if(sorted){
+        getterSortFn=$parse(sorted);
+      }
 
       return filterWatcher.isMemoized('groupBy', arguments) ||
         filterWatcher.memoize('groupBy', arguments, this,
@@ -839,21 +844,38 @@ angular.module('a8m.group-by', [ 'a8m.filter-watcher' ])
        * @returns {{}}
        */
       function _groupBy(collection, getter) {
-        var result = {};
-        var prop;
+        var result = {},_sort=[], out={};
+        var prop,sort;
 
         forEach( collection, function( elm ) {
           prop = getter(elm);
-
+          sort = getterSortFn(elm);
           if(!result[prop]) {
             result[prop] = [];
+            _sort.push({prop:prop,sort:sort});
           }
           result[prop].push(elm);
         });
-        return result;
+        if(!sorted){
+          return result;
+        }
+
+        //
+        // if sorted map
+        _.sortBy(_sort,function(o) {
+          return o.sort;
+        }).forEach(function(sort,i) {
+          result[sort.prop].$key=sort.prop;
+
+          out[i]=result[sort.prop];
+        })
+
+        return out;
       }
     }
  }]);
+
+
 
 /**
  * @ngdoc filter
@@ -1050,7 +1072,21 @@ angular.module('a8m.filter-watcher', [])
        * @returns {string}
        */
       function getHashKey(fName, args) {
-        return [fName, angular.toJson(args)]
+        function replacerFactory() {
+          var cache = [];
+          return function(key, val) {
+            if(isObject(val) && !isNull(val)) {
+              if (~cache.indexOf(val)) return '[Circular]';
+              cache.push(val)
+            }
+            if($window == val) return '$WINDOW';
+            if($window.document == val) return '$DOCUMENT';
+            if(isScope(val)) return '$SCOPE';
+            return val;
+          }
+        }
+        //https://en.wikipedia.org/wiki/Memoization
+        return [fName, JSON.stringify(args, replacerFactory())]
           .join('#')
           .replace(/"/g,'');
       }
@@ -1073,13 +1109,13 @@ angular.module('a8m.filter-watcher', [])
       /**
        * @description
        * for angular version that greater than v.1.3.0
-       * if clear cache when the digest cycle end.
+       * it clear cache when the digest cycle is end.
        */
       function cleanStateless() {
         $$timeout(function() {
           if(!$rootScope.$$phase)
             $$cache = {};
-        });
+        }, 2000);
       }
 
       /**
@@ -1139,9 +1175,9 @@ angular.module('a8m.filter-watcher', [])
         isMemoized: $$isMemoized,
         memoize: $$memoize
       }
-
     }];
   });
+  
   
 /**
  * @ngdoc module

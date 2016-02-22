@@ -4,7 +4,7 @@
   </aside>
 
 
-   <section class="wrapper" tabindex="-1" ng-controller="HomeCtrl" ng-init="loadHome()">
+   <section class="wrapper" tabindex="-1" ng-controller="HomeCtrl" >
       <div class="wrapper-inner">
 
         <!--                               -->
@@ -28,10 +28,13 @@
 
 
         <!-- PRODUCTS -->
-        <div  class="row wrapheight" >
+
+
+        <div infinite-scroll='loadNextPage()'  
+             class="row wrapheight" >
      
             <article style="width: 103%;">
-                <div  ng-include="'/partials/product/product.html'"  ng-repeat="product in products|orderBy:'-updated'" /> 
+                <div  ng-include="'/partials/product/product.html'"  ng-repeat="product in infinite|orderBy:'-updated'" /> 
             </article>
           
 

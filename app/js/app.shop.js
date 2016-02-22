@@ -148,8 +148,8 @@ Shop.controller('ShopCtrl',[
 
     //
     // get products for the front page shop
-    var filter={sort:'categories.weight',group:'categories.name', available:true};
-    $scope.products=product.home($routeParams.shop, filter,function(products){
+    var filter={shopname:$routeParams.shop, available:true};
+    $scope.products=product.query(filter,function(products){
       $scope.products=products;
     });
     
@@ -212,20 +212,6 @@ Shop.factory('shop', [
     //
     // REST api wrapper
     //
-    Shop.prototype.home = function(filter,cb,err) {
-      var shops, s, self=this;
-      s=backend.get(filter, function() {
-        shops={};
-        for (var group in s){
-          shops[group]=[];
-          if (Array.isArray(s[group]) && typeof s[group][0]==="object"){
-            shops[group]=self.wrapArray(s[group]);
-          }
-        }
-        if(cb)cb(shops);
-      });
-      return shops;
-    };
 
     Shop.prototype.query = function(filter,cb,err) {
       var shops, s,self=this, params={};

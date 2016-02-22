@@ -219,6 +219,9 @@ function appConfig( $provide, $routeProvider, $locationProvider, $httpProvider,$
 
   // Without serve side support html5 must be disabled.
   $locationProvider.html5Mode(true);
+
+  // angular.module('infinite-scroll').value('THROTTLE_MILLISECONDS', 500)
+
   // $locationProvider.hashPrefix('!');
 }
 

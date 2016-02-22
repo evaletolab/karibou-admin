@@ -82,7 +82,8 @@ function walletCtrl ($scope,$rootScope, $routeParams, $location, config, feedbac
     //
     // update name
     if($scope.modal.name!==$scope.modal.card.name){
-      $http.post(config.API_SERVER+'/v1/wallets/'+encodeURIComponent(wid),{name:$scope.modal.name}).then(function (result) {
+      $http.post(config.API_SERVER+'/v1/wallets/'+encodeURIComponent(wid),
+        {name:$scope.modal.name,password:password}).then(function (result) {
         api.info($scope,"Name saved ...");
       });
     }
@@ -90,7 +91,8 @@ function walletCtrl ($scope,$rootScope, $routeParams, $location, config, feedbac
     //
     // update expriry (ADMIN ONLY)
     if($scope.modal.expiry!==$scope.modal.card.expiry){
-      $http.post(config.API_SERVER+'/v1/wallets/expiry/'+encodeURIComponent(wid),{expiry:$scope.modal.expiry,password:password}).then(function (result) {
+      $http.post(config.API_SERVER+'/v1/wallets/expiry/'+encodeURIComponent(wid),
+        {expiry:$scope.modal.expiry,password:password}).then(function (result) {
         api.info($scope,"Expiry saved ...");
       });
     }

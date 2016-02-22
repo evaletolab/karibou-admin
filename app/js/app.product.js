@@ -245,6 +245,21 @@ function productFactory (config, $rootScope,$resource,$q,api) {
     }      
   });
 
+  //
+  // wrap plain json object 
+  $rootScope.$on("product.wrap",function(e,products){
+    //
+    // array
+    if(products.length){
+      return _products.wrapArray(products).forEach(function (p,i) {
+        products[i]=p;
+      });
+    }
+    //
+    // singleton
+    angular.extend(products,_products.wrap(products));
+  });      
+
 
 
   var defaultProduct = {

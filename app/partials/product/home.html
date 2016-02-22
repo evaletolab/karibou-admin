@@ -59,7 +59,7 @@
         </div>
 
         <!-- LOVES & POPULAR -->
-        <article  ng-if="loves.length&&config.shop.home.love" style="width:103%"> 
+<!--         <article  ng-if="loves.length&&config.shop.home.love" style="width:103%"> 
           <h5 class="article-group-title ">
             <span class="gray">Mes produits préférés</span>
             <a ng-href="/account/love" class="btn btn btn-category green-1">Voir Plus &nbsp;<i class="fa fa-angle-right"></i></a>
@@ -69,9 +69,10 @@
           <div  ng-static-include="'/partials/product/product.html'"  
                 ng-repeat="product in loves|leanProducts:8|orderBy:['categories.weight','-updated']"/>
         </article>
-
+ -->
         <!-- CHRISTMAS OR SELECTION -->
-        <article  ng-if="config.shop.home.path" style="width:103%" ng-init="displayBundle()"> 
+
+<!--         <article  ng-if="config.shop.home.path" style="width:103%" ng-init="displayBundle()"> 
           <h5 class="article-group-title ">
             <span class="gray">{{bundle.title}}</span>
             <a ng-href="/content/{{config.shop.home.path}}" class="btn btn btn-category bold green-1">Voir Plus &nbsp;<i class="fa fa-angle-right"></i></a>
@@ -81,25 +82,26 @@
           <div  ng-static-include="'/partials/product/product.html'"  
                 ng-repeat="product in bundle.products|limitTo:4|orderBy:['categories.weight','-updated']"/>
         </article>
-
+ -->
 
         <!-- PRODUCTS -->
         <div infinite-scroll='loadNextPage()'  
-             infinite-scroll-distance='1'
+             infinite-scroll-disabled='scrollBusy'
+             infinite-scroll-distance='0'
              class="row wrapheight" >
      
-
-
-            <article  ng-repeat="group in keys(infinite)"  ng-if="infinite[group].length" style="width:103%"> 
-              <h5 class="article-group-title ">
-                <span class="gray">{{group}}</span>
-                <i class="{{category.find({name:group}).image||''}} {{category.find({name:group}).color||gray}}"></i>
-                <a ng-href="/products/category/{{category.find({name:group}).slug||''}}" class="btn btn btn-category green-1 bold">Voir Plus &nbsp;<i class="fa fa-angle-right"></i></a>
-              </h5>
-
-              <div  ng-static-include="'/partials/product/product.html'"  
-                    ng-repeat="product in infinite[group]|orderBy:['-updated']" />
+            <article  ng-repeat="(group, prods) in infinite|groupBy:'categories.name':'categories.weight'"  
+                      ng-if="getCategoryByName(prods.$key).home"
+                       style="width: 103%;" > 
+              <h4 class="article-group-title black " >
+                <span class="gray">{{prods.$key}} </span>
+                <a ng-href="/products/category/{{getCategoryByName(prods.$key).slug||''}}" class="btn btn btn-category green-1 bold ">Voir Plus &nbsp;<i class="fa fa-angle-right"></i></a>                
+              </h4>
+              <div  ng-include="'/partials/product/product.html'"  
+                    ng-repeat="product in prods|orderBy:['updated']"/>
             </article>
+
+
         </div>
               
 

@@ -25,10 +25,10 @@ function docConfig($routeProvider, $locationProvider, $httpProvider){
     .when('/content/category/:category', {
         title:'Les documents ',  templateUrl : '/partials/document/documents-category.html'
     })
-    .when('/:type/:slug/edit', {
+    .when('/content/:slug/edit', {
         title:'Votre document ', controller:'DocumentCtrl', templateUrl : '/partials/document/document-create.html'
      })
-    .when('/:type/:slug', {
+    .when('/content/:slug', {
         controller:'DocumentCtrl', templateUrl : '/partials/document/document.html'
      });
 }
@@ -236,6 +236,9 @@ function docFactory(config, $resource, $q,$rootScope, api,user) {
 
   Document.prototype.get = function(slug) {
     this.model=backend.documents.get({slug:slug});
+    this.model.$promise.then(function (d) {
+      $rootScope.$broadcast("product.wrap",d.products);
+    })
     return this;
   };
 

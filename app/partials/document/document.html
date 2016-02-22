@@ -11,19 +11,20 @@
       <!--                               -->
       <!-- CONTENT                       -->
       <!--                               -->
-      <h2 class="header" >{{document.model.header}}</h2>
+      <h2 class="header" i18n-render="doc.model.header"></h2>
 
-      <div class="container text" 
+      <div class=" text" 
            i18n-render="doc.model.content" 
-           parse-markdown="true">
-        
+           parse-markdown="true" />
 
 
-      <article   style="width:103%"> 
+
+      <article   style="width:103%">
         <div  ng-include="'/partials/product/product.html'"  ng-repeat="product in doc.model.products|orderBy:['categories.weight','updated']"/>
-        
+
       </article>
-      <button class="btn btn-success btn-lg btn-block hide" ng-click="cart.addList(products)" ng-disabled="!doc.model.products.length">
+
+      <button class="btn btn-success btn-lg btn-block" ng-click="cart.addList(doc.model.products)" ng-disabled="!doc.model.products.length">
         Commander la liste complète
       </button>          
 

@@ -94,6 +94,11 @@ function ConfigCtrl($scope,$resource,config,api){
   var $dao=$resource(config.API_SERVER+'/v1/config');
   $scope.config=config;
  
+  config.shop.then(function() {
+    console.log(config.shop)
+  })
+
+
   $scope.menuSplice=function (lst, menu) {
     for (var i = lst.length - 1; i >= 0; i--) {
       if(lst[i].name===menu.name){

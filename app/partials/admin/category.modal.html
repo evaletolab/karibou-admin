@@ -9,13 +9,21 @@
       <div class="modal-body">
         
         <form class="" validate>
-          <div class="container">
+          <div class="">
             <div class="info-icons" style="color:{{modal.color}}">
               <i class="{{modal.image}} fa-6"></i>&nbsp;&nbsp;
             </div>
             <h1 style="color:{{modal.color}}">
               {{modal.image}}
               <small>color:{{modal.color}}, sort weight:{{modal.weight}}</small>
+              <span class="pull-right">
+                <label>Active
+                <input type="checkbox" ng-model="modal.active" class="form-control "  ></label>
+              </span>
+              <span class="pull-right">
+                <label>Home
+                <input type="checkbox" ng-model="modal.home" class="form-control "  ></label>
+              </span>
             </h1>
           </div>
 

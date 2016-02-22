@@ -56,6 +56,62 @@ angular.module('app.product.ui', [
 })
 
 
+  .filter('groupByEx', [ '$parse', 'filterWatcher', function ( $parse, filterWatcher ) {
+    return function (collection, property,sorted) {
+
+
+      var getterFn = $parse(property), sortFn;
+
+      //
+      if(sorted){
+        sortFn=$parse(sorted);
+      }
+
+
+      return filterWatcher.isMemoized('groupByEx', arguments) ||
+        filterWatcher.memoize('groupByEx', arguments, this,
+          _groupBy(collection, getterFn));
+
+     
+      // Object.keys(collection).map(function (key) {
+      //   return extend(collection[key], { $key: key });
+      // });     
+      /**
+       * groupBy function
+       * @param collection
+       * @param getter
+       * @returns {{}}
+       */
+      function _groupBy(collection, getter) {
+        var result = {}, _sort=[], out=[];
+        var prop, sort;
+
+        collection.forEach( function( elm ) {
+          prop = getter(elm);
+          sort = getter(sorted);
+
+          if(!result[prop]) {
+            result[prop] = [];
+            _sort.push({prop:prop,sort:sort});
+          }
+          result[prop].push(elm);
+        });
+
+        _.sortBy(_sort,function(o) {
+          return o.sort;
+        }).forEach(function(sort) {
+          result[sort.prop].$key=sort.prop;
+          out.push(result[sort.prop]);
+          result[sort.prop]=undefined;
+        })
+      console.log('----------------display',_sort.map(function(o){return o.prop}).join(),out.map(function(o) {return o.$key;}).join())
+        
+        return out;
+      }
+    }
+ }])
+
+
 /*jshint multistr: true */
 .directive("cartButton",['$compile','$timeout','cart',function($compile,$timeout,cart) {
     var tmplSingle='<a class="btn btn-primary _btClass" ng-click="cart.add(product)" ng-disabled="WaitText"\

@@ -11,35 +11,16 @@
    <section class="wrapper shop" tabindex="-1">
       <div class="wrapper-inner wide">
 
+        <article  ng-repeat="(group, prods) in products|groupBy:'categories.name':'categories.weight'"  
+                  ng-if="prods.length" >
 
-
-        <!--                               -->
-        <!-- TITLE -->
-        <!--                               -->
-        <!--                 
-        <div  class="bucket post-bucket homepage-posts" app-affix="30">
-            <div class="bucket-header bucket-header-list show-subtitles-variant">
-               <nav class="bucket-sort">
-                  <h5 class="article-group-title black black" >
-                    <span class="bucket-header-title">{{shop.name}}</span> 
-                  </h5>
-               </nav>
-            </div>
-        </div>
-        -->
-
-        <!-- <div ng-include="'/partials/shop/edit.html'"></div> -->
-
-
-        <article  ng-repeat="(group, _products) in products"  ng-if="_products.length"> 
           <h4 class="article-group-title black " >
-            {{group}}
-            <i class="{{category.find({name:group}).image||''}} {{category.find({name:group}).color||gray}}"></i>
+            {{prods.$key}}
+            <i class="{{category.find({name:prods.$key}).image||''}} {{category.find({name:prods.$key}).color||gray}}"></i>
           </h4>
 
-          <div  style="width:100%;"><!-- MANSORY FIX -->
-            <div  ng-include="'/partials/product/product.html'"  ng-repeat="product in _products|orderBy:['updated']"></div>              
-          </div>
+          <div  ng-include="'/partials/product/product.html'"  
+                ng-repeat="product in prods|orderBy:['updated']"/>
         </article>
             
 

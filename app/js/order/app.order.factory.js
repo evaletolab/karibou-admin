@@ -382,6 +382,7 @@ function orderFactory(config, $resource, $q, user,shop, api, cart) {
   Order.prototype.updateItem=function(item,fulfillment, cb){
     var tosave=angular.copy(item), me=this;
     tosave.fulfillment.status=fulfillment;
+    console.log('-------------',tosave)
     this.chain(backend.$order.save({action:this.oid,id:'items'},[tosave]).$promise).$promise.then(function () {
       _.find(me.items,function(i){return i.sku===item.sku}).fulfillment.status=fulfillment;
     })
