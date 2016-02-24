@@ -68,6 +68,8 @@ Shop.controller('ShopCtrl',[
     shop.get($routeParams.shop,function(shop){
       $scope.shop=shop;
       $rootScope.title='La boutique '+shop.name;
+      $rootScope.$broadcast("feedback.update",shop);
+
     });
     
 

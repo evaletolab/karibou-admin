@@ -156,6 +156,8 @@ function productCtrl ($scope,$rootScope, $location, $routeParams, config, catego
     $scope.scrollLeft=left;
     product.get($routeParams.sku,function(product){
       $rootScope.title='products '+product.sku+' - '+product.title;
+      $rootScope.$broadcast("feedback.update",product.vendor,product);
+
       $scope.product=product;
       if(product.attributes.comment){
         loadDisqus($location.path(), product.title);

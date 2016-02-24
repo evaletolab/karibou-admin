@@ -73,13 +73,11 @@ function FeedbackCtrl(config, $scope, $rootScope,$timeout,  $location, user,api,
     });    
   };
 
-  // update feedback state 
+  // init feedback
   $rootScope.$on('$routeChangeSuccess', function (event, route) {
-    $timeout(function () {
-
-      feedback.updateScope(route);
-    },500);
+    fb.clear(route);
   });
+
 
 }
   
@@ -109,34 +107,37 @@ function feedbackFactory(config, user, $rootScope,$http) {
   };
 
 
-  Feedback.prototype.updateScope=function(route) {
-    this.shop=this.product=false;
-
-    if(route&&route.params.urlpath){
-      this.shop=route.scope.shop;
-      return;
-    }
-    if(route&&route.params.sku){
-      this.product=route.scope.product;
-      return;
-    }
-    if(route&&route.scope){
-      //
-      // case of shop
-      if(route.scope.$$childHead&&route.scope.$$childHead.shop){
-        return this.shop=route.scope.$$childHead.shop;
-      }
+  //
+  // update the products that bellongs to this shop    
+  $rootScope.$on("feedback.update",function(e,shop,product){      
+    feedback.shop=shop;
+    if(product){
+      feedback.product=product;
+      feedback.shop=false;
     }
 
-  }
+  });
+
 
   Feedback.prototype.setUser=function(email) {
     this.email=email;
   };
 
-  Feedback.prototype.setProduct=function(product) {
-    this.product=product;
+  Feedback.prototype.clear=function(route) {
+    //
+    // dont clear the context if urlpath equal the current shop
+    if(route&&route.params&&route.params.shop){
+      if(this.shop&&route.params.shop===this.shop.urlpath)return;
+      if(this.product&&route.params.shop===this.product.vendor.urlpath){
+        this.shop=this.product.vendor;
+        this.product=null;
+        return;
+      }
+    }
+
+    this.product=this.shop=null;
   };
+
 
   //
   // send feedback 
@@ -150,7 +151,9 @@ function feedbackFactory(config, user, $rootScope,$http) {
     return $http.post(config.API_SERVER+'/v1/comment', content);
   };
 
-  return new Feedback();
+  var feedback=new Feedback();
+
+  return feedback;
 }
 
 
