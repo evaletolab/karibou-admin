@@ -25,64 +25,33 @@
          </div>
 
 
-
-
-
-
-        <!-- ONE RANDOM SHOPS -->
-        <div  class="nopadding col-xs-12  " style="background-color:transparent" 
-              ng-static-include="'/partials/shop/shop.html'"  
-              ng-repeat="shop in shops|randomFilter:1" 
-              ng-if="shop.name">
-        </div>              
-
         <!-- MAILING EVENT -->
-        <div class="col-xs-12 col-lg-12 form-inline kb-card-info last-child " >
+        <div class="col-xs-12 col-lg-12  kb-card-info " ng-if="!user.isAuthenticated()">
             <div class=" kb-card-content text-center">
               <span>Ensemble ils construisent un marché en ligne!</span><br/>
               Votre maraîcher, boulanger, fromager, boucher... livrés à votre porte! <a href="/shops">Découvrez leur boutiques</a>!
             </div>
         </div>
 
-        <div class="tagline col-xs-12 text-center">
-          <img src="/img/tagline-k.png" style="width:250px" />
-        </div>
 
-        <!-- CAMPAIGN -->
-        <div class="col-xs-12 col-lg-12 nopadding hidden-xs" >
-            <div class=" text-center" style="margin:50px 0;">
-              <div>
-                <i class="fa fa-gift pink"></i><b> Offrez Karibou!</b> <a href="/wallet/create">Offrez du vin, des légumes BIO, un tiramisu et bien plus encore avec la Carte Cadeau Karibou</a>
-              </div>
-              
+        <!-- MAILING EVENT -->
+        <div class="col-xs-12 kb-card-info " ng-if="user.isAuthenticated()" style="margin-top:50px">
+            <div class=" alert alert-warning">
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+
+              <span class="bold">Psst!</span> 
+              Pas facile de s'organiser pour faire ces courses... 
+              Nous pouvons vous envoyer un mail <a href="/account/reminder">au moment qui vous convient le mieux</a>, qu'en pensez-vous?
             </div>
         </div>
 
-        <!-- LOVES & POPULAR -->
-<!--         <article  ng-if="loves.length&&config.shop.home.love" style="width:103%"> 
-          <h5 class="article-group-title ">
-            <span class="gray">Mes produits préférés</span>
-            <a ng-href="/account/love" class="btn btn btn-category green-1">Voir Plus &nbsp;<i class="fa fa-angle-right"></i></a>
-          </h5>
-          <p class="bucket-sub-title" style="margin-top:-15px">Produits les plus achetés et mes «J'aime»</p>
 
-          <div  ng-static-include="'/partials/product/product.html'"  
-                ng-repeat="product in loves|leanProducts:8|orderBy:['categories.weight','-updated']"/>
-        </article>
- -->
-        <!-- CHRISTMAS OR SELECTION -->
 
-<!--         <article  ng-if="config.shop.home.path" style="width:103%" ng-init="displayBundle()"> 
-          <h5 class="article-group-title ">
-            <span class="gray">{{bundle.title}}</span>
-            <a ng-href="/content/{{config.shop.home.path}}" class="btn btn btn-category bold green-1">Voir Plus &nbsp;<i class="fa fa-angle-right"></i></a>
-          </h5>
-          <p class="bucket-sub-title" style="margin-top:-15px">{{bundle.header}}</p>
+        <div class="tagline col-xs-12 text-center" ng-if="!user.isAuthenticated()">
+          <img src="/img/tagline-k.png" style="width:250px" />
+        </div>
 
-          <div  ng-static-include="'/partials/product/product.html'"  
-                ng-repeat="product in bundle.products|limitTo:4|orderBy:['categories.weight','-updated']"/>
-        </article>
- -->
+
 
         <!-- PRODUCTS -->
         <div infinite-scroll='loadNextPage()'  
@@ -102,6 +71,32 @@
             </article>
 
 
+        </div>
+
+
+        <div class="tagline col-xs-12 text-center">
+          <img src="/img/tagline-k.png" style="width:250px" />
+        </div>
+
+
+
+        <!-- ONE RANDOM SHOPS -->
+        <div  class="nopadding col-xs-12  " style="background-color:transparent" 
+              ng-static-include="'/partials/shop/shop.html'"  
+              ng-repeat="shop in shops|randomFilter:1" 
+              ng-if="shop.name">
+        </div>              
+
+
+        <!-- CAMPAIGN -->
+        <div class="col-xs-12 col-lg-12 nopadding hidden-xs kb-card-info" >
+            <div class="card-home text-center" style="margin:30px 0;">
+              <div>
+                <i class="fa fa-gift pink fa-3x"></i><br/>
+                <b> Offrez Karibou!</b> <a href="/wallet/create">Offrez du vin, des légumes BIO, un tiramisu et bien plus encore avec la Carte Cadeau Karibou</a>
+              </div>
+              
+            </div>
         </div>
               
 

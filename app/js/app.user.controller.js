@@ -30,6 +30,7 @@ User.config([
       .when('/account/', {title:'Votre profil', _view:'main', redirectTo : '/account/overview'})
       .when('/account/love', {_view:'main', love:true, templateUrl : '/partials/product/love.html'})
       .when('/account/shop', {_view:'main', templateUrl : '/partials/account/shop.html'})
+      .when('/account/reminder', {_view:'main', templateUrl : '/partials/account/reminder.html'})
       .when('/account/payment', {_view:'main', templateUrl : '/partials/account/payment.html'})
       .when('/account/orders', {_view:'main', templateUrl : '/partials/account/orders.html'})
       .when('/account/overview', {auth : true, _view:'main', templateUrl : '/partials/account/overview.html'})
@@ -115,6 +116,19 @@ User.controller('AccountCtrl',[
       }
       // body...
     };
+
+    $scope.reminderDay=function(idx) {
+      if(!user.reminder){
+        user.reminder={weekdays:[]};
+      }
+      var pos=user.reminder.weekdays.indexOf(idx);
+      if(pos===-1){
+        user.reminder.weekdays.push(idx);
+      }else{
+        user.reminder.weekdays.splice(pos,1);        
+      }
+
+    }
 
 
     // remove an user

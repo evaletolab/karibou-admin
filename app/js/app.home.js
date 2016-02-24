@@ -127,7 +127,9 @@ Home.controller('HomeCtrl', [
       // /v1/products?available=true&group=categories.name&home=true&sort=categories.weight&status=true
       filter={popular:true, status:true, home:true, discount:true, available:true,maxcat:4};
       product.query(filter,function(products){
-        $scope.items=products;
+        $scope.items=_.sortBy(products,function (p) {
+          return p.categories.weight;
+        });
         deferred.resolve(products);
       });
       return deferred.promise;

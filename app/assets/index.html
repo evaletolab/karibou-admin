@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="fr" ng-controller="AppCtrl" class="-screen-scroll loading" ng-class="browser()">
+<html lang="fr" ng-controller="AppCtrl" class="app-loading " ng-class="browser()">
   <head>
 
     <!--                                 
@@ -83,6 +83,11 @@
           </div>
       </div>
  -->
+
+     <div id="app-loading-wrapper" shown-when-loading=""> 
+      <div class="app-loading fa-spin fa fa fa-spinner"></div> 
+    </div>
+
       <!-- DISPLAY CART -->
       <button class="site-nav-logo-cart hidden-print" 
              ng-cloak  ng-click="toggleCart()" 

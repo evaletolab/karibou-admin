@@ -1,0 +1,137 @@
+
+  
+<div tabindex="-1"  id="null" class="screen-content" ng-controller="AccountCtrl">
+  
+
+<!--   <div class="butter-bar active error back " ng-cloak ng-hide="user.hash">
+    <p class="butter-bar-message">
+      Vous n'avez pas encore crée votre mot de passe. Créez votre mot de passe maintenant
+      pour ne perdre l'accès à votre compte.
+    </p>
+  </div>
+ -->
+
+  <aside ng-include="'/partials/account/cover.html'" 
+         class="cover cover-home img-loaded" ng-class="{'session':user.isAuthenticated()}">
+  </aside>
+
+
+   <section class="wrapper" tabindex="-1">
+      <div class="wrapper-inner">
+
+
+
+      <!--                               -->
+      <!-- NAVIGATION -->
+      <!--                               -->                          
+      <div  class="bucket post-bucket homepage-posts" ng-include="'/partials/account/navigation.html'"></div>
+
+
+      <div class="clearfix" >
+        <h5 class="article-group-title black">Qu'elle est le jour idéal pour m'occuper de mes courses?</h5>
+
+
+        <div class="alert alert-warning clearfix">
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <b>Pratique!</b>  Nous pouvons vous envoyer un mail de rappel afin de vous aider dans l'organisation de vos courses. 
+        </div>
+
+
+        <div class="list-group">
+          <a href="" class="list-group-item" 
+              ng-class="{'list-group-item-success':(user.reminder.weekdays.indexOf(1)!==-1)}"
+              ng-click="reminderDay(1)">Lundi
+            </a>
+          <a href="" class="list-group-item" 
+              ng-class="{'list-group-item-success':(user.reminder.weekdays.indexOf(2)!==-1)}"
+              ng-click="reminderDay(2)">Mardi
+            </a>
+          <a href="" class="list-group-item" 
+              ng-class="{'list-group-item-success':(user.reminder.weekdays.indexOf(3)!==-1)}"
+              ng-click="reminderDay(3)">Mercredi
+            </a>
+          <a href="" class="list-group-item" 
+              ng-class="{'list-group-item-success':(user.reminder.weekdays.indexOf(4)!==-1)}"
+              ng-click="reminderDay(4)">Jeudi
+            </a>
+          <a href="" class="list-group-item" 
+              ng-class="{'list-group-item-success':(user.reminder.weekdays.indexOf(5)!==-1)}"
+              ng-click="reminderDay(5)">Vendredi
+            </a>
+          <a href="" class="list-group-item" 
+              ng-class="{'list-group-item-success':(user.reminder.weekdays.indexOf(6)!==-1)}"
+              ng-click="reminderDay(6)">Samedi
+            </a>
+          <a href="" class="list-group-item" 
+              ng-class="{'list-group-item-success':(user.reminder.weekdays.indexOf(0)!==-1)}"
+              ng-click="reminderDay(0)">Dimanche
+            </a>
+        </div>                                                
+      </div>
+
+      <div class="clearfix">
+        <h5 class="article-group-title black">Qu'elle est l'heure idéale ?</h5>
+        <div class="btn-toolbar" role="toolbar" >
+          <div class="btn-group" role="group">
+            <button type="button" class="btn btn-default" 
+                    ng-class="user.reminder.time==7?'btn-success':'btn-default'" 
+                    ng-click="user.reminder.time=7">7</button>
+            <button type="button" class="btn btn-default" 
+                    ng-class="user.reminder.time==8?'btn-success':'btn-default'" 
+                    ng-click="user.reminder.time=8">8</button>
+            <button type="button" class="btn btn-default" 
+                    ng-class="user.reminder.time==9?'btn-success':'btn-default'"
+                    ng-click="user.reminder.time=9">9</button>
+            <button type="button" class="btn btn-default" 
+                    ng-class="user.reminder.time==10?'btn-success':'btn-default'" 
+                    ng-click="user.reminder.time=10">10</button>
+            <button type="button" class="btn btn-default" 
+                    ng-class="user.reminder.time==11?'btn-success':'btn-default'" 
+                    ng-click="user.reminder.time=11">11</button>
+            <button type="button" class="btn btn-default" 
+                    ng-class="user.reminder.time==12?'btn-success':'btn-default'" 
+                    ng-click="user.reminder.time=12">12</button>
+            <button type="button" class="btn btn-default" 
+                    ng-class="user.reminder.time==13?'btn-success':'btn-default'" 
+                    ng-click="user.reminder.time=13">13</button>
+            <button type="button" class="btn btn-default" 
+                    ng-class="user.reminder.time==14?'btn-success':'btn-default'" 
+                    ng-click="user.reminder.time=14">14</button>
+            <button type="button" class="btn btn-default" 
+                    ng-class="user.reminder.time==15?'btn-success':'btn-default'" 
+                    ng-click="user.reminder.time=15">15</button>
+            <button type="button" class="btn btn-default" 
+                    ng-class="user.reminder.time==16?'btn-success':'btn-default'" 
+                    ng-click="user.reminder.time=16">16</button>
+            <button type="button" class="btn btn-default" 
+                    ng-class="user.reminder.time==20?'btn-success':'btn-default'" 
+                    ng-click="user.reminder.time=20">20</button>
+            <button type="button" class="btn btn-default" 
+                    ng-class="user.reminder.time==21?'btn-success':'btn-default'" 
+                    ng-click="user.reminder.time=21">21</button>
+            <button type="button" class="btn btn-default" 
+                    ng-class="user.reminder.time==22?'btn-success':'btn-default'" 
+                    ng-click="user.reminder.time=22">22</button>
+            <button type="button" class="btn btn-default" 
+                    ng-class="user.reminder.time==23?'btn-success':'btn-default'" 
+                    ng-click="user.reminder.time=23">23</button>
+          </div>
+        </div>        
+      </div>
+
+      <div class="form-group bottom clearfix">
+        <hr/>
+        <button type="button" class="btn btn-lg btn-primary " 
+                ng-disabled=" WaitText"
+                ng-click="save(user)">
+          Enregistrer votre alarme 
+        </button> 
+      </div>          
+
+
+      <!-- FOOTER -->              
+        <footer class="wrapper-footer" ng-include="'/footer.html'"></footer>
+
+      </section>
+   </section>
+</div>
