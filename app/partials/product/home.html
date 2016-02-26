@@ -35,7 +35,7 @@
 
 
         <!-- MAILING EVENT -->
-        <div class="col-xs-12 kb-card-info " ng-if="user.isAuthenticated()">
+        <div class="col-xs-12 kb-card-info " ng-if="user.isAuthenticated() && !user.reminder.active">
             <div class=" alert alert-warning">
               <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 
@@ -56,7 +56,7 @@
         <!-- PRODUCTS -->
         <div infinite-scroll='loadNextPage()'  
              infinite-scroll-disabled='scrollBusy'
-             infinite-scroll-distance='0'
+             infinite-scroll-distance='1'
              class="row wrapheight" >
      
             <article  ng-repeat="(group, prods) in infinite|groupBy:'categories.name':'categories.weight'"  

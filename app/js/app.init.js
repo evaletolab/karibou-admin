@@ -127,9 +127,6 @@ function rootScopeFIX($provide) {
     return $rootScope;
   }]);
 }
-//
-// Scroll events can be triggered very frequently, which can hurt performance and make scrolling appear jerky.
-//angular.module('infinite-scroll').value('THROTTLE_MILLISECONDS', 500)
 
 //
 // Configure application $route, $location and $http services.
@@ -358,10 +355,12 @@ function appRun(gitHubContent, $templateCache, $route, $http, $timeout, config) 
       //
       // loading Stripe
       setTimeout(function() {
-        angular.element('html').removeClass('app-loading');
         console.log('window.Stripe.setPublishableKey',pk,window.Stripe)
         window.Stripe.setPublishableKey(pk);          
-      }, 500);
+
+        // release the loading effect
+        angular.element('html').removeClass('app-loading');
+      }, 100);
 
       // basket.ready('app').then(function() {
       // })

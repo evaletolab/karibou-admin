@@ -331,13 +331,14 @@ function OrderAdminCtrl($scope,$routeParams, $timeout, $http, api, order, user, 
 
   };
 
-  $scope.loadAllProducts=function(){
+  $scope.loadAllProducts=function(opts){
     $scope.loading=true;
     $scope.options.orderByField='pricing.stock';
 
 
     user.$promise.then(function(){
-      var params={sort:'categories.weight',shopname:$scope.filters.shops};
+      var params=_.extend({},{sort:'categories.weight',shopname:$scope.filters.shops},opts||{});
+
       // filter with the user shop
       if(!user.isAdmin()){
         params.shopname=user.shops[0].urlpath;

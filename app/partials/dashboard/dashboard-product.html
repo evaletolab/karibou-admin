@@ -19,7 +19,7 @@
         <!-- VIEW STOCKS -->
         <div class="panel panel-dashboard" >
           <div class="panel-heading">
-            <button class="btn btn-transparent btn-md" ng-click="loadAllProducts()">
+            <button class="btn btn-transparent btn-md" ng-click="loadAllProducts(_options)">
               <i class="fa fa-refresh"></i>
             </button>
             Produits disponibles <span ng-show="products.length">({{products.length}})</span>  
@@ -30,9 +30,14 @@
           <div class="panel-body nopadding"></div>
         </div>
 
-        <div class="" ng-if="user.isAdmin()">
+        <!-- OPTIONS -->
+        <div class="col-xs-1">
+          <label><input type="checkbox" class=""   ng-model="_options.home"> Home</label>
+        </div>
+
+        <div class="col-xs-11" ng-if="user.isAdmin()">
           <select class="form-control " 
-                  ng-change="loadAllProducts()"
+                  ng-change="loadAllProducts(_options)"
                   ng-model="filters.shops" 
                   ng-options="shop.urlpath as shop.name  for shop in shopsSelect| orderBy:'name'">
                   <option value=""  selected>-- Choisissez une boutique</option>
