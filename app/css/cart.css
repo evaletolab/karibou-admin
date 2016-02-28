@@ -20,33 +20,52 @@
 	right: 0;
 }
 
-.panel .cart:first-child{
-  border-right: 1px solid #ddd;
+
+
+.cover-resume.cart {    
+    border: 0px;
+    padding: 0;
+    position: fixed;
+    right: 0;
+    top: 0;
+    font-size: 100%;
+    width: 600px;
+    height: 100%;
+    -webkit-transition: all .5s ease-out;
+       -moz-transition: all .5s ease-out;
+        -ms-transition: all .5s ease-out;
+         -o-transition: all .5s ease-out;
+            transition: all .5s ease-out;
+    box-shadow: 0px 0px 400px #444;
+    background-color: rgba(62, 74, 63, 0.98);
+    background-color: white;
+    z-index: 9999;
+    margin-top: 0;
 }
 
-.panel .cart{
-  font-size: 80%;
-  padding: 15px;
-  width: 57%;  
-  display:table-cell;
+
+.cover-resume.cart> div.header{
+    padding: 18px;
+    background-color: #00a79d;
 }
-.panel .cart span{
-  color:#bbb;
-  font-weight: 300;
+
+.cover-resume.cart> div.cart-content{
+  max-height: 80%;
+  overflow-y: auto;
+  margin-top: 0px;
+  background-color: #FFF;
+  border-radius: 0px;
+  margin-bottom: 4px;  
+  position: relative;
 }
+
 
 .cart .table{
   background-color: white;
-  margin-top: 10px;
+  border-top: none;
 }
 
-.cart .table thead>tr{
-}
 
-.cart .table thead>tr>th{
-  text-transform: uppercase;
-  font-weight: bolder;
-}
 
 .cart .table .alert{
   padding: 30px 10px;
@@ -57,12 +76,13 @@
   border: none;
 }
 
-.cart .table  td.cart-header,  {
-  background-color: rgba(174, 192, 172, 0.08);
-  color: #888;
+.cart .table  td.cart-header  {
+  background-color: rgba(176, 214, 195, 0.25);
+  color: #666;
   font-weight: 300;
-  font-size:80%;
+  font-size:90%;
   padding:4px; 
+  border-top: none!important;
 }
 
 .cart .table  .cart-header img{
@@ -74,94 +94,34 @@
 
 
 
-select.cart{
-  font-size: 23px;
-}
-
-.cover-resume.cart {    
-    border: 0px;
-    padding: 5px 0;
-    position: fixed;
-    right: 0;
-    top: 0;
-    font-size: 100%;
-    width: 62%;
-    height: 100%;
-    -webkit-transition: all .5s ease-out;
-       -moz-transition: all .5s ease-out;
-        -ms-transition: all .5s ease-out;
-         -o-transition: all .5s ease-out;
-            transition: all .5s ease-out;
-    box-shadow: 0px 0px 40px #444;
-    background-color: rgba(62, 74, 63, 0.98);
-    background-color: white;
-    z-index: 9999;
-    margin-top: 0;
-}
-
-
-
-.cover-resume.cart> div{
-    margin: 38px 0px 0px;
-    text-align: left;
-    padding: 3px 0;
-    height: 100%;
-    right:-200%;
-    left: 3px;
-    -webkit-transition: all .5s ease-out;
-       -moz-transition: all .5s ease-out;
-        -ms-transition: all .5s ease-out;
-         -o-transition: all .5s ease-out;
-            transition: all .5s ease-out;
-
-
-}
-
-.cover-resume.cart> div>div.cart-content{
-  max-height: 80%;
-  overflow-y: auto;
-  margin-top: 10px;
-  background-color: #FFF;
-  border-radius: 0px;
-  margin-bottom: 4px;  
-  position: relative;
-}
-
-.cover-resume.cart> div > div.cart-bottom{
-  background-color: rgba(62, 74, 63, 0.98);
-    background-color: white;
+.cover-resume.cart> div.cart-bottom{
+  background-color: rgba(176, 214, 195, 0.25);
   position: absolute;
   bottom: 0;
   left: 0;
   right: 0;
   min-height: 140px;
+  padding:4px; 
+  padding-top: 0;
+  border:2px solid #ddd;
 }
 
-.cover-resume.cart> div > div.cart-bottom> .btn{
+.cover-resume.cart> div.cart-bottom> .btn{
   margin: 4px 0;
   width: 100%;
-  border-radius: 0;  
 }
 
-.cover-user  .cover-resume.cart>div {    
-  top:inherit;
-  visibility: visible;
+.cover-resume.cart> div.cart-bottom> .cart-info{
+  padding: 0;
+  text-align: center;
+  height: 50px;
+  -background-color: #eee;
 }
-.products .cover-resume.cart>div {
-    right:-200%;
+.cover-resume.cart> div.cart-bottom> .cart-info >div{
+  padding: 13px;
 }
-
-.cover-shop .cover-resume.cart>div, .cover-order .cover-resume.cart>div {
-    right:-200%;
-}
-
-.display-cart .cover{
-  -overflow-y: auto
-}
-
-.display-cart .cover-resume.cart{
-  -z-index: 990;  
-  -overflow-y: auto;
+.cover-resume.cart> div.cart-bottom> .cart-info >div:first-child{
+  border-right: 1px solid #eee;
 }
 
 .display-cart .cover-resume.cart>div{
@@ -180,14 +140,12 @@ select.cart{
 ------------------------- */
 @media (max-width: 980px) {
   .cover-resume.cart{
-    width: 100%;
+    width: 600px;
   }
   .cover-resume.cart>div {
     height: 100%!important;
     overflow-y:auto; 
-    position: fixed;
     top:0;
-
     width: 100%;
     max-width: 980px;
     padding: 10px 10px;    

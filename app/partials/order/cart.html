@@ -1,25 +1,17 @@
+
+<!-- HEADER -->
+<div class="header">
+  <span ng-show="config.shop.maintenance.active">
+    <i class="fa fa-info-circle"></i>&nbsp;<strong>Livraisons interrompues</strong>
+    <span i18n-render="config.shop.maintenance"></span>
+  </span>
+  <span ng-show="!config.shop.maintenance.active" clockdown="Prochaine livraison " class="white"></span>
+  <button class="btn btn-cart pull-right" ng-click="toggleCart()" ><span>x</span> Close</button>
+</div>
+
+<!-- CONTENT -->             
 <div class="cart-content" ng-controller="OrderCommonCtrl">     
-  <!-- MESSAGE -->
-  <div ng-show="config.shop.maintenance.active" >
-    <div class="alert alert-warning nomargin small">
-    <i class="fa fa-info-circle"></i>&nbsp;<strong>Livraisons interrompues</strong><br/>
-    <span i18n-render="config.shop.maintenance"></span>                
-    </div>
-  </div>
-  <div ng-show="!config.shop.maintenance.active" >
-    <div class="alert alert-warning nomargin small text-center bold" 
-         clockdown="Prochaine livraison "
-         style="padding-left:10px"></div>
-  </div>
-  <!-- CONTENT -->             
   <table class="table " >
-      <thead>
-          <tr>
-              <th>Produit</th>
-              <th class="text-center">Qty</th>
-              <th class="text-right padding">Total</th>
-          </tr>
-      </thead>
       <tbody ng-repeat="group in cart.items|groupBy:'vendorName' " >
         <tr >
           <td colspan="4" class="cart-header"><div>
@@ -34,39 +26,33 @@
               {{item.variant.title}}
             </div>
           </td>
-          <td class="col-md-1 nopadding-lr" style="text-align: center">
+          <td class="col-md-2 nopadding-lr" style="text-align: center">
             {{item.quantity}}
             <button type="button" class="btn btn-xs btn-default" ng-click="cart.add(item,item.variant.title, true)"><i class="fa fa-plus"></i></button>
             <button type="button" class="btn btn-xs btn-default" ng-click="cart.remove(item,item.variant.title,true)"><i class="fa fa-minus"></i></button>
 
           </td>
-          <td class="col-md-2 text-right">{{item.price*item.quantity|number:2}} </td>
+          <td class="col-md-1 text-right">{{item.price*item.quantity|number:2}} </td>
         </tr>
-      </tbody>
-      <tbody>
-        <tr>
-            <td class="text-right padding" colspan="2">
-              <strong>Soustotal: </strong><br/>
-              <strong ng-if="!cart.hasShippingReduction()"><a href="/page/shipping">Livraison à <i class="bold green fa fa-bicycle  "></i>:</a> </strong>
-              <strong ng-if="cart.hasShippingReduction()"><a href="/page/shipping">Livraison à <i class="bold green fa fa-bicycle  "></i>, tarif spécial!:</a></strong>
-            <td class="text-right padding">
-              <strong>{{cart.total()|number:2}} </strong></br>
-              <strong ng-class="{'green':cart.hasShippingReduction()}"> {{cart.shipping()|number:2}} </strong>
-            </td>
-        </tr>
-
-        <tr>
-            <td>   </td>
-            <td class="text-right"><h4><strong>Total: </strong></h4></td>
-            <td class="text-right padding text-success"><h4><strong>{{cart.total()+cart.shipping()|number:2}} CHF</strong></h4></td>
-        </tr>
-
       </tbody>
   </table>
 </div>  
+
+<!-- BOTTOM -->             
 <div class="cart-bottom">
-  <a  href="/order" class="btn btn-success btn-lg btn-block" ng-class="{'disabled':config.shop.maintenance.active}">
-    Continuer la commande
+  <div class="cart-info">    
+    <div class="col-xs-6 shipping gray" ng-class="{'pink':cart.hasShippingReduction()}">
+      <i class="bold fa fa-bicycle  "></i> 
+      {{cart.shipping()|number:2}} CHF
+    </div>
+    <div class="col-xs-6 total gray">
+      Total
+      <strong class="green">{{cart.total()+cart.shipping()|number:2}} CHF</strong>
+    </div>
+  </div>
+
+  <a  href="/order" class="btn btn-cart-checkout btn-lg btn-block" ng-class="{'disabled':config.shop.maintenance.active}">
+    Continuer la commande 
   </a>
   <button type="button" class="btn btn-default btn-lg btn-block" ng-click="cart.empty();toggleCart();">
       Vider le panier

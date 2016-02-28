@@ -1,3 +1,7 @@
+.display-cart .feedbackbtn{
+    display: none;
+}
+
 .feedbackbtn {
     position: fixed;
     bottom: -2px;
@@ -7,10 +11,11 @@
     z-index: 2147483637;
     opacity: .5;
     transition: opacity 0.4s ease-in-out 0s;
+    font-size: 18px;
 }
 
 .feedbackbtn.btn-feedbk {
-  background-color: #5bc0de;
+  background-color: #00a79d;
   color: #fff;
   padding: 10px 20px;
 }
@@ -28,7 +33,7 @@
     line-height: 1.42857;
     border-radius: 50%;
     background-color:#6EB823;
-    background-color: #5bc0de;
+    background-color: #00a79d;
 		color:#fff;    
 }
 
@@ -47,7 +52,7 @@
 
 .feedbackform .feedbackform-header {
     height: 35px;
-    background-color: #5bc0de;
+    background-color: #00a79d;
     border-radius: 3px 3px 0px 0px;
     position: relative;
     top: -1px;

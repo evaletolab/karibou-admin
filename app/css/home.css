@@ -133,7 +133,7 @@ html.app-loading #app-loading-wrapper {
     position:relative;
     left:0;
     right:0;
-    top:0;
+    top:80px;
     bottom:0;
     -background-color:#F2F4F2;
     -webkit-overflow-scrolling:touch;
@@ -769,36 +769,6 @@ a {
     outline: 0;
 }
 
-.site-nav-logo-cart {
-    position:fixed;
-    top:10px;
-    right:30px;
-    padding-left:9px;
-    padding-right: 5px;
-    width:220px;
-    height:38px;
-    z-index:99801;
-    background-color:#333332;
-    text-align:center;
-    border:0;
-    filter:alpha(opacity=100);
-    -khtml-opacity:1;
-    -moz-opacity:1;
-    opacity:1;
-    -webkit-transition:top .2s linear,left .2s linear,opacity .2s linear;
-    -moz-transition:top .2s linear,left .2s linear,opacity .2s linear;
-    -ms-transition:top .2s linear,left .2s linear,opacity .2s linear;
-    -o-transition:top .2s linear,left .2s linear,opacity .2s linear;
-    transition:top .2s linear,left .2s linear,opacity .2s linear;
-    -webkit-box-shadow: 0 0px 8px 0 rgba(0,0,0,.23);
-       -moz-box-shadow: 0 0px 8px 0 rgba(0,0,0,.23);
-         -o-box-shadow: 0 0px 8px 0 rgba(0,0,0,.23);
-    text-align: left;
-    color: rgb(188, 185, 185);
-    font-size: 90%; 
-    font-weight: 300;   
-    outline: 0;     
-}
 
 
 .site-nav-logo.large{
@@ -1047,12 +1017,7 @@ a {
         top:10px;
         left: 10px;
     }
-    .site-nav-logo-cart{
-        right: 10px;
-        top:10px;
-        width: 180px;
-    }
-
+ 
 }
 
 @media print {

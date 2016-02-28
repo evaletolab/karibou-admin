@@ -1,108 +1,111 @@
+<section  tabindex="-1" ng-controller="HomeCtrl" style="margin-top: 70px;">
 
-<div tabindex="-1"  id="null" class="screen-content">
-  <aside ng-include="getCover()" class=" cover cover-home cover-category img-loaded" 
-         ng-class="{'session':user.isAuthenticated()}">
-  </aside>
+  <div class="home-header">
+    <div>
+      <h3>Qualité, truc, sain, bon, et livré à votre porte.</h2>
+      <p>Acheté local, des produits de qualité organique et délicieux.
+Karibou c'est le bon goût du marché en ligne.</p>
+      <a href="#" class="btn btn-info">&nbsp; Comment ça marche? &nbsp;</a>
+    </div>
+    
+  </div>
 
+  <div class="container" style="margin-top: 200px;">
 
-   <section class="wrapper" tabindex="-1" ng-controller="HomeCtrl">
-      <div class="wrapper-inner" >
+    <!--                               -->
+    <!-- CATEGORIES PRODUITS/BOUTIQUES -->
+    <!--                               -->
+                      
+     <div  class="bucket post-bucket homepage-posts hide">
+        <div class="bucket-header bucket-header-list show-subtitles-variant">
+           <nav class="bucket-sort">
+              <h5 class="bucket-title active hidden-sm" >
+                <a href="/products" title="Les produits"><span class="bucket-header-title">Le marché</span> </a>
+              </h5>
+              <h2 class="bucket-sub-title " clockdown="Prochaine livraison "></h4>
 
-        <!--                               -->
-        <!-- CATEGORIES PRODUITS/BOUTIQUES -->
-        <!--                               -->
-                          
-         <div  class="bucket post-bucket homepage-posts ">
-            <div class="bucket-header bucket-header-list show-subtitles-variant">
-               <nav class="bucket-sort">
-                  <h5 class="bucket-title active hidden-sm" >
-                    <a href="/products" title="Les produits"><span class="bucket-header-title">Le marché</span> </a>
-                  </h5>
-                  <h4 class="bucket-sub-title " clockdown="Prochaine livraison "></h4>
-
-               </nav>
-            </div>
-         </div>
-
-
-        <!-- MAILING EVENT -->
-        <div class="col-xs-12 col-lg-12  kb-card-info " ng-if="!user.isAuthenticated()">
-            <div class=" kb-card-content text-center">
-              <span>C'est frais, c'est bon, c'est sain, c'est exclusif !</span><br/>
-              Le meilleur de l'alimentation livré à votre porte! <a href="/shops">Découvrez les boutiques</a>!
-            </div>
+           </nav>
         </div>
+     </div>
 
 
-        <!-- MAILING EVENT -->
-        <div class="col-xs-12 kb-card-info " ng-if="user.isAuthenticated() && !user.reminder.active">
-            <div class=" alert alert-warning">
-              <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-
-              <span class="bold">Psst!</span> 
-              Pas facile de s'organiser pour faire ces courses... 
-              Nous pouvons vous envoyer un mail <a href="/account/reminder">au moment qui vous convient le mieux</a>, qu'en pensez-vous?
-            </div>
+    <!-- MAILING EVENT -->
+    <div class="col-xs-12 col-lg-12  kb-card-info " ng-if="!user.isAuthenticated()">
+        <div class=" kb-card-content text-center">
+          <span>C'est frais, c'est bon, c'est sain, c'est exclusif !</span><br/>
+          Le meilleur de l'alimentation livré à votre porte! <a href="/shops">Découvrez les boutiques</a>!
         </div>
+    </div>
 
 
+    <!-- MAILING EVENT -->
+    <div class="col-xs-12 kb-card-info " ng-if="user.isAuthenticated() && !user.reminder.active">
+        <div class=" alert alert-warning">
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 
-        <div class="tagline col-xs-12 text-center" ng-if="!user.isAuthenticated()">
-          <img src="/img/tagline-k.png" style="width:250px" />
+          <span class="bold">Psst!</span> 
+          Pas facile de s'organiser pour faire ces courses... 
+          Nous pouvons vous envoyer un mail <a href="/account/reminder">au moment qui vous convient le mieux</a>, qu'en pensez-vous?
         </div>
+    </div>
 
 
 
-        <!-- PRODUCTS -->
-        <div infinite-scroll='loadNextPage()'  
-             infinite-scroll-disabled='scrollBusy'
-             infinite-scroll-distance='1'
-             class="row wrapheight" >
-     
-            <article  ng-repeat="(group, prods) in infinite|groupBy:'categories.name':'categories.weight'"  
-                      ng-if="getCategoryByName(prods.$key).home"
-                       style="width: 103%;" > 
-              <h4 class="article-group-title black " >
-                <span class="gray">{{prods.$key}} </span>
-                <a ng-href="/products/category/{{getCategoryByName(prods.$key).slug||''}}" class="btn btn btn-category green-1 bold ">Voir Plus &nbsp;<i class="fa fa-angle-right"></i></a>                
-              </h4>
-              <div  ng-include="'/partials/product/product.html'"  
-                    ng-repeat="product in prods|orderBy:['updated']"/>
-            </article>
+    <div class="tagline col-xs-12 text-center" ng-if="!user.isAuthenticated()">
+      <img src="/img/tagline-k.png" style="width:250px" />
+    </div>
 
 
+
+    <!-- PRODUCTS -->
+    <div infinite-scroll='loadNextPage()'  
+         infinite-scroll-disabled='scrollBusy'
+         infinite-scroll-distance='1'
+         class="row wrapheight" >
+ 
+        <article  ng-repeat="(group, prods) in infinite|groupBy:'categories.name':'categories.weight'"  
+                  ng-if="getCategoryByName(prods.$key).home"
+                   style="width: 103%;" > 
+          <h4 class="article-group-title black " >
+            <span class="gray">{{prods.$key}} </span>
+            <a ng-href="/products/category/{{getCategoryByName(prods.$key).slug||''}}" class="btn btn btn-category green bold ">Voir Plus &nbsp;<i class="fa fa-angle-right"></i></a>                
+          </h4>
+          <div  ng-include="'/partials/product/product.html'"  
+                ng-repeat="product in prods|orderBy:['updated']"/>
+        </article>
+
+
+    </div>
+
+
+    <div class="tagline col-xs-12 text-center">
+      <img src="/img/tagline-k.png" style="width:250px" />
+    </div>
+
+
+
+    <!-- ONE RANDOM SHOPS -->
+    <div  class="nopadding col-xs-12  " style="background-color:transparent" 
+          ng-static-include="'/partials/shop/shop.html'"  
+          ng-repeat="shop in shops|randomFilter:1" 
+          ng-if="shop.name">
+    </div>              
+
+
+    <!-- CAMPAIGN -->
+    <div class="col-xs-12 col-lg-12 nopadding hidden-xs kb-card-info" >
+        <div class="card-home text-center" style="margin:30px 0;">
+          <div>
+            <i class="fa fa-gift pink fa-3x"></i><br/>
+            <b> Offrez Karibou!</b> <a href="/wallet/create">Offrez du vin, des légumes BIO, un tiramisu et bien plus encore avec la Carte Cadeau Karibou</a>
+          </div>
+          
         </div>
+    </div>
+          
 
-
-        <div class="tagline col-xs-12 text-center">
-          <img src="/img/tagline-k.png" style="width:250px" />
-        </div>
-
-
-
-        <!-- ONE RANDOM SHOPS -->
-        <div  class="nopadding col-xs-12  " style="background-color:transparent" 
-              ng-static-include="'/partials/shop/shop.html'"  
-              ng-repeat="shop in shops|randomFilter:1" 
-              ng-if="shop.name">
-        </div>              
-
-
-        <!-- CAMPAIGN -->
-        <div class="col-xs-12 col-lg-12 nopadding hidden-xs kb-card-info" >
-            <div class="card-home text-center" style="margin:30px 0;">
-              <div>
-                <i class="fa fa-gift pink fa-3x"></i><br/>
-                <b> Offrez Karibou!</b> <a href="/wallet/create">Offrez du vin, des légumes BIO, un tiramisu et bien plus encore avec la Carte Cadeau Karibou</a>
-              </div>
-              
-            </div>
-        </div>
-              
-
-        <footer class="wrapper-footer" ng-include="'/footer.html'"></footer>
-      </div>
-   </section>
-</div>
+    <footer class="wrapper-footer" ng-include="'/footer.html'"></footer>
+  </div>
+</section>
 
 

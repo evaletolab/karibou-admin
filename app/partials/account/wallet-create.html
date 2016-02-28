@@ -1,11 +1,6 @@
 <div tabindex="-1"   class="container" ng-controller="AccountCtrl" style="margin-top:50px;">
   
 
-  <aside ng-include="'/partials/account/cover.html'" 
-         class="cover cover-home img-loaded hide" 
-         ng-class="{'session':user.isAuthenticated()}">
-  </aside>
-
   <section class="" tabindex="-1" ng-controller="WalletCtrl">
       <div class="row"  ng-init="loadMyWallet();">
         <!--                               -->

@@ -1,11 +1,6 @@
 <div tabindex="-1" class="screen-content" ng-controller="AccountCtrl">
   
 
-  <aside ng-include="'/partials/account/cover.html'" 
-         class="cover cover-home img-loaded" 
-         ng-class="{'session':user.isAuthenticated()}">
-  </aside>
-
   <section class="wrapper" tabindex="-1">
       <div class="wrapper-inner"  ng-init="checkPaymentMethod()">
 

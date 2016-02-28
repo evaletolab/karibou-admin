@@ -197,7 +197,7 @@ h1.sexy, h2.sexy, h3.sexy {
 }
 
 .border-green{
-  border:1px solid #0f0!important;
+  border:1px solid #00a79d!important;
 }
 
 .border-red{
@@ -279,10 +279,13 @@ img.img-cover {
   color:red!important;
 }
 
-.green{
-  color:#8dc63f!important;
+.green{ 
+  color:#00a79d!important;
 }
 .green-1{
+  color:#b0d6c3!important;
+}
+.green-2{
   color:#5C8623!important;
 }
 
