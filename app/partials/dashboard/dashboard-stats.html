@@ -25,7 +25,7 @@
  -->
   </nav>
 
-  <div class="clearfix" ng-init="loadStats(options)">
+  <div class="clearfix" ng-init="loadStats({year:options.year})">
   <!-- TOP PANEL -->
     <div class="dashboard-filters " >
       <div class="panel-body bg-gray" id="stats-filter" ng-class="{'hide':ca.data}">
