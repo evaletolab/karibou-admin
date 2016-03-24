@@ -2,7 +2,7 @@
   "author": "Evalet Olivier <evaleto@gmail.com>",
   "name": "Karibou",
   "description": "Karibou is an open-source projects aim to help the creation of a online community marketplace",
-  "version": "0.0.1",
+  "version": "2.0.0",
   "homepage": "https://github.com/evaletolab/karibou",
   "private": true,
   "engines": {
