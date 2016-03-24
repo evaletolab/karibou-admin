@@ -3,8 +3,8 @@
 // 
 // chromium-browser --ignore-gpu-blacklist --disable-gpu-sandbox
 // var API_SERVER='http://api.karibou.ch'
-var API_SERVER='http://localhost:4000';
-// var API_SERVER='//api.'+window.location.hostname;
+// var API_SERVER='http://localhost:4000';
+var API_SERVER='//api.'+window.location.hostname;
 // var API_SERVER='http://192.168.1.35:4000'
 // var API_SERVER='http://karibou-evaletolab.rhcloud.com'
 // var API_SERVER='http://karibou-api.jit.su'
@@ -17,9 +17,9 @@ angular.module('app', [
   'ngRoute',
   'ngSanitize',
   'ngTouch',
-  'ngCMS',
   'ngAnimate',
   'ngUploadcare',  
+  'flash',
   'pascalprecht.translate',
   'infinite-scroll',
   'angular.filter',
@@ -225,8 +225,8 @@ function appConfig( $provide, $routeProvider, $locationProvider, $httpProvider,$
 
 // define default behavior for all http request
 // http://www.webdeveasy.com/interceptors-in-angularjs-and-useful-examples/
-errorInterceptor.$inject = ['$q', '$rootScope', '$location', '$timeout'];
-function errorInterceptor($q, scope, $location, $timeout) {
+errorInterceptor.$inject = ['$q', '$rootScope', '$location', '$timeout','Flash'];
+function errorInterceptor($q, scope, $location, $timeout,Flash) {
   var error_net=0;
   function parseError(err){
       if(typeof err === 'string') {return err;}
@@ -244,10 +244,12 @@ function errorInterceptor($q, scope, $location, $timeout) {
   }
 
   function showError($scope, err, ms){
-    $scope.FormErrors=parseError(err);
-    $timeout(function(){
-      $scope.FormErrors=undefined;
-    }, ms||5000);
+    // $scope.FormErrors=parseError(err);
+    // $timeout(function(){
+    //   $scope.FormErrors=undefined;
+    // }, ms||5000);
+    Flash.create('danger', err);
+
   }
 
   return {
@@ -338,13 +340,13 @@ function cordovaReady() {
 
 //
 // init the module
-appRun.$inject=['gitHubContent', '$templateCache', '$route', '$http','$timeout', 'config'];
-function appRun(gitHubContent, $templateCache, $route, $http, $timeout, config) {
-  gitHubContent.initialize({
-        root:'page', // specify the prefix route of your content
-        githubRepo:config.github.repo,
-        githubToken:config.github.token
-    });
+appRun.$inject=['$templateCache', '$route', '$http','$timeout', 'config','Flash','$translate','$rootScope'];
+function appRun($templateCache, $route, $http, $timeout, config, flash, $translate,$rootScope) {
+  // gitHubContent.initialize({
+  //       root:'page', // specify the prefix route of your content
+  //       githubRepo:config.github.repo,
+  //       githubToken:config.github.token
+  //   });
 
 
   // special setup that depends on config 
@@ -369,7 +371,17 @@ function appRun(gitHubContent, $templateCache, $route, $http, $timeout, config) 
       config.uploadcare=config.shop.keys.pubUpcare;
       uploadcare.start({ publicKey: config.uploadcare, maxSize:153600});  
 
+      if(config.shop.maintenance.active){
+        flash.create('danger',config.shop.maintenance.reason[$translate.use()],0,60000);
+      }
 
+      //
+      // after N days without reloading the page, 
+      $timeout(function () {
+        var reload="Votre session est restée inactive trop longtemps. Veuillez <a href='#' onClick='window.location.reload()'>recharger la page</a>"
+        flash.create('danger','<b>Info!</b> '+reload,0,-1);
+      },86400000*2);
+            
   });
 
 

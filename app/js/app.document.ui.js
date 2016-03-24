@@ -111,25 +111,20 @@ function inlineEdit ($parse) {
 markdownRender.$inject=['$compile','$timeout','$translate','config'];
 function markdownRender($compile,$timeout,$translate,config) {
   return {
-    restrict: 'E',
+    restrict: 'A',
     replace: true, 
-    scope:true,
-    require:'ngModel',
+    scope:{markdownRender:'='},
     priority:1,
     link: function(scope, element, attrs, ngModelCtrl) {
       var self=this;
       var converter = new Remarkable();
 
-      ngModelCtrl.$render=function () {
-
-        //
-        var template=ngModelCtrl.$viewValue;
-        if(!template)template=element.html();
-
-        //$timeout
-        var el = $compile(template)(scope);
-        element.replaceWith(converter.render(el));
-      };
+      scope.$watch('markdownRender', function (markdownRender) {
+        if (scope['markdownRender']) {
+          // var el = $compile()(scope);
+          element.replaceWith(converter.render(scope.markdownRender));
+        }
+      });
     }
   };
 }
@@ -150,6 +145,7 @@ function i18nRender($rootScope,$compile,$timeout,$translate,config) {
     link: function(scope, element, attrs) {
       var self=this;
       var converter = new Remarkable();
+
 
       function  render() {
         // init

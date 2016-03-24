@@ -80,9 +80,7 @@
 }
 
 .btn-category{
-  -color: rgba(220,250,220,.9);  
   border-color: #ccc;
-  -text-transform: uppercase;
   border-radius:16px;
   margin-left: 10px;
 }
@@ -286,7 +284,7 @@ img.img-cover {
   color:#b0d6c3!important;
 }
 .green-2{
-  color:#5C8623!important;
+  color:#8dc63f!important;
 }
 
 .white{
@@ -294,7 +292,7 @@ img.img-cover {
 }
 
 .black{
-  color:black!important;
+  color:#452d16!important;
 }
 
 .gray{
@@ -353,7 +351,6 @@ img.img-cover {
   position: absolute;
   right: 20px;
   bottom: 20px;
-  -width: 80px;
 }
 
 .absolute{

@@ -89,13 +89,12 @@ function appConfig($q, $http, $sce, $translate, API_SERVER) {
 
 //
 // implement config controller
-ConfigCtrl.$inject=['$scope','$resource','config','api'];
-function ConfigCtrl($scope,$resource,config,api){
+ConfigCtrl.$inject=['$scope','$resource','config','api','Flash'];
+function ConfigCtrl($scope,$resource,config,api,Flash){
   var $dao=$resource(config.API_SERVER+'/v1/config');
   $scope.config=config;
  
   config.shop.then(function() {
-    console.log(config.shop)
   })
 
 
@@ -109,8 +108,8 @@ function ConfigCtrl($scope,$resource,config,api){
   //
   // save stored config (admin only)
   $scope.saveConfig=function(){
-    $dao.save(config.shop,function(){
-      api.info($scope,"Configuration sauvée");
+    $dao.save(config.shop,function(o){
+      Flash.create('success', "Configuration sauvée");
     });
   };
 

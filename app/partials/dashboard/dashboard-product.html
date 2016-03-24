@@ -1,12 +1,76 @@
 <div class="dashboard" ng-controller="OrderAdminCtrl">
 
-  <!-- MENU -->
-  <nav  class="navbar navbar-inverse navbar-fixed-top" role="navigation"
-        ng-include="'/partials/dashboard/dashboard-header.html'"></nav>
+  <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggle hidden-xs" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand green" href="" toggle-on-click="#order-filter"><i class="fa fa-tasks fa-fw"></i>  Réglage <i class="fa fa-caret-down"></i></a>
 
+        <span class="navbar-text  " >Les stocks ({{products.length||0}})</span>
+
+
+    </div>
+    <!-- /.navbar-header -->
+
+    <ul class="nav navbar-top-links navbar-right hidden-xs">
+
+    </ul>
+  </nav>
 
   <!-- MAIN CONTENT -->
-  <div class="container-fluid " ng-init="loadAllProducts()">
+  <div class="clearfix " ng-init="loadAllProducts({available:true})">
+    <div class="dashboard-filters " >
+      <div class="panel-body bg-gray" id="order-filter" ng-class="{'hide':products.length}">
+
+        <form class="form-inline" ng-init="_options.available=true">
+          <div class="form-group">
+
+          <div class="col-xs-3 col-md-1">
+            <label><input type="checkbox" class=""   ng-model="_options.home"> Home</label>
+            <label><input type="checkbox" class=""   ng-model="_options.available"> Visible</label>
+          </div>
+
+          <!-- OPTIONS -->
+
+          <div class="col-xs-9 col-md-3" ng-if="user.isAdmin()">
+            <select class="form-control " 
+                    ng-change="loadAllProducts(_options)"
+                    ng-model="filters.shops" 
+                    ng-options="shop.urlpath as shop.name  for shop in shopsSelect| orderBy:'name'">
+                    <option value=""  selected>-- Choisissez une boutique</option>
+            </select>                        
+          </div>
+          <div class="col-xs-12 col-md-8">
+            <a class=" btn btn-info btn-md " ng-href="/products/create">
+              <i class="fa fa-plus"></i> Ajouter un nouveau produit
+            </a>            
+            <button class=" btn btn-info btn-md pull-right" ng-click="loadAllProducts(_options)">
+              <i class="fa fa-refresh "></i>
+            </button>
+
+          </div>
+          </div>
+        </form>
+
+      </div>
+    </div>
+
+    <div class="dashboard-content" 
+         ng-include="'/partials/order/order-lists-stocks.html'">      
+    </div>
+    <!-- WAIT -->
+    <div ng-show="loading" class="text-center gray">
+      <i class=" fa fa-clock-0 fa-3x fa-spin"></i>
+    </div>
+
+  </div>
+
+  <!-- MAIN CONTENT -->
+  <div class="container-fluid hide " >
     <div class="row">
 
       <!-- LEFT MENU -->
@@ -19,13 +83,6 @@
         <!-- VIEW STOCKS -->
         <div class="panel panel-dashboard" >
           <div class="panel-heading">
-            <button class="btn btn-transparent btn-md" ng-click="loadAllProducts(_options)">
-              <i class="fa fa-refresh"></i>
-            </button>
-            Produits disponibles <span ng-show="products.length">({{products.length}})</span>  
-            <a class="btn btn-transparent btn-md" ng-href="/products/create">
-              <i class="fa fa-plus"></i> Ajouter un nouveau produit
-            </a>            
           </div>
           <div class="panel-body nopadding"></div>
         </div>

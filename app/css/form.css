@@ -194,24 +194,21 @@ form.nomargin{
 }
 
 .modal-header{
-  background-image:url(/img/pattern-dark1.jpg);  
+  background-image:none;  
   background-repeat: repeat-x;
   padding: 8px;
-  border-radius: 5px 5px 0 0;  
+  border-radius: 0;  
 
-  background-image: -webkit-linear-gradient(top,#585858 0,#3a3a3a 100%);
-  background-image: linear-gradient(top,#585858 0,#3a3a3a 100%);
-  -webkit-box-shadow: inset 0 1px 0 rgba(255,255,255,.2);
   box-shadow: inset 0 1px 0 rgba(255,255,255,.2);  
 }
 
 .modal-header .close{
-  padding: 6px;
+  padding: 10px;
 }
 .modal-header h3,.modal-header h4, .modal-header h5{
-  padding-top: 3px;
+  padding-top: 10px;
   padding-left: 10px;
-  color: white;
+  color: #452d16;
 }
 
 

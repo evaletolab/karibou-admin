@@ -104,7 +104,6 @@ angular.module('app.product.ui', [
           out.push(result[sort.prop]);
           result[sort.prop]=undefined;
         })
-      console.log('----------------display',_sort.map(function(o){return o.prop}).join(),out.map(function(o) {return o.$key;}).join())
         
         return out;
       }

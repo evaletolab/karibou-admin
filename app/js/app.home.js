@@ -50,11 +50,16 @@ Home.controller('HomeCtrl', [
     $scope.items=[];
     $scope.infinite=[];
     $scope.product=false;
-    $scope.loves=false;
+    $scope.groupByShop={};
+    $scope.filterForHome={type:'Category',home:true};
 
-    $scope.shops.$promise.then(function () {
-      // body...
-    })
+    user.$promise.then(function () {
+      delete $scope.filterForHome.home;
+    });
+
+    // $scope.shops.$promise.then(function () {
+    //   // body...
+    // })
 
     //
     // generate a set of geo addresses to display map
@@ -81,36 +86,53 @@ Home.controller('HomeCtrl', [
     };
 
 
-    $scope.findAllUserLoves=function(){
-      $scope.products=[];
-      product.findLove({popular:true,minhit:2, available:true},function(products){
-        $scope.products=products;
-      });
-    };    
 
-    $scope.loadHome=function(){
-      var deferred = $q.defer();
-
+    $scope.loadHome=function(options){
+      var deferred = $q.defer(),now=Date.now();
+      options=options||{};
 
       //
       // list products by category
       if ($routeParams.category){
-        $scope.group=category.findNameBySlug($routeParams.category);
+        category.findNameBySlug($routeParams.category);
         $scope.$parent.title="Les produits - "+$scope.group;
         filter={sort:'title',status:true,available:true};
-        
+        $scope.groupByShop={};
         product.findByCategory($routeParams.category,filter,function(products){
-          $scope.items=products;
+          $scope.items=_.sortBy(products,function (p) {
+            return p.vendor.urlpath+(now-p.updated.getTime());
+          });
+          $scope.items.forEach(function(prod) {
+            if(!$scope.groupByShop[prod.vendor.urlpath]){
+              $scope.groupByShop[prod.vendor.urlpath]={
+                name:prod.vendor.name,
+                photo:prod.vendor.photo.owner,
+                count:0
+              };
+            }
+            $scope.groupByShop[prod.vendor.urlpath].count++;
+          });
+
           deferred.resolve(products);
         });
         return deferred.promise;
       }
       
-
+      //
+      // load my popular & love products
+      if(options.love){
+        product.findLove({popular:true,windowtime:2, available:true,maxcat:8},function(products){
+          $scope.items=_.sortBy(products,function (p) {
+            return p.categories.weight;
+          });
+          deferred.resolve(products);
+        });
+        return deferred.promise;        
+      }
       
       //
       // get shops for the front page
-      if($location.path()==='/shops'){
+      if(options.shops){
         filter={};
         // admin filter
         if(!user.isAdmin()){filter.status=true;}
@@ -136,20 +158,34 @@ Home.controller('HomeCtrl', [
     };
 
 
-    $scope.getCategoryByName=function(name) {
-      return category.find({name:name});
+
+    $scope.getProductsByShop=function(slug) {
+      var arr=$scope.infinite.filter(function(prod) {
+        if(prod.vendor.urlpath===slug) return prod;
+      });
+
+      return arr;
     }
 
-    $scope.loadNextPage=function(){
+
+    $scope.getProductsByCat=function(name) {
+      var arr=$scope.infinite.filter(function(prod) {
+        if(prod.categories.name===name) return prod;
+      });
+
+      return arr;
+    }
+
+    $scope.loadNextPage=function(opts){
       if($scope.scrollBusy) return;
       if(!promise){
-       promise=$scope.loadHome();
+       promise=$scope.loadHome(opts);
        $scope.scrollBusy=true;
       } 
 
 
       // scroll
-      promise.then(function(h){        
+      promise.then(function(h){     
         var position=$scope.infinite.length;
         $scope.scrollBusy=false;
         for (var i = 0; i<8; i++) {

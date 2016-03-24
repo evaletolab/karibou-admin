@@ -68,6 +68,20 @@ function OrderCommonCtrl($scope, $routeParams, api, order, user, product,shop, M
     return 0;
   };
 
+  $scope.filterOrderByShopAndShippingDay=function(orders, when, shop) {
+    // list available order for this shop and shipping day
+    return _.sortBy(orders,function(o) {
+      return o.rank;
+    }).filter(function(order) {
+      // shop filter is optional
+      var hasShop=true;
+      if(shop){
+        hasShop=order.vendors.map(function(v){return v.slug;}).indexOf(shop)!==-1
+      };
+      return hasShop&&order.shipping.when===when ;
+    });
+  };
+
   $q.all([config.shop,user.$promise]).then(function(){
     var currentDay=order.findCurrentShippingDay();
 
@@ -286,13 +300,12 @@ function OrderCommonCtrl($scope, $routeParams, api, order, user, product,shop, M
   // get all orders for a customer
   $scope.findOrdersByUser=function(){
     $scope.loading=true;
-    user.$promise.then(function(){
-      order.findOrdersByUser(user).$promise.then(function(orders){
-        $scope.orders=orders;
-        $scope.shops=false;
-        $scope.loading=false;
-      });
-
+    return user.$promise.then(function(){
+      return order.findOrdersByUser(user).$promise
+    }).then(function(orders){
+      $scope.orders=orders;
+      $scope.shops=false;
+      $scope.loading=false;
     });
   };
 
@@ -317,6 +330,30 @@ function OrderCommonCtrl($scope, $routeParams, api, order, user, product,shop, M
     }
     item.selected=true;
     $scope.selectedItem=item;
+  };
+
+
+  var promise;
+  $scope.loadNextPage=function(opts){
+    if($scope.scrollBusy) return;
+    if(!promise){
+     promise=$scope.findOrdersByUser();
+     $scope.scrollBusy=true;
+     $scope.infinite=[];
+    } 
+
+
+    // scroll
+    promise.then(function(){     
+      var position=$scope.infinite.length;
+      $scope.scrollBusy=false;
+      for (var i = 0; i<8; i++) {
+        if(($scope.infinite.length)>=$scope.orders.length){
+          return;
+        }
+        $scope.infinite.push($scope.orders[position+i]);
+      }
+    });
   };
 
 

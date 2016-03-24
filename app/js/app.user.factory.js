@@ -203,7 +203,7 @@ function userFactory(config, $location, $rootScope, $route, $resource, $log, $q,
 
         //
         // broadcast info
-        $rootScope.$broadcast("user.init");
+        $rootScope.$broadcast("user.init",self);
 
         if(cb)cb(self);
         return self;
@@ -322,6 +322,7 @@ function userFactory(config, $location, $rootScope, $route, $resource, $log, $q,
     var self=this;
     var u = $resource(config.API_SERVER+'/logout').get( function() {
       self.copy(defaultUser);
+      $rootScope.$broadcast("user.init",self);
       if(cb)cb(self);
     });
     return u;
@@ -349,9 +350,10 @@ function userFactory(config, $location, $rootScope, $route, $resource, $log, $q,
   };
 
   User.prototype.login=function (data, cb){
-    var u = $resource(config.API_SERVER+'/login').save(data, function() {
+    var self=this, u = $resource(config.API_SERVER+'/login').save(data, function() {
       _user.copy(u);
       _user.updateGeoCode();
+      $rootScope.$broadcast("user.init",self);
       if(cb)cb(_user);
     });
     return u;

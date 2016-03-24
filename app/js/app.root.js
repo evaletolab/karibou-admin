@@ -22,13 +22,19 @@ function appCtrl($scope, $rootScope, $window,  $location, $routeParams, $timeout
   $scope.browserName;
   $scope.userDocuments;
   window.referrers=[];
-
+  $scope.daysweek="dim._lun._mar._mer._jeu._ven._sam.".split('_');
+  $scope.daysweekLg="dimanche_lundi_mardi_mercredi_jeudi_vendredi_samedi".split('_');
 
   $scope.options={
+    isAdmin:false,
+    isShopOwner:false,
+    isLogistic:false,
     cart:false,
     sidebar:false,
     wellSubscribed:false,
     needReload:false,
+    displayShop:false,
+    currentCategory:'',
     locale:$translate.use()
   };
 
@@ -47,9 +53,14 @@ function appCtrl($scope, $rootScope, $window,  $location, $routeParams, $timeout
     $http.get(config.API_SERVER+'/v1/config?lang='+langKey);    
   };  
 
+
+
   //
   // export shops context for all Ctrl
   $scope.shops=$scope.shopsSelect=shop.query({});
+
+
+
 
   //
   // welcome page
@@ -69,18 +80,22 @@ function appCtrl($scope, $rootScope, $window,  $location, $routeParams, $timeout
     $scope.user = u;
   });
 
+  $rootScope.$on('user.init',function() {
+    $scope.options.isAdmin=user.isAdmin();
+    $scope.options.isShopOwner=(user.shops.length||user.isAdmin());
+    $scope.options.isLogistic=(user.hasRole('logistic')||user.isAdmin());
+  })
+
 
   //
-  // after N days without reloading the page, 
-  $timeout(function () {
-    $scope.options.needReload=true;
-  },86400000*2);
-  
-  //
   // get categories
-  category.select({stats:true},function(categories){
-    $scope.category=category;
-  });
+  $scope.loadCategory=function() {
+    category.select({stats:true},function(categories){
+      $scope.category=category;
+    });
+  }
+
+  $scope.loadCategory();
 
   //
   // load campaign data
@@ -96,13 +111,39 @@ function appCtrl($scope, $rootScope, $window,  $location, $routeParams, $timeout
     });
   };
 
+  $scope.goBack=function(url) {
+    if(!$window.history.length){
+      return $location.path(url)
+    }
+    $window.history.back();
+  }
+
   //
   // clear cache
   $rootScope.$on('$viewContentLoaded', function() {
-    if($window.ga && config.API_SERVER.indexOf('localhost')==-1 && config.API_SERVER.indexOf('evaletolab')==-1){
+    var path=$location.path();
+    if($window.ga && 
+       config.API_SERVER.indexOf('localhost')==-1 && 
+       config.API_SERVER.indexOf('evaletolab')==-1 &&
+       '/admin /login'.indexOf(path.substring(0,5))==-1){
       if(!user||(user && !user.isAdmin()))
-      {$window.ga('send', 'pageview', { page: $location.path() });}        
+      {$window.ga('send', 'pageview', { page: path });}        
     }
+
+    //
+    // manage shop layout
+    if($routeParams.shop)
+      angular.element('html').addClass('app-shop');
+    else
+      angular.element('html').removeClass('app-shop');
+
+    //
+    // manage admin
+    if(path.indexOf('/admin')!==-1)
+      angular.element('html').addClass('app-admin');
+    else
+      angular.element('html').removeClass('app-admin');
+
   });
 
   //
@@ -124,7 +165,18 @@ function appCtrl($scope, $rootScope, $window,  $location, $routeParams, $timeout
       $rootScope.title = (current.$$route.title)?current.$$route.title:title;
 
     });
+
+    $scope.options.currentCategory='';
+    if(current.params.category){
+      $scope.options.currentCategory=category.findNameBySlug(current.params.category);
+    }
+
   });
+
+  //
+  // watch current config
+  // $scope.$watch('config.shop', function(shared,old) {
+  // },true);
 
 
 
@@ -210,12 +262,6 @@ function appCtrl($scope, $rootScope, $window,  $location, $routeParams, $timeout
   };
 
 
-  //
-  // this is an helper for avoid the default sorting by ng-repeat
-  $scope.keys=function(map){
-    if(!map){return [];}
-    return Object.keys(map);
-  };
 
 
   $rootScope.locationReferrer=function(defaultUrl){
@@ -223,14 +269,6 @@ function appCtrl($scope, $rootScope, $window,  $location, $routeParams, $timeout
   };
 
 
-
-  $rootScope.showMenuOnSwipe=function(){
-    //$('nav.site-nav').click();
-  };
-
-  $rootScope.hideMenuOnSwipe=function(){
-    //$('nav.site-nav').click();
-  };
 
 
 
@@ -293,18 +331,6 @@ function appCtrl($scope, $rootScope, $window,  $location, $routeParams, $timeout
     return template;
   };
 
-  $scope.showOverview=function(){
-    $location.path('/account/overview');
-  };
-
-  $scope.showOrder=function(){
-    $location.path('/account/orders');
-
-  };
-
-  $scope.showLove=function(){
-    $location.path('/account/love');
-  };
 
   //
   // logout (global function)
@@ -325,12 +351,6 @@ function appCtrl($scope, $rootScope, $window,  $location, $routeParams, $timeout
     });
   };
   
-  //
-  // the size of shop and product cart
-  $scope.getFormat=function(index){      
-    if (index===undefined) {return 'c2';}
-    return (!index)?"c3":"c2";
-  } ;   
 
 
   $scope.toggleCart=function(sel){
@@ -338,13 +358,6 @@ function appCtrl($scope, $rootScope, $window,  $location, $routeParams, $timeout
   };
   
 
-  $scope.addCart=function (item) {
-    cart.add(item, true);    
-  };
-
-  $scope.removeCart=function (item) {
-    cart.remove(item, true);
-  };
 
   $rootScope.uploadImageError=function(error){
       //http://ucarecdn.com/c1fab648-f6b7-4623-8070-798165df5ca6/-/resize/300x/

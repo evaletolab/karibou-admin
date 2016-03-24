@@ -1,33 +1,55 @@
 <div class="dashboard" ng-controller="WalletCtrl">
 
-  <!-- MENU -->
-  <nav  class="navbar navbar-inverse navbar-fixed-top" role="navigation"
-        ng-include="'/partials/dashboard/dashboard-header.html'"></nav>
+  <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggle hidden-xs" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand green" href="" toggle-on-click="#order-filter"><i class="fa fa-tasks fa-fw"></i>  Réglage <i class="fa fa-caret-down"></i></a>
+
+        <span class="navbar-text"ng-show="gift">Les cartes cadeaux</span>
+        <span class="navbar-text"ng-hide="gift">Les Wallets</span>
+
+    </div>
+    <!-- /.navbar-header -->
+
+    <ul class="nav navbar-top-links navbar-right hidden-xs">
+
+        <!-- CUSTOM FORM -->
+
+    </ul>
+
+  </nav>
+
+  <div class="clearfix" ng-init="findGiftWallets()">
+    <div class="dashboard-filters " >
+        <div class="panel-body bg-gray" id="order-filter" ng-class="{'hide':wallets.length}">
+
+          <!-- OPTIONS -->
+          <form class="form-inline col-xs-12  nopadding-xs">
+            <div class="form-group">
+              <input type="text" class="form-control form-inline"  placeholder="mail" ng-model="_options.email">
+              <input type="text" class="form-control "  placeholder="> Amount" ng-model="_options.gt">
+              <input type="text" class="form-control "  placeholder="< Amount" ng-model="_options.lt">
+
+              <button type="button" class="btn btn-info btn-md" ng-click="findGiftWallets(_options)"><i class="fa fa-refresh"></i> Cartes cadeaux</button>
+              <button type="button" class="btn btn-info btn-sm" ng-click="findOtherWallets(_options)"><i class="fa fa-refresh"></i> Wallets</button>
+
+            </div>          
+
+          </form>
+
+        </div>
+    </div>
 
 
-  <div class="container-fluid" ng-init="findGiftWallets()">
-    <div class="row">
-      <!-- SIDEBAR MENU -->
-      <div class="col-xs-8 col-sm-4 col-lg-2 sidebar " 
-           ng-include="'/partials/dashboard/dashboard-sidebar.html'" 
-           ng-class="{'menu-off':!options.showMenu}">
-      </div>
-      <!-- OPTIONS -->
-      <form class="form-inline col-xs-12  nopadding-xs">
-        <div class="form-group">
-          <input type="text" class="form-control form-inline"  placeholder="mail" ng-model="_options.email">
-          <input type="text" class="form-control "  placeholder="> Amount" ng-model="_options.gt">
-          <input type="text" class="form-control "  placeholder="< Amount" ng-model="_options.lt">
-        </div>          
-      </form>
+    <div class="dashboard-content ">
+
       <!-- GIFTCARD -->
       <div class="col-xs-12  nopadding-xs">
-        <h2 class="page-header">Les cartes cadeaux
-            <button class="btn btn-transparent btn-md" ng-click="findGiftWallets(_options)"><i class="fa fa-refresh"></i></button>
-        </h2>
-        <h2 class="page-header">Les Wallets
-            <button class="btn btn-transparent btn-md" ng-click="findOtherWallets(_options)"><i class="fa fa-refresh"></i></button>
-        </h2>
 
 
         <!-- FORM -->

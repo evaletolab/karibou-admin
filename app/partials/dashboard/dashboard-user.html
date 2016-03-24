@@ -1,0 +1,79 @@
+<div class="dashboard" ng-controller="AccountCtrl">
+
+  <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggle hidden-xs" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand green" href="" toggle-on-click="#order-filter"><i class="fa fa-tasks fa-fw"></i>  Réglage <i class="fa fa-caret-down"></i></a>
+
+        <span class="navbar-text">Gestion des utilisateurs</span>
+
+
+    </div>
+    <!-- /.navbar-header -->
+
+    <ul class="nav navbar-top-links navbar-right hidden-xs">
+
+        <!-- CUSTOM FORM -->
+
+    </ul>
+
+  </nav>
+
+  <div class="clearfix" ng-init="findAllUsers()">
+    <div class="dashboard-filters " >
+        <div class="panel-body bg-gray" id="order-filter" ng-class="{'hide':users.length}">
+
+          <form class="form-inline">
+            <div class="form-group">
+              <input type="text" class="form-control form-inline"  placeholder="Nom" ng-model="_user.name">
+              <input type="text" class="form-control "  placeholder=">= orders count" ng-model="_user.orders">
+              <input type="text" class="form-control"  placeholder=">= Wallet amount" ng-model="_user.amount">
+              <input type="text" class="form-control"  placeholder=">= Giftcode count" ng-model="_user.gifts">
+              <button class="btn btn-info btn-md" ng-click="findAllUsers(_user)"><i class="fa fa-refresh"></i> Reloader</button>
+
+            </div>          
+          </form>
+        </div>
+    </div>
+
+    <table class="table  table-responsive ">
+      <thead>
+        <tr>
+          <th>id</th>
+          <th>name</th>
+          <th><a ng-click="applyTableFilter('logged')">login</a></th>
+          <th><a ng-click="applyTableFilter('updated')">update</a></th>
+          <th><a ng-click="applyTableFilter('email')">validate</a></th>
+          <th>address</th>
+          <th>role</th>
+          <th>shops</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="u in users|orderBy:options.orderByField:options.reverseSort|filterBy:['email.status']:options.filterByField|filter:options.filterTxt|limitTo:80" ng-class="{'danger':u.status!==true}">
+          <td class="small">{{$index+1}}
+              <a  ng-click="modalUserDetails(u)" title="{{u.getEmailStatus()}}"
+                bs-modal="'/partials/admin/user.modal.html'">
+                {{u.id}}
+              </a>
+          </td>
+          <td ng-class="{'danger':u.email.status!==true}">
+              {{u.displayName}}
+          </td>
+          <td>{{u.logged|dateLabelShort}}</td>
+          <td>{{u.updated|dateLabelShort}}</td>
+          <td ng-class="{'danger':u.email.status!==true}">{{u.getEmailStatus()}}</td>
+          <td>{{u.hasPrimaryAddress()}}</td>
+          <td>{{u.roles}}</td>
+          <td>{{u.shops.length}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+</div>

@@ -21,15 +21,16 @@ function statsConfig($routeProvider,$locationProvider,$httpProvider) {
 
 //
 // define our main stats controller
-StatsCtrl.$inject=['$scope','$http','$timeout','$controller','config','api','$log'];
-function StatsCtrl($scope, $http, $timeout, $controller, config, api, $log) {
+StatsCtrl.$inject=['$scope','$http','$routeParams','$timeout','$controller','config','api','$log'];
+function StatsCtrl($scope, $http,$routeParams, $timeout, $controller, config, api, $log) {
 
   $controller('OrderCommonCtrl', {$scope: $scope}); 
   $scope.options={
     limit:new Date(Date.now()-60*86400000),
     from:null,
     to:null,
-    count:null
+    count:null,
+    year:null
   };
   $scope.colors=["120,120,220","220,120,120","120,220,120","20,220,220","220,20,220","220,220,20",
                  "40,40,220","40,220,40","220,40,40","40,220,220","220,40,220","220,220,40",
@@ -186,9 +187,9 @@ function StatsCtrl($scope, $http, $timeout, $controller, config, api, $log) {
     });  
   }
 
-  $scope.getCAByYearMonthAndVendors=function () {
+  $scope.getCAByYearMonthAndVendors=function (filters) {
     $scope.loading=true;
-    $http.get(config.API_SERVER+'/v1/stats/orders/ca/shop').success(function(stats,status,header,config){
+    $http.get(config.API_SERVER+'/v1/stats/orders/ca/shop',{params:filters||{}}).success(function(stats,status,header,config){
       var ca=$scope.ca={};
       $scope.loading=false;
 
@@ -257,10 +258,10 @@ function StatsCtrl($scope, $http, $timeout, $controller, config, api, $log) {
     });  
   }
 
-  $scope.ordersByUsers=function () {
+  $scope.ordersByUsers=function (filters) {
     $scope.oByUsers=[];
     $scope.loading=true;
-    $http.get(config.API_SERVER+'/v1/stats/orders/by/users').success(function(stats,status,header,config){
+    $http.get(config.API_SERVER+'/v1/stats/orders/by/users',{params:filters||{}}).success(function(stats,status,header,config){
       $scope.oByUsers=stats;
       $scope.loading=false;
     });
@@ -269,9 +270,11 @@ function StatsCtrl($scope, $http, $timeout, $controller, config, api, $log) {
   }
 
   $scope.loadStats=function(){
-    $scope.getCAByYearMonthAndVendors();
+    var filters=$scope.filters=angular.extend({},$routeParams);
+
+    $scope.getCAByYearMonthAndVendors(filters);
     // $scope.getSellsByYearAndWeek();
-    $scope.ordersByUsers();
+    $scope.ordersByUsers(filters);
   }
 }
 

@@ -9,13 +9,11 @@
           #sku
         </a>
       </th>
-      <th>
-          boutique
+      <th class="visible-lg visible-md">boutique</th>
+      <th class="visible-lg visible-md">
+        <a href="" ng-click="options.orderByField='categories.name';reverseSort=false">catégorie</a>
       </th>
       <th style="width:40px" title="Les produits disponibles à la vente">visible</th>
-      <th style="width:80px" class="hide">
-        <a href="" ng-click="options.orderByField='weight';reverseSort=!reverseSort">poids</a>
-      </th>
       <th style="width:80px">
         <a href="" ng-click="options.orderByField='pricing.stock';reverseSort=!reverseSort">stock</a>
       </th>
@@ -33,7 +31,8 @@
       <td ng-init="initProductState(product)">
         <a ng-href="/products/{{product.sku}}">{{product.title}}</a>
       </td>
-      <td>{{product.vendor.urlpath}}</td>
+      <td class="visible-lg visible-md">{{product.vendor.urlpath}}</td>
+      <td class="visible-lg visible-md">{{product.categories.name}}</td>
 
       <!-- DISPO -->
       <td>

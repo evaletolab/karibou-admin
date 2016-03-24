@@ -14,7 +14,7 @@
         <article  ng-repeat="(group, prods) in products|groupBy:'categories.name':'categories.weight'"  
                   ng-if="prods.length" >
 
-          <h4 class="article-group-title black " >
+          <h4 class="article-group-title black no-border" >
             {{prods.$key}}
             <i class="{{category.find({name:prods.$key}).image||''}} {{category.find({name:prods.$key}).color||gray}}"></i>
           </h4>
@@ -52,7 +52,9 @@
           <ol>
             <li ng-repeat="faq in shop.faq">
               <h4><a href="#" slide-on-click="#faq-{{$index}}">{{faq.q}}</a></h4>
-              <markdown  style="display:none" id="faq-{{$index}}" markdown-content="faq.a"></markdown>
+              <div  style="display:none" id="faq-{{$index}}">
+                <div markdown-render="faq.a" />
+              </div>
               <!-- <p style="display:none" id="faq-{{$index}}">{{faq.a}} <small>Posté le {{faq.updated}}</small></p> -->
             </li>
           </ol>
@@ -149,8 +151,6 @@
  -->      </div>
 
 
-      <!-- FOOTER -->              
-      <footer class="wrapper-footer wide" ng-include="'/footer.html'"></footer>
    </section>
 </div>
 

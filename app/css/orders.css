@@ -108,7 +108,8 @@ table.table > tbody + tbody{
 div.order-list-items{
     position: absolute;
     padding: 1px;
-    height: 100%;
+    top: 100px!important;
+    height: calc(100% - 100px);
     background-color: #fafafa;
 }
 

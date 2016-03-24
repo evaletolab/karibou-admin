@@ -47,16 +47,19 @@
 .cover-resume.cart> div.header{
     padding: 18px;
     background-color: #00a79d;
+    font-size: 90%;
 }
 
 .cover-resume.cart> div.cart-content{
-  max-height: 80%;
+  max-height: calc(100% - 170px);
   overflow-y: auto;
   margin-top: 0px;
   background-color: #FFF;
   border-radius: 0px;
   margin-bottom: 4px;  
   position: relative;
+  float: left;
+  width: 100%;
 }
 
 
@@ -77,12 +80,13 @@
 }
 
 .cart .table  td.cart-header  {
-  background-color: rgba(176, 214, 195, 0.25);
-  color: #666;
-  font-weight: 300;
-  font-size:90%;
-  padding:4px; 
+  background-color: rgba(196, 177, 156, 0.26);
+  color: black;
+  font-weight: 800;
+  font-size: 90%;
+  padding: 10px;
   border-top: none!important;
+  padding-left: 10px;
 }
 
 .cart .table  .cart-header img{
@@ -95,7 +99,7 @@
 
 
 .cover-resume.cart> div.cart-bottom{
-  background-color: rgba(176, 214, 195, 0.25);
+  background-color: rgb(202, 228, 215);
   position: absolute;
   bottom: 0;
   left: 0;
@@ -114,11 +118,10 @@
 .cover-resume.cart> div.cart-bottom> .cart-info{
   padding: 0;
   text-align: center;
-  height: 50px;
-  -background-color: #eee;
+  height: 30px;
 }
 .cover-resume.cart> div.cart-bottom> .cart-info >div{
-  padding: 13px;
+  padding: 6px;
 }
 .cover-resume.cart> div.cart-bottom> .cart-info >div:first-child{
   border-right: 1px solid #eee;
@@ -127,6 +130,21 @@
 .display-cart .cover-resume.cart>div{
   opacity: 1;
   right: 0;
+}
+
+.cart-info-quantity{
+  text-align: center;
+  padding: 5px;
+  font-size: 18px;
+  width: 35px;
+  position: absolute;
+  top: 0px;
+  margin: 0 auto;
+  right: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.38);
+  color: white;
+  border-radius:25px;
 }
 
 /* Desktop large
@@ -139,35 +157,6 @@
 /* Desktop
 ------------------------- */
 @media (max-width: 980px) {
-  .cover-resume.cart{
-    width: 600px;
-  }
-  .cover-resume.cart>div {
-    height: 100%!important;
-    overflow-y:auto; 
-    top:0;
-    width: 100%;
-    max-width: 980px;
-    padding: 10px 10px;    
-
-  }
-
-  .display-cart .cover{
-    overflow-y: inherit
-  }
-
-  .cover-user  .cover-resume.cart>div {    
-    top:inherit;
-    -visibility: hidden;
-  }
-
-  .cover-resume.cart .table{
-    background-color: white;
-  }
-  
-  .display-cart .cover-resume.cart{
-    overflow-y:visible; 
-  }
 
   .display-cart .cover-resume.cart>div{
     opacity: 1;
@@ -186,8 +175,15 @@
 /* Tablet
 ------------------------- */
 @media (max-width: 767px) {
-  .cover-resume.cart> div{
+  .cover-resume.cart{
+    width: 100%;
   }  
+
+
+  .cover-resume.cart> div.cart-bottom> .cart-info >div:first-child{
+    border:none;
+  }
+
 
 }
 
@@ -195,13 +191,6 @@
 ------------------------- */
 @media (max-width: 550px) {
 
-  .cover-resume.cart> div{
-    width: 100%;
-  }  
-
-  .cover-resume.cart .table{
-    background-color: white;
-  }
 
 }
 

@@ -1,18 +1,15 @@
-<div tabindex="-1" class="screen-content" ng-controller="AccountCtrl">
-  
-
-  <section class="wrapper" tabindex="-1" ng-controller="WalletCtrl">
-      <div class="wrapper-inner"  ng-init="loadMyWallet()">
+<div tabindex="-1" class="container" ng-controller="AccountCtrl">
+  <section  tabindex="-1" ng-controller="WalletCtrl" ng-init="loadMyWallet()">
 
         <!--                               -->
         <!-- WALLET                        -->
         <!--                               -->
 
-        <div>
+        <div class="clearfix well well-small white">
           <h4 class="article-group-title black">L'état de votre compte commercial</h4>
         </div>
 
-        <div class="">
+        <div class="clearfix well well-small white">
           <label class="control-label bold ">&nbsp;Votre compte privé</label>
           <table class="table table-condensed">
             <tr><td>Solde</td><td class="text-right">{{wallet.balance/100|number:2}} Fr</td></tr>
@@ -57,7 +54,7 @@
             <h4>Recharger votre compte</h4>
             <ul class="">
               <li><i class="fa fa-caret-right"></i> <a class="" href="/account/payment?gift=%20 " >Ajouter une carte cadeau sur votre compte</a> </li>
-              <li class="hide"><i class="fa fa-caret-right"></i> Avoir <a href="/page/how-to-create-value"> une activité reconnue comme étant de «valeur» par les utilisateurs</a> de karibou.ch </li>
+              <li class="hide"><i class="fa fa-caret-right"></i> Avoir <a href="/content/how-to-create-value"> une activité reconnue comme étant de «valeur» par les utilisateurs</a> de karibou.ch </li>
               <li><i class="fa fa-caret-right"></i> Effectuer un virement bancaire sur le compte karibou.ch (*)</li>
             </ul>
           
@@ -71,7 +68,7 @@
                 Karibou Delphine et Olivier Evalet,<br/>
                 34 route de Chêne<br/>
                 CH-1208<br/>
-                CH7609000000146156438
+                IBAN: CH7609000000146156438
               </div>
               <div class="cart col-xs-6 col-sm-4">
                 <div>
@@ -92,9 +89,5 @@
           </div>
         </div>
 
-
-
-        <footer class="wrapper-footer wide" ng-include="'/footer.html'"></footer>
-      </div>
-   </section>
+  </section>
 </div>

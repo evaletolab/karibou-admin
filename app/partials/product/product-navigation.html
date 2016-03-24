@@ -1,0 +1,26 @@
+<div class="container-menu" >
+  <ul>
+    <li><a href="/">Tous les produits</a></li>
+    <li class="divider"></li>
+    <li class="dropdown-header">Alimentation</li>
+    <li  class="" ng-repeat="category in category.findAll()|filter:{type:'Category'}|orderBy:'weight'" ng-if="!category.group">
+      <a ng-class="getClass('/products/category/{{category.slug}}')"
+         href="/products/category/{{category.slug}}" tabindex="-1">{{category.name}}</a>
+    </li>          
+  </ul>
+  <ul>
+    <li class="dropdown-header">Boissons Alcoolisées</li>
+    <li  class="" ng-repeat="category in category.findAll()|filter:{type:'Category',group:'Boissons Alcoolisées'}|orderBy:'weight'">
+      <a ng-class="getClass('/products/category/{{category.slug}}')"
+         href="/products/category/{{category.slug}}" tabindex="-1">{{category.name}}</a>
+    </li>
+  </ul>
+  <ul>
+    <li class="divider"></li>
+    <li class="dropdown-header">Autres</li>
+    <li  class="" ng-repeat="category in category.findAll()|filter:{type:'Category',group:'Autres'}|orderBy:'weight'">
+      <a ng-class="getClass('/products/category/{{category.slug}}')"
+         href="/products/category/{{category.slug}}" tabindex="-1">{{category.name}}</a>
+    </li>
+  </ul>
+</div>

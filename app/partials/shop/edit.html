@@ -1,21 +1,6 @@
 
-<div tabindex="-1"  id="null" class="screen-content" ng-controller="ShopCtrl">
+<div tabindex="-1"  class="container" ng-controller="ShopCtrl">
   
-
-  <aside ng-include="getCover()" 
-         class="cover cover-home img-loaded" ng-class="{'session':user.isAuthenticated()}">
-  </aside>
-
-<!--   <aside ng-include="'/partials/shop/cover.html'" class="cover cover-home img-loaded" >
-  </aside>
- -->
-   <section class="wrapper" tabindex="-1">
-      <div class="wrapper-inner">
-
-        <!--                      -->
-        <!-- EDITION              -->
-        <!--                      -->
-
 
 
           <div>
@@ -78,8 +63,7 @@
                               value="{{shop.photo.fg}}"
                              ></uploadcare-widget>
 
-<!--                             <button type="input" class="btn btn-primary btn-lg btn-block" ng-click="uploadFgPhoto(shop)">photo de la boutique</button>
- -->                            <img ng-src="{{shop.photo.fg| placehold:'160x160&text=la boutique'}}" class="img-rounded shop">
+                            <img ng-src="{{shop.photo.fg| placehold:'160x160&text=la boutique'}}" class="img-rounded shop">
 
                           </div>
                           <hr/>
@@ -100,8 +84,7 @@
                               value="{{shop.photo.owner}}"
                              ></uploadcare-widget>
 
-<!--                             <button type="input" class="btn btn-primary btn-lg btn-block" ng-click="uploadOwnerPhoto(shop)">photo de l'équipe</button>
- -->                            <img ng-src="{{shop.photo.owner | placehold:'160x160&text=l`équipe'}}"  class="img-circle owner" style="height:120px;margin-top:10px"/>
+                            <img ng-src="{{shop.photo.owner | placehold:'160x160&text=l`équipe'}}"  class="img-circle owner" style="height:120px;margin-top:10px"/>
                           <hr/>
 
                           </div>
@@ -122,11 +105,11 @@
                         <div class="col-md-6">
                           <!-- Shop.details -->
                           <div class="form-group ">
-                            <label class="control-label">Cette boutique offre</label>
+                            <label class="control-label">Cette à les certifications</label>
                             <div class="">
                               <label class="checkbox">
                                 <input type="checkbox" ng-model="shop.details.bio" value="des produits Bio">
-                                des produits Bio
+                                BIO (Suisse)
                               </label>
                               <!--
                               <label class="checkbox">
@@ -138,10 +121,6 @@
                                 des produits sans lactose
                               </label>
                               -->
-                              <label class="checkbox">
-                                <input type="checkbox" ng-model="shop.details.local" value="une production locale">
-                                une production locale
-                              </label>
                             </div>
                           </div>
                         </div>
@@ -366,9 +345,5 @@
         </div>
 
 
-        <!-- FOOTER -->              
-        <footer class="wrapper-footer" ng-include="'/footer.html'"></footer>
-      </section>
-   </section>
 </div>
 

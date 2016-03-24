@@ -1,15 +1,14 @@
-<div tabindex="-1" class="screen-content" ng-controller="AccountCtrl">
+<div tabindex="-1" class="container" ng-controller="AccountCtrl" >
   
 
-  <section class="wrapper" tabindex="-1">
-      <div class="wrapper-inner"  ng-init="checkPaymentMethod()">
+      <div class="row"  ng-init="checkPaymentMethod()">
 
 
         <!--                               -->
         <!-- PAYMENT                       -->
         <!--                               -->
 
-        <div>
+        <div class="clearfix well well-small white">
           <div>
             <h4 class="article-group-title black">Modes de paiement et carte cadeau</h4>
           </div>
@@ -89,14 +88,10 @@
                ng-if="options.showCreditCard=='vma'"></div>
  -->
 
-          <div class="row col-xs-12">
-            <hr/>
-          </div>
-
+        <div class="row col-xs-12">
+          <hr/>
         </div>
 
-
-        <footer class="wrapper-footer wide" ng-include="'/footer.html'"></footer>
       </div>
-   </section>
+
 </div>

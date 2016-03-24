@@ -6,7 +6,7 @@
     <li class="list-group-item list-group-item clearfix" style="padding:25px 20px;">
         <div>
           <span class="bold  label-lg label label-primary">sac {{selected.order.rank}}</span>&nbsp;
-          <span class="text-capitalize ">{{selected.order.customer.name.givenName}} {{selected.order.customer.name.familyName}}</span>, {{getAmountTotal(group)|number:2}} CHF
+          <span class="text-capitalize bold">{{selected.order.customer.name.givenName}} {{selected.order.customer.name.familyName}}</span>, {{getAmountTotal(group)|number:2}} CHF
           
 
           <button 
@@ -24,7 +24,7 @@
       <h4 class="list-group-item-heading"> 
           <span ng-class="(item.quantity>1)?'bold red':''">{{item.quantity}}x</span> <a ng-href="/products/{{item.sku}}">{{item.title}} ({{item.part}})</a> 
           <div ng-if="item.variant.title" class="small"><span class="fa fa-warning red">option: </span><span>{{item.variant.title}}</span></div>
-          <span class="bag-1 green fa fa-check-circle fa-2x" ng-show="item.fulfillment.status==='fulfilled'"></span>
+          <span class="bag-1 green-2 fa fa-check-circle fa-2x" ng-show="item.fulfillment.status==='fulfilled'"></span>
           <span class="bag-1 red fa fa-minus-circle fa-2x" ng-show="item.fulfillment.status==='failure'"></span>
 
       </h4>
@@ -62,7 +62,7 @@
           <button 
             type="button" 
             class="pull-right btn btn-sm btn-default  " 
-            ng-show="hasNextOrder()"
+            ng-show="hasNextOrder(selected.order.oid,filters.f,filters.s)"
             ng-click="selectNextOrder()"><span class="fa fa-chevron-circle-right "> Client suivant</span></button>
 
         </div>

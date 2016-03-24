@@ -160,6 +160,15 @@ UI.directive('formatDate', function ($window) {
     };
 });
 
+//
+//
+// dynamicaly set height (for autoscroll)
+UI.directive('elementScroller', function() {
+    return function (scope, element, attrs) {
+        var header=attrs.elementScroller||0;
+        element.height($(window).height() - (header|0));
+    }
+});
 
 //
 // simple ngInclude

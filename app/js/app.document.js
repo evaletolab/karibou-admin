@@ -76,7 +76,9 @@ function docCtrl($scope,$rootScope, $routeParams, config, doc, feedback,user) {
 
   $scope.save=function(){
     $rootScope.WaitText="Waiting ...";
-    doc.save(doc.model).$promise.then(function(s){
+    var d=doc.model;
+    delete d.products;
+    doc.save(d).$promise.then(function(s){
       api.info($scope,"Votre document a été enregistré!",2000, function(){
       });
     });

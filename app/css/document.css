@@ -1,15 +1,21 @@
 
 
-.document{
-	margin-top: 10px;
+.document.edit{
+	margin-top: 80px;
 }
 
+.sidebar-block{
+	float: right;
+  padding: 10px;
+  border-radius: 4px;
+  background-color: #eee;	
+}
 .edit.document h1{
 	border-bottom:1px solid #eee;
 }
 
 .edit.document h1.title, .edit.document h2.title, .edit.document h3.title, .edit.document h4.title{
-    margin-bottom: -12px;
+    margin-bottom: 0px;
     margin-top: 20px;
     color: #aaa;
     letter-spacing: -1px;
@@ -25,11 +31,6 @@
 	padding: 5px 0;
 }
 
-
-.document p{
-	margin: 0px;
-  letter-spacing: -1px;
-}
 
 .edit.document label.valid{
 	padding: 10px;

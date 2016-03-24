@@ -1,59 +1,40 @@
-<section  tabindex="-1" ng-controller="HomeCtrl" style="margin-top: 70px;">
+<section  tabindex="-1" ng-controller="HomeCtrl" style="margin-top: 70px;" ng-class="{'user':user.isAuthenticated()}">
 
-  <div class="home-header">
-    <div>
-      <h3>Qualité, truc, sain, bon, et livré à votre porte.</h2>
-      <p>Acheté local, des produits de qualité organique et délicieux.
-Karibou c'est le bon goût du marché en ligne.</p>
-      <a href="#" class="btn btn-info">&nbsp; Comment ça marche? &nbsp;</a>
+  <div class="home-header" 
+       backstretch="config.shop.home.tagLine.image">
+    <div class="hide-user">
+      <h3 i18n-render="config.shop.home.tagLine.h"></h3>
+      <p i18n-render="config.shop.home.tagLine.p"></p>
+      <a href="#" class="btn btn-info bold"
+         bs-modal="'/partials/howto.modal.html'"
+         ga-send="{category:'navigation',action:'howto'}">&nbsp; Comment ça marche? &nbsp;</a>
+    </div>
+    <div class="show-user">
+      <h3 class="hello text-capitalize">Bonjour {{user.name.givenName}}</h3>
+      <p>Bienvenu au marché!</p>
     </div>
     
   </div>
 
-  <div class="container" style="margin-top: 200px;">
+  <div class="container-fluid" >
 
-    <!--                               -->
-    <!-- CATEGORIES PRODUITS/BOUTIQUES -->
-    <!--                               -->
-                      
-     <div  class="bucket post-bucket homepage-posts hide">
-        <div class="bucket-header bucket-header-list show-subtitles-variant">
-           <nav class="bucket-sort">
-              <h5 class="bucket-title active hidden-sm" >
-                <a href="/products" title="Les produits"><span class="bucket-header-title">Le marché</span> </a>
-              </h5>
-              <h2 class="bucket-sub-title " clockdown="Prochaine livraison "></h4>
 
-           </nav>
-        </div>
-     </div>
 
 
     <!-- MAILING EVENT -->
-    <div class="col-xs-12 col-lg-12  kb-card-info " ng-if="!user.isAuthenticated()">
-        <div class=" kb-card-content text-center">
-          <span>C'est frais, c'est bon, c'est sain, c'est exclusif !</span><br/>
-          Le meilleur de l'alimentation livré à votre porte! <a href="/shops">Découvrez les boutiques</a>!
-        </div>
-    </div>
-
-
-    <!-- MAILING EVENT -->
-    <div class="col-xs-12 kb-card-info " ng-if="user.isAuthenticated() && !user.reminder.active">
+    <div class="col-xs-12 nopadding " ng-if="user.isAuthenticated() && !user.reminder.active">
         <div class=" alert alert-warning">
           <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-
           <span class="bold">Psst!</span> 
-          Pas facile de s'organiser pour faire ces courses... 
-          Nous pouvons vous envoyer un mail <a href="/account/reminder">au moment qui vous convient le mieux</a>, qu'en pensez-vous?
+          Pas facile de s'organiser pour faire ses courses... 
+          Nous vous envoyons volontiers un mail 
+          <a href="/account/reminder"
+             ga-send="{category:'navigation',action:'reminder'}">pour vous rappeler de passer votre commande</a>
         </div>
     </div>
 
 
 
-    <div class="tagline col-xs-12 text-center" ng-if="!user.isAuthenticated()">
-      <img src="/img/tagline-k.png" style="width:250px" />
-    </div>
 
 
 
@@ -61,9 +42,9 @@ Karibou c'est le bon goût du marché en ligne.</p>
     <div infinite-scroll='loadNextPage()'  
          infinite-scroll-disabled='scrollBusy'
          infinite-scroll-distance='1'
-         class="row wrapheight" >
+         class="" >
  
-        <article  ng-repeat="(group, prods) in infinite|groupBy:'categories.name':'categories.weight'"  
+<!--         <article  ng-repeat="(group, prods) in infinite|groupBy:'categories.name':'categories.weight'"  
                   ng-if="getCategoryByName(prods.$key).home"
                    style="width: 103%;" > 
           <h4 class="article-group-title black " >
@@ -73,39 +54,41 @@ Karibou c'est le bon goût du marché en ligne.</p>
           <div  ng-include="'/partials/product/product.html'"  
                 ng-repeat="product in prods|orderBy:['updated']"/>
         </article>
+ -->
+
+        <article  ng-repeat="category in category.findAll()|filter:filterForHome|orderBy:'weight'"                    
+                   style="width: 103%;" > 
+          <h4 class="article-group-title black no-border" >
+            <span class="gray">{{category.name}} </span>
+            <a ng-href="/products/category/{{category.slug||''}}" 
+               class="btn btn btn-products green bold ">Voir Plus &nbsp;<i class="fa fa-angle-right"></i></a>                
+          </h4>
+          <div  ng-static-include="'/partials/product/product.html'"  
+                ng-repeat="product in getProductsByCat(category.name)|orderBy:['updated']"/>
+        </article>
 
 
     </div>
-
-
-    <div class="tagline col-xs-12 text-center">
-      <img src="/img/tagline-k.png" style="width:250px" />
-    </div>
-
-
-
-    <!-- ONE RANDOM SHOPS -->
-    <div  class="nopadding col-xs-12  " style="background-color:transparent" 
-          ng-static-include="'/partials/shop/shop.html'"  
-          ng-repeat="shop in shops|randomFilter:1" 
-          ng-if="shop.name">
-    </div>              
-
-
-    <!-- CAMPAIGN -->
-    <div class="col-xs-12 col-lg-12 nopadding hidden-xs kb-card-info" >
-        <div class="card-home text-center" style="margin:30px 0;">
-          <div>
-            <i class="fa fa-gift pink fa-3x"></i><br/>
-            <b> Offrez Karibou!</b> <a href="/wallet/create">Offrez du vin, des légumes BIO, un tiramisu et bien plus encore avec la Carte Cadeau Karibou</a>
-          </div>
-          
-        </div>
-    </div>
-          
-
-    <footer class="wrapper-footer" ng-include="'/footer.html'"></footer>
   </div>
+  <div class="home-about" 
+       backstretch="config.shop.home.about.image" 
+       ng-if="!user.isAuthenticated()">
+    <h2 i18n-render="config.shop.home.about.h"></h2>
+    <img src="/img/k-howto.png" >
+    <div>
+      <h3 i18n-render="config.shop.home.about.t">Un service personalisé</h3>
+      <p i18n-render="config.shop.home.about.p"></p>
+      <a href="/shops" class="btn btn-info bold">&nbsp; Découvrez leurs boutiques &nbsp;</a>
+    </div>
+  </div>      
+
+  <div class="home-footer" ng-if="!user.isAuthenticated()">
+    <h2 i18n-render="config.shop.home.footer.h"></h2>
+    <img src="/img/k-mobile.png" class="img-left hidden-xs">
+    <img src="/img/k-howto-green.png" class="img-right">
+  </div>      
+
+
 </section>
 
 

@@ -1,8 +1,7 @@
 <!-- BY ORDERS -->
 <div class="list-group">
   <li class="list-group-item list-group-item-success">
-    <strong>Vous testez une nouvelle version de karibou!</strong> <br/>
-    Ci-dessous, vos commandes. Il faut sélectionner pour les valider.
+    <strong>Psst, nouvelle version!</strong> <br/>
     Contactez-moi si nécessaire <a href="tel:0041763797868">076.379.78.68</a> ;)    
   </li>
   <li  ng-repeat="order in orders|orderBy:['rank']|filterBy:['shipping.when']:filters.f|filterOrdersByShop:filters.s" 
@@ -30,7 +29,7 @@
         <li ng-show="order.payment.status==='invoice'"><a href="#" ng-click="orderNewInvoice(order)" class="red">Nouvelle facture pour cette commande</a></li>
         <li><a href="#" ng-click="updateShippingPrice(order,0)" >Passer la livraison à 0.0 fr</a></li>
         <li><a href="#" ng-click="updateShippingPrice(order,5)" >Passer la livraison à 5.0 fr</a></li>
-        <li><a href="#" ng-click="updateShippingPrice(order,7)" >Passer la livraison à 7.5 fr</a></li>
+        <li><a href="#" ng-click="updateShippingPrice(order,7.5)" >Passer la livraison à 7.5 fr</a></li>
         <li><a href="#" ng-click="updateShippingPrice(order,10)">Passer la livraison à 10.0 fr</a></li>
         <li class="divider"></li>
         <li><a href="#" ng-click="orderRefund(order)">Rembourser cette commande</a></li>
@@ -68,7 +67,7 @@
 
         <div class="col-xs-6 col-sm-6 nopadding" >
             <span class="red pull-right" ng-show="order.getProgress()<100">{{order.getProgress()|number:0}}%</span>
-            <span class="pull-right green fa fa-check-circle fa-2x" ng-show="order.getProgress()==100"></span>
+            <span class="pull-right green-2 fa fa-check-circle fa-2x" ng-show="order.getProgress()==100"></span>
         </div>
     </div>
   </li>

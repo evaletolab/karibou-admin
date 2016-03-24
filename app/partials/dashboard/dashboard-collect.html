@@ -1,61 +1,45 @@
 <div class="dashboard" ng-controller="OrderAdminCtrl">
 
-  <nav  class="navbar navbar-inverse navbar-fixed-top" role="navigation"
-        ng-include="'/partials/dashboard/dashboard-header.html'"></nav>
 
+  <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggle hidden-xs" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+
+        <a class="navbar-brand green" href="" toggle-on-click="#order-filter"><i class="fa fa-tasks fa-fw"></i><span class=""> Réglage</span> <i class="fa fa-caret-down"></i></a>
+
+    </div>
+    <!-- /.navbar-header -->
+
+    <ul class="nav navbar-top-links navbar-right hidden-xs">
+
+        <!-- CUSTOM FORM -->
+
+        <!-- /.dropdown edit shop -->
+        <li class="dropdown" ng-if="dates.length">
+            <a class="dropdown-toggle green" data-toggle="dropdown" href="#">
+                <i class="fa fa-calendar fa-fw"></i> {{filters.f|dateLabelShort}}  <i class="fa fa-caret-down"></i>
+            </a>
+            <ul class="dropdown-menu dropdown-tasks">
+              <li ng-class="{'active':isSelectedDate(date)}" ng-repeat="date in dates.slice().reverse()|limitTo:8">
+                <a  href="#" ng-click="filters.f=date" >{{date|dateLabelShort}}</a>
+              </li>
+            </ul>
+        </li>
+    </ul>
+
+<!--     <div class="navbar-default sidebar" role="navigation" ng-include="'/partials/dashboard/dashboard-sidebar.html'" />
+ -->
+  </nav>
 
   <!-- MAIN CONTENT -->
-  <div class="container-fluid " ng-init="findAllOrders({groupby:'shop'})">
-    <div class="row">
-
-      <!-- LEFT MENU -->
-      <div class="col-xs-8 col-sm-4 col-lg-2 sidebar " 
-           ng-include="'/partials/dashboard/dashboard-sidebar.html'" 
-           ng-class="{'menu-off':!options.showMenu}">
-      </div>
-      <div class="container-content">
-
-        <!-- FILTERS LOGISTIC -->
-        <div class="panel panel-default panel-dashboard" >
-          <div class="panel-heading">
-            <!-- NAV BAR -->
-            <nav class="navbar navbar-default navbar-dashboard">
-              <div class="container-fluid">
-                <div class="navbar-header">
-                  <button type="button" class="navbar-toggle collapsed" 
-                          data-toggle="collapse" 
-                          data-target="#kb-navbar-shipping" ng-click="navbarShipping=!navbarShipping;">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                  </button>
-                  <button class="navbar-btn btn btn-md btn-transparent " title="Détails"
-                          toggle-on-click="#order-filter" ><i class="fa fa-chevron-down"></i></button>
-
-                </div>
-
-                <div class="collapse navbar-collapse" ng-class="{'in':navbarShipping}" id="kb-navbar-shipping">
-                  <p class="pink navbar-text navbar-right" ng-show="filters.s&&dates.length<4">{{filters.s}}</p>
-                  <form class="navbar-form navbar-left" role="options">                
-
-
-                    <!-- DISPLAY ITEMS BY USER -->
-
-                  </form>
-                  <ul class="nav navbar-nav">
-                    <li ng-class="{'active':isSelectedDate(date)}" ng-repeat="date in dates.slice().reverse()|limitTo:8">
-                      <a  href="#" ng-click="filters.f=date" >{{date|dateLabelShort}}</a>
-                    </li>
-                  </ul>
-
-                </div><!-- /.navbar-collapse -->
-              </div>
-            </nav>  
-          </div>
-
-
-          <div class="panel-body bg-gray nopadding" id="order-filter" ng-class="{'hide':orders.length}">
+  <div class="clearfix " ng-init="findAllOrders({groupby:'shop'})">
+    <div class="dashboard-filters " >
+        <div class="panel-body bg-gray" id="order-filter" ng-class="{'hide':orders.length}">
               <div class="col-xs-12 col-md-3 " ng-if="user.isAdmin()">
                 <span>Filtrer les commandes: </span>                
                 <button class="btn btn-md btn-transparent btn-block" ng-click="toggle({closed:true})" ng-class="getToggleClass('closed',true)">Toutes les fermées</button>
@@ -84,8 +68,12 @@
                         ng-click="toggle({year:year})" ng-class="getToggleClass('year',year)">{{year}}</button>                 
                 <br/>
               </div>
-          </div>
-        </div>        
+        </div>
+    </div>
+
+
+    <div class="dashboard-content" element-scroller="100">
+
 
 
         <!-- ORDERS -->

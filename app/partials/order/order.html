@@ -1,23 +1,17 @@
-<div class="butter-bar active success back" 
-     ng-cloak ng-show="cart.hasError()" >
-  <div class="butter-bar-message">
-    Votre commande nécessite quelques modifications
+
+<div tabindex="-1"   class="container" ng-controller="OrderNewCtrl">
+
+  <div class="butter-bar active success back" 
+       ng-cloak ng-show="cart.hasError()" >
+    <div class="butter-bar-message">
+      Votre commande nécessite quelques modifications
+    </div>
   </div>
-</div>
-
-<div tabindex="-1"  id="null" class="screen-content">
-  <aside ng-include="'/partials/order/cover.html'" class="cover cover-home cover-order img-loaded" >
-  </aside>
 
 
-   <section class="wrapper" tabindex="-1" ng-controller="OrderNewCtrl">
-      <div class="wrapper-inner wide"  >
-
-
+  <div class="clearfix">
         <!--                               -->
-        <!-- CATEGORIES PRODUITS/BOUTIQUES -->
-        <!--                               -->
-                          
+        <!-- WIZARD                        -->                          
          <div  class="bucket post-bucket homepage-posts">
               <div class="stepwizard">
                   <div class="stepwizard-row small">
@@ -27,7 +21,7 @@
                       </div>
                       <div class="stepwizard-step">
                           <a href="/order/identity"
-                          ng-class="currentFlow(['identity','profile']) ? 'btn-primary':'btn-default'"
+                          ng-class="currentFlow(['identity','profile']) ? 'btn-info':'btn-default'"
                           class="btn  btn-circle">2</a>
                           <p>Identité</p>
                       </div>
@@ -50,7 +44,7 @@
 
 
          <!-- IDENTITY LOGIN -->
-         <div ng-if="currentFlow(['identity'])" >
+         <div ng-if="currentFlow(['identity'])" class="clearfix well white">
           <form class="wizard login" name="identity">
             <h3>Déjà enregistré ? </h3>
             <h4>Veuillez vous connecter ci-dessous</h4>
@@ -76,7 +70,7 @@
          </div>
 
          <!-- IDENTITY PROFILE -->
-         <div ng-if="currentFlow(['profile'])" >
+         <div ng-if="currentFlow(['profile'])" class="clearfix well white">
             <form name="profile" class="wizard profile">
 
               <!-- START PROFILE -->
@@ -235,7 +229,7 @@
          </div>
          
          <!-- PAYMENT -->
-         <div ng-if="currentFlow(['payment'])" >
+         <div ng-if="currentFlow(['payment'])" class="clearfix well white">
             <div>
               <h4 class="article-group-title black">Quelle méthode de paiement utiliser?</h4>
               <p class="help-block">Toutes les transactions sont effectuées via une connexion sécurisée.
@@ -321,15 +315,7 @@
  -->
             </div>
 
-           <!-- SHIPPING PAYMENT --
-           <div ng-class="{'has-error':!cart.config.payment}" >
-             <h5 class="article-group-title ">Choisir le mode de payment</h5>
-              <select class="form-control input-lg" ng-model="cart.config.payment" ng-change="updateGatewayFees()">
-                <option value="">-- Sélection d'un mode de paiement --</option>
-                <option value="{{$index}}" ng-repeat="gateway in config.shop.order.gateway">{{gateway.label}}</option>
-              </select>           
-           </div>
-          -->
+
 
             <div class="row col-xs-12">
               <hr/>
@@ -343,9 +329,9 @@
          </div>
 
          <!-- VALIDATION -->
-         <div ng-if="currentFlow(['validation'])" style="padding:10px">
+         <div ng-if="currentFlow(['validation'])" class="clearfix well white">
          <!-- ORDER CART -->         
-         <div class="cart ">
+         <div  class="clearfix well white cart">
            <div class="text-center">
                 <h2 class="article-group-title">VOTRE COMMANDE</h2>
             </div>
@@ -392,8 +378,8 @@
                       <td class="text-right" colspan="3">
                         <strong>Soustotal: </strong> <br/>
                         <strong>Paiement {{updateGatewayFees()}}: {{cart.tax()*100|number:1}}%</strong><br/>                        
-                        <strong ng-if="!cart.hasShippingReduction()"><a href="/page/shipping">Livraison à <i class="bold green fa fa-bicycle  "></i>:</a> </strong>
-                        <strong ng-if="cart.hasShippingReduction()"><a href="/page/shipping">Livraison à <i class="bold green fa fa-bicycle  "></i>, tarif spécial:</a></strong>
+                        <strong ng-if="!cart.hasShippingReduction()"><a href="/content/faq-clients">Livraison à <i class="bold green fa fa-bicycle  "></i>:</a> </strong>
+                        <strong ng-if="cart.hasShippingReduction()"><a href="/content/faq-clients">Livraison à <i class="bold green fa fa-bicycle  "></i>, tarif spécial:</a></strong>
                       </td>
                       <td class="text-right padding">
                         <strong>{{cart.total()|number:2}} </strong><br/>
@@ -423,7 +409,7 @@
            </div>
 
            <!-- SHIPPING ADDRESS  -->         
-           <div>
+           <div class="clearfix">
              <h5 class="article-group-title ">Choisir l'adresse de livraison </h5>
               <select class="cart form-control input-lg" 
                       ng-init="cart.config.address = user.addresses[0]"
@@ -444,13 +430,7 @@
            </div>
 
           <!-- ORDER -->
-          <div  class="row wrapheight" >
-            <div ng-show="config.shop.maintenance.active" >
-              <div class="alert alert-warning nomargin small">
-              <i class="fa fa-info-circle"></i>&nbsp;<strong>Livraisons interrompues</strong><br/>
-              {{config.shop.maintenance.reason}}                
-              </div>
-            </div>
+          <div  class="clearfix" >
             <div ng-show="order.errors" >
               <div class="alert alert-danger nomargin small">
               <i class="fa fa-arrow-up"></i>&nbsp;<strong>Attention, votre commande doit être corrigée</strong><br/>
@@ -460,7 +440,7 @@
             <br/>
             <label>
               <input type="checkbox"  value="true" ng-model="cg">
-              J'ai lu et j'accepte <a ng-href="/page/conditions-generales">les conditions générales de vente et de livraison.</a>
+              J'ai lu et j'accepte <a ng-href="/content/conditions-generales-de-vente">les conditions générales de vente et de livraison.</a>
             </label>
             <div ng-if="user.loggedTime()>=300" style="margin:15px 0" class="hide">
               <input type="password" ng-model="cart.config.password" class="form-control input-lg" placeholder="Veuillez confirmer votre mot de passe" />
@@ -470,7 +450,7 @@
             </div>
 
             <button type="button" class="btn btn-success btn-lg btn-block"
-                    ng-disabled="!cg||!user.isReady()||(user.hasPrimaryAddress()===false)||!cart.config.payment||!cart.items.length||WaitText||config.shop.maintenance.active"  
+                    ng-disabled="!cg||!user.isReady()||(user.hasPrimaryAddress()===false)||!cart.config.payment||!cart.items.length||WaitText"  
                     ga-send="{category:'order',action:'terminate'}" 
                     ng-click="terminateOrder()" >
                 <i ng-class="{'fa fa-gear':WaitText}"></i>
@@ -480,7 +460,6 @@
 
          </div>
 
-        <footer class="wrapper-footer wide" ng-include="'/footer.html'"></footer>
       </div>
-   </section>
+   </div>
 </div>

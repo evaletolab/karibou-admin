@@ -8,8 +8,8 @@
       ng-repeat-end ng-class="getOrderStatusClass(order,'list-group-item-')" 
       ng-if="(!filters.f||filters.f===order.shipping.when)&&order.payment.fees.shipping">
     <h4 class="list-group-item-heading">
-      <a class=" " ng-click="modalUserDetails(order.oid)" bs-modal="'/partials/order/order.user.modal.html'">
-        {{order.shipping.name}}</a> - {{getOrderPhones(order)}} - 
+      <a class=" text-capitalize" ng-click="modalUserDetails(order.oid)" bs-modal="'/partials/order/order.user.modal.html'">
+        {{order.shipping.name}}</a> <a href="tel:{{getOrderPhones(order)}}" class="small">{{getOrderPhones(order)}}</a> 
         <div class="btn-group pull-right">
           <button type="button" class="btn btn-xs btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <span ng-if="!order.shipping.bags">{{order|orderTotal}}</span>

@@ -10,31 +10,14 @@ article{
   width:100%; 
 }
 
-.article-group-title, .markdown-recipe h3{
-  padding-left: 0px;
-  padding-bottom: 12px;
-  padding-top: 12px;
-  font-size: 26px;
-  letter-spacing: -1px;
-  margin-bottom: 20px;
-  border-bottom: 1px solid #eee;
-  text-shadow:0px 1px 0px rgba(255, 255, 255, 0.9);
-}
-.article-group-title.black{
-  color: black;
-}
-.article-group-title.list{
-  float:left;
-  padding-right: 15px;
-  
+article> h4{
+  margin-bottom: 10px;
+  font-weight: bold;
 }
 
-
-article:nth-child(odd){
-
-}
-
-article:nth-child(even){
+article> h4 a{
+  float: right;
+  margin-right: 45px;
 }
 
 .row [class*="layout-item"] {
@@ -210,66 +193,26 @@ article:nth-child(even){
   margin:0 3% 3% 0;
 }
 
-.layout-item.c1 img, .layout-item.c2 img, .layout-item.c3 img{
+.layout-item.c1 img{
   width: 100%;
   height: auto;
 }
 
-
-.layout-item.c2{
-  width: 420px;
-  margin:0 30px 30px 0;
-  text-align:center;
-  border-radius:0px 0px 2px 2px;
-}
-
-.layout-item.c2 img{
-  height: 210px
-}
-
-
-.layout-item.c2 div.elem{
-  text-align: left;
-  font-size: 14px;
-  padding-left:10px;
-  max-height: 130px;
-}
-
-.layout-item.c3{
-  width: 470px;
-  margin:0 30px 30px 0;
-  text-align:center;
-  overflow:hidden;
-  border-radius:0px 0px 2px 2px;
-}
-
-.layout-item.c3 img{
-  width: 471px;
-}
-
-
-.layout-item.c3 h5, .layout-item.c2 h5{
-  margin:5px 0px;
-  text-transform: capitalize;
-  color:#222;
-  font-weight:300;
-  font-size:16px;
-  line-height: 20px;
-}
 
 
 
 
 
 .layout-item .actions{
-  position:absolute;
-  margin-left:auto;
-  margin-right:auto;
-  top:0px;
-  left:0px;
-  width:50.8%;
-  z-index:1;
+  position: absolute;
+  margin-left: auto;
+  margin-right: auto;
+  top: 10px;
+  left: 10px;
+  width: 90%!important;
+  z-index: 1;
 }
+
 .layout-item .actions.hidden-md .btn{
   margin: 5px;
 }
@@ -337,25 +280,18 @@ article:nth-child(even){
   background:rgba(0, 0, 0, 0.65) none repeat scroll 0px 0px; 
 }
 
+.layout-item.c1, form .layout-item.c1 {
+    min-height: 130px;
+    width: 22.5%;
+    margin: 0px 2% 2% 0px;
+}
 
 
 /* Desktop large
 ------------------------- */
 @media (min-width: 1300px) {
-  .layout-item.c1, form .layout-item.c1 {
-      min-height: 130px;
-      width: 22.5%;
-      margin: 0px 2% 2% 0px;
-  }
 }
 
-@media (min-width: 1200px) {
-  .layout-item.c2{
-    width: 43%;
-    margin: 0 7% 8% 0;
-  }
-
-}
 
 /* Tablet paysage (Ipad1)
 ------------------------- */
@@ -367,10 +303,19 @@ article:nth-child(even){
 /* Tablet portrait
 ------------------------- */
 @media (min-width: 768px) and (max-width: 1023px) {
+  article> h4{
+    margin-bottom: 10px;
+  }
+
+  article> h4 a{
+    float: right;
+    margin-right: 45px;
+    font-size: 70%!important;  
+  }
 
 
   .layout-item.c1{
-    width: 30%; /* 305px */
+    width: 30%; 
     margin:0 3% 3% 0;
   }
 
@@ -406,6 +351,16 @@ article:nth-child(even){
 /* Tablet
 ------------------------- */
 @media (max-width: 767px) {
+  article> h4{
+    margin-bottom: 10px;
+  }
+
+  article> h4 a{
+    float: right;
+    margin-right: 25px;
+    font-size: 70%!important;  
+  }
+
   .layout-item.c1{
     width: 49%;
     margin: 0 1% 1% 0;
@@ -467,7 +422,7 @@ article:nth-child(even){
 
 
   .layout-item.c1 img, .layout-item.c2 img{
-    padding-bottom: 120%;
+    padding-bottom: 100%;
   }
 
 }

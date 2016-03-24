@@ -4,6 +4,9 @@
     
     </div>
 
+
+
+
     <!-- MESSAGES -->
     <div class="shop-info-bar active success " ng-cloak 
          ng-show="shop.info.active">
@@ -21,11 +24,11 @@
 
 
     <!-- FOR ADMIN -->
-    <div class="cover-actions-top" ng-show="user.isOwnerOrAdmin(shop.name)" fade-on-hover=".site-shop-sidebar" >
+    <div class="cover-actions-top ng-cloak" ng-show="user.isOwnerOrAdmin(shop.name)" fade-on-hover=".site-shop-sidebar" >
         <a ng-href="/shop/{{shop.urlpath}}/edit" class=" btn btn-lg btn-primary btn-block ">Editer votre boutique</a>
         <a ng-href="/admin/orders" class=" btn btn-lg btn-primary btn-block ">Votre dashboard</a>
     </div>
-    <div class="cover-actions-top" style="margin-top:-50px;">
+    <div class="cover-actions-top ng-cloak" style="margin-top:-50px;">
         <a ng-show="shop.status!=true" ng-disabled="WaitText" class="btn btn-primary btn-lg btn-block {{waitingStatus() && 'disabled'}}" ng-click="publish()">Demander la publication de votre boutique</a>
     </div>
 
@@ -39,7 +42,7 @@
           <span><img ng-src="{{shop.photo.owner | placehold:'160x160&text=l`équipe'}}"  ></span>
         </span>
         <h1 class="black cover-title">{{shop.name}}</h1>
-        <markdown class="cover-description" markdown-content="shop.description"></markdown>
+        <div class="cover-description" markdown-render="shop.description"></div>
 
       </div>
     </div>

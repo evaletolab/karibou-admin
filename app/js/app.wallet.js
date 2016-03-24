@@ -46,6 +46,7 @@ function walletCtrl ($scope,$rootScope, $routeParams, $location, config, feedbac
 
   //
   // init an empty list
+  $scope.gift=false;
   $scope.wallets=[];
   $scope.modal = {};
 
@@ -143,6 +144,7 @@ function walletCtrl ($scope,$rootScope, $routeParams, $location, config, feedbac
     options=options||_.extend({},$routeParams)
     $http({url:config.API_SERVER+'/v1/wallets/giftcard',method:"GET",params:options||{}}).then(function (result) {
       $scope.wallets=result.data;
+      $scope.gift=true;
     });
   };
  
@@ -154,6 +156,7 @@ function walletCtrl ($scope,$rootScope, $routeParams, $location, config, feedbac
     options=options||_.extend({},$routeParams)
     $http({url:config.API_SERVER+'/v1/wallets',method:"GET",params:options||{}}).then(function (result) {
       $scope.wallets=result.data;
+      $scope.gift=false;
     });
   };
 

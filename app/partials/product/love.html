@@ -1,52 +1,40 @@
 
-<div tabindex="-1"  id="null" class="screen-content">
-  <aside ng-include="getCover()" 
-         class="  cover cover-home img-loaded" ng-class="{'session':user.isAuthenticated()}">
-  </aside>
 
 
-   <section class="wrapper" tabindex="-1">
-      <div class="wrapper-inner" ng-controller="HomeCtrl">
+ <div class="container" tabindex="-1" ng-controller="HomeCtrl" >
 
-        <!--                               -->
-        <!-- CATEGORIES PRODUITS/BOUTIQUES -->
-        <!--                               -->
-                          
-         <div  class="bucket post-bucket homepage-posts">
-            <div class="bucket-header bucket-header-list show-subtitles-variant">
-               <nav class="bucket-sort">
-                  <h5 class="bucket-title active" >
-                    <a class="bucket-header-title"><span class="bucket-header-title"> Mes produits préférés&nbsp;<i class="fa fa-heart-o pink smallx "></i></span> </a>
-                  </h5>
-                  <p class="bucket-sub-title" style="">Produits les plus achetés et mes «J'aime»</p>
-               </nav>
-            </div>
-         </div>
+      <!--                               -->
+      <!-- CATEGORIES PRODUITS/BOUTIQUES -->
+      <!--                               -->
+                        
+       <div  class="bucket post-bucket homepage-posts">
+          <div class="bucket-header bucket-header-list show-subtitles-variant">
+             <nav class="bucket-sort text-center">
+                <h5 class="bucket-title active " >
+                  <a class="bucket-header-title"><span class="bucket-header-title"> Mes produits préférés&nbsp;<i class="fa fa-heart-o pink smallx "></i></span> </a>
+                </h5>
+             </nav>
+          </div>
+       </div>
 
-        <!-- PRODUCTS -->
-        <div ng-init="findAllUserLoves()"
-             class="row wrapheight" >
+      <!-- PRODUCTS -->
+  <div infinite-scroll='loadNextPage({love:true})'  
+       infinite-scroll-disabled='scrollBusy'
+       infinite-scroll-distance='1'
+       class="row wrapheight" >
 
-        <div >
-          <article  ng-repeat="(group,products) in products|groupBy:'categories.name':'categories.weight'"  style="width: 103%;"> 
-            <h4 class="article-group-title black " >
-              {{products.$key}}
-              <i class="{{category.find({name:products.$key}).image||''}} {{category.find({name:products.$key}).color||gray}}"></i>
-            </h4>
 
-            <div  ng-include="'/partials/product/product.html'"  
-                  ng-repeat="product in products|orderBy:['updated']"/>
-          </article>
-          <button class="btn btn-default btn-lg btn-block " ng-click="cart.addList(products)" ng-disabled="!products.length">
-            Commander la liste complète
-          </button>          
-        </div>
-
-              
-
-        <footer class="wrapper-footer" ng-include="'/footer.html'"></footer>
-      </div>
-   </section>
+        <article  ng-repeat="category in category.findAll()|filter:{type:'Category'}|orderBy:'weight'"          
+                   style="width: 103%;" > 
+          <h4 class="article-group-title black no-border " >
+            <span class="gray">{{category.name}} </span>
+            <a ng-href="/products/category/{{category.slug||''}}" class="btn btn btn-category green bold ">Voir Plus &nbsp;<i class="fa fa-angle-right"></i></a>                
+          </h4>
+          <div  ng-include="'/partials/product/product.html'"  
+                ng-repeat="product in getProductsByCat(category.name)|orderBy:['updated']"/>
+        </article>
+        
+    </div>
 </div>
 
 

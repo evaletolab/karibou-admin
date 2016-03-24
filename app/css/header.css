@@ -5,7 +5,7 @@
 body {
 	padding-top: 0px;
 	padding-bottom: 0px;
-  background-color: #fff;
+  background-color: rgba(196, 177, 156, 0.22);
   background-image-: url("/img/light_toast.png");
   background-:url("/img/paper.jpg") repeat scroll 0 0 #F7F5F5;
   font-family: Helvetica, sans-serif;
@@ -35,7 +35,6 @@ body.display-cart, body.site-nav-drawer-open{
 }
 
 html{
-  height: 100%;
   -webkit-font-smoothing: antialiased;
   -webkit-text-stroke: rgba(255,255,255,0.01) 0.1px;
 }

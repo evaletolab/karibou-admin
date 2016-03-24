@@ -15,7 +15,7 @@ function categoryConfig($routeProvider, $locationProvider, $httpProvider) {
 
   // List of routes of the application
   $routeProvider
-    .when('/admin/category', {title:'Admin of category ', _view:'main', templateUrl : '/partials/admin/dashboard-category.html'});
+    .when('/admin/category', {title:'Admin of category ', _view:'main', templateUrl : '/partials/dashboard/dashboard-category.html'});
 }
 
 

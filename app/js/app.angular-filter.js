@@ -833,8 +833,15 @@ angular.module('a8m.group-by', [ 'a8m.filter-watcher' ])
         getterSortFn=$parse(sorted);
       }
 
-      return filterWatcher.isMemoized('groupBy', arguments) ||
-        filterWatcher.memoize('groupBy', arguments, this,
+      // console.log('--------------',collection[0])
+
+      var keys=collection;
+      if(collection[0]&&collection[0].sku) collection.map(function(arr) {
+        return arr.sku
+      });
+
+      return filterWatcher.isMemoized('groupBy', keys) ||
+        filterWatcher.memoize('groupBy', keys, this,
           _groupBy(collection, getterFn));
 
       /**
@@ -1072,6 +1079,7 @@ angular.module('a8m.filter-watcher', [])
        * @returns {string}
        */
       function getHashKey(fName, args) {
+        // console.log('----------------',fName,args)
         function replacerFactory() {
           var cache = [];
           return function(key, val) {
@@ -1086,9 +1094,11 @@ angular.module('a8m.filter-watcher', [])
           }
         }
         //https://en.wikipedia.org/wiki/Memoization
-        return [fName, JSON.stringify(args, replacerFactory())]
+        var key=[fName, JSON.stringify(args, replacerFactory())]
           .join('#')
           .replace(/"/g,'');
+
+        return key;
       }
 
       /**

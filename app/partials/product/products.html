@@ -1,50 +1,40 @@
-<div tabindex="-1"  id="null" class="screen-content" >
-  <aside ng-include="getCover()" class="  cover cover-home cover-category img-loaded" 
-         ng-class="{'session':user.isAuthenticated()}">
-  </aside>
+<div  tabindex="-1"  ng-controller="HomeCtrl" ng-class="{'user':user.isAuthenticated()}"
+      style="margin-top: 50px;outline: none;">
 
+    <!--                               -->
+    <!-- TITLE -->
+    <!--                               -->
+    <div class="products-header hide" 
+         backstretch="category.getCurrent().cover">
+    </div>
+                      
 
-   <section class="wrapper" tabindex="-1" ng-controller="HomeCtrl" >
-      <div class="wrapper-inner">
+    <!-- PRODUCTS -->
+    <div infinite-scroll='loadNextPage()'  
+         infinite-scroll-disabled='scrollBusy'
+         infinite-scroll-distance='1'
+         class="container-fluid" >
 
-        <!--                               -->
-        <!-- TITLE -->
-        <!--                               -->
-                          
-        <div  class="bucket post-bucket homepage-posts" >
-            <div class="bucket-header bucket-header-list show-subtitles-variant">
-               <nav class="bucket-sort">
-                  <h5 class="bucket-title active hidden-xs" >
-                    <a><span class="bucket-header-title">{{category.getCurrent().name}}</span> </a>
-                  </h5>
-                  <h5 class="bucket-title hidden-xs" >
-                    <a href="/products" title="Les produits"><span class="bucket-header-title">Les produits</span> </a>
-                  </h5>
-                  <h4 class="bucket-sub-title " clockdown="Prochaine livraison "></h4>
-
-               </nav>
-            </div>
-        </div>
-
-
-        <!-- PRODUCTS -->
-
-
-        <div infinite-scroll='loadNextPage()'  
-             infinite-scroll-distance='1'
-             class="row wrapheight" >
-     
-            <article style="width: 103%;">
-                <div  ng-include="'/partials/product/product.html'"  ng-repeat="product in infinite|orderBy:'-updated'" /> 
-            </article>
-          
-
-        </div>
-              
-
-        <footer class="wrapper-footer" ng-include="'/footer.html'"></footer>
+<!--       <div class="col-xs-3 relative hidden-xs " ng-include="'/partials/product/product-navigation.html'">
       </div>
-   </section>
+ -->
+      <div class="col-xs-12 -col-sm-9 nopadding-xs">
+        <article  ng-repeat="(slug, _shop) in groupByShop" >
+          <div class="home-shop  " >
+            <img ng-src="{{_shop.photo}}-/resize/100x/"  alt="160x160"  >
+            <a ng-href="/shop/{{slug}}" class="black">{{_shop.name}}</a>                
+          </div>
+
+          <div class="" style="width:103%">
+
+            <div  ng-static-include="'/partials/product/product.html'"  
+                  ng-repeat="product in getProductsByShop(slug)|orderBy:'-updated'" />           
+          </div>
+        </article>
+      </div>
+      
+
+    </div>            
 </div>
 
    

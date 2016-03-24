@@ -1,35 +1,25 @@
-<div tabindex="-1"   class="container" ng-controller="HomeCtrl" style="margin-top:50px;">
+<div tabindex="-1"   class="container" ng-controller="HomeCtrl" >
+
+  <div class="shop-header" 
+       backstretch="config.shop.home.shop.image"
+       ng-if="config.shop.home.shop.image">
+
+      <h3 i18n-render="config.shop.home.shop.h"></h3>
+      <p i18n-render="config.shop.home.shop.p"></p>    
+  </div>
 
 
+  <!-- SHOPS -->
+  <div infinite-scroll='loadNextPage({shops:true})'  
+       infinite-scroll-distance='1'
+       class="" style="background-color:transparent">
+    <div  class="nopadding col-sm-6 col-md-6 col-xs-12 " 
+          style="background-color:transparent" 
+          ng-include="'/partials/shop/shop.html'"  
+          ng-repeat="shop in infinite" 
+          ng-if="shop.name"></div>              
+  </div>
 
-        <!--                               -->
-        <!-- CATEGORIES PRODUITS/BOUTIQUES -->
-        <!--                               -->
-                          
-         <div  class="bucket post-bucket homepage-posts">
-            <div class="bucket-header bucket-header-list show-subtitles-variant">
-               <nav class="bucket-sort">
-                  <h5 class="bucket-title hidden-xs" >
-                    <a href="/products" title="Les produits"><span class="bucket-header-title">Les produits</span> </a>
-                  </h5>
-                  <h5 class="bucket-title active ">
-                    <a href="/shops" title="Collections"><span class="bucket-header-title">Les boutiques</span> </a>
-                  </h5>
-               </nav>
-            </div>
-         </div>
-
-        
-        <!-- SHOPS -->
-        <div infinite-scroll='loadNextPage()'  
-             infinite-scroll-distance='1'
-             class="row wrapheight " style="background-color:transparent">
-          <div  class="nopadding col-sm-6 col-md-6 col-xs-12 " 
-                style="background-color:transparent" 
-                ng-include="'/partials/shop/shop.html'"  
-                ng-repeat="shop in infinite" 
-                ng-if="shop.name"></div>              
-        </div>
-
-        <footer class="wrapper-footer wide" ng-include="'/footer.html'"></footer>
 </div>
+
+

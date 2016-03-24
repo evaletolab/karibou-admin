@@ -160,7 +160,7 @@ html.app-loading #app-loading-wrapper {
     -webkit-box-sizing:border-box;
     -moz-box-sizing:border-box;
     box-sizing:border-box;
-    max-width:1024px;
+    max-width:1624px;
     padding:0px 80px;
     margin-top: 5px
 }
@@ -182,7 +182,6 @@ html.app-loading #app-loading-wrapper {
 .wrapper-inner.wide>footer:nth-child(odd)
 {
     padding:15px 80px;
-    -background-color: #fff;
     float: left;
     width: 100%;
 }
@@ -191,14 +190,10 @@ html.app-loading #app-loading-wrapper {
 .wrapper-inner.wide>section:nth-child(odd),
 .wrapper-inner.wide>footer:nth-child(even)
 {
-    background-color: #fdfdfd;
+    background-color: rgba(253, 253, 253, 0.48);
     padding:15px 80px;
     float: left;
     width: 100%;
-    -background: -webkit-linear-gradient(#ffffff,#fafbfa); /*Safari 5.1-6*/
-    -background:       o-linear-gradient(#ffffff,#fafbfa); /*Opera 11.1-12*/
-    -background:     moz-linear-gradient(#ffffff,#fafbfa); /*Fx 3.6-15*/    
-    -background:         linear-gradient(#ffffff,#fafbfa)    
 }
 
 .main {
@@ -244,7 +239,6 @@ html.app-loading #app-loading-wrapper {
     .wrapper-inner.wide>footer:nth-child(odd)
     {
         padding:15px 10px;
-        -background-color: #fff;
         float: left;
         width: 100%;
     }
@@ -253,14 +247,10 @@ html.app-loading #app-loading-wrapper {
     .wrapper-inner.wide>section:nth-child(odd),
     .wrapper-inner.wide>footer:nth-child(even)
     {
-        background-color: #fafafa;
+        background-color: rgba(253, 253, 253, 0.48);
         padding:15px 10px;
         float: left;
         width: 100%;
-        -background: -webkit-linear-gradient(#ffffff,#fafbfa); /*Safari 5.1-6*/
-        -background:       o-linear-gradient(#ffffff,#fafbfa); /*Opera 11.1-12*/
-        -background:     moz-linear-gradient(#ffffff,#fafbfa); /*Fx 3.6-15*/    
-        -background:         linear-gradient(#ffffff,#fafbfa)    
     }
 
 }
@@ -279,7 +269,7 @@ html.app-loading #app-loading-wrapper {
 
 
 .wrapper-inner {
-    max-width:1024px}
+    max-width:1124px}
 
 .system-page .wrapper-inner {
     padding-left:85px;

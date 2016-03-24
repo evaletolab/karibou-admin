@@ -1,0 +1,110 @@
+
+
+/**
+ */
+
+.document{
+  background-color: rgba(255, 255, 255, 0.56)!important;
+  margin-top: -30px;
+}
+
+.markdown-page .text{
+  text-rendering: optimizelegibility;
+  line-height: 1.4em;
+  font-size: 1.3em;
+  font-weight: 200;
+  font-style: normal;
+  letter-spacing: -.003em;  
+}
+
+.markdown-page{
+  margin-top: 100px!important;
+  padding-top: 20px;
+}
+
+.markdown-page,.markdown-page .container {
+  max-width: 600px;
+  margin: 10px auto;
+}
+
+
+.markdown-page .container:last-child{
+  padding-bottom: 100px;
+}
+
+.markdown-page .byline{
+  color: #ddd;
+  font-size: 1.2em;
+  font-weight: 400;
+  line-height: 1.5em;
+  display: none;
+}
+.markdown-page .home-header{
+  border-bottom: 1px solid #EEE;
+  position: relative;
+  height: 500px;
+  margin-bottom: 50px;
+}
+
+
+.markdown-page img{
+  max-width: 100%;
+}
+
+.markdown-page .home-header h1{
+  font-size: 3.5em;
+  font-weight: 900;
+  line-height: 1.08em;  
+  bottom:40px;
+  width: 100%;
+  color: white;
+  text-shadow:0 0 15px rgba(0,0,0,.5);
+  position: absolute;
+  text-align: center;  
+}
+.markdown-page h2.header{
+  color: #999;
+  font-size: 1.5em;
+  line-height: 1.3em;
+  font-style:italic;
+  font-weight: 400;
+}
+.markdown-page  h2,.markdown-page  h3, .markdown-page  h4{
+  font-weight: 700;
+}
+
+.markdown-page h1, .markdown-page.h1, .markdown-page h2, .markdown-page.h2, .markdown-page h3, .markdown-page.h3 {
+    margin-top: 25px;
+    margin-bottom: 25px;
+}
+
+.markdown-page p{
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.markdown-page ul{
+  padding-left: 15px;
+} 
+
+
+.markdown-page blockquote{
+  margin:50px -25px;
+  font-style: italic;
+  color: #888;  
+  font-size: 1.3em;
+}
+
+.edit .markdown-page blockquote{
+  margin:50px 0%;
+}
+
+@media (max-width: 767px) {
+
+  .markdown-page blockquote{
+    margin:50px 0%;
+    padding-left: 0;
+    border-left: 0;    
+  }
+
+}

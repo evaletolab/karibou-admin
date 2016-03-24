@@ -10,13 +10,16 @@
           <h3 class="title ">{{shop.name}}</h3>
         </div>
         <div class="item-content">
-          <markdown class="" markdown-content="shop.description|cut:true:170"></markdown>
+          <div class="" markdown-render="shop.description|cut:true:170"></div>
         </div>
-      <div class="item-footer hidden-sm">
-        <div class="producer-city gray">
+      </div>
+      <div class="item-footer hidden-xs hide">
+        <div class="producer-city ">
           <i class="fa-map-marker fa "></i>
           {{shop.address.region}}
-          </div>
+          <span class=" text-capitalize hidden-xs"> 
+          <span ng-repeat="day in shop.available.weekdays">{{daysweek[day]}}&nbsp;</span> 
+          <i class="fa fa-circle green-2"></i> </span>
         </div>
       </div>
       <div class="item-closed" ng-if="shop.available.active">

@@ -67,8 +67,14 @@ function OrderAdminCtrl($scope,$routeParams, $timeout, $http, api, order, user, 
     })
   };
 
-  $scope.hasNextOrder=function () {
-    return $('li.list-group-item-active').next().length;
+  $scope.hasNextOrder=function (currentOid,when,shop) {
+    // list available order for this shop and shipping day
+    var orders=$scope.filterOrderByShopAndShippingDay($scope.orders,when,shop);
+
+    for (var i = 0; i <orders.length; i++) {
+       if(orders[i].oid===currentOid){return (i+1)<orders.length;}
+    }
+    return false;
   };
 
 
@@ -330,6 +336,7 @@ function OrderAdminCtrl($scope,$routeParams, $timeout, $http, api, order, user, 
     })
 
   };
+
 
   $scope.loadAllProducts=function(opts){
     $scope.loading=true;

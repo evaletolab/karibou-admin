@@ -1,0 +1,162 @@
+.dashboard {
+  padding-top: 100px;
+  -background-color: #fafafa;
+  -height: 100%;
+}
+
+
+.app-admin footer{
+	display: none;
+}
+
+.dashboard #page-wrapper {
+    padding: 0 15px;
+    min-height: 568px;
+    background-color: #fff;
+}
+
+@media(min-width:768px) {
+    .dashboard #page-wrapper {
+        position: inherit;
+        margin: 0 0 0 250px;
+        padding: 0 30px;
+        border-left: 1px solid #e7e7e7;
+    }
+}
+
+.dashboard .dashboard-filters{
+  position: fixed;
+  top: 100px;
+  left: 0;
+  right: 0;
+  z-index: 1030;	
+}
+
+.dashboard .navbar-static-top{
+  margin-bottom: 0;
+  top: 50px;
+  position: fixed;
+  z-index: 1030;
+  width: 100%;	
+  height: 50px;
+}
+
+.dashboard .navbar-top-links {
+    margin-right: 0;
+}
+
+.dashboard .navbar-top-links li {
+    display: inline-block;
+}
+
+.dashboard .navbar-top-links li:last-child {
+    margin-right: 15px;
+}
+
+.dashboard .navbar-top-links li a {
+    padding: 8px;
+    min-height: 40px;
+}
+
+.dashboard .navbar-top-links .dropdown-menu li {
+    display: block;
+}
+
+.dashboard .navbar-top-links .dropdown-menu li:last-child {
+    margin-right: 0;
+}
+
+.dashboard .navbar-top-links .dropdown-menu li a {
+    padding: 3px 20px;
+    min-height: 0;
+}
+
+.dashboard .navbar-top-links .dropdown-menu li a div {
+    white-space: normal;
+}
+
+.dashboard .navbar-top-links .dropdown-messages,
+.dashboard .navbar-top-links .dropdown-tasks,
+.dashboard .navbar-top-links .dropdown-alerts {
+    width: 310px;
+    min-width: 0;
+}
+
+.dashboard .navbar-top-links .dropdown-messages {
+    margin-left: 5px;
+}
+
+.dashboard .navbar-top-links .dropdown-tasks {
+    margin-left: -59px;
+}
+
+.dashboard .navbar-top-links .dropdown-alerts {
+    margin-left: -123px;
+}
+
+.dashboard .navbar-top-links .dropdown-user {
+    right: 0;
+    left: auto;
+}
+
+.dashboard .sidebar .sidebar-nav.dashboard .navbar-collapse {
+    padding-right: 0;
+    padding-left: 0;
+}
+
+.dashboard .sidebar .sidebar-search {
+    padding: 15px;
+}
+
+.dashboard .sidebar ul{
+	background-color: #fefefe;
+}
+
+.dashboard .sidebar ul li {
+    border-bottom: 1px solid #e7e7e7;
+}
+
+.dashboard .sidebar ul li a.active {
+    background-color: #eee;
+}
+
+.dashboard .sidebar .arrow {
+    float: right;
+}
+
+.dashboard .sidebar .fa.arrow:before {
+    content: "\f104";
+}
+
+.dashboard .sidebar .active>a>.fa.arrow:before {
+    content: "\f107";
+}
+
+.dashboard .sidebar .nav-second-level li,
+.dashboard .sidebar .nav-third-level li {
+    border-bottom: 0!important;
+}
+
+.dashboard .sidebar .nav-second-level li a {
+		padding: 0;
+    padding-left: 37px;
+}
+
+.dashboard .sidebar .nav-third-level li a {
+    padding-left: 52px;
+}
+
+@media(min-width:768px) {
+    .dashboard .sidebar {
+        z-index: 1;
+        position: absolute;
+        width: 250px;
+        margin-top: 49px;
+    }
+
+    .dashboard .navbar-top-links .dropdown-messages,
+    .dashboard .navbar-top-links .dropdown-tasks,
+    .dashboard .navbar-top-links .dropdown-alerts {
+        margin-left: auto;
+    }
+}

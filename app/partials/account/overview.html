@@ -1,50 +1,39 @@
 
-<div tabindex="-1"  id="null" class="screen-content" ng-controller="AccountCtrl">
-  
-
- <!--  <div class="butter-bar active info back " ng-cloak ng-show="user.email.status !== true">
-    <p class="butter-bar-message">
-      <b>Psst!</b> N'oubliez pas de valider votre adresse e-mail! Recherchez dans votre boîte de reception le message que nous vous avons envoyé. <a href="/account/overview">Vous pouvez aussi demander à recevoir de nouveau l'e-mail</a>.
-    </p>
-  </div>
- -->
-
-
-   <section class="wrapper" tabindex="-1">
-      <div class="wrapper-inner">
-
-
-
-      <!--                               -->
-      <!-- NAVIGATION -->
-      <!--                               -->                          
-
-
-      <!--                               -->
-      <!-- CONTENT                       -->
-      <!--                               -->                          
-
-
+<div tabindex="-1"  class="container" ng-controller="AccountCtrl">
 
       <!-- SHOPS ORDERS -->
-      <div class="well well-small white  clearfix"  ng-if="user.shops.length||user.isAdmin()">
+<!--       
+      <div class="well well-small white  clearfix"  ng-if="user.shops.length||user.isAdmin()||user.hasRole('logistic')">
           <h5 class="article-group-title ">
             <span class="bucket-header-title"><i class="fa fa-line-chart gray"></i>&nbsp;Mon dashboard</span>
           </h5>
-          <div class="list-group">
-            <a class="list-group-item blue" href="/admin/orders">Mes commandes</a> 
-            <a class="list-group-item blue" href="/admin/products">Mes stocks</a> 
-            <a class="list-group-item blue" href="/admin/repport/shop">Mes rapports d'activités</a> 
-            <a ng-if="user.isAdmin()" class="list-group-item blue" href="/admin/collect">La collecte</a> 
-            <a ng-if="user.isAdmin()" class="list-group-item blue" href="/admin/stats">Les statistiques</a> 
-            <a ng-if="user.isAdmin()" class="list-group-item blue" href="/admin/activities">L'activité</a> 
-            <a ng-if="user.isAdmin()" class="list-group-item blue" href="/admin/user">Les utilisateurs</a> 
-            <a ng-if="user.isAdmin()" class="list-group-item blue" href="/admin/category">Categories</a>
 
-            <a ng-if="user.isAdmin()" class="list-group-item blue" href="/admin/wallets">Les wallets</a>
+          <div class="list-group" ng-if="user.shops.length||user.isAdmin()">            
+            <div class="dropdown-header">Boutique</div>
+            <a class="list-group-item green" ng-class="getClass(menu.url)" ng-repeat="menu in config.shop.menu|filter:{group:'shop',active:true}|orderBy:'weight'" 
+                ng-if="menu.url"
+                ng-href="{{menu.url}}" i18n-render="menu.name">
+                
+            </a>                
+          </div>
+          <div class="list-group" ng-if="user.hasRole('logistic')||user.isAdmin()">            
+            <div class="dropdown-header">Livraison</div>
+            <a class="list-group-item green" ng-class="getClass(menu.url)" ng-repeat="menu in config.shop.menu|filter:{group:'shipping',active:true}|orderBy:'weight'" 
+                ng-if="menu.url"
+                ng-href="{{menu.url}}" i18n-render="menu.name">
+                
+            </a>
+          </div>
+          <div class="list-group" ng-if="user.isAdmin()">            
+            <div class="dropdown-header">Admin</div>
+            <a class="list-group-item green" ng-class="getClass(menu.url)" ng-repeat="menu in config.shop.menu|filter:{group:'admin',active:true}|orderBy:'weight'" 
+                ng-if="menu.url"
+                ng-href="{{menu.url}}" i18n-render="menu.name">
+                
+            </a>
           </div>
       </div>
-
+ -->
       <div class="well well-small white  clearfix"  ng-if="user.hasRole('logistic')&&!user.isAdmin()">
           <h5 class="article-group-title ">
             <span class="bucket-header-title"><i class="fa fa-bicycle gray"></i>&nbsp;Mon dashboard</span>
@@ -93,7 +82,7 @@
 
 
       <!-- MY DOCS -->
-      <div  class="well well-small white clearfix" >
+      <div  class="well well-small white clearfix" ng-if="user.isAdmin()">
         
         <h5  class="article-group-title " >
           <span class="bucket-header-title"><i class="fa fa-file-text-o gray"></i>&nbsp;Mes publications</span> 
@@ -104,7 +93,7 @@
       </div>    
 
       <!-- LOVE -->
-      <div  class="well well-small white clearfix hide" >
+<!--       <div  class="well well-small white clearfix " >
         <h5 class="article-group-title " ng-hide="user.likes.length">
           <span class="bucket-header-title">Je n'ai encore pas de produits préférés.</span>
         </h5>
@@ -116,7 +105,7 @@
           <a class="list-group-item blue" href="/account/love"><i class="fa fa-angle-right"></i>&nbsp;Ma liste principale</a>
         </p>
       </div>          
-
+ -->
       <!-- PROFILE -->
       <div class="well well-small white  clearfix" >
         <h5 class="article-group-title ">
@@ -162,13 +151,6 @@
             </a>
           </div>
       </div>
- 
-
-
-
-      <!-- FOOTER -->              
-        <footer class="wrapper-footer" ng-include="'/footer.html'"></footer>
-
-      </section>
-   </section>
 </div>
+
+

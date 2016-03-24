@@ -1,76 +1,225 @@
-<div class="dashboard" ng-controller="OrderCommonCtrl">
+<div class="dashboard" ng-controller="ConfigCtrl">
+  <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggle hidden-xs" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
 
-  <!-- MENU -->
-  <nav  class="navbar navbar-inverse navbar-fixed-top" role="navigation"
-        ng-include="'/partials/dashboard/dashboard-header.html'"></nav>
+        <span class="navbar-text" >Navigation</span>
+
+    </div>
+    <!-- /.navbar-header -->
+
+    <ul class="nav navbar-top-links navbar-right hidden-xs">
+
+        <!-- CUSTOM FORM -->
+
+
+        <!-- /.dropdown edit shop -->
+        <li class="dropdown" ng-if="user.shops.length">
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                <i class="fa fa-tasks fa-fw"></i>  <i class="fa fa-caret-down"></i>
+            </a>
+            <ul class="dropdown-menu dropdown-tasks">
+              <li ng-repeat="shop in user.shops">
+                <a ng-href="/shop/{{shop.urlpath}}/edit">{{shop.name}} (edit)</a>
+              </li>
+            </ul>
+            <!-- /.dropdown-tasks -->
+        </li>
+
+        <button ng-disabled="form.$invalid||WaitText"  style="margin-right: 16px" 
+                ng-click="saveConfig();"  
+                class="navbar-btn save btn btn-info  "  >{{WaitText || 'Enregistrer'}}</button>
+
+    </ul>
+
+  </nav>
 
   <!-- MAIN CONTENT -->
-  <div class="container-fluid " ng-controller="ConfigCtrl">
-    <div class="row">
+  <div class="clearfix container" >
+    <div class="dashboard-content">
 
-      <!-- LEFT MENU -->
-      <div class="col-xs-8 col-sm-4 col-lg-2 sidebar " 
-           ng-include="'/partials/dashboard/dashboard-sidebar.html'" 
-           ng-class="{'menu-off':!options.showMenu}">
-      </div>
-
-      <div class="col-xs-12  nopadding-xs " ng-if="user.isAdmin()">
-        <div class="stick-r pull-right">
-          <button ng-disabled="WaitText"  ng-click="saveConfig();"  class="save btn btn-primary btn-lg"  >Enregistrer</button>
-        </div>
-
-        <h4 class="page-header">Gérer votre navigation principale </h4>
-        <p class="help-block">
-          Du menu principal l'on peut décliner les types de vue que vous allez utiliser lors de la création de document
-        </p>
         <!-- PRIMARY MENU -->
-        <div class="clearfix" 
-             ng-repeat="menu in config.shop.home.views|orderBy:['group','weight']"
-             ng-class="{'dirty':menu.dirty}">
-          <form class="form-inline col-xs-11 nopadding">
-            <div class="form-group " >
-              <input type="text" class="form-control form-inline"  placeholder="Nom" ng-model="menu.name[locale()]">
-              <input type="number" class="form-control "  placeholder="poid" ng-model="menu.weight" style="width:80px" min="0">
-              <input type="text" class="form-control"  placeholder="url de la page" ng-model="menu.url">
+        <div class="clearfix well" >
+          <h4 class="page-header">Gérer votre navigation principale </h4>
+          <p class="help-block">
+            Du menu principal l'on peut décliner les types de vue que vous allez utiliser lors de la création de document
+          </p>
+          <div class="clearfix" 
+               ng-repeat="menu in config.shop.menu|orderBy:['group','weight']"
+               ng-class="{'dirty':menu.dirty}">
+            <form class="form-inline col-xs-11 nopadding">
+              <div class="form-group " >
+                <input type="text" class="form-control form-inline"  placeholder="Nom" ng-model="menu.name[locale()]">
+                <input type="number" class="form-control "  placeholder="poid" ng-model="menu.weight" style="width:80px" min="0">
+                <input type="text" class="form-control"  placeholder="url de la page" ng-model="menu.url">
+                <input type="text" class="form-control"  placeholder="nom du groupe" ng-model="menu.group" style="width:160px">
+                <input type="checkbox" class="form-control"   
+                       ng-model="menu.active"
+                       ng-class="{'ok':menu.active}">
+              </div>
+            </form>
+            <div class="col-xs-1">
+              <a class="pull-right btn btn-default btn-xs" href ng-click="menuSplice(config.shop.menu,menu)"><i class="fa fa-remove"></i></a>
+            </div>   
+          </div>
+          <hr/>
+          <div class="clearfix">
+            <button href ng-click="config.shop.menu.push({})" class="btn btn-block btn-lg ">Ajouter un menu principal <i class="fa fa-plus"></i></button>
+          </div>
+
+        </div>
+
+        <!-- LE SITE -->
+        <div class="clearfix well" >
+          <h3 class="page-header">Site</h3>
+          <h4 class="page-header"><i class="fa fa-edit gray"></i>&nbsp;<span translate="sitename"></span></h4>
+          <div class="form-group ">                        
+            <div class="form-group ">                        
+                <input type="text" class="form-control input-lg" ng-model="config.shop.home.siteName[locale()]" />
             </div>
-          </form>
-          <div class="col-xs-1">
-            <a class="pull-right btn btn-default btn-xs" href ng-click="menuSplice(config.shop.home.views,menu)"><i class="fa fa-remove"></i></a>
-          </div>           
-        </div>
-        <hr/>
-        <div class="clearfix">
-          <button href ng-click="config.shop.home.views.push({})" class="btn btn-block btn-lg ">Ajouter un menu principal <i class="fa fa-plus"></i></button>
-        </div>
+          </div>
 
-        <h4 class="page-header">Gérer votre navigation secondaire </h4>
-        <!-- SECONDARY MENU   -->
-        <div class="clearfix" 
-             ng-repeat="menu in config.shop.menu|orderBy:['group','weight']"
-             ng-class="{'dirty':menu.dirty}">
-          <form class="form-inline col-xs-11 nopadding">
-            <div class="form-group " >
-              <input type="text" class="form-control form-inline"  placeholder="Nom" ng-model="menu.name[locale()]">
-              <input type="number" class="form-control "  placeholder="poid" ng-model="menu.weight" style="width:80px" min="0">
-              <input type="text" class="form-control"  placeholder="url de la page" ng-model="menu.url">
-              <input type="text" class="form-control"  placeholder="nom du groupe" ng-model="menu.group" style="width:160px">
-              <input type="checkbox" class="form-control"   
-                     ng-model="menu.active"
-                     ng-class="{'ok':menu.active}">
+          <h4 class="page-header"><i class="fa fa-edit gray"></i>&nbsp;<span translate="sitetitle"></span></h4>
+          <div class="form-group ">                        
+            <div class="form-group ">                        
+                <input type="text" class="form-control input-lg" ng-model="config.shop.home.tagLine.h[locale()]" placeholder="Header" />
             </div>
-          </form>
-          <div class="col-xs-1">
-            <a class="pull-right btn btn-default btn-xs" href ng-click="menuSplice(config.shop.menu,menu)"><i class="fa fa-remove"></i></a>
-          </div>           
+            <div class="form-group ">                        
+                <textarea  rows="4" class="form-control input-lg" ng-model="config.shop.home.tagLine.p[locale()]" placeholder="paragraphe?"></textarea>            
+            </div>
+          </div>
+
+          <!-- IMG TAGLINE -->
+          <h4 class="page-header"><i class="fa fa-edit gray"></i>&nbsp;Image tagline</h4>
+          <div class="form-group ">                        
+            <div class="" style="width:100%">
+              <!-- Photo -->
+              <uploadcare-widget
+                ng-model="config.shop.home.tagLine.image"
+                data-locale="{{locale()}}"
+                data-tabs="file url facebook flickr"
+                data-images-only="true"
+                data-path-value="true"
+                data-preview-step="true"
+                data-clearable="true"
+                data-multiple="false"
+                data-crop="free"
+                data-max-size-hide="203600"
+                on-upload-error="uploadImageError(error)"
+                value="{{config.shop.home.tagLine.image}}"
+               />          
+            </div>
+          </div>
         </div>
-        <hr/>
-        <div class="clearfix">
-          <button href ng-click="config.shop.menu.push({dirty:true})" class="btn btn-block btn-lg ">Ajouter un menu <i class="fa fa-plus"></i></button>
+        <div class="clearfix well" >
+
+          <!-- ABOUT -->
+          <h4 class="page-header"><i class="fa fa-edit gray"></i>&nbsp;<span translate="siteabout"></span></h4>
+          <div class="form-group ">                        
+              <input type="text" class="form-control input-lg" ng-model="config.shop.home.about.h[locale()]" placeholder="Header" />
+          </div>
+          <div class="form-group ">                        
+              <input type="text" class="form-control input-lg" ng-model="config.shop.home.about.t[locale()]" placeholder="Title" />
+          </div>
+          <div class="form-group ">                        
+              <textarea  rows="4" class="form-control input-lg" ng-model="config.shop.home.about.p[locale()]" placeholder="paragraphe?"></textarea>            
+          </div>
+
+          <!-- IMG ABOUT -->
+          <h4 class="page-header"><i class="fa fa-edit gray"></i>&nbsp;Image About</h4>
+          <div class="form-group ">                        
+            <div class="" style="width:100%">
+              <!-- Photo -->
+              <uploadcare-widget
+                ng-model="config.shop.home.about.image"
+                data-locale="{{locale()}}"
+                data-tabs="file url facebook flickr"
+                data-images-only="true"
+                data-path-value="true"
+                data-preview-step="true"
+                data-clearable="true"
+                data-multiple="false"
+                data-crop="free"
+                data-max-size-hide="203600"
+                on-upload-error="uploadImageError(error)"
+                value="{{config.shop.home.about.image}}"
+               />          
+            </div>
+          </div>
+
+        </div>
+        <div class="clearfix well" >
+
+          <!-- FOOTER -->
+          <h4 class="page-header"><i class="fa fa-edit gray"></i>&nbsp;Footer</h4>
+          <div class="form-group ">                        
+              <input type="text" class="form-control input-lg" ng-model="config.shop.home.footer.h[locale()]" placeholder="Header" />
+          </div>
+          <div class="form-group ">                        
+              <textarea  rows="4" class="form-control input-lg" ng-model="config.shop.home.footer.p[locale()]" placeholder="paragraphe?"></textarea>            
+          </div>
+
+          <!-- IMG FOOTER -->
+          <h4 class="page-header"><i class="fa fa-edit gray"></i>&nbsp;Image Footer</h4>
+          <div class="form-group ">                        
+            <div class="" style="width:100%">
+              <!-- Photo -->
+              <uploadcare-widget
+                ng-model="config.shop.home.footer.image"
+                data-locale="{{locale()}}"
+                data-tabs="file url facebook flickr"
+                data-images-only="true"
+                data-path-value="true"
+                data-preview-step="true"
+                data-clearable="true"
+                data-multiple="false"
+                data-crop="free"
+                data-max-size-hide="203600"
+                on-upload-error="uploadImageError(error)"
+                value="{{config.shop.home.footer.image}}"
+               />          
+            </div>
+          </div>      
+        </div>
+      <div class="clearfix well" >
+
+          <!-- FOOTER -->
+          <h4 class="page-header"><i class="fa fa-edit gray"></i>&nbsp;Shop</h4>
+          <div class="form-group ">                        
+              <input type="text" class="form-control input-lg" ng-model="config.shop.home.shop.h[locale()]" placeholder="Header" />
+          </div>
+          <div class="form-group ">                        
+              <textarea  rows="4" class="form-control input-lg" ng-model="config.shop.home.shop.p[locale()]" placeholder="paragraphe?"></textarea>            
+          </div>
+
+          <!-- IMG FOOTER -->
+          <h4 class="page-header"><i class="fa fa-edit gray"></i>&nbsp;Image Shop</h4>
+          <div class="form-group ">                        
+            <div class="" style="width:100%">
+              <!-- Photo -->
+              <uploadcare-widget
+                ng-model="config.shop.home.shop.image"
+                data-locale="{{locale()}}"
+                data-tabs="file url facebook flickr"
+                data-images-only="true"
+                data-path-value="true"
+                data-preview-step="true"
+                data-clearable="true"
+                data-multiple="false"
+                data-crop="free"
+                data-max-size-hide="203600"
+                on-upload-error="uploadImageError(error)"
+                value="{{config.shop.home.shop.image}}"
+               />          
+            </div>
+          </div>      
         </div>
 
-
-      </div>
-    </div>
   </div>
 </div>
 

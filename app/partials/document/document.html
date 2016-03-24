@@ -1,35 +1,51 @@
 
-<div tabindex="-1"  id="null" class="screen-content document" ng-controller="DocumentCtrl">
-  <aside ng-include="'/partials/document/cover.html'"
-         class="cover-shop cover cover-home img-loaded" >
-  </aside>
+<div tabindex="-1"  class=" document" ng-controller="DocumentCtrl" ng-init="findOneDocument()">
+
+  <div class="markdown-{{doc.model.type}}" >
+
+    <div class="home-header" backstretch="doc.model.photo.header" ng-if="doc.model.photo.header">
+    </div>
+
+    <div class="container ">
 
 
-  <section class="wrapper shop" tabindex="-1" ng-init="findOneDocument()">
-    <div class="wrapper-inner markdown-{{doc.model.type}}" >
-
-      <!--                               -->
-      <!-- CONTENT                       -->
-      <!--                               -->
-      <h2 class="header" i18n-render="doc.model.header"></h2>
-
-      <div class=" text" 
-           i18n-render="doc.model.content" 
-           parse-markdown="true" />
+      <h3 class="byline">
+        Published <time>{{doc.model.created|dateMomentShort}}</time> by <span class="author">{{doc.model.signature}} 
+      </h3>
+      <a ng-href="/content/{{doc.model.slug[0]}}/edit" 
+         class="btn btn-info btn-md pull-right" 
+         ng-show="user.isAdmin()" ><i class="fa fa-edit"></i> edit</a>
 
 
+      <h1 i18n-render="doc.model.title"></h1> 
+      <h2 i18n-render="doc.model.header" class="header" 
+       parse-markdown="true"></h2>
 
+      <div class="sidebar-block" ng-if="docs.length>1">
+        <h4 translate="furthermore"></h4>
+        <ol  class="list-unstyled">
+          <li ng-repeat="other in docs|orderBy:'-title.fr'" ><a ng-href="/content/{{other.slug[0]}}" i18n-render="other.title"></a></li>
+        </ol>   
+      </div> 
+
+
+    </div>    
+    <div class="container-fluid" ng-if="doc.model.products.length">
       <article   style="width:103%">
         <div  ng-include="'/partials/product/product.html'"  ng-repeat="product in doc.model.products|orderBy:['categories.weight','updated']"/>
 
       </article>
-
-      <button class="btn btn-success btn-lg btn-block" ng-click="cart.addList(doc.model.products)" ng-disabled="!doc.model.products.length">
-        Commander la liste complète
-      </button>          
-
-
+      
     </div>
-  <footer class="wrapper-footer wide" ng-include="'/footer.html'"></footer>
-  </section>
+
+    <div class="container">
+      <div class=" text" 
+           i18n-render="doc.model.content" 
+           parse-markdown="true">
+        
+      </div>
+      
+    </div>
+
+  </div>
 </div>

@@ -1,0 +1,134 @@
+<div class="navbar-header hide">
+	<span class="navbar-brand-txt hidden-xs hidden-md"><span>Le bon goût du marché en ligne</span></span>	
+</div>
+<div class="container relative">
+  <div class="collapse navbar-collapse collapse-buttons">
+    <ul class="nav navbar-nav" >
+    <!-- PRODUCTS -->
+			<li class="dropdown dropdown-large">
+					<a href="#" class="dropdown-toggle btn-dropdown-category" data-toggle="dropdown">
+						<i class="fa fa-tasks green-1"></i>
+						<span ng-hide="options.currentCategory" class="meun-label" >Produits</span> 
+						<span ng-show="options.currentCategory" class="menu-filter">{{category.getCurrent().name||'Produits'}}</span> 
+						<i class="fa fa-chevron-down green-1"></i>
+					</a>
+					
+					<ul class="dropdown-menu dropdown-menu-large row">
+						<li class="col-xs-6 col-sm-6">
+							<ul>
+								<li><a href="/">Notre sélection</a></li>
+								<li ng-show="user.isAuthenticated()"><a href="/account/love">Mes produits les plus achetés</a></li>
+								<li class="divider"></li>
+								<li class="dropdown-header">Alimentation</li>
+	              <li  class="" ng-repeat="category in category.findAll()|filter:{type:'Category'}|orderBy:'weight'" ng-if="!category.group">
+	                <a ng-class="getClass('/products/category/{{category.slug}}')"
+	                   href="/products/category/{{category.slug}}" tabindex="-1">{{category.name}}</a>
+	              </li>
+
+<!-- 								<li class="divider"></li>
+								<li><a href="#">...</a></li>
+ -->							</ul>
+						</li>
+						<li class="col-xs-6 col-sm-6 nopadding">
+							<ul>
+								<li class="dropdown-header">Boissons Alcoolisées</li>
+	              <li  class="" ng-repeat="category in category.findAll()|filter:{type:'Category',group:'Boissons Alcoolisées'}|orderBy:'weight'">
+	                <a ng-class="getClass('/products/category/{{category.slug}}')"
+	                   href="/products/category/{{category.slug}}" tabindex="-1">{{category.name}}</a>
+	              </li>
+							</ul>
+							<ul>
+								<li class="divider"></li>
+								<li class="dropdown-header">Autres</li>
+	              <li  class="" ng-repeat="category in category.findAll()|filter:{type:'Category',group:'Autres'}|orderBy:'weight'">
+	                <a ng-class="getClass('/products/category/{{category.slug}}')"
+	                   href="/products/category/{{category.slug}}" tabindex="-1">{{category.name}}</a>
+	              </li>
+	              <li>
+	              	<a href="/wallet/create">Acheter une carte cadeau</a>
+	              </li>
+							</ul>
+						</li>
+						<li class="col-xs-6 col-sm-4 nopadding hide">
+							<ul>
+								<li class="dropdown-header">Sur cette page</li>
+							</ul>
+						</li>
+					</ul>
+			</li>
+			<li class="dropdown dropdown-large ">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown" >
+        	<span>Boutiques</span> <i class="fa fa-chevron-down green-1"></i></a>
+        <ul class="dropdown-menu dropdown-menu-large row">
+					<li class="col-xs-12 col-sm-6 nopadding">
+						<ul>
+							<li ><a ng-href="/shops">Détail des boutiques</a></li>
+              <li class="divider"></li>						
+							<li ng-repeat="shop in shops|orderBy:'name'|limitTo:(shops.length/2)" ng-if="shop.status">			
+								<a ng-href="/shop/{{shop.urlpath}}" ng-class="{'grayx':shop.available.active}"> 
+									{{shop.name}} <i class="fa fa-info-circle grayx" ng-show="shop.available.active" title="{{shop.available.comment}}"></i>
+									<span class="dropdown-menu-shop-shipping text-capitalize hidden-xs"> 
+									<span ng-repeat="day in shop.available.weekdays">{{daysweek[day]}}&nbsp;</span> 
+									<i class="fa fa-circle green-2"></i> </span>
+								</a> 
+							</li>
+						</ul>
+					</li>
+					<li class="col-xs-12 col-sm-6  nopadding">
+						<ul>
+							<li class="hidden-xs"><a ng-href="/shops">&nbsp;</a></li>
+              <li class="divider hidden-xs"></li>						
+							<li ng-repeat="shop in shops|orderBy:'name'|limitTo:(-shops.length/2)" ng-if="shop.status">
+								<a ng-href="/shop/{{shop.urlpath}}" ng-class="{'grayx':shop.available.active}"> 
+										{{shop.name}} <i class="fa fa-info-circle grayx" ng-show="shop.available.active" title="{{shop.available.comment}}"></i>
+										<span class="dropdown-menu-shop-shipping text-capitalize hidden-xs"> <span ng-repeat="day in shop.available.weekdays">{{daysweek[day]}}&nbsp;</span>
+										<i class="fa fa-circle green-2"></i></span>
+							</a>
+							</li>
+						</ul>
+					</li>
+				</ul>
+			</li>
+			<li class="dropdown dropdown-large ">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown" >
+	        <span>K<span class="hidden-xs">aribou.ch</span></span> <i class="fa fa-chevron-down green-1"></i></a>
+        <ul class="dropdown-menu dropdown-menu-large row">
+					<li class="col-xs-12 col-sm-3 nopadding">
+						<ul>
+							<li class="dropdown-header">Faire ces courses</li>
+				      <li ng-class="getClass(menu.url)" ng-repeat="menu in config.shop.menu|filter:{group:'karibou',active:true}|orderBy:'weight'" ng-if="menu.url">
+					        <a  ng-href="{{menu.url}}" i18n-render="menu.name"></a>
+					    </li>
+						</ul>
+					</li>
+					<li class="col-xs-12 col-sm-4 nopadding">
+						<ul>
+							<li class="dropdown-header">Notre philosophie </li>
+				      <li ng-class="getClass(menu.url)" ng-repeat="menu in config.shop.menu|filter:{group:'howto',active:true}|orderBy:'weight'" ng-if="menu.url">
+					        <a  ng-href="{{menu.url}}" i18n-render="menu.name"></a>
+					    </li>								
+						</ul>
+					</li>					
+					<li class="col-xs-12 col-sm-5 nopadding">
+						<ul>
+							<li class="dropdown-header">Besoin d'aide?</li>
+				      <li ng-class="getClass(menu.url)" ng-repeat="menu in config.shop.menu|filter:{group:'links',active:true}|orderBy:'weight'" ng-if="menu.url">
+					        <a  ng-href="{{menu.url}}" i18n-render="menu.name"></a>
+					    </li>							
+						</ul>
+					</li>					
+			  </ul>
+		  </li>
+    </ul>
+    <ul class="nav navbar-nav navbar-right app-hide">
+      <li>
+      	<a href="" class="hide">
+      		<i class="fa fa-calendar green-1"></i>  
+      		<span class="hidden-xs" clockdown=" Livraison "></span>
+      		&nbsp;<i class="fa fa-chevron-down green-1"></i>
+      	</a>
+      </li>
+    </ul>
+    
+  </div>
+</div>

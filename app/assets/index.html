@@ -30,10 +30,9 @@
     <meta property="og:site_name" content="Karibou">
     <meta property="og:url" content="http://Karibou.ch/">
     <meta name="twitter:site" content="@kariboulab">
-    <meta name="keywords" content="yoga,tofu,alimentation,pizza,traiteur,artisan,paysan,maraîcher,maraicher,boucher,boulanger,fromager,fruit,légume,bio">
+    <meta name="keywords" content="yoga,tofu,alimentation,santé,pizza,traiteur,artisan,paysan,maraîcher,maraicher,boucher,boulanger,fromager,fruit,légume,bio">
 
     <!-- PROMO -->
-    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/github-fork-ribbon-css/0.1.1/gh-fork-ribbon.min.css" />
     
     <!--[if lt IE 9]>
         <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/github-fork-ribbon-css/0.1.1/gh-fork-ribbon.ie.min.css" />
@@ -44,12 +43,11 @@
       <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
 
+    <!--
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/github-fork-ribbon-css/0.1.1/gh-fork-ribbon.min.css" />
     <link href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700|PT+Serif:400,700,400italic" rel="stylesheet" type="text/css">
+    -->
 
-    <!-- <link href="//fonts.googleapis.com/css?family=Open+Sans:400,300,600|Merriweather:400,300,700" rel="stylesheet" type="text/css" async="true">-->
-    <!-- <link defer href='//fonts.googleapis.com/css?family=Halant:500|Fira+Sans:300' rel='stylesheet' type='text/css'> -->
-<!--     <link href="//code.cdn.mozilla.net/fonts/fira.css" rel="stylesheet" >    
- -->    
     <!-- <link href='//fonts.googleapis.com/css?family=Gentium+Book+Basic:700' rel='stylesheet' type='text/css'> -->
     <link defer rel="stylesheet" href="/css/vendor.css?cache={!distRelease!}">
     <link defer rel="stylesheet" href="/css/app.css?cache={!distRelease!}">
@@ -58,7 +56,6 @@
       KARIBOU_INSTANCE={!distRelease!};
       UPLOADCARE_LIVE= false;
       UPLOADCARE_MANUAL_START = true;
-      var ngCMSSettings={};
     </script>
 
     <!-- GG analytics -->
@@ -75,7 +72,7 @@
     
   </head>
 
-   <body  ng-class="{'display-cart':options.cart,'display-info':config.shop.maintenance.active}">
+   <body  ng-class="{'display-cart':options.cart}">
 
 <!--       
       <div class="github-fork-ribbon-wrapper right" ng-show="!cart.items.length&&showShopWidgets()">
@@ -91,90 +88,151 @@
       <div class="app-loading fa-spin fa fa fa-spinner"></div> 
     </div>
 
-    <div id="flash" flash-message="5000" ></div>
+    <div id="flash" flash-message="9000" ></div>
 
     <!-- Fixed navbar -->
-    <nav class="navbar navbar-default navbar-fixed-top" style="z-index: 1031">
-      <div class="container">
+    <nav class="ng-cloak navbar navbar-default navbar-fixed-top" style="z-index: 1031">
+      <div class="-container relative">
         <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand ng-cloak" href="/"><i class="fa fa-home"></i></a>
-          <a class="navbar-brand-ex ng-cloak" href="/"><img src="/img/k-brand.png" width="75%"></a>
+          <a class="navbar-brand navbar-brand-home ng-cloak" href="/" >
+            <i class="fa fa-home hidden-xs"></i>
+            <img src="/img/k-puce-v2.png" width="25px" class="visible-xs" style="margin-top: -5px">
+          </a>
+          <a class="navbar-brand navbar-brand-shop hide ng-cloak" href="" ng-click="goBack('/')">
+            <i class="fa fa-chevron-left green-2 "></i>
+          </a>
+
+          <a class="navbar-brand-ex ng-cloak" href="/">
+            <img src="/img/k-brand.png" width="120px" class="hidden-xs">
+          </a>
+            <ul class="nav navbar-nav navbar-menu hide" style="margin-left: 180px">
+                <li>
+                  <!-- MENU -->
+                  <div class="btn-group navbar-btn">
+
+                    <button data-toggle="dropdown" class="btn btn-products dropdown-toggle"><span cl>Produits </span> <span class="caret"></span></button>
+                    <ul class="dropdown-menu dropdown-menu-large row">
+                      <li class="col-xs-6 col-sm-4">
+                        <ul>
+                          <li><a href="/">Tous les produits</a></li>
+                          <li><a href="/shops">Toutes les boutiques</a></li>
+                          <li class="divider"></li>
+                          <li class="dropdown-header">Alimentation</li>
+                          <li  class="" ng-repeat="category in category.findAll()|filter:{type:'Category'}|orderBy:'weight'" ng-if="!category.group">
+                            <a ng-class="getClass('/products/category/{{category.slug}}')"
+                               href="/products/category/{{category.slug}}" tabindex="-1">{{category.name}}</a>
+                          </li>
+                        </ul>
+                      </li>
+                      <li class="col-xs-6 col-sm-4">
+                        <ul>
+                          <li class="dropdown-header">Boissons Alcoolisées</li>
+                          <li  class="" ng-repeat="category in category.findAll()|filter:{type:'Category',group:'Boissons Alcoolisées'}|orderBy:'weight'">
+                            <a ng-class="getClass('/products/category/{{category.slug}}')"
+                               href="/products/category/{{category.slug}}" tabindex="-1">{{category.name}}</a>
+                          </li>
+                        </ul>
+                        <ul>
+                          <li class="divider"></li>
+                          <li class="dropdown-header">Autres</li>
+                          <li  class="" ng-repeat="category in category.findAll()|filter:{type:'Category',group:'Autres'}|orderBy:'weight'">
+                            <a ng-class="getClass('/products/category/{{category.slug}}')"
+                               href="/products/category/{{category.slug}}" tabindex="-1">{{category.name}}</a>
+                          </li>
+                        </ul>
+                      </li>
+                      <li class="col-xs-6 col-sm-4">
+                        <ul>
+                          <li class="dropdown-header">Sur cette page</li>
+                          <li  class="" ng-repeat="category in category.findAll()|filter:{type:'Category',group:'Autres'}|orderBy:'weight'">
+                            <a ng-class="getClass('/products/category/{{category.slug}}')"
+                               href="/products/category/{{category.slug}}" tabindex="-1">{{category.name}}</a>
+                          </li>
+                        </ul>
+                      </li>
+                    </ul>
+                  </div>                
+                </li>
+            </ul>
         </div>
-        <div id="navbar" class="collapse navbar-collapse">
-          <ul class="nav navbar-nav">
-            <li ng-class="getClass(menu.url)" ng-repeat="menu in config.shop.home.views|orderBy:'weight'" ng-if="menu.url">
-              <a  ng-href="{{menu.url}}" i18n-render="menu.name"></a>
-            </li>
-          </ul>
+
+        <div id="navbar" -class="collapse navbar-collapse " >
+          <!-- CART BTN -->
+          <button class="navbar-right btn btn-cart hidden-print navbar-btn" 
+                 ng-cloak  ng-click="toggleCart()" 
+                 ng-show="cart.items.length">
+              <span>
+                <i class="fa fa-shopping-cart green "></i>&nbsp; 
+                <span class="btn-cart-price">
+                  {{cart.total()|number:2}} CHF  
+                  <span class="hidden-xs"><i class=" fa fa-bicycle"></i>&nbsp;</span>
+                </span>
+                <span class="btn-cart-quantity">
+                  {{cart.quantity()}}
+                </span>
+              </span>
+          </button>
+
           <ul class="nav navbar-nav navbar-right">          
-            <li ng-hide="user.isAuthenticated()" ng-class="getClass('/login')">
+            <li ng-hide="user.isAuthenticated()" ng-class="getClass('/login')" class="ng-cloak">
               <a  ng-href="/login"><i class="fa fa-user"></i>&nbsp;<span translate="login">Login</span></a>
             </li>
-            <li ng-hide="user.isAuthenticated()" ng-class="getClass('/signup')">
+            <li ng-hide="user.isAuthenticated()" ng-class="getClass('/signup')" class=" hidden-xs ng-cloak" style="margin-right: 16px;">
               <a class=" " ng-href="/signup"><i class="fa fa-fire"> </i>&nbsp;<span translate="signup"></span></a>
             </li>
 
             <!-- SIGNED -->
-            <li ng-show="user.isAuthenticated()" class="ng-cloak" ng-class="getClass('/account','/admin')">
-              <a   ng-href="/account/overview" ><i class="fa fa-wrench green"></i>&nbsp;{{user.display()}}</a>
+            <li ng-show="user.isAuthenticated()" class="ng-cloak  dropdown">
+              <a href="#" class="dropdown-toggle text-capitalize" data-toggle="dropdown" > 
+              <span class="fa fa-cogs green "></span> {{user.name.givenName}} {{user.name.familyName[0]}}. </a> 
+              <ul class="dropdown-menu dropdown-menu-ex"> 
+                <li><a href="/account/overview" class="text-capitalize"><i class="fa fa-user "></i> Bonjour {{user.name.givenName}}</a></li>
+                <li><a ng-href="/account/payment?gift=%20"><i class="fa fa-gift"></i> Enregistrer une carte cadeau</a></li>
+                <li><a href="/account/love"><i class="fa fa-heart "></i> Ma sélection</a></li>
+                <li><a  class="" href="" ng-click="logout()"><i class="fa fa-sign-out "></i>&nbsp;<span translate="logout"></span></a></li>
+                <li class="divider"></li>
+                <li><a href="/account/reminder"><i class="fa fa-bell-o "></i> Enregistrer une alarme</a></li>
+                <li><a href="/account/orders"><i class="fa fa-shopping-cart "></i> Voir mes commandes</a></li>
+                <li class="divider"></li>
+
+                <!-- FOR SHOP & ADMIN -->
+                <li ng-class="getClass(menu.url)" ng-repeat="menu in config.shop.menu|filter:{group:'shop',active:true}|orderBy:'weight'" 
+                    ng-if="options.isShopOwner&&menu.url">
+                    <a  ng-href="{{menu.url}}" i18n-render="menu.name"></a>
+                </li>
+                <li class="divider" ng-show="options.isShopOwner"></li>                    
+                <!-- FOR LOGISTIC -->
+                <li ng-class="getClass(menu.url)" ng-repeat="menu in config.shop.menu|filter:{group:'shipping',active:true}|orderBy:'weight'" 
+                    ng-if="options.isLogistic&&menu.url">
+                    <a  ng-href="{{menu.url}}" i18n-render="menu.name"></a>
+                </li>
+                <li class="divider" ng-show="options.isLogistic"></li>
+                <!-- FOR ADMIN -->
+                <li ng-class="getClass(menu.url)" ng-repeat="menu in config.shop.menu|filter:{group:'admin',active:true}|orderBy:'weight'" 
+                    ng-if="options.isAdmin&&menu.url">
+                    <a  ng-href="{{menu.url}}" i18n-render="menu.name"></a>
+                </li>
+              </ul> 
             </li>
-            <li ng-show="user.isAuthenticated()">
-              <a  class="" href="" ng-click="logout()"><i class="fa fa-sign-out green"></i>&nbsp;<span translate="logout"></span></a>
-            </li>
+
+
+
+
             <!-- I18N -->
-            <li class="dropdown ng-cloak" >
+            <li class="dropdown ng-cloak hidden-xs " ng-show="user.isAdmin()" style="">
               <a href="#" class="dropdown-toggle text-capitalize btn-lang" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{locale()}} 
               </a>
               <ul class="dropdown-menu">
                 <li ng-repeat="lang in config.shop.i18n.locales" class="text-capitalize"><a href="#" ng-click="changeLanguage(lang)" >{{lang}}</a></li>
               </ul>
             </li>
-            <li  class="ng-cloak" >
-              <form class="navbar-form navbar-left" role="cart">
-                <button class="btn btn-cart hidden-print" 
-                       ng-cloak  ng-click="toggleCart()" 
-                       ng-show="cart.items.length">
-                    <span>
-                      <i class="fa fa-shopping-cart green "></i>&nbsp; 
-                      <span class="btn-cart-price">
-                        {{cart.total()|number:2}} CHF  
-                        <span class="hidden-xs"><i class=" fa fa-bicycle"></i>&nbsp;</span>
-                      </span>
-                      <span class="btn-cart-quantity">
-                        {{cart.quantity()}}
-                      </span>
-                    </span>
-                </button>
-              </form>
-            </li>
 
           </ul>
+
         </div><!--/.nav-collapse -->
       </div>
     </nav>
-    <nav class="navbar navbar-default navbar-fixed-top subnavbar-top" role="navigation">
-      <div class="container">
-        <div class="collapse navbar-collapse collapse-buttons">
-          <ul class="nav navbar-nav">
-            <li><a href="">Boutiques <i class="fa fa-chevron-down"></i></a></li>
-            <li><a href="">Produits <i class="fa fa-chevron-down"></i></a></li>
-            <li><a href="">Karibou.ch <i class="fa fa-chevron-down"></i></a></li>
-            <li ng-class="getClass(menu.url)" ng-repeat="menu in config.shop.home.views|orderBy:'weight'" ng-if="menu.url">
-              <a  ng-href="{{menu.url}}" i18n-render="menu.name"></a>
-            </li>
-          </ul>
-          <ul class="nav navbar-nav navbar-right">
-            <li><a href="">Livraison vendredi 11  <i class="fa fa-chevron-down"></i></a></li>
-          </ul>
-          
-        </div>
-      </div>
+    <nav class="navbar navbar-default navbar-fixed-top subnavbar-top" role="navigation" ng-include="'/partials/index-navigation.html'">
     </nav>    
 
     <!-- CART -->        
@@ -185,13 +243,40 @@
 
 
     <!-- Begin page content -->
-    <div class="ng-view" >
+    <div ng-view="modal">   
+    </div>
+    <div ng-view >
     </div>
 
     <div ng-include="'/partials/feedback.html'" class=""></div>
     <footer class="footer ">
       <div class="container">
         <div class="text-muted" i18n-render="config.shop.home.footer" parse-markdown="true"></div>
+
+            <div class="col-xs-12 col-sm-4">
+              <ul>
+                <li class="dropdown-header">Faire ses courses</li>
+                <li ng-class="getClass(menu.url)" ng-repeat="menu in config.shop.menu|filter:{group:'karibou',active:true}|orderBy:'weight'" ng-if="menu.url">
+                    <a  ng-href="{{menu.url}}" i18n-render="menu.name" class="black"></a>
+                </li>
+              </ul>
+            </div>
+            <div class="col-xs-12 col-sm-4">
+              <ul>
+                <li class="dropdown-header">Notre philosophie </li>
+                <li ng-class="getClass(menu.url)" ng-repeat="menu in config.shop.menu|filter:{group:'howto',active:true}|orderBy:'weight'" ng-if="menu.url">
+                    <a  ng-href="{{menu.url}}" i18n-render="menu.name" class="black"></a>
+                </li>               
+              </ul>
+            </div>
+            <div class="col-xs-12 col-sm-4">
+              <ul>
+                <li class="dropdown-header">Besoin d'aide?</li>
+                <li ng-class="getClass(menu.url)" ng-repeat="menu in config.shop.menu|filter:{group:'links',active:true}|orderBy:'weight'" ng-if="menu.url">
+                    <a  ng-href="{{menu.url}}" i18n-render="menu.name" class="black"></a>
+                </li>             
+              </ul>
+            </div>        
       </div>
     </footer>
 
@@ -219,24 +304,10 @@
   -->
 
 
-  <!-- Google Code for karibou web Conversion Page -->
-  <script type="text/javascript">
-  if(location.origin.indexOf('evaletolab')==-1){
-  /* <![CDATA[ */
-    var google_conversion_id = 952286068;
-    var google_conversion_language = "fr";
-    var google_conversion_format = "3";
-    var google_conversion_color = "ffffff";
-    var google_conversion_label = "s46PCLjknl0Q9PaKxgM";
-    var google_remarketing_only = false;
-  /* ]]> */
-  }
-  </script>
-  <script type="text/javascript" src="//www.googleadservices.com/pagead/conversion.js"></script>
 
   <!-- Facebook Conversion Code for Visite - karibou -->
   <script>
-  if(location.origin.indexOf('evaletolab')==-1){
+  if(location.origin.indexOf('karibou.ch')!==-1){
     (function() {
       var _fbq = window._fbq || (window._fbq = []);
       if (!_fbq.loaded) {

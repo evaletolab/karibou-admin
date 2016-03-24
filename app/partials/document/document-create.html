@@ -1,155 +1,151 @@
 
-<div tabindex="-1"  id="null" class="screen-content document edit" ng-controller="DocumentCtrl">
-  <aside ng-include="'/partials/account/cover.html'"
-         class="cover cover-home img-loaded" ng-class="{'session':user.isAuthenticated()}">
-  </aside>
+<div tabindex="-1"  class=" document edit" ng-controller="DocumentCtrl">
+  <div class=" markdown-{{doc.model.type}} container" ng-init="findOneDocument()">
+
+    <h1>Nouvelle {{defaultLabel[doc.model.type]||'publication'}} </h1>
 
 
-  <section class="wrapper" tabindex="-1" >
-    <div class="wrapper-inner markdown" ng-init="findOneDocument()">
+    <!--                               -->
+    <!-- CONTENT                       -->
+    <!--                               -->
+    <label  class="pull-right published">
+      <input type="checkbox"   ng-model="doc.model.published" ng-disabled="!user.isAdmin()">&nbsp;Publiée
+      </label>
+    <label  class="pull-right valid">
+      <input type="checkbox"   ng-model="doc.model.available">&nbsp;Valide 
+      </label>
 
-      <h1>Nouvelle {{defaultLabel[doc.model.type]||'publication'}} </h1>
+    <h3 class="title">Titre </h3>
+    <input type="text" class="form-control input-lg" 
+           ng-model="doc.model.title[locale()]" />
 
+    <ul class="small list-group gray nopadding">
+      <li class="list-group-item " ng-repeat="slug in doc.model.slug">/{{doc.model.type}}/{{slug}} <span class="badge">slug</span></li>
+    </ul>
 
-      <!--                               -->
-      <!-- CONTENT                       -->
-      <!--                               -->
-      <label  class="pull-right published">
-        <input type="checkbox"   ng-model="doc.model.published" ng-disabled="!user.isAdmin()">&nbsp;Publiée
-        </label>
-      <label  class="pull-right valid">
-        <input type="checkbox"   ng-model="doc.model.available">&nbsp;Valide 
-        </label>
+    <h3 class="title">En tête</h3>
+    <div contentEditable="true"  class="header" 
+         ng-model="doc.model.header[locale()]" class="field" style="min-height:100px">
+      
+    </div>
 
-      <h3 class="title">Titre </h3>
-      <input type="text" class="form-control input-lg" 
-             ng-model="doc.model.title[locale()]" />
-
-      <ul class="small list-group gray nopadding">
-        <li class="list-group-item " ng-repeat="slug in doc.model.slug">/{{doc.model.type}}/{{slug}} <span class="badge">slug</span></li>
-      </ul>
-
-      <h3 class="title">En tête</h3>
-      <div contentEditable="true"  class="header" 
-           ng-model="doc.model.header[locale()]" class="field" style="min-height:100px">
-        
-      </div>
-
-      <h3 class="title">Contenu</h3>
-      <div contentEditable="true"  
-           ng-model="doc.model.content[locale()]"  
-           class="field" style="min-height:300px">
-        
-      </div>
-      <h3 class="title">Signature</h3>
-      <input type="text" class="form-control input-lg" 
-             ng-model="doc.model.signature" />
+    <h3 class="title">Contenu</h3>
+    <div contentEditable="true"  
+         ng-model="doc.model.content[locale()]"  
+         class="field" style="min-height:300px">
+      
+    </div>
+    <h3 class="title">Signature</h3>
+    <input type="text" class="form-control input-lg" 
+           ng-model="doc.model.signature" />
 
 
-      <!-- TYPE -->
-      <div ng-if="!doc.model.type">
-        <h3 class="title">Type du document</h3>
-        <select class="form-control  " 
-                ng-model="doc.model.type" 
-                ng-options="type as type for type in types track by type">
-                <option value=""  selected>-- Choisir un type de document</option>
-        </select>                     
-        
-      </div>
+    <!-- TYPE -->
+    <div class="clearfix">
+      <h3 class="title">Type du document</h3>
+      <select class="form-control  " 
+              ng-model="doc.model.type" 
+              ng-options="type as type for type in types track by type">
+              <option value=""  selected>-- Choisir un type de document</option>
+      </select>                     
+      
+    </div>
 
-      <!-- PRODUCTS -->
-      <h3 class="title">Associations</h3>
+    <!-- PRODUCTS -->
+    <h3 class="title">Associations</h3>
 
-      <!-- PRODUCTS -->
-      <div class="clearfix  ">
-        <table class="table condensed">
-          <thead>
-            <tr>
-              <th>Produits associées</th>
-              <th>sku</th>
-            </tr>
-          </thead>          
-          <tbody>
-          <tr ng-repeat="sku in doc.model.skus">
-            <td><a ng-href="/products/{{sku}}">{{sku}}</a></td>
-            <td><button class="btn btn-xs btn-default" ng-click="removeSku(sku)">enlever</button></td>
+    <!-- PRODUCTS -->
+    <div class="clearfix  ">
+      <table class="table condensed">
+        <thead>
+          <tr>
+            <th>Produits associées</th>
+            <th>sku</th>
           </tr>
-        </tbody>
+        </thead>          
+        <tbody>
+        <tr ng-repeat="sku in doc.model.skus">
+          <td><a ng-href="/products/{{sku}}">{{sku}}</a></td>
+          <td><button class="btn btn-xs btn-default" ng-click="removeSku(sku)">enlever</button></td>
+        </tr>
+      </tbody>
+    </table>
+
+
+    <!-- PHOTOS -->
+    <div class="clearfix  ">
+      <table class="table condensed">
+        <thead>
+          <tr>
+            <th>Photos associées</th>
+            <th></th>
+          </tr>
+        </thead>          
+        <tbody>
+        <!-- HEADER -->
+        <tr>
+          <td>
+            <img ng-src="{{doc.model.photo.header| placehold:'160x160&text=header'}}" class="img-rounded " style="width:50px">
+          </td>
+          <td>
+            <uploadcare-widget
+                  ng-model="doc.model.photo.header"
+                  data-locale="fr"
+                  data-tabs="file url facebook flickr"
+                  data-images-only="true"
+                  data-path-value="true"
+                  data-preview-step="true"
+                  data-clearable="true"
+                  data-multiple="false"
+                  data-crop="free"
+                  data-max-size-hide="153600"
+                  data-on-upload-error="uploadImageError(error)"
+                  value="{{doc.model.photo.header}}">
+            </uploadcare-widget>              
+          </td>
+        </tr>
+        <!-- ATTACH -->
+        <tr ng-repeat="photo in doc.model.photo.bundle">
+          <td colspan="2">
+            <img ng-src="{{doc.model.photo.bundle[$index]| placehold:'160x160&text=header'}}" class="img-rounded shop" style="width:50px">
+
+            <uploadcare-widget
+                  ng-model="doc.model.photo.bundle[$index]"
+                  data-locale="fr"
+                  data-tabs="file url facebook flickr"
+                  data-images-only="true"
+                  data-path-value="true"
+                  data-preview-step="true"
+                  data-clearable="true"
+                  data-multiple="false"
+                  data-crop="free"
+                  data-max-size-hide="153600"
+                  data-on-upload-error="uploadImageError(error)"
+                  value="{{doc.model.photo.bundle[$index]}}">
+            </uploadcare-widget>              
+
+            <div ng-if="doc.model.photo.bundle[$index]" class="gray link">![titre image]({{doc.model.photo.bundle[$index]}})</div>
+          </td>
+        </tr>
+        <tr ng-show="doc.model.photo.bundle.length">
+          <td colspan="2">Copier le lien dans le contenu en markdown pour voir l'image</td>
+        </tr>
+        <tr>
+          <td colspan="2">
+            <button  ng-click="doc.model.photo.bundle.push({})" class="btn btn-primary btn-xs  btn-block">Ajouter <i class="fa fa-plus"></i></button>              
+          </td>
+        </tr>
+        </tbody>          
       </table>
+    </div>
 
-
-      <!-- PHOTOS -->
-      <div class="clearfix  ">
-        <table class="table condensed">
-          <thead>
-            <tr>
-              <th>Photos associées</th>
-              <th></th>
-            </tr>
-          </thead>          
-          <tbody>
-          <!-- HEADER -->
-          <tr>
-            <td>
-              <img ng-src="{{doc.model.photo.header| placehold:'160x160&text=header'}}" class="img-rounded " style="width:50px">
-            </td>
-            <td>
-              <uploadcare-widget
-                    ng-model="doc.model.photo.header"
-                    data-locale="fr"
-                    data-tabs="file url facebook flickr"
-                    data-images-only="true"
-                    data-path-value="true"
-                    data-preview-step="true"
-                    data-clearable="true"
-                    data-multiple="false"
-                    data-crop="free"
-                    data-max-size-hide="153600"
-                    data-on-upload-error="uploadImageError(error)"
-                    value="{{doc.model.photo.header}}">
-              </uploadcare-widget>              
-            </td>
-          </tr>
-          <!-- ATTACH -->
-          <tr ng-repeat="photo in doc.model.photo.bundle">
-            <td colspan="2">
-              <img ng-src="{{doc.model.photo.bundle[$index]| placehold:'160x160&text=header'}}" class="img-rounded shop" style="width:50px">
-
-              <uploadcare-widget
-                    ng-model="doc.model.photo.bundle[$index]"
-                    data-locale="fr"
-                    data-tabs="file url facebook flickr"
-                    data-images-only="true"
-                    data-path-value="true"
-                    data-preview-step="true"
-                    data-clearable="true"
-                    data-multiple="false"
-                    data-crop="free"
-                    data-max-size-hide="153600"
-                    data-on-upload-error="uploadImageError(error)"
-                    value="{{doc.model.photo.bundle[$index]}}">
-              </uploadcare-widget>              
-
-              <div ng-if="doc.model.photo.bundle[$index]" class="gray link">![titre image]({{doc.model.photo.bundle[$index]}})</div>
-            </td>
-          </tr>
-          <tr ng-show="doc.model.photo.bundle.length">
-            <td colspan="2">Copier le lien dans le contenu en markdown pour voir l'image</td>
-          </tr>
-          <tr>
-            <td colspan="2">
-              <button  ng-click="doc.model.photo.bundle.push({})" class="btn btn-primary btn-xs  btn-block">Ajouter <i class="fa fa-plus"></i></button>              
-            </td>
-          </tr>
-          </tbody>          
-        </table>
-      </div>
-
-      <!-- FOOTER -->
+    <!-- FOOTER -->
+    <div class="form-group bottom col-xs-12">
       <a ng-href="/content/{{doc.model.slug[0]}}" class="btn btn-default btn-lg" ng-show="doc.model.slug[0]" >Visionner</a>
 
       <button class="btn btn-primary btn-lg" ng-show="doc.model.slug.length" ng-click="save()">Enregistrer</button>
       <button class="btn btn-primary btn-lg" ng-show="!doc.model.slug.length" ng-click="create()">Créer</button>
+      
     </div>
-  </section>
+  </div>
 </div>

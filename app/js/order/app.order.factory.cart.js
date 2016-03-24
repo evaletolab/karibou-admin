@@ -353,7 +353,7 @@ function cartFactory(config, $timeout,$rootScope,$window, $storage, api,user) {
     if(!localStorage)return this;
     try {
       var verifyItem=[];
-      this.items = angular.fromJson(localStorage.getItem(defaultCart.namespace ));
+      this.items = angular.fromJson(localStorage.getItem(defaultCart.namespace ))||[];
       this.items.forEach(function (item) {
         if(item.title && item.sku){
           verifyItem.push(item);
