@@ -266,9 +266,10 @@ User.controller('AccountCtrl',[
 
     //
     // save action
-    $scope.save=function(u){
+    $scope.save=function(u,opts){
       $rootScope.WaitText="Waiting ...";
-      user.save(u,function(){
+      var tosave=_.extend({},u,opts||{});
+      user.save(tosave,function(){
         api.info($scope,"Profil enregistré");
       });
     };
@@ -279,7 +280,7 @@ User.controller('AccountCtrl',[
       $rootScope.WaitText="Waiting ...";
       shop.create(user,s,function(){
           api.info($scope,"Votre boutique à été créée ",function(){
-            if ($scope.activeNavId==='/account/shop')
+            if ($location.path()==='/account/shop')
               $location.url('/account/overview');
           });
       });

@@ -164,7 +164,10 @@ function docFactory(config, $resource, $q,$rootScope, api,user) {
 
   //
   // fetch user info trigger  
-  $rootScope.$on("user.init",function(){
+  $rootScope.$on("user.init",function(u){
+    if(!user.isAuthenticated()){
+      return user.documents=[];  
+    }
     defaultDocument.signature=user.display();
     user.documents=_documents.my().models;
   });      

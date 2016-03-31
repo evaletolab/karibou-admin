@@ -1,5 +1,16 @@
+  <!-- REFACTORING PRODUCT DISPLAY -->
+  <!-- - call one time: 
+          * product.isAvailableForOrder() 
+          * cart.findBySku(product.sku).quantity (it's dynamic)
+          * product.variants.length
+          * product.isAvailableForOrder()
+
+        ng-init="p_qty=cart.findBySku(product.sku).quantity;"
+        ng-class="{'p_is_available':product.isAvailableForOrder(),'p_has_variant':product.variants.length,'p_has_stock':product.pricing.stock}"
+  -->
+
   <!-- microformat http://schema-creator.org/product.php -->
-  <div id="product{{product.sku}}" class="block layout-item c1" 
+  <div  class="block layout-item c1" 
         itemscope itemtype="http://schema.org/Product">
 
             
@@ -69,7 +80,7 @@
 
         <div class="vertical-divider" style="width:100%">
           <a class="title " itemprop="name" ng-href="{{shop.urlpath|test:'/shop/':''}}/products/{{product.sku}}/{{product.slug}}" >
-            {{product.title}}
+            {{product.title}} 
           </a>
           <div ng-click="love(product)">
             <i class=" love" 

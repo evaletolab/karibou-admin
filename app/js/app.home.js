@@ -51,10 +51,14 @@ Home.controller('HomeCtrl', [
     $scope.infinite=[];
     $scope.product=false;
     $scope.groupByShop={};
-    $scope.filterForHome={type:'Category',home:true};
+    $scope.filterForHome={type:'Category',home:true,active:true};
 
-    user.$promise.then(function () {
-      delete $scope.filterForHome.home;
+    $rootScope.$on('user.init',function() {
+      if(user.isAuthenticated()){
+        delete $scope.filterForHome.home;
+      }else{
+        $scope.filterForHome.home=true;
+      }
     });
 
     // $scope.shops.$promise.then(function () {

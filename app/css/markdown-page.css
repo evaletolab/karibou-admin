@@ -8,6 +8,9 @@
   margin-top: -30px;
 }
 
+
+
+
 .markdown-page .text{
   text-rendering: optimizelegibility;
   line-height: 1.4em;
@@ -49,6 +52,7 @@
 
 .markdown-page img{
   max-width: 100%;
+  margin-bottom:20px;
 }
 
 .markdown-page .home-header h1{
@@ -78,14 +82,16 @@
     margin-bottom: 25px;
 }
 
+.markdown-page ul{
+  padding-left: 15px;
+  list-style: inherit;
+  margin-bottom: 20px;
+}
+
 .markdown-page p{
     margin-top: 10px;
     margin-bottom: 10px;
 }
-
-.markdown-page ul{
-  padding-left: 15px;
-} 
 
 
 .markdown-page blockquote{

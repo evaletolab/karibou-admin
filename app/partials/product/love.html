@@ -24,7 +24,7 @@
        class="row wrapheight" >
 
 
-        <article  ng-repeat="category in category.findAll()|filter:{type:'Category'}|orderBy:'weight'"          
+        <article  ng-repeat="category in category.findAll()|filter:{type:'Category',active:true}|orderBy:'weight'"          
                    style="width: 103%;" > 
           <h4 class="article-group-title black no-border " >
             <span class="gray">{{category.name}} </span>

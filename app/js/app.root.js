@@ -84,6 +84,7 @@ function appCtrl($scope, $rootScope, $window,  $location, $routeParams, $timeout
     $scope.options.isAdmin=user.isAdmin();
     $scope.options.isShopOwner=(user.shops.length||user.isAdmin());
     $scope.options.isLogistic=(user.hasRole('logistic')||user.isAdmin());
+    user.isAuthenticated()&&$window.ga('set', '&uid', user.id);
   })
 
 
@@ -122,13 +123,15 @@ function appCtrl($scope, $rootScope, $window,  $location, $routeParams, $timeout
   // clear cache
   $rootScope.$on('$viewContentLoaded', function() {
     var path=$location.path();
-    if($window.ga && 
-       config.API_SERVER.indexOf('localhost')==-1 && 
-       config.API_SERVER.indexOf('evaletolab')==-1 &&
-       '/admin /login'.indexOf(path.substring(0,5))==-1){
-      if(!user||(user && !user.isAdmin()))
-      {$window.ga('send', 'pageview', { page: path });}        
-    }
+    user.$promise.finally(function(){
+      if($window.ga && 
+         config.API_SERVER.indexOf('karibou.ch')!==-1 &&
+         '/admin /login'.indexOf(path.substring(0,5))==-1){
+        if(!user.isAdmin()){
+          $window.ga('send', 'pageview', { page: path });
+        }        
+      }
+    });
 
     //
     // manage shop layout

@@ -217,6 +217,14 @@ form.nomargin{
   min-height:480px;
   -max-height:700px!important;
 }
+
+.modal-body .modal-ul{
+  padding-left: 10px;
+}
+.modal-body .modal-ul li{
+  margin-bottom:20px;
+}
+
 .modal-body.gradient{
   background-image: -moz-linear-gradient(center top , #eee 0px, #efefef 60%);
   background-image: -webkit-gradient(linear, 0 0, 0 15%, from(#eee), to(#efefef));
