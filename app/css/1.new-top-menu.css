@@ -185,6 +185,18 @@ footer .dropdown-header{
 }
 
 @media (max-width: 768px){
-  .dropdown-menu-large{
+  nav.subnavbar-top.navbar-fixed-top .navbar-nav > li > a{
+    font-size: .89em;
   }
+
+  .dropdown-large.open .dropdown-menu-large {
+    position: fixed!important;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, .175);
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 10px 10px 0 0;
+    overflow-y: auto;
+  }  
 }

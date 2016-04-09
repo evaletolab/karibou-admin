@@ -23,17 +23,18 @@
        infinite-scroll-distance='1'
        class="row wrapheight" >
 
-
-        <article  ng-repeat="category in category.findAll()|filter:{type:'Category',active:true}|orderBy:'weight'"          
-                   style="width: 103%;" > 
-          <h4 class="article-group-title black no-border " >
-            <span class="gray">{{category.name}} </span>
-            <a ng-href="/products/category/{{category.slug||''}}" class="btn btn btn-category green bold ">Voir Plus &nbsp;<i class="fa fa-angle-right"></i></a>                
+<!--        <article  ng-repeat="category in category.findAll()|filter:{type:'Category',active:true}|orderBy:'weight'" style="width: 103%;" > 
+ -->
+        <article  ng-repeat="cat in getAvailableCategories()" style="width: 103%;" > 
+          <h4 class="article-group-title black no-border " ng-if="cat.active">
+            <span class="gray">{{cat.name}} </span>
+            <a ng-href="/products/category/{{cat.slug||''}}" class="btn btn btn-category green bold ">Voir Plus &nbsp;<i class="fa fa-angle-right"></i></a>                
           </h4>
-          <div  ng-include="'/partials/product/product.html'"  
-                ng-repeat="product in getProductsByCat(category.name)|orderBy:['updated']"/>
+          <div  ng-static-include="'/partials/product/product.html'"  ng-if="cat.active"
+                ng-repeat="product in getProductsByCat(cat.name)|orderBy:['updated']"/>
         </article>
-        
+
+
     </div>
 </div>
 

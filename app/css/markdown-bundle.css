@@ -16,6 +16,7 @@
 }
 
 .markdown-bundle .container-fluid{
+  margin-top: 20px;
   margin-bottom: 40px;
   border-bottom: 1px solid #ddd;
 }
@@ -75,8 +76,10 @@
     margin-bottom: 20px;
 }
 
-.markdown-bundle ul{
+.markdown-bundle ul, .markdown-bundle ol{
   padding-left: 15px;
+  list-style: inherit;
+  margin-bottom: 20px;
 }
 
 

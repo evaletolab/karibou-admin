@@ -113,10 +113,10 @@ $strap.directive('bsModal', [
       });
 
       $q.when($modal(options)).then(function onSuccess(modal) {
-        iElement.attr('data-target', '#' + modal.attr('id')).attr('data-toggle', 'modal');
-        // iElement.on('click',function(){
-        //   $('#' + modal.attr('id')).modal();
-        // })
+        // iElement.attr('data-target', '#' + modal.attr('id')).attr('data-toggle', 'modal');
+        iElement.on('click',function(){
+          $('#' + modal.attr('id')).modal();
+        })
       });
 
     }

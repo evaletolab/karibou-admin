@@ -2,7 +2,7 @@
 
   <!-- MENU -->
   <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
-    <div class="navbar-header">
+    <div class="navbar-header pull-left">
         <button type="button" class="navbar-toggle hidden-xs" data-toggle="collapse" data-target=".navbar-collapse">
             <span class="sr-only">Toggle navigation</span>
             <span class="icon-bar"></span>
@@ -15,7 +15,7 @@
     </div>
     <!-- /.navbar-header -->
 
-    <ul class="nav navbar-top-links navbar-right hidden-xs">
+    <ul class="nav navbar-top-links navbar-right pull-right">
 
 
         <!-- /.dropdown edit shop -->
@@ -72,7 +72,7 @@
       <div ng-show="loading&&!orders.length" class="text-center gray">
         <i class="fa fa-refresh fa-2x fa-spin"></i>
       </div>
-      <div ng-if="orders.length " ng-include="'/partials/order/order-lists-logistic.html'"></div>
+      <div ng-if="orders.length " ng-include="'/partials/order/order-lists-logistic.html'" class="scroll-y"></div>
     </div>
   </div>
 </div>

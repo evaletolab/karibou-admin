@@ -10,9 +10,6 @@
   display: none!important;
 }
 
-[ng-view]{
-  background-color: rgba(196, 177, 156, 0.1);
-}
 
 .tagline{
   -background-image: url(/img/tagline.png);
@@ -244,6 +241,10 @@ img.img-cover {
   box-shadow: 0 10px 35px rgba(0, 0, 0, 0.25) ;
 }
 
+.scroll-y {
+    overflow-y: auto !important;
+    height: 100%;
+}
 
 .noscroll {
     overflow: hidden !important;

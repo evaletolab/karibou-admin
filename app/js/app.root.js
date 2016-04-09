@@ -84,7 +84,7 @@ function appCtrl($scope, $rootScope, $window,  $location, $routeParams, $timeout
     $scope.options.isAdmin=user.isAdmin();
     $scope.options.isShopOwner=(user.shops.length||user.isAdmin());
     $scope.options.isLogistic=(user.hasRole('logistic')||user.isAdmin());
-    user.isAuthenticated()&&$window.ga('set', '&uid', user.id);
+    user.isAuthenticated()&&$window.ga&&$window.ga('set', '&uid', user.id);
   })
 
 

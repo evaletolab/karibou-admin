@@ -96,6 +96,21 @@ Home.controller('HomeCtrl', [
       options=options||{};
 
       //
+      // sort api
+      function sort_by_cat_and_date(a,b) {
+        if(a.vendor.urlpath<b.vendor.urlpath) return -1;
+        if(a.vendor.urlpath>b.vendor.urlpath) return 1;
+        return a.updated.getTime() - b.updated.getTime();
+      }
+
+      function sort_by_weigth_and_date(a,b) {
+        if(a.categories.weight<b.categories.weight) return -1;
+        if(a.categories.weight>b.categories.weight) return 1;
+        return a.updated.getTime() - b.updated.getTime();
+      }
+
+
+      //
       // list products by category
       if ($routeParams.category){
         category.findNameBySlug($routeParams.category);
@@ -103,19 +118,19 @@ Home.controller('HomeCtrl', [
         filter={sort:'title',status:true,available:true};
         $scope.groupByShop={};
         product.findByCategory($routeParams.category,filter,function(products){
-          $scope.items=_.sortBy(products,function (p) {
-            return p.vendor.urlpath+(now-p.updated.getTime());
-          });
-          $scope.items.forEach(function(prod) {
-            if(!$scope.groupByShop[prod.vendor.urlpath]){
-              $scope.groupByShop[prod.vendor.urlpath]={
-                name:prod.vendor.name,
-                photo:prod.vendor.photo.owner,
-                count:0
-              };
-            }
-            $scope.groupByShop[prod.vendor.urlpath].count++;
-          });
+          $scope.items=products.sort(sort_by_cat_and_date);
+          // REMOVE THIS IS NO MORE USED in home.html
+          // $scope.items.forEach(function(prod) {
+          //   if(!$scope.groupByShop[prod.vendor.urlpath]){
+          //     $scope.groupByShop[prod.vendor.urlpath]={
+          //       name:prod.vendor.name,
+          //       urlpath:prod.vendor.urlpath,
+          //       photo:prod.vendor.photo.owner,
+          //       count:0
+          //     };
+          //   }
+          //   $scope.groupByShop[prod.vendor.urlpath].count++;
+          // });
 
           deferred.resolve(products);
         });
@@ -126,9 +141,7 @@ Home.controller('HomeCtrl', [
       // load my popular & love products
       if(options.love){
         product.findLove({popular:true,windowtime:2, available:true,maxcat:8},function(products){
-          $scope.items=_.sortBy(products,function (p) {
-            return p.categories.weight;
-          });
+          $scope.items=products.sort(sort_by_weigth_and_date);
           deferred.resolve(products);
         });
         return deferred.promise;        
@@ -153,9 +166,7 @@ Home.controller('HomeCtrl', [
       // /v1/products?available=true&group=categories.name&home=true&sort=categories.weight&status=true
       filter={popular:true, status:true, home:true, discount:true, available:true,maxcat:4};
       product.query(filter,function(products){
-        $scope.items=_.sortBy(products,function (p) {
-          return p.categories.weight;
-        });
+        $scope.items=products.sort(sort_by_weigth_and_date);
         deferred.resolve(products);
       });
       return deferred.promise;
@@ -178,6 +189,26 @@ Home.controller('HomeCtrl', [
       });
 
       return arr;
+    }
+
+    $scope.getAvailableCategories=function() {
+      var lst=[];
+      $scope.infinite.forEach(function(p) {
+        if(!_.find(lst,function (c) {return(c&&c.name===p.categories.name);}))
+          lst.push(category.find({name:p.categories.name}));
+      });
+
+      return lst;
+    }
+
+    $scope.getAvailableShop=function() {
+      var lst=[];
+      $scope.groupByShop
+      $scope.infinite.forEach(function(p) {
+        if(!_.find(lst,function (vendor) {return(vendor.urlpath===p.vendor.urlpath);}))
+          lst.push(p.vendor);
+      });
+      return lst;
     }
 
     $scope.loadNextPage=function(opts){

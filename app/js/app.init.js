@@ -26,7 +26,7 @@ angular.module('app', [
   'app.templates',
   'app.config',
   'app.storage',
-  'app.raven',
+  'app.stacktrace',
   'app.api',
   'app.root',
   'app.user',
@@ -357,7 +357,7 @@ function appRun($templateCache, $route, $http, $timeout, config, flash, $transla
       //
       // loading Stripe
       setTimeout(function() {
-        console.log('window.Stripe.setPublishableKey',pk,window.Stripe)
+        // console.log('---',config.shop.shippingweek);
         window.Stripe.setPublishableKey(pk);          
 
         // release the loading effect
@@ -451,6 +451,50 @@ angular.element(document).ready(function () {
     //return /8|3|5|10/.test(m)?30:m==1?(!(y%4)&&y%100)||!(y%400)?29:28:31;
     return new Date(this.getFullYear(), (month||this.getMonth())+1, 0).getDate();
   };  
+
+
+  //
+  // give an array of days (in the form [0..6]) and return the ordered dates corresponding (starting from today)
+  // Sun(0), Mon, tuesday, wednesday, thursday, Freeday, Saterday
+  Date.dayToDates=function(days, offset){
+    var now=offset||new Date(), today=now.getDay(), h24=86400000, week=86400000*7, result=[];    
+    days=days||[];
+
+    //
+    // starting from today
+    days.forEach(function (day) {
+      if((day-today)>=0) {
+        result.push(new Date(now.getTime()+(day-today)*h24));
+      }
+    });
+
+    // this is splitted in 2 loops to make the list ordered!
+    // going to next week  ()
+    days.forEach(function (day) {
+      if((day-today)<0) {
+        result.push(new Date(now.getTime()+(day-today)*h24+week));
+      }
+    });
+    return result;
+  };
+
+  Date.prototype.toYYYYMMDD=function() {
+    return ''+this.getFullYear()+this.getMonth()+this.getDate();
+  }
+
+
+  Date.prototype.plusDays=function(nb) {
+    var plus=new Date(this);
+    plus.setDate(this.getDate()+nb);
+    return plus;
+  }
+
+  //
+  // simple test : this in [d1,d2[
+  Date.prototype.in=function(d1,d2) {
+    return (this>=d1&&this<d2)
+  }
+
 
   //console.log(window.Showdown.extensions)
   angular.bootstrap(document, ['app']);

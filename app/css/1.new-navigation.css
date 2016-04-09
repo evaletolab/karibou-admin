@@ -15,7 +15,12 @@ html.app-shop nav.subnavbar-top{
   display: none;
 }
 
-html.app-admin nav.navbar-fixed-top .btn-cart{
+html.app-admin nav.navbar-fixed-top .btn-cart, html.app-admin footer{
+  display: none!important;
+}
+
+
+html.app-admin nav.navbar-fixed-top.subnavbar-top{
   display: none!important;
 }
 
@@ -53,6 +58,7 @@ nav.subnavbar-top.navbar-fixed-top{
     background-color: #00a79d!important;
     height: 35px;
     min-height: 25px;    
+    z-index: 1031;
 }
 
 nav.navbar-fixed-top .navbar-default .navbar-nav > li > a{
@@ -277,7 +283,7 @@ nav.navbar-fixed-top .navbar-right {
 
 
 .home-header{
-    margin-bottom: 150px;  
+    margin-bottom: 100px;  
 }
 
 .user .home-header, .products-header{
@@ -416,7 +422,7 @@ body >div> .container {
   float: left;
   width: 100%;
   clear: both;
-  background-color: rgba(196,177,156,.1);
+  background-color: #fff;
   outline: 0;
 }
 .app-admin [ng-view]{
@@ -452,9 +458,18 @@ code {
 }
 
 @media (min-width: 768px){
+
+  [ng-view]{
+    background-color: rgba(196, 177, 156, 0.1);
+  }
+
   .container-fluid{
     padding-left: 15px;
     padding-right: 15px;
+  }
+
+  .home-header{
+      margin-bottom: 150px;  
   }
 
   .home-header>div, .home-about>div, .home-footer{

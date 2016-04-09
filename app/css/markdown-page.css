@@ -82,7 +82,7 @@
     margin-bottom: 25px;
 }
 
-.markdown-page ul{
+.markdown-page ul, .markdown-page ol{
   padding-left: 15px;
   list-style: inherit;
   margin-bottom: 20px;

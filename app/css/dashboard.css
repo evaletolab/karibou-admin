@@ -110,13 +110,7 @@
   right: 0px;  
   margin-top: 60px;
 }
-.dashboard .container-scroll{
-  overflow-y: auto;
-  height: 100%;
-}
-.dashboard .container-scroll:last-child{
-  top: 0px;
-}
+
 
 
 

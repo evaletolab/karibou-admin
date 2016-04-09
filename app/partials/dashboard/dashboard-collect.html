@@ -83,13 +83,13 @@
 
 
         <!-- ORDERS BY SHOP -->
-        <div ng-if="shops" class="col-md-6 col-xs-12 nopadding container-scroll">
+        <div ng-if="shops" class="col-md-6 col-xs-12 nopadding  scroll-y">
           <div  ng-static-include="'/partials/order/order-collect-shop.html'"></div>
         </div>
 
         <div ng-if="selected.shop"
              ng-static-include="'/partials/order/order-lists-byshop.html'" 
-             class="order-list-items col-md-6 col-xs-12 container-scroll">          
+             class="order-list-items col-md-6 col-xs-12  scroll-y">          
         </div>
 
       </div>

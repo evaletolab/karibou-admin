@@ -108,19 +108,19 @@
       </div>
 
 
-      <div ng-if="orders.length" class="col-md-6 col-xs-12 nopadding ">
+      <div ng-if="orders.length" class="col-md-6 col-xs-12 nopadding scroll-y">
         <div ng-static-include="'/partials/order/order-lists.html'"></div>
       </div>
 
       <!-- ORDER ITEMS -->
       <div ng-static-include="'/partials/order/order-lists-items.html'" 
            ng-if="selected.order&&!filters.print"
-           class="order-list-items col-md-6 col-xs-12 ">          
+           class="order-list-items col-md-6 col-xs-12 scroll-y">          
       </div>
 
       <div ng-static-include="'/partials/order/order-lists-items-detailed.html'"
            ng-if="selected.order&&filters.print" 
-           class="order-list-items col-md-6 col-xs-12 ">
+           class="order-list-items col-md-6 col-xs-12 scroll-y">
       </div>
 
     </div>

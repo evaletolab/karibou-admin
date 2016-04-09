@@ -11,7 +11,9 @@
     </div>
     <div class="show-user">
       <h3 class="hello text-capitalize">Bonjour {{user.name.givenName}}</h3>
-      <p>Bienvenue au marché!</p>
+      <p>Bienvenue au marché! Vos produits les plus achetés sont <a href="/account/love">ici</a>
+        <i class="fa f-smile-o green-2"></i>
+      </p>
     </div>
     
   </div>
@@ -44,26 +46,15 @@
          infinite-scroll-distance='1'
          class="" >
  
-<!--         <article  ng-repeat="(group, prods) in infinite|groupBy:'categories.name':'categories.weight'"  
-                  ng-if="getCategoryByName(prods.$key).home"
-                   style="width: 103%;" > 
-          <h4 class="article-group-title black " >
-            <span class="gray">{{prods.$key}} </span>
-            <a ng-href="/products/category/{{getCategoryByName(prods.$key).slug||''}}" class="btn btn btn-category green bold ">Voir Plus &nbsp;<i class="fa fa-angle-right"></i></a>                
-          </h4>
-          <div  ng-include="'/partials/product/product.html'"  
-                ng-repeat="product in prods|orderBy:['updated']"/>
-        </article>
- -->
 
-        <article  ng-repeat="category in category.findAll()|filter:filterForHome|orderBy:'weight'"                    
+        <article  ng-repeat="category in getAvailableCategories()|filter:filterForHome"                    
                    style="width: 103%;" > 
           <h4 class="article-group-title black no-border" >
             <span class="gray">{{category.name}} </span>
             <a ng-href="/products/category/{{category.slug||''}}" 
                class="btn btn btn-products green bold ">Voir Plus &nbsp;<i class="fa fa-angle-right"></i></a>                
           </h4>
-          <div  ng-static-include="'/partials/product/product.html'"  
+          <div  ng-static-include="'/partials/product/product.html'" ng-if="category.active" 
                 ng-repeat="product in getProductsByCat(category.name)|orderBy:['updated']"/>
         </article>
 

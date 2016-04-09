@@ -81,7 +81,7 @@
         <select class="form-control  " 
                 ng-change="updateUserDocument(user.documents.selected,product.sku)" 
                 ng-model="user.documents.selected" 
-                ng-options="doc.title for doc in user.documents track by doc.slug">
+                ng-options="doc.title.fr for doc in user.documents track by doc.slug">
                 <option value=""  selected>-- Ajouter à votre document</option>
         </select>           
       </div>      

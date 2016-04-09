@@ -79,6 +79,12 @@ function appConfig($q, $http, $sce, $translate, API_SERVER) {
   // get server side config
   defaultConfig.shop=deferred.promise;
   $http.get(defaultConfig.API_SERVER+'/v1/config?lang='+$translate.use()).then(function(response){
+      response.data.shippingweek=
+      response.data.shippingweek&&
+      response.data.shippingweek.map(function(date) {
+        return new Date(date);
+      });
+
       angular.extend(defaultConfig.shop,response.data);
       deferred.resolve(defaultConfig);
   });

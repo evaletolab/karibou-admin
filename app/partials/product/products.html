@@ -19,16 +19,16 @@
       </div>
  -->
       <div class="col-xs-12 -col-sm-9 nopadding-xs">
-        <article  ng-repeat="(slug, _shop) in groupByShop" >
+        <article  ng-repeat="vendor in getAvailableShop()" >
           <div class="home-shop  " >
-            <img ng-src="{{_shop.photo}}-/resize/100x/"  alt="160x160"  >
-            <a ng-href="/shop/{{slug}}" class="black">{{_shop.name}}</a>                
+            <img ng-src="{{vendor.photo.owner}}-/resize/100x/"  alt="160x160"  >
+            <a ng-href="/shop/{{vendor.urlpath}}" class="black">{{vendor.name}}</a>                
           </div>
 
           <div class="" style="width:103%">
 
             <div  ng-static-include="'/partials/product/product.html'"  
-                  ng-repeat="product in getProductsByShop(slug)|orderBy:'-updated'" />           
+                  ng-repeat="product in getProductsByShop(vendor.urlpath)|orderBy:'updated'" />           
           </div>
         </article>
       </div>

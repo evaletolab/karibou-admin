@@ -140,6 +140,8 @@ function cartFactory(config, $timeout,$rootScope,$window, $storage, api,user) {
       api.info($rootScope,product.pricing.part+", "+product.title+" a été ajouté dans le panier",2000);
     }
 
+    // throw new Error('TESTING StackTrace here !');
+
     for(var i=0;i<this.items.length;i++){
       if(this.equalItem(i,product,variant)){
       // if(this.items[i].sku===product.sku && this.items[i].variant){

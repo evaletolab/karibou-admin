@@ -113,7 +113,7 @@ function OrderCommonCtrl($scope, $routeParams, api, order, user, product,shop, M
     for(var i in $scope.orders){
       if($scope.orders[i].oid==oid){
         $scope.modal=$scope.orders[i];
-        return;
+        return true;
       }
     }
   };

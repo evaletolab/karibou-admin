@@ -1,8 +1,7 @@
 <!-- BY ORDERS -->
 <div class="list-group">
   <li class="list-group-item list-group-item-success">
-    <strong>Psst, nouvelle version!</strong> <br/>
-    Contactez-moi si nécessaire <a href="tel:0041763797868">076.379.78.68</a> ;)    
+    <strong>Psst, en cas de soucis</strong>  <a href="tel:0041763797868">076.379.78.68</a>
   </li>
   <li  ng-repeat="order in orders|orderBy:['rank']|filterBy:['shipping.when']:filters.f|filterOrdersByShop:filters.s" 
        class="list-group-item " ng-class="{'list-group-item-active':(selected.order.oid===order.oid)}">
