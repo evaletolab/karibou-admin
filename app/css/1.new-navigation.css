@@ -61,6 +61,10 @@ nav.subnavbar-top.navbar-fixed-top{
     z-index: 1030;
 }
 
+nav.navbar-fixed-top .navbar-nav > .open > a{
+  background-color: rgba(176, 214, 195, 0.32)!important;
+}
+
 nav.navbar-fixed-top .navbar-default .navbar-nav > li > a{
   color: #452d16!important;
 }
@@ -221,6 +225,15 @@ nav.navbar-fixed-top .navbar-right {
   position: absolute;
   right: -0px;
   top: -0px;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;  
+}
+
+.btn-shipping-info{
+  background-color: #FF5600;
+  color: #fff;
+  line-height: 26px;
   width: 26px;
   height: 26px;
   border-radius: 50%;  

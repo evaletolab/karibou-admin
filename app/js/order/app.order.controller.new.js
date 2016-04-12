@@ -86,7 +86,6 @@ function OrderNewCtrl($controller, $scope, $location, $rootScope, $timeout, $rou
   });
 
   config.shop.then(function(){
-    $scope.shippingDays=order.findOneWeekOfShippingDay();
     if($scope.shipping)
       return;
     $scope.shipping=order.findCurrentShippingDay();
@@ -285,15 +284,15 @@ function OrderNewCtrl($controller, $scope, $location, $rootScope, $timeout, $rou
     $rootScope.WaitText="Waiting...";
 
     $log.debug("order.config",cart.config);
-    $log.debug("order.dates",$scope.shippingDays);
+    $log.debug("order.dates",config.shippingweek);
     $log.debug("order.address",cart.config.address);
     $log.debug("order.fees",cart.taxName(),cart.tax());
 
     //
     // prepare shipping
     var shipping=cart.config.address;
-    shipping.when=new Date($scope.shippingDays[cart.config.shipping||0].when);
-    shipping.hours=shipping.when.getHours();
+    shipping.when=(config.shop.shippingweek[cart.config.shipping]);
+    shipping.hours=16;//config.shop.order.shippingtimes;
 
 
     //

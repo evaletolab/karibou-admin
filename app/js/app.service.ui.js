@@ -123,6 +123,21 @@ UI.filter('dateMomentShort', function () {
    };
 });
   
+UI.filter('dateMomentLong', function () {
+   return function(date, prefix) {
+        if (!date) {return "";}
+        if (!prefix) {prefix="";}
+        return  prefix+moment(date).format('dddd DD MMMM', 'fr');
+   };
+});
+
+UI.filter('dateMomentHuman', function () {
+   return function(date, prefix) {
+        if (!date) {return "";}
+        if (!prefix) {prefix="";}
+        return  prefix+moment(date).fromNow();
+   };
+});
 
 //
 //

@@ -420,6 +420,7 @@ function userFactory(config, $location, $rootScope, $route, $resource, $log, $q,
     if(cb===undefined){cb=uid;uid=this.id;}
     if(uid===undefined) uid=this.id;
     backend.$user.save({id:uid,action:'payment'},payment, function(u) {
+      $rootScope.$broadcast("user.update.payment");
       self.payments=u.payments;
       if(cb)cb(self);
     });

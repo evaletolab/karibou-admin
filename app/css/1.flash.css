@@ -34,11 +34,14 @@
     padding-right: 35px;
 }
 .alert-dismissable .close, .alert-dismissible .close {
-    position: relative;
-    top: -2px;
-    right: -21px;
+    position: absolute;
+    top: 2px;
+    right: 4px;
     color: inherit;
+    font-size: 40px;
+    font-weight: 100;
 }
+
 .alert-success {
     color: #3c763d;
     background-color: #dff0d8;
@@ -106,6 +109,7 @@ button.close {
     cursor: pointer;
     background: transparent;
     border: 0;
+    font-weight: 100;    
 }
 .sr-only {
     position: absolute;

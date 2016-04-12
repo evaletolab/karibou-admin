@@ -61,6 +61,11 @@ function cartFactory(config, $timeout,$rootScope,$window, $storage, api,user) {
     this.config={shipping:0,address:undefined, payment:undefined};
   };
 
+
+  Cart.prototype.setShippingDay=function(dateIndex) {
+    this.config.shipping=dateIndex;
+  }
+
   Cart.prototype.roundCHF=function(value) {
     return parseFloat((Math.round(value*20)/20).toFixed(2));
   };
@@ -174,6 +179,7 @@ function cartFactory(config, $timeout,$rootScope,$window, $storage, api,user) {
       weight:product.categories.weight,
       vendor:product.vendor._id,
       vendorName:product.vendor.name,
+      vendorWeekDays:product.vendor.weekdays,
       vendorImage:product.vendor.photo.owner,
       discount:product.isDiscount(),
       part:product.pricing.part,
