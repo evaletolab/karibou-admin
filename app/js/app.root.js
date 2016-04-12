@@ -25,7 +25,7 @@ function appCtrl($scope, $rootScope, $window,  $location, $routeParams, $timeout
   $scope.daysweek="dim._lun._mar._mer._jeu._ven._sam.".split('_');
   $scope.daysweekLg="dimanche_lundi_mardi_mercredi_jeudi_vendredi_samedi".split('_');
 
-  $scope.options={
+  var options=$scope.options={
     isAdmin:false,
     isShopOwner:false,
     isLogistic:false,
@@ -43,12 +43,12 @@ function appCtrl($scope, $rootScope, $window,  $location, $routeParams, $timeout
 
 
   $scope.locale=function () {
-    return $scope.options.locale;
+    return options.locale;
   };
 
   $scope.changeLanguage = function (langKey) {
     $translate.use(langKey);
-    $scope.options.locale=langKey;
+    options.locale=langKey;
     // update server
     $http.get(config.API_SERVER+'/v1/config?lang='+langKey);    
   };  
@@ -81,9 +81,9 @@ function appCtrl($scope, $rootScope, $window,  $location, $routeParams, $timeout
   });
 
   $rootScope.$on('user.init',function() {
-    $scope.options.isAdmin=user.isAdmin();
-    $scope.options.isShopOwner=(user.shops.length||user.isAdmin());
-    $scope.options.isLogistic=(user.hasRole('logistic')||user.isAdmin());
+    options.isAdmin=user.isAdmin();
+    options.isShopOwner=(user.shops.length||user.isAdmin());
+    options.isLogistic=(user.hasRole('logistic')||user.isAdmin());
     user.isAuthenticated()&&$window.ga&&$window.ga('set', '&uid', user.id);
   })
 
@@ -152,8 +152,8 @@ function appCtrl($scope, $rootScope, $window,  $location, $routeParams, $timeout
   //
   // get the head title up2date 
   $rootScope.$on('$routeChangeStart', function (event, current, previous) {
-    $scope.options.cart=false;
-    $scope.options.sidebar=false;
+    options.cart=false;
+    options.sidebar=false;
     var longpath=$location.path();
     user.$promise.finally(function(){
       if (!user.isAuthenticated()){
@@ -169,9 +169,9 @@ function appCtrl($scope, $rootScope, $window,  $location, $routeParams, $timeout
 
     });
 
-    $scope.options.currentCategory='';
+    options.currentCategory='';
     if(current.params.category){
-      $scope.options.currentCategory=category.findNameBySlug(current.params.category);
+      options.currentCategory=category.findNameBySlug(current.params.category);
     }
 
   });
@@ -217,7 +217,7 @@ function appCtrl($scope, $rootScope, $window,  $location, $routeParams, $timeout
   $scope.onWelcome=function () {
     // TODO use of localstorage to replace cookie5
     // avoid lander page on email validation
-    // $scope.options.welcome=$cookies.welcome=true;
+    // options.welcome=$cookies.welcome=true;
     // var localStorage=$window['localStorage'];
     // $location.path('/')
     $scope.locationReferrer('/');
@@ -357,7 +357,7 @@ function appCtrl($scope, $rootScope, $window,  $location, $routeParams, $timeout
 
 
   $scope.toggleCart=function(sel){
-    $scope.options.cart=!$scope.options.cart;
+    options.cart=!options.cart;
   };
   
 
