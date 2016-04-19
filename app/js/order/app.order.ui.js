@@ -31,23 +31,79 @@ angular.module('app.order.ui', [
 
 
 //
+// display vendor acording the shipping date
+// https://github.com/angular/angular.js/blob/master/src/ng/directive/ngShowHide.js
+.directive('ifVendorIsAvailable', ['$parse','$timeout','cart', 
+function($parse, $timeout,cart) {
+
+  return {
+    restrict: 'A',
+    replace: true, 
+    scope:{ifVendorIsAvailable:'='},
+    priority:1,
+    link: function(scope, element, attrs) {
+      var self=this;
+
+      scope.$watch(function() {
+        return cart.getShippingDay();
+      }, function(nextShippingDay) {
+        //
+        // no livraison
+        if(!nextShippingDay||!scope.ifVendorIsAvailable){
+          if(attrs.reverse) return element.hide();
+          return element.show();
+        }
+
+
+        var display=(scope.ifVendorIsAvailable.available.weekdays.indexOf(nextShippingDay.getDay())!==-1);
+
+        //
+        // with shipping
+        if(attrs.reverse){
+          display=!display;
+        }
+
+        if(display){element.show();}else{element.hide();};          
+
+      });
+
+    }
+  };
+
+}])
+
+//
 // clockdown for the next shipping day
-.directive('clockdown', ['$parse','$timeout','order','config', function($parse, $timeout,order,config) {
+.directive('clockdown', ['$parse','$timeout','order','config','cart', 
+  function($parse, $timeout,order,config,cart) {
 
   return function(scope, element, attr) {
     //
     // config is an asynchrone load
     config.shop.then(function(){
-      if(config.shop.maintenance.active){
-        return  element.html(config.shop.maintenance.reason);
-      }
+      var append = attr.clockdown||'';
+      var opts=$parse(attr.clockdownOpts||'')(scope)||{};
+      var postfix='';
 
-      var nextShippingDay=order.findNextShippingDay(),
-          delta=nextShippingDay.getTime()-Date.now(),
-          timer,
-          append = attr.clockdown||'';
+      scope.$watch(function() {
+        return cart.getShippingDay();
+      }, function(nextShippingDay) {
+        //
+        // no livraison
+        if(!nextShippingDay)return element.html('livraisons interrompus');
 
-      element.html(append+' '+moment(nextShippingDay).format('dddd D MMMM', 'fr'));
+        var date=moment(nextShippingDay);
+
+        //
+        // with shipping
+        if(opts.long){
+          postfix=' le '+date.format('dddd D', 'fr');
+        }
+
+        element.html(append+' '+date.fromNow()+postfix);
+
+      });
+
     });
   };
 }])

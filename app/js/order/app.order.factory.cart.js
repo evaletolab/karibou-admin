@@ -58,13 +58,37 @@ function cartFactory(config, $timeout,$rootScope,$window, $storage, api,user) {
 
   var Cart = function(data) {
     this.items = [];
-    this.config={shipping:0,address:undefined, payment:undefined};
+    this.config={hours:16,shipping:0,address:undefined, payment:undefined};
   };
 
+  Cart.prototype.isWeekdaysAvailable=function (weekdays) {
+    var nextShippingDay=config.shop&&
+                        config.shop.shippingweek&&
+                        config.shop.shippingweek[this.config.shipping];
 
-  Cart.prototype.setShippingDay=function(dateIndex) {
-    this.config.shipping=dateIndex;
-  }
+    return (!nextShippingDay||!weekdays||weekdays.indexOf(nextShippingDay.getDay())!==-1);
+  };
+
+  Cart.prototype.getShippingDay=function() {
+    return config.shop&&
+           config.shop.shippingweek&&config.shop.shippingweek[this.config.shipping];
+  };
+
+  Cart.prototype.setShippingDay=function(dateIndex,hours) {
+    var self=this;
+    self.config.shipping=dateIndex;
+    self.config.hours=hours||16; //FIXME shipping hours should not be constant
+    $rootScope.$broadcast("shipping.update",config.shop.shippingweek[this.config.shipping])
+  };
+
+  //
+  // return a label for a shipping delivery time
+  Cart.prototype.shippingTimeLabel=function (hours) {
+    hours=hours||this.config.hours;
+    return config.shop.order&&
+           config.shop.order.shippingtimes&&
+           config.shop.order.shippingtimes[hours];
+  };
 
   Cart.prototype.roundCHF=function(value) {
     return parseFloat((Math.round(value*20)/20).toFixed(2));
@@ -179,7 +203,7 @@ function cartFactory(config, $timeout,$rootScope,$window, $storage, api,user) {
       weight:product.categories.weight,
       vendor:product.vendor._id,
       vendorName:product.vendor.name,
-      vendorWeekDays:product.vendor.weekdays,
+      vendorWeekDays:product.vendor.available.weekdays,
       vendorImage:product.vendor.photo.owner,
       discount:product.isDiscount(),
       part:product.pricing.part,
@@ -265,11 +289,6 @@ function cartFactory(config, $timeout,$rootScope,$window, $storage, api,user) {
       return true;
     }
 
-    //
-    // TODO TESTING MERCHANT ACCOUNT
-    if (user.merchant===true){
-      return true;
-    }
 
     return false;
   };

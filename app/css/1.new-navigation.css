@@ -77,7 +77,7 @@ nav.subnavbar-top.navbar-fixed-top .navbar-nav > li > a {
 }
 
 nav.subnavbar-top.navbar-fixed-top .navbar-nav > li > a >span{
-  padding: 0 4px;
+  padding: 0 3px;
 }
 
 /** BRAND **/
@@ -399,6 +399,18 @@ nav.navbar-fixed-top .navbar-right {
   width: 60px;
 }
 
+.home-shop-unavailable{
+  padding: 0px 0px 20px 70px;
+  color: #aaa;
+  width: 100%;
+  position: absolute;
+  left: 0;
+  right: 0;
+  font-weight: 100;
+  font-size: 80%;
+  border-bottom: 1px solid #ccc;
+}
+
 article{
   margin-bottom:20px;
   outline: 0!important;
@@ -418,6 +430,13 @@ article{
 
 .article-group-title.no-border, .markdown-recipe h3.no-border{
   border-bottom: none;
+}
+
+.flow-validation-cart{
+  background-color: white;
+  padding: 0px;
+  border-radius: 5px;
+  margin-bottom: 20px;
 }
 
 /* Custom page CSS
@@ -532,6 +551,16 @@ code {
 
   .btn-lang{
     margin-top: 7px;
+  }
+
+  .flow-validation-cart{
+    background-color: white;
+    padding: 5px;
+  }  
+
+  .home-shop-unavailable{
+    padding: 0px 0px 20px 100px;
+    font-size: 85%;
   }
 
 }

@@ -44,7 +44,7 @@ Home.controller('HomeCtrl', [
   'Map',
 
   function ($scope, $route, $location, $rootScope, $routeParams, $q, config, api, category, user, shop, product, Map) {
-    var filter={sort:'created'}, promise,scrollBusy=false;
+    var filter={sort:'created'}, promise,scrollBusy=false, nextShipping;
     $scope.user = user;
     $scope.map=new Map();
     $scope.items=[];
@@ -53,6 +53,14 @@ Home.controller('HomeCtrl', [
     $scope.groupByShop={};
     $scope.filterForHome={type:'Category',home:true,active:true};
 
+
+    $rootScope.$on("shipping.update",function(event,date) {
+      nextShipping=date;
+      $scope.infinite=[]
+      $scope.items=[];promise=false;
+      $scope.loadNextPage();
+    });
+
     $rootScope.$on('user.init',function() {
       if(user.isAuthenticated()){
         delete $scope.filterForHome.home;
@@ -60,6 +68,11 @@ Home.controller('HomeCtrl', [
         $scope.filterForHome.home=true;
       }
     });
+
+    config.shop.then(function(){
+      nextShipping=config.shop.shippingweek[0];
+    });
+
 
     // $scope.shops.$promise.then(function () {
     //   // body...
@@ -164,7 +177,15 @@ Home.controller('HomeCtrl', [
       //
       // get products in front page
       // /v1/products?available=true&group=categories.name&home=true&sort=categories.weight&status=true
-      filter={popular:true, status:true, home:true, discount:true, available:true,maxcat:4};
+      filter={
+        popular:true, 
+        status:true, 
+        home:true, 
+        discount:true, 
+        available:true,
+        maxcat:4,
+        when:nextShipping
+      };
       product.query(filter,function(products){
         $scope.items=products.sort(sort_by_weigth_and_date);
         deferred.resolve(products);

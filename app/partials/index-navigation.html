@@ -8,8 +8,7 @@
 			<li class="dropdown dropdown-large">
 					<a href="#" class="dropdown-toggle btn-dropdown-category" data-toggle="dropdown">
 						<i class="fa fa-tasks green-1"></i>
-						<span ng-hide="options.currentCategory" class="meun-label" >Produits</span> 
-						<span ng-show="options.currentCategory" class="menu-filter">{{category.getCurrent().name||'Produits'}}</span> 
+						<span  class="menu-filter" current-category="Produits"></span> 
 						<i class="fa fa-chevron-down green-1"></i>
 					</a>
 					
@@ -137,7 +136,7 @@
 			<li class="dropdown dropdown-large">
         <a href="#" class="dropdown-toggle" data-toggle="dropdown" >
       		<i class="fa fa-calendar green-1"></i>
-      		<span class="hidden-xs" >Le marché du {{config.shop.shippingweek[0]|dateMomentShort}}</span>
+      		<span class="hidden-xs" clockdown="Prochaine livraison "></span>
       		&nbsp;<i class="fa fa-chevron-down green-1"></i>
       	</a>
         <ul class="dropdown-menu dropdown-menu-large">
@@ -146,9 +145,9 @@
 			      <button type="button" class="close pull-right" data-dismiss="dropdown" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 			    </li>    	
 					<li class="dropdown-header">Choisissez votre jour de livraison</li>
-					<li class="dropdown-info"><i class="fa fa-warning grayx"></i> Certains produits ne sont pas disponibles tous les jours</li>
+					<li class="dropdown-info"><i class="fa fa-warning grayx"></i> Certaines boutiques ne livrent pas tous les jours</li>
         	<li ng-repeat="day in config.shop.shippingweek" ng-click="cart.setShippingDay($index)">
-        		<a href="" class=""> <i class="fa fa-circle-o green-2"></i> Le marché du {{day|dateMomentLong}} <span class="grayx pull-right">({{day|dateMomentHuman}})</span></a>
+        		<a href="" class=""> <i class="fa  green-2" ng-class="$index===cart.config.shipping ? 'fa-circle':'fa-circle-o'"></i> Le marché du {{day|dateMomentLong}} <span class="grayx pull-right">({{day|dateMomentHuman}})</span></a>
         	</li>
         </ul>
 

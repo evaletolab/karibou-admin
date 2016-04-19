@@ -22,10 +22,13 @@
         <article  ng-repeat="vendor in getAvailableShop()" >
           <div class="home-shop  " >
             <img ng-src="{{vendor.photo.owner}}-/resize/100x/"  alt="160x160"  >
-            <a ng-href="/shop/{{vendor.urlpath}}" class="black">{{vendor.name}}</a>                
-          </div>
+            <a ng-href="/shop/{{vendor.urlpath}}" class="black">{{vendor.name}}</a>
+            <div class="home-shop-unavailable" if-vendor-is-available="vendor" reverse="true">
+              <i class="fa fa-clock-o orange"></i>  La boutique ne livre pas le {{cart.getShippingDay()|dateMomentDay}}
+            </div>
 
-          <div class="" style="width:103%">
+          </div>
+          <div  style="width:103%" if-vendor-is-available="vendor">
 
             <div  ng-static-include="'/partials/product/product.html'"  
                   ng-repeat="product in getProductsByShop(vendor.urlpath)|orderBy:'updated'" />           

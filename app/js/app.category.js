@@ -6,7 +6,8 @@
 angular.module('app.category', ['app.config', 'app.api','$strap'])
   .config(categoryConfig)
   .controller('CategoryCtrl',CategoryCtrl)
-  .factory('category', categoryService);
+  .factory('category', categoryService)
+  .directive('currentCategory',currentCategory);
 
 //
 // define all routes for user api
@@ -225,6 +226,31 @@ function categoryService(config, $location, $rootScope, $routeParams,$resource, 
  
   var _category=api.wrapDomain(Category,'slug', defaultCategory);  
   return _category;
+}
+
+
+
+//
+// display vendor acording the shipping date
+// https://github.com/angular/angular.js/blob/master/src/ng/directive/ngShowHide.js
+currentCategory.$inject=['$parse','$timeout','category'];
+function currentCategory($parse, $timeout,category) {
+  return {
+    restrict: 'A',
+    replace: true, 
+    priority:1,
+    link: function(scope, element, attrs) {
+      var self=this, current, defaultCatName=attrs.currentCategory||'';
+
+      scope.$watch(function() {
+        current=category.getCurrent();
+        return current&&current.name||defaultCatName;
+      }, function(catName) {
+        element.html(catName)
+      });
+
+    }
+  };
 }
 
 })(window.angular);

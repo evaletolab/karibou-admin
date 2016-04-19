@@ -147,6 +147,7 @@ function appCtrl($scope, $rootScope, $window,  $location, $routeParams, $timeout
     else
       angular.element('html').removeClass('app-admin');
 
+    angular.element('html').removeClass('app-cart');
   });
 
   //
@@ -358,6 +359,7 @@ function appCtrl($scope, $rootScope, $window,  $location, $routeParams, $timeout
 
   $scope.toggleCart=function(sel){
     options.cart=!options.cart;
+    angular.element('html').toggleClass('app-cart');
   };
   
 

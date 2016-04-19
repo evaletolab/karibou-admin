@@ -139,6 +139,15 @@ UI.filter('dateMomentHuman', function () {
    };
 });
 
+UI.filter('dateMomentDay', function () {
+   return function(date) {
+        if (!date) {return "";}
+        var weekdays = "dimanche_lundi_mardi_mercredi_jeudi_vendredi_samedi".split("_");
+        return  weekdays[date.getDay()];
+   };
+});
+
+
 //
 //
 // input date format

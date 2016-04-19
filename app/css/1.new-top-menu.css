@@ -206,6 +206,10 @@ footer .dropdown-header{
 @media (max-width: 768px){
   nav.subnavbar-top.navbar-fixed-top .navbar-nav > li > a{
     font-size: .89em;
+    border-right: 1px solid #eee;
+  }
+  nav.subnavbar-top.navbar-fixed-top .navbar-nav > li > a i.fa-chevron-down{
+    display: none;
   }
 
   .dropdown-large.open .dropdown-menu-large {

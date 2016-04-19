@@ -32,6 +32,7 @@ function ($rootScope, $http, $resource, $timeout, $q, $log, $location, $routePar
   function info($scope, msg, ms, cb){
     console.log('info',msg)
     Flash.create('success', msg, 'custom-class');
+    cb&&$timeout(cb,ms||0);
   }
   
 

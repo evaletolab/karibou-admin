@@ -14,6 +14,7 @@
     "angular": "1.3.x",
     "angular-animate": "1.3.x",
     "angular-cookies": "1.3.x",
+    "angular-flash-alert": "1.x",
     "angular-loader": "1.3.x",
     "angular-resource": "1.3.x",
     "angular-sanitize": "1.3.x",
@@ -27,7 +28,6 @@
     "raven-js": "1.x",
     "underscore": "1.x",
     "uploadcare": "2.x",
-    "angular-flash-alert": "1.x",
     "remarkable": "~1.6.2"
   }
 }

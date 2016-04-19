@@ -32,6 +32,11 @@ function FeedbackCtrl(config, $scope, $rootScope,$timeout,  $location, user,api,
     return (!fb.comment||!fb.email);
   };
 
+  $scope.getPhone=function() {
+    if(fb.product&&fb.product.vendor&&fb.product.vendor.address) {return fb.product.vendor.address.phone;}
+    if(fb.shop&&fb.shop.address){return fb.shop.address.phone;}
+  }
+
   $scope.getTitle=function () {
     if(fb.product&&fb.product.vendor) {return fb.product.vendor.name;}
     if(fb.shop){return fb.shop.name;}

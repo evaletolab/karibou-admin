@@ -76,49 +76,6 @@ function orderFactory(config, $resource, $q, user,shop, api, cart) {
     return all;
   };
 
-  /* return array of one week of shipping days available for customers*/
-  Order.prototype.findOneWeekOfShippingDay=function(timeLess, from){
-    var next=this.findNextShippingDay(0,0,from), result=[], all=[next], today=new Date(), nextDate, nextDay;
-
-    config.shop.order.weekdays.forEach(function(day){
-      if(day==next.getDay()){
-        return;
-      }
-
-      nextDay=(day>next.getDay())? (day-next.getDay()):(7-next.getDay()+day);
-      nextDate=new Date(nextDay*86400000+next.getTime());
-      
-      if(Math.round((nextDate.getTime()-today.getTime())/86400000)>6)
-        {return;}
-      if(config.shop.order.weekdays.indexOf(nextDate.getDay())===-1)
-        {return;}
-      all.push(nextDate);
-
-    });
-
-    // sorting dates
-    all=all.sort(function(a,b){
-      // Turn your strings into dates, and then subtract them
-      // to get a value that is either negative, positive, or zero.
-      return a.getTime() - b.getTime();
-    });
-
-    //
-    // construct object with delivery options
-    var elem=0;
-    all.forEach(function(next,idx){
-      for(var k in config.shop.order.shippingtimes){
-
-        next.setHours(k,0,0,0);
-        result.push({id:elem++,when:new Date(next),time:config.shop.order.shippingtimes[k]});
-        // we dont want shipping times precision
-        if(timeLess) {return;}
-      }
-    });
-
-    return result;
-
-  };
 
   /* return the next shipping day available for customers*/
   Order.prototype.findNextShippingDay=function(tl,th,date){
@@ -274,7 +231,7 @@ function orderFactory(config, $resource, $q, user,shop, api, cart) {
 
   Order.prototype.getShippingLabels=function(){
       var when=new Date(this.shipping.when);
-      var time=config.shop.order.shippingtimes[when.getHours()];
+      var time=cart.shippingTimeLabel(this.shipping.hours);
       var date=moment(when).format('dddd DD MMM YYYY', 'fr');
 
       return {date:date,time:time};
@@ -338,8 +295,7 @@ function orderFactory(config, $resource, $q, user,shop, api, cart) {
       return "La commande est en attente de traitement";
     }
     var labels=this.getShippingLabels();
-
-    return "Livrée le "+labels.date +' de '+labels.time;
+    return "Livrée le "+labels.date +' entre '+labels.time;
 
   };
 
