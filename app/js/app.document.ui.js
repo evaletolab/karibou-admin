@@ -135,8 +135,8 @@ function markdownRender($compile,$timeout,$translate,config) {
 // use default i18n
 // options: parseMarkdown
 //
-i18nRender.$inject=['$rootScope','$compile','$timeout','$translate','config'];
-function i18nRender($rootScope,$compile,$timeout,$translate,config) {
+i18nRender.$inject=['$rootScope','$interpolate','$timeout','$translate','config'];
+function i18nRender($rootScope,$interpolate,$timeout,$translate,config) {
   return {
     restrict: 'A',
     replace: true, 
@@ -150,7 +150,7 @@ function i18nRender($rootScope,$compile,$timeout,$translate,config) {
       function  render() {
         // init
         var lang=$translate.use(),
-            defaultLang=config.shop.i18n.defaultLocale,
+            defaultLang=config.shop.i18n&&config.shop.i18n.defaultLocale,
             content=undefined;
 
         // init content
@@ -169,8 +169,8 @@ function i18nRender($rootScope,$compile,$timeout,$translate,config) {
 
         try{
           content=content||'';
-          var el = (content.length>=6)?$compile(content)(scope):content;          
-          element.html(el.length?el:content);
+          var el = $interpolate(content)(scope);          
+          element.html(el);
         }catch(e){
           element.html(content);
         }

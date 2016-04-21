@@ -209,6 +209,19 @@
               <div class="clearfix" style="clear:both">
                 <div ng-if="profileReady">
                   <h3>Votre profil est parfait, vous pouvez passer à l'étape suivante</h3>
+
+                  <!-- MAILING EVENT -->
+                  <div class="col-xs-12 nopadding " ng-if="user.isAuthenticated() && !user.reminder.active">
+                      <div class=" alert alert-warning">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <span class="bold">Psst!</span> 
+                        Pas facile de s'organiser pour faire ses courses... 
+                        Nous vous envoyons volontiers un mail 
+                        <a href="/account/reminder"
+                           ga-send="{category:'navigation',action:'reminder'}">pour vous rappeler de passer votre commande</a>
+                      </div>
+                  </div>
+
                 </div>
                 <div ng-if="user.isAuthenticated() && user.email.status !== true">
                    <div class="alert alert-warning" ng-cloak  >
