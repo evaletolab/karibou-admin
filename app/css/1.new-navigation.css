@@ -72,7 +72,7 @@ nav.navbar-fixed-top .navbar-default .navbar-nav > li > a{
 nav.subnavbar-top.navbar-fixed-top .navbar-nav > li > a {
   color: white;
   letter-spacing: .2px;
-  font-size: .99em;
+  font-size: .98em;
   font-weight: 700;
 }
 
@@ -184,6 +184,16 @@ nav.navbar-fixed-top .navbar-right {
 }
 
 
+.btn-bundle,.btn-bundle:hover,.btn-bundle:focus{
+  background-color: rgba(0, 167, 157, 0.56);
+  border-width: 3px;
+  font-weight: 800;
+  color: white;
+  border-color: #00a79d;
+  text-shadow: 0 0 8px rgba(100,100,100,.4);
+  font-size: 1em;
+  border-radius: 10px;
+}
 
 .btn-dropdown-category >b:last-child{
   float: right;

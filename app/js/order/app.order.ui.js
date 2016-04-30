@@ -315,4 +315,8 @@ function($parse, $timeout,cart) {
 });
 
 
+
+
+
+
 })(window.angular);

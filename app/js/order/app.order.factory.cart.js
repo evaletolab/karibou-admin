@@ -6,7 +6,48 @@
  * This service serves as a convenient wrapper for other related services.
  */
 angular.module('app.order')
-.factory('cart',cartFactory);
+.factory('cart',cartFactory)
+.directive('cartPrice',cartPrice);
+
+
+
+
+//
+// display vendor acording the shipping date
+// https://github.com/angular/angular.js/blob/master/src/ng/directive/ngShowHide.js
+cartPrice.$inject=['$parse','$timeout','cart'];
+function cartPrice($parse, $timeout,cart) {
+  return {
+    restrict: 'A',
+    replace: true, 
+    priority:1,
+    link: function(scope, element, attrs) {
+      // property:
+      // - total
+      // - shipping
+      // - total+shipping
+      var self=this, 
+          defaultProperty=attrs.cartPrice||'total';
+
+      scope.$watch(function() {
+        return cart.quantity()+(cart.config.address||0);
+      }, function(nbItems) {
+        switch(defaultProperty){
+        case "total":
+          element.html(cart.total().toFixed(2));
+          break;
+        case "shipping":
+          element.html(cart.shipping().toFixed(2));
+          break;
+        case "total+shipping":
+          element.html((cart.total()+cart.shipping()).toFixed(2));
+          break;
+        }
+      });
+
+    }
+  };
+}
 
 //
 // implement cart
@@ -190,7 +231,6 @@ function cartFactory(config, $timeout,$rootScope,$window, $storage, api,user) {
       }
     }
 
-
     this.items.push({
       title:product.title,
       sku:product.sku,
@@ -324,7 +364,7 @@ function cartFactory(config, $timeout,$rootScope,$window, $storage, api,user) {
     //
     // TODO TESTING MERCHANT ACCOUNT
     if (user.merchant===true){
-      return this.roundCHF(price-defaultCart.shippingFlatRate.priceB);
+//      return this.roundCHF(price-defaultCart.shippingFlatRate.priceB);
     }
 
     

@@ -35,8 +35,8 @@ function docConfig($routeProvider, $locationProvider, $httpProvider){
 
 //
 // implement controller
-docCtrl.$inject=['$scope','$rootScope','$routeParams','config','documents','feedback','user'];
-function docCtrl($scope,$rootScope, $routeParams, config, doc, feedback,user) {
+docCtrl.$inject=['$scope','$rootScope','$routeParams','config','documents','cart','feedback','user','api'];
+function docCtrl($scope,$rootScope, $routeParams, config, doc, cart, feedback,user,api) {
   //
   // init context
   $scope.doc=doc;
@@ -106,6 +106,13 @@ function docCtrl($scope,$rootScope, $routeParams, config, doc, feedback,user) {
         doc.model.skus.splice(idx,1);
         doc.save(doc.model);
       }
+  };
+
+  $scope.buyBundle=function (doc) {
+    doc.model.products.forEach(function(product) {
+      cart.add(product,false,true);
+    });
+    api.info($scope,"Votre kit a été placé dans le panier ",2000);
   };
   
 

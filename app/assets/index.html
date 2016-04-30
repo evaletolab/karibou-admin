@@ -164,7 +164,8 @@
               <span>
                 <i class="fa fa-shopping-cart green "></i>&nbsp; 
                 <span class="btn-cart-price">
-                  {{cart.total()|number:2}} CHF  
+                  <span cart-price="total"></span> CHF
+                  <!-- {{cart.total()|number:2}} CHF  -->
                   <span class="hidden-xs"><i class=" fa fa-bicycle"></i>&nbsp;</span>
                 </span>
                 <span class="btn-cart-quantity">
@@ -194,6 +195,10 @@
                 <li><a href="/account/reminder"><i class="fa fa-bell-o "></i> Enregistrer une alarme</a></li>
                 <li><a href="/account/orders"><i class="fa fa-shopping-cart "></i> Voir mes commandes</a></li>
                 <li class="divider"></li>
+                <li ng-show="user.shops.length">
+                  <a href="/shop/{{shop.urlpath}}/edit" ng-repeat="shop in user.shops">Edit {{shop.name}} </a>
+                </li>
+                 
 
                 <!-- FOR SHOP & ADMIN -->
                 <li ng-class="getClass(menu.url)" ng-repeat="menu in config.shop.menu|filter:{group:'shop',active:true}|orderBy:'weight'" 
@@ -284,7 +289,7 @@
 
   <!-- Placed at the end of the document so the pages load faster &callback=initCall -->
   <script src="https://js.stripe.com/v2/"></script>
-  <script defer src="/js/vendor.js?cache={!distRelease!}"></script>
+  <script src="/js/vendor.js?cache={!distRelease!}"></script>
   <script defer src="/js/templates.js?cache={!distRelease!}"></script>
   <script defer src="/js/app.js?cache={!distRelease!}"></script>
   <!-- MAYBE

@@ -43,11 +43,11 @@
   <div class="cart-info">    
     <div class="col-xs-6 shipping gray" ng-class="{'pink':cart.hasShippingReduction()}">
       <i class="bold fa fa-bicycle  "></i> 
-      {{cart.shipping()|number:2}} CHF
+      <span cart-price="shipping"></span> CHF
     </div>
     <div class="col-xs-6 total gray">
-      Total
-      <strong class="green">{{cart.total()+cart.shipping()|number:2}} CHF</strong>
+      Total   <!-- {{cart.total()+cart.shipping()|number:2}} -->
+      <strong class="green"><span cart-price="total+shipping"></span> CHF</strong>
     </div>
   </div>
 

@@ -204,6 +204,7 @@ function userFactory(config, $location, $rootScope, $route, $resource, $log, $q,
         //
         // broadcast info
         $rootScope.$broadcast("user.init",self);
+        window.currentUser=self.email&&self.email.address||'Anonymous';
 
         if(cb)cb(self);
         return self;

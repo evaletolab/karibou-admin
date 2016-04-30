@@ -66,6 +66,7 @@ function productCtrl ($scope,$rootScope, $location, $routeParams, config, catego
 
 
   $scope.updateUserDocument=function (doc,sku) {
+    var lang=$scope.locale();
     if(!doc ||doc.skus.indexOf(sku)!==-1){
       user.documents.selected=undefined;
       return;
@@ -74,7 +75,7 @@ function productCtrl ($scope,$rootScope, $location, $routeParams, config, catego
     // save this product to this doc
     doc.skus.push(sku);
     $doc.save(doc).model.$promise.then(function () {
-      api.info($scope,"Votre produit a été enregistré dans le document: "+doc.title,2000);
+      api.info($scope,"Votre produit a été enregistré dans le document: "+doc.title[lang],2000);
       user.documents.selected=undefined;
     })
   }

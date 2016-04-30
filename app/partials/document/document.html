@@ -3,7 +3,12 @@
 
   <div class="markdown-{{doc.model.type}}" >
 
-    <div class="home-header" backstretch="doc.model.photo.header" ng-if="doc.model.photo.header">
+    <div class="home-header text-center" backstretch="doc.model.photo.header" ng-if="doc.model.photo.header">
+      <button class="btn btn-default btn-bundle" ng-click="buyBundle(doc)" >
+        J'achète 1x 
+        <span i18n-render="doc.model.title"></span> 
+        <i class="fa fa-rocket "></i> 
+      </button>
     </div>
 
     <div class="container ">
@@ -24,7 +29,7 @@
       <div class="sidebar-block" ng-if="docs.length>1">
         <h4 translate="furthermore"></h4>
         <ol  class="list-unstyled">
-          <li ng-repeat="other in docs|orderBy:'-title.fr'" ><a ng-href="/content/{{other.slug[0]}}" i18n-render="other.title"></a></li>
+          <li ng-repeat="other in docs|orderBy:'-title.fr'" ng-if="other.available"><a ng-href="/content/{{other.slug[0]}}" i18n-render="other.title"></a></li>
         </ol>   
       </div> 
 

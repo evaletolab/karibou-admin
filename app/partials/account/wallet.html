@@ -23,7 +23,7 @@
             <tr ng-show="!wallet.transactions.length">
               <td class="text-muted" colspan="2">aucune à ce jour</td>
             </tr>
-            <tr class="text-muted" ng-repeat="tr in wallet.transactions"><td colspan="2">{{tr.logs[tr.logs.length-1]}}</td></tr>
+            <tr class="text-muted" ng-repeat="tr in wallet.transactions"><td colspan="2">{{tr.logs[0]}}</td></tr>
           </table>
 
 

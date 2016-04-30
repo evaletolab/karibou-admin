@@ -41,9 +41,10 @@ Home.controller('HomeCtrl', [
   'user',
   'shop',
   'product',
+  'cart',
   'Map',
 
-  function ($scope, $route, $location, $rootScope, $routeParams, $q, config, api, category, user, shop, product, Map) {
+  function ($scope, $route, $location, $rootScope, $routeParams, $q, config, api, category, user, shop, product, cart, Map) {
     var filter={sort:'created'}, promise,scrollBusy=false, nextShipping;
     $scope.user = user;
     $scope.map=new Map();
@@ -197,7 +198,7 @@ Home.controller('HomeCtrl', [
 
     $scope.getProductsByShop=function(slug) {
       var arr=$scope.infinite.filter(function(prod) {
-        if(prod.vendor.urlpath===slug) return prod;
+        if(prod.vendor&&prod.vendor.urlpath===slug) return prod;
       });
 
       return arr;
@@ -224,10 +225,11 @@ Home.controller('HomeCtrl', [
 
     $scope.getAvailableShop=function() {
       var lst=[];
-      $scope.groupByShop
       $scope.infinite.forEach(function(p) {
-        if(!_.find(lst,function (vendor) {return(vendor.urlpath===p.vendor.urlpath);}))
+        if(!p.vendor)return;
+        if(!_.find(lst,function (vendor) {return(vendor.urlpath===p.vendor.urlpath);})){
           lst.push(p.vendor);
+        }
       });
       return lst;
     }
@@ -243,12 +245,21 @@ Home.controller('HomeCtrl', [
       // scroll
       promise.then(function(h){     
         var position=$scope.infinite.length;
-        $scope.scrollBusy=false;
-        for (var i = 0; i<8; i++) {
+        var sd=cart.getShippingDay(), scrollLimit=8;
+
+         $scope.scrollBusy=false;
+        for (var i = 0; i<scrollLimit; i++) {
           if(($scope.infinite.length)>=$scope.items.length){
             return;
           }
           $scope.infinite.push($scope.items[position+i]);
+          if(sd&&
+             $scope.items[position+i].vendor&&
+             $scope.items[position+i].vendor.available.weekdays.indexOf(sd.getDay())===-1){
+            //
+            // if the product is hidden we dont want to block the dynamic scroll
+            scrollLimit++;
+          }
         }
       });
     };

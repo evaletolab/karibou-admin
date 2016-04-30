@@ -11,7 +11,7 @@
 
   <!-- microformat http://schema-creator.org/product.php -->
   <div  class="block layout-item c1" 
-        itemscope itemtype="http://schema.org/Product">
+        itemscope itemtype="http://schema.org/Product" >
 
             
       <!-- BY DIRECTIVE -->
@@ -80,7 +80,7 @@
 
         <div class="vertical-divider" style="width:100%">
           <a class="title " itemprop="name" ng-href="{{shop.urlpath|test:'/shop/':''}}/products/{{product.sku}}/{{product.slug}}" >
-            {{product.title}} 
+            {{product.title}} <span ng-show="product.details.bio" class="green-2 bold"><i class="fa fa-leaf"></i> bio</span>
           </a>
           <div ng-click="love(product)">
             <i class=" love" 
