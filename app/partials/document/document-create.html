@@ -20,7 +20,9 @@
            ng-model="doc.model.title[locale()]" />
 
     <ul class="small list-group gray nopadding">
-      <li class="list-group-item " ng-repeat="slug in doc.model.slug">/{{doc.model.type}}/{{slug}} <span class="badge">slug</span></li>
+      <li class="list-group-item " ng-repeat="slug in doc.model.slug">
+        <a href="/content/{{slug}}">/content/{{slug}}</a> 
+        <button class="btn btn-xs btn-danger pull-right" ng-click="doc.model.slug.splice($index, 1)"><i class="fa fa-remove "></i> slug</button></li>
     </ul>
 
     <h3 class="title">En tête</h3>

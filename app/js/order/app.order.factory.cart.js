@@ -119,7 +119,7 @@ function cartFactory(config, $timeout,$rootScope,$window, $storage, api,user) {
     var self=this;
     self.config.shipping=dateIndex;
     self.config.hours=hours||16; //FIXME shipping hours should not be constant
-    $rootScope.$broadcast("shipping.update",config.shop.shippingweek[this.config.shipping])
+    $rootScope.$broadcast("shipping.update",config.shop.shippingweek[this.config.shipping]);
   };
 
   //

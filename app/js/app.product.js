@@ -77,8 +77,8 @@ function productCtrl ($scope,$rootScope, $location, $routeParams, config, catego
     $doc.save(doc).model.$promise.then(function () {
       api.info($scope,"Votre produit a été enregistré dans le document: "+doc.title[lang],2000);
       user.documents.selected=undefined;
-    })
-  }
+    });
+  };
 
   $scope.showPreviousProduct=function(sku){
     var lst=$scope.product.findAll().filter(function(p){
@@ -203,7 +203,7 @@ function productCtrl ($scope,$rootScope, $location, $routeParams, config, catego
               email:user.email.address,
               shopname:product.vendor.urlpath,
               product:product.title+' ('+product.sku+')'
-          })
+          });
         }];
       };          
     }
@@ -389,7 +389,7 @@ function productFactory (config, $rootScope,$resource,$q,api) {
   Product.prototype.findLove = function(body,cb,err) {
     if(!err) {err=onerr;}
     var products;
-    var params=angular.extend({},{sku:'love'},body||{})
+    var params=angular.extend({},{sku:'love'},body||{});
     var self=this, s=backend.products.query(params,function() {
       products=self.wrapArray(s);
       //

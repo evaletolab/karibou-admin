@@ -27,7 +27,7 @@ function OrderCommonCtrl($scope, $routeParams, api, order, user, product,shop, M
   $scope.selected={
     order:false,
     items:[]
-  }
+  };
 
   $scope.options={
     showMenu:false,
@@ -53,7 +53,7 @@ function OrderCommonCtrl($scope, $routeParams, api, order, user, product,shop, M
     "reserved":"reservée",
     "partial":"partial",
     "fulfilled":"complétée"
-  }
+  };
 
   // $scope.shopsSelect=shop.query({});
 
@@ -76,8 +76,8 @@ function OrderCommonCtrl($scope, $routeParams, api, order, user, product,shop, M
       // shop filter is optional
       var hasShop=true;
       if(shop){
-        hasShop=order.vendors.map(function(v){return v.slug;}).indexOf(shop)!==-1
-      };
+        hasShop=order.vendors.map(function(v){return v.slug;}).indexOf(shop)!==-1;
+      }
       return hasShop&&order.shipping.when===when ;
     });
   };
@@ -134,7 +134,7 @@ function OrderCommonCtrl($scope, $routeParams, api, order, user, product,shop, M
       return false;
     }
     return true;
-  }
+  };
 
 
   //
@@ -175,7 +175,7 @@ function OrderCommonCtrl($scope, $routeParams, api, order, user, product,shop, M
 
     //
     // SELECT ITEM
-    var selected=''
+    var selected='';
     if($scope.selected.order&&$scope.selected.order.oid===order.oid){
       selected=prefix+'active ';
     }
@@ -271,8 +271,8 @@ function OrderCommonCtrl($scope, $routeParams, api, order, user, product,shop, M
       skus.push(sku);
       
       // body...
-    })
-  }
+    });
+  };
 
 
 
@@ -301,7 +301,7 @@ function OrderCommonCtrl($scope, $routeParams, api, order, user, product,shop, M
   $scope.findOrdersByUser=function(){
     $scope.loading=true;
     return user.$promise.then(function(){
-      return order.findOrdersByUser(user).$promise
+      return order.findOrdersByUser(user).$promise;
     }).then(function(orders){
       $scope.orders=orders;
       $scope.shops=false;

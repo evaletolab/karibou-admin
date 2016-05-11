@@ -17,7 +17,7 @@ angular.module('app', [
   'ngRoute',
   'ngSanitize',
   'ngTouch',
-  'ngAnimate',
+//  'ngAnimate',
   'ngUploadcare',  
   'flash',
   'pascalprecht.translate',
@@ -299,7 +299,7 @@ function errorInterceptor($q, scope, $location, $timeout,Flash) {
               // if logged but without correct right 
               showError(scope,response.data);            
             }else if(response.config.url.indexOf('/v1/users/me')===-1){
-              showError(scope,"Access denied!")
+              showError(scope,"Access denied!");
             }
           }
 
@@ -378,7 +378,7 @@ function appRun($templateCache, $route, $http, $timeout, config, flash, $transla
       //
       // after N days without reloading the page, 
       $timeout(function () {
-        var reload="Votre session est restée inactive trop longtemps. Veuillez <a href='#' onClick='window.location.reload()'>recharger la page</a>"
+        var reload="Votre session est restée inactive trop longtemps. Veuillez <a href='#' onClick='window.location.reload()'>recharger la page</a>";
         flash.create('danger','<b>Info!</b> '+reload,0,-1);
       },86400000*2);
             
@@ -480,20 +480,20 @@ angular.element(document).ready(function () {
 
   Date.prototype.toYYYYMMDD=function() {
     return ''+this.getFullYear()+this.getMonth()+this.getDate();
-  }
+  };
 
 
   Date.prototype.plusDays=function(nb) {
     var plus=new Date(this);
     plus.setDate(this.getDate()+nb);
     return plus;
-  }
+  };
 
   //
   // simple test : this in [d1,d2[
   Date.prototype.in=function(d1,d2) {
     return (this>=d1&&this<d2)
-  }
+  };
 
 
   //console.log(window.Showdown.extensions)

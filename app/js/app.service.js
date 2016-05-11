@@ -171,7 +171,10 @@ function ($rootScope, $http, $resource, $timeout, $q, $log, $location, $routePar
      */
     clazz.findAll=function(where, cb){
       if (!where){
-        return _.map(_all, function(val,key){return val;});
+        return Object.keys(_all).map(function(key) {
+          return _all[key];
+        });
+        // return _.map(_all, function(val,key){return val;});
       }
       var lst=_.where(_all,where);
       if(cb)cb(lst);
@@ -201,7 +204,12 @@ function ($rootScope, $http, $resource, $timeout, $q, $log, $location, $routePar
     };
     
     clazz.load=function(elems){
-      if (!elems) return _.map(_all, function(val,key){return val;});
+      if (!elems) {
+        return Object.keys(_all).map(function(key) {
+          return _all[key];
+        });
+        // return _.map(_all, function(val,key){return val;});
+      }
       var list=_singleton.wrapArray(elems);
       return list;
     };

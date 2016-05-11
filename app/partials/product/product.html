@@ -1,48 +1,33 @@
-  <!-- REFACTORING PRODUCT DISPLAY -->
-  <!-- - call one time: 
-          * product.isAvailableForOrder() 
-          * cart.findBySku(product.sku).quantity (it's dynamic)
-          * product.variants.length
-          * product.isAvailableForOrder()
-
-        ng-init="p_qty=cart.findBySku(product.sku).quantity;"
-        ng-class="{'p_is_available':product.isAvailableForOrder(),'p_has_variant':product.variants.length,'p_has_stock':product.pricing.stock}"
-  -->
-
+  <!-- old v. https://bitbucket.org/evaletolab/karibou/src/3ccbf5f009d25dd8e61b720e5dfb13160494b915/app/partials/product/product.html?fileviewer=file-view-default -->
   <!-- microformat http://schema-creator.org/product.php -->
   <div  class="block layout-item c1" 
-        itemscope itemtype="http://schema.org/Product" >
+        itemscope itemtype="http://schema.org/Product" 
+        product-state="product" product-state-quantity=".cart-info-quantity">
 
             
       <!-- BY DIRECTIVE -->
-      <div class="actions" 
-           ng-if="product.isAvailableForOrder()&&product.pricing.stock">
+      <div class="actions" >
           <!-- WHY THIS IS NOT WORKING HERE? TWO INSTANCES IN THE SAME PARENT SCOPE?? --> 
           <!-- <cart-button  ng-model="product" bt-class="btn-transparent green hidden-lg" bt-small/> -->
 
-        <a class="btn btn-cart-add" 
-             ng-if="!product.variants.length"
-             ng-click="cart.remove(product)" 
-             ng-show="cart.findBySku(product.sku).quantity">
+        <a class="btn btn-cart-add btn-cart-remove" 
+             ng-click="cart.remove(product)" >
           <i ng-class="{'fa fa-ellipsis-h fa fa-2x':CartText, 'fa fa-minus fa fa-2x ':!CartText}"></i>
         </a>
-        <div class="cart-info-quantity" ng-show="cart.findBySku(product.sku).quantity">
-          {{cart.findBySku(product.sku).quantity}}
-        </div>
+        <div class="cart-info-quantity" ></div>
         <a class="btn btn-cart-add  pull-right" 
-           ng-if="!product.variants.length"
            ng-click="cart.add(product)">
           <i ng-class="{'fa fa-ellipsis-h fa fa-2x':CartText, 'fa fa-plus fa fa-2x ':!CartText}"></i>
         </a>
 
-        <div class="btn-group pull-right" ng-show="product.variants.length">
+        <div class="btn-group pull-right action-variant" >
           <a class="btn btn-cart-add dropdown-toggle" data-toggle="dropdown">
             <i ng-class="{'fa fa-ellipsis-h fa fa-2x':CartText, 'fa fa-plus fa fa-2x ':!CartText}"></i>
           </a>
           <ul class="dropdown-menu" role="menu">
             <li><span>Choisir une option</span></li>
             <li ng-repeat="variant in product.variants">
-              <a href="#" ng-click="cart.add(product,variant.title)">{{variant.short}}</a>
+              <a href="#" ng-click="cart.add(product,variant.title)">{{::variant.short}}</a>
             </li>
           </ul>                    
         </div>
@@ -55,45 +40,46 @@
           class="link"   itemprop="url">
 
           <!-- PHOTO -->
-          <img ng-if="product.photo.url" bg-src="{{product.photo.url}}" bg-small="true">
+          <img bg-src="{{product.photo.url}}" bg-small="true" class="product-photo">
 
           <!-- NOT AVAILABLE http://placehold.it/275x230/eeeeee/000000&text=indisponible -->
-          <img ng-if="!product.isAvailableForOrder()" ng-src="/img/product-not-available.gif" class="available">
+          <img ng-src="/img/product-not-available.gif" class="available">
 
           <!-- NOT IN STOCK http://placehold.it/275x230/eeeeee/000000&text=plus+en+stock-->
-          <img ng-cloak ng-if="!product.pricing.stock" ng-src="/img/product-stock.gif" class="available">
+          <img ng-src="/img/product-stock.gif" class=" stock">
 
 
           <!-- PRICE-->
           <div class="price" itemprop="price">
             <!-- REGULAR -->
-            <span ng-if="!product.attributes.discount" class="small green bold ">Fr {{product.pricing.price| number:2}}</span>
+            <span class="off-discount small green bold ">Fr {{::product.pricing.price| number:2}}</span>
             <!-- DISCOUNT -->
-            <span ng-if="product.attributes.discount" >
-              <span class="red bold strike"> {{product.pricing.price| number:2}}</span>
-              <span class="green bold small">Fr {{product.pricing.discount| number:2}}</span>
+            <span class="on-discount">
+              <span class="red bold strike"> {{::product.pricing.price| number:2}}</span>
+              <span class="green bold small">Fr {{::product.pricing.discount| number:2}}</span>
             </span>                 
-            <div class=" em" style="margin-top:-3px;">{{product.pricing.part}} </div>
+            <div class=" em" style="margin-top:-3px;">{{::product.pricing.part}} </div>
           </div>
           <!-- PRICE-->          
         </a>
 
-        <div class="vertical-divider" style="width:100%">
-          <a class="title " itemprop="name" ng-href="{{shop.urlpath|test:'/shop/':''}}/products/{{product.sku}}/{{product.slug}}" >
-            {{product.title}} <span ng-show="product.details.bio" class="green-2 bold"><i class="fa fa-leaf"></i> bio</span>
+        <div class="vertical-divider product-bottom" style="width:100%">
+          <a class="title " itemprop="name" ng-href="{{::shop.urlpath|test:'/shop/':''}}/products/{{product.sku}}/{{product.slug}}" >
+            {{::product.title}} <span ng-show="product.details.bio" class="green-2 bold"><i class="fa fa-leaf"></i> bio</span>
           </a>
-          <div ng-click="love(product)">
-            <i class=" love" 
-               ng-class="{true:'fa fa-heart pink1',false:'fa fa-heart-o'}[user.hasLike(product)]"></i>
+          <div ng-click="love(product)" >
+            <i class=" love off-love fa fa-heart-o"></i> 
+            <i class=" love  on-love fa fa-heart pink1"></i> 
           </div>
+
           <!-- VENDOR-->
-          <div class="row-fluid vertical-divider border "  ng-hide="shop.name">
+          <div class="row-fluid vertical-divider border product-vendor hidden-xs" >
             <div ng-show="product.vendor" >
               <span  ng-show="product.vendor.photo.owner" >
                 <img ng-src="{{product.vendor.photo.owner}}-/resize/100x/"  alt="160x160" class="shop-owner" >
               </span>
               <!-- CLOSE-->
-              <div class="closed" ng-if="product.vendor.available.active">
+              <div class="closed" >
                 <i class="fa fa-info fa-2x"></i> 
               </div>
 
@@ -101,7 +87,7 @@
               <span class="shop-title-prefix"  >Vendu par</span>
               <a class="shop-title " 
                  ng-href="/shop/{{product.vendor.urlpath}}"
-                 ga-send="{category:'navigation',action:'shop-product'}">{{product.vendor.name}}</a>
+                 ga-send="{category:'navigation',action:'shop-product'}">{{::product.vendor.name}}</a>
             </div>              
           </div>
           <!-- VENDOR-->          

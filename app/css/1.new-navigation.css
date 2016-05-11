@@ -71,7 +71,7 @@ nav.navbar-fixed-top .navbar-default .navbar-nav > li > a{
 
 nav.subnavbar-top.navbar-fixed-top .navbar-nav > li > a {
   color: white;
-  letter-spacing: .2px;
+  letter-spacing: -.15px;
   font-size: .98em;
   font-weight: 700;
 }

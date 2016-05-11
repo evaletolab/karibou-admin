@@ -63,7 +63,7 @@ function($parse, $timeout,cart) {
           display=!display;
         }
 
-        if(display){element.show();}else{element.hide();};          
+        if(display){element.show();}else{element.hide();}          
 
       });
 
@@ -134,7 +134,7 @@ function($parse, $timeout,cart) {
     if(gift.print){
       amount+=1;
     }
-    var issuer=gift.payment&&gift.payment.issuer||'none'
+    var issuer=gift.payment&&gift.payment.issuer||'none';
 
     for(var p in config.shop.order.gateway){
       if(config.shop.order.gateway[p].label===issuer){

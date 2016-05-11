@@ -49,7 +49,7 @@ function OrderNewCtrl($controller, $scope, $location, $rootScope, $timeout, $rou
   // user.anon && profile   => /order/identity
   // user.anon              => /order/identity
   // !user.ready            => /order/profile
-  // user.ready && !process => /order/payment
+  // user.ready && !process => /order/profile (vs payment, because we want to display hint)
   // user.ready &&  process => /order/process
   user.$promise.finally(function(){
     $scope.profileReady=(user.isReady()&&(user.hasPrimaryAddress()!==false));
@@ -64,7 +64,7 @@ function OrderNewCtrl($controller, $scope, $location, $rootScope, $timeout, $rou
       //
       // the profile is now ok
     }else if(!$scope.process){
-      $location.path('/order/payment');
+      $location.path('/order/profile');// vs payment
     }else if($scope.process==='identity'){
       $location.path('/order/profile');
     }else if($scope.process=='validation' && !cart.config.payment){
@@ -231,10 +231,9 @@ function OrderNewCtrl($controller, $scope, $location, $rootScope, $timeout, $rou
     }, function (status, response) {
       if(response.error){
         $rootScope.WaitText=false;
-        $timeout(function() {
-        api.info($scope,response.error.message);          
+        return $timeout(function() {
+          api.info($scope,response.error.message);          
         }, 100);
-        return
       }
       //
       // response.id

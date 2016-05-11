@@ -35,7 +35,7 @@ function StatsCtrl($scope, $http,$routeParams, $timeout, $controller, config, ap
   $scope.colors=["120,120,220","220,120,120","120,220,120","20,220,220","220,20,220","220,220,20",
                  "40,40,220","40,220,40","220,40,40","40,220,220","220,40,220","220,220,40",
                  "80,150,220","150,80,220","150,220,80","80,220,150","220,80,150","220,150,80",
-                 "12,100,250","12,250,100","100,12,250","100,250,12","250,12,100","250,100,12","250,100,12"]
+                 "12,100,250","12,250,100","100,12,250","100,250,12","250,12,100","250,100,12","250,100,12"];
 
   function addDataSets (data,label,color ) {
     //
@@ -45,7 +45,7 @@ function StatsCtrl($scope, $http,$routeParams, $timeout, $controller, config, ap
         if(data.datasets[i].label===label){
           return i;
         }
-      };
+      }
     }
     if(!color)return -1;
     var set={
@@ -59,10 +59,10 @@ function StatsCtrl($scope, $http,$routeParams, $timeout, $controller, config, ap
       pointHighlightFill: "#ddd",
       pointHighlightStroke: "rgba("+color+",0.7)",
       data: []     
-    }
-    for (var i = Object.keys(data.labels).length-1; i >= 0; i--) {
-      set.data.push(0);
     };
+    for (var x = Object.keys(data.labels).length-1; x >= 0; x--) {
+      set.data.push(0);
+    }
     data.datasets.push(set);
     return data.datasets.length-1;
   }
@@ -71,29 +71,29 @@ function StatsCtrl($scope, $http,$routeParams, $timeout, $controller, config, ap
     $scope.options.to=$scope.options.limit;
     $scope.options.from=null;
     $scope.options.count=null;
-  }
+  };
   $scope.after=function () {
     $scope.options.from=$scope.options.limit;
     $scope.options.to=null;
     $scope.options.count=null;
-  }
+  };
   $scope.clear=function () {
     $scope.options.from=null;
     $scope.options.to=null;
     $scope.options.count=null;
-  }
+  };
 
   $scope.without=function () {
     $scope.options.from=null;
     $scope.options.to=null;
     $scope.options.count=0;
-  }
+  };
 
   $scope.isHighlight=function(chart, label) {
     return _.find(chart.datasets,function (set) {
       return set.isHighlight==label;
-    })
-  }
+    });
+  };
 
   $scope.highlight=function(chart, label) {
     //
@@ -136,14 +136,14 @@ function StatsCtrl($scope, $http,$routeParams, $timeout, $controller, config, ap
 
         // except label
         if(segment.isHighlight){
-          return
+          return;
         }
 
         segment.strokeColor=segment.pointColor=segment.fillColor;
-    })
+    });
     chart.update();
 
-  }
+  };
 
   $scope.getSellsByYearAndWeek=function () {
     $scope.loading=true;
@@ -160,9 +160,9 @@ function StatsCtrl($scope, $http,$routeParams, $timeout, $controller, config, ap
         var data={
           labels: Object.keys(stats.axis.x),
           datasets: []        
-        }
-        addDataSets(data,"Ventes","220,220,220")
-        addDataSets(data,"Commande","151,187,205")
+        };
+        addDataSets(data,"Ventes","220,220,220");
+        addDataSets(data,"Commande","151,187,205");
         Object.keys(stats).forEach(function(year){
             Object.keys(stats[year]).forEach(function (week) {
               data.datasets[0].data[stats.axis.x[year+'.'+week]]=stats[year][week].total;
@@ -181,11 +181,11 @@ function StatsCtrl($scope, $http,$routeParams, $timeout, $controller, config, ap
           });
         }
 
-      })
+      });
 
 
     });  
-  }
+  };
 
   $scope.getCAByYearMonthAndVendors=function (filters) {
     $scope.loading=true;
@@ -205,7 +205,7 @@ function StatsCtrl($scope, $http,$routeParams, $timeout, $controller, config, ap
         var data={
           labels: Object.keys(stats.axis.x).reverse(),
           datasets: []        
-        }
+        };
         Object.keys(stats.axis.series).forEach(function (shop,i) {
           addDataSets(data,shop,$scope.colors[i]);
         });
@@ -215,7 +215,7 @@ function StatsCtrl($scope, $http,$routeParams, $timeout, $controller, config, ap
         var total={
           labels: Object.keys(stats.axis.x).reverse(),
           datasets: []        
-        }
+        };
         addDataSets(total,"karibou.ch",$scope.colors[$scope.colors.length-1]);
 
         ca.data=data;
@@ -233,7 +233,7 @@ function StatsCtrl($scope, $http,$routeParams, $timeout, $controller, config, ap
                   }
               });
             });
-        })
+        });
 
         if(!$scope.ca.Chart){
           var ctx = document.getElementById("ca-chart").getContext("2d");
@@ -256,7 +256,7 @@ function StatsCtrl($scope, $http,$routeParams, $timeout, $controller, config, ap
       });
 
     });  
-  }
+  };
 
   $scope.ordersByUsers=function (filters) {
     $scope.oByUsers=[];
@@ -267,7 +267,7 @@ function StatsCtrl($scope, $http,$routeParams, $timeout, $controller, config, ap
     });
 
 
-  }
+  };
 
   $scope.loadStats=function(){
     var filters=$scope.filters=angular.extend({},$routeParams);
@@ -275,7 +275,7 @@ function StatsCtrl($scope, $http,$routeParams, $timeout, $controller, config, ap
     $scope.getCAByYearMonthAndVendors(filters);
     // $scope.getSellsByYearAndWeek();
     $scope.ordersByUsers(filters);
-  }
+  };
 }
 
 })(window.angular);

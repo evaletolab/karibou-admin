@@ -116,7 +116,7 @@ $strap.directive('bsModal', [
         // iElement.attr('data-target', '#' + modal.attr('id')).attr('data-toggle', 'modal');
         iElement.on('click',function(){
           $('#' + modal.attr('id')).modal();
-        })
+        });
       });
 
     }

@@ -57,7 +57,7 @@ Home.controller('HomeCtrl', [
 
     $rootScope.$on("shipping.update",function(event,date) {
       nextShipping=date;
-      $scope.infinite=[]
+      $scope.infinite=[];
       $scope.items=[];promise=false;
       $scope.loadNextPage();
     });
@@ -71,7 +71,7 @@ Home.controller('HomeCtrl', [
     });
 
     config.shop.then(function(){
-      nextShipping=config.shop.shippingweek[0];
+      nextShipping=config.shop.shippingweek[cart.config.shipping||0];
     });
 
 
@@ -202,7 +202,7 @@ Home.controller('HomeCtrl', [
       });
 
       return arr;
-    }
+    };
 
 
     $scope.getProductsByCat=function(name) {
@@ -211,7 +211,7 @@ Home.controller('HomeCtrl', [
       });
 
       return arr;
-    }
+    };
 
     $scope.getAvailableCategories=function() {
       var lst=[];
@@ -221,7 +221,7 @@ Home.controller('HomeCtrl', [
       });
 
       return lst;
-    }
+    };
 
     $scope.getAvailableShop=function() {
       var lst=[];
@@ -232,7 +232,7 @@ Home.controller('HomeCtrl', [
         }
       });
       return lst;
-    }
+    };
 
     $scope.loadNextPage=function(opts){
       if($scope.scrollBusy) return;

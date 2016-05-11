@@ -72,8 +72,8 @@ function ngStackTraceProvider($provide) {
                 ],function() {
                     StackTrace.fromError(ex).then(function(stackframes) {
                       
-                      sendRepport(stackframes,ex)
-                    })                    
+                      sendRepport(stackframes,ex);
+                    });                    
                 });
 
                 var when=(window.KARIBOU_INSTANCE)?new Date(window.KARIBOU_INSTANCE):null;

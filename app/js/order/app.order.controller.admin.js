@@ -63,8 +63,8 @@ function OrderAdminCtrl($scope,$routeParams, $timeout, $http, api, order, user, 
 
   $scope.selectNextOrder=function () {
     $timeout(function () {
-      $('li.list-group-item-active').next().find('div.list-group-item-text').click()  // body...
-    })
+      $('li.list-group-item-active').next().find('div.list-group-item-text').click();  // body...
+    },100);
   };
 
   $scope.hasNextOrder=function (currentOid,when,shop) {
@@ -301,9 +301,9 @@ function OrderAdminCtrl($scope,$routeParams, $timeout, $http, api, order, user, 
         orders.forEach(function (order) {
           order.vendors.forEach(function (vendor) {
             if($scope.shops.indexOf(vendor.slug)===-1){
-              $scope.shops.push(vendor.slug)
+              $scope.shops.push(vendor.slug);
             }
-          })
+          });
         });
         
         if($scope.shops.length===1){
@@ -333,7 +333,7 @@ function OrderAdminCtrl($scope,$routeParams, $timeout, $http, api, order, user, 
     $scope.activities=[];
     $http({url:$scope.config.API_SERVER+'/v1/activities',method:'GET',params:activity}).success(function(activities){
       $scope.activities=activities;
-    })
+    });
 
   };
 

@@ -163,7 +163,7 @@ function orderFactory(config, $resource, $q, user,shop, api, cart) {
   Order.prototype.getShippingPrice=function(){
       // check if value exist, (after creation) 
     if(this.payment.fees &&
-       this.payment.fees.shipping!=null){
+       this.payment.fees.shipping){
       return this.payment.fees.shipping;
     }
 
@@ -339,8 +339,8 @@ function orderFactory(config, $resource, $q, user,shop, api, cart) {
     var tosave=angular.copy(item), me=this;
     tosave.fulfillment.status=fulfillment;
     this.chain(backend.$order.save({action:this.oid,id:'items'},[tosave]).$promise).$promise.then(function () {
-      _.find(me.items,function(i){return i.sku===item.sku}).fulfillment.status=fulfillment;
-    })
+      _.find(me.items,function(i){return i.sku===item.sku;}).fulfillment.status=fulfillment;
+    });
     return this;
   };
 
@@ -353,7 +353,7 @@ function orderFactory(config, $resource, $q, user,shop, api, cart) {
   };
 
   Order.prototype.updateCollect=function(shopname,status,when){
-    return this.chain(backend.$order.collect({action:shopname,id:'collect'},{status:status,when:when}).$promise)
+    return this.chain(backend.$order.collect({action:shopname,id:'collect'},{status:status,when:when}).$promise);
   };
 
   Order.prototype.findOrdersByUser=function(user){
