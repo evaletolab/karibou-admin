@@ -18,6 +18,7 @@ angular.module('app.product.ui', ['app.config', 'app.api'])
   .filter('leanProducts',leanProducts)
   .directive("cartButton",cartButton)
   .directive("productQuantity",productQuantity)
+  .directive("productProperty",productProperty)
   .directive("productState",productState);
 
 //
@@ -184,11 +185,53 @@ function cartButton($compile,$timeout,cart) {
 
 }
 
+//
+// directive product state
+// use transclude instead,
+// - http://stackoverflow.com/questions/22584357/angularjs-is-there-a-difference-between-transclude-local-in-directive-controll 
+productProperty.$inject=['$compile','$interval','user','cart'];
+function productProperty($compile,$interval,user,cart) {
+  return {
+    restrict: 'A',
+    priority:1,
+    link: function(scope, element, attrs, ngModelCtrl) {
+      var self, 
+          property=attrs.productProperty;
+
+      // scope.$watch(function() {
+      //   return scope.$parent.product;
+      // },function (product) {
+      //   // body...
+      // }
+
+      //
+      
+      var product=scope.$parent.product;
+      if(product){
+        $interval.cancel(handle);
+        switch(property){
+          case 'title':
+          return element.html(product.title);
+          case 'vendor-name':
+          return element.html(product.vendor.name);
+          case 'price-part':
+          return element.html(product.pricing.part);
+          case 'price':
+          return element.html(product.pricing.price);
+          case 'discount':
+          return element.html(product.pricing.discount);
+        }
+      }
+
+    }
+  }
+}
+
 
 //
 // directive product state
-productState.$inject=['$compile','$timeout','user','cart'];
-function productState($compile,$timeout,user,cart) {
+productState.$inject=['$compile','$rootScope','user','cart'];
+function productState($compile,$rootScope,user,cart) {
   return {
     restrict: 'A',
     scope:{productState:'='},
@@ -216,7 +259,7 @@ function productState($compile,$timeout,user,cart) {
       });
 
       scope.$watch('productState', function (product) {
-        if (product && product.sku) {
+        if (product && product.sku ) {
 
           classes['product-available']=product.isAvailableForOrder();
           classes['product-cart']=(cart.findBySku(product.sku).quantity>0);
@@ -236,6 +279,16 @@ function productState($compile,$timeout,user,cart) {
           })
           element.addClass(classOn.join(' '))
           element.removeClass(classOff.join(' '))
+
+          //
+          // update fields
+          element.find('.product-title').html(product.title);
+          element.find('.product-vendor-name').html(product.vendor.name);
+          element.find('.product-part').html(product.pricing.part);
+          element.find('.product-price').html(product.pricing.price);
+          element.find('.product-discount').html(product.pricing.discount);
+
+
 
         }
       });

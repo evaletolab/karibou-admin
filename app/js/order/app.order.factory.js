@@ -163,7 +163,7 @@ function orderFactory(config, $resource, $q, user,shop, api, cart) {
   Order.prototype.getShippingPrice=function(){
       // check if value exist, (after creation) 
     if(this.payment.fees &&
-       this.payment.fees.shipping){
+       this.payment.fees.shipping!==null){
       return this.payment.fees.shipping;
     }
 
@@ -337,12 +337,23 @@ function orderFactory(config, $resource, $q, user,shop, api, cart) {
 
   Order.prototype.updateItem=function(item,fulfillment, cb){
     var tosave=angular.copy(item), me=this;
+    tosave.fulfillment.finalprice=parseFloat(item.fulfillment.finalprice);
     tosave.fulfillment.status=fulfillment;
     this.chain(backend.$order.save({action:this.oid,id:'items'},[tosave]).$promise).$promise.then(function () {
       _.find(me.items,function(i){return i.sku===item.sku;}).fulfillment.status=fulfillment;
     });
     return this;
   };
+
+  Order.prototype.updateIssue=function(item,issue, cb){
+    var tosave=angular.copy(item), me=this;
+    tosave.fulfillment.issue=issue;
+    this.chain(backend.$order.save({action:this.oid,id:'items'},[tosave]).$promise).$promise.then(function () {
+      _.find(me.items,function(i){return i.sku===item.sku;}).fulfillment.issue=issue;
+    });
+    return this;
+  };
+
 
   Order.prototype.updateShipping=function(oid,status){
     return this.chain(backend.$order.save({action:oid,id:'shipping'},{amount:status}).$promise);

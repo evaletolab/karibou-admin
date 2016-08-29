@@ -29,12 +29,12 @@ function OrderCommonCtrl($scope, $routeParams, api, order, user, product,shop, M
     items:[]
   };
 
-  $scope.options={
+  $scope.options=angular.extend($scope.options||{},{
     showMenu:false,
     showWidget:false,
     payment:{},
     fulfillments:{}
-  };
+  });
 
   $scope.options.payment={
     "pending":"pending",
@@ -67,6 +67,28 @@ function OrderCommonCtrl($scope, $routeParams, api, order, user, product,shop, M
     if (date1 < date2) return 1;
     return 0;
   };
+
+
+
+  //
+  //
+  $scope.selectOrderByShop=function(shop,when,fulfillments){
+    $scope.selected.items=$scope.shops[shop];
+    $scope.selected.shop=shop;
+  };
+
+
+  //
+  // select order 
+  $scope.selectOrder=function (o) {
+    if($scope.selected.order&&$scope.selected.order.oid===o.oid){
+      $scope.selected={};
+      return ;
+    }
+    $scope.selected.items=o.items;
+    $scope.selected.order=o;
+  };
+
 
   $scope.filterOrderByShopAndShippingDay=function(orders, when, shop) {
     // list available order for this shop and shipping day
@@ -163,6 +185,15 @@ function OrderCommonCtrl($scope, $routeParams, api, order, user, product,shop, M
     $scope.currentCustomer = customer;
     return showHeader||(idx===0);
   };
+
+  $scope.isLogisticVisible=function(order,when) {
+    user.logistic.postalCode=user.logistic.postalCode;
+    var isPostalCodeOk=(user.logistic.postalCode.indexOf(order.shipping.postalCode)>-1);
+    var isDateOk=(!when||when===order.shipping.when);
+    var isShopperOk=(user.isAdmin()||(order.payment.fees.shipping>0 && isPostalCodeOk));
+    return isDateOk&&isShopperOk;
+  }
+
   //
   //
   $scope.getOrderStatusClass=function(order,prefix){

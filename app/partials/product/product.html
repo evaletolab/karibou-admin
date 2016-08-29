@@ -11,18 +11,19 @@
           <!-- <cart-button  ng-model="product" bt-class="btn-transparent green hidden-lg" bt-small/> -->
 
         <a class="btn btn-cart-add btn-cart-remove" 
-             ng-click="cart.remove(product)" >
-          <i ng-class="{'fa fa-ellipsis-h fa fa-2x':CartText, 'fa fa-minus fa fa-2x ':!CartText}"></i>
+             ng-click="cart.remove(product)" 
+             block-on-click="{on:'fa-ellipsis-h',off:'fa-minus'}">
+          <i class="fa fa-2x" ></i>
         </a>
         <div class="cart-info-quantity" ></div>
         <a class="btn btn-cart-add  pull-right" 
-           ng-click="cart.add(product)">
-          <i ng-class="{'fa fa-ellipsis-h fa fa-2x':CartText, 'fa fa-plus fa fa-2x ':!CartText}"></i>
+           ng-click="cart.add(product)" block-on-click>
+          <i class="fa fa-2x"></i>
         </a>
 
         <div class="btn-group pull-right action-variant" >
           <a class="btn btn-cart-add dropdown-toggle" data-toggle="dropdown">
-            <i ng-class="{'fa fa-ellipsis-h fa fa-2x':CartText, 'fa fa-plus fa fa-2x ':!CartText}"></i>
+            <i class="fa fa-2x fa-plus"></i>
           </a>
           <ul class="dropdown-menu" role="menu">
             <li><span>Choisir une option</span></li>
@@ -35,9 +36,9 @@
 
 
       <!-- PRODUCT LINK -->
-      <a  ng-href="{{shop.urlpath|test:'/shop/':''}}/products/{{product.sku}}/{{product.slug}}" 
-          shop="/shop/{{product.vendor.urlpath}}" 
-          class="link"   itemprop="url">
+      <a  ng-href="{{::shop.urlpath|test:'/shop/':''}}/products/{{::product.sku}}/{{product.slug}}" 
+          shop="/shop/{{::product.vendor.urlpath}}" 
+          class="link relative"   itemprop="url">
 
           <!-- PHOTO -->
           <img bg-src="{{product.photo.url}}" bg-small="true" class="product-photo">
@@ -52,20 +53,39 @@
           <!-- PRICE-->
           <div class="price" itemprop="price">
             <!-- REGULAR -->
-            <span class="off-discount small green bold ">Fr {{::product.pricing.price| number:2}}</span>
+            <span class="off-discount small green bold ">Fr <span class="product-price"></span></span>
             <!-- DISCOUNT -->
             <span class="on-discount">
-              <span class="red bold strike"> {{::product.pricing.price| number:2}}</span>
-              <span class="green bold small">Fr {{::product.pricing.discount| number:2}}</span>
+              <span class="red bold strike product-price"> </span>
+              <span class="green bold small">Fr <span class="product-discount"></span></span>
             </span>                 
-            <div class=" em" style="margin-top:-3px;">{{::product.pricing.part}} </div>
+            <div class=" em product-part" style="margin-top:-3px;"> </div>
           </div>
           <!-- PRICE-->          
+
+          <!-- BIO -->
+
+          <!-- ADM LIST -->
+          <div class="btn-group product-document" >
+            <a class="btn btn-cart-plus btn-xs dropdown-toggle" data-toggle="dropdown">
+              <i class="fa -fa-2x fa-file-text-o"></i>
+            </a>
+            <ul class="dropdown-menu" role="menu">
+              <li><span>Choisir un document</span></li>
+              <li ng-repeat="doc in user.documents">
+                <a href="#" ng-click="updateUserDocument(doc,product.sku)">{{::doc.title.fr}}</a>
+              </li>
+            </ul>                    
+          </div>
+
         </a>
 
-        <div class="vertical-divider product-bottom" style="width:100%">
+        <div class="vertical-divider product-bottom hidden-xs" >
+          <div ng-show="product.details.bio" class="bio bold"><i class="fa fa-leaf"></i> bio</div>
+          <div ng-show="product.details.natural" class="bio bold"><i class="fa fa-leaf"></i></div>
+
           <a class="title " itemprop="name" ng-href="{{::shop.urlpath|test:'/shop/':''}}/products/{{product.sku}}/{{product.slug}}" >
-            {{::product.title}} <span ng-show="product.details.bio" class="green-2 bold"><i class="fa fa-leaf"></i> bio</span>
+            <span class="product-title"></span>
           </a>
           <div ng-click="love(product)" >
             <i class=" love off-love fa fa-heart-o"></i> 
@@ -73,10 +93,10 @@
           </div>
 
           <!-- VENDOR-->
-          <div class="row-fluid vertical-divider border product-vendor hidden-xs" >
+          <div class="row-fluid vertical-divider border product-vendor " >
             <div ng-show="product.vendor" >
               <span  ng-show="product.vendor.photo.owner" >
-                <img ng-src="{{product.vendor.photo.owner}}-/resize/100x/"  alt="160x160" class="shop-owner" >
+                <img ng-src="{{::product.vendor.photo.owner}}-/resize/100x/"  alt="160x160" class="shop-owner" >
               </span>
               <!-- CLOSE-->
               <div class="closed" >
@@ -85,9 +105,9 @@
 
             
               <span class="shop-title-prefix"  >Vendu par</span>
-              <a class="shop-title " 
-                 ng-href="/shop/{{product.vendor.urlpath}}"
-                 ga-send="{category:'navigation',action:'shop-product'}">{{::product.vendor.name}}</a>
+              <a class="shop-title product-vendor-name" 
+                 ng-href="/shop/{{::product.vendor.urlpath}}"
+                 ga-send="{category:'navigation',action:'shop-product'}"></a>
             </div>              
           </div>
           <!-- VENDOR-->          

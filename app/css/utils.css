@@ -58,6 +58,9 @@
   border-radius: 7px;
 }
 
+.label.label-karibou{
+  background-color: #00a79d;
+}
 .label.label-lg{
   font-size: 100%;
 } 
@@ -462,6 +465,12 @@ hr.soften {
   background-color: #f9f9f9 !important;
 }
 
+
+@media (min-width: 1400px){
+  .display-xlg {
+      display: block!important;
+  }  
+}
 
 @media (max-width: 768px) {
   .nopadding-xs{

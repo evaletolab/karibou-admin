@@ -7,7 +7,7 @@
 </div>
 
 <!-- CONTENT -->             
-<div class="cart-content" ng-controller="OrderCommonCtrl">     
+<div class="cart-content" ng-controller="OrderCommonCtrl" ng-if="options.cart">     
   <table class="table " >
       <tbody ng-repeat="group in cart.items|groupBy:'vendorName' " >
         <tr >
@@ -42,7 +42,7 @@
 <div class="cart-bottom">
   <div class="cart-info">    
     <div class="col-xs-6 shipping gray" ng-class="{'pink':cart.hasShippingReduction()}">
-      <i class="bold fa fa-bicycle  "></i> 
+      <i class="bold fa   " ng-class="cart.isShippingHypercenter()?'fa-bicycle':'fa-truck'"></i> 
       <span cart-price="shipping"></span> CHF
     </div>
     <div class="col-xs-6 total gray">
@@ -51,7 +51,7 @@
     </div>
   </div>
 
-  <a  href="/order" class="btn btn-cart-checkout btn-lg btn-block" >
+  <a  href="/order" class="btn btn-cart-checkout btn-lg btn-block" ng-disabled="!cart.getShippingDay()">
     Continuer la commande 
   </a>
   <button type="button" class="btn btn-default btn-lg btn-block" ng-click="cart.empty();toggleCart();">

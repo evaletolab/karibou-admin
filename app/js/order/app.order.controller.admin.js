@@ -12,6 +12,7 @@ function OrderAdminCtrl($scope,$routeParams, $timeout, $http, api, order, user, 
 
 
 
+
   $scope.addresses=[];
 
   $scope.options.orderByField=null;
@@ -42,24 +43,6 @@ function OrderAdminCtrl($scope,$routeParams, $timeout, $http, api, order, user, 
     return shops;
   };
 
-  //
-  //
-  $scope.selectOrderByShop=function(shop,when,fulfillments){
-    $scope.selected.items=$scope.shops[shop];
-    $scope.selected.shop=shop;
-  };
-
-
-  //
-  // select order 
-  $scope.selectOrder=function (o) {
-    if($scope.selected.order&&$scope.selected.order.oid===o.oid){
-      $scope.selected.order=false;
-      return $scope.selected.items=[];
-    }
-    $scope.selected.items=o.items;
-    $scope.selected.order=o;
-  };
 
   $scope.selectNextOrder=function () {
     $timeout(function () {
@@ -81,10 +64,14 @@ function OrderAdminCtrl($scope,$routeParams, $timeout, $http, api, order, user, 
 
   //
   // compute amount for a selected shop
-  $scope.getAmountTotal=function (items) {
+  $scope.getAmountTotal=function (items,when) {
     var total=0;
+      items=items||[];
       items.forEach(function (item) {
-        if(item.fulfillment.status!=='failure'){
+        if(when&& when!==item.when){
+          return;
+        }
+        if(item.fulfillment.status!=='failure' ){
           total+=parseFloat(item.finalprice);
         }
       });
@@ -235,6 +222,15 @@ function OrderAdminCtrl($scope,$routeParams, $timeout, $http, api, order, user, 
     });
   };
 
+  $scope.updateIssue=function(oid,item,issue){
+    var self=order.find(oid);
+    self.updateIssue(item,issue).$promise.then(function(o){
+      api.info($scope,"Quality enregistré",2000);
+      item.fulfillment.issue=issue;
+    });
+  };
+
+
   $scope.updateCollect=function (shopname,status,when) {
     order.updateCollect(shopname,status,when).$promise
       .then(function (os) {
@@ -246,10 +242,10 @@ function OrderAdminCtrl($scope,$routeParams, $timeout, $http, api, order, user, 
   //
   // get all orders
   $scope.findAllOrders=function(defaultParams){
-
-    var filters=$scope.filters=angular.extend({},$routeParams,defaultParams||{padding:true});
     var today=new Date();
-    if(!defaultParams&&!filters.month &&!filters.when)filters.month=today.getMonth()+1;
+    defaultParams=defaultParams||{};
+    if(defaultParams.month==='now'){defaultParams.month=today.getMonth()+1};
+    var filters=$scope.filters=angular.extend({},defaultParams||{padding:true},$routeParams);
     $scope.loading=true;
 
     $q.all([config.shop,user.$promise]).then(function(){

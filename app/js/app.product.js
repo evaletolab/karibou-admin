@@ -65,20 +65,6 @@ function productCtrl ($scope,$rootScope, $location, $routeParams, config, catego
   $scope.rootProductPath=($routeParams.shop)?'/shop/'+$routeParams.shop:'';
 
 
-  $scope.updateUserDocument=function (doc,sku) {
-    var lang=$scope.locale();
-    if(!doc ||doc.skus.indexOf(sku)!==-1){
-      user.documents.selected=undefined;
-      return;
-    }
-    //
-    // save this product to this doc
-    doc.skus.push(sku);
-    $doc.save(doc).model.$promise.then(function () {
-      api.info($scope,"Votre produit a été enregistré dans le document: "+doc.title[lang],2000);
-      user.documents.selected=undefined;
-    });
-  };
 
   $scope.showPreviousProduct=function(sku){
     var lst=$scope.product.findAll().filter(function(p){
@@ -270,7 +256,7 @@ function productFactory (config, $rootScope,$resource,$q,api) {
     categories:[],
     details:{},
     attributes:{
-      available:true
+      available:false
     },
     pricing:{},
     photo:{}

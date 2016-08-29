@@ -24,7 +24,10 @@ function userFactory(config, $location, $rootScope, $route, $resource, $log, $q,
     provider: '',
     url: '',
     phoneNumbers:[{what:'mobile'}],
-    addresses:[]
+    addresses:[],
+    logistic:{
+      postalCode:[]
+    }
   };
 
   var backend={};
@@ -159,9 +162,6 @@ function userFactory(config, $location, $rootScope, $route, $resource, $log, $q,
     var self=this;
 
     // set context for error
-    if(window.Raven){
-      Raven.setUserContext({id:self.id,email:self.email});        
-    }
 
     if(!self.addresses){
       return;
@@ -194,6 +194,7 @@ function userFactory(config, $location, $rootScope, $route, $resource, $log, $q,
   User.prototype.me = function(cb) {
     var self=this;
     return this.chain(backend.$user.get({id:'me'}, function(_u,headers) {
+        // angular.extend(self,defaultUser);
         self.wrap(_u);
         self.shops=shop.wrapArray(self.shops);
 
@@ -312,7 +313,7 @@ function userFactory(config, $location, $rootScope, $route, $resource, $log, $q,
       if(u.id===_user.id){
         _user.copy(u);
       }
-      $rootScope.$broadcast("user.update",self);
+      $rootScope.$broadcast("user.update",_user);
 
       if(cb)cb(_user);
     });

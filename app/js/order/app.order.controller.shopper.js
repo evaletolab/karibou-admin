@@ -26,7 +26,6 @@ function OrderShopperCtrl($scope,$routeParams, $log, $controller, order) {
     if(!filters.month)filters.month=today.getMonth()+1;
     // if(filters.fulfillments==='fulfilled,partial')filters.closed=true;
     $scope.loading=true;
-
     order.findAllOrders(filters).$promise.then(function(orders){
       $scope.orders=orders;filters.f=null;
       $scope.addresses=orders.map(function(order){return order.shipping;});

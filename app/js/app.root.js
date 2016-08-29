@@ -111,6 +111,10 @@ function appCtrl($scope, $rootScope, $window,  $location, $routeParams, $timeout
       $scope.bundle=model;
     });
   };
+  
+  $scope.go=function(url) {
+    return $location.path(url)
+  }
 
   $scope.goBack=function(url) {
     if(!$window.history.length){
@@ -129,6 +133,7 @@ function appCtrl($scope, $rootScope, $window,  $location, $routeParams, $timeout
          '/admin /login'.indexOf(path.substring(0,5))==-1){
         if(!user.isAdmin()){
           $window.ga('send', 'pageview', { page: path });
+          if(fbq)fbq('track', "PageView");
         }        
       }
     });

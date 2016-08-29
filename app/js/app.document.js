@@ -150,8 +150,8 @@ function docCtrl($scope,$rootScope, $routeParams, config, doc, cart, feedback,us
  * app.document provides a model for interacting with Document.
  * This service serves as a convenient wrapper for other related services.
  */
-docFactory.$inject=['config','$resource','$q','$rootScope','api','user'];
-function docFactory(config, $resource, $q,$rootScope, api,user) {
+docFactory.$inject=['config','$resource','$q','$rootScope','api','user','product'];
+function docFactory(config, $resource, $q,$rootScope, api,user,product) {
   var _documents;
 
 

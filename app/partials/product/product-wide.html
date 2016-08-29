@@ -76,15 +76,6 @@
         </div>      
       </div>
 
-      <div class="clearfix  product-document" ng-if="user.documents.length">
-        <p>Placer ce produit dans un de vos documents</p>
-        <select class="form-control  " 
-                ng-change="updateUserDocument(user.documents.selected,product.sku)" 
-                ng-model="user.documents.selected" 
-                ng-options="doc.title.fr for doc in user.documents track by doc.slug">
-                <option value=""  selected>-- Ajouter à votre document</option>
-        </select>           
-      </div>      
 
 
       <!-- TITLE -->

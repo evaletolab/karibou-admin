@@ -7,7 +7,8 @@
     <p class="gray">
       <b>Pratique!</b>  Nous pouvons vous envoyer un mail de rappel afin de vous aider dans l'organisation de vos courses. 
     </p>
-    <button class="btn btn-block btn-lg btn-transparent" ng-click="user.reminder.active=!user.reminder.active;save(user,{save_reminder:true})">
+    <!-- SAVE -->
+    <button class="btn btn-block btn-lg btn-default" ng-click="user.reminder.active=!user.reminder.active;save(user,{save_reminder:true})">
       <span ng-show="user.reminder.active" class=" fa-1x"><i  class=" green fa fa-check-circle "></i> 
         L'alarme est active
       </span>  
@@ -15,7 +16,7 @@
         Cliquer pour activer l'alarme
       </span>  
     </button>
-    
+
   </div>
 
 
@@ -106,9 +107,21 @@
                 ng-click="user.reminder.time=23;save(user,{save_reminder:true});">23h</button>
       </div>
     </div>        
+
+    <!-- SAVE -->
+  <hr/>
+    <div>
+      <button class="btn btn-block btn-lg btn-default" ng-click="user.reminder.active=!user.reminder.active;save(user,{save_reminder:true})">
+        <span ng-show="user.reminder.active" class=" fa-1x"><i  class=" green fa fa-check-circle "></i> 
+          L'alarme est active
+        </span>  
+        <span ng-show="!user.reminder.active" class="fa-1x gray"><i class=" fa fa-hand-o-right "></i> 
+          Cliquer pour activer l'alarme
+        </span>  
+      </button>
+    </div>
   </div>
 
-  <hr/>
 
 
 </div>

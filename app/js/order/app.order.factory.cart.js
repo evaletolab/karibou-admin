@@ -49,6 +49,9 @@ function cartPrice($parse, $timeout,cart) {
   };
 }
 
+
+
+
 //
 // implement cart
 cartFactory.$inject=['config','$timeout','$rootScope','$window','$storage','api','user'];
@@ -81,8 +84,25 @@ function cartFactory(config, $timeout,$rootScope,$window, $storage, api,user) {
     defaultCart.shippingFlatRate=config.shop.shipping;
   });
 
-  user.$promise.finally(function(){
-    defaultCart.postalCode=user.addresses[_cart.config.address||0].postalCode;
+
+  $rootScope.$on("user.init",function () {
+    if(!user.addresses.length){
+      return;
+    }
+
+    var p=(user.hasPrimaryAddress());
+    _cart.config.address=user.addresses[(p>-1)?p:0];
+    defaultCart.postalCode=_cart.config.address.postalCode;
+  });
+
+  $rootScope.$on("user.update",function () {
+    if(!user.addresses.length){
+      return;
+    }
+
+    var p=(user.hasPrimaryAddress());
+    _cart.config.address=user.addresses[(p>-1)?p:0];
+    defaultCart.postalCode=_cart.config.address.postalCode;
   });
 
 
@@ -204,6 +224,9 @@ function cartFactory(config, $timeout,$rootScope,$window, $storage, api,user) {
   };
 
   Cart.prototype.add=function(product, variant, silent){
+    // facebook
+    if(window.fbq)fbq('track', 'AddToCart');
+
     if(!silent){
       $rootScope.CartText="Waiting";
       $timeout(function() { $rootScope.CartText=false; }, 1000);
@@ -333,6 +356,20 @@ function cartFactory(config, $timeout,$rootScope,$window, $storage, api,user) {
     return false;
   };
 
+
+  Cart.prototype.isShippingHypercenter=function () {
+    var postalCode=this.config.address&&this.config.address.postalCode;
+    postalCode=postalCode||user.addresses.length&&user.addresses[0].postalCode;
+    if(!postalCode ){
+      return true;
+    }
+
+    if(defaultCart.shippingFlatRate.periphery.indexOf(postalCode)>-1){
+      return false;
+    }
+    return true;
+  }
+
   Cart.prototype.getShippingSectorPrice=function (postalCode) {
     if(!postalCode ){
       return 'hypercenter';
@@ -358,6 +395,8 @@ function cartFactory(config, $timeout,$rootScope,$window, $storage, api,user) {
     else if(user.addresses&&user.addresses.length){
       defaultCart.postalCode=user.addresses[addressIdx].postalCode;
     }
+
+
     var distance=this.getShippingSectorPrice(defaultCart.postalCode);
     var price=defaultCart.shippingFlatRate.price[distance];
 
@@ -441,5 +480,8 @@ function cartFactory(config, $timeout,$rootScope,$window, $storage, api,user) {
   var _cart=new Cart().load();
   return _cart;
 }
+
+
+
 
 })(window.angular);

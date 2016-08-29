@@ -30,6 +30,7 @@
 
           <form class="form-inline">
             <div class="form-group">
+              <label><input type="checkbox" class=""   ng-model="_user.reminder"> Reminder</label>
               <input type="text" class="form-control form-inline"  placeholder="Nom" ng-model="_user.name">
               <input type="text" class="form-control "  placeholder=">= orders count" ng-model="_user.orders">
               <input type="text" class="form-control"  placeholder=">= Wallet amount" ng-model="_user.amount">
@@ -55,7 +56,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr ng-repeat="u in users|orderBy:options.orderByField:options.reverseSort|filterBy:['email.status']:options.filterByField|filter:options.filterTxt|limitTo:80" ng-class="{'danger':u.status!==true}">
+        <tr ng-repeat="u in users|orderBy:options.orderByField:options.reverseSort|filterBy:['email.status']:options.filterByField|filter:options.filterTxt|limitTo:options.limitUserDisplay" ng-class="{'danger':u.status!==true}">
           <td class="small">{{$index+1}}
               <a  ng-click="modalUserDetails(u)" title="{{u.getEmailStatus()}}"
                 bs-modal="'/partials/admin/user.modal.html'">

@@ -181,6 +181,9 @@
 }
 
 
+img.shop{
+  max-width: 100%;
+}
 
 img.owner{
   margin: 0 auto;

@@ -24,6 +24,23 @@
                         <p ng-show="form.description.$invalid && !form.description.$pristine" class="help-block">La description est obligatoire.</p>                        
                       </div>
 
+                     <!-- TVA -->
+                      <div class="form-group clearfix">
+                        <div><label class="control-label">TVA</label></div>
+                        <div class="col-xs-6 nopadding">
+                          <div class="">
+                            <input type="text" class="form-control input-lg" ng-model="shop.account.tva.number"  placeholder="numéro TVA"/>                        
+                          </div>
+                      
+                        </div>
+                        <div class="col-xs-6 nopadding">
+                          <div class="">
+                            <input type="text" class="form-control input-lg" ng-model="shop.account.tva.fees"  placeholder="forfait TVA"/>                        
+                          </div>
+                        </div>
+                        <p class="help-block">Laissez ces champs vides si vous n'êtes pas soumis à la TVA</p>
+                      </div>
+
                      <!-- URL -->
                       <div class="form-group clearfix">
                         <label class="control-label">Votre boutique sur Internet</label>
@@ -210,6 +227,22 @@
                             ng-click="toggleShipping(6)">Samedi
                           </a>
                       </div>                                                
+                    </div>
+
+                    <!-- list products when prepare order -->
+                    <div class="clearfix ">
+                      <h5 class="article-group-title black">Recevoir les mails pour la préparation des commandes</h5>
+                      <div class="list-group">
+                        <a href="" class="list-group-item list-group-item-success" >
+                          Recevoir un mail avec toute les commandes à préparer groupé par utilisateur (produits par utilisateur)
+                        </a>
+                        <a href="" class="list-group-item" 
+                            ng-class="{'list-group-item-success':shop.info.detailledOrder}"
+                            ng-click="shop.info.detailledOrder=!shop.info.detailledOrder;">
+                          Ajouter la liste exhaustive des produits avec les quantités au mail de préparation des commandes
+                        </a>
+                      </div>
+
                     </div>
 
                     

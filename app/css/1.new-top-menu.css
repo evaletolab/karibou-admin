@@ -3,10 +3,14 @@
 }
 
 .container-menu{
-  position: fixed;
+  position: absolute;
   top:100px;
-  left: inherit;
-  margin-left: -20px;
+  left: -10px;
+}
+
+.container-menu.affix{
+  position: fixed!important;
+  top: 100px!important;  
 }
 
 
@@ -45,6 +49,16 @@
 }
 .container-menu > ul > li > a {
   font-size: 16px;
+}
+
+.container-menu.menu-small > ul > li > a {
+  font-size: 15px;
+}
+
+.container-menu.menu-small .dropdown-header{
+  font-size: 16px;
+  color: #452d16;
+  font-weight: 600;
 }
 
 .dropdown-menu-large > li i.fa{

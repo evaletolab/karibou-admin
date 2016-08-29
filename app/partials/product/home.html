@@ -1,4 +1,4 @@
-<section  tabindex="-1" ng-controller="HomeCtrl" style="margin-top: 70px;" ng-class="{'user':user.isAuthenticated()}">
+<section  tabindex="-1" ng-controller="HomeCtrl" style="margin-top: 70px;" ng-class="{'user':user.isAuthenticated(),'admin':user.isAdmin()}">
 
   <div class="home-header" 
        backstretch="config.shop.home.tagLine.image">
@@ -10,9 +10,10 @@
          ga-send="{category:'navigation',action:'howto'}">&nbsp; Comment ça marche? &nbsp;</a>
     </div>
     <div class="show-user">
-      <h3 class="hello text-capitalize">Bonjour {{user.name.givenName}}</h3>
-      <p>Bienvenue au marché! Vos produits les plus achetés sont <a href="/account/love">ici</a>
-        <i class="fa f-smile-o green-2"></i>
+      <h3 class="hello ">Bienvenue au marché <span class="text-capitalize">{{user.name.givenName}}</span></h3>
+      <p>
+        Retrouvez les <i class="fa fa-gift pink fa-2x"></i> ainsi que vos produits 
+        <a class="link" href="/account/love"> préférés ici </a><i class="fa fa-rocket pink"></i>
       </p>
     </div>
     
@@ -20,6 +21,8 @@
 
   <div class="container-fluid" >
 
+<!--   <div ng-include="'/partials/product/product-navigation.html'" class="hidden-xs hidden-sm hidden-md" />
+ -->
 
 
 
@@ -49,12 +52,12 @@
 
         <article  ng-repeat="category in getAvailableCategories()|filter:filterForHome"                    
                    style="width: 103%;" > 
-          <h4 class="article-group-title black no-border" >
+          <h4 class="article-group-title black no-border" ng-click="go('/products/category/'+category.slug)">
             <span class="gray">{{category.name}} </span>
             <a ng-href="/products/category/{{category.slug||''}}" 
                class="btn btn btn-products green bold ">Voir Plus &nbsp;<i class="fa fa-angle-right"></i></a>                
           </h4>
-          <div  ng-static-include="'/partials/product/product.html'" ng-if="category.active" 
+          <div  ng-static-include="'/partials/product/product.html'"      ng-if="category.active" 
                 ng-repeat="product in getProductsByCat(category.name)|orderBy:['updated']"/>
         </article>
 

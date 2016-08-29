@@ -29,7 +29,7 @@
       <div class="sidebar-block" ng-if="docs.length>1">
         <h4 translate="furthermore"></h4>
         <ol  class="list-unstyled">
-          <li ng-repeat="other in docs|orderBy:'-title.fr'" ng-if="other.available"><a ng-href="/content/{{other.slug[0]}}" i18n-render="other.title"></a></li>
+          <li ng-repeat="other in docs|filter:{available:true, type:doc.model.type}|orderBy:'-title.fr'" ><a ng-href="/content/{{other.slug[0]}}" i18n-render="other.title"></a></li>
         </ol>   
       </div> 
 

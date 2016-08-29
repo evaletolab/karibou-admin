@@ -392,9 +392,11 @@
                   <tr>
                       <td class="text-right" colspan="3">
                         <strong>Soustotal: </strong> <br/>
-                        <strong>Paiement {{updateGatewayFees()}}: {{cart.tax()*100|number:1}}%</strong><br/>                        
-                        <strong ng-if="!cart.hasShippingReduction()"><a href="/content/faq-clients">Livraison à <i class="bold green fa fa-bicycle  "></i>:</a> </strong>
-                        <strong ng-if="cart.hasShippingReduction()"><a href="/content/faq-clients">Livraison à <i class="bold green fa fa-bicycle  "></i>, tarif spécial:</a></strong>
+                        <strong><a href="/content/faq-clients#payment">Paiement {{updateGatewayFees()}}:</a> {{cart.tax()*100|number:1}}%</strong><br/>                        
+                        <strong ng-if="!cart.hasShippingReduction()"><a href="/content/faq-clients#shipping">Livraison à 
+                        <i class="bold green fa " ng-class="cart.isShippingHypercenter()?'fa-bicycle':'fa-truck'"></i>:</a> </strong>
+                        <strong ng-if="cart.hasShippingReduction()"><a href="/content/faq-clients#shipping">Livraison à 
+                        <i class="bold green fa " ng-class="cart.isShippingHypercenter()?'fa-bicycle':'fa-truck'"></i>, tarif spécial:</a></strong>
                       </td>
                       <td class="text-right padding">
                         <strong>{{cart.total()|number:2}} </strong><br/>
@@ -415,7 +417,7 @@
            <!-- SHIPPING DATE -->         
            <div class=" text-center">
               <h2 class="green-2 bold">Livraison entre 16h00 et 18h00</h2>
-              <div ><i class="fa fa-bicycle green-2 fa-5x"></i></div>
+              <div ><i class="fa  green-2 fa-5x" ng-class="cart.isShippingHypercenter()?'fa-bicycle':'fa-truck'"></i></div>
               <div class="grayx small" style="max-width: 400px;margin:0 auto">
                 Si vous n'êtes pas présent lors de la livraison et sans indication contraire de votre part, les produits seront déposés devant votre porte. 
               </div>
@@ -425,7 +427,6 @@
            <div class="clearfix">
              <h5 class="article-group-title ">Choisir l'adresse de livraison </h5>
               <select class="cart form-control input-lg" 
-                      ng-init="cart.config.address = user.addresses[0]"
                       ng-model="cart.config.address"
                       ng-options="a.name +' - ' +a.streetAdress + ' ' + a.postalCode for a in user.addresses">
               </select>

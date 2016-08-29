@@ -74,8 +74,6 @@ function OrderNewCtrl($controller, $scope, $location, $rootScope, $timeout, $rou
 
 
 
-    var p=user.hasPrimaryAddress();
-    $scope.cart.config.address=(p!=-1)?p:0;
 
     $log.info('out flow',$scope.process,$scope.cart.config);  
 
@@ -183,6 +181,11 @@ function OrderNewCtrl($controller, $scope, $location, $rootScope, $timeout, $rou
 
 
   $scope.selectPaymentMethod=function (method) {
+    // facebook
+    if(window.fbq && !user.isAdmin()){
+      window.fbq('track', 'InitiateCheckout');      
+    }
+
     $scope.options.showCreditCard=false;
     if($scope.methodStatus[method.alias]){
       return; 
@@ -286,6 +289,13 @@ function OrderNewCtrl($controller, $scope, $location, $rootScope, $timeout, $rou
     $log.debug("order.dates",config.shippingweek);
     $log.debug("order.address",cart.config.address);
     $log.debug("order.fees",cart.taxName(),cart.tax());
+
+    //
+    // facebook
+    if(window.fbq && !user.isAdmin()){
+      window.fbq('track', 'Purchase', {value: cart.total(), currency:'CHF'});
+    }
+
 
     //
     // prepare shipping

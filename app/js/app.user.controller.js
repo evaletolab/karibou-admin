@@ -81,12 +81,15 @@ User.controller('AccountCtrl',[
     };
 
     // show payment form
-    $scope.options={
+    $scope.options=angular.extend($scope.options||{},{
       showCreditCard:false,
       showPaymentForm:false,
       orderByField:'logged',
-      filterByField:false
-    };
+      filterByField:false,
+      limitUserDisplay:80
+    });
+
+
 
     // default model for modal view
     $scope.modal = {};
@@ -151,6 +154,22 @@ User.controller('AccountCtrl',[
       $scope.user = u;
       angular.extend($scope,user.geo.getMap());
     });
+
+    $scope.hasPostalCode=function(cp) {
+      var lst=user.logistic.postalCode||[];
+      return lst.indexOf(cp)!==-1;
+    }
+
+    $scope.togglePostalCode=function(cp) {
+      var lst=user.logistic.postalCode||[];
+      var pos=lst.indexOf(cp);
+      if(pos===-1){
+        lst.push(cp);
+      }else{
+        lst.splice(pos,1);
+      }    
+      user.logistic.postalCode=lst;
+    }
 
     $scope.modalUserDetails=function(user){
       $scope.modal=user;

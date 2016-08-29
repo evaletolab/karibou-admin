@@ -6,7 +6,7 @@
   </div>
   <li class="list-group-item " 
       ng-repeat-end ng-class="getOrderStatusClass(order,'list-group-item-')" 
-      ng-if="(!filters.f||filters.f===order.shipping.when)&&order.payment.fees.shipping">
+      ng-if="isLogisticVisible(order,filters.f)">
     <h4 class="list-group-item-heading">
       <a class=" text-capitalize" ng-click="modalUserDetails(order.oid)" bs-modal="'/partials/order/order.user.modal.html'">
         {{order.shipping.name}}</a> <a href="tel:{{getOrderPhones(order)}}" class="small">{{getOrderPhones(order)}}</a> 
@@ -17,6 +17,7 @@
             <span class="caret"></span>
           </button>
           <ul class="dropdown-menu">
+            <li><a class="grayx">{{order.payment.fees.shipping|number:1}} fr</a></li>
             <li><a href="#" ng-click="updateBagsCount(order,1)">1 cabas</a></li>
             <li><a href="#" ng-click="updateBagsCount(order,2)">2 cabas</a></li>
             <li><a href="#" ng-click="updateBagsCount(order,3)">3 cabas</a></li>
@@ -27,7 +28,9 @@
     </h4>
     <span class="pull-right label label-primary">sac {{order.rank}}</span>
     <p class="list-group-item-text">
-       {{order.shipping.streetAdress}}/{{order.shipping.postalCode}}<br/>
+       <a href="" map-scheme="order.shipping" class="btn btn-xs btn-default"><i class="fa fa-map-marker"></i></a>
+       {{order.shipping.streetAdress}}/{{order.shipping.postalCode}}
+       <br/>
        <small>étage: {{order.shipping.floor}} - {{order.shipping.note}}</small>
     </p>
   </li>

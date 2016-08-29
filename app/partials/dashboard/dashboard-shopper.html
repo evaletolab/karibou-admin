@@ -17,7 +17,6 @@
 
     <ul class="nav navbar-top-links navbar-right pull-right">
 
-
         <!-- /.dropdown edit shop -->
         <li class="dropdown" ng-if="dates.length">
             <a class="dropdown-toggle green bold text-capitalize" data-toggle="dropdown" href="#">
@@ -62,6 +61,14 @@
                   ng-repeat="year in years"
                   ng-click="toggle({year:year})" ng-class="getToggleClass('year',year)">{{year}}</button>                 
           <br/>
+        </div>
+        <div class="col-xs-12 ">
+          <div>Vos codes postaux: </div>
+
+          <span ng-repeat="cp in user.logistic.postalCode|orderBy" >
+            <span class="label label-karibou"> {{cp}} </span>&nbsp;
+          </span>
+          
         </div>
       </div>
     </div>

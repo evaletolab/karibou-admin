@@ -78,7 +78,7 @@ function inlineEdit ($parse) {
       // model -> view
       ngModel.$render = function(value) {
         if(window.Remarkable &&attrs.contentMakrdown!=='false'){
-          var converter = new Remarkable();
+          var converter = new Remarkable({html:true,linkify:true,linkTarget:'_new'});
           elm.html(converter.render(ngModel.$viewValue));
           return;
         }
@@ -117,7 +117,7 @@ function markdownRender($compile,$timeout,$translate,config) {
     priority:1,
     link: function(scope, element, attrs, ngModelCtrl) {
       var self=this;
-      var converter = new Remarkable();
+      var converter = new Remarkable({html:true,linkify:true,linkTarget:'_new'});
 
       scope.$watch('markdownRender', function (markdownRender) {
         if (scope['markdownRender']) {
@@ -144,7 +144,7 @@ function i18nRender($rootScope,$interpolate,$timeout,$translate,config) {
     priority:1,
     link: function(scope, element, attrs) {
       var self=this;
-      var converter = new Remarkable();
+      var converter = new Remarkable({html:true,linkify:true,linkTarget:'_new'});
 
 
       function  render() {

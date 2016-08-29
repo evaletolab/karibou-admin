@@ -2,7 +2,7 @@
 
 
   <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
-    <div class="navbar-header">
+    <div class="navbar-header pull-left">
         <button type="button" class="navbar-toggle hidden-xs" data-toggle="collapse" data-target=".navbar-collapse">
             <span class="sr-only">Toggle navigation</span>
             <span class="icon-bar"></span>
@@ -21,27 +21,13 @@
     </div>
     <!-- /.navbar-header -->
 
-    <ul class="nav navbar-top-links navbar-right hidden-xs">
+    <ul class="nav navbar-top-links navbar-right ">
 
         <!-- CUSTOM FORM -->
 
-
         <!-- /.dropdown edit shop -->
-        <li class="dropdown" ng-if="user.shops.length">
-            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                <i class="fa fa-tasks fa-fw"></i>  <i class="fa fa-caret-down"></i>
-            </a>
-            <ul class="dropdown-menu dropdown-tasks">
-              <li ng-repeat="shop in user.shops">
-                <a ng-href="/shop/{{shop.urlpath}}/edit">{{shop.name}} (edit)</a>
-              </li>
-            </ul>
-            <!-- /.dropdown-tasks -->
-        </li>
-
-        <!-- /.dropdown edit shop -->
-        <li class="dropdown" ng-if="dates.length">
-            <a class="dropdown-toggle green bold text-capitalize" data-toggle="dropdown" href="#">
+        <li class="dropdown pull-right" ng-if="dates.length" style="margin-right:0">
+            <a class="dropdown-toggle green bold text-capitalize" data-toggle="dropdown" href="#" >
                 <i class="fa fa-calendar fa-fw"></i> {{filters.f|dateLabelShort}}  <i class="fa fa-caret-down"></i>
             </a>
             <ul class="dropdown-menu dropdown-tasks">
@@ -57,7 +43,7 @@
   </nav>
 
   <!-- MAIN CONTENT -->
-  <div   ng-init="findAllOrders()" class="clearfix">
+  <div   ng-init="findAllOrders({month:'now'})" class="clearfix">
     <div class="dashboard-filters " >
         <div class="panel-body bg-gray" id="order-filter" ng-class="{'hide':orders.length}">
             <div class="col-xs-12 col-md-4 ">
@@ -113,8 +99,8 @@
       </div>
 
       <!-- ORDER ITEMS -->
-      <div ng-static-include="'/partials/order/order-lists-items.html'" 
-           ng-if="selected.order&&!filters.print"
+      <div ng-include="'/partials/order/order-lists-items.html'" 
+           ng-show="selected.order&&!filters.print"
            class="order-list-items col-md-6 col-xs-12 scroll-y">          
       </div>
 

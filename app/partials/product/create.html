@@ -117,16 +117,18 @@
                     <div class="form-group">
                       <label class="control-label ">Catégorie </label> 
                       <div class=" small">
-                        <select  ng-model="product.categories " class="form-control " required >
-                          <option ng-repeat="cat in category.findAll()| filter:{type:'Category'}" 
-                                  ng-selected="(product.categories._id||product.categories)==cat._id" value="{{cat._id}}" >{{cat.name}}</option>
+                        <select  ng-model="product.categories " 
+                                 class="form-control " required
+                                 ng-options="cat._id as cat.name for cat in category.findAll()| filter:{type:'Category'} track by cat._id">
                         </select>
                       </div>
                     </div>
                   </div>
                 </div>
                 <!-- END TWO COLUMNS -->
-                
+<!--                           <option ng-repeat="cat in category.findAll()| filter:{type:'Category'}" 
+                                  ng-selected="(product.categories._id||product.categories)==cat._id" value="{{cat._id}}" >{{cat.name}}</option>
+ -->                
             </div>
             <!-- VARIANT -->
 

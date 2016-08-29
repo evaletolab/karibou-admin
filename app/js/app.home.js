@@ -42,9 +42,10 @@ Home.controller('HomeCtrl', [
   'shop',
   'product',
   'cart',
+  'documents',
   'Map',
 
-  function ($scope, $route, $location, $rootScope, $routeParams, $q, config, api, category, user, shop, product, cart, Map) {
+  function ($scope, $route, $location, $rootScope, $routeParams, $q, config, api, category, user, shop, product, cart, $doc,Map) {
     var filter={sort:'created'}, promise,scrollBusy=false, nextShipping;
     $scope.user = user;
     $scope.map=new Map();
@@ -52,8 +53,15 @@ Home.controller('HomeCtrl', [
     $scope.infinite=[];
     $scope.product=false;
     $scope.groupByShop={};
-    $scope.filterForHome={type:'Category',home:true,active:true};
+    $scope.filterForHome={
+      type:'Category',
+      home:true,
+      active:true
+    };
 
+    if(user.isAuthenticated()){
+      delete $scope.filterForHome.home;      
+    }
 
     $rootScope.$on("shipping.update",function(event,date) {
       nextShipping=date;
@@ -63,10 +71,9 @@ Home.controller('HomeCtrl', [
     });
 
     $rootScope.$on('user.init',function() {
+      $scope.filterForHome.home=true;
       if(user.isAuthenticated()){
         delete $scope.filterForHome.home;
-      }else{
-        $scope.filterForHome.home=true;
       }
     });
 
@@ -103,6 +110,22 @@ Home.controller('HomeCtrl', [
       return addresses;
     };
 
+
+
+  $scope.updateUserDocument=function (doc,sku) {
+    var lang=$scope.locale();
+
+    if(!doc ||doc.skus.indexOf(sku)!==-1){
+      return;
+    }
+
+    //
+    // save this product to this doc
+    doc.skus.push(sku);
+    $doc.save(doc).model.$promise.then(function () {
+      api.info($scope,"Votre produit a été enregistré dans le document: "+doc.title[lang],2000);
+    });
+  };
 
 
     $scope.loadHome=function(options){
@@ -154,7 +177,7 @@ Home.controller('HomeCtrl', [
       //
       // load my popular & love products
       if(options.love){
-        product.findLove({popular:true,windowtime:2, available:true,maxcat:8},function(products){
+        product.findLove({discount:true,popular:true,windowtime:2, available:true,maxcat:8,when:nextShipping},function(products){
           $scope.items=products.sort(sort_by_weigth_and_date);
           deferred.resolve(products);
         });

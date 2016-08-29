@@ -17,6 +17,26 @@ Service.factory('api', [
   'Flash',
 function ($rootScope, $http, $resource, $timeout, $q, $log, $location, $routeParams, config, Flash) {  
   var _categories=[], promise;
+  var isMobile = {
+    Android: function() {
+      return navigator.userAgent.match(/Android/i);
+    },
+    BlackBerry: function() {
+      return navigator.userAgent.match(/BlackBerry/i);
+    },
+    iOS: function() {
+      return navigator.userAgent.match(/iPhone|iPad|iPod/i);
+    },
+    Opera: function() {
+      return navigator.userAgent.match(/Opera Mini/i);
+    },
+    Windows: function() {
+      return navigator.userAgent.match(/IEMobile/i);
+    },
+    any: function() {
+      return (isMobile.Android() || isMobile.BlackBerry() || isMobile.iOS() || isMobile.Opera() || isMobile.Windows());
+    }
+  };
 
   /**
    * get category object
@@ -34,7 +54,7 @@ function ($rootScope, $http, $resource, $timeout, $q, $log, $location, $routePar
     Flash.create('success', msg, 'custom-class');
     cb&&$timeout(cb,ms||0);
   }
-  
+
 
   function error(msg, ms, cb){
     Flash.create('danger', msg);
@@ -221,6 +241,7 @@ function ($rootScope, $http, $resource, $timeout, $q, $log, $location, $routePar
 
   }
   return {
+    detect:isMobile,
     uploadfile:uploadfile,
     wrapDomain:wrapDomain,
     findBySlug:findBySlug,

@@ -23,8 +23,9 @@
 								<li ng-show="user.isAuthenticated()"><a href="/account/love">Mes produits les plus achetés</a></li>
 								<li class="divider"></li>
 								<li class="dropdown-header">Alimentation</li>
-	              <li  class="" ng-repeat="category in category.findAll()|filter:{type:'Category'}|orderBy:'weight'" ng-if="!category.group">
+	              <li  class="" ng-repeat="category in category.findAll()|filter:{type:'Category',active:true}|orderBy:'weight'" ng-if="!category.group">
 	                <a ng-class="getClass('/products/category/{{category.slug}}')"
+	                	 ga-send="{category:'navigation',action:'navigation-top'}"
 	                   href="/products/category/{{category.slug}}" tabindex="-1">{{category.name}}</a>
 	              </li>
 
@@ -35,7 +36,7 @@
 						<li class="col-xs-6 col-sm-6 nopadding">
 							<ul>
 								<li class="dropdown-header">Boissons</li>
-	              <li  class="" ng-repeat="category in category.findAll()|filter:{type:'Category',group:'Boissons'}|orderBy:'weight'">
+	              <li  class="" ng-repeat="category in category.findAll()|filter:{type:'Category',group:'Boissons',active:true}|orderBy:'weight'">
 	                <a ng-class="getClass('/products/category/{{category.slug}}')"
 	                   href="/products/category/{{category.slug}}" tabindex="-1">{{category.name}}</a>
 	              </li>
@@ -43,7 +44,7 @@
 							<ul>
 								<li class="divider"></li>
 								<li class="dropdown-header">Autres</li>
-	              <li  class="" ng-repeat="category in category.findAll()|filter:{type:'Category',group:'Autres'}|orderBy:'weight'">
+	              <li  class="" ng-repeat="category in category.findAll()|filter:{type:'Category',group:'Autres',active:true}|orderBy:'weight'">
 	                <a ng-class="getClass('/products/category/{{category.slug}}')"
 	                   href="/products/category/{{category.slug}}" tabindex="-1">{{category.name}}</a>
 	              </li>
@@ -73,9 +74,9 @@
               <li class="divider"></li>						
 							<li ng-repeat="shop in shops|orderBy:'name'|limitTo:(shops.length/2+shops.length%2)" ng-if="shop.status">			
 								<a ng-href="/shop/{{shop.urlpath}}" ng-class="{'grayx':shop.available.active}"> 
-									{{shop.name}} <i class="fa fa-info-circle grayx" ng-show="shop.available.active" title="{{shop.available.comment}}"></i>
+									{{::shop.name}} <i class="fa fa-info-circle grayx" ng-show="shop.available.active" title="{{shop.available.comment}}"></i>
 									<span class="dropdown-menu-shop-shipping text-capitalize hidden-xs"> 
-									<span ng-repeat="day in shop.available.weekdays">{{daysweek[day]}}&nbsp;</span> 
+									<span ng-repeat="day in shop.available.weekdays">{{::daysweek[day]}}&nbsp;</span> 
 									<i class="fa fa-circle green-2"></i> </span>
 								</a> 
 							</li>
@@ -87,8 +88,8 @@
               <li class="divider hidden-xs"></li>						
 							<li ng-repeat="shop in shops|orderBy:'name'|limitTo:(-shops.length/2)" ng-if="shop.status">
 								<a ng-href="/shop/{{shop.urlpath}}" ng-class="{'grayx':shop.available.active}"> 
-										{{shop.name}} <i class="fa fa-info-circle grayx" ng-show="shop.available.active" title="{{shop.available.comment}}"></i>
-										<span class="dropdown-menu-shop-shipping text-capitalize hidden-xs"> <span ng-repeat="day in shop.available.weekdays">{{daysweek[day]}}&nbsp;</span>
+										{{::shop.name}} <i class="fa fa-info-circle grayx" ng-show="shop.available.active" title="{{shop.available.comment}}"></i>
+										<span class="dropdown-menu-shop-shipping text-capitalize hidden-xs"> <span ng-repeat="day in shop.available.weekdays">{{::daysweek[day]}}&nbsp;</span>
 										<i class="fa fa-circle green-2"></i></span>
 							</a>
 							</li>
@@ -96,7 +97,7 @@
 					</li>
 				</ul>
 			</li>
-			<li class="dropdown dropdown-large ">
+			<li class="dropdown dropdown-large hidden-xs">
         <a href="#" class="dropdown-toggle" data-toggle="dropdown" >
 	        <span>K<span class="hidden-xs">aribou.ch</span></span> <i class="fa fa-chevron-down green-1"></i></a>
         <ul class="dropdown-menu dropdown-menu-large row">
@@ -136,8 +137,7 @@
 			<li class="dropdown dropdown-large">
         <a href="#" class="dropdown-toggle" data-toggle="dropdown" >
       		<i class="fa fa-calendar green-1"></i>
-      		<span class="hidden-xs">Prochaine livraison </span>
-      		<span  clockdown></span>
+      		<span clockdown="<span class='hidden-xs'>Prochaine livraison </span>"></span>
       		&nbsp;<i class="fa fa-chevron-down green-1"></i>
       	</a>
         <ul class="dropdown-menu dropdown-menu-large">
@@ -148,7 +148,7 @@
 					<li class="dropdown-header">Choisissez votre jour de livraison</li>
 					<li class="dropdown-info"><i class="fa fa-warning grayx"></i> Certaines boutiques ne livrent pas tous les jours</li>
         	<li ng-repeat="day in config.shop.shippingweek" ng-click="cart.setShippingDay($index)">
-        		<a href="" class=""> <i class="fa  green-2" ng-class="$index===cart.config.shipping ? 'fa-circle':'fa-circle-o'"></i> Le marché du {{day|dateMomentLong}} <span class="grayx pull-right">({{day|dateMomentHuman}})</span></a>
+        		<a href="" class=""> <i class="fa  green-2" ng-class="$index===cart.config.shipping ? 'fa-circle':'fa-circle-o'"></i> Le marché du {{::day|dateMomentLong}} <span class="grayx pull-right">({{::day|dateMomentHuman}})</span></a>
         	</li>
         </ul>
 

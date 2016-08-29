@@ -45,6 +45,7 @@ Shop.controller('ShopCtrl',[
     $scope.map=new Map();
     
     $scope.save=function(shop){
+
       shop.save(function(s){
           //
           // inform all listeners this has changed
@@ -183,6 +184,7 @@ Shop.factory('shop', [
       available:{},
       address:{},
       info:{},
+      account:{},
       faq:[]
     };
 

@@ -80,6 +80,16 @@ article> h4 a{
 .layout-item .product-vendor .closed                        {display: none;}
 .layout-item.product-vendor-closed .product-vendor .closed  {display: block;}
 
+/* document */
+.layout-item .product-document                              {display: none; }
+.user.admin  .layout-item .product-document                 {display: block;}
+
+.product-document{
+  position: absolute;
+  right: 15px;
+  bottom: 4px;
+  z-index: 1;
+}
 
 .layout-item{
   float:left;
@@ -127,6 +137,16 @@ article> h4 a{
 
 .ie .layout-item.c1 img, .ie .layout-item.c2 img{
   padding-bottom: 0%;
+}
+
+.layout-item  div.bio{
+  position: absolute;
+  left: 0px;
+  margin-top: -20px!important;
+  text-shadow: 0 0 1px rgba(0, 0, 0, 0.18);
+  color: #CDFFB9!important;
+  color: #86FF56!important;
+  -background-color: rgba(255, 255, 255, 0.1);
 }
 
 .layout-item a.link{

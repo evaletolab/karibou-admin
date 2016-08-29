@@ -37,7 +37,7 @@
   </nav>
 
   <!-- MAIN CONTENT -->
-  <div class="clearfix " ng-init="findAllOrders({groupby:'shop'})">
+  <div class="clearfix " ng-init="findAllOrders({groupby:'shop',month:'now'})">
     <div class="dashboard-filters " >
         <div class="panel-body bg-gray" id="order-filter" ng-class="{'hide':orders.length}">
               <div class="col-xs-12 col-md-3 " ng-if="user.isAdmin()">
@@ -84,10 +84,10 @@
 
         <!-- ORDERS BY SHOP -->
         <div ng-if="shops" class="col-md-6 col-xs-12 nopadding  scroll-y">
-          <div  ng-static-include="'/partials/order/order-collect-shop.html'"></div>
+          <div  ng-include="'/partials/order/order-collect-shop.html'"></div>
         </div>
 
-        <div ng-if="selected.shop"
+        <div ng-show="selected.shop"
              ng-static-include="'/partials/order/order-lists-byshop.html'" 
              class="order-list-items col-md-6 col-xs-12  scroll-y">          
         </div>

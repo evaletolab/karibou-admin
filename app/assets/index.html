@@ -60,7 +60,7 @@
 
     <!-- GG analytics -->
     <script>
-    if(location.origin.indexOf('evaletolab')==-1){
+    if(location.origin.indexOf('karibou.ch')!==-1){
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
       (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
       m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
@@ -70,6 +70,20 @@
     }
     </script>
     
+    <!-- Facebook Pixel Code -->
+    <script>
+    if(location.origin.indexOf('karibou.ch')!==-1){
+      !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+      n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+      n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+      t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+      document,'script','https://connect.facebook.net/en_US/fbevents.js');
+
+      fbq('init', '142141582812801');
+    }
+    </script>
+    <!-- End Facebook Pixel Code -->
+
   </head>
 
    <body>
@@ -98,62 +112,14 @@
             <i class="fa fa-home hidden-xs"></i>
             <img src="/img/k-puce-v2.png" width="25px" class="visible-xs" style="margin-top: -5px">
           </a>
-          <a class="navbar-brand navbar-brand-shop hide ng-cloak" href="" ng-click="goBack('/')">
+          <a class="navbar-brand navbar-brand-shop hide ng-cloak" href="/" ngclick="goBack('/')">
             <i class="fa fa-chevron-left green-2 "></i>
           </a>
 
           <a class="navbar-brand-ex ng-cloak" href="/">
             <img src="/img/k-brand.png" width="120px" class="hidden-xs">
           </a>
-            <ul class="nav navbar-nav navbar-menu hide" style="margin-left: 180px">
-                <li>
-                  <!-- MENU -->
-                  <div class="btn-group navbar-btn">
 
-                    <button data-toggle="dropdown" class="btn btn-products dropdown-toggle"><span cl>Produits </span> <span class="caret"></span></button>
-                    <ul class="dropdown-menu dropdown-menu-large row">
-                      <li class="col-xs-6 col-sm-4">
-                        <ul>
-                          <li><a href="/">Tous les produits</a></li>
-                          <li><a href="/shops">Toutes les boutiques</a></li>
-                          <li class="divider"></li>
-                          <li class="dropdown-header">Alimentation</li>
-                          <li  class="" ng-repeat="category in category.findAll()|filter:{type:'Category'}|orderBy:'weight'" ng-if="!category.group">
-                            <a ng-class="getClass('/products/category/{{category.slug}}')"
-                               href="/products/category/{{category.slug}}" tabindex="-1">{{category.name}}</a>
-                          </li>
-                        </ul>
-                      </li>
-                      <li class="col-xs-6 col-sm-4">
-                        <ul>
-                          <li class="dropdown-header">Boissons Alcoolisées</li>
-                          <li  class="" ng-repeat="category in category.findAll()|filter:{type:'Category',group:'Boissons Alcoolisées'}|orderBy:'weight'">
-                            <a ng-class="getClass('/products/category/{{category.slug}}')"
-                               href="/products/category/{{category.slug}}" tabindex="-1">{{category.name}}</a>
-                          </li>
-                        </ul>
-                        <ul>
-                          <li class="divider"></li>
-                          <li class="dropdown-header">Autres</li>
-                          <li  class="" ng-repeat="category in category.findAll()|filter:{type:'Category',group:'Autres'}|orderBy:'weight'">
-                            <a ng-class="getClass('/products/category/{{category.slug}}')"
-                               href="/products/category/{{category.slug}}" tabindex="-1">{{category.name}}</a>
-                          </li>
-                        </ul>
-                      </li>
-                      <li class="col-xs-6 col-sm-4">
-                        <ul>
-                          <li class="dropdown-header">Sur cette page</li>
-                          <li  class="" ng-repeat="category in category.findAll()|filter:{type:'Category',group:'Autres'}|orderBy:'weight'">
-                            <a ng-class="getClass('/products/category/{{category.slug}}')"
-                               href="/products/category/{{category.slug}}" tabindex="-1">{{category.name}}</a>
-                          </li>
-                        </ul>
-                      </li>
-                    </ul>
-                  </div>                
-                </li>
-            </ul>
         </div>
 
         <div id="navbar" -class="collapse navbar-collapse " >
@@ -312,21 +278,21 @@
 
   <!-- Facebook Conversion Code for Visite - karibou -->
   <script>
-  if(location.origin.indexOf('karibou.ch')!==-1){
-    (function() {
-      var _fbq = window._fbq || (window._fbq = []);
-      if (!_fbq.loaded) {
-        var fbds = document.createElement('script');
-        fbds.async = true;
-        fbds.src = '//connect.facebook.net/en_US/fbds.js';
-        var s = document.getElementsByTagName('script')[0];
-        s.parentNode.insertBefore(fbds, s);
-        _fbq.loaded = true;
-      }
-    })();
-  }
-  window._fbq = window._fbq || [];
-  window._fbq.push(['track', '6024666501534', {'value':'1.00','currency':'CHF'}]);
+  // if(location.origin.indexOf('karibou.ch')!==-1){
+  //   (function() {
+  //     var _fbq = window._fbq || (window._fbq = []);
+  //     if (!_fbq.loaded) {
+  //       var fbds = document.createElement('script');
+  //       fbds.async = true;
+  //       fbds.src = '//connect.facebook.net/en_US/fbds.js';
+  //       var s = document.getElementsByTagName('script')[0];
+  //       s.parentNode.insertBefore(fbds, s);
+  //       _fbq.loaded = true;
+  //     }
+  //   })();
+  // }
+  // window._fbq = window._fbq || [];
+  // window._fbq.push(['track', '6024666501534', {'value':'1.00','currency':'CHF'}]);
   </script>
 
 
