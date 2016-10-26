@@ -2,7 +2,7 @@
       style="margin-top: 50px;outline: none;">
 
 
-    <div ng-include="'/partials/product/product-navigation.html'" class="hidden-xs hidden-sm hidden-md hidden-lg display-xlg"  />
+    <div ng-static-include="'/partials/product/product-navigation.html'" class="hidden-xs hidden-sm hidden-md hidden-lg display-xlg"  />
 
 
     <!-- PRODUCTS -->
@@ -18,10 +18,13 @@
       <div class="col-xs-12 -col-sm-9 nopadding-xs">
         <article  ng-repeat="vendor in getAvailableShop()" >
           <div class="home-shop  " >
-            <img ng-src="{{vendor.photo.owner}}-/resize/100x/"  alt="160x160"  >
-            <a ng-href="/shop/{{vendor.urlpath}}" class="black">{{vendor.name}}</a>
+            <img ng-src="{{::vendor.photo.owner}}-/resize/100x/"  alt="160x160"  >
+            <a ng-href="/shop/{{::vendor.urlpath}}" class="black">{{::vendor.name}}</a>
+            <div class="home-shop-discount-info" ng-show="vendor.discount.active">
+              Vous offre {{::vendor.discount.amount|number:2}} fr de livraison à partir de {{::vendor.discount.threshold}} fr d'achat
+            </div>
             <div class="home-shop-unavailable" if-vendor-is-available="vendor" reverse="true">
-              <i class="fa fa-clock-o orange"></i>  La boutique ne livre pas le {{cart.getShippingDay()|dateMomentDay}}
+              <i class="fa fa-clock-o orange"></i>  La boutique ne livre pas le {{::cart.getShippingDay()|dateMomentDay}}
             </div>
 
           </div>

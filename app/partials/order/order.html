@@ -211,17 +211,12 @@
                   <h3>Votre profil est parfait, vous pouvez passer à l'étape suivante</h3>
 
                   <!-- MAILING EVENT -->
-                  <div class="col-xs-12 nopadding " ng-if="user.isAuthenticated() && !user.reminder.active">
+                  <div class="col-xs-12 nopadding " ng-if="config.shop.checkout.active && !user.reminder.active">
                       <div class=" alert alert-warning">
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        <span class="bold">Psst!</span> 
-                        Pas facile de s'organiser pour faire ses courses... 
-                        Nous vous envoyons volontiers un mail 
-                        <a href="/account/reminder"
-                           ga-send="{category:'navigation',action:'reminder'}">pour vous rappeler de passer votre commande</a>
+                        <div i18n-render="config.shop.checkout.message"></div>
                       </div>
                   </div>
-
                 </div>
                 <div ng-if="user.isAuthenticated() && user.email.status !== true">
                    <div class="alert alert-warning" ng-cloak  >
@@ -271,12 +266,12 @@
 
                       <!-- WALLET -->
                       <span ng-show="method.issuer==='wallet'">
-                          Votre compte privé vous permet d'effectuer des paiements sans carte de crédit. 
+                          Votre compte privé vous permet d'effectuer des paiements sans carte de crédit <b >(votre solde est de {{(method.details.balance||0)/100}} fr)</b>.  
                       </span>
                       <!-- INVOICE -->                    
-                      <span ng-show="method.issuer==='invoice' && !methodStatus[method.alias]">La facture vous sera envoyée par email le jour de la livraison et devra être payée dans les 10 jours.</span>
-                      <span ng-show="methodStatus[method.alias]">Cette méthode de paiement n'est plus valide!
-                      <abbr class="red">{{methodStatus[method.alias]}}.</abbr> </span>
+                      <span ng-show="method.issuer==='invoice' && !methodStatus[method.alias].error">La facture vous sera envoyée par email le jour de la livraison et devra être payée dans les 10 jours.</span>
+                      <span ng-show="methodStatus[method.alias].error">Cette méthode de paiement n'est plus valide!
+                      <abbr class="red">{{methodStatus[method.alias].error}}.</abbr> </span>
                     </p>
                   </div>
                 </a>
@@ -355,15 +350,20 @@
                         <th>Produit</th>
                         <th>Qty</th>
                         <th class="text-right padding">Prix</th>
-                        <th class="text-right padding">Total</th>
+                        <th class="text-right padding"
+                            style="width: 20%;min-width: 140px;">Total</th>
                     </tr>
                 </thead>
                 <tbody ng-repeat="group in cart.items|groupBy:'vendorName' " >
                   <tr >
                     <td colspan="4" class="cart-header"><div>
-                      <img  ng-src="{{group[0].vendorImage| placehold:'50x50&text=l`équipe'}}" style="">              
-                      {{group[0].vendorName}}
+                      <img  ng-src="{{::group[0].vendorImage| placehold:'50x50&text=l`équipe'}}" style="">              
+                      {{::group[0].vendorName}}
                       <span ng-hide="cart.isWeekdaysAvailable(group[0].vendorWeekDays)" class="pull-right orange"><i class="fa fa-clock-o "></i> indisponible {{cart.getShippingDay()|dateMomentDay}}</span>
+                        <div class="cart-discount" ng-show="cart.vendorDiscount(group[0].vendor)">
+                          vous offre <b>{{cart.vendorDiscount(group[0].vendor)|number:2}} fr</b> pour la livraison</div>            
+                        </div>
+
                       </div>
                     </td>
                   </tr>                
@@ -390,26 +390,58 @@
                 </tbody>
                 <tbody>
                   <tr>
-                      <td class="text-right" colspan="3">
-                        <strong>Soustotal: </strong> <br/>
-                        <strong><a href="/content/faq-clients#payment">Paiement {{updateGatewayFees()}}:</a> {{cart.tax()*100|number:1}}%</strong><br/>                        
-                        <strong ng-if="!cart.hasShippingReduction()"><a href="/content/faq-clients#shipping">Livraison à 
-                        <i class="bold green fa " ng-class="cart.isShippingHypercenter()?'fa-bicycle':'fa-truck'"></i>:</a> </strong>
-                        <strong ng-if="cart.hasShippingReduction()"><a href="/content/faq-clients#shipping">Livraison à 
-                        <i class="bold green fa " ng-class="cart.isShippingHypercenter()?'fa-bicycle':'fa-truck'"></i>, tarif spécial:</a></strong>
-                      </td>
-                      <td class="text-right padding">
-                        <strong>{{cart.total()|number:2}} </strong><br/>
-                        <strong>{{cart.tax()*(cart.total()+cart.shipping())|number:2}} </strong><br/>
-                        <strong ng-class="{'green':cart.hasShippingReduction()}">{{cart.shipping()|number:2}} </strong>
-                    </td>
+                      <td class="text-right" colspan="3"><strong>Sous-Total: </strong></td>
+                      <td class="text-right padding"><strong>{{cart.total()|number:2}} </strong></td>
                   </tr>
                   <tr>
-                      <td>   </td>
-                      <td>   </td>
-                      <td class="text-right"><h4><strong>Total: </strong></h4></td>
-                      <td class="text-right padding text-success"><h4><strong>{{cart.grandTotal()|number:2}} CHF</strong></h4></td>
+                      <td class="text-right" colspan="3">
+                        <span >
+                        <a href="/content/faq-clients#payment" >Paiement {{updateGatewayFees()}}:</a> 
+                        <span ng-class="{'text-strike':cart.hasShippingReduction()}">{{cart.tax()*100|number:1}}% </span></span></td>
+                      <td class="text-right padding"><span cart-price="fees+payment+discount"></span></td>
                   </tr>
+                  <tr>
+                      <td class="text-right" colspan="3">
+                        <span ng-show="!cart.hasShippingReduction()">
+                          <a href="/content/faq-clients#shipping">Livraison à 
+                            <i class="bold green fa " ng-class="cart.isShippingHypercenter()?'fa-bicycle':'fa-truck'"></i>:
+                          </a> 
+                        </span>
+                        <span ng-show="cart.hasShippingReduction()">
+                          <a href="/content/faq-clients#shipping">Livraison à 
+                          <i class="bold green fa " ng-class="cart.isShippingHypercenter()?'fa-bicycle':'fa-truck'"></i>, tarif spécial:
+                          </a>
+                        </span>
+                        
+                      </td>
+                      <td class="text-right padding"><span ng-class="{'link':cart.hasShippingReduction()}" cart-price="fees+shipping+discount">
+                       </span></td>
+                  </tr>
+
+                  <tr>
+                      <td colspan="3" class="text-right"><h4 class="nopadding"><strong>Total: </strong></h4></td>
+                      <td class="text-right padding text-success"><h4 class="nopadding"><strong>{{cart.grandTotal()|number:2}} CHF</strong></h4></td>
+                  </tr>
+                  <!-- DISCOUNT -->
+                  <tr ng-show="cart.getTotalDiscount()">
+                      <td colspan="3" class="text-right">
+                        <span class="green-2">Les commerçants ont participé aux frais de paiement et de livraison <i class="fa fa-gift"></i></span>
+                      </td>
+                      <td class="text-right padding text-success">
+                        <h4 class="nopadding green-2"><strong>{{cart.getTotalDiscount()|number:2}} CHF</strong></h4>
+                      </td>
+                  </tr>
+
+                  <!-- WALLET -->
+                  <tr ng-show="cart.config.payment.details.balance">
+                      <td colspan="3" class="text-right"><h4 class="nopadding"><strong><i class="fa fa-star-o pink"></i>  Avoir dans le porte monnaie</strong></h4>
+                      <small class="grayx">La somme minimum nécessaire est de 
+                      <b >{{cart.grandTotal()*1.15|number:2}} CHF</b></small>
+                      </td>
+                      <td class="text-right padding text-success"><h4 class="nopadding"><strong>{{cart.config.payment.details.balance/100|number:2}} CHF</strong></h4></td>
+                  </tr>
+
+
                 </tbody>
             </table>
          </div>

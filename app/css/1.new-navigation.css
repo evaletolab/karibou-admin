@@ -15,6 +15,9 @@ html.app-shop nav.subnavbar-top{
   display: none;
 }
 
+html           .admin-show    { display: none;}
+html.app-admin .admin-show    { display: block;}
+
 html.app-admin nav.navbar-fixed-top .btn-cart, html.app-admin footer{
   display: none!important;
 }
@@ -409,6 +412,15 @@ nav.navbar-fixed-top .navbar-right {
   width: 60px;
 }
 
+
+.home-shop .home-shop-discount-info{
+  margin-top: -5px;
+  color: #999;
+  font-size: 65%;
+  line-height: 19px;  
+}
+
+
 .home-shop-unavailable{
   padding: 0px 0px 20px 70px;
   color: #aaa;
@@ -518,6 +530,13 @@ code {
     border: 1px solid #efefef;
     box-shadow: 0 1px 1px 0 rgba(0,0,0,0.2);
     width: 700px;
+  }
+
+  .home-shop .home-shop-discount-info{
+    margin-top: 0px;
+    color: #999;
+    font-size: 85%;
+    line-height: 19px;  
   }
 
   .home-footer{

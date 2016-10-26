@@ -57,7 +57,7 @@ function appCtrl($scope, $rootScope, $window,  $location, $routeParams, $timeout
 
   //
   // export shops context for all Ctrl
-  $scope.shops=$scope.shopsSelect=shop.query({});
+  $rootScope.shops=$scope.shops=$scope.shopsSelect=shop.query({});
 
 
 

@@ -1,15 +1,15 @@
 <!-- ORDERS BY SHOPS -->
-<div  ng-if="shops" >
+<div  ng-show="shops" >
   <!-- (!filters.f||filters.f===order.shipping.when) -->
   <div class="list-group">
     <li  class="list-group-item " 
-         ng-repeat="(shop, items) in shops" 
+         ng-repeat="shop in shopsSlug" 
          ng-class="{'list-group-item-success':isCollectedShopForDay(shop,filters.f),'list-group-item-info':(selected.shop===shop)}" 
          ng-show="isCollectableShopForDay(shop,filters.f)">
       <h4 class="list-group-item-heading">
         <a class="text-capitalize" 
            bs-modal="'/partials/order/order.shop.modal.html'"
-           ng-click="modalShopDetails(shop)"> {{shop}}</a> 
+           ng-click="modalShopDetails(shop)"> {{::shop}}</a> 
 
         <form class="form-inline  pull-right">
           <button type="button" class="btn btn-success btn btn-xs"
@@ -21,11 +21,11 @@
       </h4>
 
       <span class="nopadding gray small col-xs-10" ng-click="selectOrderByShop(shop,filters.f,filters.fulfillments)">
-      <a ng-href="" class="btn btn-xs btn-default">détail préparé [{{countItemValidated(items,filters.f)}}|{{countItemAvailable(items,filters.f)}}]</a></span>      
+      <a ng-href="" class="btn btn-xs btn-default">détail préparé [{{countItemValidated(shops[shop],filters.f)}}|{{countItemAvailable(shops[shop],filters.f)}}]</a></span>      
 
       <span class="label " ng-class="(item.fulfillments==='fulfilled')?'label-success':'label-warning'"
               title="{{item.email}}" 
-              ng-click="modalUserDetails(item.oid)" bs-modal="'/partials/order/order.user.modal.html'">{{item.rank}}</span>&nbsp;        
+              ng-click="modalUserDetails(item.oid)" bs-modal="'/partials/order/order.user.modal.html'">{{::item.rank}}</span>&nbsp;        
       </span>
       <div class="list-group-item-text clearfix">
       </div>

@@ -30,17 +30,35 @@ function cartPrice($parse, $timeout,cart) {
           defaultProperty=attrs.cartPrice||'total';
 
       scope.$watch(function() {
-        return cart.quantity()+(cart.config.address||0);
+        return cart.shipping()+cart.quantity()+(cart.config.address||0);
       }, function(nbItems) {
         switch(defaultProperty){
         case "total":
-          element.html(cart.total().toFixed(2));
+          $timeout(function() {
+            element.html(cart.total().toFixed(2));
+          });
           break;
         case "shipping":
-          element.html(cart.shipping().toFixed(2));
+          $timeout(function() {
+            element.html(cart.shipping().toFixed(2));
+          });
+          break;
+        case "fees+payment+discount":
+          $timeout(function() {
+            var fees=cart.tax()*(cart.total()+cart.shipping());
+            element.html(Math.max(fees-cart.getTotalDiscount(),0).toFixed(2));
+          });
+          break;
+        case "fees+shipping+discount":
+          $timeout(function() {
+            element.html((cart.shipping()).toFixed(2));
+            //cart.roundCHF()
+          });
           break;
         case "total+shipping":
-          element.html((cart.total()+cart.shipping()).toFixed(2));
+          $timeout(function() {
+            element.html((cart.grandTotal()).toFixed(2));
+          })
           break;
         }
       });
@@ -119,6 +137,7 @@ function cartFactory(config, $timeout,$rootScope,$window, $storage, api,user) {
 
   var Cart = function(data) {
     this.items = [];
+    this.discount={};
     this.config={hours:16,shipping:0,address:undefined, payment:undefined};
   };
 
@@ -254,7 +273,9 @@ function cartFactory(config, $timeout,$rootScope,$window, $storage, api,user) {
       }
     }
 
+
     this.items.push({
+      timestamp:Date.now(),
       title:product.title,
       sku:product.sku,
       variant:{title:variant},
@@ -274,6 +295,49 @@ function cartFactory(config, $timeout,$rootScope,$window, $storage, api,user) {
     });
     return this.save();
   };
+
+  Cart.prototype.vendorDiscount=function(vendor, hasDiscount) {
+    var amount=0, vendors=$rootScope.shops;
+    if(!vendors.length){
+      return 0;
+    }
+
+    //
+    // compute the dicount 
+    var v=_.findWhere(vendors,{_id:vendor});
+    if(!v.discount||!v.discount.active){
+      return hasDiscount||0;
+    }
+
+
+    this.items.forEach(function (item) {
+      if(item.vendor===vendor){
+        amount+=(item.price*item.quantity);
+      }
+    });
+
+    var discountMagnitude=Math.floor(amount/v.discount.threshold);
+    this.discount[v.urlpath]=discountMagnitude*v.discount.amount
+
+    return this.discount[v.urlpath];
+  }
+
+  Cart.prototype.vendorDiscountInfo=function(vendor) {
+    var vendors=$rootScope.shops;
+    var v=_.findWhere(vendors,{_id:vendor});
+    if(!v.discount||!v.discount.threshold){
+      return {};
+    }
+    return v.discount;
+  }
+
+  Cart.prototype.getTotalDiscount=function() {
+    var amount=0;
+    for(var slug in this.discount){
+      amount+=this.discount[slug];
+    }
+    return amount;
+  }
 
   Cart.prototype.setError=function(errors){
     var sku, item;
@@ -333,7 +397,7 @@ function cartFactory(config, $timeout,$rootScope,$window, $storage, api,user) {
   Cart.prototype.grandTotal=function(){
     var total=this.total();
     var fees=this.tax()*(total+this.shipping());
-    total=(total + fees + this.shipping());
+    total=(total + this.shipping());
     // Rounding up to the nearest 0.05
     return this.roundCHF(total);
 
@@ -343,17 +407,19 @@ function cartFactory(config, $timeout,$rootScope,$window, $storage, api,user) {
     var total=this.total();
 
     // implement 3) get free shipping!
-    if (defaultCart.shippingFlatRate.discountB&&total>=defaultCart.shippingFlatRate.discountB){
+    if (defaultCart.shippingFlatRate.discountB&&
+        total>=defaultCart.shippingFlatRate.discountB){
       return true;
     }
 
     // implement 3) get half shipping!
-    else if (defaultCart.shippingFlatRate.discountA&&total>=defaultCart.shippingFlatRate.discountA){
+    else 
+    if (defaultCart.shippingFlatRate.discountA&&
+        total>=defaultCart.shippingFlatRate.discountA){
       return true;
     }
 
-
-    return false;
+    return (Object.keys(this.discount).length);
   };
 
 
@@ -380,9 +446,9 @@ function cartFactory(config, $timeout,$rootScope,$window, $storage, api,user) {
     return 'hypercenter';
   };
 
-  Cart.prototype.shipping=function(){
-    var total=this.total();
-    var addressIdx=this.config.address||0;
+  Cart.prototype.shipping=function(discount){
+    var total=this.total(),
+        addressIdx=this.config.address||0;
     
     //
     // See order for order part of implementation
@@ -400,6 +466,8 @@ function cartFactory(config, $timeout,$rootScope,$window, $storage, api,user) {
     var distance=this.getShippingSectorPrice(defaultCart.postalCode);
     var price=defaultCart.shippingFlatRate.price[distance];
 
+    
+
     //
     // TODO TESTING MERCHANT ACCOUNT
     if (user.merchant===true){
@@ -408,17 +476,24 @@ function cartFactory(config, $timeout,$rootScope,$window, $storage, api,user) {
 
     
     // implement 3) get free shipping!
-    if (defaultCart.shippingFlatRate.discountB&&total>=defaultCart.shippingFlatRate.discountB){
-      return this.roundCHF(price-defaultCart.shippingFlatRate.priceB);
+    if (defaultCart.shippingFlatRate.discountB&&
+        total>=defaultCart.shippingFlatRate.discountB){
+      price=(price-defaultCart.shippingFlatRate.priceB);
     }
 
     // implement 3) get half shipping!
-    else if (defaultCart.shippingFlatRate.discountA&&total>=defaultCart.shippingFlatRate.discountA){
-      return this.roundCHF(price-defaultCart.shippingFlatRate.priceA);
+    else 
+    if (defaultCart.shippingFlatRate.discountA&&
+        total>=defaultCart.shippingFlatRate.discountA){
+      price=(price-defaultCart.shippingFlatRate.priceA);
     }
 
+    if(discount||true){
+      price+=this.tax()*(total+price);  
+      price-=this.getTotalDiscount();
+    }
 
-    return price;
+    return this.roundCHF(Math.max(price,0));
   };
 
   Cart.prototype.tax=function(){
@@ -442,6 +517,7 @@ function cartFactory(config, $timeout,$rootScope,$window, $storage, api,user) {
 
   Cart.prototype.empty=function(){
     this.items=[];      
+    this.discount={};
     this.save();
   };
 

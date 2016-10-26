@@ -60,6 +60,23 @@ function OrderCommonCtrl($scope, $routeParams, api, order, user, product,shop, M
   // default model for modal view
   $scope.modal = {};
 
+  $q.all([config.shop,user.$promise]).then(function(){
+    var currentDay=order.findCurrentShippingDay();
+
+    //
+    // based on url we have to change those values
+    $scope.shipping={
+      timeLeftNextDay:Math.round((order.findNextShippingDay().getTime()-Date.now())/3600000),
+      timeLeftCurrentDay:Math.round((currentDay.getTime()-Date.now())/3600000),
+      nextDay:order.findNextShippingDay(),
+      currentDay:order.findCurrentShippingDay()
+    };
+
+    if($routeParams.when){
+      $scope.shipping.currentDay=new Date($routeParams.when);
+    }
+  });
+
   $scope.sortByDateDESC= function (date1, date2) {
     //var date1=new Date(o1.shipping.when);
     //var date2=new Date(o2.shipping.when);
@@ -104,22 +121,6 @@ function OrderCommonCtrl($scope, $routeParams, api, order, user, product,shop, M
     });
   };
 
-  $q.all([config.shop,user.$promise]).then(function(){
-    var currentDay=order.findCurrentShippingDay();
-
-    //
-    // based on url we have to change those values
-    $scope.shipping={
-      timeLeftNextDay:Math.round((order.findNextShippingDay().getTime()-Date.now())/3600000),
-      timeLeftCurrentDay:Math.round((currentDay.getTime()-Date.now())/3600000),
-      nextDay:order.findNextShippingDay(),
-      currentDay:order.findCurrentShippingDay()
-    };
-
-    if($routeParams.when){
-      $scope.shipping.currentDay=new Date($routeParams.when);
-    }
-  });
 
 
   $scope.modalShopDetails=function (shop) {

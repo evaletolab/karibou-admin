@@ -20,7 +20,7 @@
             </li>
           </ul>
         </li>        
-        <li><a href="/account">{{user.display()}} <span ng-show="user.isAdmin()" class="label label-danger">ADMIN</span></a></li>
+        <li><a href="/account">{{::user.display()}} <span  class="label label-danger admin-show">ADMIN</span></a></li>
         <li ng-if="user.isAuthenticated()"><a href="" ng-click="logout()">logout</a></li>
       </ul>
       <!-- FILTER CONTENT -->

@@ -24,9 +24,9 @@
 								<li class="divider"></li>
 								<li class="dropdown-header">Alimentation</li>
 	              <li  class="" ng-repeat="category in category.findAll()|filter:{type:'Category',active:true}|orderBy:'weight'" ng-if="!category.group">
-	                <a ng-class="getClass('/products/category/{{category.slug}}')"
+	                <a ng-class="getClass('/products/category/{{::category.slug}}')"
 	                	 ga-send="{category:'navigation',action:'navigation-top'}"
-	                   href="/products/category/{{category.slug}}" tabindex="-1">{{category.name}}</a>
+	                   href="/products/category/{{::category.slug}}" tabindex="-1">{{::category.name}}</a>
 	              </li>
 
 <!-- 								<li class="divider"></li>
@@ -37,16 +37,16 @@
 							<ul>
 								<li class="dropdown-header">Boissons</li>
 	              <li  class="" ng-repeat="category in category.findAll()|filter:{type:'Category',group:'Boissons',active:true}|orderBy:'weight'">
-	                <a ng-class="getClass('/products/category/{{category.slug}}')"
-	                   href="/products/category/{{category.slug}}" tabindex="-1">{{category.name}}</a>
+	                <a ng-class="getClass('/products/category/{{::category.slug}}')"
+	                   href="/products/category/{{::category.slug}}" tabindex="-1">{{::category.name}}</a>
 	              </li>
 							</ul>
 							<ul>
 								<li class="divider"></li>
 								<li class="dropdown-header">Autres</li>
 	              <li  class="" ng-repeat="category in category.findAll()|filter:{type:'Category',group:'Autres',active:true}|orderBy:'weight'">
-	                <a ng-class="getClass('/products/category/{{category.slug}}')"
-	                   href="/products/category/{{category.slug}}" tabindex="-1">{{category.name}}</a>
+	                <a ng-class="getClass('/products/category/{{::category.slug}}')"
+	                   href="/products/category/{{::category.slug}}" tabindex="-1">{{::category.name}}</a>
 	              </li>
 	              <li>
 	              	<a href="/wallet/create">Acheter une carte cadeau</a>
@@ -109,7 +109,7 @@
 						<ul>
 							<li class="dropdown-header">Faire ces courses</li>
 				      <li ng-class="getClass(menu.url)" ng-repeat="menu in config.shop.menu|filter:{group:'karibou',active:true}|orderBy:'weight'" ng-if="menu.url">
-					        <a  ng-href="{{menu.url}}" i18n-render="menu.name"></a>
+					        <a  ng-href="{{::menu.url}}" i18n-render="menu.name"></a>
 					    </li>
 						</ul>
 					</li>
@@ -117,7 +117,7 @@
 						<ul>
 							<li class="dropdown-header">Notre philosophie </li>
 				      <li ng-class="getClass(menu.url)" ng-repeat="menu in config.shop.menu|filter:{group:'howto',active:true}|orderBy:'weight'" ng-if="menu.url">
-					        <a  ng-href="{{menu.url}}" i18n-render="menu.name"></a>
+					        <a  ng-href="{{::menu.url}}" i18n-render="menu.name"></a>
 					    </li>								
 						</ul>
 					</li>					
@@ -125,7 +125,7 @@
 						<ul>
 							<li class="dropdown-header">Besoin d'aide?</li>
 				      <li ng-class="getClass(menu.url)" ng-repeat="menu in config.shop.menu|filter:{group:'links',active:true}|orderBy:'weight'" ng-if="menu.url">
-					        <a  ng-href="{{menu.url}}" i18n-render="menu.name"></a>
+					        <a  ng-href="{{::menu.url}}" i18n-render="menu.name"></a>
 					    </li>							
 						</ul>
 					</li>					
@@ -136,8 +136,8 @@
 
 			<li class="dropdown dropdown-large">
         <a href="#" class="dropdown-toggle" data-toggle="dropdown" >
-      		<i class="fa fa-calendar green-1"></i>
-      		<span clockdown="<span class='hidden-xs'>Prochaine livraison </span>"></span>
+      		<i class="fa fa-calendar green-1 bold"></i>
+      		<span class="bold" clockdown-opts="{custom:'dddd D'}" clockdown="<span class='hidden-xs'>Livraison </span>"></span>
       		&nbsp;<i class="fa fa-chevron-down green-1"></i>
       	</a>
         <ul class="dropdown-menu dropdown-menu-large">

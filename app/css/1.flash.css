@@ -1,21 +1,25 @@
 #flash{
     position: fixed;
-    width: 475px;
+    width: 550px;
     z-index: 2999999;
-    right: 20%;
-    top: 80px;
+    top: 60px;
+    margin: 0px auto;
+    left: 0;
+    right: 0;
 }
 
 #flash >div{
-    border: 2px solid #00a79d;
-    border-radius: 6px;        
+    border: 8px solid rgba(176, 214, 195, 0.34);
+    border-radius: 1px;
+    padding: 25px;    
+    padding-bottom: 20px;
 }
 
 .alert {
     padding: 15px;
     margin-bottom: 20px;
     border: 1px solid transparent;
-    border-radius: 4px;
+    border-radius: 1px;
 }
 .alert h4 {
     margin-top: 0;
@@ -35,11 +39,25 @@
 }
 .alert-dismissable .close, .alert-dismissible .close {
     position: absolute;
-    top: 2px;
-    right: 4px;
+    top: 4px;
+    right: 10px;
     color: inherit;
     font-size: 40px;
     font-weight: 100;
+}
+
+.alert  img.team{
+    width: 50px;
+    height: 50px;
+    border-radius: 25px;
+    border: 2px solid #eee;
+    position: absolute;
+    top: 5px;
+    right: 5px;
+}
+
+.alert-warning p, .alert-success p, .alert-success p{
+    margin-bottom:5px;
 }
 
 .alert-success {
@@ -54,9 +72,8 @@
     color: #2b542c;
 }
 .alert-info {
-    color: #31708f;
-    background-color: #d9edf7;
-    border-color: #bce8f1;
+    color: #a94442;
+    background-color: #ffffff;    
 }
 .alert-info hr {
     border-top-color: #a6e1ec;
@@ -65,9 +82,10 @@
     color: #245269;
 }
 .alert-warning {
-    color: #8a6d3b;
+    color: #452d16;
     background-color: #fcf8e3;
-    border-color: #faebcc;
+    -border-color: #faebcc;
+    background-color: rgba(247, 148, 30, 0.55);
 }
 .alert-warning hr {
     border-top-color: #f7e1b5;
@@ -75,6 +93,7 @@
 .alert-warning .alert-link {
     color: #66512c;
 }
+
 .alert-danger {
     color: #a94442;
     background-color: #f2dede;
@@ -143,7 +162,7 @@ button.close {
 
 @media (max-width: 768px){
     #flash{
-        width: 97%;
+        width: 100%;
         z-index: 2999999;
         right: 2%;
     }

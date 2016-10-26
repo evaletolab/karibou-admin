@@ -1,4 +1,8 @@
-<section  tabindex="-1" ng-controller="HomeCtrl" style="margin-top: 70px;" ng-class="{'user':user.isAuthenticated(),'admin':user.isAdmin()}">
+<section  tabindex="-1" 
+          ng-controller="HomeCtrl" 
+          style="margin-top: 70px;" 
+          ng-class="{'user':user.isAuthenticated(),'admin':user.isAdmin()}">
+
 
   <div class="home-header" 
        backstretch="config.shop.home.tagLine.image">
@@ -19,24 +23,24 @@
     
   </div>
 
+  <!-- WELCOME -->
+  <div class="col-xs-12 nopadding " ng-if="config.shop.welcome.active"
+      style="z-index: 10;">
+      <div class=" alert alert-warning">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <p i18n-render="config.shop.welcome.message" />
+          
+      </div>
+  </div>
+
+
+
   <div class="container-fluid" >
 
 <!--   <div ng-include="'/partials/product/product-navigation.html'" class="hidden-xs hidden-sm hidden-md" />
  -->
 
 
-
-    <!-- MAILING EVENT -->
-    <div class="col-xs-12 nopadding " ng-if="user.isAuthenticated() && !user.reminder.active">
-        <div class=" alert alert-warning">
-          <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-          <span class="bold">Psst!</span> 
-          Pas facile de s'organiser pour faire ses courses... 
-          Nous vous envoyons volontiers un mail 
-          <a href="/account/reminder"
-             ga-send="{category:'navigation',action:'reminder'}">pour vous rappeler de passer votre commande</a>
-        </div>
-    </div>
 
 
 
@@ -53,11 +57,11 @@
         <article  ng-repeat="category in getAvailableCategories()|filter:filterForHome"                    
                    style="width: 103%;" > 
           <h4 class="article-group-title black no-border" ng-click="go('/products/category/'+category.slug)">
-            <span class="gray">{{category.name}} </span>
-            <a ng-href="/products/category/{{category.slug||''}}" 
+            <span class="gray">{{::category.name}} </span>
+            <a ng-href="/products/category/{{::category.slug||''}}" 
                class="btn btn btn-products green bold ">Voir Plus &nbsp;<i class="fa fa-angle-right"></i></a>                
           </h4>
-          <div  ng-static-include="'/partials/product/product.html'"      ng-if="category.active" 
+          <div  ng-static-include="'/partials/product/product.html'"      ng-show="category.active" 
                 ng-repeat="product in getProductsByCat(category.name)|orderBy:['updated']"/>
         </article>
 

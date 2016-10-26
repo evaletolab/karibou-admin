@@ -127,6 +127,50 @@ function orderFactory(config, $resource, $q, user,shop, api, cart) {
   };
 
 
+  //
+  // get amount of discount for this order
+  Order.prototype.getTotalDiscount=function() {
+    var amount=0;
+
+    this.vendors.forEach(function(vendor) {
+      amount+=(vendor.discount.finalAmount||0);
+    });
+
+    return amount;
+  };
+
+  Order.prototype.getFees=function(amount){
+    var order=this;
+    //
+    // add gateway fees
+    var fees=0;
+    for (var gateway in config.shop.order.gateway){
+      gateway=config.shop.order.gateway[gateway];
+      if (gateway.label===order.payment.issuer){
+        fees+=amount*gateway.fees;
+        break;
+      }
+    }
+    return fees;
+  };
+
+
+  Order.prototype.getSubTotal=function(){
+    var total=0.0;
+    if(this.items){
+      this.items.forEach(function(item){
+        //
+        // item should not be failure (fulfillment)
+        if(item.fulfillment.status!=='failure'){
+          total+=item.finalprice;
+        }
+      });
+    }
+
+    return parseFloat((Math.round(total*20)/20).toFixed(2));
+  };
+
+
   Order.prototype.getTotalPrice=function(factor){
     var total=0.0;
     if(this.items){
@@ -143,6 +187,10 @@ function orderFactory(config, $resource, $q, user,shop, api, cart) {
     // add shipping fees 
     total+=this.getShippingPrice();
 
+    // 
+    // remove discout offer by shop
+    total-=this.getTotalDiscount();
+
     //
     // add gateway fees
     for (var gateway in config.shop.order.gateway){
@@ -152,6 +200,9 @@ function orderFactory(config, $resource, $q, user,shop, api, cart) {
         break;
       }
     }
+
+
+
 
     // add mul factor
     if(factor){total*=factor;}

@@ -30,6 +30,7 @@ angular.module('app.order.ui', [
 })
 
 
+
 //
 // display vendor acording the shipping date
 // https://github.com/angular/angular.js/blob/master/src/ng/directive/ngShowHide.js
@@ -98,6 +99,9 @@ function($parse, $timeout,cart) {
         // with shipping
         if(opts.long){
           postfix=' le '+date.format('dddd D', 'fr');
+        }
+        if(opts.custom){
+          return element.html(append+' '+date.format(opts.custom,'fr'));          
         }
 
         element.html(append+' '+date.fromNow()+postfix);
@@ -233,40 +237,46 @@ function($parse, $timeout,cart) {
 
 
 .filter('orderFees', ['config',function (config) {
-   return function(order) {
+   return function(order, widthDiscount) {
         if (!order||!order.items.length) {return "0.0 CHF";}
 
-        // get shipping price amount
-        var shipping=order.getShippingPrice();
 
 
-        var fees=0.0,total=0.0;
-        if(order.items){
-          order.items.forEach(function(item){
-            if(item.fulfillment.status!=='failure'){
-              total+=item.finalprice;
-            }
-          });
-        }
+        var fees=0.0,
+            total=order.getSubTotal(), 
+            shipping=order.getShippingPrice(),
+            discount=order.getTotalDiscount();
+
+
+        // before the payment fees! 
+        // add shipping fees 
+        total+=shipping;
+
+        // 
+        // remove discount offer by shop
+        total-=discount;
+
 
         //
         // add gateway fees
-        for (var gateway in config.shop.order.gateway){
-          gateway=config.shop.order.gateway[gateway];
-          if (gateway.label===order.payment.issuer){
-            fees+=(total+shipping)*gateway.fees;
-            break;
-          }
-        }
+        fees=order.getFees(total);
 
         // add shipping amount fees 
         fees+=shipping;
+
+        // display total fees with discount
+        if(widthDiscount){
+          fees-=discount;
+        }
 
         return parseFloat((Math.round(fees*20)/20).toFixed(2))+" CHF";
 
 
    };
 }])
+
+
+
 
 .filter('orderProgress',function(){
   return function (order) {

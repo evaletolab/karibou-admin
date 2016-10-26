@@ -114,6 +114,17 @@
   color: #452d16;
 }
 
+.shop-card .shop-discount{
+  bottom: 0px;
+  position: absolute;
+  height: initial!important;
+  background-color: rgba(41, 41, 41, 0.64);
+  padding: 8px;
+  float: left;
+  display: block;
+  color: white;
+  font-size: 90%;
+}
 
 .hours {
   color: #959ba2;

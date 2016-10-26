@@ -309,6 +309,7 @@ function OrderAdminCtrl($scope,$routeParams, $timeout, $http, api, order, user, 
         // group by shop?
         if(filters.groupby==='shop'){
           $scope.shops=$scope.groupByShops(orders);
+          $scope.shopsSlug=Object.keys($scope.shops).sort();
           if(!filters.s)$scope.filters.s=Object.keys($scope.shops)[0];
         }
 
@@ -344,7 +345,7 @@ function OrderAdminCtrl($scope,$routeParams, $timeout, $http, api, order, user, 
 
       // filter with the user shop
       if(!user.isAdmin()){
-        params.shopname=user.shops[0].urlpath;
+        params.shopname=_.map(user.shops,'urlpath');
       }
 
       $scope.products=product.query(params,function(products){

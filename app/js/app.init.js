@@ -376,7 +376,7 @@ function appRun($templateCache, $route, $http, $interval, config, flash, $transl
       // loading Stripe
       setTimeout(function() {
         // console.log('---',config.shop.shippingweek);
-        window.Stripe.setPublishableKey(pk);          
+        window.Stripe&&window.Stripe.setPublishableKey(pk);          
 
         // release the loading effect
         angular.element('html').removeClass('app-loading');
@@ -390,8 +390,9 @@ function appRun($templateCache, $route, $http, $interval, config, flash, $transl
       uploadcare.start({ publicKey: config.uploadcare, maxSize:153600});  
 
       if(config.shop.maintenance.active){
-        flash.create('danger',config.shop.maintenance.reason[$translate.use()],0,60000);
+        flash.create('info',config.shop.maintenance.reason[$translate.use()],0,40000);
       }
+
 
       //
       // after N days without reloading the page, 

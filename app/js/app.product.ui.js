@@ -205,7 +205,11 @@ function productProperty($compile,$interval,user,cart) {
       // }
 
       //
-      
+      function toFixed(val,fixed) {
+        if(val===undefined)return '0.00';
+        return Number(val).toFixed(fixed);
+      }
+
       var product=scope.$parent.product;
       if(product){
         $interval.cancel(handle);
@@ -217,9 +221,9 @@ function productProperty($compile,$interval,user,cart) {
           case 'price-part':
           return element.html(product.pricing.part);
           case 'price':
-          return element.html(product.pricing.price);
+          return element.html(toFixed(product.pricing.price,2));
           case 'discount':
-          return element.html(product.pricing.discount);
+          return element.html(toFixed(product.pricing.discount,2));
         }
       }
 
@@ -242,6 +246,13 @@ function productState($compile,$rootScope,user,cart) {
           classOn=[],
           classOff=[],
           target=attrs.productStateQuantity;
+
+      //
+      // http://stackoverflow.com/questions/5330420/why-cant-i-use-tofixed-on-an-html-input-objects-value
+      function toFixed(val,fixed) {
+        if(val===undefined)return '0.00';
+        return Number(val).toFixed(fixed);
+      }
 
       scope.$watch(function() {
         var product=scope.productState;
@@ -285,8 +296,8 @@ function productState($compile,$rootScope,user,cart) {
           element.find('.product-title').html(product.title);
           element.find('.product-vendor-name').html(product.vendor.name);
           element.find('.product-part').html(product.pricing.part);
-          element.find('.product-price').html(product.pricing.price);
-          element.find('.product-discount').html(product.pricing.discount);
+          element.find('.product-price').html(toFixed(product.pricing.price,2));
+          element.find('.product-discount').html(toFixed(product.pricing.discount,2));
 
 
 

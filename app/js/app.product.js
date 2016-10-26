@@ -359,7 +359,7 @@ function productFactory (config, $rootScope,$resource,$q,api) {
     var products, s,product=this;
     var rest=(filter.shopname)?backend.shop:backend.products;
 
-    s=rest.query(filter, function() {
+    s=backend.products.query(filter, function() {
       products=product.wrapArray(s);
 
       //

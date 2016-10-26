@@ -40,7 +40,7 @@
   <div class="clearfix " ng-init="findAllOrders({groupby:'shop',month:'now'})">
     <div class="dashboard-filters " >
         <div class="panel-body bg-gray" id="order-filter" ng-class="{'hide':orders.length}">
-              <div class="col-xs-12 col-md-3 " ng-if="user.isAdmin()">
+              <div class="col-xs-12 col-md-3 admin-show" >
                 <span>Filtrer les commandes: </span>                
                 <button class="btn btn-md btn-transparent btn-block" ng-click="toggle({closed:true})" ng-class="getToggleClass('closed',true)">Toutes les fermées</button>
                 <button class="btn btn-md btn-transparent btn-block" 

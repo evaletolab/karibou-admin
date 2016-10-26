@@ -187,7 +187,7 @@ function OrderNewCtrl($controller, $scope, $location, $rootScope, $timeout, $rou
     }
 
     $scope.options.showCreditCard=false;
-    if($scope.methodStatus[method.alias]){
+    if($scope.methodStatus[method.alias].error){
       return; 
     }
     cart.config.payment=method;
@@ -203,13 +203,15 @@ function OrderNewCtrl($controller, $scope, $location, $rootScope, $timeout, $rou
       // check payment method with our gateway
       user.checkPaymentMethod(function(methodStatus){
         $scope.methodStatus=methodStatus;
+        cart.config.payment=null;
         // 
         // select the default payment method
         user.payments.every(function (method) {
-          if(Object.keys(methodStatus).indexOf(method.alias)===-1){
-            cart.config.payment=method;
-            return;
+          if(methodStatus[method.alias].error){
+            return true;
           }
+          method.details=methodStatus[method.alias];
+          cart.config.payment=method;
         });
       });
     });
@@ -276,7 +278,13 @@ function OrderNewCtrl($controller, $scope, $location, $rootScope, $timeout, $rou
     for(var p in config.shop.order.gateway){
       if(config.shop.order.gateway[p].label===cart.config.payment.issuer){
         cart.setTax(config.shop.order.gateway[p].fees, config.shop.order.gateway[p].label);
-        return config.shop.order.gateway[p].label;
+        var suffix='';
+        //
+        // TODO remove this if not needed
+        if(['visa','mastercard'].indexOf(config.shop.order.gateway[p].label)!==-1){
+          suffix=""
+        }
+        return config.shop.order.gateway[p].label+suffix;
       }
     }
   };

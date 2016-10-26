@@ -48,9 +48,16 @@
 }
 
 label, input, button, select, textarea {
-    font-size: 18px;
-    line-height: 1.4em;
+    font-size: 17px;
+    line-height: 1.5em;
     vertical-align: baseline;
+    color: #999;
+    font-weight: 400;    
+}
+
+.input-lg{
+    font-size: 14px;
+    font-weight: 400;      
 }
 
 .accout-field-valid{
@@ -252,7 +259,6 @@ form.nomargin{
 
 .modal-body div.details{
   margin-top: 5px;
-  border-top: 1px dotted rgb(207, 207, 207);
   padding-top: 10px;  
 }
 

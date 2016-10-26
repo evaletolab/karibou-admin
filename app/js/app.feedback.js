@@ -35,12 +35,13 @@ function FeedbackCtrl(config, $scope, $rootScope,$timeout,  $location, user,api,
   $scope.getPhone=function() {
     if(fb.product&&fb.product.vendor&&fb.product.vendor.address) {return fb.product.vendor.address.phone;}
     if(fb.shop&&fb.shop.address){return fb.shop.address.phone;}
+    return '0763772113';
   }
 
   $scope.getTitle=function () {
     if(fb.product&&fb.product.vendor) {return fb.product.vendor.name;}
     if(fb.shop){return fb.shop.name;}
-    return 'Une question?';
+    return 'Contactez-nous!';
   };
 
   $scope.contextSite=function () {

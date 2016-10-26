@@ -12,18 +12,26 @@
       <tbody ng-repeat="group in cart.items|groupBy:'vendorName' " >
         <tr >
           <td colspan="4" class="cart-header">
-            <div>
-            <img  ng-src="{{group[0].vendorImage| placehold:'50x50&text=l`équipe'}}" style="">              
-            {{group[0].vendorName}}
+            <img  ng-src="{{::group[0].vendorImage| placehold:'50x50&text=l`équipe'}}" style="">              
+            <span>{{::group[0].vendorName}}  </span>
             <span ng-hide="cart.isWeekdaysAvailable(group[0].vendorWeekDays)" class="pull-right orange"><i class="fa fa-clock-o "></i> indisponible {{cart.getShippingDay()|dateMomentDay}}</span>
+            <div class="cart-discount" ng-show="cart.vendorDiscount(group[0].vendor)">
+              vous offre <b class="link black">{{cart.vendorDiscount(group[0].vendor)|number:2}} fr</b> pour la livraison
+            </div>            
+            <div class="cart-discount" 
+                  ng-hide="cart.vendorDiscount(group[0].vendor, true)">
+              <i class="fa fa-gift black"></i> à la livraison à partir de 
+              {{cart.vendorDiscountInfo(group[0].vendor).threshold}} fr
+              
             </div>
+
           </td>
         </tr>                
 
         <tr  ng-repeat="item in group|orderBy:'weight'" >
-          <td class="col-md-8 small"><a href="/products/{{item.sku}}" >{{item.part}} - {{item.title}}</a>
+          <td class="col-md-8 small"><a href="/products/{{item.sku}}" >{{::item.part}} - {{::item.title}}</a>
             <div  class="ita gray smallx " ng-if="item.variant" title="Option du produit">
-              {{item.variant.title}}
+              {{::item.variant.title}}
             </div>
           </td>
           <td class="col-md-2 nopadding-lr" style="text-align: center">
@@ -43,6 +51,7 @@
   <div class="cart-info">    
     <div class="col-xs-6 shipping gray" ng-class="{'pink':cart.hasShippingReduction()}">
       <i class="bold fa   " ng-class="cart.isShippingHypercenter()?'fa-bicycle':'fa-truck'"></i> 
+      +&nbsp;<i class="fa fa-credit-card"></i>
       <span cart-price="shipping"></span> CHF
     </div>
     <div class="col-xs-6 total gray">

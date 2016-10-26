@@ -41,7 +41,7 @@
           class="link relative"   itemprop="url">
 
           <!-- PHOTO -->
-          <img bg-src="{{product.photo.url}}" bg-small="true" class="product-photo">
+          <img bg-src="{{::product.photo.url}}" bg-small="true" class="product-photo">
 
           <!-- NOT AVAILABLE http://placehold.it/275x230/eeeeee/000000&text=indisponible -->
           <img ng-src="/img/product-not-available.gif" class="available">
@@ -84,7 +84,7 @@
           <div ng-show="product.details.bio" class="bio bold"><i class="fa fa-leaf"></i> bio</div>
           <div ng-show="product.details.natural" class="bio bold"><i class="fa fa-leaf"></i></div>
 
-          <a class="title " itemprop="name" ng-href="{{::shop.urlpath|test:'/shop/':''}}/products/{{product.sku}}/{{product.slug}}" >
+          <a class="title " itemprop="name" ng-href="{{::shop.urlpath|test:'/shop/':''}}/products/{{::product.sku}}/{{::product.slug}}" >
             <span class="product-title"></span>
           </a>
           <div ng-click="love(product)" >

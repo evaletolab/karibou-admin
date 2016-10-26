@@ -20,6 +20,9 @@
 	right: 0;
 }
 
+html.app-cart body{
+  overflow: hidden;
+}
 
 html.app-cart .cover-resume.cart{
   visibility: visible;
@@ -59,7 +62,9 @@ html.app-cart .cover-resume.cart>div{
 .cover-resume.cart> div.header{
     padding: 18px;
     background-color: #00a79d;
-    font-size: 90%;
+    font-size: 100%;
+    text-align: center;
+    font-weight: 700;
 }
 
 .cover-resume.cart> div.cart-content{
@@ -96,9 +101,10 @@ html.app-cart .cover-resume.cart>div{
   color: black;
   font-weight: 800;
   font-size: 90%;
-  padding: 10px;
   border-top: none!important;
   padding-left: 10px;
+  padding-top: 0;
+  line-height: 0.8;
 }
 
 .cart .table  .cart-header img{
@@ -106,6 +112,16 @@ html.app-cart .cover-resume.cart>div{
   border: 2px solid white;
   width: 40px;
   height: 40px;
+  margin-top: 5px;
+}
+
+.cart .table  .cart-header .cart-discount{
+  font-weight: 200;
+  font-size: 90%;
+  margin-left: 45px;
+  color: #999;
+  margin-top: -10px;  
+  color-: #00a79d!important;
 }
 
 

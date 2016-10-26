@@ -229,7 +229,7 @@ function StatsCtrl($scope, $http,$routeParams, $timeout, $controller, config, ap
               Object.keys(stats[year][month]).forEach(function (shop) {
                   var idx=addDataSets(data,shop);
                   if(idx!==-1){
-                    data.datasets[idx].data[stats.axis.x[year+'.'+month]]=stats[year][month][shop].fees;
+                    data.datasets[idx].data[stats.axis.x[year+'.'+month]]=stats[year][month][shop].amount;
                   }
               });
             });
