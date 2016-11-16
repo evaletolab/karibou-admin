@@ -187,7 +187,8 @@ function OrderNewCtrl($controller, $scope, $location, $rootScope, $timeout, $rou
     }
 
     $scope.options.showCreditCard=false;
-    if($scope.methodStatus[method.alias].error){
+    if($scope.methodStatus[method.alias]&&
+       $scope.methodStatus[method.alias].error){
       return; 
     }
     cart.config.payment=method;
@@ -257,6 +258,7 @@ function OrderNewCtrl($controller, $scope, $location, $rootScope, $timeout, $rou
         // select the last as default method
         if(user.payments.length>0){
           cart.config.payment=user.payments[user.payments.length-1];
+          $scope.methodStatus[cart.config.payment.alias]=cart.config.payment;
         }
       });
 
@@ -280,9 +282,9 @@ function OrderNewCtrl($controller, $scope, $location, $rootScope, $timeout, $rou
         cart.setTax(config.shop.order.gateway[p].fees, config.shop.order.gateway[p].label);
         var suffix='';
         //
-        // TODO remove this if not needed
-        if(['visa','mastercard'].indexOf(config.shop.order.gateway[p].label)!==-1){
-          suffix=""
+        // TODO remove this ASAP if not needed
+        if(['visa','mastercard','american express'].indexOf(config.shop.order.gateway[p].label)!==-1){
+          suffix=" (3.0% aujourd'hui offert)"
         }
         return config.shop.order.gateway[p].label+suffix;
       }

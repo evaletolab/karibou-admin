@@ -126,6 +126,13 @@ function orderFactory(config, $resource, $q, user,shop, api, cart) {
     return this.findNextShippingDay(0.1,timelimitH);
   };
 
+  //
+  // get amount after (shipping+fees) deductions
+  Order.prototype.getExtraDiscount=function(){
+    var total=this.getTotalPrice();
+    var subtotal=this.getSubTotal();
+    return subtotal-total;    
+  };
 
   //
   // get amount of discount for this order
@@ -141,17 +148,7 @@ function orderFactory(config, $resource, $q, user,shop, api, cart) {
 
   Order.prototype.getFees=function(amount){
     var order=this;
-    //
-    // add gateway fees
-    var fees=0;
-    for (var gateway in config.shop.order.gateway){
-      gateway=config.shop.order.gateway[gateway];
-      if (gateway.label===order.payment.issuer){
-        fees+=amount*gateway.fees;
-        break;
-      }
-    }
-    return fees;
+    return parseFloat((this.payment.fees.charge*amount).toFixed(2));
   };
 
 
@@ -171,6 +168,10 @@ function orderFactory(config, $resource, $q, user,shop, api, cart) {
   };
 
 
+  //
+  // stotal = items + shipping - total discount
+  //  total = stotal + stotal*payment.fees
+  // WARNNG -- WARNNG -- WARNNG -- edit in all places 
   Order.prototype.getTotalPrice=function(factor){
     var total=0.0;
     if(this.items){
@@ -182,7 +183,6 @@ function orderFactory(config, $resource, $q, user,shop, api, cart) {
         }
       });
     }
-
     // before the payment fees! 
     // add shipping fees 
     total+=this.getShippingPrice();
@@ -193,20 +193,10 @@ function orderFactory(config, $resource, $q, user,shop, api, cart) {
 
     //
     // add gateway fees
-    for (var gateway in config.shop.order.gateway){
-      gateway=config.shop.order.gateway[gateway];
-      if (gateway.label===this.payment.issuer){
-        total+=total*gateway.fees;
-        break;
-      }
-    }
-
-
-
+    total+=this.payment.fees.charge*total;
 
     // add mul factor
     if(factor){total*=factor;}
-
 
     return parseFloat((Math.round(total*20)/20).toFixed(2));
   };
@@ -242,14 +232,8 @@ function orderFactory(config, $resource, $q, user,shop, api, cart) {
     total+=this.getShippingPrice();
 
     //
-    // add gateway fees
-    for (var gateway in config.shop.order.gateway){
-      gateway=config.shop.order.gateway[gateway];
-      if (gateway.label===this.payment.issuer){
-        total+=total*gateway.fees;
-        break;
-      }
-    }
+    // add gateway fees    
+    total+=this.payment.fees.charge*total;
 
     // add mul factor
     if(factor){total*=factor;}

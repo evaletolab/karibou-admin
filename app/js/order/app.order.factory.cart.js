@@ -30,7 +30,7 @@ function cartPrice($parse, $timeout,cart) {
           defaultProperty=attrs.cartPrice||'total';
 
       scope.$watch(function() {
-        return cart.shipping()+cart.quantity()+(cart.config.address||0);
+        return cart.shipping(true)+cart.quantity()+(cart.config.address||0);
       }, function(nbItems) {
         switch(defaultProperty){
         case "total":
@@ -38,20 +38,25 @@ function cartPrice($parse, $timeout,cart) {
             element.html(cart.total().toFixed(2));
           });
           break;
-        case "shipping":
+        case "shipping+discount":
           $timeout(function() {
-            element.html(cart.shipping().toFixed(2));
+            element.html(cart.shipping(true).toFixed(2));
+          });
+          break;
+        case "extradiscount":
+          $timeout(function() {
+            element.html(-cart.getExtraDiscount().toFixed(2));
           });
           break;
         case "fees+payment+discount":
           $timeout(function() {
-            var fees=cart.tax()*(cart.total()+cart.shipping());
+            var fees=cart.tax()*(cart.total()+cart.shipping(true));
             element.html(Math.max(fees-cart.getTotalDiscount(),0).toFixed(2));
           });
           break;
         case "fees+shipping+discount":
           $timeout(function() {
-            element.html((cart.shipping()).toFixed(2));
+            element.html((cart.shipping(true)).toFixed(2));
             //cart.roundCHF()
           });
           break;
@@ -329,7 +334,16 @@ function cartFactory(config, $timeout,$rootScope,$window, $storage, api,user) {
       return {};
     }
     return v.discount;
-  }
+  };
+
+  //
+  // stotal = items + shipping - total discount
+  //  total = stotal + stotal*payment.fees
+  // WARNNG -- WARNNG -- WARNNG -- edit in all places 
+  Cart.prototype.getExtraDiscount=function() {
+    var fees=this.tax()*(this.total()+this.shipping()-this.getTotalDiscount())+this.shipping();
+    return this.roundCHF(Math.max(this.getTotalDiscount()-fees,0));
+  };
 
   Cart.prototype.getTotalDiscount=function() {
     var amount=0;
@@ -337,7 +351,7 @@ function cartFactory(config, $timeout,$rootScope,$window, $storage, api,user) {
       amount+=this.discount[slug];
     }
     return amount;
-  }
+  };
 
   Cart.prototype.setError=function(errors){
     var sku, item;
@@ -394,10 +408,15 @@ function cartFactory(config, $timeout,$rootScope,$window, $storage, api,user) {
     return (Math.round(total*20)/20);
   };
 
+  //
+  // stotal = items + shipping - total discount
+  //  total = stotal + stotal*payment.fees
+  // WARNNG -- WARNNG -- WARNNG -- edit in all places 
   Cart.prototype.grandTotal=function(){
     var total=this.total();
-    var fees=this.tax()*(total+this.shipping());
-    total=(total + this.shipping());
+    var fees=this.tax()*(total+this.shipping()-this.getTotalDiscount())+this.shipping();
+    total+=(fees-this.getTotalDiscount());
+
     // Rounding up to the nearest 0.05
     return this.roundCHF(total);
 
@@ -488,9 +507,9 @@ function cartFactory(config, $timeout,$rootScope,$window, $storage, api,user) {
       price=(price-defaultCart.shippingFlatRate.priceA);
     }
 
-    if(discount||true){
-      price+=this.tax()*(total+price);  
-      price-=this.getTotalDiscount();
+    if(discount){
+      var fees=this.tax()*(total+price);
+      price-=Math.max(this.getTotalDiscount()-fees,0);
     }
 
     return this.roundCHF(Math.max(price,0));

@@ -20,7 +20,7 @@
             </div>            
             <div class="cart-discount" 
                   ng-hide="cart.vendorDiscount(group[0].vendor, true)">
-              <i class="fa fa-gift black"></i> à la livraison à partir de 
+              <i class="fa fa-gift pink "></i> à la livraison à partir de 
               {{cart.vendorDiscountInfo(group[0].vendor).threshold}} fr
               
             </div>
@@ -52,10 +52,10 @@
     <div class="col-xs-6 shipping gray" ng-class="{'pink':cart.hasShippingReduction()}">
       <i class="bold fa   " ng-class="cart.isShippingHypercenter()?'fa-bicycle':'fa-truck'"></i> 
       +&nbsp;<i class="fa fa-credit-card"></i>
-      <span cart-price="shipping"></span> CHF
+      <span cart-price="shipping+discount"></span> CHF
     </div>
     <div class="col-xs-6 total gray">
-      Total   <!-- {{cart.total()+cart.shipping()|number:2}} -->
+      Total   
       <strong class="green"><span cart-price="total+shipping"></span> CHF</strong>
     </div>
   </div>

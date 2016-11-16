@@ -23,12 +23,14 @@
       
       <!-- PHONES --> 
       <div class="form-group required">
-        <label class="colsm2 control-label">Téléphone</label>
+        <label class="colsm2 control-label">Téléphone </label>
         <div class="colsm10">
           <div ng-repeat="phone in user.phoneNumbers" class="row nomargin">
             <div class="col-xs-3 nopadding">
-              <input type="text"  ng-model="user.phoneNumbers[$index].what" placeholder="mobile" required 
-              class="form-control input-lg ">
+              <select  ng-model="user.phoneNumbers[$index].what" class="form-control input-lg ">
+                <option value="mobile">principal</option>
+                <option value="fixe">secondaire</option>
+              </select>            
             </div>
             <div class="col-xs-7 nopadding">
               <input type="text"  ng-model="user.phoneNumbers[$index].number" placeholder="004178 000 55 55" required 
@@ -89,10 +91,10 @@
           </div>
         </div>
 
-
+nopadding col-xs-12
         <!-- RUE/N°/ETAGE -->
         <div class="form-group  required">
-          <label class="colsm2 control-label">Rue, <u>numéro</u> et l'étage</label>
+          <label class="nopadding col-xs-12 control-label">Rue, <u>numéro</u> et l'étage</label>
           <div class="col-xs-10 nopadding">                
             <input id="address-line1" ng-model="user.addresses[$index].streetAdress"  type="text" ng-blur="updateMap(user.addresses[$index],user)" placeholder="rue et numéro" class="form-control input-lg" required>
           </div>

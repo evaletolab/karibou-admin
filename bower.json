@@ -11,6 +11,9 @@
   ],
 
   "overrides": {
+    "uploadcare":{
+      "main": ["uploadcare.js"]
+    },
     "bootstrap": {
       "main": [
         "dist/css/bootstrap.css",

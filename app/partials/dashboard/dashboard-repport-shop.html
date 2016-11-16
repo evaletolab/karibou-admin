@@ -86,18 +86,18 @@
           </tr>
         </thead>
         <tbody ng-repeat="(slug, repportOneShop) in repport.shops" class="repport-separator">
-          <tr><td colspan="2"></td><td>{{repportOneShop.items}} articles / {{repportOneShop.orders}} commandes</td><td>{{repportOneShop.amount|number:2}}</td></tr>
-          <tr><td colspan="2"></td><td>Participation aux frais de commandes</td><td>
+          <tr><td colspan="2"></td><td>CA {{repportOneShop.items}} articles / {{repportOneShop.orders.length}} commandes</td><td>{{repportOneShop.amount|number:2}}</td></tr>
+          <tr><td colspan="2"></td><td>Déduction liée à la participation aux frais des clients</td><td>
           {{repportOneShop.discount|number:2}}
           </td></tr>
-          <tr><td colspan="2"></td><td>Service Karibou  {{repportOneShop.contractFees[0]*100}}% </td><td>{{repportOneShop.fees|number:2}}</td></tr>
-          <tr><td colspan="2"></td><td class="bold">Solde en faveur de {{repportOneShop.name}}</td><td class="bold">{{repportOneShop.amount-repportOneShop.fees|number:2}}</td></tr>
+          <tr><td colspan="2"></td><td>Déduction liée au service Karibou.ch  {{repportOneShop.contractFees[0]*100}}% </td><td>{{repportOneShop.fees|number:2}}</td></tr>
+          <tr><td colspan="2"></td><td class="bold">Solde en faveur de {{repportOneShop.name}}</td><td class="bold">{{repportOneShop.amount-repportOneShop.discount-repportOneShop.fees|number:2}}</td></tr>
         </tbody>
         <tbody ng-if="multipleShops(repport)>1" class="repport-last">
-          <tr><td colspan="2">TOTAL</td><td>{{repport.items}} articles / {{repport.orders}} commandes</td><td>{{repport.amount|number:2}}</td></tr>
-          <tr><td colspan="2"></td><td>Participation aux frais de commandes</td><td>{{repport.discount|number:2}}</td></tr>
-          <tr><td colspan="2"></td><td>Service Karibou à ce jour</td><td>{{repport.ca|number:2}}</td></tr>
-          <tr><td colspan="2"></td><td class="bold">Solde en faveur des boutiques</td><td class="bold">{{repport.amount-repport.ca|number:2}}</td></tr>
+          <tr><td colspan="2">TOTAL</td><td>{{repport.items}} articles / {{repport.orders.length}} commandes</td><td>{{repport.amount|number:2}}</td></tr>
+          <tr><td colspan="2"></td><td>Déduction liée à la participation aux frais des clients</td><td>{{repport.discount|number:2}}</td></tr>
+          <tr><td colspan="2"></td><td>Déduction lié au service Karibou.ch </td><td>{{repport.ca|number:2}}</td></tr>
+          <tr><td colspan="2"></td><td class="bold">Solde en faveur des boutiques</td><td class="bold">{{repport.amount-repport.discount-repport.ca|number:2}}</td></tr>
         </tbody>
 
       </table>

@@ -21,7 +21,7 @@
             <img ng-src="{{::vendor.photo.owner}}-/resize/100x/"  alt="160x160"  >
             <a ng-href="/shop/{{::vendor.urlpath}}" class="black">{{::vendor.name}}</a>
             <div class="home-shop-discount-info" ng-show="vendor.discount.active">
-              Vous offre {{::vendor.discount.amount|number:2}} fr de livraison à partir de {{::vendor.discount.threshold}} fr d'achat
+              Vous offre {{::vendor.discount.amount|number:2}} fr sur la livraison à partir de {{::vendor.discount.threshold}} fr d'achat
             </div>
             <div class="home-shop-unavailable" if-vendor-is-available="vendor" reverse="true">
               <i class="fa fa-clock-o orange"></i>  La boutique ne livre pas le {{::cart.getShippingDay()|dateMomentDay}}

@@ -70,7 +70,7 @@
             <a class="btn btn-cart-plus btn-xs dropdown-toggle" data-toggle="dropdown">
               <i class="fa -fa-2x fa-file-text-o"></i>
             </a>
-            <ul class="dropdown-menu" role="menu">
+            <ul class="dropdown-menu" role="menu" style="overflow-y:auto">
               <li><span>Choisir un document</span></li>
               <li ng-repeat="doc in user.documents">
                 <a href="#" ng-click="updateUserDocument(doc,product.sku)">{{::doc.title.fr}}</a>
@@ -80,20 +80,22 @@
 
         </a>
 
-        <div class="vertical-divider product-bottom hidden-xs" >
-          <div ng-show="product.details.bio" class="bio bold"><i class="fa fa-leaf"></i> bio</div>
+        <div class="vertical-divider product-bottom " >
+          <div ng-show="product.details.bio&&!product.details.biodynamics" class="bio bold"><i class="fa fa-leaf"></i> bio</div>
+          <div ng-show="product.details.bioconvertion" class="bio bold"><i class="fa fa-leaf"></i> bioconversion</div>
+          <div ng-show="product.details.biodynamics" class="bio bold"><i class="fa fa-leaf"></i> biodynamie</div>
           <div ng-show="product.details.natural" class="bio bold"><i class="fa fa-leaf"></i></div>
 
-          <a class="title " itemprop="name" ng-href="{{::shop.urlpath|test:'/shop/':''}}/products/{{::product.sku}}/{{::product.slug}}" >
+          <a class="title hidden-xs" itemprop="name" ng-href="{{::shop.urlpath|test:'/shop/':''}}/products/{{::product.sku}}/{{::product.slug}}" >
             <span class="product-title"></span>
           </a>
-          <div ng-click="love(product)" >
+          <div ng-click="love(product)" class="hidden-xs">
             <i class=" love off-love fa fa-heart-o"></i> 
             <i class=" love  on-love fa fa-heart pink1"></i> 
           </div>
 
           <!-- VENDOR-->
-          <div class="row-fluid vertical-divider border product-vendor " >
+          <div class="row-fluid vertical-divider border product-vendor hidden-xs" >
             <div ng-show="product.vendor" >
               <span  ng-show="product.vendor.photo.owner" >
                 <img ng-src="{{::product.vendor.photo.owner}}-/resize/100x/"  alt="160x160" class="shop-owner" >

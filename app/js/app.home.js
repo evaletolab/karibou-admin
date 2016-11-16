@@ -19,6 +19,7 @@ Home.config([
     // List of routes of the application
     $routeProvider
       .when('/', { templateUrl : '/partials/product/home.html'})
+      .when('/search', {title:'Recherche de produits ',  templateUrl : '/partials/product/search.html'})
       .when('/shops', {title:'Les boutiques ',  templateUrl : '/partials/shop/home.html'})
       .when('/products', {title:'Les produits ',  templateUrl : '/partials/product/home.html'})
       .when('/shops/category/:catalog', {title:'Les boutiques ',  templateUrl : '/partials/shop/shops.html'});
@@ -173,11 +174,22 @@ Home.controller('HomeCtrl', [
         });
         return deferred.promise;
       }
-      
+
+      //
+      // load my popular & love products
+      if(options.search){
+        console.log('--------',$routeParams)
+        product.findSearch({q:$routeParams.q},function(products){
+          $scope.items=products.sort(sort_by_weigth_and_date);
+          deferred.resolve(products);
+        });
+        return deferred.promise;        
+      }
+
       //
       // load my popular & love products
       if(options.love){
-        product.findLove({discount:true,popular:true,windowtime:2, available:true,maxcat:8,when:nextShipping},function(products){
+        product.findLove({discount:true,popular:true,windowtime:2, available:true,maxcat:8,when:(nextShipping||true)},function(products){
           $scope.items=products.sort(sort_by_weigth_and_date);
           deferred.resolve(products);
         });
@@ -208,7 +220,7 @@ Home.controller('HomeCtrl', [
         discount:true, 
         available:true,
         maxcat:4,
-        when:nextShipping
+        when:(nextShipping||true)
       };
       product.query(filter,function(products){
         $scope.items=products.sort(sort_by_weigth_and_date);

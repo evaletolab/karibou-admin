@@ -417,15 +417,24 @@
                       <td class="text-right padding"><span ng-class="{'link':cart.hasShippingReduction()}" cart-price="fees+shipping+discount">
                        </span></td>
                   </tr>
+                  <tr ng-show="cart.getExtraDiscount()>0">
+                      <td class="text-right gray" colspan="3">
+                        Bonus commerçants <i class="fa fa-gift"/>
+                      </td>
+                      <td class="text-right padding green-2 bold">
+                        <span cart-price="extradiscount" />
+                      </td>
+                  </tr>
 
+                  <!-- TOTAL -->
                   <tr>
                       <td colspan="3" class="text-right"><h4 class="nopadding"><strong>Total: </strong></h4></td>
-                      <td class="text-right padding text-success"><h4 class="nopadding"><strong>{{cart.grandTotal()|number:2}} CHF</strong></h4></td>
+                      <td class="text-right padding text-success"><h4 class="nopadding bold"><span cart-price="total+shipping" /> CHF</h4></td>
                   </tr>
                   <!-- DISCOUNT -->
                   <tr ng-show="cart.getTotalDiscount()">
                       <td colspan="3" class="text-right">
-                        <span class="green-2">Les commerçants ont participé aux frais de paiement et de livraison <i class="fa fa-gift"></i></span>
+                        <span class="green-2">Rabais commerçants <i class="fa fa-gift"></i></span>
                       </td>
                       <td class="text-right padding text-success">
                         <h4 class="nopadding green-2"><strong>{{cart.getTotalDiscount()|number:2}} CHF</strong></h4>

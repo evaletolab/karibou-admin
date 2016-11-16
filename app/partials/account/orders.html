@@ -91,13 +91,18 @@
                     <tr ng-class="{'strike grayx':order.fulfillments.status==='failure'}">
                       <td colspan="2">Livraison & Paiement</td><td >{{::order|orderFees:true}}</td>
                     </tr>
+
+                    <tr ng-show="order.getExtraDiscount()>0">
+                      <td colspan="2" class="gray">Bonus commerçants</td><td class="green-2 ">-{{::order.getExtraDiscount().toFixed(2)}} CHF</td>                      
+                    </tr>
+
                     <tr class="bold" ng-class="{'strike grayx':order.fulfillments.status==='failure'}">
                       <td colspan="2">TOTAL</td><td >{{::order.getTotalPrice().toFixed(2)}} CHF</td>
                     </tr>
                     <tr ng-class="{'strike grayx':order.fulfillments.status==='failure'}"
                         ng-show="order.getTotalDiscount()>0" 
-                        class="pink">
-                      <td colspan="2">Rabais commerçants</td><td>-{{::order.getTotalDiscount().toFixed(2)}}</td>
+                        class="green-2 bold">
+                      <td colspan="2">Rabais commerçants</td><td >-{{::order.getTotalDiscount().toFixed(2)}} CHF</td>
                     </tr>
 
                   </tbody> 

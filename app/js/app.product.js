@@ -388,6 +388,23 @@ function productFactory (config, $rootScope,$resource,$q,api) {
     return self;
   };
 
+  Product.prototype.findSearch = function(body,cb,err) {
+    if(!err) {err=onerr;}
+    var products;
+    var params=angular.extend({},{sku:'search'},body||{q:'hello fresh'});
+    var self=this, s=backend.products.query(params,function() {
+      products=self.wrapArray(s);
+      //
+      // wrap dates for sorting !!!
+      products.forEach(products_wrap_dates);
+
+      if(cb)cb(products);
+      return self;
+    },err);
+    return self;
+  };
+
+
   Product.prototype.findByCategory = function(cat, filter,cb,err) {
     if(!err) err=onerr;
     var products, s,product=this, params={sku:'category'};

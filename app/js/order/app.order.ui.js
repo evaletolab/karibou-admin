@@ -266,7 +266,7 @@ function($parse, $timeout,cart) {
 
         // display total fees with discount
         if(widthDiscount){
-          fees-=discount;
+          fees=Math.max(fees-discount,0);
         }
 
         return parseFloat((Math.round(fees*20)/20).toFixed(2))+" CHF";
@@ -274,6 +274,7 @@ function($parse, $timeout,cart) {
 
    };
 }])
+
 
 
 

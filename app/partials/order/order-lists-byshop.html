@@ -11,7 +11,9 @@
       </div>
     </li>    
   </ul>
-  <ul class="list-group" ng-repeat="group in selected.items|filterBy:['vendor']|groupBy:'rank'|orderBy:'rank' " >
+
+  <ul class="list-group" 
+      ng-repeat="group in selected.items|filterBy:['vendor']|groupBy:'rank' " >
     <!-- USER -->
     <li class="list-group-item " style="padding:15px;" ng-if="group[0].when===filters.f">
         <div  >
@@ -78,8 +80,11 @@
       </div>
     </li>
   </ul>
+
   <!-- ITEMS TOTAL -->
   <p  class="gray small">
     Total commandé :  CHF {{getAmountTotal(selected.items,filters.f)}}
   </p>
+
+
 
