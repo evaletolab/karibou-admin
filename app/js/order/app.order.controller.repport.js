@@ -11,36 +11,29 @@ function OrderRepportCtrl($scope,$rootScope,$routeParams, $location, api, order,
   $controller('OrderCommonCtrl', {$scope: $scope}); 
 
   $scope.today=new Date();
-  $scope.shopsSelect=shop.query({});
+  $scope.shopsSelect=[];
 
-  $scope.getAmountTotal=function (shop) {
-    var total=0;
-    if(!$scope.shops)return total;
-    $scope.shops[shop].forEach(function (item) {
-      total+=item.finalprice;
-    });
-    return total;
-  };
 
   $scope.multipleShops=function (repport) {
-    if(!repport)return 0;
+    if(!repport||!repport.shops)return 0;
     return Object.keys(repport.shops).length;
   };
 
   $scope.shopName=function (repport) {
     repport=repport||$scope.repport;
-    if(!repport)return '';
-    var strName=Object.keys(repport.shops).map(function(name){return repport.shops[name].details.name;}).join(', ');
+    if(!repport||!repport.shops){return '';}
+    var strName=Object.keys(repport.shops).map(function(name){return repport.shops[name].name;}).join(', ');
     $rootScope.title='Activity report for - '+strName;
     return strName;
   };
 
   $scope.firstShop=function (repport) {
     repport=repport||$scope.repport;
-    if(!repport)return {};
-
-    return repport.shops[Object.keys(repport.shops)[0]];
+    if(!repport||!repport.shops)return {};
+    var available=Object.keys(repport.shops);
+    return _.findWhere($rootScope.shops,{urlpath:available[0]});
   };
+
 
 
   $scope.getDetailledOrderUrl=function (order) {
@@ -61,6 +54,14 @@ function OrderRepportCtrl($scope,$rootScope,$routeParams, $location, api, order,
       order.findRepportForShop(filters).$promise.then(function(repport){
         $scope.loading=true;
         $scope.repport=repport;
+        if(repport.shops){
+          var select=Object.keys(repport.shops).map(function(slug) {
+            return {urlpath:slug,name:repport.shops[slug].name,address:repport.shops[slug].address};
+          });
+          if($scope.shopsSelect.length<select.length){
+            $scope.shopsSelect=select;  
+          }
+        }
         //$scope.addresses=repport.map(function(order){return order.shipping})
         $scope.loading=false;
       });

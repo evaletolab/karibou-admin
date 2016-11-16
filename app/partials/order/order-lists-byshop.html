@@ -11,7 +11,9 @@
       </div>
     </li>    
   </ul>
-  <ul class="list-group" ng-repeat="group in selected.items|filterBy:['vendor']|groupBy:'rank'|orderBy:'rank' " >
+
+  <ul class="list-group" 
+      ng-repeat="group in selected.items|filterBy:['vendor']|groupBy:'rank' " >
     <!-- USER -->
     <li class="list-group-item " style="padding:15px;" ng-if="group[0].when===filters.f">
         <div  >
@@ -56,14 +58,33 @@
                     ng-class="{'btn-done':['fulfilled','failure'].indexOf(item.fulfillment.status)!==-1}"
                     ng-click="updateItem(item.oid,item,'fulfilled')"
                     ><i class="fa fa-check"></i> Validez</button>
+            
+            <!-- WRITE QUALITY -->
+            <div class="btn-group" >
+              <button type="button" 
+                      class="btn-xs btn btn-transparent dropdown-toggle" 
+                      data-toggle="dropdown" 
+                      title="{{item.fulfillment.issue}}">
+                <i class="fa fa-exclamation-circle " ng-class="item.fulfillment.issue? 'red':'green'"></i>
+              </button>
+              <ul class="dropdown-menu" ng-if="user.isAdmin()">
+                <li ng-repeat="code in config.shop.issue.code">
+                  <a href="#" ng-click="updateIssue(item.oid,item,code)">{{::code}}</a>
+                </li>
+              </ul>
+            </div>            
+
           </form>
 
         </div>
       </div>
     </li>
   </ul>
+
   <!-- ITEMS TOTAL -->
-  <p ng-show="(!filters.s||filters.s===shop)" class="gray small">
-    Total commandé :  CHF
+  <p  class="gray small">
+    Total commandé :  CHF {{getAmountTotal(selected.items,filters.f)}}
   </p>
+
+
 

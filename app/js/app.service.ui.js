@@ -123,6 +123,30 @@ UI.filter('dateMomentShort', function () {
    };
 });
   
+UI.filter('dateMomentLong', function () {
+   return function(date, prefix) {
+        if (!date) {return "";}
+        if (!prefix) {prefix="";}
+        return  prefix+moment(date).format('dddd DD MMMM', 'fr');
+   };
+});
+
+UI.filter('dateMomentHuman', function () {
+   return function(date, prefix) {
+        if (!date) {return "";}
+        if (!prefix) {prefix="";}
+        return  prefix+moment(date).fromNow();
+   };
+});
+
+UI.filter('dateMomentDay', function () {
+   return function(date) {
+        if (!date) {return "";}
+        var weekdays = "dimanche_lundi_mardi_mercredi_jeudi_vendredi_samedi".split("_");
+        return  weekdays[date.getDay()];
+   };
+});
+
 
 //
 //
@@ -166,9 +190,88 @@ UI.directive('formatDate', function ($window) {
 UI.directive('elementScroller', function() {
     return function (scope, element, attrs) {
         var header=attrs.elementScroller||0;
-        element.height($(window).height() - (header|0));
+        var win=angular.element(window);
+        element.height(win.height() - (header|0));
+        win.bind('resize', function () {
+          element.height(win.height() - (header|0));
+        });
+
     }
 });
+
+//
+//
+// simple directive that block a button for a while to avoid multiple click
+UI.directive('blockOnClick', [
+    '$parse',
+    '$timeout',
+    function($parse,$timeout) {
+    return function (scope, element, attrs) {
+        var clazz=$parse(attrs.blockOnClick)()||{
+          on:"fa-ellipsis-h",
+          off:"fa-plus"
+        };
+        // get element
+        var target=element.find(clazz.target||"i:first");
+        target.addClass(clazz.off);
+        element.click(function() {
+          element.addClass("disabled");
+          target.addClass(clazz.on);
+          target.removeClass(clazz.off);
+          $timeout(function() {
+            target.addClass(clazz.off);
+            target.removeClass(clazz.on);
+            element.removeClass("disabled");
+          },500);
+        });
+
+    }
+}]);
+
+//
+//
+// simple router to open map
+UI.directive('mapScheme', ['$window','$parse','api',function($window,$parse,api) {
+  return {
+    restrict: 'A',
+    link: function(scope, element, attrs) {
+      var uri,options, prefix="http://maps.google.com/?daddr=";
+      element.on('click', function() {
+        if(api.detect.iOS()){
+          prefix="maps://maps.google.com/?daddr=";
+        }
+        else if(api.detect.Android()){
+          prefix="geo:";
+        }
+        else if(api.detect.Windows()){
+          prefix="maps:";
+        }
+
+
+        options=$parse(attrs.mapScheme)(scope);
+        if(options.geo&&options.geo.lng&&options.geo.lat){
+          uri=prefix+options.geo.lat+","+options.geo.lng;
+          if(api.detect.Android()){
+            uri+="?q="+options.geo.lat+","+options.geo.lng+"("+options.name+")";
+          }
+        }else{
+          uri=prefix+options.streetAdress+","+options.postalCode+","+options.region;          
+        }
+        // iphone
+        //http://maps.apple.com/?daddr=1600+Amphitheatre+Pkwy,+Mountain+View+CA
+        //http://maps.google.com/?daddr=1+Infinite+Loop,+Cupertino+CA
+        //http://maps.google.com/?daddr=lat,long
+        // android
+        //geo:0,0?q=my+street+address
+        //geo:latitude,longitude?z=zoom
+        // wp
+        //maps:latitude,longitude?z=zoom
+        // console.log(uri)
+        $window.open(encodeURI(uri), '_system', 'location=no,fullscreen=yes,scrollbars=auto');
+      });
+    }
+  };
+}]);
 
 //
 // simple ngInclude

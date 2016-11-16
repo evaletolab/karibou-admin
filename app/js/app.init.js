@@ -3,8 +3,8 @@
 // 
 // chromium-browser --ignore-gpu-blacklist --disable-gpu-sandbox
 // var API_SERVER='http://api.karibou.ch'
-// var API_SERVER='http://localhost:4000';
-var API_SERVER='//api.'+window.location.hostname;
+var API_SERVER='http://localhost:4000';
+// var API_SERVER='//api.'+window.location.hostname;
 // var API_SERVER='http://192.168.1.35:4000'
 // var API_SERVER='http://karibou-evaletolab.rhcloud.com'
 // var API_SERVER='http://karibou-api.jit.su'
@@ -17,7 +17,7 @@ angular.module('app', [
   'ngRoute',
   'ngSanitize',
   'ngTouch',
-  'ngAnimate',
+//  'ngAnimate',
   'ngUploadcare',  
   'flash',
   'pascalprecht.translate',
@@ -46,7 +46,6 @@ angular.module('app', [
   .factory('errorInterceptor', errorInterceptor)
   .factory('cordovaReady',cordovaReady)
   .run(appRun);
-
 
 
 
@@ -163,14 +162,22 @@ function appConfig( $provide, $routeProvider, $locationProvider, $httpProvider,$
   //
   // i18n
   $translateProvider.translations('en', {
-    sitemessage:'Home page message',
-    siteabout:'About the site',
+    /* home */
     sitetitle:'Site tagline',
     sitename:'Site name',
-    hello: 'Hello',
     logout: 'Logout',
     login: 'Login',
+    formlogintitle:'Have an account ?',
+    formlogincreate:'Or create an account?',
+    /* cart  */
+    /* signup */
     signup: 'Signup',
+
+    /* payment method */
+    /* address */
+    /* login form*/
+
+    /* user settings */
     general: 'General',
     navigation: 'Navigation',
     users:'Users',
@@ -181,19 +188,28 @@ function appConfig( $provide, $routeProvider, $locationProvider, $httpProvider,$
     security:"Security",
     password:"Change password",
     profile:"Update profile",
-    furthermore:"Furthermore",
-    formlogintitle:'Have an account ?',
-    formlogincreate:'Or create an account?'
+    furthermore:"Furthermore"
+    /* order validation 1 */
+    /* order validation 2 */
+    /* order validation 3 */
+    /* order validation 4 */
   });
   $translateProvider.translations('fr', {
-    sitemessage:'Message sur la home du site',
-    siteabout:'A propos du site',
+    /* home */
     sitetitle:'Titre du site',
     sitename:'Nom du site',
-    hello:'Bonjour',
     logout: 'Logout',
     login: 'Connexion',
+    formlogintitle:'Vous avez déjà un compte ?',
+    formlogincreate:'Ou créer un compte?',
+    /* caddy  */
+    /* inscription */
     signup: 'S\'inscrire',
+    /* payment method */
+    /* address */
+    /* login form*/
+
+    /* user settings */
     general: 'Général',
     navigation: 'Navigation',
     users:'Utilisateur',
@@ -204,9 +220,11 @@ function appConfig( $provide, $routeProvider, $locationProvider, $httpProvider,$
     security:"Sécurité",
     password:"Modifier mon mot de passe",
     profile:"Mes données personnelles",
-    furthermore:"A lire aussi",
-    formlogintitle:'Vous avez déjà un compte ?',
-    formlogincreate:'Ou créer un compte?'
+    furthermore:"A lire aussi"
+    /* order validation 1 */
+    /* order validation 2 */
+    /* order validation 3 */
+    /* order validation 4 */
   });
 
 
@@ -299,7 +317,7 @@ function errorInterceptor($q, scope, $location, $timeout,Flash) {
               // if logged but without correct right 
               showError(scope,response.data);            
             }else if(response.config.url.indexOf('/v1/users/me')===-1){
-              showError(scope,"Access denied!")
+              showError(scope,"Access denied!");
             }
           }
 
@@ -340,15 +358,15 @@ function cordovaReady() {
 
 //
 // init the module
-appRun.$inject=['$templateCache', '$route', '$http','$timeout', 'config','Flash','$translate','$rootScope'];
-function appRun($templateCache, $route, $http, $timeout, config, flash, $translate,$rootScope) {
+appRun.$inject=['$templateCache', '$route', '$http','$interval', 'config','Flash','$translate','$rootScope'];
+function appRun($templateCache, $route, $http, $interval, config, flash, $translate,$rootScope) {
   // gitHubContent.initialize({
   //       root:'page', // specify the prefix route of your content
   //       githubRepo:config.github.repo,
   //       githubToken:config.github.token
   //   });
 
-
+  // console.log('---------------0',(Date.now()-time));
   // special setup that depends on config 
   config.shop.then(function () {
       // config stripe here
@@ -358,11 +376,11 @@ function appRun($templateCache, $route, $http, $timeout, config, flash, $transla
       // loading Stripe
       setTimeout(function() {
         // console.log('---',config.shop.shippingweek);
-        window.Stripe.setPublishableKey(pk);          
+        window.Stripe&&window.Stripe.setPublishableKey(pk);          
 
         // release the loading effect
         angular.element('html').removeClass('app-loading');
-      }, 100);
+      }, 10);
 
       // basket.ready('app').then(function() {
       // })
@@ -372,15 +390,20 @@ function appRun($templateCache, $route, $http, $timeout, config, flash, $transla
       uploadcare.start({ publicKey: config.uploadcare, maxSize:153600});  
 
       if(config.shop.maintenance.active){
-        flash.create('danger',config.shop.maintenance.reason[$translate.use()],0,60000);
+        flash.create('info',config.shop.maintenance.reason[$translate.use()],0,40000);
       }
+
 
       //
       // after N days without reloading the page, 
-      $timeout(function () {
-        var reload="Votre session est restée inactive trop longtemps. Veuillez <a href='#' onClick='window.location.reload()'>recharger la page</a>"
-        flash.create('danger','<b>Info!</b> '+reload,0,-1);
-      },86400000*2);
+      var time=Date.now(), day=(24*60*60*1000);
+      $interval(function () {
+        if((Date.now()-time)>day){
+          var reload="Votre session est restée inactive trop longtemps. Veuillez <a href='#' onClick='window.location.reload()'>recharger la page</a>";
+          flash.create('danger','<b>Info!</b> '+reload,0,-1);
+          time=Date.now();          
+        }
+      },60000);
             
   });
 
@@ -480,20 +503,20 @@ angular.element(document).ready(function () {
 
   Date.prototype.toYYYYMMDD=function() {
     return ''+this.getFullYear()+this.getMonth()+this.getDate();
-  }
+  };
 
 
   Date.prototype.plusDays=function(nb) {
     var plus=new Date(this);
     plus.setDate(this.getDate()+nb);
     return plus;
-  }
+  };
 
   //
   // simple test : this in [d1,d2[
   Date.prototype.in=function(d1,d2) {
     return (this>=d1&&this<d2)
-  }
+  };
 
 
   //console.log(window.Showdown.extensions)

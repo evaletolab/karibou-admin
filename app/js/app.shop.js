@@ -45,6 +45,7 @@ Shop.controller('ShopCtrl',[
     $scope.map=new Map();
     
     $scope.save=function(shop){
+
       shop.save(function(s){
           //
           // inform all listeners this has changed
@@ -128,8 +129,9 @@ Shop.controller('ShopCtrl',[
     //
     // geomap init
     $scope.updateMap=function(address){
-      if (address.streetAdress===undefined||address.postalCode===undefined)
+      if (!address||address.streetAdress===undefined||address.postalCode===undefined){
        return;
+      }
       $scope.map.geocode(address.streetAdress, address.postalCode, address.country, function(geo){
         if(!geo.results.length||!geo.results[0].geometry){
          return;
@@ -183,6 +185,7 @@ Shop.factory('shop', [
       available:{},
       address:{},
       info:{},
+      account:{},
       faq:[]
     };
 

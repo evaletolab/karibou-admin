@@ -23,11 +23,16 @@ function ngStackTraceProvider($provide) {
                 // do not send more than 1 issue each 1000ms 
                 // it kills our message box for nothing
                 // this should be done in server side
-                if((Date.now()-time)<1000){
+                if((Date.now()-time)<2000){
                     return;
                 }
 
                 var error={
+                    agent:window.navigator&&window.navigator.userAgent,
+                    path:window.location.href,
+                    user:window.currentUser||'anonymous',
+                    version:new Date(window.KARIBOU_INSTANCE),
+                    referrer:window.referrer||document.referrer,
                     msg:ex.name + ": " + ex.message,
                     formated:(stackframes.slice(0,4).map(function(sf) {
                         return sf.toString();
@@ -67,8 +72,8 @@ function ngStackTraceProvider($provide) {
                 ],function() {
                     StackTrace.fromError(ex).then(function(stackframes) {
                       
-                      sendRepport(stackframes,ex)
-                    })                    
+                      sendRepport(stackframes,ex);
+                    });                    
                 });
 
                 var when=(window.KARIBOU_INSTANCE)?new Date(window.KARIBOU_INSTANCE):null;

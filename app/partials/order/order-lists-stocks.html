@@ -19,7 +19,7 @@
       </th>
       <th style="width:100px">prix</th>
       <th style="width:110px" class="text-center small">prix promotion</th>
-      <th style="width:40px"  class="text-center small" ng-if="user.isAdmin()">home</th>
+      <th style="width:40px"  class="text-center small admin-show" >home</th>
       <th>-</th>
     </tr>
   </thead>
@@ -29,11 +29,12 @@
     <tr ng-repeat-end  
         ng-class="{'info':isProductDirty(product),'warning':!product.attributes.available}">
       <td ng-init="initProductState(product)">
-        <a ng-href="/products/{{product.sku}}">{{product.title}}</a>
+        <a ng-href="/products/{{::product.sku}}">{{::product.title}}</a>
+        &nbsp;<a ng-href="/products/{{::product.sku}}/edit" class="small link">[edit]</a>
       </td>
-      <td class="visible-lg visible-md">{{product.vendor.urlpath}}</td>
-      <td class="visible-lg visible-md">{{product.categories.name}}</td>
-
+      <td class="visible-lg visible-md">{{::product.vendor.urlpath}}</td>
+      <td class="visible-lg visible-md">{{::product.categories.name}}</td>
+ 
       <!-- DISPO -->
       <td>
         <input type="checkbox" ng-checked="product.attributes.available" ng-model="product.attributes.available" >        
@@ -64,7 +65,7 @@
         </div>      
       </td>
       <!-- HOME -->
-      <td ng-if="user.isAdmin()" >
+      <td class="admin-show">
         <input type="checkbox" ng-checked="product.attributes.home" ng-model="product.attributes.home" >        
       </td>
       <td style="width:43px;">

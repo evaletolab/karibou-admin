@@ -53,7 +53,7 @@ function walletCtrl ($scope,$rootScope, $routeParams, $location, config, feedbac
   config.shop.then(function () {
   });
 
-  var api=$scope.api, config=$scope.config, user=$scope.user;
+  var api=$scope.api, user=$scope.user;
 
   $scope.modalWalletDetails=function (wallet) {
     var expiry=new Date(wallet.card.expiry);
@@ -66,7 +66,7 @@ function walletCtrl ($scope,$rootScope, $routeParams, $location, config, feedbac
     $scope.modal.name=$scope.modal.card.name;
     $scope.modal.expiry=$scope.modal.card.expiry;
     angular.extend($scope.modal.bank,$scope.modal.external_account||{});
-  }
+  };
 
   $scope.modalDissmiss=function(){
     var modal=$scope.modal;
@@ -75,7 +75,7 @@ function walletCtrl ($scope,$rootScope, $routeParams, $location, config, feedbac
 
   $scope.dirtyWallet=function () {
     return !(($scope.modal.name!==$scope.modal.card.name) || ($scope.modal.expiry!==$scope.modal.card.expiry));
-  }
+  };
 
   $scope.updateWallet=function (wid,password) {
     $rootScope.WaitText="Waiting ...";    
@@ -98,7 +98,7 @@ function walletCtrl ($scope,$rootScope, $routeParams, $location, config, feedbac
       });
     }
 
-  }
+  };
 
   $scope.updateBANK=function (wid,bank,password) {
     $rootScope.WaitText="Waiting ..."; 
@@ -106,11 +106,10 @@ function walletCtrl ($scope,$rootScope, $routeParams, $location, config, feedbac
     $http.post(config.API_SERVER+'/v1/wallets/'+encodeURIComponent(wid),{external_account:bank,password:password}).then(function (result) {
       api.info($scope,"BANC saved ...");
     });
-  }
+  };
 
   $scope.creditWallet=function (wid,bank,amount,description,refid,credit,password) {
     $rootScope.WaitText="Waiting ...";    
-    console.log(amount,description,refid,credit)
     var transfer={
       amount:amount,
       description:description,
@@ -123,7 +122,7 @@ function walletCtrl ($scope,$rootScope, $routeParams, $location, config, feedbac
       api.info($scope,"CREDIT saved ...");
       $scope.modalWalletDetails(result.data);
     });
-  }
+  };
 
 
   
@@ -141,7 +140,7 @@ function walletCtrl ($scope,$rootScope, $routeParams, $location, config, feedbac
   // load docs from user.id, or/and category
   $scope.findGiftWallets=function (options) {
     $rootScope.WaitText="Waiting ...";    
-    options=options||_.extend({},$routeParams)
+    options=options||_.extend({},$routeParams);
     $http({url:config.API_SERVER+'/v1/wallets/giftcard',method:"GET",params:options||{}}).then(function (result) {
       $scope.wallets=result.data;
       $scope.gift=true;
@@ -153,7 +152,7 @@ function walletCtrl ($scope,$rootScope, $routeParams, $location, config, feedbac
   // load docs from user.id, or/and category
   $scope.findOtherWallets=function (options) {
     $rootScope.WaitText="Waiting ...";    
-    options=options||_.extend({},$routeParams)
+    options=options||_.extend({},$routeParams);
     $http({url:config.API_SERVER+'/v1/wallets',method:"GET",params:options||{}}).then(function (result) {
       $scope.wallets=result.data;
       $scope.gift=false;

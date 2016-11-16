@@ -2,11 +2,14 @@
       <div ng-controller="FeedbackCtrl" class="hidden-print" ng-show="showShopWidgets()">
         <button class="ng-cloak  btn btn-feedbk feedbackbtn " 
                 ng-click="feedback.show=true" 
-                ng-hide="feedback.show"><i class="fa fa-pencil fa-1x"></i> {{getTitle()}}
+                ng-hide="feedback.show"><i class="fa fa-phone fa-1x"></i> {{getTitle()}}
         </button>
         <div  class="feedbackform ng-cloak "  ng-show="feedback.show">
           <div unselectable="on" class="feedbackform-header">
             <b>{{getTitle()}}</b>
+            <span ng-show="getPhone()" class="phone pull-right"><a href="tel:{{getPhone()}}">
+            <i class="fa fa-phone"></i>
+            {{getPhone()|clean}}</span>
             <!-- <a title="Display the help screen." href="#" class="size-button help">?</a> -->
             <a title="Minimize window." href="#" ng-click="feedback.show=false" class="size-button minimize">–</a>
           </div>

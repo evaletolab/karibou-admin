@@ -6,7 +6,8 @@
 angular.module('app.category', ['app.config', 'app.api','$strap'])
   .config(categoryConfig)
   .controller('CategoryCtrl',CategoryCtrl)
-  .factory('category', categoryService);
+  .factory('category', categoryService)
+  .directive('currentCategory',currentCategory);
 
 //
 // define all routes for user api
@@ -66,33 +67,45 @@ function CategoryCtrl(config, $scope, $timeout, $routeParams, $location, api, ca
   //modal
 
   // default model
-  $scope.modal = {name:'',type:'Category',image:'fa fa-leaf', weight:0, saved: false};
+  $scope.defaultCategory = {
+    name:null,
+    type:'Category',
+    image:'fa fa-leaf', 
+    color:'green',
+    cover:null,
+    weight:0, 
+    saved: false
+  };
 
+  $scope.modalCat = {};
   
-  $scope.launchModal=function(elem){
-    angular.extend($scope.modal,$scope.categories[elem],{index:elem});
+  $scope.modalCatLaunch=function(elem){
+    if(elem===undefined){
+      return angular.extend($scope.modalCat,$scope.defaultCategory);
+    }
+    angular.extend($scope.modalCat,$scope.categories[elem],{index:elem});
   };
   
-  $scope.modalDissmiss=function(){
-    $scope.modal = {name:'',type:'Category',image:'fa fa-leaf', weight:0, saved: false};
+  $scope.modalCatDissmiss=function(){
+    $scope.modalCat = {name:'',type:'Category',image:'fa fa-leaf', weight:0, saved: false};
   };
 
-  $scope.modalSave=function(dismiss){
+  $scope.modalCatSave=function(dismiss){
     //
     // check if data are correct
-    if($scope.modal.index){
-      angular.extend($scope.categories[$scope.modal.index],$scope.modal);
-      $scope.save($scope.categories[$scope.modal.index]);
-      $scope.modalDissmiss();
+    if($scope.modalCat.index){
+      angular.extend($scope.categories[$scope.modalCat.index],$scope.modalCat);
+      $scope.save($scope.categories[$scope.modalCat.index]);
+      $scope.modalCatDissmiss();
       return;
     }
   };
 
-  $scope.modalAdd=function(dismiss){
+  $scope.modalCatCreate=function(dismiss){
     //
     // check if data are correct
-    $scope.create($scope.modal);
-    $scope.modalDissmiss();
+    $scope.create($scope.modalCat);
+    $scope.modalCatDissmiss();
   };
   
   //
@@ -225,6 +238,31 @@ function categoryService(config, $location, $rootScope, $routeParams,$resource, 
  
   var _category=api.wrapDomain(Category,'slug', defaultCategory);  
   return _category;
+}
+
+
+
+//
+// display vendor acording the shipping date
+// https://github.com/angular/angular.js/blob/master/src/ng/directive/ngShowHide.js
+currentCategory.$inject=['$parse','$timeout','category'];
+function currentCategory($parse, $timeout,category) {
+  return {
+    restrict: 'A',
+    replace: true, 
+    priority:1,
+    link: function(scope, element, attrs) {
+      var self=this, current, defaultCatName=attrs.currentCategory||'';
+
+      scope.$watch(function() {
+        current=category.getCurrent();
+        return current&&current.name||defaultCatName;
+      }, function(catName) {
+        element.html(catName)
+      });
+
+    }
+  };
 }
 
 })(window.angular);

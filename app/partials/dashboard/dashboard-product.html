@@ -10,7 +10,8 @@
         </button>
         <a class="navbar-brand green" href="" toggle-on-click="#order-filter"><i class="fa fa-tasks fa-fw"></i>  Réglage <i class="fa fa-caret-down"></i></a>
 
-        <span class="navbar-text  " >Les stocks ({{products.length||0}})</span>
+
+        <span class="navbar-text  " >Les stocks <span ng-show="!_options.available">in</span>visibles ({{products.length||0}})</span>
 
 
     </div>
@@ -29,22 +30,23 @@
         <form class="form-inline" ng-init="_options.available=true">
           <div class="form-group">
 
-          <div class="col-xs-3 col-md-1">
-            <label><input type="checkbox" class=""   ng-model="_options.home"> Home</label>
-            <label><input type="checkbox" class=""   ng-model="_options.available"> Visible</label>
+          <div class="col-xs-6 col-md-3" >
+            <label ng-show="options.isAdmin"><input type="checkbox" class="form-control"   ng-model="_options.home"> Home</label>
+            <label><input type="checkbox" class=""   ng-model="_options.available"> Afficher les produits visible</label>
+
           </div>
 
           <!-- OPTIONS -->
 
-          <div class="col-xs-9 col-md-3" ng-if="user.isAdmin()">
-            <select class="form-control " 
+          <div class="col-xs-6 col-md-3" >
+            <select class="form-control pull-right" 
                     ng-change="loadAllProducts(_options)"
                     ng-model="filters.shops" 
                     ng-options="shop.urlpath as shop.name  for shop in shopsSelect| orderBy:'name'">
                     <option value=""  selected>-- Choisissez une boutique</option>
             </select>                        
           </div>
-          <div class="col-xs-12 col-md-8">
+          <div class="col-xs-12 col-md-4 pull-right">
             <a class=" btn btn-info btn-md " ng-href="/products/create">
               <i class="fa fa-plus"></i> Ajouter un nouveau produit
             </a>            
@@ -60,7 +62,7 @@
     </div>
 
     <div class="dashboard-content" 
-         ng-include="'/partials/order/order-lists-stocks.html'">      
+         ng-static-include="'/partials/order/order-lists-stocks.html'">      
     </div>
     <!-- WAIT -->
     <div ng-show="loading" class="text-center gray">
@@ -69,51 +71,4 @@
 
   </div>
 
-  <!-- MAIN CONTENT -->
-  <div class="container-fluid hide " >
-    <div class="row">
-
-      <!-- LEFT MENU -->
-      <div class="col-xs-8 col-sm-4 col-lg-2 sidebar " 
-           ng-include="'/partials/dashboard/dashboard-sidebar.html'" 
-           ng-class="{'menu-off':!options.showMenu}">
-      </div>
-      <div class="col-xs-12  nopadding-xs">
-     
-        <!-- VIEW STOCKS -->
-        <div class="panel panel-dashboard" >
-          <div class="panel-heading">
-          </div>
-          <div class="panel-body nopadding"></div>
-        </div>
-
-        <!-- OPTIONS -->
-        <div class="col-xs-1">
-          <label><input type="checkbox" class=""   ng-model="_options.home"> Home</label>
-        </div>
-
-        <div class="col-xs-11" ng-if="user.isAdmin()">
-          <select class="form-control " 
-                  ng-change="loadAllProducts(_options)"
-                  ng-model="filters.shops" 
-                  ng-options="shop.urlpath as shop.name  for shop in shopsSelect| orderBy:'name'">
-                  <option value=""  selected>-- Choisissez une boutique</option>
-          </select>                        
-        </div>
-
-
-
-        <div class="clearfix" ng-include="'/partials/order/order-lists-stocks.html'"></div>
-
-        <!-- WAIT -->
-        <div ng-show="loading" class="text-center gray">
-          <i class="fa fa-refresh fa-2x fa-spin"></i>
-        </div>
-
-          
-
-
-      </div>
-    </div>
-  </div>
 </div>

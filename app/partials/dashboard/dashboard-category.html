@@ -1,4 +1,4 @@
-<div class="dashboard" ng-controller="OrderCommonCtrl">
+<div class="dashboard"  ng-controller="CategoryCtrl">
 
   <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
     <div class="navbar-header">
@@ -16,14 +16,17 @@
     <!-- /.navbar-header -->
 
     <ul class="nav navbar-top-links navbar-right hidden-xs">
-        <button type="button" class="navbar-btn btn btn-info" bs-modal="'/partials/admin/category.modal.html'"><i class="fa fa-plus"></i> Ajouter une catégorie
+        <button type="button" class="navbar-btn btn btn-info" 
+                ng-click="modalCatLaunch()"
+                bs-modal="'/partials/admin/category.modal.html'"
+                ><i class="fa fa-plus"></i> Ajouter une catégorie
         </button>
 
     </ul>
   </nav>
 
   <!-- MAIN CONTENT -->
-  <div class="clearfix" ng-controller="CategoryCtrl">
+  <div class="clearfix" ng-controller="OrderCommonCtrl">
     <div class="dashboard-content">
 
       <!-- CONTENT -->
@@ -62,7 +65,10 @@
                 <td  style="width:60px;height:25px">
                   <div fade-on-hover=".table">
                   <button ng-hide="c.usedBy.length" confirm-delete="delete($index,password)" class="btn btn-default btn-xs"><i class="fa fa-remove"></i> </button>
-                  <button  class="btn btn-default btn-xs" bs-modal="'/partials/admin/category.modal.html'" ng-click="launchModal($index)"><i class="fa fa-edit"></i> </button>                  
+                  <button  class="btn btn-default btn-xs" 
+                           ng-click="modalCatLaunch($index)"
+                           bs-modal="'/partials/admin/category.modal.html'" 
+                           ><i class="fa fa-edit"></i> </button>                  
                   </div>
                 </td>
             </tr>

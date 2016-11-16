@@ -12,107 +12,101 @@ function roundN(val){
   return (Math.round(val / N) * N);
 }
 
-angular.module('app.product.ui', [
-  'app.config', 
-  'app.api'
-])
+angular.module('app.product.ui', ['app.config', 'app.api'])
+  .filter('portionBase',portionBase)
+  .filter('portion',portion)
+  .filter('leanProducts',leanProducts)
+  .directive("cartButton",cartButton)
+  .directive("productQuantity",productQuantity)
+  .directive("productProperty",productProperty)
+  .directive("productState",productState);
 
 //
 // limite the set of products (groupBy category) to N elements
-// 
-.filter('leanProducts', function() {
-    return function (input, size) {
-      if (!Array.isArray(input) || !input.length ) 
-        return input;
+// implement filter 
+leanProducts.$inject=[];
+function leanProducts() {
+  return function (input, size) {
+    if (!Array.isArray(input) || !input.length ) 
+      return input;
 
-      //
-      // the default size is 6
-      size=size||6;
-      var out=[], i=0, group={}, elems=[], subSize=0;
+    //
+    // the default size is 6
+    size=size||6;
+    var out=[], i=0, group={}, elems=[], subSize=0;
 
-      //
-      // order elements
-      for (var i = input.length - 1; i >= 0; i--) {
-        if(!group[input[i].categories.name]){
-          group[input[i].categories.name]=[];
-        }
-        group[input[i].categories.name].push(input[i]);
+    //
+    // order elements
+    for (var i = input.length - 1; i >= 0; i--) {
+      if(!group[input[i].categories.name]){
+        group[input[i].categories.name]=[];
+      }
+      group[input[i].categories.name].push(input[i]);
+    };
+
+    Object.keys(group).forEach(function (cat) {
+      // for each Shop
+      elems=group[cat];subSize=parseInt((elems.length/input.length)*size+.5);
+      if(subSize>elems.length){
+        subSize=elems.length;
+      }
+      for (var i = 0; i < subSize; i++) {
+        out.push(elems[i]);
       };
 
-      Object.keys(group).forEach(function (cat) {
-        // for each Shop
-        elems=group[cat];subSize=parseInt((elems.length/input.length)*size+.5);
-        if(subSize>elems.length){
-          subSize=elems.length;
-        }
-        for (var i = 0; i < subSize; i++) {
-          out.push(elems[i]);
-        };
-
-      });
-      
-      return out;
-    };
-})
+    });
+    
+    return out;
+  };
+}
 
 
-  .filter('groupByEx', [ '$parse', 'filterWatcher', function ( $parse, filterWatcher ) {
-    return function (collection, property,sorted) {
-
-
-      var getterFn = $parse(property), sortFn;
-
-      //
-      if(sorted){
-        sortFn=$parse(sorted);
-      }
-
-
-      return filterWatcher.isMemoized('groupByEx', arguments) ||
-        filterWatcher.memoize('groupByEx', arguments, this,
-          _groupBy(collection, getterFn));
-
-     
-      // Object.keys(collection).map(function (key) {
-      //   return extend(collection[key], { $key: key });
-      // });     
-      /**
-       * groupBy function
-       * @param collection
-       * @param getter
-       * @returns {{}}
-       */
-      function _groupBy(collection, getter) {
-        var result = {}, _sort=[], out=[];
-        var prop, sort;
-
-        collection.forEach( function( elm ) {
-          prop = getter(elm);
-          sort = getter(sorted);
-
-          if(!result[prop]) {
-            result[prop] = [];
-            _sort.push({prop:prop,sort:sort});
-          }
-          result[prop].push(elm);
-        });
-
-        _.sortBy(_sort,function(o) {
-          return o.sort;
-        }).forEach(function(sort) {
-          result[sort.prop].$key=sort.prop;
-          out.push(result[sort.prop]);
-          result[sort.prop]=undefined;
-        })
-        
-        return out;
-      }
+//
+// filter 
+portionBase.$inject=[];
+function portionBase() {
+ return function(weight, price) {
+    if (!weight ||!price){ 
+      return "";
     }
- }])
+    var portion=weight.split(/(kg|gr|ml)/i);
+    var w=(portion[0][0]==='~')?parseFloat(portion[0].substring(1)):parseFloat(portion[0]);
+    if(portion.length<2){
+      return;
+    }
+    var unit=(portion[1]).toLowerCase();
+    if(unit!=='gr'){
+      return;
+    }
+
+    var out=Math.round((100*price/w)*20)/20;
+    return parseFloat(out).toFixed(2);
+   }
+}
 
 
+//
+// filter 
+portion.$inject=[];
+function portion() {
+   return function(weight,def) {
+    if(!def)def='';
+    if (!weight) return "";
+    var m=weight.match(/~([0-9.]+) ?(.+)/);
+    if(!m&&def)m=def.match(/~([0-9.]+) ?(.+)/);
+    if(!m||m.length<2)return '';
+    var w=parseFloat(m[1]), unit=(m[2]).toLowerCase();
+    return 'une portion entre '+roundN(w-w*0.07)+unit+' et '+roundN(w+w*0.07)+''+unit;
+   };
+}
+
+
+
+//
+// directive 
 /*jshint multistr: true */
-.directive("cartButton",['$compile','$timeout','cart',function($compile,$timeout,cart) {
+cartButton.$inject=['$compile','$timeout','cart'];
+function cartButton($compile,$timeout,cart) {
     var tmplSingle='<a class="btn btn-primary _btClass" ng-click="cart.add(product)" ng-disabled="WaitText"\
                       ng-show="product.isAvailableForOrder()&& product.pricing.stock">\
                     <i ng-class="{\'fa fa-ellipsis-h\':CartText, \'fa fa-ok \':!CartText}"></i>\
@@ -187,39 +181,160 @@ angular.module('app.product.ui', [
         },wait);
       };
     }
+  }
+
+}
+
+//
+// directive product state
+// use transclude instead,
+// - http://stackoverflow.com/questions/22584357/angularjs-is-there-a-difference-between-transclude-local-in-directive-controll 
+productProperty.$inject=['$compile','$interval','user','cart'];
+function productProperty($compile,$interval,user,cart) {
+  return {
+    restrict: 'A',
+    priority:1,
+    link: function(scope, element, attrs, ngModelCtrl) {
+      var self, 
+          property=attrs.productProperty;
+
+      // scope.$watch(function() {
+      //   return scope.$parent.product;
+      // },function (product) {
+      //   // body...
+      // }
+
+      //
+      function toFixed(val,fixed) {
+        if(val===undefined)return '0.00';
+        return Number(val).toFixed(fixed);
+      }
+
+      var product=scope.$parent.product;
+      if(product){
+        $interval.cancel(handle);
+        switch(property){
+          case 'title':
+          return element.html(product.title);
+          case 'vendor-name':
+          return element.html(product.vendor.name);
+          case 'price-part':
+          return element.html(product.pricing.part);
+          case 'price':
+          return element.html(toFixed(product.pricing.price,2));
+          case 'discount':
+          return element.html(toFixed(product.pricing.discount,2));
+        }
+      }
+
+    }
+  }
+}
+
+
+//
+// directive product state
+productState.$inject=['$compile','$rootScope','user','cart'];
+function productState($compile,$rootScope,user,cart) {
+  return {
+    restrict: 'A',
+    scope:{productState:'='},
+    priority:1,
+    link: function(scope, element, attrs, ngModelCtrl) {
+      var self=this, 
+          classes={},
+          classOn=[],
+          classOff=[],
+          target=attrs.productStateQuantity;
+
+      //
+      // http://stackoverflow.com/questions/5330420/why-cant-i-use-tofixed-on-an-html-input-objects-value
+      function toFixed(val,fixed) {
+        if(val===undefined)return '0.00';
+        return Number(val).toFixed(fixed);
+      }
+
+      scope.$watch(function() {
+        var product=scope.productState;
+        if(!product||!product.sku)return 0;
+        return cart.findBySku(product.sku).quantity;
+      }, function (quantity) {
+        
+        if(quantity){
+          if(target)element.find(target).html(quantity);
+          return element.addClass('product-cart');
+        }  
+
+        element.removeClass('product-cart');
+
+      });
+
+      scope.$watch('productState', function (product) {
+        if (product && product.sku ) {
+
+          classes['product-available']=product.isAvailableForOrder();
+          classes['product-cart']=(cart.findBySku(product.sku).quantity>0);
+          classes['product-vendor-closed']=product.vendor.available.active;
+          classes['product-love']=user.hasLike(product);
+          classes['product-discount']=product.attributes.discount;
+          classes['product-photo']=(product.photo.url);
+          classes['product-stock']=(product.pricing.stock>0);
+          classes['product-variant']=(product.variants.length>0);
+
+          // init
+          classOn=[],classOff=[]
+          // classNames=element[0].className.split(' ');
+          // keep classes
+          Object.keys(classes).forEach(function(name) {
+            if(classes[name]) {classOn.push(name);} else {classOff.push(name);}
+          })
+          element.addClass(classOn.join(' '))
+          element.removeClass(classOff.join(' '))
+
+          //
+          // update fields
+          element.find('.product-title').html(product.title);
+          element.find('.product-vendor-name').html(product.vendor.name);
+          element.find('.product-part').html(product.pricing.part);
+          element.find('.product-price').html(toFixed(product.pricing.price,2));
+          element.find('.product-discount').html(toFixed(product.pricing.discount,2));
+
+
+
+        }
+      });
+    }
   };
-}])
+}
 
-.filter('portionBase', function () {
-   return function(weight, price) {
-        if (!weight ||!price) return "";
-        var portion=weight.split(/(kg|gr|ml)/i);
-        var w=(portion[0][0]==='~')?parseFloat(portion[0].substring(1)):parseFloat(portion[0]);
-        if(portion.length<2){
-          return;
+
+
+//
+// directive product quantity
+productQuantity.$inject=['$compile','$timeout','cart'];
+function productQuantity($compile,$timeout,cart) {
+  return {
+    restrict: 'A',
+    scope:{productQuantity:'='},
+    priority:1,
+    link: function(scope, element, attrs, ngModelCtrl) {
+      var self=this, sku;
+
+      //
+      // watch quantity
+      scope.$watch(function() {
+        sku=scope.productQuantity&&scope.productQuantity.sku||0;
+        return cart.findBySku(sku).quantity;
+      }, function (quantity) {
+        if(!quantity){
+          return element.hide();
         }
-        var unit=(portion[1]).toLowerCase();
-        if(unit!=='gr'){
-          return;
-        }
-
-        var out=Math.round((100*price/w)*20)/20;
-        return parseFloat(out).toFixed(2);
-
-   };
-})
-
-.filter('portion', function () {
-   return function(weight,def) {
-        if(!def)def='';
-        if (!weight) return "";
-        var m=weight.match(/~([0-9.]+) ?(.+)/);
-        if(!m&&def)m=def.match(/~([0-9.]+) ?(.+)/);
-        if(!m||m.length<2)return '';
-        var w=parseFloat(m[1]), unit=(m[2]).toLowerCase();
-        return 'une portion entre '+roundN(w-w*0.07)+unit+' et '+roundN(w+w*0.07)+''+unit;
-   };
-});
+        element.show();
+        element.html(quantity);
+      });
+    }
+  }
+}
 
 })(window.angular);
 

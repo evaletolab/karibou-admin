@@ -49,7 +49,7 @@ function OrderNewCtrl($controller, $scope, $location, $rootScope, $timeout, $rou
   // user.anon && profile   => /order/identity
   // user.anon              => /order/identity
   // !user.ready            => /order/profile
-  // user.ready && !process => /order/payment
+  // user.ready && !process => /order/profile (vs payment, because we want to display hint)
   // user.ready &&  process => /order/process
   user.$promise.finally(function(){
     $scope.profileReady=(user.isReady()&&(user.hasPrimaryAddress()!==false));
@@ -64,7 +64,7 @@ function OrderNewCtrl($controller, $scope, $location, $rootScope, $timeout, $rou
       //
       // the profile is now ok
     }else if(!$scope.process){
-      $location.path('/order/payment');
+      $location.path('/order/profile');// vs payment
     }else if($scope.process==='identity'){
       $location.path('/order/profile');
     }else if($scope.process=='validation' && !cart.config.payment){
@@ -74,8 +74,6 @@ function OrderNewCtrl($controller, $scope, $location, $rootScope, $timeout, $rou
 
 
 
-    var p=user.hasPrimaryAddress();
-    $scope.cart.config.address=(p!=-1)?p:0;
 
     $log.info('out flow',$scope.process,$scope.cart.config);  
 
@@ -86,7 +84,6 @@ function OrderNewCtrl($controller, $scope, $location, $rootScope, $timeout, $rou
   });
 
   config.shop.then(function(){
-    $scope.shippingDays=order.findOneWeekOfShippingDay();
     if($scope.shipping)
       return;
     $scope.shipping=order.findCurrentShippingDay();
@@ -184,8 +181,14 @@ function OrderNewCtrl($controller, $scope, $location, $rootScope, $timeout, $rou
 
 
   $scope.selectPaymentMethod=function (method) {
+    // facebook
+    if(window.fbq && !user.isAdmin()){
+      window.fbq('track', 'InitiateCheckout');      
+    }
+
     $scope.options.showCreditCard=false;
-    if($scope.methodStatus[method.alias]){
+    if($scope.methodStatus[method.alias]&&
+       $scope.methodStatus[method.alias].error){
       return; 
     }
     cart.config.payment=method;
@@ -201,13 +204,15 @@ function OrderNewCtrl($controller, $scope, $location, $rootScope, $timeout, $rou
       // check payment method with our gateway
       user.checkPaymentMethod(function(methodStatus){
         $scope.methodStatus=methodStatus;
+        cart.config.payment=null;
         // 
         // select the default payment method
         user.payments.every(function (method) {
-          if(Object.keys(methodStatus).indexOf(method.alias)===-1){
-            cart.config.payment=method;
-            return;
+          if(methodStatus[method.alias].error){
+            return true;
           }
+          method.details=methodStatus[method.alias];
+          cart.config.payment=method;
         });
       });
     });
@@ -232,10 +237,9 @@ function OrderNewCtrl($controller, $scope, $location, $rootScope, $timeout, $rou
     }, function (status, response) {
       if(response.error){
         $rootScope.WaitText=false;
-        $timeout(function() {
-        api.info($scope,response.error.message);          
+        return $timeout(function() {
+          api.info($scope,response.error.message);          
         }, 100);
-        return
       }
       //
       // response.id
@@ -254,6 +258,7 @@ function OrderNewCtrl($controller, $scope, $location, $rootScope, $timeout, $rou
         // select the last as default method
         if(user.payments.length>0){
           cart.config.payment=user.payments[user.payments.length-1];
+          $scope.methodStatus[cart.config.payment.alias]=cart.config.payment;
         }
       });
 
@@ -275,7 +280,13 @@ function OrderNewCtrl($controller, $scope, $location, $rootScope, $timeout, $rou
     for(var p in config.shop.order.gateway){
       if(config.shop.order.gateway[p].label===cart.config.payment.issuer){
         cart.setTax(config.shop.order.gateway[p].fees, config.shop.order.gateway[p].label);
-        return config.shop.order.gateway[p].label;
+        var suffix='';
+        //
+        // TODO remove this ASAP if not needed
+        if(['visa','mastercard','american express'].indexOf(config.shop.order.gateway[p].label)!==-1){
+          suffix=" (3.0% aujourd'hui offert)"
+        }
+        return config.shop.order.gateway[p].label+suffix;
       }
     }
   };
@@ -285,15 +296,22 @@ function OrderNewCtrl($controller, $scope, $location, $rootScope, $timeout, $rou
     $rootScope.WaitText="Waiting...";
 
     $log.debug("order.config",cart.config);
-    $log.debug("order.dates",$scope.shippingDays);
+    $log.debug("order.dates",config.shippingweek);
     $log.debug("order.address",cart.config.address);
     $log.debug("order.fees",cart.taxName(),cart.tax());
 
     //
+    // facebook
+    if(window.fbq && !user.isAdmin()){
+      window.fbq('track', 'Purchase', {value: cart.total(), currency:'CHF'});
+    }
+
+
+    //
     // prepare shipping
     var shipping=cart.config.address;
-    shipping.when=new Date($scope.shippingDays[cart.config.shipping||0].when);
-    shipping.hours=shipping.when.getHours();
+    shipping.when=(config.shop.shippingweek[cart.config.shipping]);
+    shipping.hours=16;//config.shop.order.shippingtimes;
 
 
     //

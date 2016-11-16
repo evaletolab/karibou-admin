@@ -35,8 +35,8 @@ function docConfig($routeProvider, $locationProvider, $httpProvider){
 
 //
 // implement controller
-docCtrl.$inject=['$scope','$rootScope','$routeParams','config','documents','feedback','user'];
-function docCtrl($scope,$rootScope, $routeParams, config, doc, feedback,user) {
+docCtrl.$inject=['$scope','$rootScope','$routeParams','config','documents','cart','feedback','user','api'];
+function docCtrl($scope,$rootScope, $routeParams, config, doc, cart, feedback,user,api) {
   //
   // init context
   $scope.doc=doc;
@@ -107,6 +107,13 @@ function docCtrl($scope,$rootScope, $routeParams, config, doc, feedback,user) {
         doc.save(doc.model);
       }
   };
+
+  $scope.buyBundle=function (doc) {
+    doc.model.products.forEach(function(product) {
+      cart.add(product,false,true);
+    });
+    api.info($scope,"Votre kit a été placé dans le panier ",2000);
+  };
   
 
   $scope.findOneDocument=function () {
@@ -143,8 +150,8 @@ function docCtrl($scope,$rootScope, $routeParams, config, doc, feedback,user) {
  * app.document provides a model for interacting with Document.
  * This service serves as a convenient wrapper for other related services.
  */
-docFactory.$inject=['config','$resource','$q','$rootScope','api','user'];
-function docFactory(config, $resource, $q,$rootScope, api,user) {
+docFactory.$inject=['config','$resource','$q','$rootScope','api','user','product'];
+function docFactory(config, $resource, $q,$rootScope, api,user,product) {
   var _documents;
 
 

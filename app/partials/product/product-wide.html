@@ -76,20 +76,11 @@
         </div>      
       </div>
 
-      <div class="clearfix  product-document" ng-if="user.documents.length">
-        <p>Placer ce produit dans un de vos documents</p>
-        <select class="form-control  " 
-                ng-change="updateUserDocument(user.documents.selected,product.sku)" 
-                ng-model="user.documents.selected" 
-                ng-options="doc.title.fr for doc in user.documents track by doc.slug">
-                <option value=""  selected>-- Ajouter à votre document</option>
-        </select>           
-      </div>      
 
 
       <!-- TITLE -->
       <h2 class="" style="padding: 15px 20px;">
-        {{product.title}}
+        {{product.title}} 
       </h2>
       
       <!-- DESCRIPTION -->
@@ -105,12 +96,14 @@
           <li ng-show="product.shelflife.display">{{product.shelflife.comment}}</li>
         </ul>
         <div>
-          <span ng-if="product.details.homemade" class="label label-product">Artisanal</span>
-          <span ng-if="product.details.local" class="label label-product">Local</span>
-          <span ng-if="product.details.lactose" class="label label-product">Sans lactose</span>
-          <span ng-if="product.details.gluten" class="label label-product">Sans gluten</span>
-          <span ng-if="product.details.bio" class="label label-product">BIO</span>
-          <span ng-if="product.details.natural" class="label label-product" title="Naturel">Sans chimie de synthèse</span>
+          <span ng-show="product.details.homemade" class="label label-product">Artisanal</span>
+          <span ng-show="product.details.local" class="label label-product">Local</span>
+          <span ng-show="product.details.lactose" class="label label-product">Sans lactose</span>
+          <span ng-show="product.details.gluten" class="label label-product">Sans gluten</span>
+          <span ng-show="product.details.bio&&!product.details.biodynamics" class="label label-product">BIO</span>
+          <span ng-show="product.details.biodynamics" class="label label-product">Biodynamie</span>
+          <span ng-show="product.details.bioconvertion" class="label label-product">Bioconversion</span>
+          <span ng-show="product.details.natural" class="label label-product" title="Naturel">Sans chimie de synthèse</span>
         </div>
       </div>
 

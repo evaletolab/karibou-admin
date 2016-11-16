@@ -45,3 +45,7 @@
 .document img{
 	max-width:100%;
 }
+
+.document .btn-bundle{
+	display: none;
+}

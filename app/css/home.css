@@ -291,8 +291,9 @@ body {
 
 h1,h2,h3,h4,h5 {
     font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica,Arial, serif;
-    font-weight:500;
-    padding-bottom: 10px;
+    font-weight:700;
+    padding-bottom: 20px;
+    color: #333;
 }
 
 p {

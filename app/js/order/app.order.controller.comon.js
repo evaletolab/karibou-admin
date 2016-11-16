@@ -27,14 +27,14 @@ function OrderCommonCtrl($scope, $routeParams, api, order, user, product,shop, M
   $scope.selected={
     order:false,
     items:[]
-  }
+  };
 
-  $scope.options={
+  $scope.options=angular.extend($scope.options||{},{
     showMenu:false,
     showWidget:false,
     payment:{},
     fulfillments:{}
-  };
+  });
 
   $scope.options.payment={
     "pending":"pending",
@@ -53,34 +53,12 @@ function OrderCommonCtrl($scope, $routeParams, api, order, user, product,shop, M
     "reserved":"reservée",
     "partial":"partial",
     "fulfilled":"complétée"
-  }
+  };
 
   // $scope.shopsSelect=shop.query({});
 
   // default model for modal view
   $scope.modal = {};
-
-  $scope.sortByDateDESC= function (date1, date2) {
-    //var date1=new Date(o1.shipping.when);
-    //var date2=new Date(o2.shipping.when);
-    if (date1 > date2) return -1;
-    if (date1 < date2) return 1;
-    return 0;
-  };
-
-  $scope.filterOrderByShopAndShippingDay=function(orders, when, shop) {
-    // list available order for this shop and shipping day
-    return _.sortBy(orders,function(o) {
-      return o.rank;
-    }).filter(function(order) {
-      // shop filter is optional
-      var hasShop=true;
-      if(shop){
-        hasShop=order.vendors.map(function(v){return v.slug;}).indexOf(shop)!==-1
-      };
-      return hasShop&&order.shipping.when===when ;
-    });
-  };
 
   $q.all([config.shop,user.$promise]).then(function(){
     var currentDay=order.findCurrentShippingDay();
@@ -98,6 +76,51 @@ function OrderCommonCtrl($scope, $routeParams, api, order, user, product,shop, M
       $scope.shipping.currentDay=new Date($routeParams.when);
     }
   });
+
+  $scope.sortByDateDESC= function (date1, date2) {
+    //var date1=new Date(o1.shipping.when);
+    //var date2=new Date(o2.shipping.when);
+    if (date1 > date2) return -1;
+    if (date1 < date2) return 1;
+    return 0;
+  };
+
+
+
+  //
+  //
+  $scope.selectOrderByShop=function(shop,when,fulfillments){
+    $scope.selected.items=$scope.shops[shop];
+    $scope.selected.shop=shop;
+  };
+
+
+  //
+  // select order 
+  $scope.selectOrder=function (o) {
+    if($scope.selected.order&&$scope.selected.order.oid===o.oid){
+      $scope.selected={};
+      return ;
+    }
+    $scope.selected.items=o.items;
+    $scope.selected.order=o;
+  };
+
+
+  $scope.filterOrderByShopAndShippingDay=function(orders, when, shop) {
+    // list available order for this shop and shipping day
+    return _.sortBy(orders,function(o) {
+      return o.rank;
+    }).filter(function(order) {
+      // shop filter is optional
+      var hasShop=true;
+      if(shop){
+        hasShop=order.vendors.map(function(v){return v.slug;}).indexOf(shop)!==-1;
+      }
+      return hasShop&&order.shipping.when===when ;
+    });
+  };
+
 
 
   $scope.modalShopDetails=function (shop) {
@@ -134,7 +157,7 @@ function OrderCommonCtrl($scope, $routeParams, api, order, user, product,shop, M
       return false;
     }
     return true;
-  }
+  };
 
 
   //
@@ -163,6 +186,15 @@ function OrderCommonCtrl($scope, $routeParams, api, order, user, product,shop, M
     $scope.currentCustomer = customer;
     return showHeader||(idx===0);
   };
+
+  $scope.isLogisticVisible=function(order,when) {
+    user.logistic.postalCode=user.logistic.postalCode;
+    var isPostalCodeOk=(user.logistic.postalCode.indexOf(order.shipping.postalCode)>-1);
+    var isDateOk=(!when||when===order.shipping.when);
+    var isShopperOk=(user.isAdmin()||(order.payment.fees.shipping>0 && isPostalCodeOk));
+    return isDateOk&&isShopperOk;
+  }
+
   //
   //
   $scope.getOrderStatusClass=function(order,prefix){
@@ -175,7 +207,7 @@ function OrderCommonCtrl($scope, $routeParams, api, order, user, product,shop, M
 
     //
     // SELECT ITEM
-    var selected=''
+    var selected='';
     if($scope.selected.order&&$scope.selected.order.oid===order.oid){
       selected=prefix+'active ';
     }
@@ -271,8 +303,8 @@ function OrderCommonCtrl($scope, $routeParams, api, order, user, product,shop, M
       skus.push(sku);
       
       // body...
-    })
-  }
+    });
+  };
 
 
 
@@ -301,7 +333,7 @@ function OrderCommonCtrl($scope, $routeParams, api, order, user, product,shop, M
   $scope.findOrdersByUser=function(){
     $scope.loading=true;
     return user.$promise.then(function(){
-      return order.findOrdersByUser(user).$promise
+      return order.findOrdersByUser(user).$promise;
     }).then(function(orders){
       $scope.orders=orders;
       $scope.shops=false;

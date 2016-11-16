@@ -13,8 +13,7 @@
                 <div data-title="Information">
 
                     <div class="form-background clearfix">
-                      <h4 class="article-group-title text-center">{{category.find({_id:shop.catalog}).name}} </h4> 
-                      <p class="text-center">{{shop.name }}</p>
+                      <h4 class="article-group-title text-center">{{shop.name }} </h4> 
                       <!-- Description -->
                       <div class="form-group clearfix">
                         <label class="control-label">Description (max 300 caractères)</label>
@@ -23,6 +22,7 @@
                         </div>
                         <p ng-show="form.description.$invalid && !form.description.$pristine" class="help-block">La description est obligatoire.</p>                        
                       </div>
+
 
                      <!-- URL -->
                       <div class="form-group clearfix">
@@ -47,7 +47,6 @@
                       <div class="form-group clearfix ">
                           <label class="control-label">Photos de votre boutique</label>
                           <div class="">
-
                             <uploadcare-widget
                               ng-model="shop.photo.fg"
                               data-locale="fr"
@@ -64,7 +63,6 @@
                              ></uploadcare-widget>
 
                             <img ng-src="{{shop.photo.fg| placehold:'160x160&text=la boutique'}}" class="img-rounded shop">
-
                           </div>
                           <hr/>
 
@@ -87,49 +85,100 @@
                             <img ng-src="{{shop.photo.owner | placehold:'160x160&text=l`équipe'}}"  class="img-circle owner" style="height:120px;margin-top:10px"/>
                           <hr/>
 
+                          <label class="control-label">Photos de votre logo </label>
+                          <div class="">
+                            <uploadcare-widget
+                              ng-model="shop.photo.logo"
+                              data-locale="fr"
+                              data-tabs="file url facebook flickr"
+                              data-images-only="true"
+                              data-path-value="true"
+                              data-preview-step="true"
+                              data-clearable="true"
+                              data-multiple="false"
+                              data-crop="free"
+                              data-max-size-hide="153600"
+                              data-on-upload-error="uploadImageError(error)"
+                              value="{{shop.photo.logo}}"
+                             ></uploadcare-widget>
+
+                            <img ng-src="{{shop.photo.logo}}" class="img-rounded shop">
+                          </div>
+                          <hr/>
+
                           </div>
                       </div> 
-                      <hr/>
-                      <div ng-if="false" class="form-group clearfix">
-                        <div class="col-xs-6 nomargin" >
-                          <div class="form-group">
-                            <label class="control-label ">Catalogue </label> 
-                            <div class="hide">
-                              <select  ng-model="shop.catalog " class="form-control input-lg" required="true" >
-                                <option ng-repeat="cat in category.findAll() | filter:{type:'Catalog'}" value="{{cat._id}}" 
-                                ng-selected="shop.catalog._id==cat._id">{{cat.name}}</option>
-                              </select>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="col-md-6">
-                          <!-- Shop.details -->
-                          <div class="form-group ">
-                            <label class="control-label">Cette à les certifications</label>
-                            <div class="">
-                              <label class="checkbox">
-                                <input type="checkbox" ng-model="shop.details.bio" value="des produits Bio">
-                                BIO (Suisse)
-                              </label>
-                              <!--
-                              <label class="checkbox">
-                                <input type="checkbox" ng-model="shop.details.gluten" value="des produits sans gluten">
-                                des produits sans gluten
-                              </label>
-                              <label class="checkbox">
-                                <input type="checkbox" ng-model="shop.details.lactose" value="des produits sans lactose">
-                                des produits sans lactose
-                              </label>
-                              -->
-                            </div>
+                      
+
+                  </div>
+                 
+                </div> <!-- TAB INFORMATION -->
+                <div data-title="Business" class="clearfix  form-background">
+                    <!-- DISCOUNT -->
+                    <div  class="form-group clearfix  ">
+                      <h3 h3 class="article-group-title ">Invitez le client à commander chez vous</h3>
+                      <div class="alert alert-warning">
+                        Aujourd'hui lorsqu'un client passe une commande de 100 fr il paye <b>11.90 fr</b> de livraison et <b>3 fr</b> de carte de crédit. C'est <b>15%</b> de sa commande et c'est un frein. 
+                      </div>
+
+                      <p class="well well-sm">
+                        Faire baisser ce coût, c'est une manière d'inviter le client à commander en ligne. Pour votre boutique, c'est aussi une manière de fidéliser le client.<br/> <u>Notre solution:</u> C'est vous qui choisissez à partir de quel seuil votre participation démarre. Et aussi de quel montant est votre prise en charge. <br/>
+                        <b>Voici un exemple d'application:</b> 
+                        un client commande pour 40 fr chez vous, vous prenez en charge, toujours pour l'example, 2.50 fr de livraison.<br/>
+                      </p>
+                      <div class="col-md-6 nopadding" >
+                        <div class="form-group ">
+                          <label class="control-label">Un client qui achete chez vous au moins (CHF)</label>
+                          <div>
+                            <input type="float" class="form-control input-lg" ng-model="shop.discount.threshold"  placeholder="Entrez un montant, ex. 20.00"/>
                           </div>
                         </div>
                       </div>
-                      <hr/>
+                      <div class="col-md-6 nopadding">
+                        <div class="form-group ">
+                          <label class="control-label">Vous participez aux frais de livraison et de paiement (CHF)</label>
+                          <div>
+                            <input type="float" class="form-control input-lg" ng-model="shop.discount.amount"  placeholder="Entrez un montant, ex. 1.25"/>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-xs-12 nopadding">
+                        <label class="checkbox">
+                          <input type="checkbox" ng-model="shop.discount.active" >
+                          Activer le prise en charge des frais client.
+                        </label>
+                        <p class="help-block">Cochez cette option pour activer la prise en charge client.</p>
+
+                      </div>
+
+                    </div>
+                    <hr/>
+                    
+                    <!-- TVA -->
+                    <div class="form-group clearfix">
+                      <h3 class="article-group-title ">Information TVA</h3>
+                      <p class="help-block ">Pour l'instant nous ne sommes pas soumis à la TVA. Cependant il est parfois important d'informer votre numéro TVA à vos clients commerciaux.</p>                      
+                      <div><label class="control-label">TVA</label></div>
+                      <div class="col-xs-12 nopadding">
+                        <div class="">
+                          <input type="text" class="form-control input-lg" ng-model="shop.account.tva.number"  placeholder="numéro TVA"/>                        
+                        </div>
+                    
+                      </div>
+                      <div class="col-sm-6 nopadding hide">
+                        <div class="">
+                          <input type="text" class="form-control input-lg" ng-model="shop.account.tva.fees"  placeholder="si vous avez un forfait TVA"/>                        
+                        </div>
+                      </div>
+                      <p class="help-block">Laissez ces champs vides si vous n'êtes pas soumis à la TVA</p>
+                    </div>
+
+                    <hr/>
 
 
                     <!-- ADMIN BM -->
                     <div ng-if="!user.isAdmin()" class="form-group">
+                      <h3 class="article-group-title ">Votre contrat avec Karibou.ch</h3>
                       <div class="col-sm-5" >
                         <label class=" control-label">Statut publication: {{shop.status}}</label>
                         <p class="help-block">Boutique créée le {{shop.created}}</p>
@@ -145,6 +194,7 @@
 
                     </div>
                     <div ng-if="user.isAdmin()" class="admin-box form-group">
+                      <h3 class="article-group-title ">Votre contrat avec Karibou.ch</h3>
                       <div class="col-sm-5" >
                         <div  class="form-group ">
                           <label class=" control-label">Status</label>
@@ -162,17 +212,14 @@
                         <div class="form-group ">
                           <label class=" control-label">Business model</label>
                           <div class="">
-                              <input type="float" name="type" ng-model="shop.account.fees" required />
+                              <input type="float" name="type" ng-model="shop.account.fees" required class="form-control input-lg" />
                               <p class="help-block">validé le {{shop.account.updated}}</p>
                           </div>
                         </div>                          
                       </div>
                     </div>          
                     <!-- ADMIN BM -->
-
-                    </div>
-                 
-                </div> <!-- TAB INFORMATION -->
+                </div>
 
                 <div data-title="Logistique" class="clearfix  form-background">
 
@@ -210,6 +257,22 @@
                             ng-click="toggleShipping(6)">Samedi
                           </a>
                       </div>                                                
+                    </div>
+
+                    <!-- list products when prepare order -->
+                    <div class="clearfix ">
+                      <h5 class="article-group-title black">Recevoir les mails pour la préparation des commandes</h5>
+                      <div class="list-group">
+                        <a href="" class="list-group-item list-group-item-success" >
+                          Recevoir un mail avec toute les commandes à préparer groupé par utilisateur (produits par utilisateur)
+                        </a>
+                        <a href="" class="list-group-item" 
+                            ng-class="{'list-group-item-success':shop.info.detailledOrder}"
+                            ng-click="shop.info.detailledOrder=!shop.info.detailledOrder;">
+                          Ajouter la liste exhaustive des produits avec les quantités au mail de préparation des commandes
+                        </a>
+                      </div>
+
                     </div>
 
                     
@@ -301,7 +364,7 @@
                 <div data-title="FAQ" class="clearfix  form-background">
                   <div class="form-group">
                     <h4 class="article-group-title text-center">Aidez vos clients avec cette FAQ </h4> 
-                    <label class="control-label">Constituez votre liste des questions fréquemment posées.</label>
+                    <p class="col-xs-11 ">Constituez votre liste des questions fréquemment posées.</p>
                     <div class="clearfix" ng-repeat="faq in shop.faq" style="border-bottom:1px dotted #ddd;margin-bottom:5px">
                       <div class="col-xs-11">
                         <input type="text" value="{{faq.q}}" ng-model="shop.faq[$index].q" placeholder="Une question fréquente" class="form-control input-lg col-md-10">
@@ -331,7 +394,7 @@
               </div>
             </div>
             <div class="modal-footer ">
-              <input type="button"  confirm-delete="remove(user,shops,password)" title="depth delete for dev only" value="Supprimer" class="btn btn-lg btn-danger pull-left"/>
+              <input type="button"  confirm-delete="remove(user,shops,password)" title="depth delete for dev only" value="Supprimer la boutique" class="btn btn-lg btn-danger pull-left"/>
 
               <a ng-disabled="form.$invalid||WaitText" href ng-click="save(shop);"  class="save btn btn-primary btn-lg">{{WaitText || 'Enregistrer'}}</a>
               <a href="/shop/{{shop.urlpath}}" class="undo btn btn-default btn-lg ">Annuler</a>

@@ -20,14 +20,13 @@
 }
 
 .stepwizard-row:before {
-    top: 14px;
+    top: 13px;
     bottom: 0;
     position: absolute;
     content: " ";
     width: 100%;
-    height: 1px;
-    background-color: #ccc;
-    z-order: 0;
+    height: 5px;
+    background-color: rgba(204, 204, 204, 0.24);
     
 }
 

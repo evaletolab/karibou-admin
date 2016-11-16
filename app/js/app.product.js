@@ -65,19 +65,6 @@ function productCtrl ($scope,$rootScope, $location, $routeParams, config, catego
   $scope.rootProductPath=($routeParams.shop)?'/shop/'+$routeParams.shop:'';
 
 
-  $scope.updateUserDocument=function (doc,sku) {
-    if(!doc ||doc.skus.indexOf(sku)!==-1){
-      user.documents.selected=undefined;
-      return;
-    }
-    //
-    // save this product to this doc
-    doc.skus.push(sku);
-    $doc.save(doc).model.$promise.then(function () {
-      api.info($scope,"Votre produit a été enregistré dans le document: "+doc.title,2000);
-      user.documents.selected=undefined;
-    })
-  }
 
   $scope.showPreviousProduct=function(sku){
     var lst=$scope.product.findAll().filter(function(p){
@@ -202,7 +189,7 @@ function productCtrl ($scope,$rootScope, $location, $routeParams, config, catego
               email:user.email.address,
               shopname:product.vendor.urlpath,
               product:product.title+' ('+product.sku+')'
-          })
+          });
         }];
       };          
     }
@@ -269,7 +256,7 @@ function productFactory (config, $rootScope,$resource,$q,api) {
     categories:[],
     details:{},
     attributes:{
-      available:true
+      available:false
     },
     pricing:{},
     photo:{}
@@ -372,7 +359,7 @@ function productFactory (config, $rootScope,$resource,$q,api) {
     var products, s,product=this;
     var rest=(filter.shopname)?backend.shop:backend.products;
 
-    s=rest.query(filter, function() {
+    s=backend.products.query(filter, function() {
       products=product.wrapArray(s);
 
       //
@@ -388,7 +375,7 @@ function productFactory (config, $rootScope,$resource,$q,api) {
   Product.prototype.findLove = function(body,cb,err) {
     if(!err) {err=onerr;}
     var products;
-    var params=angular.extend({},{sku:'love'},body||{})
+    var params=angular.extend({},{sku:'love'},body||{});
     var self=this, s=backend.products.query(params,function() {
       products=self.wrapArray(s);
       //
@@ -400,6 +387,23 @@ function productFactory (config, $rootScope,$resource,$q,api) {
     },err);
     return self;
   };
+
+  Product.prototype.findSearch = function(body,cb,err) {
+    if(!err) {err=onerr;}
+    var products;
+    var params=angular.extend({},{sku:'search'},body||{q:'hello fresh'});
+    var self=this, s=backend.products.query(params,function() {
+      products=self.wrapArray(s);
+      //
+      // wrap dates for sorting !!!
+      products.forEach(products_wrap_dates);
+
+      if(cb)cb(products);
+      return self;
+    },err);
+    return self;
+  };
+
 
   Product.prototype.findByCategory = function(cat, filter,cb,err) {
     if(!err) err=onerr;

@@ -5,13 +5,13 @@
   </li>
   <li  ng-repeat="order in orders|orderBy:['rank']|filterBy:['shipping.when']:filters.f|filterOrdersByShop:filters.s" 
        class="list-group-item " ng-class="{'list-group-item-active':(selected.order.oid===order.oid)}">
-
     <!-- ORDER ID BUTTON -->
     <div class="btn-group " style="float: left; margin-right: 5px;">
       <button type="button" class="btn btn-transparent btn-xs dropdown-toggle" data-toggle="dropdown">
-        <i class="fa fa-cog"></i> {{order.oid}} <span class="caret"></span>
+        <i class="fa fa-cog"></i> {{::order.oid}} <span class="caret"></span>
       </button>
       <ul class="dropdown-menu" role="menu" ng-if="user.isAdmin()">
+        <li><a class="grayx">{{::order.created|dateMomentLong}}</a></li>
         <li>
             <a href="#" ng-click="orderCancel(order,'customer')" >Annuler cette commande sur demande de l'utilisateur</a>
         </li>
@@ -30,6 +30,7 @@
         <li><a href="#" ng-click="updateShippingPrice(order,5)" >Passer la livraison à 5.0 fr</a></li>
         <li><a href="#" ng-click="updateShippingPrice(order,7.5)" >Passer la livraison à 7.5 fr</a></li>
         <li><a href="#" ng-click="updateShippingPrice(order,10)">Passer la livraison à 10.0 fr</a></li>
+        <li><a href="#" ng-click="updateShippingPrice(order,14.90)">Passer la livraison à 14.9 fr</a></li>
         <li class="divider"></li>
         <li><a href="#" ng-click="orderRefund(order)">Rembourser cette commande</a></li>
         <li><a href="#" ng-click="orderDelete(order)">Supprimer cette commande</a></li>
@@ -39,8 +40,8 @@
     <!-- ORDER TITLE -->
     <h4 class="list-group-item-heading">
       <a class=" text-capitalize" ng-click="modalUserDetails(order.oid)" bs-modal="'/partials/order/order.user.modal.html'">
-        <span >{{order.customer.name.givenName}}</span> 
-        {{order.customer.name.familyName}}</a>  
+        <span >{{::order.customer.name.givenName}}</span> 
+        {{::order.customer.name.familyName}}</a>  
         <button class="btn btn-transparent bold red btn-xs" 
                 ng-show="showCaptureButton(order)" 
                 ng-click="orderCapture(order)"><span class="hidden-xs">{{order.payment.status}}</span> {{order.getTotalPrice()}}CHF
@@ -48,7 +49,7 @@
     </h4>
 
     <!-- ORDER BAG -->
-    <span class="bag-1 label label-primary ">sac {{order.rank}}</span>
+    <span class="bag-1 label label-primary ">sac {{::order.rank}}</span>
     
     <!-- ORDER BOTTOM -->
     <div class="list-group-item-text clearfix cursor-pointer" 
@@ -66,7 +67,8 @@
 
         <div class="col-xs-6 col-sm-6 nopadding" >
             <span class="red pull-right" ng-show="order.getProgress()<100">{{order.getProgress()|number:0}}%</span>
-            <span class="pull-right green-2 fa fa-check-circle fa-2x" ng-show="order.getProgress()==100"></span>
+            <span class="pull-right green-2 fa fa-check-circle fa-2x" ng-show="order.getProgress()==100&&order.fulfillments.status!=='failure'"></span>
+            <span class="pull-right red fa fa-minus-circle fa-2x" ng-show="order.fulfillments.status==='failure'"></span>
         </div>
     </div>
   </li>

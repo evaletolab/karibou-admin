@@ -4,7 +4,7 @@
 // Define the User module (app.user)  for controllers, services and models
 // the app.user module depend on app.config and take resources in account/*.html
 angular.module('app.user')
-  .factory('user',userFactory);;
+  .factory('user',userFactory);
 
 //
 // define dependency injection and implement servie
@@ -24,7 +24,10 @@ function userFactory(config, $location, $rootScope, $route, $resource, $log, $q,
     provider: '',
     url: '',
     phoneNumbers:[{what:'mobile'}],
-    addresses:[]
+    addresses:[],
+    logistic:{
+      postalCode:[]
+    }
   };
 
   var backend={};
@@ -159,9 +162,6 @@ function userFactory(config, $location, $rootScope, $route, $resource, $log, $q,
     var self=this;
 
     // set context for error
-    if(window.Raven){
-      Raven.setUserContext({id:self.id,email:self.email});        
-    }
 
     if(!self.addresses){
       return;
@@ -194,6 +194,7 @@ function userFactory(config, $location, $rootScope, $route, $resource, $log, $q,
   User.prototype.me = function(cb) {
     var self=this;
     return this.chain(backend.$user.get({id:'me'}, function(_u,headers) {
+        // angular.extend(self,defaultUser);
         self.wrap(_u);
         self.shops=shop.wrapArray(self.shops);
 
@@ -204,6 +205,7 @@ function userFactory(config, $location, $rootScope, $route, $resource, $log, $q,
         //
         // broadcast info
         $rootScope.$broadcast("user.init",self);
+        window.currentUser=self.email&&self.email.address||'Anonymous';
 
         if(cb)cb(self);
         return self;
@@ -311,7 +313,7 @@ function userFactory(config, $location, $rootScope, $route, $resource, $log, $q,
       if(u.id===_user.id){
         _user.copy(u);
       }
-      $rootScope.$broadcast("user.update",self);
+      $rootScope.$broadcast("user.update",_user);
 
       if(cb)cb(_user);
     });
@@ -420,6 +422,7 @@ function userFactory(config, $location, $rootScope, $route, $resource, $log, $q,
     if(cb===undefined){cb=uid;uid=this.id;}
     if(uid===undefined) uid=this.id;
     backend.$user.save({id:uid,action:'payment'},payment, function(u) {
+      $rootScope.$broadcast("user.update.payment");
       self.payments=u.payments;
       if(cb)cb(self);
     });

@@ -19,8 +19,8 @@
           <div class="timeline-badge "><i class="fa fa-shopping-cart green"></i></div>
           <div class="timeline-panel" ng-class="order.payment.status">
             <div class="timeline-heading">
-              <h4 class="timeline-title">{{order.getTitle()}}</h4>
-              <p><small class="text-muted"><i class="fa fa-time"></i>Créée {{order.created|dateLabel}}, N° {{order.oid}}</small>
+              <h4 class="timeline-title">{{::order.getTitle()}}</h4>
+              <p><small class="text-muted"><i class="fa fa-time"></i>Créée {{::order.created|dateLabel}}, N° {{::order.oid}}</small>
 
               </p>
             </div>
@@ -30,21 +30,21 @@
                 <div class="progress">
                   <div class="progress-bar  progress-bar-success" 
                        role="progressbar" order-progress="order">
-                    <span class="sr-only-">{{options.fulfillments[order.fulfillments.status]}}</span>
+                    <span class="sr-only-">{{::options.fulfillments[order.fulfillments.status]}}</span>
                   </div>
                 </div>                
               </div>
 
               <div class="panel panel-default">
                 <!-- Default panel contents -->
-                <div class="panel-heading smallx"><a href="" toggle-on-click="#detail-{{order.oid}}">Voir le détail</a></div>
+                <div class="panel-heading smallx"><a href="" toggle-on-click="#detail-{{::order.oid}}">Voir le détail</a></div>
                 <div class="">
                   <div class="cart" ng-class="order.payment.status">
-                    {{options.payment[order.payment.status]}}<br/>
-                    <span>{{order.payment.issuer}}</span>
+                    {{::options.payment[order.payment.status]}}<br/>
+                    <span>{{::order.payment.issuer}}</span>
                   </div>
                   <div class="cart">
-                    {{order.getTotalPrice().toFixed(2)}} CHF<br/>
+                    {{::order.getTotalPrice().toFixed(2)}} CHF<br/>
                     <span>total</span>
                   </div>
 
@@ -61,7 +61,7 @@
                       </div>
                       <div>
                         <span>Motif versement</span> 
-                        <div>{{order.customer.id}}{{order.oid}}</div>    
+                        <div>{{::order.customer.id}}{{order.oid}}</div>    
                       </div>
                     </div>
 
@@ -71,31 +71,41 @@
                 </div>
 
                 <!-- ITEMS DETAILS-->
-                <table class="table table-condensed smallx hide" id="detail-{{order.oid}}" style="">
+                <table class="table table-condensed smallx hide" id="detail-{{::order.oid}}" style="">
                   <thead>
                     <tr><th>Produit</th><th>Qté</th><th>CHF</th></tr>
                   </thead>
                   <tbody>
                     <tr ng-repeat="i in order.items" ng-class="{'strike grayx':(i.fulfillment.status==='failure'||order.fulfillments.status==='failure')}">
-                      <td title="{{i.vendor}}">
-                        <a ng-href="/products/{{i.sku}}">{{i.title}}</a>
-                        <mark ng-if="i.variant.title" class="small gray">{{i.variant.title}}</mark>
+                      <td title="{{::i.vendor}}">
+                        <a ng-href="/products/{{::i.sku}}">{{::i.title}}</a>
+                        <mark ng-if="i.variant.title" class="small gray">{{::i.variant.title}}</mark>
                       </td>
-                      <td>{{i.quantity}}</td>
-                      <td>{{i.finalprice|number:'2'}} CHF</td>
+                      <td>{{::i.quantity}}</td>
+                      <td>{{::i.finalprice|number:'2'}} CHF</td>
                     </tr>
                     <!-- info -->
                     <tr ng-class="{'strike grayx':order.fulfillments.status==='failure'}">
-                      <td colspan="2">Soutotal</td><td >{{order|orderTotal}}</td>
+                      <td colspan="2">Sous-total</td><td >{{::order|orderTotal}}</td>
                     </tr>
                     <tr ng-class="{'strike grayx':order.fulfillments.status==='failure'}">
-                      <td colspan="2">Livraison & Paiement</td><td >{{order|orderFees}}</td>
-                    </tr>
-                    <tr class="bold" ng-class="{'strike grayx':order.fulfillments.status==='failure'}">
-                      <td colspan="2">TOTAL</td><td >{{order.getTotalPrice().toFixed(2)}} CHF</td>
+                      <td colspan="2">Livraison & Paiement</td><td >{{::order|orderFees:true}}</td>
                     </tr>
 
-                  </tbody>
+                    <tr ng-show="order.getExtraDiscount()>0">
+                      <td colspan="2" class="gray">Bonus commerçants</td><td class="green-2 ">-{{::order.getExtraDiscount().toFixed(2)}} CHF</td>                      
+                    </tr>
+
+                    <tr class="bold" ng-class="{'strike grayx':order.fulfillments.status==='failure'}">
+                      <td colspan="2">TOTAL</td><td >{{::order.getTotalPrice().toFixed(2)}} CHF</td>
+                    </tr>
+                    <tr ng-class="{'strike grayx':order.fulfillments.status==='failure'}"
+                        ng-show="order.getTotalDiscount()>0" 
+                        class="green-2 bold">
+                      <td colspan="2">Rabais commerçants</td><td >-{{::order.getTotalDiscount().toFixed(2)}} CHF</td>
+                    </tr>
+
+                  </tbody> 
                 </table>
     
               </div>

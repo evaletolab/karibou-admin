@@ -17,6 +17,26 @@ Service.factory('api', [
   'Flash',
 function ($rootScope, $http, $resource, $timeout, $q, $log, $location, $routeParams, config, Flash) {  
   var _categories=[], promise;
+  var isMobile = {
+    Android: function() {
+      return navigator.userAgent.match(/Android/i);
+    },
+    BlackBerry: function() {
+      return navigator.userAgent.match(/BlackBerry/i);
+    },
+    iOS: function() {
+      return navigator.userAgent.match(/iPhone|iPad|iPod/i);
+    },
+    Opera: function() {
+      return navigator.userAgent.match(/Opera Mini/i);
+    },
+    Windows: function() {
+      return navigator.userAgent.match(/IEMobile/i);
+    },
+    any: function() {
+      return (isMobile.Android() || isMobile.BlackBerry() || isMobile.iOS() || isMobile.Opera() || isMobile.Windows());
+    }
+  };
 
   /**
    * get category object
@@ -32,8 +52,9 @@ function ($rootScope, $http, $resource, $timeout, $q, $log, $location, $routePar
   function info($scope, msg, ms, cb){
     console.log('info',msg)
     Flash.create('success', msg, 'custom-class');
+    cb&&$timeout(cb,ms||0);
   }
-  
+
 
   function error(msg, ms, cb){
     Flash.create('danger', msg);
@@ -170,7 +191,10 @@ function ($rootScope, $http, $resource, $timeout, $q, $log, $location, $routePar
      */
     clazz.findAll=function(where, cb){
       if (!where){
-        return _.map(_all, function(val,key){return val;});
+        return Object.keys(_all).map(function(key) {
+          return _all[key];
+        });
+        // return _.map(_all, function(val,key){return val;});
       }
       var lst=_.where(_all,where);
       if(cb)cb(lst);
@@ -200,7 +224,12 @@ function ($rootScope, $http, $resource, $timeout, $q, $log, $location, $routePar
     };
     
     clazz.load=function(elems){
-      if (!elems) return _.map(_all, function(val,key){return val;});
+      if (!elems) {
+        return Object.keys(_all).map(function(key) {
+          return _all[key];
+        });
+        // return _.map(_all, function(val,key){return val;});
+      }
       var list=_singleton.wrapArray(elems);
       return list;
     };
@@ -212,6 +241,7 @@ function ($rootScope, $http, $resource, $timeout, $q, $log, $location, $routePar
 
   }
   return {
+    detect:isMobile,
     uploadfile:uploadfile,
     wrapDomain:wrapDomain,
     findBySlug:findBySlug,

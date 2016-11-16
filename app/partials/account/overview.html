@@ -40,7 +40,34 @@
           </h5>
           <div class="list-group">
             <a class="list-group-item blue" href="/admin/shipping">La gestion des livraisons</a> 
-            <a ng-if="user.isAdmin()" class="list-group-item blue" href="/admin/collect">La collecte</a> 
+            <a class="list-group-item blue" href="/admin/collect">La collecte</a> 
+          </div>
+          <div >
+            <h4>Vous livrez les numéros postaux suivants</h4>
+
+            <div class="panel panel-body panel-default" ng-show="user.logistic.postalCode.length">
+              <span ng-repeat="cp in user.logistic.postalCode|orderBy" ng-click="togglePostalCode(cp)">
+                <span class="label label-karibou"> {{cp}}
+                  <i class="fa  white fa-check-circle" ></i></span>
+              </span>
+            </div>
+            <div class="alert alert-warning" role="alert" ng-hide="user.logistic.postalCode.length" >
+              <i class="fa fa-info"></i> Vous avez sélectionné aucun code postal
+            </div>
+
+            <h4>Selectionnez vos numéros postaux disponibles </h4>
+            <div class="panel panel-body panel-default">
+            <span ng-repeat="cp in config.shop.user.location.list|orderBy" ng-click="togglePostalCode(cp)" ng-show="!hasPostalCode(cp)">
+              <span class="label label-default" > {{cp}} 
+                <i class="fa  white fa-circle-o" ></i></span> 
+            </span>
+            </div>
+
+            <!-- SAVE LOGISTIC -->
+            <div class="clearfix">
+              <button class="btn btn-block btn-default" ng-click="save(user)">Enregistrer votre logistique</button>
+            </div>
+
           </div>
       </div>
 
@@ -82,7 +109,7 @@
 
 
       <!-- MY DOCS -->
-      <div  class="well well-small white clearfix" ng-if="user.isAdmin()">
+      <div  class="well well-small white clearfix admin-show" >
         
         <h5  class="article-group-title " >
           <span class="bucket-header-title"><i class="fa fa-file-text-o gray"></i>&nbsp;Mes publications</span> 
@@ -135,7 +162,7 @@
 
     
       <!-- SHOP LIST -->
-      <div class="well well-small white" style="width:100%;float:left;margin-bottom:100px">        
+      <div class="well well-small white" style="width:100%;float:left;margin-bottom:100px" ng-if="!user.hasRole('logistic')">        
         <h5 class="article-group-title " ><i class="fa fa-coffee gray"></i>&nbsp;Mes boutiques 
           <a ng-href="/account/shop" ng-hide="(user.shops.length>2)&&!user.isAdmin()" class="pull-right small link">Ouvrir une boutique</a>
         </h5>

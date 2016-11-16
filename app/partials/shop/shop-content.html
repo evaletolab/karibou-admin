@@ -11,6 +11,8 @@
    <section class="wrapper shop" tabindex="-1">
       <div class="wrapper-inner wide">
 
+
+
         <article  ng-repeat="(group, prods) in products|groupBy:'categories.name':'categories.weight'"  
                   ng-if="prods.length" >
 
@@ -63,6 +65,12 @@
             <button type="button" class="btn btn-lg  btn-info hide"  role="button" ng-click="modal('#ask')" >Vous avez une question?</button>
           </p>
         </section>      
+
+        <!-- MARQUE -->
+        <section ng-show="shop.photo.logo" style="height:300px;overflow:hidden;">
+          <div backstretch="shop.photo.logo" style="width:100%;height:100%" >          
+        </section>
+
 
         <!-- SHOP INFO -->
         <section class="module-hours module divider" ng-show="shop.address.geo">
