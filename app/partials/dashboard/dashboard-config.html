@@ -79,9 +79,9 @@
 
       <!-- MAITENANCE INFO -->
       <div class="clearfix well" >
-        <h4 class="page-header"><i class="fa fa-edit gray"></i>&nbsp;<span translate="sitemessage"></span></h4>
+        <h4 class="page-header"><i class="fa fa-edit gray"></i>&nbsp;<span translate="warningmessage"></span></h4>
         <div class="form-group ">                        
-          <label class="control-label">Information
+          <label class="control-label">Maintenance
             <input type="checkbox" ng-model="config.shop.maintenance.active">
           </label>
           <div class="">
@@ -92,21 +92,33 @@
 
       <!-- WELCOME INFO -->
       <div class="clearfix well" >
-        <h4 class="page-header"><i class="fa fa-edit gray"></i>&nbsp;<span translate="sitemessage"></span></h4>
+        <h4 class="page-header"><i class="fa fa-edit gray"></i>&nbsp;<span translate="welcomemessage">Bienvenue!</span></h4>
         <div class="form-group ">                        
           <label class="control-label">Welcome!
             <input type="checkbox" ng-model="config.shop.welcome.active">
           </label>
           <div class="">
-            <textarea  rows="4" class="form-control input-lg" ng-model="config.shop.welcome.message[locale()]" placeholder="Ajouter une note de l'équipe?"></textarea>            
+            <textarea  rows="8" class="form-control input-lg" ng-model="config.shop.welcome.message[locale()]" ></textarea>            
           </div>
         </div>
       </div>
 
+      <!-- HEADER WIDGET -->
+      <div class="clearfix well" >
+        <h4 class="page-header"><i class="fa fa-edit gray"></i>&nbsp;<span translate="headermessage">Insérer du code!</span></h4>
+        <div class="form-group ">                        
+          <label class="control-label">Widget on top !
+            <input type="checkbox" ng-model="config.shop.header.active">
+          </label>
+          <div class="">
+            <textarea  rows="8" class="form-control input-lg" ng-model="config.shop.header.message[locale()]" ></textarea>            
+          </div>
+        </div>
+      </div>
 
       <!-- CHECKOUT INFO -->
       <div class="clearfix well" >
-        <h4 class="page-header"><i class="fa fa-edit gray"></i>&nbsp;<span translate="sitemessage"></span></h4>
+        <h4 class="page-header"><i class="fa fa-edit gray"></i>&nbsp;<span translate="checkoutmessage"></span></h4>
         <div class="form-group ">                        
           <label class="control-label">Lors du checkout!
             <input type="checkbox" ng-model="config.shop.checkout.active">

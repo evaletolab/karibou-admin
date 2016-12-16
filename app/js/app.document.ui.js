@@ -6,12 +6,38 @@
 angular.module('app.document.ui', [])
   .directive('i18nRender',i18nRender)
   .directive('markdownRender',markdownRender)
+  .directive('documentCard',documentCard)
   .directive('contenteditable',inlineEdit);
 
+//
+// inject Cards from a list of documents
+// docType==selection,bundle,[ids], docLimit=0..N, docImg=url
+documentCard.$inject=['$parse','documents'];
+function documentCard ($parse, doc) {
+  return {
+      templateUrl: '/partials/document/document-cards.html',
+      restrict: 'E',
+      replace:true,
+      link: function (scope, element, attrs) {
+        scope.limit = attrs.limit||4;
+        scope.className=attrs.className||'';
+        scope.image=attrs.image||'';
+        
+        if(typeof attrs.skus ==='string'){
+          scope.docs=doc.findBySkus(attrs.skus.split(/, :;/)).models;
+        }
+
+        if(attrs.category){
+          scope.docs=doc.findByCategory(attrs.category).models;
+        }
+        
+      }
+  }
+}
 
 
 //
-// directives
+// directives inline editor
 inlineEdit.$inject=['$parse'];
 function inlineEdit ($parse) {
   var LINEBREAK_REGEX = /\n/g,
@@ -135,8 +161,8 @@ function markdownRender($compile,$timeout,$translate,config) {
 // use default i18n
 // options: parseMarkdown
 //
-i18nRender.$inject=['$rootScope','$interpolate','$timeout','$translate','config'];
-function i18nRender($rootScope,$interpolate,$timeout,$translate,config) {
+i18nRender.$inject=['$rootScope','$compile','$interpolate','$timeout','$translate','config'];
+function i18nRender($rootScope,$compile,$interpolate, $timeout,$translate,config) {
   return {
     restrict: 'A',
     replace: true, 
@@ -168,11 +194,16 @@ function i18nRender($rootScope,$interpolate,$timeout,$translate,config) {
         }
 
         try{
+          //
+          // detect if content is compilable
           content=content||'';
-          var el = $interpolate(content)(scope);          
+          if(!/<[a-z][\s\S]*>/i.test(content.trim())){
+            content="<span>"+content+"</span>";
+          }
+          var el = $compile(content)(scope);
           element.html(el);
         }catch(e){
-          element.html(content);
+          element.html((content));
         }
       }
 

@@ -123,8 +123,7 @@ function docCtrl($scope,$rootScope, $routeParams, config, doc, cart, feedback,us
 
     doc.get($routeParams.slug).model.$promise.then(function(){
       $rootScope.title=doc.model.title[$scope.locale()];
-      $scope.docs=doc.findByCategory(doc.model.type).models;      
-
+      $scope.docs=doc.findByCategory(doc.model.type).models;
     });
   };
   

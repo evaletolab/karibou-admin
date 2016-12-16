@@ -1,28 +1,19 @@
-<div class="shop-card col-xs-12 ">
+<div class="document-card">
   <!-- producers-list item -->
   <a class="" ng-href="/content/{{doc.slug[0]}}">
-    <div class="row-content">
-      <div class="photo col-xs-12 col-md-6 ">
-        <div alt="" class="img-responsive " bg-src="{{doc.photo.header}}"/>
-        <div class="item-footer ">
-          <div class="signature ">
-            <i class="fa-user fa "></i>
-            {{doc.signature}}
-          </div>
-        </div>
+    <div class="photo " bg-src="{{doc.photo.header}}">
+      <!-- TITLE -->
+      <div class="item-title">
+        <h3 class="title " i18n-render="doc.title"></h3>
+        <div class="item-content hide" i18n-render="doc.header"></div>
       </div>
-      <div class="content-wrapper col-xs-12 col-md-6 ">
-        <div class="item-header">
-          <h3 class="title " i18n-render="doc.title"></h3>
+
+      <!-- SIGNATURE -->
+      <div class="item-footer ">
+        <div class="signature small">
+          <i class="fa-user fa "></i>
+          Préparé par {{doc.signature}}
         </div>
-        <!-- http://stackoverflow.com/questions/802175/truncating-long-strings-with-css-feasible-yet -->
-        <div class="item-content" i18n-render="doc.content"></div>
-      </div>
-      <div class="item-closed hide" ng-if="!doc.published">
-          <h4>Fermeture!</h4>
-          <br/>
-          <small>du </small>      
-        
       </div>
     </div>
   </a>

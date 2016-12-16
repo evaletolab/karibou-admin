@@ -501,7 +501,9 @@ UI.directive('computeUrl', ['$parse','api', function($parse,api) {
 }]);
 
 
-UI.directive('backfader', ['$parse','$location','$anchorScroll','$routeParams','api', function($parse,$location,$anchorScroll, $routeParams,api) {
+UI.directive('backfader', [
+  '$parse','$location','$anchorScroll','$routeParams','$window','api', 
+  function($parse,$location,$anchorScroll, $routeParams, $window, api) {
   var referrers=[], map={};
   return function(scope, element, attr) {
       var path=$location.path();
@@ -511,66 +513,25 @@ UI.directive('backfader', ['$parse','$location','$anchorScroll','$routeParams','
         angular.element("body").addClass('noscroll');
       },200);
 
-      var referrer;
-      scope.referrer&&referrers.push(scope.referrer);
-      // manage state
-      //if current path is not on referrer, ok
-      if(referrers.indexOf(path)===-1){
-        referrer=scope.referrer;
-      }else{
-        var index=referrers.indexOf(path);
-        referrers.splice(index,referrers.length-index);
-        referrer=referrers[index-1];
-      }
-
       //
       // be sure to replace the scroller after quit
       scope.$on('$routeChangeStart', function (event, route) {
         angular.element("body").removeClass('noscroll');
       });
 
-      // save 
-      map[path]=referrer;
-
-      // console.log('open --------------['+path+']',referrer);
-  
-
-      (function(referrer, scrollLeft,scrollTop){
-        function onClose(){
-          var refid, path=$location.path(),url;
-          angular.element("body").removeClass('noscroll');
-          // cases
-          // - product is open in edit mode
-          // - product is open in normal mode and then edited
-          if(api.computeUrl){
-            url=api.computeUrl(map[path])
-          }
-          else{
-            url=map[path]||path;
-          }
-          
-
-          window.scrollBy(scrollLeft,scrollTop);
-          scope.$apply(function(){
-            referrers=_.uniq(referrers);
-            $location.path(url);
-          });
+      //
+      // on close
+      element.find('.on-close').click(function(e){
+        e.stopPropagation();
+        $window.history.back();
+        return false;
+      });
+      element.click(function(event) {
+        if(event.toElement===element[0]){
+          $window.history.back(); 
         }
-
-        element.find('.on-close').click(function(e){
-          e.stopPropagation();
-          onClose();
-          return false;
-        });
-        element.removeClass('hide').click(function(e) {
-          if(e.target === element[0]){
-            onClose();
-          }
-        });     
-
-
-      })(referrer,scope.scrollLeft,scope.scrollTop);
-  };
+      });       
+  }
 }]);
 
 //
