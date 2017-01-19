@@ -17,6 +17,7 @@ html.app-shop nav.subnavbar-top{
 
 html           .admin-show    { display: none;}
 html.app-admin .admin-show    { display: block;}
+html.app-admin .admin-show-inline    { display: inline;}
 
 html.app-admin nav.navbar-fixed-top .btn-cart, html.app-admin footer{
   display: none!important;
@@ -24,7 +25,7 @@ html.app-admin nav.navbar-fixed-top .btn-cart, html.app-admin footer{
 
 
 html.app-admin nav.navbar-fixed-top.subnavbar-top{
-  display: none!important;
+  -display: none!important;
 }
 
 html.app-shop nav.navbar-fixed-top .container{

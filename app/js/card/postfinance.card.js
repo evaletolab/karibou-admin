@@ -24,7 +24,7 @@
       pattern: /^(36|38|30[0-5])/,
       format: defaultFormat,
       inputFormat: defaultInputFormat,
-      length: [14],
+      length: [14,16],
       cvcLength: [3],
       luhn: true
     }, {

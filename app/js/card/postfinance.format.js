@@ -41,6 +41,7 @@ angular.module('postfinance.card')
         upperLength = card.length[card.length.length - 1];
       }
       
+
       if (length >= upperLength) {
         return;
       }
@@ -90,10 +91,12 @@ angular.module('postfinance.card')
       if(_hasTextSelected($target)) {
         return;
       }
+
       
       value = ($target.val() + digit).replace(/\D/g, '');
       card = Cards.fromNumber(value);
       
+
       if(card) {
         if(!(value.length <= card.length[card.length.length - 1])){
           e.preventDefault();
@@ -364,6 +367,7 @@ angular.module('postfinance.card')
 
       throw errstr;
     }
+    
     return _formats[type](elem, ctrl);
   };
 

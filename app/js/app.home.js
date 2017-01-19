@@ -178,9 +178,8 @@ Home.controller('HomeCtrl', [
       //
       // load my popular & love products
       if(options.search){
-        console.log('--------',$routeParams)
         product.findSearch({q:$routeParams.q},function(products){
-          $scope.items=products.sort(sort_by_weigth_and_date);
+          $scope.items=products;
           deferred.resolve(products);
         });
         return deferred.promise;        

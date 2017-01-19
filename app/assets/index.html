@@ -147,6 +147,14 @@
             <img src="/img/k-brand.png" width="120px" class="hidden-xs">
           </a>
 
+          <form  class="nav-search-form admin-show" ng-submit="onSearch()">
+              <div class="form-group has-feedback">
+              <label for="search" class="sr-only">Search</label>
+              <input type="text" class="form-control"  id="search-nav" placeholder="Quoi?" autocomplete="off">
+                <span class="glyphicon glyphicon-search form-control-feedback"></span>
+            </div>
+          </form>
+
         </div>
 
         <div id="navbar" -class="collapse navbar-collapse " >

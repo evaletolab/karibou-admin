@@ -310,7 +310,9 @@ function cartFactory(config, $timeout,$rootScope,$window, $storage, api,user) {
     //
     // compute the dicount 
     var v=_.findWhere(vendors,{_id:vendor});
-    if(!v.discount||!v.discount.active){
+    //
+    // FIXME v is sometimes undefined!
+    if(!v || !v.discount||!v.discount.active){
       return hasDiscount||0;
     }
 

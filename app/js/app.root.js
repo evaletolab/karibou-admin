@@ -124,6 +124,14 @@ function appCtrl($scope, $rootScope, $window,  $location, $routeParams, $timeout
   }
 
   //
+  // on Search 
+  $scope.onSearch=function(){
+    var search=$('#search-nav').val();
+    $location.path('/search').search({q:search});
+  };
+
+
+  //
   // clear cache
   $rootScope.$on('$viewContentLoaded', function() {
     var path=$location.path();
@@ -136,6 +144,14 @@ function appCtrl($scope, $rootScope, $window,  $location, $routeParams, $timeout
           if(fbq)fbq('track', "PageView");
         }        
       }
+
+      //
+      // manage admin
+      if(user.isAdmin())
+        angular.element('html').addClass('app-admin');
+      else
+        angular.element('html').removeClass('app-admin');
+
     });
 
     //
@@ -145,12 +161,6 @@ function appCtrl($scope, $rootScope, $window,  $location, $routeParams, $timeout
     else
       angular.element('html').removeClass('app-shop');
 
-    //
-    // manage admin
-    if(path.indexOf('/admin')!==-1)
-      angular.element('html').addClass('app-admin');
-    else
-      angular.element('html').removeClass('app-admin');
 
     angular.element('html').removeClass('app-cart');
   });
@@ -216,6 +226,7 @@ function appCtrl($scope, $rootScope, $window,  $location, $routeParams, $timeout
     }
     return true;
   };
+
 
 
   //

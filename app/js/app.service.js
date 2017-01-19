@@ -115,6 +115,10 @@ function ($rootScope, $http, $resource, $timeout, $q, $log, $location, $routePar
   }
 
   
+  //
+  // TODO use better way to wrap JSON to javascript object
+  // - http://www.joelambert.co.uk/article/offline-first-a-better-html5-user-experience/
+  //
   function wrapDomain(clazz, key, defaultClazz){
 
     clazz.prototype.copy = function(data) {

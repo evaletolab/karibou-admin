@@ -506,7 +506,11 @@ UI.directive('backfader', [
   function($parse,$location,$anchorScroll, $routeParams, $window, api) {
   var referrers=[], map={};
   return function(scope, element, attr) {
-      var path=$location.path();
+      var path=$location.path(), urldst='/';
+      var elems=new RegExp("\/shop\/([A-Za-z0-9-]*)\/products").exec(path);
+      if(elems && elems.length){
+        urldst='/shop/'+elems[1];
+      }
 
       // finally remove body scroll
       setTimeout(function() {
@@ -523,12 +527,20 @@ UI.directive('backfader', [
       // on close
       element.find('.on-close').click(function(e){
         e.stopPropagation();
-        $window.history.back();
+        if($window.referrer){
+          return $window.history.back();
+        }
+        console.log('---------',urldst, $window.location)
+        $window.location.pathname=urldst;
+        
         return false;
       });
       element.click(function(event) {
         if(event.toElement===element[0]){
-          $window.history.back(); 
+          if($window.referrer){
+            return $window.history.back();
+          }
+          $window.location.pathname=urldst;
         }
       });       
   }

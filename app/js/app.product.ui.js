@@ -274,7 +274,7 @@ function productState($compile,$rootScope,user,cart) {
 
           classes['product-available']=product.isAvailableForOrder();
           classes['product-cart']=(cart.findBySku(product.sku).quantity>0);
-          classes['product-vendor-closed']=product.vendor.available.active;
+          classes['product-vendor-closed']=product.vendor&&product.vendor.available.active;
           classes['product-love']=user.hasLike(product);
           classes['product-discount']=product.attributes.discount;
           classes['product-photo']=(product.photo.url);

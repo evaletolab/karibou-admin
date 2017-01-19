@@ -383,7 +383,7 @@ function orderFactory(config, $resource, $q, user,shop, api, cart) {
   Order.prototype.updateIssue=function(item,issue, cb){
     var tosave=angular.copy(item), me=this;
     tosave.fulfillment.issue=issue;
-    this.chain(backend.$order.save({action:this.oid,id:'items'},[tosave]).$promise).$promise.then(function () {
+    this.chain(backend.$order.save({action:this.oid,id:'issue'},[tosave]).$promise).$promise.then(function () {
       _.find(me.items,function(i){return i.sku===item.sku;}).fulfillment.issue=issue;
     });
     return this;

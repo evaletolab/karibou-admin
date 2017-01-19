@@ -17,26 +17,30 @@
 						<li class="nav-mobile-header visible-xs">
 				      <button type="button" class="close pull-right" data-dismiss="dropdown" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 				    </li>    	
-						<li class="col-xs-6 col-sm-6">
+						<li class="col-xs-12 col-sm-6">
 							<ul>
 								<li><a href="/">Notre sélection</a></li>
 								<li ng-show="user.isAuthenticated()"><a href="/account/love">Mes produits les plus achetés</a></li>
 								<li class="divider"></li>
-								<li class="dropdown-header">Alimentation</li>
-	              <li  class="" ng-repeat="category in category.findAll()|filter:{type:'Category',active:true}|orderBy:'weight'" ng-if="!category.group">
+								<li class="dropdown-header">Le marché</li>
+	              <li  class="" ng-repeat="category in category.findAll({type:'Category',active:true})|orderBy:'weight'" ng-if="!category.group">
 	                <a ng-class="getClass('/products/category/{{::category.slug}}')"
 	                	 ga-send="{category:'navigation',action:'navigation-top'}"
 	                   href="/products/category/{{::category.slug}}" tabindex="-1">{{::category.name}}</a>
 	              </li>
-
-<!-- 								<li class="divider"></li>
-								<li><a href="#">...</a></li>
- -->							</ul>
+								<li class="divider"></li>
+								<li class="dropdown-header">l'épicerie</li>
+	              <li  class="" ng-repeat="finefood in category.findAll({type:'Category',group:'finefood',active:true})|orderBy:'weight'" >
+	                <a ng-class="getClass('/products/category/{{::finefood.slug}}')"
+	                	 ga-send="{category:'navigation',action:'navigation-top'}"
+	                   href="/products/category/{{::finefood.slug}}" tabindex="-1">{{::finefood.name}}</a>
+	              </li>
+ 							</ul>
 						</li>
-						<li class="col-xs-6 col-sm-6 nopadding">
+						<li class="col-xs-12 col-sm-6 ">
 							<ul>
 								<li class="dropdown-header">Boissons</li>
-	              <li  class="" ng-repeat="category in category.findAll()|filter:{type:'Category',group:'Boissons',active:true}|orderBy:'weight'">
+	              <li  class="" ng-repeat="category in category.findAll({type:'Category',group:'Boissons',active:true})|orderBy:'weight'">
 	                <a ng-class="getClass('/products/category/{{::category.slug}}')"
 	                   href="/products/category/{{::category.slug}}" tabindex="-1">{{::category.name}}</a>
 	              </li>
