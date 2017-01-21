@@ -7,8 +7,7 @@
 
 
 angular.module('app.order.ui', [
-  'app.config',
-  'app.api'
+  'app.config'
 ])
 
 //

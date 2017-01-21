@@ -3,7 +3,7 @@
 //
 // Define the Order module (app.shop)  for controllers, services and models
 // the app.shop module depend on app.config and take resources in shop/*.html
-angular.module('app.order.common', ['app.order.ui','app.config', 'app.api'])
+angular.module('app.order.common', ['app.config', 'app.api'])
   .controller('OrderCommonCtrl',OrderCommonCtrl);
 
 OrderCommonCtrl.$inject=['$scope','$routeParams','api','order','user','product','shop','Map','config','$q'];

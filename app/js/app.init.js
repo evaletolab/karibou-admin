@@ -3,8 +3,8 @@
 // 
 // chromium-browser --ignore-gpu-blacklist --disable-gpu-sandbox
 // var API_SERVER='http://api.karibou.ch'
-// var API_SERVER='http://localhost:4000';
-var API_SERVER='//api.'+window.location.hostname;
+var API_SERVER='http://localhost:4000';
+// var API_SERVER='//api.'+window.location.hostname;
 // var API_SERVER='http://192.168.1.35:4000'
 // var API_SERVER='http://karibou-evaletolab.rhcloud.com'
 // var API_SERVER='http://karibou-api.jit.su'
@@ -25,26 +25,27 @@ angular.module('app', [
   'app.templates',
   'app.config',
   'app.storage',
+  'app.map',
+  'app.modal',
   'app.stacktrace',
   'app.api',
-  'app.uploadcare',  
-  'app.root',
+  'app.uploadcare',
+  'app.document',  
+  'app.document.ui',  
   'app.user',
+  'app.root',
   'app.feedback',
   'app.shop',
   'app.product',
   'app.category',
-  'app.order',
+  'app.cart',
   'app.order.admin',
   'app.stats',
-  'app.document',
-  'app.wallet',
-  'app.home'
+  'app.wallet'
 ])
   .value('API_SERVER',API_SERVER)
   .config(appConfig)
   .factory('errorInterceptor', errorInterceptor)
-  .factory('cordovaReady',cordovaReady)
   .run(appRun);
 
 
@@ -149,7 +150,6 @@ function appConfig( $provide, $routeProvider, $locationProvider, $httpProvider,$
   // List of routes of the application
   $routeProvider
     // Pages
-    .when('/welcome',{templateUrl:'/partials/pages/welcome.html'})
     .when('/the-site-is-currently-down-for-maintenance-reasons', {title:'the site is currently down for maintenance reasons',templateUrl : '/partials/errors/down.html'})
     .when('/about', {title:'about',templateUrl : '/partials/about.html'})
     .when('/page/doc/:article?',{title: 'markdown content', templateUrl: '/partials/pages/page.html'})
@@ -332,29 +332,6 @@ function errorInterceptor($q, scope, $location, $timeout,Flash) {
 }
 
 
-//
-// boostrap mobile app
-function cordovaReady() {
-  return function (fn) {
-    var queue = [];
-
-    var impl = function () {
-      queue.push(Array.prototype.slice.call(arguments));
-    };
-
-    document.addEventListener('deviceready', function () {
-      queue.forEach(function (args) {
-        fn.apply(this, args);
-      });
-      impl = fn;
-    }, false);
-
-    return function () {
-      return impl.apply(this, arguments);
-    };
-  };
-}
-
 
 //
 // init the module
@@ -413,6 +390,7 @@ function appRun($templateCache, $route, $http, $interval, config, flash, $transl
 
 // Bootstrap (= launch) application
 angular.element(document).ready(function () {
+
 
   //
   // loading fastclick for mobile tap

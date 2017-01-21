@@ -147,34 +147,9 @@
             <img src="/img/k-brand.png" width="120px" class="hidden-xs">
           </a>
 
-          <form  class="nav-search-form admin-show" ng-submit="onSearch()">
-              <div class="form-group has-feedback">
-              <label for="search" class="sr-only">Search</label>
-              <input type="text" class="form-control"  id="search-nav" placeholder="Quoi?" autocomplete="off">
-                <span class="glyphicon glyphicon-search form-control-feedback"></span>
-            </div>
-          </form>
-
         </div>
 
-        <div id="navbar" -class="collapse navbar-collapse " >
-          <!-- CART BTN -->
-          <button class="navbar-right btn btn-cart hidden-print navbar-btn" 
-                 ng-cloak  ng-click="toggleCart()" 
-                 ng-show="cart.items.length">
-              <span>
-                <i class="fa fa-shopping-cart green "></i>&nbsp; 
-                <span class="btn-cart-price">
-                  <span cart-price="total"></span> CHF
-                  <!-- {{cart.total()|number:2}} CHF  -->
-                  <span class="hidden-xs"><i class=" fa fa-bicycle"></i>&nbsp;</span>
-                </span>
-                <span class="btn-cart-quantity">
-                  {{cart.quantity()}}
-                </span>
-              </span>
-          </button>
-
+        <div id="navbar" class=" ">
           <ul class="nav navbar-nav navbar-right">          
             <li ng-hide="user.isAuthenticated()" ng-class="getClass('/login')" class="ng-cloak">
               <a  ng-href="/login"><i class="fa fa-user"></i>&nbsp;<span translate="login">Login</span></a>
@@ -236,16 +211,13 @@
           </ul>
 
         </div><!--/.nav-collapse -->
+
+
       </div>
     </nav>
-    <nav class="navbar navbar-default navbar-fixed-top subnavbar-top" role="navigation" ng-static-include="'/partials/index-navigation.html'">
+    <nav class="navbar navbar-default navbar-fixed-top subnavbar-top " role="navigation" ng-static-include="'/partials/index-navigation.html'">
     </nav>    
 
-    <!-- CART -->        
-    <div class="cover-resume cart fade-in-right fade-out-right" id="cart"
-         ng-cloak 
-         ng-include="'/partials/order/cart.html'" >
-    </div> 
 
 
     <!-- Begin page content -->

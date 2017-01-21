@@ -9,9 +9,9 @@ angular.module('app.root', ['app.config','app.user'])
 //
 // the AppCtrl is used in index.html (see app/assets/index.html)
 appCtrl.$inject=[
-  '$scope','$rootScope','$window','$location','$routeParams','$timeout','$http','$translate','config','api','user','cart','category','shop','documents'
+  '$scope','$rootScope','$window','$location','$routeParams','$timeout','$http','$translate','config','api','user','cart','category','shop'
   ];
-function appCtrl($scope, $rootScope, $window,  $location, $routeParams, $timeout, $http, $translate, config, api, user, cart, category,shop,doc) {
+function appCtrl($scope, $rootScope, $window,  $location, $routeParams, $timeout, $http, $translate, config, api, user, cart, category,shop) {
 
   $rootScope.user=$scope.user = user;
   $scope.cart = cart;
@@ -20,7 +20,6 @@ function appCtrl($scope, $rootScope, $window,  $location, $routeParams, $timeout
   $scope.api=api;
   $scope.cover=config.cover;        
   $scope.browserName;
-  $scope.userDocuments;
   window.referrers=[];
   $scope.daysweek="dim._lun._mar._mer._jeu._ven._sam.".split('_');
   $scope.daysweekLg="dimanche_lundi_mardi_mercredi_jeudi_vendredi_samedi".split('_');
@@ -97,20 +96,6 @@ function appCtrl($scope, $rootScope, $window,  $location, $routeParams, $timeout
   }
 
   $scope.loadCategory();
-
-  //
-  // load campaign data
-  // $http.get(config.API_SERVER+'/v1/wallets/giftcard/count').then(function (result) {
-  //   $scope.campaign=result.data;
-  // });
-
-  $scope.displayBundle=function (){
-    doc.get(config.shop.home.path).model.$promise.then(function(model){
-      $rootScope.title='documents '+model.slug+' - '+model.title;
-      $rootScope.$broadcast("product.wrap",model.products)
-      $scope.bundle=model;
-    });
-  };
   
   $scope.go=function(url) {
     return $location.path(url)

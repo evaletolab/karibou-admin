@@ -5,89 +5,23 @@
  * app.order provides a model for interacting with Order.
  * This service serves as a convenient wrapper for other related services.
  */
-angular.module('app.order')
-.factory('cart',cartFactory)
-.directive('cartPrice',cartPrice);
-
-
-
-
-//
-// display vendor acording the shipping date
-// https://github.com/angular/angular.js/blob/master/src/ng/directive/ngShowHide.js
-cartPrice.$inject=['$parse','$timeout','cart'];
-function cartPrice($parse, $timeout,cart) {
-  return {
-    restrict: 'A',
-    replace: true, 
-    priority:1,
-    link: function(scope, element, attrs) {
-      // property:
-      // - total
-      // - shipping
-      // - total+shipping
-      var self=this, 
-          defaultProperty=attrs.cartPrice||'total';
-
-      scope.$watch(function() {
-        return cart.shipping(true)+cart.quantity()+(cart.config.address||0);
-      }, function(nbItems) {
-        switch(defaultProperty){
-        case "total":
-          $timeout(function() {
-            element.html(cart.total().toFixed(2));
-          });
-          break;
-        case "shipping+discount":
-          $timeout(function() {
-            element.html(cart.shipping(true).toFixed(2));
-          });
-          break;
-        case "extradiscount":
-          $timeout(function() {
-            element.html(-cart.getExtraDiscount().toFixed(2));
-          });
-          break;
-        case "fees+payment+discount":
-          $timeout(function() {
-            var fees=cart.tax()*(cart.total()+cart.shipping(true));
-            element.html(Math.max(fees-cart.getTotalDiscount(),0).toFixed(2));
-          });
-          break;
-        case "fees+shipping+discount":
-          $timeout(function() {
-            element.html((cart.shipping(true)).toFixed(2));
-            //cart.roundCHF()
-          });
-          break;
-        case "total+shipping":
-          $timeout(function() {
-            element.html((cart.grandTotal()).toFixed(2));
-          })
-          break;
-        }
-      });
-
-    }
-  };
-}
-
-
+angular.module('app.cart',[])
+  .factory('cart',cartFactory);
 
 
 //
 // implement cart
-cartFactory.$inject=['config','$timeout','$rootScope','$window','$storage','api','user'];
-function cartFactory(config, $timeout,$rootScope,$window, $storage, api,user) {
+cartFactory.$inject=['config','$timeout','$rootScope','$storage','api','user'];
+function cartFactory(config, $timeout,$rootScope, $storage, api,user) {
   var defaultShipping={
-      discountA:0,
-      discountB:0,
-      price:{
-        hypercenter:10,
-        periphery:17.90
-      }, 
-      periphery:[]
-    };
+    discountA:0,
+    discountB:0,
+    price:{
+      hypercenter:10,
+      periphery:17.90
+    }, 
+    periphery:[]
+  };
 
   var defaultCart={
       namespace:"ge_karibou_cart",
@@ -98,17 +32,15 @@ function cartFactory(config, $timeout,$rootScope,$window, $storage, api,user) {
       postalCode:0
   };
 
-
-
-
   //
   // part of the config is async loaded
   config.shop.then(function () {
     defaultCart.shippingFlatRate=config.shop.shipping;
   });
 
-
-  $rootScope.$on("user.init",function () {
+  //
+  // update deault address when user update his profile
+  var onUserUpdateAddress=function(){
     if(!user.addresses.length){
       return;
     }
@@ -116,21 +48,18 @@ function cartFactory(config, $timeout,$rootScope,$window, $storage, api,user) {
     var p=(user.hasPrimaryAddress());
     _cart.config.address=user.addresses[(p>-1)?p:0];
     defaultCart.postalCode=_cart.config.address.postalCode;
-  });
+  };
 
-  $rootScope.$on("user.update",function () {
-    if(!user.addresses.length){
-      return;
-    }
-
-    var p=(user.hasPrimaryAddress());
-    _cart.config.address=user.addresses[(p>-1)?p:0];
-    defaultCart.postalCode=_cart.config.address.postalCode;
-  });
+  $rootScope.$on("user.init",onUserUpdateAddress);
+  $rootScope.$on("user.update",onUserUpdateAddress);
 
 
+  //
+  // update deault payment when user update his profile
   $rootScope.$on("user.update.payment",function () {
-    if(cart.config){cart.config.payment=undefined;}
+    if(cart.config){
+      cart.config.payment=undefined;
+    }
   });
 
 

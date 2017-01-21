@@ -3,8 +3,7 @@
 //
 // Define the User module (app.user)  for controllers, services and models
 // the app.user module depend on app.config and take resources in account/*.html
-var User=angular.module('app.user', 
-  ['app.config','app.ui.map','app.user.ui','postfinance.card']);
+var User=angular.module('app.user', ['app.config']);
 
 //
 // define all routes for user api
@@ -18,27 +17,7 @@ User.config([
     // List of routes of the application
     $routeProvider
       // Authentication
-      .when('/auth', {redirectTo : '/auth/login'})
-      .when('/signup', {title:'Créer votre compte', _view:'main', templateUrl : '/partials/account/signup.html'})
       .when('/login', {title:'Login', _view:'main', templateUrl : '/partials/account/login.html'})
-      .when('/validate/:id/:email', {title:'Email Validation', templateUrl : '/partials/account/validate.html'})
-      .when('/recovery', { _view:'main', templateUrl : '/partials/account/recovery.html'})
-
-      // Account
-      // `auth : true` is a custom value passed to current route
-      .when('/account', {title:'Votre profil', _view:'main',redirectTo : '/account/overview'})
-      .when('/account/', {title:'Votre profil', _view:'main', redirectTo : '/account/overview'})
-      .when('/account/love', {_view:'main', love:true, templateUrl : '/partials/product/love.html'})
-      .when('/account/shop', {_view:'main', templateUrl : '/partials/account/shop.html'})
-      .when('/account/reminder', {_view:'main', templateUrl : '/partials/account/reminder.html'})
-      .when('/account/payment', {_view:'main', templateUrl : '/partials/account/payment.html'})
-      .when('/account/orders', {_view:'main', templateUrl : '/partials/account/orders.html'})
-      .when('/account/overview', {auth : true, _view:'main', templateUrl : '/partials/account/overview.html'})
-      .when('/account/wallet', {auth : true, _view:'main', templateUrl : '/partials/account/wallet.html'})
-      .when('/account/wallet/create', {auth : true, _view:'main', templateUrl : '/partials/account/wallet-create.html'})
-      .when('/account/password', {auth : true, _view:'main', templateUrl : '/partials/account/password.html'})
-      .when('/account/profile', {auth : true, _view:'main', templateUrl : '/partials/account/profile.html'})
-      .when('/account/signup', {view:'main', templateUrl : '/partials/account/profile.html'})
       .when('/admin/navigation', {title:'Navigation ', templateUrl : '/partials/dashboard/dashboard-navigation.html'})
       .when('/admin/user', {title:'Admin of users ', templateUrl : '/partials/dashboard/dashboard-user.html'});
   }
@@ -71,14 +50,6 @@ User.controller('AccountCtrl',[
     $scope.users=[];
     $scope.providers=config.providers;
 
-    $scope.pm={
-      'american express':'ae.jpg',
-      'mastercard':'mc.jpg',
-      'visa':'visa.jpg',
-      'postfinance card':'pfc.jpg',
-      'invoice':'bvr.jpg',
-      'wallet':'wallet.jpg'
-    };
 
     // show payment form
     $scope.options=angular.extend($scope.options||{},{

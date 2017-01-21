@@ -3,6 +3,8 @@
 //
 // Define the Order module (app.order)  for controllers, services and models
 angular.module('app.order.admin', [
+  'app.order.ui',
+  'app.order.common',
   'app.order.manager',
   'app.order.shopper',
   'app.order.repport',

@@ -1,6 +1,6 @@
 ;(function(angular) {'use strict';
 
-var $strap=angular.module('$strap',[]);
+var $strap=angular.module('app.modal',[]);
 
 
 $strap.factory('$modal', [

@@ -3,7 +3,7 @@
 //
 // Define the Order module (app.order)  for controllers, services and models
 // the app.shop module depend on app.config and take resources in order/*.html
-angular.module('app.order')
+angular.module('app.order',[])
   .factory('order',orderFactory);
 
 
