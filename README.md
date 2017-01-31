@@ -22,6 +22,7 @@ Karibou is intended to be used with a backend, but comes with a basic NodeJS / E
 ## Unused directives & css
 [] infiniteCarousel (css)
 [] lazySrc
+[] bnLazySrc
 [] hideOnClick/showOnClick
 [] slideOnClick
 [] masonry (js)

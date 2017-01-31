@@ -3,7 +3,10 @@
 //
 // Define the Document module (app.document)  for controllers, services and models
 // the app.document module depend on app.config and take resources in document/*.html 
-angular.module('app.wallet', ['app.config', 'app.api','app.ui'])
+angular.module('app.wallet', [
+    'app.config', 
+    'app.api'
+  ])
   .config(walletConfig)
   .controller('WalletCtrl',walletCtrl)
   .factory('wallet',walletFactory);

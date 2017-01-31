@@ -95,8 +95,8 @@ function appConfig($q, $http, $sce, $translate, API_SERVER) {
 
 //
 // implement config controller
-ConfigCtrl.$inject=['$scope','$resource','config','api','Flash'];
-function ConfigCtrl($scope,$resource,config,api,Flash){
+ConfigCtrl.$inject=['$scope','$resource','config','Flash'];
+function ConfigCtrl($scope,$resource,config,Flash){
   var $dao=$resource(config.API_SERVER+'/v1/config');
   $scope.config=config;
  

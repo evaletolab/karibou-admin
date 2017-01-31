@@ -5,7 +5,12 @@
  * app.order provides a model for interacting with Order.
  * This service serves as a convenient wrapper for other related services.
  */
-angular.module('app.cart',[])
+angular.module('app.cart',[
+    'app.config',
+    'app.storage',
+    'app.api',
+    'app.user'
+  ])
   .factory('cart',cartFactory);
 
 

@@ -3,7 +3,13 @@
 //
 // Define the Product module (app.product)  for controllers, services and models
 // the app.product module depend on app.config and take resources in product/*.html 
-angular.module('app.product', ['app.config', 'app.api','app.ui','app.product.ui'])
+angular.module('app.product', [
+    'app.config', 
+    'app.user',
+    'app.api',
+    'app.ui',
+    'app.product.ui'
+  ])
   .config(productConfig)
   .controller('ProductCtrl',productCtrl)
   .factory('product',productFactory);

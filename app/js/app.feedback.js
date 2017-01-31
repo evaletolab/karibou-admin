@@ -3,7 +3,10 @@
 /**
  * Angular.js module for feedback
  */
-angular.module('app.feedback',['app.config','app.user'])
+angular.module('app.feedback',[
+    'app.config',
+    'app.api'
+  ])
   .controller('FeedbackCtrl',FeedbackCtrl)
   .factory('feedback',feedbackFactory);
 

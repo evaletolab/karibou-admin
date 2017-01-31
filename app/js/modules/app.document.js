@@ -3,7 +3,14 @@
 //
 // Define the Document module (app.document)  for controllers, services and models
 // the app.document module depend on app.config and take resources in document/*.html 
-angular.module('app.document', ['app.config','app.document.ui'])
+angular.module('app.document', [
+    'app.config',
+    'app.feedback',
+    'app.user',
+    'app.api',
+    'app.product',
+    'app.document.ui'
+  ])
   .config(docConfig)
   .controller('DocumentCtrl',docCtrl)
   .factory('documents',docFactory);

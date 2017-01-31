@@ -1,21 +1,13 @@
 ;(function(angular) {'use strict';
 
 
-var Service=angular.module('app.api',['app.config','app.ui']);
+angular.module('app.api',[
+  'app.config'
+]).factory('api',serviceApi)
 
 
-Service.factory('api', [
-  '$rootScope',
-  '$http',
-  '$resource',
-  '$timeout',
-  '$q',
-  '$log',
-  '$location',
-  '$routeParams',
-  'config',
-  'Flash',
-function ($rootScope, $http, $resource, $timeout, $q, $log, $location, $routeParams, config, Flash) {  
+serviceApi.$inject=['$rootScope','$http','$resource','$timeout','$q','$log','$location','$routeParams','config','Flash']
+function serviceApi($rootScope, $http, $resource, $timeout, $q, $log, $location, $routeParams, config, Flash) {  
   var _categories=[], promise;
   var isMobile = {
     Android: function() {
@@ -204,7 +196,7 @@ function ($rootScope, $http, $resource, $timeout, $q, $log, $location, $routePar
     error:error,
     info:info
   };
-}]);
+}
   
 
 

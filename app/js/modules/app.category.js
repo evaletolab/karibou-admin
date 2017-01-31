@@ -3,7 +3,10 @@
 //
 // Define the Category module (app.shop)  for controllers, services and models
 // the app.shop module depend on app.config and take resources in shop/*.html 
-angular.module('app.category', ['app.config', 'app.api'])
+angular.module('app.category', [
+    'app.config',
+    'app.api'
+  ])
   .config(categoryConfig)
   .controller('CategoryCtrl',CategoryCtrl)
   .factory('category', categoryService)
