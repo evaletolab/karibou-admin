@@ -60,7 +60,7 @@ function OrderCommonCtrl($scope, $routeParams, api, order, user, product,shop, M
   // default model for modal view
   $scope.modal = {};
 
-  $q.all([config.shop,user.$promise]).then(function(){
+  $q.all([config.shop,user.$promise,$scope.shopsSelect.$promise]).then(function(){
     var currentDay=order.findCurrentShippingDay();
 
     //
@@ -75,6 +75,13 @@ function OrderCommonCtrl($scope, $routeParams, api, order, user, product,shop, M
     if($routeParams.when){
       $scope.shipping.currentDay=new Date($routeParams.when);
     }
+
+    //
+    // map available shops
+    $scope.shopsSelectMap={};
+    $scope.shopsSelect.forEach(function(shop){
+      $scope.shopsSelectMap[shop.urlpath]=shop;
+    })
   });
 
   $scope.sortByDateDESC= function (date1, date2) {
@@ -89,9 +96,16 @@ function OrderCommonCtrl($scope, $routeParams, api, order, user, product,shop, M
 
   //
   //
-  $scope.selectOrderByShop=function(shop,when,fulfillments){
+  $scope.selectOrderByShop=function(shop){
+    if(!shop){
+      $scope.selected.items=false;
+      $scope.selected.shop=false;        
+      angular.element("body").removeClass('noscroll');
+      return;
+    }
     $scope.selected.items=$scope.shops[shop];
     $scope.selected.shop=shop;
+    angular.element("body").addClass('noscroll');
   };
 
 
@@ -100,10 +114,13 @@ function OrderCommonCtrl($scope, $routeParams, api, order, user, product,shop, M
   $scope.selectOrder=function (o) {
     if($scope.selected.order&&$scope.selected.order.oid===o.oid){
       $scope.selected={};
+      angular.element("body").removeClass('noscroll');
       return ;
     }
     $scope.selected.items=o.items;
     $scope.selected.order=o;
+    angular.element("body").addClass('noscroll');
+    
   };
 
 

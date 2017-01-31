@@ -1,44 +1,39 @@
-<div class="dashboard" ng-controller="OrderRepportCtrl">
+<div class="dashboard relative container" ng-controller="OrderRepportCtrl">
 
-
-  <nav class="navbar navbar-default navbar-static-top hidden-print " role="navigation" style="margin-bottom: 0">
-    <div class="navbar-header">
-        <button type="button" class="navbar-toggle hidden-xs" data-toggle="collapse" data-target=".navbar-collapse">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-        </button>
-        <a class="navbar-brand green" href="" toggle-on-click="#order-filter"><i class="fa fa-tasks fa-fw"></i>  Réglage <i class="fa fa-caret-down"></i></a>
-
-        <span class="navbar-text  " >Les rapports</span>
-
-
-    </div>
-    <!-- /.navbar-header -->
-
-    <ul class="nav navbar-top-links navbar-right hidden-xs">
-
-    </ul>
-  </nav>
 
   <!-- MAIN CONTENT -->
   <div class="clearfix " ng-init="findAllShopRepport()">
-    <div class="dashboard-filters hidden-print " >
-      <div class="panel-body bg-gray" id="order-filter" ng-class="{'hide':repport.shops}">
+
+    <div class="card hidden-print ">
+        <div class="card-header navbar">
+          <a class="navbar-brand green" href="" toggle-on-click="#order-filter"><i class="fa fa-tasks fa-fw"></i>  Réglage <i class="fa fa-caret-down"></i></a>
+        </div>
+        <div class="card-header ch-alt m-b-20">
+            <h2>
+              Votre comptabilité du <span class="gray" ng-show="repport.from">{{repport.from|dateLabel}} au {{repport.to|dateLabel}}</span>
+            </h2>
+            
+            <a class="btn bgm-red btn-float waves-effect"
+                     onclick="javascript:window.print();"
+                    ><i class="zmdi zmdi-print"></i></a>
+            
+        </div>
+        <div class="card-body card-padding  clearfix "
+             ng-class="{'hide':repportShops.length}" 
+             style="padding-top:0" id="order-filter">
           <div class="col-xs-12 col-md-4 ">
-            <div>Mois: </div>
+            <p class="f-500 c-black m-b-15">Mois: </p>
             <span ng-repeat="month in months"><button class="btn btn-xs btn-transparent" ng-click="toggle({month:month})" ng-class="getToggleClass('month',month)">{{months_short[month-1]}}</button> </span>                
           </div>
           <div class="col-xs-12 col-md-4 ">
-            <span>Année: </span>
+            <p class="f-500 c-black m-b-15">Année: </p>
             <button class="btn btn-md btn-transparent btn-block" 
                     ng-repeat="year in years"
                     ng-click="toggle({year:year})" ng-class="getToggleClass('year',year)">{{year}}</button>                 
             <br/>
           </div>
-          <div class="col-xs-12  col-md-4" ng-if="user.isAdmin()">
-            <span>Par boutique: </span>
+          <div class="col-xs-12  col-md-4 select" ng-if="options.isAdmin">
+            <p class="f-500 c-black m-b-15">Par boutique: </p>
             <select class="form-control " 
                     ng-change="findAllShopRepport()"
                     ng-model="filters.shops" 
@@ -46,12 +41,13 @@
                     <option value=""  selected>-- Choisissez une boutique</option>
             </select>                        
           </div>
-      </div>
+        </div>
     </div>
+
   </div>
 
   <!-- MAIN CONTENT -->
-  <div class="dashboard-content">
+  <div class="dashboard-content" ng-show="repportShops.length">
     <div class=" repport">
       <address class="karibou small">
         <img src="/img/k-small.png"  />

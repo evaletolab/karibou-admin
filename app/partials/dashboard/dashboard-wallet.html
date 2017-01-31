@@ -1,32 +1,28 @@
 <div class="dashboard" ng-controller="WalletCtrl">
 
-  <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
-    <div class="navbar-header">
-        <button type="button" class="navbar-toggle hidden-xs" data-toggle="collapse" data-target=".navbar-collapse">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-        </button>
-        <a class="navbar-brand green" href="" toggle-on-click="#order-filter"><i class="fa fa-tasks fa-fw"></i>  Réglage <i class="fa fa-caret-down"></i></a>
-
-        <span class="navbar-text"ng-show="gift">Les cartes cadeaux</span>
-        <span class="navbar-text"ng-hide="gift">Les Wallets</span>
-
-    </div>
-    <!-- /.navbar-header -->
-
-    <ul class="nav navbar-top-links navbar-right hidden-xs">
-
-        <!-- CUSTOM FORM -->
-
-    </ul>
-
-  </nav>
 
   <div class="clearfix" ng-init="findGiftWallets()">
-    <div class="dashboard-filters " >
-        <div class="panel-body bg-gray" id="order-filter" ng-class="{'hide':wallets.length}">
+    <div class="card">
+        <div class="card-header navbar">
+          <a class="navbar-brand green" href="" toggle-on-click="#order-filter"><i class="fa fa-tasks fa-fw"></i>  Réglage <i class="fa fa-caret-down"></i></a>
+          <span class="navbar-text"ng-show="gift">Les cartes cadeaux</span>
+          <span class="navbar-text"ng-hide="gift">Les Wallets</span>
+
+        </div>
+        <div class="card-header ch-alt m-b-20">
+            <h2>
+              Gestion des Wallets ({{wallets.length}})
+            </h2>
+            
+            <a class="btn bgm-red btn-float waves-effect"
+                     ng-click="findOtherWallets(_options)"
+                    ><i class="zmdi zmdi-refresh"></i></a>
+            
+        </div>
+        <div class="card-body card-padding  clearfix "
+             ng-class="{'hide':wallets.length}" 
+             style="padding-top:0" 
+             id="order-filter">
 
           <!-- OPTIONS -->
           <form class="form-inline col-xs-12  nopadding-xs">
@@ -35,16 +31,13 @@
               <input type="text" class="form-control "  placeholder="> Amount" ng-model="_options.gt">
               <input type="text" class="form-control "  placeholder="< Amount" ng-model="_options.lt">
 
-              <button type="button" class="btn btn-info btn-md" ng-click="findGiftWallets(_options)"><i class="fa fa-refresh"></i> Cartes cadeaux</button>
-              <button type="button" class="btn btn-info btn-sm" ng-click="findOtherWallets(_options)"><i class="fa fa-refresh"></i> Wallets</button>
+              <button type="button" class="btn btn-info btn-md" ng-click="findGiftWallets(_options)"><i class="fa fa-refresh"></i> Cartes KDO</button>
 
             </div>          
-
           </form>
-
         </div>
     </div>
-
+    
 
     <div class="dashboard-content ">
 

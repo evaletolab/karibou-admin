@@ -36,15 +36,13 @@ User.controller('AccountCtrl',[
   'api',
   'user',
   'Map',
-  'Cards',
   'shop',
   '$timeout',
   '$http',
 
-  function (config, $scope, $location, $rootScope, $routeParams, api, user, Map, Cards, shop, $timeout, $http) {
+  function (config, $scope, $location, $rootScope, $routeParams, api, user, Map, shop, $timeout, $http) {
     $scope.map=new Map();
     $scope.user=user;
-    $scope.Cards=Cards;
     $scope.config=config;
     $scope.reg={};
     $scope.users=[];

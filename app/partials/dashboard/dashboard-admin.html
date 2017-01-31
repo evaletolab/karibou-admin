@@ -1,51 +1,54 @@
-<div class="dashboard" ng-controller="OrderAdminCtrl">
+<div class="dashboard relative container" ng-controller="OrderAdminCtrl">
 
-
-  <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
-    <div class="navbar-header pull-left">
-        <button type="button" class="navbar-toggle hidden-xs" data-toggle="collapse" data-target=".navbar-collapse">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-        </button>
-
-        <a class="navbar-brand green" href="" toggle-on-click="#order-filter"><i class="fa fa-tasks fa-fw"></i>  Réglage <i class="fa fa-caret-down"></i></a>
-
-        <button class="pull-left navbar-btn btn btn-md btn-lang " title="Imprimer les commandes" 
-                ng-click="filters.print=!filters.print" 
-                ng-class="{'active':filters.print}"><i class="fa fa-print"></i></button>
-
-        <span class="navbar-text hidden-xs" >Les commandes</span>
-
-    </div>
-    <!-- /.navbar-header -->
-
-    <ul class="nav navbar-top-links navbar-right ">
-
-        <!-- CUSTOM FORM -->
-
-        <!-- /.dropdown edit shop -->
-        <li class="dropdown pull-right" ng-if="dates.length" style="margin-right:0">
-            <a class="dropdown-toggle green bold text-capitalize" data-toggle="dropdown" href="#" >
-                <i class="fa fa-calendar fa-fw"></i> {{filters.f|dateLabelShort}}  <i class="fa fa-caret-down"></i>
-            </a>
-            <ul class="dropdown-menu dropdown-tasks">
-              <li ng-class="{'active':isSelectedDate(date)}" ng-repeat="date in dates.slice().reverse()|limitTo:8">
-                <a  href="#" ng-click="filters.f=date" >{{date|dateLabelShort}}</a>
-              </li>
-            </ul>
-        </li>
-    </ul>
-
-<!--     <div class="navbar-default sidebar" role="navigation" ng-include="'/partials/dashboard/dashboard-sidebar.html'" />
- -->
-  </nav>
 
   <!-- MAIN CONTENT -->
   <div   ng-init="findAllOrders({month:'now'})" class="clearfix">
-    <div class="dashboard-filters " >
-        <div class="panel-body bg-gray" id="order-filter" ng-class="{'hide':orders.length}">
+    <div class="card">
+        <div class="card-header navbar">
+          <a class="navbar-brand green" href="" toggle-on-click="#order-filter"><i class="fa fa-tasks fa-fw"></i>  Réglage <i class="fa fa-caret-down"></i></a>
+          <span class="navbar-text hidden-xs" >Les commandes</span>
+
+          <ul class="nav navbar-top-links navbar-right ">
+
+              <!-- CUSTOM FORM -->
+
+              <!-- /.dropdown edit shop -->
+              <li class="dropdown pull-right" ng-if="dates.length" style="margin-right:0">
+                  <a class="dropdown-toggle green bold text-capitalize" data-toggle="dropdown" href="#" >
+                      <i class="fa fa-calendar fa-fw"></i> {{filters.f|dateLabelShort}}  <i class="fa fa-caret-down"></i>
+                  </a>
+                  <ul class="dropdown-menu dropdown-tasks">
+                    <li ng-class="{'active':isSelectedDate(date)}" ng-repeat="date in dates.slice().reverse()|limitTo:8">
+                      <a  href="#" ng-click="filters.f=date" >{{date|dateLabelShort}}</a>
+                    </li>
+                  </ul>
+              </li>
+          </ul>
+          
+        </div>
+        <div class="card-header ch-alt m-b-20">
+            <h2>
+              Commandes affichées
+              <small>Psst, en cas de soucis, contacter nous <span class="green"><i class="zmdi zmdi-phone"></i> <a href="tel:0041763797868" class="link green">076.379.78.68</a> </span></small>
+            </h2>
+            <ul class="actions hide">
+                <li>
+                    <a href="" toggle-on-click="#order-filter"><i class="zmdi zmdi-plus-circle-o"></i></a>
+                </li>
+                <li class="dropdown" uib-dropdown="">
+                    <a href="" uib-dropdown-toggle="" class="dropdown-toggle" aria-haspopup="true" aria-expanded="false" data-toggle="dropdown">
+                        <i class="zmdi zmdi-calendar"></i>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-right">
+                      <li ng-class="{'active':isSelectedDate(date)}" ng-repeat="date in dates.slice().reverse()|limitTo:8">
+                        <a  href="#" ng-click="filters.f=date" >{{date|dateLabelShort}}</a>
+                      </li>
+                    </ul>
+                </li>
+            </ul>
+
+        </div>
+        <div class="card-body card-padding hide clearfix " style="padding-top:0" id="order-filter">
             <div class="col-xs-12 col-md-4 ">
               <span>Filtrer les commandes: </span>                
               <button class="btn btn-md btn-transparent btn-block" ng-click="toggle({closed:true})" ng-class="getToggleClass('closed',true)">Les fermées</button>
@@ -80,33 +83,33 @@
                       ng-options="shop as shop for shop in orders|filterBy:['shipping.when']:filters.f|mapOrdersByShop track by shop">
                       <option value=""  selected>-- Toutes les boutiques</option>
               </select>                        
-            </div>
-        </div>
+            </div>        </div>
     </div>
 
-    <div class="dashboard-content" element-scroller="100">
+
+
+    <div class="dashboard-content " >
 
 
 
-      <!-- WAIT -->
-      <div ng-show="loading" class="text-center gray">
-        <i class="fa fa-refresh fa-2x fa-spin"></i>
-      </div>
 
 
-      <div ng-if="orders.length" class="col-md-6 col-xs-12 nopadding scroll-y">
-        <div ng-static-include="'/partials/order/order-lists.html'"></div>
+      <div ng-if="orders.length"
+           ng-static-include="'/partials/order/order-lists.html'" 
+           class="">
       </div>
 
       <!-- ORDER ITEMS -->
-      <div ng-include="'/partials/order/order-lists-items.html'" 
-           ng-show="selected.order&&!filters.print"
-           class="order-list-items col-md-6 col-xs-12 scroll-y">          
+      <div ng-include="'/partials/order/order-lists-items.html'"
+           ng-class="{'orders-show':selected.order&&!filters.print}" 
+           class="order-list-items scroll-y" element-scroller="40">          
       </div>
 
+      <!-- PRINT MODE
       <div ng-static-include="'/partials/order/order-lists-items-detailed.html'"
-           ng-if="selected.order&&filters.print" 
-           class="order-list-items col-md-6 col-xs-12 scroll-y">
+           ng-class="{'orders-show':selected.order&&filters.print}" 
+           class="order-list-items"> 
+      -->
       </div>
 
     </div>

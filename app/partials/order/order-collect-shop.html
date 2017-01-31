@@ -1,34 +1,38 @@
 <!-- ORDERS BY SHOPS -->
   <!-- (!filters.f||filters.f===order.shipping.when) -->
-  <div class="list-group">
-    <li  class="list-group-item " 
-         ng-repeat="shop in shopsSlug" 
-         ng-class="{'list-group-item-success':isCollectedShopForDay(shop,filters.f),'list-group-item-info':(selected.shop===shop)}" 
-         ng-show="isCollectableShopForDay(shop,filters.f)">
-      <h4 class="list-group-item-heading">
-        <a class="text-capitalize" 
-           bs-modal="'/partials/order/order.shop.modal.html'"
-           ng-click="modalShopDetails(shop)"> {{::shop}} </a> 
+  
+      
+  
+    <div class="card"   
+         style="margin-bottom:15px"
+         ng-repeat="shop in shopsSlug"
+         ng-class="{'card-collected':isCollectedShopForDay(shop,filters.f)}"
+         ng-show="isCollectableShopForDay(shop,filters.f)" >
+        <div class="card-header ch-alt m-b-20">
+            <h2>
+              {{shopsSelectMap[shop].name}}                            
+              <small>{{shopsSelectMap[shop].address.streetAdress}}/{{shopsSelectMap[shop].address.postalCode}} </small>
+            </h2>
 
-        <form class="form-inline  pull-right">
-          <button type="button" class="btn btn-success btn btn-xs"
-                  ng-click="updateCollect(shop,true,filters.f)">
-            <i class="fa fa-thumbs-up"></i> ok
-          </button>&nbsp;
-        </form>
 
-      </h4>
+            <button class="btn bgm-green btn-float waves-effect"
+                    ng-click="updateCollect(shop,true,filters.f)"><i class="zmdi zmdi-plus"></i></button>
+        </div>
+        <div class="card-body card-padding" style="padding-top:0">
+            <div class="pmo-contact">        
+                <ul class="list-inline">
+                  <li>
+                    <i class="zmdi zmdi-phone"></i> 
+                    <a href="tel:{{shopsSelectMap[shop].address.phone}}" class="green">{{shopsSelectMap[shop].address.phone}}</a>
+                  </li>
+                  <li> 
+                    <i class="zmdi zmdi-time-interval" style="left:10px"></i>
+                    <a ng-click="selectOrderByShop(shop)" class="green text-uppercase"> Préparations [{{countItemValidated(shops[shop],filters.f)}}|{{countItemAvailable(shops[shop],filters.f)}}]</a>
+                  </li>
+                </ul>
+            </div>          
+        </div>
+    </div>
 
-      <span class="nopadding gray small col-xs-10" ng-click="selectOrderByShop(shop,filters.f,filters.fulfillments)">
-      <a ng-href="" class="btn btn-xs btn-default">détail préparé [{{countItemValidated(shops[shop],filters.f)}}|{{countItemAvailable(shops[shop],filters.f)}}]</a></span>      
-
-      <span class="label " ng-class="(item.fulfillments==='fulfilled')?'label-success':'label-warning'"
-              title="{{item.email}}" 
-              ng-click="modalUserDetails(item.oid)" bs-modal="'/partials/order/order.user.modal.html'">{{::item.rank}}</span>&nbsp;        
-      </span>
-      <div class="list-group-item-text clearfix">
-      </div>
-    </li>
-  </div>
   
 

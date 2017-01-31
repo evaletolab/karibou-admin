@@ -1,95 +1,90 @@
-<div class="dashboard" ng-controller="OrderAdminCtrl">
+<div class="dashboard relative container" ng-controller="OrderAdminCtrl">
 
 
-  <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
-    <div class="navbar-header">
-        <button type="button" class="navbar-toggle hidden-xs" data-toggle="collapse" data-target=".navbar-collapse">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-        </button>
-
-        <a class="navbar-brand green" href="" toggle-on-click="#order-filter"><i class="fa fa-tasks fa-fw"></i><span class=""> Réglage</span> <i class="fa fa-caret-down"></i></a>
-
-    </div>
-    <!-- /.navbar-header -->
-
-    <ul class="nav navbar-top-links navbar-right hidden-xs">
-
-        <!-- CUSTOM FORM -->
-
-        <!-- /.dropdown edit shop -->
-        <li class="dropdown" ng-if="dates.length">
-            <a class="dropdown-toggle green" data-toggle="dropdown" href="#">
-                <i class="fa fa-calendar fa-fw"></i> {{filters.f|dateLabelShort}}  <i class="fa fa-caret-down"></i>
-            </a>
-            <ul class="dropdown-menu dropdown-tasks">
-              <li ng-class="{'active':isSelectedDate(date)}" ng-repeat="date in dates.slice().reverse()|limitTo:8">
-                <a  href="#" ng-click="filters.f=date" >{{date|dateLabelShort}}</a>
-              </li>
-            </ul>
-        </li>
-    </ul>
-
-<!--     <div class="navbar-default sidebar" role="navigation" ng-include="'/partials/dashboard/dashboard-sidebar.html'" />
- -->
-  </nav>
 
   <!-- MAIN CONTENT -->
   <div class="clearfix " ng-init="findAllOrders({groupby:'shop',month:'now'})">
-    <div class="dashboard-filters " >
-        <div class="panel-body bg-gray" id="order-filter" ng-class="{'hide':orders.length}">
-              <div class="col-xs-12 col-md-3 admin-show" >
-                <span>Filtrer les commandes: </span>                
-                <button class="btn btn-md btn-transparent btn-block" ng-click="toggle({closed:true})" ng-class="getToggleClass('closed',true)">Toutes les fermées</button>
-                <button class="btn btn-md btn-transparent btn-block" 
-                        ng-click="toggle({fulfillments:'fulfilled'})" 
-                        ng-class="getToggleClass('fulfillments','fulfilled')">Seulement les fulfilled</button>
-              </div>
-              <div ng-show="!dates.length" class="col-xs-12 col-md-3 gray text-center ">
-                <i class="fa fa-warning fa-1x"></i><br/> Pas de commande à afficher pour {{months_long[filters.month-1]}}
-              </div>
-              <div ng-show="dates.length" class="col-xs-12 col-md-3 ">
-                <div>Carte: </div>
-                <a class="btn btn-md btn-transparent btn-block" ng-href="/admin/collect/map">
-                  Voir la carte
-                </a>
 
-              </div>
-              <div class="col-xs-12 col-md-3 ">
-                <div>Mois: </div>
-                <span ng-repeat="month in months"><button class="btn btn-xs btn-transparent" ng-click="toggle({month:month})" ng-class="getToggleClass('month',month)">{{months_short[month-1]}}</button> </span>                
-              </div>
-              <div class="col-xs-12 col-md-3 ">
-                <span>Année: </span>
-                <button class="btn btn-md btn-transparent btn-block" 
-                        ng-repeat="year in years"
-                        ng-click="toggle({year:year})" ng-class="getToggleClass('year',year)">{{year}}</button>                 
-                <br/>
-              </div>
+    <div class="card">
+        <div class="card-header navbar">
+          <a class="navbar-brand green" href="" toggle-on-click="#order-filter"><i class="fa fa-tasks fa-fw"></i><span class="">Réglage</span> <i class="fa fa-caret-down"></i></a>
+          <ul class="nav navbar-top-links navbar-right ">
+              <!-- /.dropdown edit shop -->
+              <li class="dropdown" ng-if="dates.length">
+                  <a class="dropdown-toggle green" data-toggle="dropdown" href="#">
+                      <i class="fa fa-calendar fa-fw"></i> {{filters.f|dateLabelShort}}  <i class="fa fa-caret-down"></i>
+                  </a>
+                  <ul class="dropdown-menu dropdown-tasks">
+                    <li ng-class="{'active':isSelectedDate(date)}" ng-repeat="date in dates.slice().reverse()|limitTo:8">
+                      <a  href="#" ng-click="filters.f=date" >{{date|dateLabelShort}}</a>
+                    </li>
+                  </ul>
+              </li>
+          </ul>
+          
+        </div>
+        <div class="card-header ch-alt m-b-20">
+            <h2>
+              La collecte du {{filters.f|dateLabelLong}}
+              <small>Votre tournée de collecte des produits</small>
+            </h2>
+            <ul class="actions ">
+                <li>
+                    <a href="" ><i class="zmdi zmdi-map green"></i></a>
+                    <a href="" ng-click="findAllOrders({groupby:'shop'})"><i class="zmdi zmdi-refresh green"></i></a>
+                </li>
+            </ul>
+            <button class="btn bgm-red btn-float waves-effect"
+                    ><i class="zmdi zmdi-pin"></i></button>
+
+        </div>
+        <div class="card-body card-padding  clearfix " 
+             style="padding-top:0"
+             ng-class="{'hide':shopsSlug.length>0}" 
+             id="order-filter">
+          <div class="col-xs-12 col-md-3 admin-show" >            
+            <p class="f-500 c-black m-b-15">Filtrer les commandes: </p>                
+            <button class="btn btn-md btn-transparent btn-block" ng-click="toggle({closed:true})" ng-class="getToggleClass('closed',true)">Toutes les fermées</button>
+            <button class="btn btn-md btn-transparent btn-block" 
+                    ng-click="toggle({fulfillments:'fulfilled'})" 
+                    ng-class="getToggleClass('fulfillments','fulfilled')">Seulement les fulfilled</button>
+          </div>
+          <div ng-show="!dates.length" class="col-xs-12 col-md-3 gray text-center ">
+            <i class="fa fa-warning fa-1x"></i><br/> Pas de commande à afficher pour {{months_long[filters.month-1]}}
+          </div>
+          <div ng-show="dates.length" class="col-xs-12 col-md-3 ">
+            <p class="f-500 c-black m-b-15">Carte: </p>
+            <a class="btn btn-md btn-transparent btn-block" ng-href="/admin/collect/map">
+              Voir la carte
+            </a>
+
+          </div>
+          <div class="col-xs-12 col-md-3 ">
+            <p class="f-500 c-black m-b-15">Mois: </p>
+            <span ng-repeat="month in months"><button class="btn btn-xs btn-transparent" ng-click="toggle({month:month})" ng-class="getToggleClass('month',month)">{{months_short[month-1]}}</button> </span>                
+          </div>
+          <div class="col-xs-12 col-md-3 ">
+            <p class="f-500 c-black m-b-15">Année: </p>
+            <button class="btn btn-md btn-transparent btn-block" 
+                    ng-repeat="year in years"
+                    ng-click="toggle({year:year})" ng-class="getToggleClass('year',year)">{{year}}</button>                 
+            <br/>
+          </div>
+
         </div>
     </div>
 
-
-    <div class="dashboard-content" element-scroller="100">
-
-
-
-        <!-- ORDERS -->
-        <div ng-show="loading" class="text-center gray">
-          <i class="fa fa-refresh fa-2x fa-spin"></i>
-        </div>
+    <div class="dashboard-content" >
 
 
         <!-- ORDERS BY SHOP -->
-        <div ng-if="shops" class="col-md-6 col-xs-12 nopadding  scroll-y">
-          <div  ng-include="'/partials/order/order-collect-shop.html'"></div>
+        <div class="scroll-y"
+             ng-static-include="'/partials/order/order-collect-shop.html'">
         </div>
 
-        <div ng-show="selected.shop"
-             ng-static-include="'/partials/order/order-lists-byshop.html'" 
-             class="order-list-items col-md-6 col-xs-12  scroll-y">          
+        <div ng-include="'/partials/order/order-lists-byshop.html'"
+             ng-class="{'orders-show':selected.shop}" element-scroller="40"             
+             class="order-list-items scroll-y">          
         </div>
 
       </div>

@@ -1,33 +1,40 @@
-<div class="dashboard" ng-controller="AccountCtrl">
-
-  <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
-    <div class="navbar-header">
-        <button type="button" class="navbar-toggle hidden-xs" data-toggle="collapse" data-target=".navbar-collapse">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-        </button>
-        <a class="navbar-brand green" href="" toggle-on-click="#order-filter"><i class="fa fa-tasks fa-fw"></i> Réglage <i class="fa fa-caret-down"></i></a>
-
-        <span class="navbar-text">Gestion des utilisateurs ({{users.length}})</span>
-        <input type="text" ng-model="options.filterTxt" class="form-control ng-pristine ng-untouched ng-valid input-md" style="display: inline;width: 200px;margin:5px">  
-
-    </div>
-    <!-- /.navbar-header -->
-
-    <ul class="nav navbar-top-links navbar-right hidden-xs">
-
-        <!-- CUSTOM FORM -->
-
-    </ul>
-
-  </nav>
+<div class="dashboard relative container" ng-controller="AccountCtrl">
 
   <div class="clearfix" ng-init="findAllUsers()">
-    <div class="dashboard-filters " >
-        <div class="panel-body bg-gray" id="order-filter" ng-class="{'hide':users.length}">
+    <div class="card">
+        <div class="card-header navbar">
+          <a class="navbar-brand green" href="" toggle-on-click="#order-filter"><i class="fa fa-tasks fa-fw"></i> Réglage <i class="fa fa-caret-down"></i></a>
+          <ul class="nav navbar-top-links navbar-right">
 
+              <!-- /.dropdown edit shop -->
+              <li class="dropdown" ng-if="dates.length">
+                  <a class="dropdown-toggle green bold text-capitalize" data-toggle="dropdown" href="#">
+                      <i class="fa fa-calendar fa-fw"></i> {{filters.f|dateLabelShort}}  <i class="fa fa-caret-down"></i>
+                  </a>
+                  <ul class="dropdown-menu dropdown-tasks">
+                    <li ng-class="{'active':isSelectedDate(date)}" ng-repeat="date in dates.slice().reverse()|limitTo:8">
+                      <a  href="#" ng-click="filters.f=date" >{{date|dateLabelShort}}</a>
+                    </li>
+                  </ul>
+              </li>
+          </ul>
+
+
+        </div>
+        <div class="card-header ch-alt m-b-20">
+            <h2>
+              Gestion des utilisateurs ({{users.length}})
+            </h2>
+            
+            <a class="btn bgm-red btn-float waves-effect"
+                     ng-click="findAllUsers(_user)"
+                    ><i class="zmdi zmdi-refresh"></i></a>
+            
+        </div>
+        <div class="card-body card-padding  clearfix "
+             ng-class="{'hide':users.length}" 
+             style="padding-top:0" 
+             id="order-filter">
           <form class="form-inline">
             <div class="form-group">
               <label><input type="checkbox" class=""   ng-model="_user.reminder"> Reminder</label>
@@ -35,12 +42,13 @@
               <input type="text" class="form-control "  placeholder=">= orders count" ng-model="_user.orders">
               <input type="text" class="form-control"  placeholder=">= Wallet amount" ng-model="_user.amount">
               <input type="text" class="form-control"  placeholder=">= Giftcode count" ng-model="_user.gifts">
-              <button class="btn btn-info btn-md" ng-click="findAllUsers(_user)"><i class="fa fa-refresh"></i> Reloader</button>
 
             </div>          
           </form>
+
         </div>
     </div>
+    
 
     <table class="table  table-responsive ">
       <thead>

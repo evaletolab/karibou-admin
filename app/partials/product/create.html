@@ -3,7 +3,7 @@
   <form class=" nomargin product-create "  id="popup"
         name="f_product" novalidate style="overflow:hidden">
     <div class="modal-header">
-      <a compute-url class="close on-close" >&times;</a>
+      <a  class="close on-close" >&times;</a>
       <h4 ng-show="product.sku">Modifier le produit {{product.sku}}</h4>
       <h4 ng-hide="product.sku">Ajouter un produit</h4>
     </div>
@@ -293,7 +293,7 @@
           </div>
 
         </div>
-        <a id="close-product-editor"  class="btn  " compute-url>Fermer</a>
+        <a id="close-product-editor"  class="btn  " href="javascript:window.history.back();">Fermer</a>
         <button type="submit" ng-show="product.sku" class="btn  btn-danger" confirm-delete="remove(product,password);">Supprimer</button>
 
         <button type="submit" ng-show="product.sku" ng-disabled="f_product.$invalid || WaitText" 

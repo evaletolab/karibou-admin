@@ -13,13 +13,6 @@ UI.filter("placehold",function(){
   };
 });
 
-UI.filter("categories",function(){
-  return function(categories,type){
-    if (!categories || type==='*')return categories;
-    var t=(type)?type:'Category';
-    return _.filter(categories,function(c){return c.type===t;});
-  };
-});
 
 UI.filter('test', function () {
    return function(input, trueValue, falseValue) {
@@ -54,36 +47,9 @@ UI.filter('clean', function () {
    };
 });
 
-UI.filter('reverse', function() {
-  return function(items) {
-    if(!items)return;
-    return items.slice().reverse();
-  };
-});
-
-UI.filter('unique', function() {
-    return function (arr, field) {
-        return _.uniq(arr, function(a) { return a[field]; });
-    };
-});
 
 
 
-UI.filter('capitalize', function() {
-  return function(input, scope) {
-    var lst=[];
-    if (!input){
-      return '';
-    }
-
-    lst=input.split(' ');
-    for (var i = lst.length - 1; i >= 0; i--) {
-      lst[i]=lst[i].toLowerCase();
-      lst[i]=lst[i].substring(0,1).toUpperCase()+lst[i].substring(1);
-    }
-    return lst.join(' ');
-  };
-});
 
 //
 // ngRepeat filter from/to dates
@@ -145,6 +111,69 @@ UI.filter('dateMomentDay', function () {
         var weekdays = "dimanche_lundi_mardi_mercredi_jeudi_vendredi_samedi".split("_");
         return  weekdays[date.getDay()];
    };
+});
+
+
+
+// =========================================================================
+// MAINMENU COLLAPSE
+// =========================================================================
+
+UI.directive('toggleSidebar', function(){
+    return {
+        restrict: 'A',
+        scope: {
+            modelLeft: '=',
+            modelRight: '='
+        },
+        link: function(scope, element, attr) {
+            element.on('click', function(){
+                if (element.data('target') === 'mainmenu') {
+                    if (scope.modelLeft === false) {
+                        scope.$apply(function(){
+                            scope.modelLeft = true;
+                        })
+                    }
+                    else {
+                        scope.$apply(function(){
+                            scope.modelLeft = false;
+                        })
+                    }
+                }               
+                if (element.data('target') === 'chat') {
+                    if (scope.modelRight === false) {
+                        scope.$apply(function(){
+                            scope.modelRight = true;
+                        })
+                    }
+                    else {
+                        scope.$apply(function(){
+                            scope.modelRight = false;
+                        })
+                    }
+                    
+                }
+            })
+        }
+    }
+});
+    
+
+    
+// =========================================================================
+// SUBMENU TOGGLE
+// =========================================================================
+
+UI.directive('toggleSubmenu', function(){
+    return {
+        restrict: 'A',
+        link: function(scope, element, attrs) {
+            element.click(function(){
+                element.next().slideToggle(200);
+                element.parent().toggleClass('toggled');
+            });
+        }
+    }
 });
 
 
@@ -353,24 +382,6 @@ UI.directive('reload', ['$parse','$timeout', function($parse, $timeout) {
 
 
 
-//
-// Declare global directives here
-UI.directive('toggleSidebar', ['$parse','$timeout','$rootScope', function($parse, $timeout, $rootScope) {
-  return function(scope, element, attr) {
-    function hide(){
-        if(scope.options.sidebar)return;
-        scope.options.sidebar=false;
-        $timeout(function(){
-          $("button.site-nav-logo").css({opacity:1,'z-index':1000});
-        },800);        
-    }
-    //$(".site-nav-overlay").click(hide);
-    document.addEventListener("click", hide);
-
-    // $rootScope.$on('documentClicked',hide);
-  };
-}]);
-
 
 
 
@@ -468,37 +479,6 @@ UI.directive('backstretch', ['$parse', function($parse) {
   };
 }]);
 
-UI.directive('background', ['$parse', function($parse) {
-  return{
-    link:function(scope, element, attr, ctrl) {   
-      var options=($parse(attr.background))();
-      var css={
-        'background-size':'100%', 
-        '-webkit-background-size':'100%',
-        'background-repeat':'no-repeat'
-      };      
-      scope.$watch(options.src, function(value) {
-          if (value){
-            css.background='url('+value+')';
-          }else if(options.load){
-            css.background='url('+options.load+')';
-          }else{
-            css.background='url('+options.src+')';
-          }
-          element.css(css);
-       });
-    }
-  };
-}]);
-
-UI.directive('computeUrl', ['$parse','api', function($parse,api) {
-  return{
-    link:function(scope, element, attr, ctrl) {   
-      var url=($parse(attr.computeUrl))();
-      element.attr('href',api.computeUrl(url));
-    }
-  };
-}]);
 
 
 UI.directive('backfader', [
@@ -530,7 +510,6 @@ UI.directive('backfader', [
         if($window.referrer){
           return $window.history.back();
         }
-        console.log('---------',urldst, $window.location)
         $window.location.pathname=urldst;
         
         return false;
@@ -557,130 +536,8 @@ UI.directive('appAffix', ['$parse','$timeout', function($parse, $timeout) {
     };
   }]);
 
-//
-// http://dev.dforge.net/projects/sliding-pane/index.html
-// 
-UI.directive('pageslide', ['$parse','$timeout', function($parse , $timeout) {
-  return function(scope, element, attr) {
-    var o=scope.$eval(attr.pageslide||"{}");
-    element.pageslide(o);
-    //$("img.lazy").show().lazyload();
-  };
-}]);
-
-//
-//
-// http://masonry.desandro.com/docs/intro.html
-UI.directive('lazyload', ['$parse','$timeout', function($parse , $timeout) {
-  return function(scope, element, attr) {
-    //$("img.lazy").show().lazyload();
-  };
-}]);
-
-UI.directive('autoSubmit', ['$parse','$timeout','user', function($parse , $timeout, user) {
-  return function(scope, element, attr) {
-    var target=angular.element('#'+attr.target),
-        firstTime=true;
 
 
-    function tick() {
-        if(firstTime)element.submit();
-        firstTime=false;
-
-        //
-        // simple check of payment validation
-        user.me(function(u){
-          console.log('psp ecommerce payment is live',u.payments);
-        });
-
-    }
-    $timeout(tick, 2000);    
-  };
-}]);
-
-
-UI.directive('iframeAutoHeight', [function(){
-return {
-    restrict: 'A',
-    link: function(scope, element, attrs){
-        element.on('load', function(){
-            /* Set the dimensions here, 
-               I think that you were trying to do something like this: */
-               var iFrameHeight = element[0].contentWindow.document.body.scrollHeight + 'px';
-               var iFrameWidth = '100%';
-               element.css('width', iFrameWidth);
-               if(iFrameHeight!==0)
-                element.css('height', iFrameHeight);
-        });
-    }
-};}]);
-
-
-//
-//
-// http://masonry.desandro.com/docs/intro.html
-UI.directive('masonry', ['$parse','$timeout', function($parse , $timeout) {
-  return function(scope, element, attr) {
-    var options={itemSelector : '.block', columnWidth : 1,gutter:1}, expression = scope.$eval(attr.mansory||"{}");
-    angular.extend(options, expression);        
-    
-    $timeout(function(){
-      new Masonry( element.get(0),options);      
-      
-      //element.imagesLoaded(function(){
-      //  element.masonry(options);
-      //});
-
-    },1000);
-
-  };
-}]);
-
-
-UI.directive('slideOnClick', ['$parse','$timeout', function($parse, $timeout) {
-  return function(scope, element, attr) {
-      $timeout(function(){
-        var e=angular.element(attr.slideOnClick);
-        if(e.length){
-          element.click(function(){
-            e.slideDown();
-          });
-          // element.slideToggle('slow');
-          // element.click(function(){
-          //   if(e.is(':visible')){
-          //     e.slideDown();
-          //   }else{
-          //     e.slideDown();              
-          //   }
-          // });
-        }
-      },0);
-  };
-}]);
-UI.directive('showOnClick', ['$parse','$timeout', function($parse, $timeout) {
-  return function(scope, element, attr) {
-      $timeout(function(){
-        var e=angular.element(attr.showOnClick);
-        if(e.length){
-          element.click(function(){
-            e.slideDown();
-          });
-        }
-      },0);
-  };
-}]);
-UI.directive('hideOnClick', ['$parse','$timeout', function($parse, $timeout) {
-  return function(scope, element, attr) {
-      $timeout(function(){
-        var e=angular.element(attr.hideOnClick);
-        if(e.length){
-          element.click(function(){
-            e.slideUp();
-          });
-        }
-      },0);
-  };
-}]);
 
 UI.directive('toggleOnClick', ['$parse','$timeout', function($parse, $timeout) {
   return function(scope, element, attr) {
@@ -713,17 +570,6 @@ UI.directive('fadeOnHover', ['$parse','$timeout', function($parse, $timeout) {
   };
 }]);
 
-UI.directive('infiniteCarousel', ['$parse','$timeout', function($parse , $timeout) {
-  return function(scope, element, attr) {
-    var options={}, expression = scope.$eval(attr.infiniteCarousel||"{}");
-    angular.extend(options, expression);        
-    $timeout(function(){
-       
-       $(element).addClass("infiniteCarousel").infiniteCarousel(options);
-    },0);
-
-  };
-}]);
 
 UI.directive('backendUrl', ['$parse','config', function($parse, config) {
   return function(scope, element, attr) {
@@ -733,49 +579,5 @@ UI.directive('backendUrl', ['$parse','config', function($parse, config) {
 }]);
 
 
-UI.directive('lazySrc', ['$document', '$parse', function($document, $parse) {
-        return {
-            restrict: 'A',
-            link: function(scope, elem, attr) {
-                function setLoading(elm) {
-                    if (loader) {
-                        elm.html('');
-                        elm.append(loader);
-                        elm.css({
-                            'background-image': null
-                        });
-                    }
-                }
-                var loader = null;
-                if (angular.isDefined(attr.lazyLoader)) {
-                    loader = angular.element($document[0].querySelector(attr.lazyLoader)).clone();
-                }
-                var bgModel = $parse(attr.lazySrc);
-                scope.$watch(bgModel, function(newValue) {
-                    setLoading(elem);
-                    var src = bgModel(scope);
-                    var img = $document[0].createElement('img');
-                    img.onload = function() {
-                        if (loader) {
-                            loader.remove();
-                        }
-                        if (angular.isDefined(attr.lazyLoadingClass)) {
-                            elem.removeClass(attr.lazyLoadingClass);
-                        }
-                        if (angular.isDefined(attr.lazyLoadedClass)) {
-                            elem.addClass(attr.lazyLoadedClass);
-                        }
-                        elem.css({
-                            'background-image': 'url(' + this.src + ')'
-                        });
-                    };
-                    img.onerror= function() {
-                        //console.log('error');
-                    };
-                    img.src = src;
-                });
-            }
-        };
-    }]);
 
 })(window.angular);

@@ -1,65 +1,58 @@
-<div class="dashboard" ng-controller="OrderAdminCtrl">
+<div class="dashboard  relative container" ng-controller="OrderAdminCtrl">
 
-  <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
-    <div class="navbar-header">
-        <button type="button" class="navbar-toggle hidden-xs" data-toggle="collapse" data-target=".navbar-collapse">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-        </button>
-        <a class="navbar-brand green" href="" toggle-on-click="#order-filter"><i class="fa fa-tasks fa-fw"></i>  Réglage <i class="fa fa-caret-down"></i></a>
-
-
-        <span class="navbar-text  " >Les stocks <span ng-show="!_options.available">in</span>visibles ({{products.length||0}})</span>
-
-
-    </div>
-    <!-- /.navbar-header -->
-
-    <ul class="nav navbar-top-links navbar-right hidden-xs">
-
-    </ul>
-  </nav>
 
   <!-- MAIN CONTENT -->
   <div class="clearfix " ng-init="loadAllProducts({available:true})">
-    <div class="dashboard-filters " >
-      <div class="panel-body bg-gray" id="order-filter" ng-class="{'hide':products.length}">
+    <div class="card">
+        <div class="card-header navbar">
+          <a class="navbar-brand green" href="" toggle-on-click="#order-filter"><i class="fa fa-tasks fa-fw"></i>  Réglage <i class="fa fa-caret-down"></i></a>
+          <span class="navbar-text  " >Les stocks <span ng-show="!_options.available">in</span>visibles ({{products.length||0}})</span>
+        </div>
+        <div class="card-header ch-alt m-b-20">
+            <h2>
+              La liste des produits
+              <small>Appuyer sur réglages pour afficher les produits non disponibles</small>
+            </h2>
+            <ul class="actions ">
+                <li>
+                    <a href="" ng-click="loadAllProducts(_options)" ><i class="zmdi zmdi-refresh green"></i></a>
+                </li>
+            </ul>
+            
+            <a class="btn bgm-red btn-float waves-effect"
+                    ng-href="/products/create"
+                    ><i class="zmdi zmdi-plus"></i></a>
+            
+        </div>
+        <div class="card-body card-padding hide clearfix " style="padding-top:0" id="order-filter">
+          <form class="form-inline" ng-init="_options.available=true">
+            <div class="form-group">
+              <div class="col-xs-6 col-md-6" >
+                <div ng-show="options.isAdmin" class="checkbox">
+                  <label >
+                    <input type="checkbox" class=""   ng-model="_options.home"> Home
+                  </label>
+                </div>
+                <div class="checkbox">                  
+                  <label>
+                    <input type="checkbox" class=""   ng-model="_options.available"> Afficher les produits visible
+                  </label>
+                </div>
 
-        <form class="form-inline" ng-init="_options.available=true">
-          <div class="form-group">
-
-          <div class="col-xs-6 col-md-3" >
-            <label ng-show="options.isAdmin"><input type="checkbox" class="form-control"   ng-model="_options.home"> Home</label>
-            <label><input type="checkbox" class=""   ng-model="_options.available"> Afficher les produits visible</label>
-
-          </div>
-
-          <!-- OPTIONS -->
-
-          <div class="col-xs-6 col-md-3" >
-            <select class="form-control pull-right" 
-                    ng-change="loadAllProducts(_options)"
-                    ng-model="filters.shops" 
-                    ng-options="shop.urlpath as shop.name  for shop in shopsSelect| orderBy:'name'">
-                    <option value=""  selected>-- Choisissez une boutique</option>
-            </select>                        
-          </div>
-          <div class="col-xs-12 col-md-4 pull-right">
-            <a class=" btn btn-info btn-md " ng-href="/products/create">
-              <i class="fa fa-plus"></i> Ajouter un nouveau produit
-            </a>            
-            <button class=" btn btn-info btn-md pull-right" ng-click="loadAllProducts(_options)">
-              <i class="fa fa-refresh "></i>
-            </button>
-
-          </div>
-          </div>
-        </form>
-
-      </div>
+              </div>
+              <div class="col-xs-6 col-md-6 select" >
+                <select class="form-control pull-right" 
+                        ng-change="loadAllProducts(_options)"
+                        ng-model="filters.shops" 
+                        ng-options="shop.urlpath as shop.name  for shop in shopsSelect| orderBy:'name'">
+                        <option value=""  selected>-- Choisissez une boutique</option>
+                </select>                        
+              </div>
+            </div>
+          </form>
+        </div>
     </div>
+    
 
     <div class="dashboard-content" 
          ng-static-include="'/partials/order/order-lists-stocks.html'">      

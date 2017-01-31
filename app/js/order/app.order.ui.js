@@ -223,6 +223,17 @@ function($parse, $timeout,cart) {
 })
 
 
+.filter('dateLabelLong', function () {
+   return function(shipping, prefix) {
+        if (!shipping) {return "";}
+        if (!prefix) {prefix="";}
+
+        var date=(shipping.when)?shipping.when:shipping,
+            time=(shipping.time)?' de '+shipping.time:'';
+        return  prefix+moment(date).format('dddd DD MMM', 'fr')+time;
+   };
+})
+
 .filter('orderInitial', function () {
    return function(order) {
         if (!order||!order.items.length) {return "0.0 CHF";}

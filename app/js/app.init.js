@@ -156,6 +156,8 @@ function appConfig( $provide, $routeProvider, $locationProvider, $httpProvider,$
     .when('/page/:article?',{title: 'markdown content', templateUrl: '/partials/pages/page.html'})
     // 404
     .when('/404', {title:'404',templateUrl : '/partials/errors/404.html'})
+    .when('/', {title:'dashboard',templateUrl : '/partials/home.html'})
+    .when('/admin', {title:'dashboard',templateUrl : '/partials/home.html'})
     // Catch all
     .otherwise({redirectTo : '/404'});
 

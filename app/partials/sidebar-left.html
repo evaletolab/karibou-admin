@@ -1,0 +1,54 @@
+<div class="sidebar-inner c-overflow">    
+    <div class="profile-menu" ng-show="options.isAuthenticated">
+        <a href="" toggle-submenu>
+            <div class="profile-pic">
+                <img src="img/profile-pics/1.jpg" alt="">
+            </div>
+
+            <div class="profile-info text-capitalize">
+                {{user.name.givenName}} {{user.name.familyName}}
+                <i class="zmdi zmdi-caret-down"></i>
+            </div>
+        </a>
+        <ul class="main-menu" >
+            <li><a href="/account/overview" class="text-capitalize"><i class="fa fa-user "></i> Bonjour {{user.name.givenName}}</a></li>
+            <li><a ng-href="/account/payment?gift=%20"><i class="fa fa-gift"></i> Enregistrer une carte cadeau</a></li>
+            <li><a href="/account/love"><i class="fa fa-heart "></i> Ma sélection</a></li>
+            <li><a  class="" href="" ng-click="logout()"><i class="fa fa-sign-out "></i>&nbsp;<span translate="logout"></span></a></li>
+            <li class="divider"></li>
+            <li ng-show="user.shops.length">
+              <a href="/shop/{{shop.urlpath}}/edit" ng-repeat="shop in user.shops">Edit {{shop.name}} </a>
+            </li>          
+        </ul>
+    </div>
+
+    <ul class="main-menu" ng-hide="options.isAuthenticated">
+        <li><a href="/login"><i class="fa fa-user"></i> Login</a></li>
+    </ul>
+
+    <ul class="main-menu" ng-show="options.isAuthenticated">
+      <li data-ui-sref-active="active" class="active">
+        <a data-ui-sref="home"  href="/admin">
+          <i class="zmdi zmdi-home"></i> Dashboard
+        </a>
+      </li>
+      <!-- FOR SHOP & ADMIN -->
+      <li ng-class="getClass(menu.url)" ng-repeat="menu in config.shop.menu|filter:{group:'shop',active:true}|orderBy:'weight'" 
+          ng-if="options.isShopOwner&&menu.url">
+          
+          <a  ng-href="{{menu.url}}" ><i class="zmdi zmdi-settings"></i><span i18n-render="menu.name"/></a>
+      </li>
+      <li class="divider" ng-show="options.isShopOwner"></li>                    
+      <!-- FOR LOGISTIC -->
+      <li ng-class="getClass(menu.url)" ng-repeat="menu in config.shop.menu|filter:{group:'shipping',active:true}|orderBy:'weight'" 
+          ng-if="options.isLogistic&&menu.url">
+          <a  ng-href="{{menu.url}}" i18n-render="menu.name"></a>
+      </li>
+      <li class="divider" ng-show="options.isLogistic"></li>
+      <!-- FOR ADMIN -->
+      <li ng-class="getClass(menu.url)" ng-repeat="menu in config.shop.menu|filter:{group:'admin',active:true}|orderBy:'weight'" 
+          ng-if="options.isAdmin&&menu.url">
+          <a  ng-href="{{menu.url}}" i18n-render="menu.name"></a>
+      </li>
+    </ul>
+</div>

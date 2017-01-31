@@ -1,89 +1,166 @@
   <!-- ITEMS BY SHOPS -->
   <!-- ITEMS -->
-  <ul class="list-group" 
+  <div class="" 
       ng-repeat="group in selected.items|filterItemsByShop:filters.s|groupBy:'rank' " >
 
-    <!-- FOOTER -->
-    <li class="list-group-item list-group-item clearfix" style="padding:25px 20px;">
-        <div>
-          <span class="bold  label-lg label label-primary">sac {{selected.order.rank}}</span>&nbsp;
-          <span class="text-capitalize bold">{{selected.order.customer.name.givenName}} {{selected.order.customer.name.familyName}}</span>, {{getAmountTotal(group)|number:2}} CHF
-          
+    <!-- HEADER -->
+    <!-- http://byrushan.com/projects/ma/1-5-2/angular/#/home -->
+    <div class="card">
+        <div class="card-header ch-alt m-b-20">
+            <h2>
+              <span class="text-capitalize">{{selected.order.customer.name.givenName}} {{selected.order.customer.name.familyName}}</span>
+              &nbsp;<span class=" bold  label -label-lg label-primary">sac {{selected.order.rank}}</span>
+              <small>Commande {{selected.order.oid}} , <b>{{getAmountTotal(group)|number:2}} CHF </b></small></h2>
+            <ul class="actions">
+                <li>
+                    <a href="">
+                        <i class="zmdi zmdi-refresh-alt"></i>
+                    </a>
+                </li>
+                <li class="dropdown" uib-dropdown="">
+                    <a href="" uib-dropdown-toggle="" class="dropdown-toggle" aria-haspopup="true" aria-expanded="false" data-toggle="dropdown">
+                        <i class="zmdi zmdi-more-vert"></i>
+                    </a>
 
-          <button 
-            type="button" 
-            class="pull-right btn btn-sm btn-default  " 
-            ng-click="selectOrder(selected.order)"><span class="fa fa-close"></span></button>
+                    <ul class="dropdown-menu dropdown-menu-right">
+                        <li>
+                            <a href="">Tout valider</a>
+                        </li>
+                        <li>
+                            <a href="">Tout invalider</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
 
+            <button class="btn bgm-red btn-float waves-effect"
+                    ng-click="selectOrder(selected.order)"><i class="zmdi zmdi-close"></i></button>
         </div>
-    </li>
-
+        <div class="card-body card-padding" style="padding-top:0">
+            <div class="pmo-contact">        
+                <ul>
+                    <li ng-repeat="phone in selected.order.customer.phoneNumbers"> 
+                      <i class="zmdi zmdi-phone"></i><a href="tel:{{phone.number}}">{{phone.number}}</a>
+                    </li>
+                  
+                    <li><i class="zmdi zmdi-email"></i> <a href="mailto:{{selected.order.email}}">{{selected.order.email}}</a></li>
+                    <li>
+                        <i class="zmdi zmdi-pin"></i>
+                        <address class="m-b-0 ng-binding">
+                            {{selected.order.shipping.streetAdress}},{{selected.order.shipping.floor}},                           
+                            {{selected.order.shipping.postalCode}} -
+                            {{selected.order.shipping.region}}, <br>
+                            Note: {{selected.order.shipping.note}}
+                        </address>
+                    </li>
+                </ul>
+            </div>   
+                     
+        </div>
+    </div>
+    
 
     <!-- BODY -->
-    <li  class="list-group-item " 
-         ng-repeat="item in group|orderBy:['rank','vendor']" >
-      <h4 class="list-group-item-heading"> 
-          <span ng-class="(item.quantity>1)?'bold red':''">{{::item.quantity}}x</span> <a ng-href="/products/{{item.sku}}">{{::item.title}} ({{::item.part}})</a> 
-          <div ng-if="item.variant.title" class="small"><span class="fa fa-warning red">option: </span><span>{{::item.variant.title}}</span></div>
-          <span class="bag-1 green-2 fa fa-check-circle fa-2x" ng-show="item.fulfillment.status==='fulfilled'"></span>
-          <span class="bag-1 red fa fa-minus-circle fa-2x" ng-show="item.fulfillment.status==='failure'"></span>
+    <ul class="list-group">
+      <li  class="list-group-item " style="min-height:100px;padding:5px 10px" 
+          ng-repeat="item in group|orderBy:['rank','vendor']" >
+        <div class="col-xs-11 nopadding">
+          <div>
+            <h5 class="gray">
+              <span ng-class="(item.quantity>1)?'bold red':''">{{::item.quantity}}x</span> 
+              {{::item.title}} ({{::item.part}}) <a ng-href="/products/{{item.sku}}">[view]</a>
+            </h5>
+            <!-- VARIANT --> 
+            <div ng-if="item.variant.title" class="small" style="margin-top: -8px;margin-left: 1px;">
+              <span class="fa fa-warning red">option: </span><span>{{::item.variant.title}}</span>
+            </div>
+          </div>
+          <div style="padding-top:10px">
+            <div class="btn-group  no-shadow  " ng-hide="options.showWidget" style="margin:0;margin-top:5px">
+              <button type="button" class="btn btn-warning btn-md no-shadow"
+                      ng-class="{'btn-done':['fulfilled','failure'].indexOf(item.fulfillment.status)!==-1}"
+                      ng-click="updateItem(selected.order.oid,item,'failure')"
+                      ><i class="fa fa-thumbs-down"></i> Annulez</button>
 
-      </h4>
-      <span  title="Le pourcentage au dessus ou dessous du prix d'origine" ng-show="selected.order.getPriceDistance(item)>0"
-            class="bag-2 grayx smallx link">{{selected.order.getPriceDistance(item)}}%</span>
 
-      <div class="list-group-item-text clearfix">
-        <div class="col-xs-11 col-sm-7  nopadding">
-          <form class="form-inline    " ng-hide="options.showWidget" style="margin:0">
-            <button type="button" class="btn btn-default btn-xs "
-                    ng-class="{'btn-done':['fulfilled','failure'].indexOf(item.fulfillment.status)!==-1}"
-                    ng-click="updateItem(selected.order.oid,item,'failure')"
-                    ><i class="fa fa-thumbs-down"></i> Annulez</button>
+              <div class="input-group input-group-validate form-group">
+                  <div class="fg-line dropdown" uib-dropdown>
+                      <input type="number" type="number"  
+                            class="form-control input-md input-validate" 
+                            ng-class="{'input-done':['fulfilled','failure'].indexOf(item.fulfillment.status)!==-1}"
+                            ng-model="item.finalprice" data-toggle="dropdown">&nbsp;
 
-            <input type="text" type="number"  
-                   class="form-control input-xs" 
-                   ng-class="{'input-done':['fulfilled','failure'].indexOf(item.fulfillment.status)!==-1}"
-                   style="margin-top: -4px; width: 60px; display: inline;"
-                   ng-model="item.finalprice" >&nbsp;
-            <button type="button" class="btn btn-default btn-xs "
-                    ng-class="{'btn-done':['fulfilled','failure'].indexOf(item.fulfillment.status)!==-1}"
-                    ng-click="updateItem(selected.order.oid,item,'fulfilled')"
-                    ><i class="fa fa-check"></i> Validez</button>
 
-            <!-- WRITE QUALITY -->
-            <div class="btn-group admin-show-inline" >
-              <button type="button" 
-                      class="btn-xs btn btn-transparent dropdown-toggle" 
-                      data-toggle="dropdown" 
-                      title="{{item.fulfillment.issue}}">
-                <i class="fa fa-exclamation-circle " ng-class="item.fulfillment.issue? 'red':'green'"></i>
-              </button>
-              <ul class="dropdown-menu" ng-if="user.isAdmin()">
-                <li ng-repeat="code in config.shop.issue.code">
-                  <a href="#" ng-click="updateIssue(selected.order.oid,item,code)">{{::code}}</a>
-                </li>
-              </ul>
-            </div>            
+                      <div class="dropdown-menu text-center" style="margin-top:20px;padding:5px">
+                          <h1>{{item.finalprice|number:2}}</h1>
+                      </div>
 
-          </form>
+                      <i class="cp-value" style="background-color: {{ fctrl.color }}"></i>
+                  </div>
+              </div>
+                    
+              <button type="button" class="btn btn-info btn-md no-shadow"
+                      ng-class="{'btn-done':['fulfilled','failure'].indexOf(item.fulfillment.status)!==-1}"
+                      ng-click="updateItem(selected.order.oid,item,'fulfilled')"
+                      ><i class="fa fa-check"></i> Validez</button>
 
+              <!-- WRITE QUALITY -->
+              <div class="btn-group admin-show-in dropdown" >
+                <button type="button" 
+                        class="btn-md btn btn-lightgreen no-shadowc dropdown-toggle " 
+                        data-toggle="dropdown" 
+                        title="{{item.fulfillment.issue}}">
+                  <i class="fa fa-exclamation-circle " ng-class="item.fulfillment.issue? 'red':'green'"></i>
+                </button>
+                <ul class="dropdown-menu" >
+                  <li ng-repeat="code in config.shop.issue.code">
+                    <a href="#" ng-click="updateIssue(selected.order.oid,item,code)">{{::code}}</a>
+                  </li>
+                </ul>
+              </div>            
+
+            </div>
+          </div>        
         </div>
-      </div>
-    </li>
+
+        <div class="col-xs-1  nopadding" style="height:90px;">
+          <div class="bag-1 green-2 fa fa-check-circle fa-2x" ng-show="item.fulfillment.status==='fulfilled'"></div>
+          <div class="bag-1 red fa fa-minus-circle fa-2x" ng-show="item.fulfillment.status==='failure'"></div>
+          <div  title="Le pourcentage au dessus ou dessous du prix d'origine" ng-show="selected.order.getPriceDistance(item)>0"
+                class="bag-2 grayx smallx link">{{selected.order.getPriceDistance(item)}}%</div>
+        </div>         
+      </li>
+    </ul>
+
+
+
+
     <!-- FOOTER -->
-    <li class="list-group-item list-group-item clearfix" style="padding:25px 20px;">
-        <div>
-          <span class="bold  label-lg label label-primary">sac {{selected.order.rank}}</span>&nbsp;
-          <span class="text-capitalize ">{{selected.order.customer.name.givenName}} {{selected.order.customer.name.familyName}}</span>, {{getAmountTotal(group)|number:2}} CHF
-          
+
+    <div class="card">
+        <div class="card-header ch-alt m-b-20">
+            <h2>
+              <span class="pull-right bold  label-lg label label-primary">sac {{selected.order.rank}}</span>
+              <span class="text-capitalize">{{selected.order.customer.name.givenName}} {{selected.order.customer.name.familyName}}</span> 
+              <small>Commande {{selected.order.oid}} , <b>{{getAmountTotal(group)|number:2}} CHF </b></small>
+            </h2>
+
           <button 
             type="button" 
-            class="pull-right btn btn-sm btn-default  " 
+            class="btn bgm-red btn-float waves-effect" 
             ng-show="hasNextOrder(selected.order.oid,filters.f,filters.s)"
-            ng-click="selectNextOrder()"><span class="fa fa-chevron-circle-right "> Client suivant</span></button>
+            ng-click="selectNextOrder()"><i class="zmdi zmdi-chevron-right"></i> </span></button>
 
         </div>
-    </li>
+        <div class="card-body card-padding" style="padding-top:0">
+          <ul >
+            <li  ng-repeat="item in group|filter:{fulfillment:{status:'failure'}}" >
+              <i class="zmdi zmdi-alert-triangle"></i> {{item.title}} annulé
+            </li>
+          </ul>
+        </div>
+    </div>
+        
 
-  </ul>
+  </div>
 

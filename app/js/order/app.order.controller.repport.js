@@ -54,6 +54,7 @@ function OrderRepportCtrl($scope,$rootScope,$routeParams, $location, api, order,
       order.findRepportForShop(filters).$promise.then(function(repport){
         $scope.loading=true;
         $scope.repport=repport;
+        $scope.repportShops=Object.keys(repport.shops||[]);
         if(repport.shops){
           var select=Object.keys(repport.shops).map(function(slug) {
             return {urlpath:slug,name:repport.shops[slug].name,address:repport.shops[slug].address};

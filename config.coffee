@@ -40,10 +40,8 @@ exports.config =
         'css/app.css': /^app/
       order:
         before: [
-          'app/css/fonts.css',
           'bower_components/nprogress/nprogress.css',
           'vendor/styles/font-awesome.css'
-          'vendor/styles/bootstrap.css'
         ]
         after: [
           'vendor/styles/bootstrap-theme.css'

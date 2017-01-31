@@ -69,6 +69,10 @@
   font-size: 90%;
 } 
 
+.list-group-item-text{
+  padding:10px 5px!important;
+}
+
 .list-group-item-transparent {
     background-color: transparent;
 }
@@ -103,6 +107,31 @@
 }
 .btn-transparent:hover {
   background-color: rgba(60,60,60,.6);
+}
+
+.btn-lightgreen{
+  background: rgba(139, 195, 74, 0.41) !important;
+}
+.btn-validate{
+  color: #333;
+  background-color: #fff;
+  border-color: #ccc;
+  border: 1px solid #ccc;  
+}
+
+.input-validate{
+  display: inline;
+  border-radius: 0;  
+  margin: -5px 0px;
+  font-weight: 900;
+  padding-left: 5px!important;
+}
+
+.input-group-validate{
+  float: left;
+  max-width: 70px;
+  box-shadow: none;  
+  margin: 0px 3px;
 }
 
 .btn-split {
@@ -240,6 +269,10 @@ img.img-cover {
   text-shadow: 0 0px 2px #444;
 }
 
+.no-shadow{
+  box-shadow:none!important;  
+}
+
 .box-shadow{
   box-shadow: 0 10px 35px rgba(0, 0, 0, 0.25) ;
 }
@@ -247,6 +280,11 @@ img.img-cover {
 .scroll-y {
     overflow-y: auto !important;
     height: 100%;
+}
+
+.list-group-item-success{
+    color: #333; 
+    background-color: rgba(103, 189, 106, 0.48);
 }
 
 .noscroll {

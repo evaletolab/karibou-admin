@@ -1,47 +1,42 @@
 <div class="dashboard" ng-controller="OrderAdminCtrl">
 
-  <!-- MENU -->
-  <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
-    <div class="navbar-header">
-        <button type="button" class="navbar-toggle hidden-xs" data-toggle="collapse" data-target=".navbar-collapse">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-        </button>
-
-        <a class="navbar-brand green" href="" toggle-on-click="#order-filter"><i class="fa fa-tasks fa-fw"></i>  Réglage <i class="fa fa-caret-down"></i></a>
-
-        <span class="navbar-text  " >L'activité</span>
-
-    </div>
-    <!-- /.navbar-header -->
-
-    <ul class="nav navbar-top-links navbar-right hidden-xs">
-
-    </ul>
-
-<!--     <div class="navbar-default sidebar" role="navigation" ng-include="'/partials/dashboard/dashboard-sidebar.html'" />
- -->
-  </nav>
 
 
   <div class="clearfix" ng-init="loadActivities()">
-    <div class="dashboard-filters " >
-      <div class="panel-body bg-gray" id="order-filter" ng-class="{'hide':activities.length}">
 
-        <form class="form-inline">
-          <div class="form-group">
-            <input type="text" class="form-control form-inline"  placeholder="Nom" ng-model="_activity.email">
-            <input type="text" class="form-control "  placeholder="Type" ng-model="_activity.what">
-            <input type="text" class="form-control"  placeholder="Mois" ng-model="_activity.month">
-            <input type="text" class="form-control"  placeholder="Année" ng-model="_activity.year">            
+    <div class="card">
+        <div class="card-header navbar">
+          <a class="navbar-brand green" href="" toggle-on-click="#order-filter"><i class="fa fa-tasks fa-fw"></i>  Réglage <i class="fa fa-caret-down"></i></a>
+          <span class="navbar-text  " >L'activité</span>          
+        </div>
+        <div class="card-header ch-alt m-b-20">
+            <h2>
+              Les activitées
+              <small>Toutes les activités qui concernent les produits, boutiques, commandes, paiements, etc
+            </h2>
+            <ul class="actions hide">
+                <li>
+                    <a href="" ><i class="zmdi zmdi-refresh"></i></a>
+                </li>
+            </ul>
 
-            <button class="btn btn-info btn-md pull-right" ng-click="loadActivities(_activity)"><i class="fa fa-refresh"></i></button>
+        </div>
+        <div class="card-body card-padding hide clearfix " style="padding-top:0" id="order-filter">
+          <form class="form-inline">
+            <div class="form-group" style="width:100%">
+              <input type="text" class="form-control form-inline"  placeholder="Nom" ng-model="_activity.email">
+              <input type="text" class="form-control "  placeholder="Type" ng-model="_activity.what">
+              <input type="text" class="form-control"  placeholder="Mois" ng-model="_activity.month">
+              <input type="text" class="form-control"  placeholder="Année" ng-model="_activity.year">            
 
-          </div>
-      </div>
+              <button class="btn btn-info btn-md pull-right" ng-click="loadActivities(_activity)"><i class="fa fa-refresh"></i></button>
+            </div>
+          </form>
+
+        </div>
     </div>
+
+
 
     <div class="dashboard-content">
         <!-- FORM -->

@@ -34,7 +34,11 @@ function appCtrl($scope, $rootScope, $window,  $location, $routeParams, $timeout
     needReload:false,
     displayShop:false,
     currentCategory:'',
-    locale:$translate.use()
+    locale:$translate.use(),
+    sidebarToggle:{
+      left:false,
+      right:false
+    }
   };
 
 
@@ -81,6 +85,7 @@ function appCtrl($scope, $rootScope, $window,  $location, $routeParams, $timeout
 
   $rootScope.$on('user.init',function() {
     options.isAdmin=user.isAdmin();
+    options.isAuthenticated=user.isAuthenticated();
     options.isShopOwner=(user.shops.length||user.isAdmin());
     options.isLogistic=(user.hasRole('logistic')||user.isAdmin());
     user.isAuthenticated()&&$window.ga&&$window.ga('set', '&uid', user.id);
@@ -148,6 +153,9 @@ function appCtrl($scope, $rootScope, $window,  $location, $routeParams, $timeout
 
 
     angular.element('html').removeClass('app-cart');
+    options.sidebarToggle.left=false;
+    options.sidebarToggle.right=false;
+    
   });
 
   //

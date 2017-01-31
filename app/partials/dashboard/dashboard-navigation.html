@@ -1,46 +1,42 @@
-<div class="dashboard" ng-controller="ConfigCtrl">
-  <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
-    <div class="navbar-header">
-        <button type="button" class="navbar-toggle hidden-xs" data-toggle="collapse" data-target=".navbar-collapse">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-        </button>
+<div class="dashboard relative container" ng-controller="ConfigCtrl">
 
-        <span class="navbar-text" >Navigation</span>
-
-    </div>
-    <!-- /.navbar-header -->
-
-    <ul class="nav navbar-top-links navbar-right hidden-xs">
-
-        <!-- CUSTOM FORM -->
-
-
-        <!-- /.dropdown edit shop -->
-        <li class="dropdown" ng-if="user.shops.length">
-            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                <i class="fa fa-tasks fa-fw"></i>  <i class="fa fa-caret-down"></i>
-            </a>
-            <ul class="dropdown-menu dropdown-tasks">
-              <li ng-repeat="shop in user.shops">
-                <a ng-href="/shop/{{shop.urlpath}}/edit">{{shop.name}} (edit)</a>
-              </li>
-            </ul>
-            <!-- /.dropdown-tasks -->
-        </li>
-
-        <button ng-disabled="form.$invalid||WaitText"  style="margin-right: 16px" 
-                ng-click="saveConfig();"  
-                class="navbar-btn save btn btn-info  "  >{{WaitText || 'Enregistrer'}}</button>
-
-    </ul>
-
-  </nav>
 
   <!-- MAIN CONTENT -->
-  <div class="clearfix container" >
+  <div class="clearfix " >
+    <div class="card">
+        <div class="card-header navbar">
+          <a class="navbar-brand green" href="" toggle-on-click="#order-filter"><i class="fa fa-tasks fa-fw"></i>  Réglage <i class="fa fa-caret-down"></i></a>
+
+          <ul class="nav navbar-top-links navbar-right ">
+              <!-- /.dropdown edit shop -->
+              <li class="dropdown" ng-if="user.shops.length">
+                  <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                      <i class="fa fa-tasks fa-fw"></i>  <i class="fa fa-caret-down"></i>
+                  </a>
+                  <ul class="dropdown-menu dropdown-tasks">
+                    <li ng-repeat="shop in user.shops">
+                      <a ng-href="/shop/{{shop.urlpath}}/edit">{{shop.name}} (edit)</a>
+                    </li>
+                  </ul>
+                  <!-- /.dropdown-tasks -->
+              </li>
+          </ul>
+
+        </div>
+        <div class="card-header ch-alt m-b-20">
+            <h2>
+              Gestion des menus
+            </h2>
+            
+            <a class="btn bgm-red btn-float waves-effect"
+                     ng-click="saveConfig();"
+                    ><i class="zmdi zmdi-save"></i></a>
+            
+        </div>
+        <div class="card-body card-padding hide clearfix " style="padding-top:0" id="order-filter">
+        </div>
+    </div>
+
     <div class="dashboard-content">
 
         <!-- PRIMARY MENU -->

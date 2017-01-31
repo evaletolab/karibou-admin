@@ -124,9 +124,12 @@ function CategoryCtrl(config, $scope, $timeout, $routeParams, $location, api, ca
   // };    
   
   // init
-  category.select({stats:true},function(categories){
-    $scope.categories=categories;
-  });
+  $scope.initSelectAll=function(){
+    category.select({stats:true},function(categories){
+      $scope.categories=categories;
+    });
+  }
+  $scope.initSelectAll();
   
 }  
 

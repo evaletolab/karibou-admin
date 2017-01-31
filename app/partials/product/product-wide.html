@@ -26,7 +26,7 @@
         <section>
           <!-- CLOSE-->
           <div>
-          <a class="btn btn-transparent pull-right on-close" compute-url><i class="fa fa-remove fa fa-2x white"></i>&nbsp;</a>
+          <a class="btn btn-transparent pull-right on-close" ><i class="fa fa-remove fa fa-2x white"></i>&nbsp;</a>
           </div>
 
           <!-- PRICE-->
@@ -62,7 +62,7 @@
 
       <!-- ADMIN OR OWNER -->
       <div ng-show="user.isOwnerOrAdmin(product.vendor.name)" class="pull-right">
-        <a href="{{rootProductPath}}/products/{{product.sku}}/edit" class="btn  btn-small"><i class="fa fa-edit"></i>&nbsp;Edition avancée du produit</a>
+        <a href="{{rootProductPath}}/products/{{product.sku}}/edit" class="btn  btn-small no-shadow"><i class="fa fa-edit"></i>&nbsp;Edition avancée du produit</a>
       </div>
       <div ng-show="user.isOwnerOrAdmin(product.vendor.name)" class="quick-stock">
         <p>Modifié la quantité disponible (actuellement <b>{{product.pricing.stock}}</b>)</p>

@@ -66,54 +66,6 @@ function ($rootScope, $http, $resource, $timeout, $q, $log, $location, $routePar
   }
 
 
-  function computeUrl(forceUrl){
-    var url, path=$location.path();
-
-    if(forceUrl){
-      return forceUrl;
-    }
-
-    // edit from shop
-    if($routeParams.shop && $routeParams.sku && path.indexOf('/edit')!=-1){
-      url='/shop/'+$routeParams.shop+'/products/'+$routeParams.sku;
-    }
-
-    // edit from products
-    else if($routeParams.sku && path.indexOf('/edit')!=-1){
-      url='/products/'+$routeParams.sku;
-    }
-
-    // from shop
-    else if($routeParams.shop){
-      url='/shop/'+$routeParams.shop;
-    }
-
-    // from category 
-    else if($routeParams.category){
-      url='/products/category/'+$routeParams.category;
-    }
-
-
-
-    // from sku
-    else if($routeParams.sku){
-      if(referrers&&referrers.length){
-        for (var i = referrers.length - 1; i >= 0; i--) {
-          if(referrers[i].indexOf('/products/category')!==-1){
-            url=referrers[i];
-            break;
-          }
-        }
-      }
-
-      url=url||'/products';
-    }
-
-    // console.log('close -------------------',url||referrer||'/')
-
-    return url||referrer||'/';      
-  }
-
   
   //
   // TODO use better way to wrap JSON to javascript object
@@ -249,7 +201,6 @@ function ($rootScope, $http, $resource, $timeout, $q, $log, $location, $routePar
     uploadfile:uploadfile,
     wrapDomain:wrapDomain,
     findBySlug:findBySlug,
-    computeUrl:computeUrl,
     error:error,
     info:info
   };
