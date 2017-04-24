@@ -61,7 +61,7 @@
             </div>
 
             <div class="form-group">
-              <button  class="btn btn-primary btn-sm btn-block" confirm-delete="updateBANK(modal.wid,modal.bank);"> Save Wallet bank details</button>
+              <button  class="btn btn-primary btn-sm btn-block" confirm-delete="updateBANK(modal.wid,modal.bank,password);"> Save Wallet bank details</button>
             </div>
             <!-- CREDIT/DEBIT -->
             <div class="form-group">
@@ -98,8 +98,8 @@
         </div>
         <ul class="list-group col-xs-12 nopadding">
           <li class="list-group-item"><h6>Transactions</h6></li>
-          <li ng-repeat="transaction in modal.transactiona" class="list-group-item">
-            <strong>{{transaction.id}} - {{transaction.type}}</strong> {{transaction.amount/100}} Fr
+          <li ng-repeat="transaction in modal.transactions" class="smallx list-group-item">
+            <strong>{{transaction.id}} - {{transaction.status}}</strong> {{transaction.amount/100}} Fr
             <div ng-if="transaction.amount_refunded">refunded: {{transaction.amount_refunded/100}} Fr</div>
             <div>{{transaction.description}} / created {{transaction.created|dateMomentShort}} / {{transfer.limited|dateMomentShort}}</div>
           </li>

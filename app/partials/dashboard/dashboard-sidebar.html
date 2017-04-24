@@ -1,44 +1,45 @@
-<!-- SIDEBAR MENU --> 
-<ul class="nav nav-sidebar" ng-if="user.hasRole('logistic')||user.isAdmin()">
-  <!-- boutique -->
-  <li><a ng-href="/">les produits</a></li>
-  <li><a ng-href="/shops">les boutiques</a></li>
 
-  <!-- SHIPPING LINKS -->
-  <li><h5>Logistique</h5></li>
-  <li  ng-class="getClass('/admin/shipping')" >
-    <a ng-href="/admin/shipping?payment=authorized">livraison</a>
-  </li>
+<div class="sidebar-nav navbar-collapse">
+    <ul class="nav" id="side-menu">
+        <li class="sidebar-search">
+            <div class="input-group custom-search-form">
+                <input type="text" class="form-control" placeholder="Search...">
+                <span class="input-group-btn">
+                <button class="btn btn-default" type="button">
+                    <i class="fa fa-search"></i>
+                </button>
+            </span>
+            </div>
+            <!-- /input-group -->
+        </li>
+        <li ng-if="user.shops.length||user.isAdmin()">
+            <a class="dropdown-header"><i class="fa fa-home fa-fw"></i> Boutique <span class="fa arrow"></span></a>
+            <ul class="nav nav-second-level">                  
+              <li ng-class="getClass(menu.url)" ng-repeat="menu in config.shop.menu|filter:{group:'shop',active:true}|orderBy:'weight'" ng-if="menu.url">
+                  <a  ng-href="{{menu.url}}" i18n-render="menu.name"></a>
+              </li>
+           </ul>  
+        </li>
+        <li ng-if="user.hasRole('logistic')||user.isAdmin()">
+          <a class="dropdown-header"><i class="fa fa-bicycle fa-fw"></i> Livraison <span class="fa arrow"></span></a>
+          <ul class="nav nav-second-level">                  
+            <li ng-class="getClass(menu.url)" ng-repeat="menu in config.shop.menu|filter:{group:'shipping',active:true}|orderBy:'weight'" ng-if="menu.url">
+                <a  ng-href="{{menu.url}}" i18n-render="menu.name"></a>
+            </li>
+          </ul>
+        </li>
+        <li ng-if="user.isAdmin()">
+          <a class="dropdown-header"><i class="fa fa-dashboard fa-fw"></i> Admin
+            <span class="fa arrow"></span>
+          </a>
+          <ul class="nav nav-second-level">                  
+            <li ng-class="getClass(menu.url)" ng-repeat="menu in config.shop.menu|filter:{group:'admin',active:true}|orderBy:'weight'" ng-if="menu.url">
+                <a  ng-href="{{menu.url}}" i18n-render="menu.name"></a>
+            </li>
+          </ul>
+        </li>
 
-  <li   ng-class="getClass('/admin/collect')" >
-    <a ng-href="/admin/collect">Collecte</a>
-  </li>
-</ul>
-<ul class="nav nav-sidebar" ng-if="user.shops.length||user.isAdmin()">
-  <li><h5>Commandes</h5></li>
-  <li  ng-class="getClass('/admin/orders')"><a href="/admin/orders">Les commandes</a></li>
-<!--   <li  ng-class="getClass('/admin/orders/print')"><a href="/admin/orders/print">Les commandes imprimables</a></li>
- -->
-  <!-- REPPORT -->
-  <li><h5>Rapport</h5></li>
-  <li ng-class="getClass('/admin/repport/shop')"><a href="/admin/repport/shop">Rapport d'activité</a></li>
-  <!--
-  <li ng-if="user.isAdmin()" ng-class="getClass('/admin/repport/users')"><a href="/admin/repport/users">Users</a></li>
-  -->
 
-  <!-- PRODUCTS LINKS -->
-  <li><h5>Produits</h5></li>
-  <li ng-class="getClass('/admin/products')"><a href="/admin/products">Vos produits</a></li>
-
-</ul>
-  <!-- ADMIN LINKS -->
-<ul class="nav nav-sidebar" ng-if="user.isAdmin()">
-  <li ><h5>Admin</h5></li>
-  <li ng-class="getClass('/admin/invoice')"><a href="/admin/invoice">Factures ouverte</a></li>
-  <li ng-class="getClass('/admin/category')"><a href="/admin/category">Categories</a></li>
-  <li ng-class="getClass('/admin/user')"><a href="/admin/user">Utilisateurs</a></li>
-  <li ng-class="getClass('/admin/config')"><a href="/admin/config">Config</a></li>
-  <li ng-class="getClass('/admin/activities')"><a href="/admin/activities">Activités</a></li>
-  <li ng-class="getClass('/admin/stats')"><a href="/admin/stats">Statistiques</a></li>
-  <li ng-class="getClass('/admin/wallets')"><a href="/admin/wallets">Wallets</a></li>
-</ul>
+    </ul>
+</div>
+<!-- /.sidebar-collapse -->

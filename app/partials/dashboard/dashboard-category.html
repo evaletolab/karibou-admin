@@ -1,0 +1,85 @@
+<div class="dashboard"  ng-controller="CategoryCtrl">
+
+
+  <!-- MAIN CONTENT -->
+  <div class="clearfix" ng-controller="OrderCommonCtrl">
+
+
+    <div class="card">
+        <div class="card-header navbar">
+          <span class="navbar-text  " >Les categories</span>
+        </div>
+        <div class="card-header ch-alt m-b-20">
+            <h2>
+              Gestion des catégories
+              <small>            Appuyer sur le boutton pour ajouter une catégorie</small>
+            </h2>
+            <ul class="actions ">
+                <li>
+                    <a href="" ng-click="initSelectAll();"><i class="zmdi zmdi-refresh green"></i></a>
+                </li>
+            </ul>
+            <button class="btn bgm-red btn-float waves-effect"
+                    ng-click="modalCatLaunch()"
+                    bs-modal="'/partials/admin/category.modal.html'"
+                    ><i class="zmdi zmdi-plus"></i></button>
+
+        </div>
+        <div class="card-body card-padding hide clearfix " style="padding-top:0" id="order-filter">
+
+        </div>
+    </div>
+
+
+
+    <div class="dashboard-content">
+
+      <!-- CONTENT -->
+      <div >
+        <table  class="table table-responsive" >
+            <thead>
+              <tr>
+                <th style="width:80px">Active</th>
+                <th style="width:80px">Home</th>
+                <th>Nom</th>
+                <th>Groupe</th>
+                <th>Liens</th>
+                <th>Poid</th>
+                <th>Type</th>
+                <th>Icon</th>
+                <th>Cover</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+
+            <tr  ng-repeat="c in categories" >
+                <td ng-click="c.active=!c.active;save(c)"><i class="fa green" ng-class="c.active?'fa-check-circle':'fa-circle-o'"></i> </td>
+                <td ng-click="c.home=!c.home;save(c)"><i class="fa green" ng-class="c.home?'fa-check-circle':'fa-circle-o'"></i> </td>
+                <td>{{c.name}} </td>
+                <td>{{c.group}} </td>
+                <td title="{{c.usedBy}}">{{c.usedBy.length}} </td>
+                <td>{{c.weight}} </td>
+                <td class="small" ng-class="{ 'green bold': c.type === 'Category','blue bold': c.type === 'Catalog' }">{{c.type}}</td>
+                <td>
+                    <i class="{{c.image}}" style="color:{{c.color}}"></i>
+                    <span>{{c.image}}</span>
+                </td>
+                <td>
+                    <img ng-show="c.cover" ng-src="{{c.cover}}" title="{{c.cover}}" class="img-circle" style="height:25px">
+                </td>
+                <td  style="width:60px;height:25px">
+                  <div fade-on-hover=".table">
+                  <button ng-hide="c.usedBy.length" confirm-delete="delete($index,password)" class="btn btn-default btn-xs"><i class="fa fa-remove"></i> </button>
+                  <button  class="btn btn-default btn-xs" 
+                           ng-click="modalCatLaunch($index)"
+                           bs-modal="'/partials/admin/category.modal.html'" 
+                           ><i class="fa fa-edit"></i> </button>                  
+                  </div>
+                </td>
+            </tr>
+        </table> 
+      </div>
+
+    </div>
+  </div>
+</div>

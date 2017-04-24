@@ -1,6 +1,6 @@
 ;(function(angular) {'use strict';
 
-var $strap=angular.module('$strap',[]);
+var $strap=angular.module('app.modal',[]);
 
 
 $strap.factory('$modal', [
@@ -113,10 +113,10 @@ $strap.directive('bsModal', [
       });
 
       $q.when($modal(options)).then(function onSuccess(modal) {
-        iElement.attr('data-target', '#' + modal.attr('id')).attr('data-toggle', 'modal');
-        // iElement.on('click',function(){
-        //   $('#' + modal.attr('id')).modal();
-        // })
+        // iElement.attr('data-target', '#' + modal.attr('id')).attr('data-toggle', 'modal');
+        iElement.on('click',function(){
+          $('#' + modal.attr('id')).modal();
+        });
       });
 
     }

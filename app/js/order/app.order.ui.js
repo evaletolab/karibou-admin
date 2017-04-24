@@ -7,8 +7,7 @@
 
 
 angular.module('app.order.ui', [
-  'app.config',
-  'app.api'
+  'app.config'
 ])
 
 //
@@ -30,24 +29,84 @@ angular.module('app.order.ui', [
 })
 
 
+
+//
+// display vendor acording the shipping date
+// https://github.com/angular/angular.js/blob/master/src/ng/directive/ngShowHide.js
+.directive('ifVendorIsAvailable', ['$parse','$timeout','cart', 
+function($parse, $timeout,cart) {
+
+  return {
+    restrict: 'A',
+    replace: true, 
+    scope:{ifVendorIsAvailable:'='},
+    priority:1,
+    link: function(scope, element, attrs) {
+      var self=this;
+
+      scope.$watch(function() {
+        return cart.getShippingDay();
+      }, function(nextShippingDay) {
+        //
+        // no livraison
+        if(!nextShippingDay||!scope.ifVendorIsAvailable){
+          if(attrs.reverse) return element.hide();
+          return element.show();
+        }
+
+
+        var display=(scope.ifVendorIsAvailable.available.weekdays.indexOf(nextShippingDay.getDay())!==-1);
+
+        //
+        // with shipping
+        if(attrs.reverse){
+          display=!display;
+        }
+
+        if(display){element.show();}else{element.hide();}          
+
+      });
+
+    }
+  };
+
+}])
+
 //
 // clockdown for the next shipping day
-.directive('clockdown', ['$parse','$timeout','order','config', function($parse, $timeout,order,config) {
+.directive('clockdown', ['$parse','$timeout','order','config','cart', 
+  function($parse, $timeout,order,config,cart) {
 
   return function(scope, element, attr) {
     //
     // config is an asynchrone load
     config.shop.then(function(){
-      if(config.shop.maintenance.active){
-        return  element.html(config.shop.maintenance.reason);
-      }
+      var append = attr.clockdown||'';
+      var opts=$parse(attr.clockdownOpts||'')(scope)||{};
+      var postfix='';
 
-      var nextShippingDay=order.findNextShippingDay(),
-          delta=nextShippingDay.getTime()-Date.now(),
-          timer,
-          append = attr.clockdown||'';
+      scope.$watch(function() {
+        return cart.getShippingDay();
+      }, function(nextShippingDay) {
+        //
+        // no livraison
+        if(!nextShippingDay)return element.html('livraisons interrompus');
 
-      element.html(append+' '+moment(nextShippingDay).format('dddd D MMMM', 'fr'));
+        var date=moment(nextShippingDay);
+
+        //
+        // with shipping
+        if(opts.long){
+          postfix=' le '+date.format('dddd D', 'fr');
+        }
+        if(opts.custom){
+          return element.html(append+' '+date.format(opts.custom,'fr'));          
+        }
+
+        element.html(append+' '+date.fromNow()+postfix);
+
+      });
+
     });
   };
 }])
@@ -78,7 +137,7 @@ angular.module('app.order.ui', [
     if(gift.print){
       amount+=1;
     }
-    var issuer=gift.payment&&gift.payment.issuer||'none'
+    var issuer=gift.payment&&gift.payment.issuer||'none';
 
     for(var p in config.shop.order.gateway){
       if(config.shop.order.gateway[p].label===issuer){
@@ -164,6 +223,17 @@ angular.module('app.order.ui', [
 })
 
 
+.filter('dateLabelLong', function () {
+   return function(shipping, prefix) {
+        if (!shipping) {return "";}
+        if (!prefix) {prefix="";}
+
+        var date=(shipping.when)?shipping.when:shipping,
+            time=(shipping.time)?' de '+shipping.time:'';
+        return  prefix+moment(date).format('dddd DD MMM', 'fr')+time;
+   };
+})
+
 .filter('orderInitial', function () {
    return function(order) {
         if (!order||!order.items.length) {return "0.0 CHF";}
@@ -177,40 +247,47 @@ angular.module('app.order.ui', [
 
 
 .filter('orderFees', ['config',function (config) {
-   return function(order) {
+   return function(order, widthDiscount) {
         if (!order||!order.items.length) {return "0.0 CHF";}
 
-        // get shipping price amount
-        var shipping=order.getShippingPrice();
 
 
-        var fees=0.0,total=0.0;
-        if(order.items){
-          order.items.forEach(function(item){
-            if(item.fulfillment.status!=='failure'){
-              total+=item.finalprice;
-            }
-          });
-        }
+        var fees=0.0,
+            total=order.getSubTotal(), 
+            shipping=order.getShippingPrice(),
+            discount=order.getTotalDiscount();
+
+
+        // before the payment fees! 
+        // add shipping fees 
+        total+=shipping;
+
+        // 
+        // remove discount offer by shop
+        total-=discount;
+
 
         //
         // add gateway fees
-        for (var gateway in config.shop.order.gateway){
-          gateway=config.shop.order.gateway[gateway];
-          if (gateway.label===order.payment.issuer){
-            fees+=(total+shipping)*gateway.fees;
-            break;
-          }
-        }
+        fees=order.getFees(total);
 
         // add shipping amount fees 
         fees+=shipping;
+
+        // display total fees with discount
+        if(widthDiscount){
+          fees=Math.max(fees-discount,0);
+        }
 
         return parseFloat((Math.round(fees*20)/20).toFixed(2))+" CHF";
 
 
    };
 }])
+
+
+
+
 
 .filter('orderProgress',function(){
   return function (order) {
@@ -257,6 +334,10 @@ angular.module('app.order.ui', [
         return price.toFixed(2)+" CHF";
    };
 });
+
+
+
+
 
 
 })(window.angular);

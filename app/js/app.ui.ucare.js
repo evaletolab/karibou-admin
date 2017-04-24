@@ -7,7 +7,7 @@
  * # Uploadcare
  * # see https://uploadcare.com/cookbook/validation/
  */
-angular.module('ngUploadcare', ['app.config'])
+angular.module('app.uploadcare', [])
   .directive('uploadcareWidget', uploadcareWidget);
 
 uploadcareWidget.$inject=['config', '$parse','$timeout','$log'];

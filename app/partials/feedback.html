@@ -1,0 +1,65 @@
+      <!-- FEEDBACK -->
+      <div ng-controller="FeedbackCtrl" class="hidden-print" ng-show="showShopWidgets()">
+        <button class="ng-cloak  btn btn-feedbk feedbackbtn " 
+                ng-click="feedback.show=true" 
+                ng-hide="feedback.show"><i class="fa fa-phone fa-1x"></i> {{getTitle()}}
+        </button>
+        <div  class="feedbackform ng-cloak "  ng-show="feedback.show">
+          <div unselectable="on" class="feedbackform-header">
+            <b>{{getTitle()}}</b>
+            <span ng-show="getPhone()" class="phone pull-right"><a href="tel:{{getPhone()}}">
+            <i class="fa fa-phone"></i>
+            {{getPhone()|clean}}</span>
+            <!-- <a title="Display the help screen." href="#" class="size-button help">?</a> -->
+            <a title="Minimize window." href="#" ng-click="feedback.show=false" class="size-button minimize">–</a>
+          </div>
+          <div class="feedbackform-content">
+            <!-- ON SHOP -->
+            <div ng-if="contextShop()">
+              <div class="feedback-avatar">
+                <img  ng-src="{{feedback.shop.photo.owner | placehold:'50x50&text=l`équipe'}}" style="">              
+              </div>
+              <div class="feedback-description">
+              <div ng-if="user.isAuthenticated()">Bonjour <span class="text-capitalize">{{user.display()}}</span>,</div>
+              <span bind="feedback.shop.description">Vous avez une question pour <span class="bold">{{feedback.shop.name}}</span>.</span>
+                
+              </div>
+            </div>
+            <!-- ON PRODUCT -->
+            <div ng-if="contextProduct()">
+              <div class="feedback-avatar">
+                <img  ng-src="{{feedback.product.vendor.photo.owner | placehold:'50x50&text=l`équipe'}}" style="">              
+              </div>
+              <div class="feedback-description">
+              <div ng-if="user.isAuthenticated()">Bonjour <span class="text-capitalize">{{user.display()}}</span>,</div>
+              <span bind="feedback.shop.description">Vous avez une question à propos du produit <br/><span class="bold">{{feedback.product.title}}</span> de <span class="bold">{{feedback.product.vendor.name}}</span>.</span>
+                
+              </div>              
+            </div>
+            <!-- ON SITE -->
+            <div ng-if="contextSite()">
+              <div class="feedback-description">
+              <span ng-if="user.isAuthenticated()">Bonjour <span class="text-capitalize">{{user.display()}}</span>,&nbsp;</span>
+              Vous pouvez contacter l'équipe  <span class="bold">Karibou</span> ici.
+              </div>
+              
+            </div>
+            <input  placeholder="Votre adresse email " type="email" class="smallx form-control"
+                    ng-model="feedback.email" ng-hide="user.isAuthenticated()" style="border:none">
+            <!-- FORM CONTENT -->
+            <select class="smallx form-control" ng-if="contextSite()"
+                    ng-model="feedback.mood" ng-options="mood for mood in feedback.moods"></select>
+            <textarea placeholder="Merci d'écrire votre commentaire ici" 
+                      ng-model="feedback.comment" 
+                      class="form-control" >
+            </textarea>
+          </div>
+          <div unselectable="on" class="feedbackform-footer">
+            <a href="#" class="btn btn-transparent" ng-click="feedback.show=false">Annuler</a>
+            <div title="Send a screenshot of this site." 
+                 class="btn btn-info"
+                 ng-click="sendComment()"
+                 ng-disabled="disableFeedbackButton()">Envoyer</div>
+          </div>
+        </div>
+      </div>      

@@ -48,9 +48,16 @@
 }
 
 label, input, button, select, textarea {
-    font-size: 18px;
-    line-height: 1.4em;
+    font-size: 17px;
+    line-height: 1.5em;
     vertical-align: baseline;
+    color: #999;
+    font-weight: 400;    
+}
+
+.input-lg{
+    font-size: 14px;
+    font-weight: 400;      
 }
 
 .accout-field-valid{
@@ -98,16 +105,6 @@ label.checkbox{
 }
 
 
-.form-group {
-    clear: both;
-    float: left;
-    margin-bottom: 15px;
-    width: 100%;
-}
-
-.form-group.bottom{
-    margin-top: 10px
-}
 
 .frame{
     box-shadow: 0 0px 1px rgba(0, 0, 0, 0.75) ;
@@ -194,24 +191,21 @@ form.nomargin{
 }
 
 .modal-header{
-  background-image:url(/img/pattern-dark1.jpg);  
+  background-image:none;  
   background-repeat: repeat-x;
   padding: 8px;
-  border-radius: 5px 5px 0 0;  
+  border-radius: 0;  
 
-  background-image: -webkit-linear-gradient(top,#585858 0,#3a3a3a 100%);
-  background-image: linear-gradient(top,#585858 0,#3a3a3a 100%);
-  -webkit-box-shadow: inset 0 1px 0 rgba(255,255,255,.2);
   box-shadow: inset 0 1px 0 rgba(255,255,255,.2);  
 }
 
 .modal-header .close{
-  padding: 6px;
+  padding: 10px;
 }
 .modal-header h3,.modal-header h4, .modal-header h5{
-  padding-top: 3px;
+  padding-top: 10px;
   padding-left: 10px;
-  color: white;
+  color: #452d16;
 }
 
 
@@ -220,6 +214,14 @@ form.nomargin{
   min-height:480px;
   -max-height:700px!important;
 }
+
+.modal-body .modal-ul{
+  padding-left: 10px;
+}
+.modal-body .modal-ul li{
+  margin-bottom:20px;
+}
+
 .modal-body.gradient{
   background-image: -moz-linear-gradient(center top , #eee 0px, #efefef 60%);
   background-image: -webkit-gradient(linear, 0 0, 0 15%, from(#eee), to(#efefef));
@@ -247,7 +249,6 @@ form.nomargin{
 
 .modal-body div.details{
   margin-top: 5px;
-  border-top: 1px dotted rgb(207, 207, 207);
   padding-top: 10px;  
 }
 

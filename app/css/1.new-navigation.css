@@ -1,0 +1,54 @@
+/* NAV BAR */
+
+nav.navbar-fixed-top{
+  background-color: white!important;
+  border-width: 0 0 0px;
+}
+
+html.app-shop nav.navbar-fixed-top{
+  opacity: .85;
+}
+
+html.app-shop nav.subnavbar-top{
+  opacity: .9;
+  margin-left: 40%;
+  display: none;
+}
+
+html           .admin-show    { display: none;}
+html.app-admin .admin-show    { display: block;}
+html.app-admin .admin-show-inline    { display: inline;}
+
+/*html.app-admin nav.navbar-fixed-top .btn-cart, html.app-admin footer{
+  display: none!important;
+}*/
+
+
+/*html.app-admin nav.navbar-fixed-top.subnavbar-top{
+  -display: none!important;
+}*/
+
+html.app-admin [ng-view]{
+}
+
+
+html.app-shop nav.navbar-fixed-top .container{
+  width: initial;
+  margin-right: -16px;
+}
+
+html.app-shop nav.navbar-fixed-top .app-hide{
+}
+
+/*hide and show navbar*/
+html.app-shop .navbar-brand-home{
+  display: none!important;
+}
+
+html.app-shop .navbar-brand-shop{
+  display: block!important;
+}
+
+html.app-shop .navbar-brand img{
+  display: none!important;
+}

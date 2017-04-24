@@ -1,79 +1,42 @@
 
 <!-- PRODUCTS FORM -->
-<table class="table  table-responsive "
-       ng-init="options.orderByField='pricing.stock';reverseSort=false">
-  <thead>
-    <tr>
-      <th style="width:40%">
-        <a href="" ng-click="options.orderByField='vendor.name';reverseSort=!reverseSort">
-          #sku
-        </a>
-      </th>
-      <th>
-          boutique
-      </th>
-      <th style="width:40px" title="Les produits disponibles à la vente">visible</th>
-      <th style="width:80px" class="hide">
-        <a href="" ng-click="options.orderByField='weight';reverseSort=!reverseSort">poids</a>
-      </th>
-      <th style="width:80px">
-        <a href="" ng-click="options.orderByField='pricing.stock';reverseSort=!reverseSort">stock</a>
-      </th>
-      <th style="width:100px">prix</th>
-      <th style="width:110px" class="text-center small">prix promotion</th>
-      <th style="width:40px"  class="text-center small" ng-if="user.isAdmin()">home</th>
-      <th>-</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr ng-repeat-start="product in products|filter:options.filterTxt|orderBy:options.orderByField:reverseSort" >
-    </tr>
-    <tr ng-repeat-end  
-        ng-class="{'info':isProductDirty(product),'warning':!product.attributes.available}">
-      <td ng-init="initProductState(product)">
-        <a ng-href="/products/{{product.sku}}">{{product.title}}</a>
-      </td>
-      <td>{{product.vendor.urlpath}}</td>
-
-      <!-- DISPO -->
-      <td>
-        <input type="checkbox" ng-checked="product.attributes.available" ng-model="product.attributes.available" >        
-      </td>
-
-      <!-- WEIGTH -->
-      <td class="hide">
-        <input type="text" type="number"
-        ng-model="product.pricing._weight"   class="form-control">
-      </td>
-
-      <!-- STOCK -->
-      <td>
-        <input type="text" type="number"
-        ng-model="product.pricing._stock"   class="form-control">
-      </td>
-      <td>
-        <input type="text" type="number"
-        ng-model="product.pricing._price"  class="form-control">
-      </td>
-      <!-- DISCOUNT -->
-      <td>
+<table ng-table="tableParams" class="table table-condensed table-bordered table-striped">
+  <tr ng-repeat="product in $data">
+    <td data-title="'SKU'" filter="{'title':'text'}">
+      <a ng-href="/products/{{::product.sku}}">{{::product.title}}</a>
+        &nbsp;<a ng-href="/products/{{::product.sku}}/edit" class="small link">[edit]</a>      
+    </td>
+    <td data-title="'Boutique'" filter="{'vendor.urlpath':'text'}"  >{{::product.vendor.urlpath}}</td>
+    <td data-title="'Catégorie'" filter="{'categories.name': 'text'}"  sortable="'categories.name'">{{::product.categories.name}}</td>
+    <td data-title="'Visible'" sortable="'attributes.available'">
+      <input type="checkbox" ng-checked="product.attributes.available" ng-model="product.attributes.available" >              
+    </td>
+    <td data-title="'Stock'" sortable="'pricing._stock'">
+      <input type="text" type="number" class="form-control"
+             ng-model="product.pricing._stock"   >      
+    </td>
+    <td data-title="'Prix'">
+      <input type="text" type="number" class="form-control"
+             ng-model="product.pricing._price"   >            
+    </td>
+    <td data-title="'Promotions'" sortable="'attributes.discount'">
         <div class="input-group" ng-class="{'discount':product.attributes.discount}">
           <span class="input-group-addon">
             <input type="checkbox" ng-checked="product.attributes.discount" ng-model="product.attributes.discount">
           </span>
           <input type="text" class="form-control" type="number" ng-disabled="!product.attributes.discount" ng-model="product.pricing.discount">
         </div>      
-      </td>
-      <!-- HOME -->
-      <td ng-if="user.isAdmin()" >
-        <input type="checkbox" ng-checked="product.attributes.home" ng-model="product.attributes.home" >        
-      </td>
-      <td style="width:43px;">
-        <button type="button" ng-click="saveProduct(product);"
-                ng-show="isProductDirty(product)"
-                class="btn btn-primary btn-xs"><i class="fa fa-save"></i></button>
-      </td>
-    </tr>
-  </tbody>
+    </td>
+    <td data-title="'Home'" sortable="'attributes.home'">
+      <input type="checkbox" ng-checked="product.attributes.home" ng-model="product.attributes.home" >        
+    </td>
+    <td data-title="'-'">
+      <button type="button" ng-click="saveProduct(product);"
+              ng-show="isProductDirty(product)"
+              class="btn btn-primary btn-xs"><i class="fa fa-save"></i></button>
+
+    </td>
+  </tr>
 </table>
 
+{{vendors}}

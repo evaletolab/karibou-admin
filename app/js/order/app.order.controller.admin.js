@@ -3,12 +3,13 @@
 //
 // Define the Order module (app.shop)  for controllers, services and models
 // the app.shop module depend on app.config and take resources in shop/*.html
-angular.module('app.order.manager', ['app.order.ui','app.config', 'app.api'])
+angular.module('app.order.manager', ['app.config', 'app.order'])
   .controller('OrderAdminCtrl',OrderAdminCtrl);
 
-OrderAdminCtrl.$inject=['$scope', '$routeParams','$timeout','$http','api','order','user','product','config','$log', '$controller','$q'];
-function OrderAdminCtrl($scope,$routeParams, $timeout, $http, api, order, user, product, config, $log, $controller,$q) {
+OrderAdminCtrl.$inject=['$scope', '$routeParams','$timeout','$http','NgTableParams','api','order','user','product','config','$log', '$controller','$q'];
+function OrderAdminCtrl($scope,$routeParams, $timeout, $http, NgTableParams, api, order, user, product, config, $log, $controller,$q) {
   $controller('OrderCommonCtrl', {$scope: $scope}); 
+
 
 
 
@@ -42,43 +43,35 @@ function OrderAdminCtrl($scope,$routeParams, $timeout, $http, api, order, user, 
     return shops;
   };
 
-  //
-  //
-  $scope.selectOrderByShop=function(shop,when,fulfillments){
-    $scope.selected.items=$scope.shops[shop];
-    $scope.selected.shop=shop;
-  };
-
-
-  //
-  // select order 
-  $scope.selectOrder=function (o) {
-    if($scope.selected.order&&$scope.selected.order.oid===o.oid){
-      $scope.selected.order=false;
-      return $scope.selected.items=[];
-    }
-    $scope.selected.items=o.items;
-    $scope.selected.order=o;
-  };
 
   $scope.selectNextOrder=function () {
     $timeout(function () {
-      $('li.list-group-item-active').next().find('div.list-group-item-text').click()  // body...
-    })
+      $('li.list-group-item-active').next().find('div.list-group-item-text').click();  // body...
+    },100);
   };
 
-  $scope.hasNextOrder=function () {
-    return $('li.list-group-item-active').next().length;
+  $scope.hasNextOrder=function (currentOid,when,shop) {
+    // list available order for this shop and shipping day
+    var orders=$scope.filterOrderByShopAndShippingDay($scope.orders,when,shop);
+
+    for (var i = 0; i <orders.length; i++) {
+       if(orders[i].oid===currentOid){return (i+1)<orders.length;}
+    }
+    return false;
   };
 
 
 
   //
   // compute amount for a selected shop
-  $scope.getAmountTotal=function (items) {
+  $scope.getAmountTotal=function (items,when) {
     var total=0;
+      items=items||[];
       items.forEach(function (item) {
-        if(item.fulfillment.status!=='failure'){
+        if(when&& when!==item.when){
+          return;
+        }
+        if(item.fulfillment.status!=='failure' ){
           total+=parseFloat(item.finalprice);
         }
       });
@@ -131,6 +124,7 @@ function OrderAdminCtrl($scope,$routeParams, $timeout, $http, api, order, user, 
     product.attributes._discount=product.attributes.discount;
     product.pricing._stock=product.pricing.stock;
     product.pricing._price=product.pricing.price;
+    return product;
   };
 
   $scope.getDetailledOrderUrl=function (when) {
@@ -229,6 +223,15 @@ function OrderAdminCtrl($scope,$routeParams, $timeout, $http, api, order, user, 
     });
   };
 
+  $scope.updateIssue=function(oid,item,issue){
+    var self=order.find(oid);
+    self.updateIssue(item,issue).$promise.then(function(o){
+      api.info($scope,"Quality enregistré",2000);
+      item.fulfillment.issue=issue;
+    });
+  };
+
+
   $scope.updateCollect=function (shopname,status,when) {
     order.updateCollect(shopname,status,when).$promise
       .then(function (os) {
@@ -240,10 +243,10 @@ function OrderAdminCtrl($scope,$routeParams, $timeout, $http, api, order, user, 
   //
   // get all orders
   $scope.findAllOrders=function(defaultParams){
-
-    var filters=$scope.filters=angular.extend({},$routeParams,defaultParams||{padding:true});
     var today=new Date();
-    if(!defaultParams&&!filters.month &&!filters.when)filters.month=today.getMonth()+1;
+    defaultParams=defaultParams||{};
+    if(defaultParams.month==='now'){defaultParams.month=today.getMonth()+1};
+    var filters=$scope.filters=angular.extend({},defaultParams||{padding:true},$routeParams);
     $scope.loading=true;
 
     $q.all([config.shop,user.$promise]).then(function(){
@@ -295,9 +298,9 @@ function OrderAdminCtrl($scope,$routeParams, $timeout, $http, api, order, user, 
         orders.forEach(function (order) {
           order.vendors.forEach(function (vendor) {
             if($scope.shops.indexOf(vendor.slug)===-1){
-              $scope.shops.push(vendor.slug)
+              $scope.shops.push(vendor.slug);
             }
-          })
+          });
         });
         
         if($scope.shops.length===1){
@@ -307,6 +310,7 @@ function OrderAdminCtrl($scope,$routeParams, $timeout, $http, api, order, user, 
         // group by shop?
         if(filters.groupby==='shop'){
           $scope.shops=$scope.groupByShops(orders);
+          $scope.shopsSlug=Object.keys($scope.shops).sort();
           if(!filters.s)$scope.filters.s=Object.keys($scope.shops)[0];
         }
 
@@ -327,26 +331,56 @@ function OrderAdminCtrl($scope,$routeParams, $timeout, $http, api, order, user, 
     $scope.activities=[];
     $http({url:$scope.config.API_SERVER+'/v1/activities',method:'GET',params:activity}).success(function(activities){
       $scope.activities=activities;
-    })
+    });
 
   };
 
-  $scope.loadAllProducts=function(){
+
+  var deferVendors=$q.defer(), deferCat=$q.defer();
+  $scope.categories=deferCat.promise;
+  $scope.vendors=deferVendors.promise;    
+  $scope.loadAllProducts=function(opts){
+    var vendors=[],cats=[];
     $scope.loading=true;
     $scope.options.orderByField='pricing.stock';
 
 
     user.$promise.then(function(){
-      var params={sort:'categories.weight',shopname:$scope.filters.shops};
+      var params=_.extend({},{sort:'categories.weight',shopname:$scope.filters.shops},opts||{});
+
       // filter with the user shop
       if(!user.isAdmin()){
-        params.shopname=user.shops[0].urlpath;
+        params.shopname=_.map(user.shops,'urlpath');
+        $scope.shopsSelect=user.shops;
       }
 
-      $scope.products=product.query(params,function(products){
-        $scope.products=products;
+      $scope.products=product.query(params,function(products){                
+        $scope.products=products.filter($scope.initProductState);
         $scope.loading=false;
+        vendors=products.map(function(prod){
+          if(!prod.vendor)return 'none';
+          return prod.vendor.urlpath;
+        });
+        cats=products.map(function(prod){
+          return prod.categories.name;
+        });
+        $scope.tableParams.settings({
+          dataset: products
+        });        
+        deferVendors.resolve(_.uniq(vendors));
+        deferCat.resolve(_.uniq(cats));
       });
+
+      $scope.tableParams=new NgTableParams({
+        // initial filter
+        // filter: { name: "T" }
+        count:50 
+      }, {
+        // getData:$scope.products
+        dataset:$scope.products
+      });
+      
+
 
     });
   };

@@ -1,65 +1,36 @@
 
 
-.wrapheight{
-  main-height:100%;
-  height:auto!important;
-  height:100%;
-  margin:0 auto ;
+.footer a {
+  color: #000;
+  text-decoration: none;
 }
 
-div.footer {
-    height:350px;
-    background: none repeat scroll 0 0 #0B1902;
-    margin:350px 0px 0px 0px;
-    width:100%;
-    float:left;
-    border-top:1px dotted #00aa00;
 
-}
 
-div.footer ul li.title {
-    border-bottom:1px solid #2F372A;
-    color: #FFFFFF;
-    font-size: 14px;
-    margin-bottom: px !important;
-}
-.p10 {
-    margin-bottom: 10px !important;
-}
-div.footer ul li {
-    color: #F5F5F5;
-    line-height: 24px;
+.footer {
+  float: left;
+  width: 100%;
+  clear: both;
+  bottom: 0;
+  margin-bottom: -20px;
+  width: 100%;
+  /* Set the fixed height of the footer here */
+  min-height: 250px;
+  color: #fff;
+  padding: 20px;
+  background-color: #c4b19c;
+  background: linear-gradient( #c4b19c, #c4b19c);
+  padding-top: 40px;
 }
 
-div.footer ul li a {
-    color: #666666;
-}
-div.footer ul li a {
-    color: #888888;
-}
-div.footer ul{
-  list-style:none outside none
+.footer > .container {
+  padding-right: 15px;
+  padding-left: 15px;
 }
 
-div.footer .border{
-  border-bottom:1px solid #2F372A;
-  padding: 10px 0px;
+.app-shop .footer{
+  display: none;
 }
-
-div.footer .last{
-  padding: 10px 0px;
-  padding-bottom:150px;
-}
-
-div.footer h1, div.footer h2{
-  color:#ccc;
-  text-shadow:0 0px 13px #444;
-  text-align:center ;
-}
-div.footer h2{
-    font-size: 18px;  
-}
-
 
 /* Desktop large
 ------------------------- */
@@ -82,27 +53,11 @@ div.footer h2{
 ------------------------- */
 @media (max-width: 767px) {
 
-  /* Unfloat the back to top link in footer */
-  div.footer {
-    margin-left: 0px;
-    margin-right: 0px;
-    padding-left: 0px;
-    padding-right: 0px;
-  }
-  .footer p {
-    margin-bottom: 9px;
-  }
 }
 
 /* Landscape phones
 ------------------------- */
 @media (max-width: 480px) {
-
-  /* Tighten up footer */
-  div.footer {
-    padding-top: 20px;
-    padding-bottom: 20px;
-  }
 }
 
 

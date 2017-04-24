@@ -1,15 +1,21 @@
 
 
-.document{
-	margin-top: 10px;
+.document.edit{
+	margin-top: 80px;
 }
 
+.sidebar-block{
+	float: right;
+  padding: 10px;
+  border-radius: 4px;
+  background-color: #eee;	
+}
 .edit.document h1{
 	border-bottom:1px solid #eee;
 }
 
 .edit.document h1.title, .edit.document h2.title, .edit.document h3.title, .edit.document h4.title{
-    margin-bottom: -12px;
+    margin-bottom: 0px;
     margin-top: 20px;
     color: #aaa;
     letter-spacing: -1px;
@@ -26,11 +32,6 @@
 }
 
 
-.document p{
-	margin: 0px;
-  letter-spacing: -1px;
-}
-
 .edit.document label.valid{
 	padding: 10px;
   background-color: pink;	
@@ -43,4 +44,101 @@
 
 .document img{
 	max-width:100%;
+}
+
+.document .btn-bundle{
+	display: none;
+}
+
+
+/* Document Cards
+-------------------------------------------------- */
+.document-card{
+  background: transparent;
+  color: #fff;
+  display: block;
+  margin: 0px auto 18px;  
+  height: 400px;
+  padding: 0px 4px 0px 0px;
+  overflow: hidden;
+  width: 50%;
+  float: left;
+}
+
+
+.document-card:hover{
+	  box-shadow: 0 3px 12px rgba(0, 0, 0, .175);
+}
+
+.document-card>a {
+  outline: 0;
+}
+
+.document-card .photo {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+  background-color: transparent;
+  outline: 0;
+  border: 0;
+  color: white;
+  position: relative;
+  background-size: cover;
+  background-position:50% 30%;
+  overflow: hidden;
+	
+}
+
+
+
+
+.document-card .item-content {
+    font-size: 14px;
+    font-style: italic;
+    margin-bottom: 2px;
+}
+
+
+.document-card .item-title h1, 
+.document-card .item-title h2, 
+.document-card .item-title h3{
+  color: white;
+}
+
+.document-card .item-title{
+  color: white;
+  text-shadow: 0 0 1px rgba(0, 0, 0, 0.13);
+  position: absolute;
+  top: 0px;
+  right: 0;
+  left: 0;
+  padding: 15px;
+  background-color: rgba(107, 107, 107, 0.13);  
+}
+
+.document-card .item-footer {
+  font-size: 14px;
+  position: absolute;
+  color: white;
+  bottom: 0px;
+  right: 0;
+  left: 0;
+  padding: 8px;
+  text-shadow: 0 0 1px rgba(0, 0, 0, 0.13);
+}
+
+
+.document-card .item-footer .signature{
+  color: #eee;
+  text-shadow: 0 0 1px rgba(0, 0, 0, 0.53);
+  position: absolute;
+  bottom: 0px;
+  padding: 10px;
+}
+
+
+@media (max-width: 767px) {
+  .document-card{
+  }
 }

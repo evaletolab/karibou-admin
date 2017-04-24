@@ -9,7 +9,7 @@
     </tr>
   </thead>
   <tbody>
-    <tr ng-repeat="product in repport.products">
+    <tr ng-repeat="product in repport.products|orderBy:['-count','-amount']">
       <td>{{product.title}}</td><td>{{product.count}}</td><td>{{product.amount|number:2}}</td>
     </tr>
   </tbody>

@@ -50,12 +50,6 @@
      -moz-box-sizing: border-box;
           box-sizing: border-box;
 }
-.stick.form-control:nth-child(odd){
-  border-radius: 5px 5px 0 0;
-}
-.stick.form-control:nth-child(even){
-  border-radius:  0 0 5px 5px;
-}
 
 .form-account .login.form-control.mainpassword{
   margin-bottom: 0;
@@ -67,12 +61,9 @@
 }
 .form-account input[type="text"],.form-account input[type="email"] {
   margin-bottom: 10px;
-  border-radius: 5px;
-
 }
 .form-account input[type="password"] {
   margin-bottom: 10px;
-  border-radius: 5px;
 }
 
 .form-account .accout-field-valid{

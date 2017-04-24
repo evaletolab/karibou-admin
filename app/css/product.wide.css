@@ -117,8 +117,20 @@ img.photo-owner{
   font-size: 17.5px;
 }
 
+.popupcontent div.description img{
+  width: 100%;
+}
+
 .popupcontent div.description p{
   margin: 0 0 10px;
+}
+
+.popupcontent div.description h1, 
+.popupcontent div.description h2, 
+.popupcontent div.description h3{
+  margin-top: 20px;
+  margin-bottom: 10px;
+  border-bottom: 1px solid #efefef;
 }
 
 .popupcontent div.description small, .popupcontent div.description .small {
@@ -158,9 +170,6 @@ img.photo-owner{
   color: black;
 }
 
-.popupcontent div.quick-stock>p,.popupcontent div.product-document p{
-  margin-bottom: 10px;
-}
 
 .popupcontent div.quick-stock{
   padding:10px 20px;

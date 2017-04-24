@@ -3,7 +3,7 @@
   <form class=" nomargin product-create "  id="popup"
         name="f_product" novalidate style="overflow:hidden">
     <div class="modal-header">
-      <a compute-url class="close on-close" >&times;</a>
+      <a  class="close on-close" >&times;</a>
       <h4 ng-show="product.sku">Modifier le produit {{product.sku}}</h4>
       <h4 ng-hide="product.sku">Ajouter un produit</h4>
     </div>
@@ -36,6 +36,8 @@
                     <label class="control-label">Détails </label> 
                     <div class="col-xs-12 " >
                       <label><input type="checkbox" name="details" value="BIO"    ng-model="product.details.bio">Certifié Bio </label>
+                      <label><input type="checkbox" name="details" value="BIO"    ng-model="product.details.biodynamics"> Biodynamie </label>
+                      <label><input type="checkbox" name="details" value="BIO"    ng-model="product.details.bioconvertion"> Bioconversion </label>
                       <label><input type="checkbox" name="details" value="Locale" ng-model="product.details.local">Production Locale </label>
                       <label><input type="checkbox" name="details" value="Artisanale" ng-model="product.details.homemade">Fabrication artisanale</label> 
                       <label><input type="checkbox" name="details" value="Naturel" ng-model="product.details.natural">Sans chimie de synthèse </label>
@@ -45,13 +47,13 @@
                     </div>
                     <div class="col-xs-12 col-sm-6 details">
                       <label><input type="checkbox" name="shelflife" ng-model="product.shelflife.display">Afficher l'information de péremption </label>
-                      <input  type="text" placeholder="Se conserve 3 jours" 
+                      <input  type="text" placeholder="ex. Se conserve 3 jours" 
                               class=" form-control" ng-model="product.shelflife.comment" ng-disabled="!product.shelflife.display">
                     </div>
                     <div class="col-xs-12 col-sm-6 details">
 
                       <label><input type="checkbox" name="quantity"     ng-model="product.quantity.display">Afficher l'information de quantité </label>
-                      <input  type="text" placeholder="Convient pour 1-2 personnes" 
+                      <input  type="text" placeholder="ex. Convient pour 1-2 personnes" 
                               class=" form-control" ng-model="product.quantity.comment" ng-disabled="!product.quantity.display">
 
                       
@@ -117,16 +119,18 @@
                     <div class="form-group">
                       <label class="control-label ">Catégorie </label> 
                       <div class=" small">
-                        <select  ng-model="product.categories " class="form-control " required >
-                          <option ng-repeat="cat in category.findAll()| filter:{type:'Category'}" 
-                                  ng-selected="(product.categories._id||product.categories)==cat._id" value="{{cat._id}}" >{{cat.name}}</option>
+                        <select  ng-model="product.categories " 
+                                 class="form-control " required
+                                 ng-options="cat._id as cat.name for cat in category.findAll()| filter:{type:'Category'} track by cat._id">
                         </select>
                       </div>
                     </div>
                   </div>
                 </div>
                 <!-- END TWO COLUMNS -->
-                
+<!--                           <option ng-repeat="cat in category.findAll()| filter:{type:'Category'}" 
+                                  ng-selected="(product.categories._id||product.categories)==cat._id" value="{{cat._id}}" >{{cat.name}}</option>
+ -->                
             </div>
             <!-- VARIANT -->
 
@@ -160,10 +164,10 @@
                   <div class="col-xs-5">
                     <!-- prix-->
                     <div class="form-group">
-                      <label class="control-label">Prix</label>
+                      <label class="control-label">Prix (TVA inc.) </label>
                       <div class=" ">                      
                         <input name="price" type="text" placeholder="exemple 10.50" class="input-lg form-control " ng-model="product.pricing.price" required >                      
-                        <p class="help-block gray">Le prix en CHF</p>
+                        <p class="help-block gray">Le prix en CHF TVA inc.</p>
                       </div>
                     </div>
 
@@ -174,6 +178,25 @@
                       <div class="">
                         <input  name="stock" type="text" placeholder="exemple 10" class="input-lg form-control" ng-model="product.pricing.stock" required>
                       </div>
+                    </div>
+
+                    <!-- TVA -->
+                    <div class="form-group">
+                      <label class="control-label">TVA produit</label>
+    <div class="radio">
+      <label><input type="radio" name="TVA" value="0" checked="" 
+                    ng-model="product.pricing.tva">
+        0%
+      </label>
+      <label><input type="radio" name="TVA" value="0.025" 
+                    ng-model="product.pricing.tva">
+        2.5%
+      </label>
+      <label><input type="radio" name="TVA" value="0.08" 
+                    ng-model="product.pricing.tva">
+        8%
+      </label>
+    </div>
                     </div>
 
                   </div>            
@@ -270,7 +293,7 @@
           </div>
 
         </div>
-        <a id="close-product-editor"  class="btn  " compute-url>Fermer</a>
+        <a id="close-product-editor"  class="btn  " href="javascript:window.history.back();">Fermer</a>
         <button type="submit" ng-show="product.sku" class="btn  btn-danger" confirm-delete="remove(product,password);">Supprimer</button>
 
         <button type="submit" ng-show="product.sku" ng-disabled="f_product.$invalid || WaitText" 

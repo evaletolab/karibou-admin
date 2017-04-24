@@ -966,7 +966,7 @@ function ngViewFactory($route, $anchorScroll, $animate) {
               && !next.$$route.view && next.$$route && (lastMainViewTemplate===next.$$route.templateUrl)){
             return;
           }
-          if (!attr.ngView && next){
+          if (!attr.ngView && next &&next.$$route){
             lastMainViewTemplate=next.$$route.templateUrl;
           }
             

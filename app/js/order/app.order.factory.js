@@ -3,7 +3,7 @@
 //
 // Define the Order module (app.order)  for controllers, services and models
 // the app.shop module depend on app.config and take resources in order/*.html
-angular.module('app.order')
+angular.module('app.order',[])
   .factory('order',orderFactory);
 
 
@@ -76,49 +76,6 @@ function orderFactory(config, $resource, $q, user,shop, api, cart) {
     return all;
   };
 
-  /* return array of one week of shipping days available for customers*/
-  Order.prototype.findOneWeekOfShippingDay=function(timeLess, from){
-    var next=this.findNextShippingDay(0,0,from), result=[], all=[next], today=new Date(), nextDate, nextDay;
-
-    config.shop.order.weekdays.forEach(function(day){
-      if(day==next.getDay()){
-        return;
-      }
-
-      nextDay=(day>next.getDay())? (day-next.getDay()):(7-next.getDay()+day);
-      nextDate=new Date(nextDay*86400000+next.getTime());
-      
-      if(Math.round((nextDate.getTime()-today.getTime())/86400000)>6)
-        {return;}
-      if(config.shop.order.weekdays.indexOf(nextDate.getDay())===-1)
-        {return;}
-      all.push(nextDate);
-
-    });
-
-    // sorting dates
-    all=all.sort(function(a,b){
-      // Turn your strings into dates, and then subtract them
-      // to get a value that is either negative, positive, or zero.
-      return a.getTime() - b.getTime();
-    });
-
-    //
-    // construct object with delivery options
-    var elem=0;
-    all.forEach(function(next,idx){
-      for(var k in config.shop.order.shippingtimes){
-
-        next.setHours(k,0,0,0);
-        result.push({id:elem++,when:new Date(next),time:config.shop.order.shippingtimes[k]});
-        // we dont want shipping times precision
-        if(timeLess) {return;}
-      }
-    });
-
-    return result;
-
-  };
 
   /* return the next shipping day available for customers*/
   Order.prototype.findNextShippingDay=function(tl,th,date){
@@ -169,8 +126,33 @@ function orderFactory(config, $resource, $q, user,shop, api, cart) {
     return this.findNextShippingDay(0.1,timelimitH);
   };
 
+  //
+  // get amount after (shipping+fees) deductions
+  Order.prototype.getExtraDiscount=function(){
+    var total=this.getTotalPrice();
+    var subtotal=this.getSubTotal();
+    return subtotal-total;    
+  };
 
-  Order.prototype.getTotalPrice=function(factor){
+  //
+  // get amount of discount for this order
+  Order.prototype.getTotalDiscount=function() {
+    var amount=0;
+
+    this.vendors.forEach(function(vendor) {
+      amount+=(vendor.discount.finalAmount||0);
+    });
+
+    return amount;
+  };
+
+  Order.prototype.getFees=function(amount){
+    var order=this;
+    return parseFloat((this.payment.fees.charge*amount).toFixed(2));
+  };
+
+
+  Order.prototype.getSubTotal=function(){
     var total=0.0;
     if(this.items){
       this.items.forEach(function(item){
@@ -182,23 +164,39 @@ function orderFactory(config, $resource, $q, user,shop, api, cart) {
       });
     }
 
+    return parseFloat((Math.round(total*20)/20).toFixed(2));
+  };
+
+
+  //
+  // stotal = items + shipping - total discount
+  //  total = stotal + stotal*payment.fees
+  // WARNNG -- WARNNG -- WARNNG -- edit in all places 
+  Order.prototype.getTotalPrice=function(factor){
+    var total=0.0;
+    if(this.items){
+      this.items.forEach(function(item){
+        //
+        // item should not be failure (fulfillment)
+        if(item.fulfillment.status!=='failure'){
+          total+=item.finalprice;
+        }
+      });
+    }
     // before the payment fees! 
     // add shipping fees 
     total+=this.getShippingPrice();
 
+    // 
+    // remove discout offer by shop
+    total-=this.getTotalDiscount();
+
     //
     // add gateway fees
-    for (var gateway in config.shop.order.gateway){
-      gateway=config.shop.order.gateway[gateway];
-      if (gateway.label===this.payment.issuer){
-        total+=total*gateway.fees;
-        break;
-      }
-    }
+    total+=this.payment.fees.charge*total;
 
     // add mul factor
     if(factor){total*=factor;}
-
 
     return parseFloat((Math.round(total*20)/20).toFixed(2));
   };
@@ -206,7 +204,7 @@ function orderFactory(config, $resource, $q, user,shop, api, cart) {
   Order.prototype.getShippingPrice=function(){
       // check if value exist, (after creation) 
     if(this.payment.fees &&
-       this.payment.fees.shipping!=null){
+       this.payment.fees.shipping!==null){
       return this.payment.fees.shipping;
     }
 
@@ -234,14 +232,8 @@ function orderFactory(config, $resource, $q, user,shop, api, cart) {
     total+=this.getShippingPrice();
 
     //
-    // add gateway fees
-    for (var gateway in config.shop.order.gateway){
-      gateway=config.shop.order.gateway[gateway];
-      if (gateway.label===this.payment.issuer){
-        total+=total*gateway.fees;
-        break;
-      }
-    }
+    // add gateway fees    
+    total+=this.payment.fees.charge*total;
 
     // add mul factor
     if(factor){total*=factor;}
@@ -274,7 +266,7 @@ function orderFactory(config, $resource, $q, user,shop, api, cart) {
 
   Order.prototype.getShippingLabels=function(){
       var when=new Date(this.shipping.when);
-      var time=config.shop.order.shippingtimes[when.getHours()];
+      var time=cart.shippingTimeLabel(this.shipping.hours);
       var date=moment(when).format('dddd DD MMM YYYY', 'fr');
 
       return {date:date,time:time};
@@ -338,8 +330,7 @@ function orderFactory(config, $resource, $q, user,shop, api, cart) {
       return "La commande est en attente de traitement";
     }
     var labels=this.getShippingLabels();
-
-    return "Livrée le "+labels.date +' de '+labels.time;
+    return "Livrée le "+labels.date +' entre '+labels.time;
 
   };
 
@@ -381,12 +372,23 @@ function orderFactory(config, $resource, $q, user,shop, api, cart) {
 
   Order.prototype.updateItem=function(item,fulfillment, cb){
     var tosave=angular.copy(item), me=this;
+    tosave.fulfillment.finalprice=parseFloat(item.fulfillment.finalprice);
     tosave.fulfillment.status=fulfillment;
     this.chain(backend.$order.save({action:this.oid,id:'items'},[tosave]).$promise).$promise.then(function () {
-      _.find(me.items,function(i){return i.sku===item.sku}).fulfillment.status=fulfillment;
-    })
+      _.find(me.items,function(i){return i.sku===item.sku;}).fulfillment.status=fulfillment;
+    });
     return this;
   };
+
+  Order.prototype.updateIssue=function(item,issue, cb){
+    var tosave=angular.copy(item), me=this;
+    tosave.fulfillment.issue=issue;
+    this.chain(backend.$order.save({action:this.oid,id:'issue'},[tosave]).$promise).$promise.then(function () {
+      _.find(me.items,function(i){return i.sku===item.sku;}).fulfillment.issue=issue;
+    });
+    return this;
+  };
+
 
   Order.prototype.updateShipping=function(oid,status){
     return this.chain(backend.$order.save({action:oid,id:'shipping'},{amount:status}).$promise);
@@ -397,7 +399,7 @@ function orderFactory(config, $resource, $q, user,shop, api, cart) {
   };
 
   Order.prototype.updateCollect=function(shopname,status,when){
-    return this.chain(backend.$order.collect({action:shopname,id:'collect'},{status:status,when:when}).$promise)
+    return this.chain(backend.$order.collect({action:shopname,id:'collect'},{status:status,when:when}).$promise);
   };
 
   Order.prototype.findOrdersByUser=function(user){

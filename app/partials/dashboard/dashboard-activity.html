@@ -1,59 +1,68 @@
 <div class="dashboard" ng-controller="OrderAdminCtrl">
 
-  <!-- MENU -->
-  <nav  class="navbar navbar-inverse navbar-fixed-top" role="navigation"
-        ng-include="'/partials/dashboard/dashboard-header.html'"></nav>
 
 
-  <div class="container-fluid" ng-init="loadActivities()">
-    <div class="row">
-      <!-- SIDEBAR MENU -->
-      <div class="col-xs-8 col-sm-4 col-lg-2 sidebar " 
-           ng-include="'/partials/dashboard/dashboard-sidebar.html'" 
-           ng-class="{'menu-off':!options.showMenu}">
-      </div>
-      <div class="col-xs-12  nopadding-xs">
-        <h1 class="page-header">Suivi de l'activité 
-            <button class="btn btn-transparent btn-md" ng-click="loadActivities(_activity)"><i class="fa fa-refresh"></i></button>
-        </h1>
+  <div class="clearfix" ng-init="loadActivities()">
 
-        <form class="form-inline">
-          <div class="form-group">
-            <input type="text" class="form-control form-inline"  placeholder="Nom" ng-model="_activity.email">
-            <input type="text" class="form-control "  placeholder="Type" ng-model="_activity.what">
-            <input type="text" class="form-control"  placeholder="Mois" ng-model="_activity.month">
-            <input type="text" class="form-control"  placeholder="Année" ng-model="_activity.year">            
-          </div>
-          
-        </form>
+    <div class="card">
+        <div class="card-header navbar">
+          <a class="navbar-brand green" href="" toggle-on-click="#order-filter"><i class="fa fa-tasks fa-fw"></i>  Réglage <i class="fa fa-caret-down"></i></a>
+          <span class="navbar-text  " >L'activité</span>          
+        </div>
+        <div class="card-header ch-alt m-b-20">
+            <h2>
+              Les activitées
+              <small>Toutes les activités qui concernent les produits, boutiques, commandes, paiements, etc
+            </h2>
+            <ul class="actions hide">
+                <li>
+                    <a href="" ><i class="zmdi zmdi-refresh"></i></a>
+                </li>
+            </ul>
 
+        </div>
+        <div class="card-body card-padding hide clearfix " style="padding-top:0" id="order-filter">
+          <form class="form-inline">
+            <div class="form-group" style="width:100%">
+              <input type="text" class="form-control form-inline"  placeholder="Nom" ng-model="_activity.email">
+              <input type="text" class="form-control "  placeholder="Type" ng-model="_activity.what">
+              <input type="text" class="form-control"  placeholder="Mois" ng-model="_activity.month">
+              <input type="text" class="form-control"  placeholder="Année" ng-model="_activity.year">            
+
+              <button class="btn btn-info btn-md pull-right" ng-click="loadActivities(_activity)"><i class="fa fa-refresh"></i></button>
+            </div>
+          </form>
+
+        </div>
+    </div>
+
+
+
+    <div class="dashboard-content">
         <!-- FORM -->
-          <table class="table  table-responsive ">
-            <thead>
-              <tr>
-                <th>who</th>
-                <th>what</th>
-                <th>content</th>
-                <th>when</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr ng-repeat="activity in activities|orderBy:'-when'">
-                <td class="small">
-                    <a ng-href="{{activity.who.email}}" title="{{activity.who.id}}" class="text-capitalize">
-                      {{activity.who.name}}
-                    </a>
-                </td>
-                <td>{{activity.what.type}} - {{activity.what.id}} - {{activity.what.action}}</td>
-                <td>{{activity.content}}</td>
-                <td>{{activity.when|dateLabelShort}}</td>
-              </tr>
-            </tbody>
-          </table>
-
-
-      <!-- FOOTER -->              
-      </div>
+        <table class="table  table-responsive ">
+          <thead>
+            <tr>
+              <th>who</th>
+              <th>what</th>
+              <th>content</th>
+              <th>when</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="activity in activities|orderBy:'-when'">
+              <td class="small">
+                  <a ng-href="{{activity.who.email}}" title="{{activity.who.id}}" class="text-capitalize">
+                    {{activity.who.name}}
+                  </a>
+              </td>
+              <td>{{activity.what.type}} - {{activity.what.id}} - {{activity.what.action}}</td>
+              <td>{{activity.content}}</td>
+              <td>{{activity.when|dateLabelShort}}</td>
+            </tr>
+          </tbody>
+        </table>
+      
     </div>
   </div>
 </div>

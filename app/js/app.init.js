@@ -4,7 +4,7 @@
 // chromium-browser --ignore-gpu-blacklist --disable-gpu-sandbox
 // var API_SERVER='http://api.karibou.ch'
 // var API_SERVER='http://localhost:4000';
-var API_SERVER='//api.'+window.location.hostname;
+ var API_SERVER='//api.'+window.location.hostname;
 // var API_SERVER='http://192.168.1.35:4000'
 // var API_SERVER='http://karibou-evaletolab.rhcloud.com'
 // var API_SERVER='http://karibou-api.jit.su'
@@ -17,35 +17,37 @@ angular.module('app', [
   'ngRoute',
   'ngSanitize',
   'ngTouch',
-  'ngCMS',
-  'ngAnimate',
-  'ngUploadcare',  
+  'ngTable',
+//  'ngAnimate',
+  'flash',
+  'pascalprecht.translate',
   'infinite-scroll',
   'angular.filter',
   'app.templates',
   'app.config',
   'app.storage',
-  'app.raven',
-  'app.api',
-  'app.root',
+  'app.uploadcare',
+  'app.map',
+  'app.modal',
   'app.user',
+  'app.api',
   'app.feedback',
+  'app.document',  
+  'app.document.ui',  
+  'app.root',
+  'app.user.controller',
   'app.shop',
   'app.product',
   'app.category',
-  'app.order',
+  'app.cart',
   'app.order.admin',
   'app.stats',
-  'app.document',
-  'app.wallet',
-  'app.home'
+  'app.wallet'
 ])
   .value('API_SERVER',API_SERVER)
   .config(appConfig)
   .factory('errorInterceptor', errorInterceptor)
-  .factory('cordovaReady',cordovaReady)
   .run(appRun);
-
 
 
 
@@ -126,14 +128,11 @@ function rootScopeFIX($provide) {
     return $rootScope;
   }]);
 }
-//
-// Scroll events can be triggered very frequently, which can hurt performance and make scrolling appear jerky.
-//angular.module('infinite-scroll').value('THROTTLE_MILLISECONDS', 500)
 
 //
 // Configure application $route, $location and $http services.
-appConfig.$inject=['$provide','$routeProvider','$locationProvider','$httpProvider'];
-function appConfig( $provide, $routeProvider, $locationProvider, $httpProvider) {
+appConfig.$inject=['$provide','$routeProvider','$locationProvider','$httpProvider','$translateProvider'];
+function appConfig( $provide, $routeProvider, $locationProvider, $httpProvider,$translateProvider) {
   
   // FIX IOS error
   rootScopeFIX($provide);
@@ -152,26 +151,103 @@ function appConfig( $provide, $routeProvider, $locationProvider, $httpProvider) 
   // List of routes of the application
   $routeProvider
     // Pages
-    .when('/welcome',{templateUrl:'/partials/pages/welcome.html'})
     .when('/the-site-is-currently-down-for-maintenance-reasons', {title:'the site is currently down for maintenance reasons',templateUrl : '/partials/errors/down.html'})
     .when('/about', {title:'about',templateUrl : '/partials/about.html'})
     .when('/page/doc/:article?',{title: 'markdown content', templateUrl: '/partials/pages/page.html'})
     .when('/page/:article?',{title: 'markdown content', templateUrl: '/partials/pages/page.html'})
     // 404
     .when('/404', {title:'404',templateUrl : '/partials/errors/404.html'})
+    .when('/', {title:'dashboard',templateUrl : '/partials/home.html'})
+    .when('/admin', {title:'dashboard',templateUrl : '/partials/home.html'})
     // Catch all
     .otherwise({redirectTo : '/404'});
 
+  //
+  // i18n
+  $translateProvider.translations('en', {
+    /* home */
+    sitetitle:'Site tagline',
+    sitename:'Site name',
+    logout: 'Logout',
+    login: 'Login',
+    formlogintitle:'Have an account ?',
+    formlogincreate:'Or create an account?',
+    /* cart  */
+    /* signup */
+    signup: 'Signup',
+
+    /* payment method */
+    /* address */
+    /* login form*/
+
+    /* user settings */
+    general: 'General',
+    navigation: 'Navigation',
+    users:'Users',
+    activity:'Activity',
+    config:'Settings',
+    publication:'Publications',
+    allpubli:'My publications',
+    security:"Security",
+    password:"Change password",
+    profile:"Update profile",
+    furthermore:"Furthermore"
+    /* order validation 1 */
+    /* order validation 2 */
+    /* order validation 3 */
+    /* order validation 4 */
+  });
+  $translateProvider.translations('fr', {
+    /* home */
+    sitetitle:'Titre du site',
+    sitename:'Nom du site',
+    logout: 'Logout',
+    login: 'Connexion',
+    formlogintitle:'Vous avez déjà un compte ?',
+    formlogincreate:'Ou créer un compte?',
+    /* caddy  */
+    /* inscription */
+    signup: 'S\'inscrire',
+    /* payment method */
+    /* address */
+    /* login form*/
+
+    /* user settings */
+    general: 'Général',
+    navigation: 'Navigation',
+    users:'Utilisateur',
+    activity:'Activité',
+    config:'Configuration',    
+    publication:'Publications',
+    allpubli:"Mes publications",
+    security:"Sécurité",
+    password:"Modifier mon mot de passe",
+    profile:"Mes données personnelles",
+    furthermore:"A lire aussi"
+    /* order validation 1 */
+    /* order validation 2 */
+    /* order validation 3 */
+    /* order validation 4 */
+  });
+
+
+  $translateProvider.preferredLanguage('fr');
+  $translateProvider.useStorage('$storage');
+  $translateProvider.useSanitizeValueStrategy(null);
+
   // Without serve side support html5 must be disabled.
   $locationProvider.html5Mode(true);
+
+  // angular.module('infinite-scroll').value('THROTTLE_MILLISECONDS', 500)
+
   // $locationProvider.hashPrefix('!');
 }
 
 
 // define default behavior for all http request
 // http://www.webdeveasy.com/interceptors-in-angularjs-and-useful-examples/
-errorInterceptor.$inject = ['$q', '$rootScope', '$location', '$timeout'];
-function errorInterceptor($q, scope, $location, $timeout) {
+errorInterceptor.$inject = ['$q', '$rootScope', '$location', '$timeout','Flash'];
+function errorInterceptor($q, scope, $location, $timeout,Flash) {
   var error_net=0;
   function parseError(err){
       if(typeof err === 'string') {return err;}
@@ -189,10 +265,12 @@ function errorInterceptor($q, scope, $location, $timeout) {
   }
 
   function showError($scope, err, ms){
-    $scope.FormErrors=parseError(err);
-    $timeout(function(){
-      $scope.FormErrors=undefined;
-    }, ms||5000);
+    // $scope.FormErrors=parseError(err);
+    // $timeout(function(){
+    //   $scope.FormErrors=undefined;
+    // }, ms||5000);
+    Flash.create('danger', err);
+
   }
 
   return {
@@ -242,7 +320,7 @@ function errorInterceptor($q, scope, $location, $timeout) {
               // if logged but without correct right 
               showError(scope,response.data);            
             }else if(response.config.url.indexOf('/v1/users/me')===-1){
-              showError(scope,"Access denied!")
+              showError(scope,"Access denied!");
             }
           }
 
@@ -257,41 +335,18 @@ function errorInterceptor($q, scope, $location, $timeout) {
 }
 
 
-//
-// boostrap mobile app
-function cordovaReady() {
-  return function (fn) {
-    var queue = [];
-
-    var impl = function () {
-      queue.push(Array.prototype.slice.call(arguments));
-    };
-
-    document.addEventListener('deviceready', function () {
-      queue.forEach(function (args) {
-        fn.apply(this, args);
-      });
-      impl = fn;
-    }, false);
-
-    return function () {
-      return impl.apply(this, arguments);
-    };
-  };
-}
-
 
 //
 // init the module
-appRun.$inject=['gitHubContent', '$templateCache', '$route', '$http','$timeout', 'config'];
-function appRun(gitHubContent, $templateCache, $route, $http, $timeout, config) {
-  gitHubContent.initialize({
-        root:'page', // specify the prefix route of your content
-        githubRepo:config.github.repo,
-        githubToken:config.github.token
-    });
+appRun.$inject=['$templateCache', '$route', '$http','$interval', 'config','Flash','$translate','$rootScope'];
+function appRun($templateCache, $route, $http, $interval, config, flash, $translate,$rootScope) {
+  // gitHubContent.initialize({
+  //       root:'page', // specify the prefix route of your content
+  //       githubRepo:config.github.repo,
+  //       githubToken:config.github.token
+  //   });
 
-
+  // console.log('---------------0',(Date.now()-time));
   // special setup that depends on config 
   config.shop.then(function () {
       // config stripe here
@@ -300,9 +355,12 @@ function appRun(gitHubContent, $templateCache, $route, $http, $timeout, config) 
       //
       // loading Stripe
       setTimeout(function() {
-        console.log('window.Stripe.setPublishableKey',pk,window.Stripe)
-        window.Stripe.setPublishableKey(pk);          
-      }, 500);
+        // console.log('---',config.shop.shippingweek);
+        window.Stripe&&window.Stripe.setPublishableKey(pk);          
+
+        // release the loading effect
+        angular.element('html').removeClass('app-loading');
+      }, 10);
 
       // basket.ready('app').then(function() {
       // })
@@ -311,7 +369,22 @@ function appRun(gitHubContent, $templateCache, $route, $http, $timeout, config) 
       config.uploadcare=config.shop.keys.pubUpcare;
       uploadcare.start({ publicKey: config.uploadcare, maxSize:153600});  
 
+      if(config.shop.maintenance.active){
+        flash.create('info',config.shop.maintenance.reason[$translate.use()],0,40000);
+      }
 
+
+      //
+      // after N days without reloading the page, 
+      var time=Date.now(), day=(24*60*60*1000);
+      $interval(function () {
+        if((Date.now()-time)>day){
+          var reload="Votre session est restée inactive trop longtemps. Veuillez <a href='#' onClick='window.location.reload()'>recharger la page</a>";
+          flash.create('danger','<b>Info!</b> '+reload,0,-1);
+          time=Date.now();          
+        }
+      },60000);
+            
   });
 
 
@@ -320,6 +393,7 @@ function appRun(gitHubContent, $templateCache, $route, $http, $timeout, config) 
 
 // Bootstrap (= launch) application
 angular.element(document).ready(function () {
+
 
   //
   // loading fastclick for mobile tap
@@ -381,6 +455,50 @@ angular.element(document).ready(function () {
     //return /8|3|5|10/.test(m)?30:m==1?(!(y%4)&&y%100)||!(y%400)?29:28:31;
     return new Date(this.getFullYear(), (month||this.getMonth())+1, 0).getDate();
   };  
+
+
+  //
+  // give an array of days (in the form [0..6]) and return the ordered dates corresponding (starting from today)
+  // Sun(0), Mon, tuesday, wednesday, thursday, Freeday, Saterday
+  Date.dayToDates=function(days, offset){
+    var now=offset||new Date(), today=now.getDay(), h24=86400000, week=86400000*7, result=[];    
+    days=days||[];
+
+    //
+    // starting from today
+    days.forEach(function (day) {
+      if((day-today)>=0) {
+        result.push(new Date(now.getTime()+(day-today)*h24));
+      }
+    });
+
+    // this is splitted in 2 loops to make the list ordered!
+    // going to next week  ()
+    days.forEach(function (day) {
+      if((day-today)<0) {
+        result.push(new Date(now.getTime()+(day-today)*h24+week));
+      }
+    });
+    return result;
+  };
+
+  Date.prototype.toYYYYMMDD=function() {
+    return ''+this.getFullYear()+this.getMonth()+this.getDate();
+  };
+
+
+  Date.prototype.plusDays=function(nb) {
+    var plus=new Date(this);
+    plus.setDate(this.getDate()+nb);
+    return plus;
+  };
+
+  //
+  // simple test : this in [d1,d2[
+  Date.prototype.in=function(d1,d2) {
+    return (this>=d1&&this<d2)
+  };
+
 
   //console.log(window.Showdown.extensions)
   angular.bootstrap(document, ['app']);

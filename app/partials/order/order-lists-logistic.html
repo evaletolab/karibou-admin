@@ -1,22 +1,83 @@
 <!-- BY ORDERS -->
-<div class="list-group">
-  <div ng-repeat-start="order in orders|orderBy:['-shipping.when','shipping.postalCode']|filter:options.filterTxt" 
-       ng-show="groupByShippingDate(order.shipping.when, $index) && (!filters.f||filters.f===order.shipping.when)" >
+
+
+<div class="card"   
+      style="margin-bottom:15px"
+      ng-repeat="order in orders|orderBy:['-shipping.when','shipping.postalCode']|filter:{shipping:{when:filters.f}}" 
+      ng-show="isLogisticVisible(order,filters.f)" >
+    <div class="card-header ch-alt m-b-20">
+        <!-- HEADER -->
+        <div  class="bag-l-1" ng-class="getOrderStatusClass(order,'label-')">
+          {{order.rank}}
+        </div>
+        <h2 style="margin-left:25px">
+           
+          <a class=" text-capitalize" ng-click="modalUserDetails(order.oid)" bs-modal="'/partials/order/order.user.modal.html'">
+          {{order.shipping.name}}</a>
+          <a href="tel:{{getOrderPhones(order)}}" class="btn btn-sm btn-default no-shadow-border"><i class="zmdi zmdi-phone"></i></a>
+        </h2>
+        <span class=" label-lg label label-default hide"
+              > </span>
+
+
+        <button class="btn bgm-default btn-float waves-effect no-shadow"
+                ng-click="updateCollect(shop,true,filters.f)"><i class="zmdi zmdi-check"></i></button>
+    </div>
+    <div class="card-body card-padding" style="padding-top:0">
+        <div class="pmo-contact">        
+            <ul class="" style="margin-bottom:15px">
+              <li>
+                <i class="fa fa-map-marker"></i>
+                <a href="" map-scheme="order.shipping" class="link ">
+                  {{order.shipping.streetAdress}}, {{order.shipping.region}} <b>{{order.shipping.postalCode}}</b>
+                </a>&nbsp;                                            
+                <b>Etage:</b> {{order.shipping.floor}}                
+              </li>
+              <li> 
+                <i class="zmdi zmdi-comment-alert"></i>
+                <b>Note:</b> {{order.shipping.note}}                  
+              </li>
+            </ul>
+        </div>          
+          <div class="btn-group bag-2 -bag-margin no-shadow-border">
+            <button type="button" class="btn btn-xs btn-default dropdown-toggle " data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <span ng-if="!order.shipping.bags">{{order|orderTotal}}</span>
+              <span ng-if="order.shipping.bags" class="bold">~{{order.shipping.bags}} cabas</span>
+              <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu">
+              <li><a class="grayx">{{order.payment.fees.shipping|number:1}} fr</a></li>
+              <li><a href="#" ng-click="updateBagsCount(order,1)">1 cabas</a></li>
+              <li><a href="#" ng-click="updateBagsCount(order,2)">2 cabas</a></li>
+              <li><a href="#" ng-click="updateBagsCount(order,3)">3 cabas</a></li>
+              <li><a href="#" ng-click="updateBagsCount(order,4)">4 cabas</a></li>
+            </ul>
+          </div>
+        
+    </div>
+</div>
+
+
+
+<div class="list-group hide">
+  <div ng-repeat-start="order in orders|orderBy:['-shipping.when','shipping.postalCode']|filter:{shipping:{when:filters.f}}" 
+       ng-show="groupByShippingDate(order.shipping.when, $index)" >
       <!-- <h3>&nbsp;{{order.shipping.when|dateLabel}}</h3> -->
   </div>
   <li class="list-group-item " 
-      ng-repeat-end ng-class="getOrderStatusClass(order,'list-group-item-')" 
-      ng-if="(!filters.f||filters.f===order.shipping.when)&&order.payment.fees.shipping">
+      ng-repeat-end  
+      ng-if="isLogisticVisible(order,filters.f)">
     <h4 class="list-group-item-heading">
-      <a class=" " ng-click="modalUserDetails(order.oid)" bs-modal="'/partials/order/order.user.modal.html'">
-        {{order.shipping.name}}</a> - {{getOrderPhones(order)}} - 
-        <div class="btn-group pull-right">
-          <button type="button" class="btn btn-xs btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      <a class=" text-capitalize" ng-click="modalUserDetails(order.oid)" bs-modal="'/partials/order/order.user.modal.html'">
+        {{order.shipping.name}}</a> <a href="tel:{{getOrderPhones(order)}}" class="small">{{getOrderPhones(order)}}</a> 
+        <div class="btn-group bag-1 bag-margin no-shadow-border">
+          <button type="button" class="btn btn-xs btn-default dropdown-toggle " data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <span ng-if="!order.shipping.bags">{{order|orderTotal}}</span>
             <span ng-if="order.shipping.bags" class="bold">~{{order.shipping.bags}} cabas</span>
             <span class="caret"></span>
           </button>
           <ul class="dropdown-menu">
+            <li><a class="grayx">{{order.payment.fees.shipping|number:1}} fr</a></li>
             <li><a href="#" ng-click="updateBagsCount(order,1)">1 cabas</a></li>
             <li><a href="#" ng-click="updateBagsCount(order,2)">2 cabas</a></li>
             <li><a href="#" ng-click="updateBagsCount(order,3)">3 cabas</a></li>
@@ -25,12 +86,19 @@
         </div>
 
     </h4>
-    <span class="pull-right label label-primary">sac {{order.rank}}</span>
-    <p class="list-group-item-text">
-       {{order.shipping.streetAdress}}/{{order.shipping.postalCode}}<br/>
-       <small>étage: {{order.shipping.floor}} - {{order.shipping.note}}</small>
+    <span class="bag-1 label-lg label label-primary">sac {{order.rank}}</span>
+    <p class="list-group-item-text">      
+      <address class="m-b-0 ">
+        <a href="" map-scheme="order.shipping" class="btn btn-xs btn-default no-shadow-border"><i class="fa fa-map-marker"></i></a>        
+          {{order.shipping.streetAdress}},                            
+          {{order.shipping.postalCode}} -
+          {{order.shipping.region}}, <br>
+          Etage: {{order.shipping.floor}} <br/> 
+          Note: {{order.shipping.note}} - 
+      </address>
+      <div class="pull-right" ng-class="getOrderStatusClass(order,'list-group-item-')">
+        <div class="bag-2 green-2 fa fa-check-circle fa-2x"></div>
+      </div>
     </p>
   </li>
 </div>
-
-

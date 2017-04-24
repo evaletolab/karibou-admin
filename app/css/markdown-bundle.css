@@ -1,5 +1,7 @@
 
-
+.markdown-bundle{
+  background-color:rgba(255, 255, 255, 0.72);
+}
 .markdown-bundle .text{
   font-family: "PT Serif",serif;
   color: #555;
@@ -8,14 +10,25 @@
   font-size: 20px;
 }
 
-.markdown-bundle {
-  max-width: 800px;
-  -margin: 0px auto;
-  margin-top: 45px;
+.markdown-bundle .container{
+  max-width: 600px;
+  margin: 0px auto;
 }
 
+.markdown-bundle .container-fluid{
+  margin-top: 20px;
+  margin-bottom: 40px;
+  border-bottom: 1px solid #ddd;
+}
+
+
+.markdown-bundle .container:last-child{
+  padding-bottom: 100px;
+}
+
+
 .markdown-bundle .byline{
-  color: #ddd;
+  color: #999;
   font-size: 1.2em;
   font-weight: 400;
   line-height: 1.5em;
@@ -24,6 +37,7 @@
   border-bottom: 1px solid #EEE;
   height: 300px;  
   position: relative;
+  margin-bottom: 0;
 }
 
 
@@ -43,7 +57,7 @@
   color: white;
   text-shadow:0 0 1px rgba(0,0,0,1);
 }
-.markdown-bundle h2.header, .markdown-bundle .header{
+.markdown-bundle h2.header{
   color: #999;
 }
 .markdown-bundle  h2{
@@ -54,6 +68,7 @@
 .markdown-bundle h1, .markdown-bundle.h1, .markdown-bundle h2, .markdown-bundle.h2, .markdown-bundle h3, .markdown-bundle.h3 {
     margin-top: 25px;
     margin-bottom: 25px;
+    color: #00a79d;
 }
 
 .markdown-bundle p{
@@ -62,5 +77,40 @@
 }
 
 .markdown-bundle ul, .markdown-bundle ol{
-  padding-left: 20px; 
+  padding-left: 15px;
+  list-style: inherit;
+  margin-bottom: 20px;
+}
+
+
+.markdown-bundle .btn-bundle{
+  display: inline;
+  margin-top: 13%;
+  padding: 10px 30px;
+}
+
+.markdown-bundle blockquote{
+  margin:50px -25px;
+  font-style: italic;
+  color: #888;  
+  font-size: 1.3em;
+}
+
+.edit .markdown-bundle blockquote{
+  margin:50px 0%;
+}
+
+@media (max-width: 767px) {
+
+  .markdown-bundle blockquote{
+    margin:50px 0%;
+    padding-left: 0;
+    border-left: 0;    
+  }
+
+  .markdown-bundle .btn-bundle{
+    margin-top: 44%;
+    padding: 10px 30px;
+  }
+
 }

@@ -19,6 +19,26 @@ Main Client Features:
 Karibou is intended to be used with a backend, but comes with a basic NodeJS / Express server to get your started.
 
 
+## Unused directives & css
+[] infiniteCarousel (css)
+[] lazySrc
+[] bnLazySrc
+[] hideOnClick/showOnClick
+[] slideOnClick
+[] masonry (js)
+[] iframeAutoHeight
+[] autoSubmit
+[] lazyload (js, masonry)
+[] pageslide (js)
+[] appAfix
+[] computeUrl (/shop, products/category)
+[] background
+[] toggleSidebar
+[] filter:capitalize, unique, reverse, categories
+[] scroll-y, dashboard-content element-scroller,navbar-static-top
+ 
+
+
 ## License
 Copyright (c) 2013 Olivier Evalet 
 

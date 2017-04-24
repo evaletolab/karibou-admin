@@ -9,8 +9,9 @@ angular.module('app.root', ['app.config','app.user'])
 //
 // the AppCtrl is used in index.html (see app/assets/index.html)
 appCtrl.$inject=[
-  '$scope','$rootScope','$window','$location','$routeParams','$timeout','$http','config','api','user','cart','category','product','shop','document'];
-function appCtrl($scope, $rootScope, $window,  $location, $routeParams, $timeout, $http, config, api, user, cart, category, product,shop,document) {
+  '$scope','$rootScope','$window','$location','$routeParams','$timeout','$http','$translate','config','api','user','cart','category','shop'
+  ];
+function appCtrl($scope, $rootScope, $window,  $location, $routeParams, $timeout, $http, $translate, config, api, user, cart, category,shop) {
 
   $rootScope.user=$scope.user = user;
   $scope.cart = cart;
@@ -19,20 +20,50 @@ function appCtrl($scope, $rootScope, $window,  $location, $routeParams, $timeout
   $scope.api=api;
   $scope.cover=config.cover;        
   $scope.browserName;
-  $scope.userDocuments;
   window.referrers=[];
+  $scope.daysweek="dim._lun._mar._mer._jeu._ven._sam.".split('_');
+  $scope.daysweekLg="dimanche_lundi_mardi_mercredi_jeudi_vendredi_samedi".split('_');
 
-
-  $scope.options={
+  var options=$scope.options={
+    isAdmin:false,
+    isShopOwner:false,
+    isLogistic:false,
     cart:false,
     sidebar:false,
     wellSubscribed:false,
-    needReload:false
+    needReload:false,
+    displayShop:false,
+    currentCategory:'',
+    locale:$translate.use(),
+    sidebarToggle:{
+      left:false,
+      right:false
+    }
   };
+
+
+
+
+
+  $scope.locale=function () {
+    return options.locale;
+  };
+
+  $scope.changeLanguage = function (langKey) {
+    $translate.use(langKey);
+    options.locale=langKey;
+    // update server
+    $http.get(config.API_SERVER+'/v1/config?lang='+langKey);    
+  };  
+
+
 
   //
   // export shops context for all Ctrl
-  $scope.shops=$scope.shopsSelect=shop.query({});
+  $rootScope.shops=$scope.shops=$scope.shopsSelect=shop.query({});
+
+
+
 
   //
   // welcome page
@@ -52,49 +83,86 @@ function appCtrl($scope, $rootScope, $window,  $location, $routeParams, $timeout
     $scope.user = u;
   });
 
+  $rootScope.$on('user.init',function() {
+    options.isAdmin=user.isAdmin();
+    options.isAuthenticated=user.isAuthenticated();
+    options.isShopOwner=(user.shops.length||user.isAdmin());
+    options.isLogistic=(user.hasRole('logistic')||user.isAdmin());
+    user.isAuthenticated()&&$window.ga&&$window.ga('set', '&uid', user.id);
+  })
 
-  //
-  // after N days without reloading the page, 
-  $timeout(function () {
-    $scope.options.needReload=true;
-  },86400000*2);
-  
+
   //
   // get categories
-  category.select({stats:true},function(categories){
-    $scope.category=category;
-  });
+  $scope.loadCategory=function() {
+    category.select({stats:true},function(categories){
+      $scope.category=category;
+    });
+  }
+
+  $scope.loadCategory();
+  
+  $scope.go=function(url) {
+    return $location.path(url)
+  }
+
+  $scope.goBack=function(url) {
+    if(!$window.history.length){
+      return $location.path(url)
+    }
+    $window.history.back();
+  }
 
   //
-  // load campaign data
-  // $http.get(config.API_SERVER+'/v1/wallets/giftcard/count').then(function (result) {
-  //   $scope.campaign=result.data;
-  // });
-
-  $scope.displayBundle=function (){
-    document.get(config.shop.home.path).model.$promise.then(function(model){
-      $rootScope.title='documents '+model.slug+' - '+model.title;
-      if(model.products){
-        model.products=product.wrapArray(model.products);
-      }
-      $scope.bundle=model;
-    });
+  // on Search 
+  $scope.onSearch=function(){
+    var search=$('#search-nav').val();
+    $location.path('/search').search({q:search});
   };
+
 
   //
   // clear cache
   $rootScope.$on('$viewContentLoaded', function() {
-    if($window.ga && config.API_SERVER.indexOf('localhost')==-1 && config.API_SERVER.indexOf('evaletolab')==-1){
-      if(!user||(user && !user.isAdmin()))
-      {$window.ga('send', 'pageview', { page: $location.path() });}        
-    }
+    var path=$location.path();
+    user.$promise.finally(function(){
+      if($window.ga && 
+         config.API_SERVER.indexOf('karibou.ch')!==-1 &&
+         '/admin /login'.indexOf(path.substring(0,5))==-1){
+        if(!user.isAdmin()){
+          $window.ga('send', 'pageview', { page: path });
+          if(fbq)fbq('track', "PageView");
+        }        
+      }
+
+      //
+      // manage admin
+      if(user.isAdmin())
+        angular.element('html').addClass('app-admin');
+      else
+        angular.element('html').removeClass('app-admin');
+
+    });
+
+    //
+    // manage shop layout
+    if($routeParams.shop)
+      angular.element('html').addClass('app-shop');
+    else
+      angular.element('html').removeClass('app-shop');
+
+
+    angular.element('html').removeClass('app-cart');
+    options.sidebarToggle.left=false;
+    options.sidebarToggle.right=false;
+    
   });
 
   //
   // get the head title up2date 
   $rootScope.$on('$routeChangeStart', function (event, current, previous) {
-    $scope.options.cart=false;
-    $scope.options.sidebar=false;
+    options.cart=false;
+    options.sidebar=false;
     var longpath=$location.path();
     user.$promise.finally(function(){
       if (!user.isAuthenticated()){
@@ -109,7 +177,18 @@ function appCtrl($scope, $rootScope, $window,  $location, $routeParams, $timeout
       $rootScope.title = (current.$$route.title)?current.$$route.title:title;
 
     });
+
+    options.currentCategory='';
+    if(current.params.category){
+      options.currentCategory=category.findNameBySlug(current.params.category);
+    }
+
   });
+
+  //
+  // watch current config
+  // $scope.$watch('config.shop', function(shared,old) {
+  // },true);
 
 
 
@@ -142,12 +221,13 @@ function appCtrl($scope, $rootScope, $window,  $location, $routeParams, $timeout
   };
 
 
+
   //
   // welcome click 
   $scope.onWelcome=function () {
     // TODO use of localstorage to replace cookie5
     // avoid lander page on email validation
-    // $scope.options.welcome=$cookies.welcome=true;
+    // options.welcome=$cookies.welcome=true;
     // var localStorage=$window['localStorage'];
     // $location.path('/')
     $scope.locationReferrer('/');
@@ -195,12 +275,6 @@ function appCtrl($scope, $rootScope, $window,  $location, $routeParams, $timeout
   };
 
 
-  //
-  // this is an helper for avoid the default sorting by ng-repeat
-  $scope.keys=function(map){
-    if(!map){return [];}
-    return Object.keys(map);
-  };
 
 
   $rootScope.locationReferrer=function(defaultUrl){
@@ -208,14 +282,6 @@ function appCtrl($scope, $rootScope, $window,  $location, $routeParams, $timeout
   };
 
 
-
-  $rootScope.showMenuOnSwipe=function(){
-    //$('nav.site-nav').click();
-  };
-
-  $rootScope.hideMenuOnSwipe=function(){
-    //$('nav.site-nav').click();
-  };
 
 
 
@@ -278,18 +344,6 @@ function appCtrl($scope, $rootScope, $window,  $location, $routeParams, $timeout
     return template;
   };
 
-  $scope.showOverview=function(){
-    $location.path('/account/overview');
-  };
-
-  $scope.showOrder=function(){
-    $location.path('/account/orders');
-
-  };
-
-  $scope.showLove=function(){
-    $location.path('/account/love');
-  };
 
   //
   // logout (global function)
@@ -310,26 +364,14 @@ function appCtrl($scope, $rootScope, $window,  $location, $routeParams, $timeout
     });
   };
   
-  //
-  // the size of shop and product cart
-  $scope.getFormat=function(index){      
-    if (index===undefined) {return 'c2';}
-    return (!index)?"c3":"c2";
-  } ;   
 
 
   $scope.toggleCart=function(sel){
-    $scope.options.cart=!$scope.options.cart;
+    options.cart=!options.cart;
+    angular.element('html').toggleClass('app-cart');
   };
   
 
-  $scope.addCart=function (item) {
-    cart.add(item, true);    
-  };
-
-  $scope.removeCart=function (item) {
-    cart.remove(item, true);
-  };
 
   $rootScope.uploadImageError=function(error){
       //http://ucarecdn.com/c1fab648-f6b7-4623-8070-798165df5ca6/-/resize/300x/

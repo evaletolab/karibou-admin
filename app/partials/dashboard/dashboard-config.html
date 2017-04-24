@@ -1,27 +1,36 @@
-<div class="dashboard" ng-controller="OrderCommonCtrl">
+<div class="dashboard relative container"  ng-controller="ConfigCtrl">
 
-  <!-- MENU -->
-  <nav  class="navbar navbar-inverse navbar-fixed-top" role="navigation"
-        ng-include="'/partials/dashboard/dashboard-header.html'"></nav>
 
   <!-- MAIN CONTENT -->
-  <div class="container-fluid " ng-controller="ConfigCtrl">
-    <div class="row">
+  <div class="clearfix " >
 
-      <!-- LEFT MENU -->
-      <div class="col-xs-8 col-sm-4 col-lg-2 sidebar " 
-           ng-include="'/partials/dashboard/dashboard-sidebar.html'" 
-           ng-class="{'menu-off':!options.showMenu}">
+    <div class="card">
+        <div class="card-header ch-alt m-b-20">
+            <h2>
+              Configuration de karibou.ch
+            </h2>
+            
+            <a class="btn bgm-red btn-float waves-effect"
+                     ng-click="saveConfig();"
+                    ><i class="zmdi zmdi-save"></i></a>
+            
+        </div>
+        <div class="card-body card-padding hide clearfix " style="padding-top:0" id="order-filter">
+        </div>
+    </div>
+    
+    <div class="dashboard-content" >
+
+
+      <!-- ADMIN CHECK -->
+      <div class="col-xs-12  nopadding-xs text-center" ng-if="!options.isAdmin">
+        <i class="fa fa-bug fa-7x gray" ></i><br/>
+        <div class="gray">Psst... rien à déclarer ici!</div>
       </div>
-      <div class="col-xs-12  nopadding-xs text-center" ng-if="!user.isAdmin()">
-      <i class="fa fa-bug fa-7x gray" ></i><br/>
-      <div class="gray">rien à déclarer!</div>
-      </div>
-      <div class="col-xs-12  nopadding-xs" ng-if="user.isAdmin()">
+  
+      <!-- CONFIG -->
 
-        <!-- CONFIG -->
-        <h1 class="page-header">Configuration ({{config.shop.cid}}) </h1>
-
+      <div class="clearfix well" >
         <!-- KEYS -->
         <h3 class="page-header">Gateway public key (stripe)</h3>
         <div class="form-group ">                        
@@ -47,8 +56,10 @@
         <div class="form-group ">                        
             <input type="text" class="form-control input-lg" ng-model="config.shop.keys.pubDisqus" />
         </div>
+      </div>
 
-        <!-- MAINTENANCE -->
+      <!-- DISPLAY BUNDLE   -->
+      <div class="clearfix well hide" >
         <h3 class="page-header">Home</h3>
         <div class="form-group ">                        
           <label class="control-label">Afficher les produits préférés
@@ -59,24 +70,67 @@
             <input type="text" class="form-control input-lg" ng-model="config.shop.home.path" />
             <p class="help-block">Afficher un bundle</p>
         </div>
+      </div>
 
-
-        <!-- MAINTENANCE -->
-        <h3 class="page-header">Maintenance</h3>
+      <!-- MAITENANCE INFO -->
+      <div class="clearfix well" >
+        <h4 class="page-header"><i class="fa fa-edit gray"></i>&nbsp;<span translate="warningmessage"></span></h4>
         <div class="form-group ">                        
-          <label class="control-label">Toutes les livraisons sont interrompues
+          <label class="control-label">Maintenance
             <input type="checkbox" ng-model="config.shop.maintenance.active">
           </label>
           <div class="">
-            <textarea  rows="4" class="form-control input-lg" ng-model="config.shop.maintenance.reason" placeholder="Pour quelle raison?"></textarea>            
+            <textarea  rows="4" class="form-control input-lg" ng-model="config.shop.maintenance.reason[locale()]" placeholder="Pour quelle raison?"></textarea>            
           </div>
-          <p class="help-block">ATTENTION, utiliser l'interruption avec dates</p>
         </div>
+      </div>
+
+      <!-- WELCOME INFO -->
+      <div class="clearfix well" >
+        <h4 class="page-header"><i class="fa fa-edit gray"></i>&nbsp;<span translate="welcomemessage">Bienvenue!</span></h4>
+        <div class="form-group ">                        
+          <label class="control-label">Welcome!
+            <input type="checkbox" ng-model="config.shop.welcome.active">
+          </label>
+          <div class="">
+            <textarea  rows="8" class="form-control input-lg" ng-model="config.shop.welcome.message[locale()]" ></textarea>            
+          </div>
+        </div>
+      </div>
+
+      <!-- HEADER WIDGET -->
+      <div class="clearfix well" >
+        <h4 class="page-header"><i class="fa fa-edit gray"></i>&nbsp;<span translate="headermessage">Insérer du code!</span></h4>
+        <div class="form-group ">                        
+          <label class="control-label">Widget on top !
+            <input type="checkbox" ng-model="config.shop.header.active">
+          </label>
+          <div class="">
+            <textarea  rows="8" class="form-control input-lg" ng-model="config.shop.header.message[locale()]" ></textarea>            
+          </div>
+        </div>
+      </div>
+
+      <!-- CHECKOUT INFO -->
+      <div class="clearfix well" >
+        <h4 class="page-header"><i class="fa fa-edit gray"></i>&nbsp;<span translate="checkoutmessage"></span></h4>
+        <div class="form-group ">                        
+          <label class="control-label">Lors du checkout!
+            <input type="checkbox" ng-model="config.shop.checkout.active">
+          </label>
+          <div class="">
+            <textarea  rows="4" class="form-control input-lg" ng-model="config.shop.checkout.message[locale()]" placeholder="Ajouter une note avant la commande?"></textarea>            
+          </div>
+        </div>
+      </div>
+      <!-- MAINTENANCE -->
+      <div class="clearfix well" >
+
         <!-- NOSHIPPING -->
         <h3 class="page-header">Interrompre les dates de livraisons suivantes</h3>
         <div class="clearfix" ng-repeat="noshipping in config.shop.noshipping" style="border-bottom:1px dotted #ddd;margin-bottom:5px">
           <div class="col-xs-7 nopadding">
-            <input type="text" value="{{noshipping.reason}}" ng-model="config.shop.noshipping[$index].reason" placeholder="pour quelle raison?" class="form-control input-lg col-md-10">
+            <input type="text" value="{{noshipping.reason}}" ng-model="config.shop.noshipping[$index].reason[locale()]" placeholder="pour quelle raison?" class="form-control input-lg col-md-10">
           </div>
           <div class="col-xs-2">
             <input type="text" class="form-control input-lg" ng-model="config.shop.noshipping[$index].from" placeholder="jj/mm/aaaa" format-date="DD/MM/YYYY" required />
@@ -93,18 +147,11 @@
           <p class="help-block">Spécifier les dates de fermetures et de réouverture</p>
         </div>
 
-        <div>
-          <button ng-disabled="form.$invalid||WaitText"  ng-click="saveConfig();"  class="save btn btn-primary btn-lg"  >{{WaitText || 'Enregistrer'}}</button>
-        </div>
-          
-
-        <!-- WAIT -->
-        <div ng-show="loading&&false" class="text-center gray">
-          <i class="fa fa-refresh fa-2x fa-spin"></i>
-        </div>
-
 
       </div>
+
     </div>
+
+
   </div>
 </div>

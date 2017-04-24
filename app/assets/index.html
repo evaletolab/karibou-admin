@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="fr" ng-controller="AppCtrl" class="-screen-scroll loading" ng-class="browser()">
+<html lang="fr" ng-controller="AppCtrl" class="app-loading " ng-class="browser()">
   <head>
 
     <!--                                 
@@ -7,7 +7,9 @@
        | ' / __ _ _ __ _| |__   ___  _   _ 
        |  < / _` | '__| | '_ \ / _ \| | | |
        | . \ (_| | |  | | |_) | (_) | |_| |
-       |_|\_\__,_|_|  |_|_.__/ \___/ \__,_|
+       |_|\_\__,_|_|  |_|_.__/ \___/ \__,_|.ch
+
+       Contact olivier@karibou.ch if you're interested in working with us!
     < -->          
 
     <title ng-bind="title">Karibou - producteurs, artisans et épiciers online!</title>
@@ -24,30 +26,21 @@
     <link rel="icon" type="image/png" href="/img/k-small.png" />
     <meta property="og:type" content="website">
     <meta property="og:image" content="/img/k-small.png">
-    <meta property="og:title" content="Karibou">
-    <meta property="og:site_name" content="Karibou">
+    <meta property="og:title" content="Karibou.ch">
+    <meta property="og:site_name" content="Karibou.ch">
     <meta property="og:url" content="http://Karibou.ch/">
     <meta name="twitter:site" content="@kariboulab">
-    <meta name="keywords" content="yoga,tofu,alimentation,pizza,traiteur,artisan,paysan,maraîcher,maraicher,boucher,boulanger,fromager,fruit,légume,bio">
+    <meta name="keywords" content="yoga,tofu,alimentation,santé,pizza,traiteur,artisan,paysan,maraîcher,maraicher,boucher,boulanger,fromager,fruit,légume,bio">
 
     <!-- PROMO -->
-    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/github-fork-ribbon-css/0.1.1/gh-fork-ribbon.min.css" />
+    
     <!--[if lt IE 9]>
         <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/github-fork-ribbon-css/0.1.1/gh-fork-ribbon.ie.min.css" />
     <![endif]-->
 
 
-    <!--[if lt IE 9]>
-      <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css">
 
-    <link href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700|PT+Serif:400,700,400italic" rel="stylesheet" type="text/css">
-
-    <!-- <link href="//fonts.googleapis.com/css?family=Open+Sans:400,300,600|Merriweather:400,300,700" rel="stylesheet" type="text/css" async="true">-->
-    <!-- <link defer href='//fonts.googleapis.com/css?family=Halant:500|Fira+Sans:300' rel='stylesheet' type='text/css'> -->
-<!--     <link href="//code.cdn.mozilla.net/fonts/fira.css" rel="stylesheet" >    
- -->    
-    <!-- <link href='//fonts.googleapis.com/css?family=Gentium+Book+Basic:700' rel='stylesheet' type='text/css'> -->
     <link defer rel="stylesheet" href="/css/vendor.css?cache={!distRelease!}">
     <link defer rel="stylesheet" href="/css/app.css?cache={!distRelease!}">
     <base  href="/" />
@@ -55,26 +48,40 @@
       KARIBOU_INSTANCE={!distRelease!};
       UPLOADCARE_LIVE= false;
       UPLOADCARE_MANUAL_START = true;
-      var ngCMSSettings={};
     </script>
 
-    <!-- GG analytics -->
+
+    <!-- Start of Async Drift Code 
     <script>
-    if(location.origin.indexOf('evaletolab')==-1){
-      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-      ga('require', 'displayfeatures');
-      ga('create', 'UA-57032730-1', 'auto');
-    }
+    !function() {
+      var t;
+      if (t = window.driftt = window.drift = window.driftt || [], !t.init) return t.invoked ? void (window.console && console.error && console.error("Drift snippet included twice.")) : (t.invoked = !0, 
+      t.methods = [ "identify", "track", "reset", "debug", "show", "ping", "page", "hide", "off", "on" ], 
+      t.factory = function(e) {
+        return function() {
+          var n;
+          return n = Array.prototype.slice.call(arguments), n.unshift(e), t.push(n), t;
+        };
+      }, t.methods.forEach(function(e) {
+        t[e] = t.factory(e);
+      }), t.load = function(t) {
+        var e, n, o, r;
+        e = 3e5, r = Math.ceil(new Date() / e) * e, o = document.createElement("script"), 
+        o.type = "text/javascript", o.async = !0, o.crossorigin = "anonymous", o.src = "https://js.driftt.com/include/" + r + "/" + t + ".js", 
+        n = document.getElementsByTagName("script")[0], n.parentNode.insertBefore(o, n);
+      });
+    }();
+    drift.SNIPPET_VERSION = '0.2.0'
+    drift.load('fvv5uchb923x')
     </script>
-    
+    <!-- End of Async Drift Code -->      
+
   </head>
 
-   <body  ng-class="{'display-cart':options.cart,'display-info':config.shop.maintenance.active, 'site-nav-transition site-nav-drawer-open':options.sidebar}">
+   <body ng-controller="AppCtrl" class="sw-toggled">
 
-<!--       <div class="github-fork-ribbon-wrapper right" ng-show="!cart.items.length&&showShopWidgets()">
+<!--       
+      <div class="github-fork-ribbon-wrapper right" ng-show="!cart.items.length&&showShopWidgets()">
           <div class="github-fork-ribbon">
               <a href="#" style="font-size:120%">
               5fr de rabais ! <i class="fa fa-bicycle bold"></i> 
@@ -82,278 +89,68 @@
           </div>
       </div>
  -->
-      <!-- DISPLAY CART -->
-      <button class="site-nav-logo-cart hidden-print" 
-             ng-cloak  ng-click="toggleCart()" 
-             ng-show="cart.items.length">
-          <span ng-show="cart.items.length">
-            <i class="fa fa-chevron-down hidden-xs"></i>&nbsp;
-            <i class="fa fa-shopping-cart green "></i>&nbsp;({{cart.quantity()}}) 
-            <span class="pull-right">{{cart.total()|number:2}} CHF  <span class="hidden-xs"><i class=" fa fa-bicycle"></i>&nbsp;</span></span>
-          </span>
-      </button>
-      <!-- DISPLAY SIDEBAR -->
-      <nav class="site-nav hidden-print" tabindex="-1" toggle-sidebar   ng-sipe-left="options.sidebar=false;">
-         <button class="site-nav-logo hidden-print" ng-click="options.sidebar=true;">
-            <span class=""><i class="fa fa-reorder white fa fa-2"></i>
-              &nbsp;Menu
-            </span>
-         </button>
 
-         <div  class="site-nav-scrollable-container">
-            
-            <!--            -->
-            <!-- NAVIGATION -->
-            <!--            -->
+    <div id="app-loading-wrapper" shown-when-loading="" class="hide"> 
+      <div class="app-loading fa-spin fa fa fa-spinner"></div> 
+    </div>
 
-            <ul class="site-nav-list fill">
-              <!-- HOME -->              
-              <li class="site-nav-list-item navigable-list-item site-nav-list-item-home">
-                <span class="">
-                  <a class="site-nav-list-item-btn" title="Go home" ng-href="/" tabindex="-1"><span class="fa fa-home green"></span>
-                    &nbsp;Home
-                  </a>
-                </span>
-                <span>
-                  <a class="site-nav-list-item-btn pull-right" 
-                     title="Close this menu" ng-href="#" ng-click="options.sidebar=false;"
-                     tabindex="-1"><span class="fa fa-reorder fa-2x green"></span></a>
-                </span>
-              </li>
+    <div id="flash" flash-message="9000" ></div>
+
+    <!-- Fixed navbar -->
 
 
-              <li class="site-nav-list-item" ng-hide="user.isAuthenticated()">
-                <a ng-class="getClass('/login')" class="btn  btn-success btn btn-md site-nav-list-item-btn-bootstrap " ng-href="/login"><i class="fa fa-user"></i>&nbsp;Login</a>
-              </li>
-              <li class="site-nav-list-item" ng-hide="user.isAuthenticated()">
-                <a ng-class="getClass('/signup') " class="btn  btn-md  btn-info site-nav-list-item-btn-bootstrap" ng-href="/signup"><i class="fa fa-fire"> </i>&nbsp;Sign Up</a>
-              </li>
 
-              <!-- SIGNED -->
-              <li class="site-nav-list-item" ng-show="user.isAuthenticated()">
-                <a  class="site-nav-list-item-btn" ng-href="/account/overview" ><i class="fa fa-wrench green"></i>&nbsp;@{{user.display()}}</a>
-              </li>
-              <li class="site-nav-list-item" ng-show="user.isAuthenticated()">
-                <a  class="site-nav-list-item-btn" href="" ng-click="logout()"><i class="fa fa-sign-out green"></i>&nbsp;logout</a>
-              </li>
+    <!-- Begin page content -->
+    <div ng-view="modal">   
+    </div>
 
-              <!-- MENU -->
-              <li class="site-nav-list-item divider visible-xs visible-sm">
-                <span  class="site-nav-list-item-text" >Le marché</span>
-              </li>
-              <li  class="site-nav-list-item " >
-                <a class="site-nav-list-item-btn  " title="Les boutiques" 
-                   ng-href="/products" tabindex="-1"><i class="fa fa-heart green "></i>&nbsp;La sélection</a>
-              </li>
+    <header id="header" data-current-skin="blue" data-ng-include="'/partials/index-navigation.html'" ></header>
 
-              <li  class="site-nav-list-item visible-xs visible-sm" ng-repeat="category in category.findAll()|filter:{type:'Category'}|orderBy:'weight'">
-                <a class="site-nav-list-item-btn  " title="{{category.name}}" 
-                   ng-class="getClass('/products/category/{{category.slug}}')"
-                   ng-href="/products/category/{{category.slug}}" tabindex="-1"><i class=""></i>&nbsp;{{category.name}}</a>
-              </li>
+    <section id="main">
+      <aside id="sidebar" data-ng-include="'/partials/sidebar-left.html'" data-ng-class="{ 'toggled': options.sidebarToggle.left === true }"></aside>
 
-              <li class="site-nav-list-item divider visible-xs visible-sm">
-                <span  class="site-nav-list-item-text" >Les commerces</span>
-              </li>
+      <aside id="chat" data-ng-include="'/partials/chat.html'" data-ng-class="{ 'toggled': options.sidebarToggle.right === true }"></aside>
+  
+      <section id="content" ng-view ></section>
+    </section>
 
-              <li class="site-nav-list-item ">
-                <a class="site-nav-list-item-btn " ng-class="getClass('/shops')" title="Les boutiques" ng-href="/shops" tabindex="-1"><i class="fa fa-group green"></i>&nbsp;Les boutiques</a>
-              </li>
-              
-              <!-- INFO -->
-              <li class="site-nav-list-item divider">
-                <span  class="site-nav-list-item-text" >Informations</span>
-              </li>
-              <li class="site-nav-list-item">
-                <a  class="site-nav-list-item-btn" title="Qui sommes-nous?" ng-href="/page/team">Qui sommes-nous?</a
-              </li>
-              <li class="site-nav-list-item">
-                <a  class="site-nav-list-item-btn" title="Lire notre Charte " ng-href="/page/la-charte">Lire notre Charte</a>
-              </li>
+    <div ng-static-include="'/partials/feedback.html'" class=""></div>
+    <footer class="footer hide">
+      <div class="container">
+        <div class="text-muted" i18n-render="config.shop.home.footer" parse-markdown="true"></div>
 
-              <li class="site-nav-list-item">
-                <a  class="site-nav-list-item-btn" title="Lire notre Charte " ng-href="http://canton.karibou.ch">Souscrire à la livraison canton</a>
-              </li>
-
-
-              <li class="site-nav-list-item">
-                <a  class="site-nav-list-item-btn" title="Conditions générales de vente" ng-href="/page/conditions-generales">Conditions générales de vente</a>
-              </li>
-
-              <li class="site-nav-list-item">
-                <a  class="site-nav-list-item-btn" title="Comment ça marche" ng-href="/page/about">Comment ça marche</a>
-              </li>
-
-              <li class="site-nav-list-item">
-                <a  class="site-nav-list-item-btn" title="Comment ça marche" ng-href="/page/shops">
-                FAQ pour les vendeurs</a>
-              </li>
-
-              <li class="site-nav-list-item">
-                <a  class="site-nav-list-item-btn" title="Notre page facebook" ng-href="https://www.facebook.com/KaribouFresh"> <i class="fa fa-facebook-square green fa-2x"></i>
-                  Notre page
-                </a>
-              </li>
-
-
-<!--               <li class="site-nav-list-item">
-                <a  class="site-nav-list-item-btn" title="Contact" href="">Contact</a>
-              </li>
- -->
-
-              <!-- CART -->     
-            </ul>
-         </div>
-      </nav>
-
-
-      <!-- CART -->        
-      <div class="cover-resume cart fade-in-right fade-out-right" ng-cloak ng-show="options.cart && cart.items.length" >
-        <div id="cart"  class="row nopadding"  ng-include="'/partials/order/cart.html'">
-        </div>
-      </div> 
-      <!-- CART -->
-
-      <div class="site-nav-overlay"></div>
-      <div class="main" id="container" 
-        ng-swipe-left="hideMenuOnSwipe('#container')"
-        ng-swipe-right="showMenuOnSwipe('#container')">
-
-      <!--          -->
-      <!-- FLASH    -->
-      <!--          -->
-        <div class="butter-bar active info back " ng-cloak 
-             ng-show="user.isAuthenticated() && user.email.status !== true">
-          <p class="butter-bar-message">
-            <b>Psst!</b> N'oubliez pas de valider votre adresse e-mail!
-          </p>
-        </div>
-
-         <div class="butter-bar active info hidden-print maintenance" ng-cloak 
-              ng-show="config.shop.maintenance.active" 
-            ng-animate="{show: 'fadein', hide: 'fadeout'}">
-            <p class="butter-bar-message" >
-              <i class="fa fa-info-circle"></i>&nbsp;<strong>Livraisons interrompues</strong>
-              
-            </p>
-         </div>
-
-         <div class="butter-bar active info hidden-print maintenance" ng-cloak 
-              ng-show="options.needReload" 
-            ng-animate="{show: 'fadein', hide: 'fadeout'}">
-            <p class="butter-bar-message" >
-              <i class="fa fa-info-circle"></i>&nbsp;<strong>Votre session est restée inactive trop longtemps. Veuillez <a href="#" onClick="window.location.reload()">recharger la page</a></strong>
-              
-            </p>
-         </div>
-
-        <!--[if lt IE 11]>
-        <div class="butter-bar active info back " >
-          <p class="butter-bar-message">
-            <b>Désolé!</b> La version de votre navigateur Internet Explorer 9  n'est pas supportée!
-          </p>
-        </div>
-        <![endif]-->
-         <div class="butter-bar active success " ng-cloak ng-show="FormInfos" 
-            ng-animate="{show: 'fadein', hide: 'fadeout'}">
-            <p class="butter-bar-message" ng-cloak ng-show="FormInfos">
-              {{FormInfos}}
-            </p>
-         </div>
-         <div class="butter-bar active error " ng-cloak  ng-show="FormErrors" 
-            ng-animate="{show: 'fadein', hide: 'fadeout'}">
-            <p class="butter-bar-message" ng-bind-html="FormErrors" ng-cloak ng-show="FormErrors">
-            </p>
-         </div>
-
-
-         
-      <!--                       -->
-      <!-- OVERVIEW LEFT SIDEBAR -->
-      <!--                       -->
-         <div  class="surface" ng-controller="ProductCtrl" >
-
-      <!-- CONTENT -->
-            
-          <div ng-view="modal">   
-          </div>
-
-          <div class="fill row " ng-view  ng-animate style="width:100%;margin-left:0px">
-            &nbsp;
-          </div>
-      <!-- CONTENT -->
-
-         </div>
+            <div class="col-xs-12 col-sm-4">
+              <ul>
+                <li class="dropdown-header">Faire ses courses</li>
+                <li ng-class="getClass(menu.url)" ng-repeat="menu in config.shop.menu|filter:{group:'karibou',active:true}|orderBy:'weight'" ng-if="menu.url">
+                    <a  ng-href="{{menu.url}}" i18n-render="menu.name" class="black"></a>
+                </li>
+              </ul>
+            </div>
+            <div class="col-xs-12 col-sm-4">
+              <ul>
+                <li class="dropdown-header">Notre philosophie </li>
+                <li ng-class="getClass(menu.url)" ng-repeat="menu in config.shop.menu|filter:{group:'howto',active:true}|orderBy:'weight'" ng-if="menu.url">
+                    <a  ng-href="{{menu.url}}" i18n-render="menu.name" class="black"></a>
+                </li>               
+              </ul>
+            </div>
+            <div class="col-xs-12 col-sm-4">
+              <ul>
+                <li class="dropdown-header">Besoin d'aide?</li>
+                <li ng-class="getClass(menu.url)" ng-repeat="menu in config.shop.menu|filter:{group:'links',active:true}|orderBy:'weight'" ng-if="menu.url">
+                    <a  ng-href="{{menu.url}}" i18n-render="menu.name" class="black"></a>
+                </li>             
+              </ul>
+            </div>        
       </div>
-      <div class="loading-bar"></div>
-      <!-- FEEDBACK -->
-      <div ng-controller="FeedbackCtrl" class="hidden-print" ng-show="showShopWidgets()">
-        <button class="ng-cloak  btn btn-feedbk feedbackbtn " 
-                ng-click="feedback.show=true" 
-                ng-hide="feedback.show"><i class="fa fa-pencil fa-1x"></i> {{getTitle()}}
-        </button>
-        <div  class="feedbackform ng-cloak "  ng-show="feedback.show">
-          <div unselectable="on" class="feedbackform-header">
-            <b>{{getTitle()}}</b>
-            <!-- <a title="Display the help screen." href="#" class="size-button help">?</a> -->
-            <a title="Minimize window." href="#" ng-click="feedback.show=false" class="size-button minimize">–</a>
-          </div>
-          <div class="feedbackform-content">
-            <!-- ON SHOP -->
-            <div ng-if="contextShop()">
-              <div class="feedback-avatar">
-                <img  ng-src="{{feedback.shop.photo.owner | placehold:'50x50&text=l`équipe'}}" style="">              
-              </div>
-              <div class="feedback-description">
-              <div ng-if="user.isAuthenticated()">Bonjour <span class="text-capitalize">{{user.display()}}</span>,</div>
-              <span bind="feedback.shop.description">Vous avez une question pour <span class="bold">{{feedback.shop.name}}</span>.</span>
-                
-              </div>
-            </div>
-            <!-- ON PRODUCT -->
-            <div ng-if="contextProduct()">
-              <div class="feedback-avatar">
-                <img  ng-src="{{feedback.product.vendor.photo.owner | placehold:'50x50&text=l`équipe'}}" style="">              
-              </div>
-              <div class="feedback-description">
-              <div ng-if="user.isAuthenticated()">Bonjour <span class="text-capitalize">{{user.display()}}</span>,</div>
-              <span bind="feedback.shop.description">Vous avez une question à propos du produit <br/><span class="bold">{{feedback.product.title}}</span> de <span class="bold">{{feedback.product.vendor.name}}</span>.</span>
-                
-              </div>              
-            </div>
-            <!-- ON SITE -->
-            <div ng-if="contextSite()">
-              <div class="feedback-description">
-              <span ng-if="user.isAuthenticated()">Bonjour <span class="text-capitalize">{{user.display()}}</span>,&nbsp;</span>
-              Vous pouvez contacter l'équipe  <span class="bold">Karibou</span> ici.
-              </div>
-              
-            </div>
-            <input  placeholder="Votre adresse email " type="email" class="smallx form-control"
-                    ng-model="feedback.email" ng-hide="user.isAuthenticated()" style="border:none">
-            <!-- FORM CONTENT -->
-            <select class="smallx form-control" ng-if="contextSite()"
-                    ng-model="feedback.mood" ng-options="mood for mood in feedback.moods"></select>
-            <textarea placeholder="Merci d'écrire votre commentaire ici" 
-                      ng-model="feedback.comment" 
-                      class="form-control" >
-            </textarea>
-          </div>
-          <div unselectable="on" class="feedbackform-footer">
-            <a href="#" class="btn btn-transparent" ng-click="feedback.show=false">Annuler</a>
-            <div title="Send a screenshot of this site." 
-                 class="btn btn-info"
-                 ng-click="sendComment()"
-                 ng-disabled="disableFeedbackButton()">Envoyer</div>
-          </div>
-        </div>
-        
-      </div>
+    </footer>
+
    </body>
 
   <!-- Placed at the end of the document so the pages load faster &callback=initCall -->
   <script src="https://js.stripe.com/v2/"></script>
-  <script defer src="/js/vendor.js?cache={!distRelease!}"></script>
+  <script defer src="/js/vendor.js?cache=1.2.1"></script>
   <script defer src="/js/templates.js?cache={!distRelease!}"></script>
   <script defer src="/js/app.js?cache={!distRelease!}"></script>
   <!-- MAYBE
@@ -373,38 +170,24 @@
   -->
 
 
-  <!-- Google Code for karibou web Conversion Page -->
-  <script type="text/javascript">
-  if(location.origin.indexOf('evaletolab')==-1){
-  /* <![CDATA[ */
-    var google_conversion_id = 952286068;
-    var google_conversion_language = "fr";
-    var google_conversion_format = "3";
-    var google_conversion_color = "ffffff";
-    var google_conversion_label = "s46PCLjknl0Q9PaKxgM";
-    var google_remarketing_only = false;
-  /* ]]> */
-  }
-  </script>
-  <script type="text/javascript" src="//www.googleadservices.com/pagead/conversion.js"></script>
 
   <!-- Facebook Conversion Code for Visite - karibou -->
   <script>
-  if(location.origin.indexOf('evaletolab')==-1){
-    (function() {
-      var _fbq = window._fbq || (window._fbq = []);
-      if (!_fbq.loaded) {
-        var fbds = document.createElement('script');
-        fbds.async = true;
-        fbds.src = '//connect.facebook.net/en_US/fbds.js';
-        var s = document.getElementsByTagName('script')[0];
-        s.parentNode.insertBefore(fbds, s);
-        _fbq.loaded = true;
-      }
-    })();
-  }
-  window._fbq = window._fbq || [];
-  window._fbq.push(['track', '6024666501534', {'value':'1.00','currency':'CHF'}]);
+  // if(location.origin.indexOf('karibou.ch')!==-1){
+  //   (function() {
+  //     var _fbq = window._fbq || (window._fbq = []);
+  //     if (!_fbq.loaded) {
+  //       var fbds = document.createElement('script');
+  //       fbds.async = true;
+  //       fbds.src = '//connect.facebook.net/en_US/fbds.js';
+  //       var s = document.getElementsByTagName('script')[0];
+  //       s.parentNode.insertBefore(fbds, s);
+  //       _fbq.loaded = true;
+  //     }
+  //   })();
+  // }
+  // window._fbq = window._fbq || [];
+  // window._fbq.push(['track', '6024666501534', {'value':'1.00','currency':'CHF'}]);
   </script>
 
 

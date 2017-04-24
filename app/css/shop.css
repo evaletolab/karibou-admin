@@ -1,5 +1,12 @@
-/* Shop layout
+/* Shop menu
 -------------------------------------------------- */
+
+.dropdown-menu-shop-shipping{
+  float: right;
+  font-size: 70%;
+  color: gray;
+  margin-right: 20px;
+}
 
 /* Shop details
 -------------------------------------------------- */
@@ -65,28 +72,30 @@
     margin-bottom: 2px;
 }
 
-.shop-card markdown {
+.shop-card {
     text-align: left;
     padding-top: 0px;
 }
 
-.shop-card markdown h1, .shop-card markdown h2, .shop-card markdown h3, .shop-card markdown h4{
+.shop-card h1, .shop-card h2, .shop-card h3, .shop-card h4{
     font-size: 16px;
     font-style: normal;  
 }
-.shop-card markdown p{
+.shop-card  p{
   margin-bottom: 10px;
 }
 
 .shop-card .item-footer {
-    bottom: 0px;
-    font-size: 14px;
-    position: absolute;
+  bottom: 0px;
+  font-size: 14px;
+  position: absolute;
+  color: white;
+  left: 0px;
+  padding: 8px;
+  text-shadow: 0 0 1px rgba(0, 0, 0, 0.53);
+  max-height: 250px;
 }
 
-.shop-card .item-footer {
-    font-size: 14px;
-}
 
 .shop-card .item-footer .signature{
   color: white;
@@ -105,6 +114,17 @@
   color: #452d16;
 }
 
+.shop-card .shop-discount{
+  bottom: 0px;
+  position: absolute;
+  height: initial!important;
+  background-color: rgba(41, 41, 41, 0.64);
+  padding: 8px;
+  float: left;
+  display: block;
+  color: white;
+  font-size: 90%;
+}
 
 .hours {
   color: #959ba2;
@@ -172,6 +192,9 @@
 }
 
 
+img.shop{
+  max-width: 100%;
+}
 
 img.owner{
   margin: 0 auto;
@@ -215,11 +238,11 @@ img.owner{
     height: 500px;    
   }
   .shop-card .photo {
-    height: 350px;
+    height: 300px;
   }
 
   .shop-card .photo img, .shop-card .photo div{
-    height: 350px;
+    height: 300px;
   }
 
   .shop-card .item-content{

@@ -1,82 +1,82 @@
-<div class="dashboard" ng-controller="OrderShopperCtrl">
+<div class="dashboard relative container" ng-controller="OrderShopperCtrl">
 
-  <!-- MENU -->
-  <nav  class="navbar navbar-inverse navbar-fixed-top" role="navigation"
-        ng-include="'/partials/dashboard/dashboard-header.html'"></nav>
 
-  <!-- MAIN CONTENT -->
-  <div class="container-fluid " ng-init="findAllOrdersForShipping()">
-    <div class="row">
-      <!-- SIDEBAR MENU -->
-      <div class="col-xs-8 col-sm-4 col-lg-2 sidebar " 
-           ng-include="'/partials/dashboard/dashboard-sidebar.html'" 
-           ng-class="{'menu-off':!options.showMenu}">
-      </div>
-      <div class="col-xs-12  nopadding-xs">
+  <div class="clearfix " ng-init="findAllOrdersForShipping()">
+    <div class="card">
+        <div class="card-header navbar">
+          <a class="navbar-brand green" href="" toggle-on-click="#order-filter"><i class="fa fa-tasks fa-fw"></i>  Réglage <i class="fa fa-caret-down"></i></a>
 
-        <!-- FILTERS LOGISTIC -->
-        <div class="panel panel-dashboard" >
-          <div class="panel-heading">
-            <form class="clearfix form-inline" style="">
-                <a href="" class="btn btn-transparent btn-md" toggle-on-click="#shopper-filter" > <i class="fa fa-chevron-down "></i></a>
+          <ul class="nav navbar-top-links navbar-right">
 
-                <div ng-show="!dates.length" class=" gray text-center ">
-                  <i class="fa fa-warning fa-1x"></i> Pas de livraison pour {{months_long[filters.month-1]}}
-                </div>
-                <span ng-show="dates.length" class="">
-                  <button class="btn btn-md btn-transparent btn-block-xs" 
-                          ng-repeat="date in dates.slice().reverse()"
-                          ng-click="filters.f=date" ng-class="{'active':isSelectedDate(date)}">{{date|dateLabel}}
-                        </button> 
-                </span>
-            </form>
+              <!-- /.dropdown edit shop -->
+              <li class="dropdown" ng-if="dates.length">
+                  <a class="dropdown-toggle green bold text-capitalize" data-toggle="dropdown" href="#">
+                      <i class="fa fa-calendar fa-fw"></i> {{filters.f|dateLabelShort}}  <i class="fa fa-caret-down"></i>
+                  </a>
+                  <ul class="dropdown-menu dropdown-tasks">
+                    <li ng-class="{'active':isSelectedDate(date)}" ng-repeat="date in dates.slice().reverse()|limitTo:8">
+                      <a  href="#" ng-click="filters.f=date" >{{date|dateLabelShort}}</a>
+                    </li>
+                  </ul>
+              </li>
+          </ul>
 
-          </div>
-          <div class="panel-body nopadding" id="shopper-filter" ng-class="{'hide':orders.length}">
-              <div class="col-xs-12 col-md-3 ">
-                <span>Filtrer: </span>                
-                <button class="btn btn-md btn-transparent btn-block" ng-click="toggle({payment:'authorized'})" ng-class="getToggleClass('payment','authorized')">Les commandes réservées</button>
-              </div>
-              <div ng-show="!dates.length" class="col-xs-12 col-md-3 gray text-center ">
-                <i class="fa fa-warning fa-1x"></i><br/> Pas de livraison à proposer pour {{months_long[filters.month-1]}}
-              </div>
-              <div ng-show="dates.length" class="col-xs-12 col-md-3 ">
-                <div>Carte: </div>
-                <a class="btn btn-md btn-transparent btn-block" ng-href="/admin/shipping/map">
-                  Voir la carte
-                </a>
-              </div>
-              <div class="col-xs-12 col-md-3 ">
-                <div>Mois: </div>
-                <span ng-repeat="month in months"><button class="btn btn-xs btn-transparent" ng-click="toggle({month:month})" ng-class="getToggleClass('month',month)">{{months_short[month-1]}}</button> </span>                
-              </div>
-              <div class="col-xs-12 col-md-3 ">
-                <span>Année: </span>
-                <button class="btn btn-md btn-transparent btn-block" 
-                        ng-repeat="year in years"
-                        ng-click="toggle({year:year})" ng-class="getToggleClass('year',year)">{{year}}</button>                 
-                <br/>
-              </div>
-          </div>
-        </div>        
-        
-
-        <!-- LOGISTIC -->
-        <div ng-show="loading&&!orders.length" class="text-center gray">
-          <i class="fa fa-refresh fa-2x fa-spin"></i>
         </div>
-
-        <div ng-if="orders.length ">
-          <div  ng-include="'/partials/order/order-lists-logistic.html'">
-          </div>
-
-          <!-- MAP -->
-<!--           <div ng-if="addresses" class="text-center">
-            <img bg-src="{{map.resolveStaticmap(addresses)}}" class="img-cover" style="height:500px"/>
-          </div>
- -->          <hr/>
+        <div class="card-header ch-alt m-b-20">
+            <h2>
+              Livraisons du {{filters.f|dateLabelLong}}
+            </h2>
+            
+            <a class="btn bgm-red btn-float waves-effect"
+                     ng-click=""
+                    ><i class="zmdi zmdi-pin"></i></a>
+            
         </div>
-      </div>
+        <div class="card-body card-padding  clearfix "
+             ng-class="{'hide':orders.length}" 
+             style="padding-top:0" 
+             id="order-filter">
+
+          <div ng-show="!dates.length" class="col-xs-12 gray text-center ">
+            <h4>
+              <i class="fa fa-warning fa-1x"></i>Pas de livraison à proposer pour {{months_long[filters.month-1]}}
+            </h4>
+          </div>
+
+          <div  ng-include="'/partials/dashboard/dashboard-header.html'">
+          </div>
+          <table role="grid" class="dp-table" tabindex="0" style="margin:auto;width:280px">
+            <!-- FILTER CLOSED ORDERS -->                  
+            <tr class="">
+              <td colspan="3" class="bg-gray p-t-10">
+              <div class="toggle-switch" data-ts-color="green">
+                  <label for="closed-order" class="ts-label">Les commandes réservées</label>
+                  <input id="closed-order" type="checkbox" hidden="hidden"
+                        ng-checked="isClosedOrder()">
+                  <label for="closed-order" class="ts-helper" ng-click="toggle({payment:'authorized'})" ></label>
+              </div>                      
+              </td>
+            </tr>    
+          </table>
+
+
+          <div class="col-xs-12 ">
+            <p class="f-500 c-black m-b-15">Vos codes postaux: </p>
+
+            <span ng-repeat="cp in user.logistic.postalCode|orderBy" >
+              <span class="label label-karibou"> {{cp}} </span>&nbsp;
+            </span>
+            
+          </div>
+
+        </div>
+    </div>
+    
+   <!-- TOP PANEL -->
+
+    <!-- MAIN CONTENT -->
+    <div class="dashboard-content" >
+      <div ng-if="orders.length " ng-include="'/partials/order/order-lists-logistic.html'" ></div>
     </div>
   </div>
 </div>

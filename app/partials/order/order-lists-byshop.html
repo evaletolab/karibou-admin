@@ -1,69 +1,153 @@
-  <ul class="list-group" ng-if="selected.shop">
-    <!-- HEADER -->
-    <li class="list-group-item " 
-        style="padding:15px;">
-      <div>
-        <button 
-          type="button" 
-          class="pull-right btn btn-sm btn-default  " 
-          ng-click="selected.items=false;selected.shop=false;"><span class="fa fa-close"></span></button>
-        <h3>{{selected.shop}}</h3>        
-      </div>
-    </li>    
-  </ul>
-  <ul class="list-group" ng-repeat="group in selected.items|filterBy:['vendor']|groupBy:'rank'|orderBy:'rank' " >
-    <!-- USER -->
-    <li class="list-group-item " style="padding:15px;" ng-if="group[0].when===filters.f">
-        <div  >
-          <a class="text-capitalize link bold" 
-             ng-click="modalUserDetails(group[0].oid)" 
-             bs-modal="'/partials/order/order.user.modal.html'">
-            {{group[0].customer.name.givenName}} {{group[0].customer.name.familyName}} 
-          </a>&nbsp;
-          <!-- ORDER BAG -->
-          <span class="bag-1 label label-primary ">sac {{group[0].rank}}</span>
+<div class="" ng-if="selected.shop">
+  <!--- SHOP HEADER -->
+  <div class="card">
+    <div class="card-header ch-alt m-b-20">
+      <h2>
+        Les commandes de {{selected.shop}} 
+        <small>{{shopsSelectMap[selected.shop].address.streetAdress}}/{{shopsSelectMap[selected.shop].address.postalCode}} - {{getAmountTotal(selected.items,filters.f)}} CHF </small>
+
+      </h2>
+      <button class="btn bgm-red btn-float waves-effect"
+              ng-click="selectOrderByShop();"><i class="zmdi zmdi-close"></i></button>
+    </div>
+    <div class="card-body card-padding hide" style="padding-top:0">
+        <div class="pmo-contact">        
+            <ul class="list-inline">
+              <li>
+                <i class="zmdi zmdi-phone"></i> 
+                <a href="tel:{{shopsSelectMap[selected.shop].address.phone}}" class="green">{{shopsSelectMap[selected.shop].address.phone}}</a>
+              </li>
+            </ul>
+        </div>          
+    </div>
+    
+  </div>
+
+  <!--- ITEMS FOR THIS SHOP -->
+  <div class="" 
+      ng-repeat="group in selected.items|filter:{when:filters.f}|groupBy:'rank' " >
+
+    <!-- USER DETAILS -->
+    <div class="card" >
+        <div class="card-header ch-alt ">
+            <h2>
+              <span class="text-capitalize">{{group[0].customer.name.givenName}} {{group[0].customer.name.familyName}}</span>
+              &nbsp;<span class="pull-right bold  label label-lg label-primary">sac {{group[0].rank}}</span>
+              <small>Commande {{group[0].oid}}</small></h2>
 
         </div>
+        <div class="card-body card-padding" style="padding-top:0;background-color:#f7f7f7">
+            <div class="pmo-contact">        
+                <ul class="">
+                    <li ng-repeat="phone in group[0].customer.phoneNumbers"> 
+                      <i class="zmdi zmdi-phone"></i><a href="tel:{{phone.number}}">{{phone.number}}</a>
+                    </li>
+                  
+                    <li><i class="zmdi zmdi-email"></i> <a href="mailto:{{group[0].email}}">{{group[0].email}}</a></li>
+                    <li class="hide">
+                        <i class="zmdi zmdi-pin"></i>
+                        <address class="m-b-0 ng-binding">
+                            {{group[0].shipping.streetAdress}},{{group[0].shipping.floor}},                           
+                            {{group[0].shipping.postalCode}} -
+                            {{group[0].shipping.region}}, <br>
+                            Note: {{group[0].shipping.note}}
+                        </address>
+                    </li>
+                </ul>
+            </div>   
 
-    </li>
+    <!-- ITEMS DETAILS -->
+    <ul class="list-group"  
+        style="margin-right: -15px;margin-left: -15px;margin-top: 15px;">
+      <li class="list-group-item " 
+          style="min-height:100px;padding:5px 10px"
+          ng-repeat="item in group|filter:{when:filters.f}|orderBy:['rank','vendor']" >
 
-    <!-- BODY -->
-    <li  class="list-group-item " 
-         ng-repeat="item in group|orderBy:['rank','vendor']" 
-         ng-if="item.when===filters.f">
-      <h4 class="list-group-item-heading"> 
-          <span ng-class="(item.quantity>1)?'bold red':''">{{item.quantity}}x</span> <a ng-href="/products/{{item.sku}}">{{item.title}} ({{item.part}})</a> 
-          <div ng-if="item.variant.title" class="small"><span class="fa fa-warning red">option: </span><span>{{item.variant.title}}</span></div>
-          <span class="bag-1 green fa fa-check-circle fa-2x" ng-show="item.fulfillment.status==='fulfilled'"></span>
-          <span class="bag-1 red fa fa-minus-circle fa-2x" ng-show="item.fulfillment.status==='failure'"></span>
+        <div class="col-xs-12 nopadding">
+          <!-- TITLE -->
+          <div>
+            <h5 class="gray">
+              <span ng-class="(item.quantity>1)?'bold red':''">{{::item.quantity}}x</span> 
+              <a ng-href="/products/{{item.sku}}">{{::item.title}} ({{::item.part}})</a>
+            </h5>
+            <!-- VARIANT --> 
+            <div ng-if="item.variant.title" class="small" style="margin-top: -8px;margin-left: 1px;">
+              <span class="fa fa-warning red">option: </span><span>{{::item.variant.title}}</span>
+            </div>
+          </div>
+          <!-- ACTIONS -->
+          <div style="padding-top:10px">
+            <div class="col-xs-1 nopadding"> 
+              <!-- WRITE QUALITY -->
+              <div class="btn-group admin-show-in dropdown" >
+                <button type="button" 
+                        class="btn-md btn btn-lightgreen no-shadowc dropdown-toggle " 
+                        data-toggle="dropdown" 
+                        title="{{item.fulfillment.issue}}">
+                  <i class="fa fa-exclamation-circle " ng-class="item.fulfillment.issue? 'red':'green'"></i>
+                </button>
+                <ul class="dropdown-menu" >
+                  <li ng-repeat="code in config.shop.issue.code">
+                    <a href="#" ng-click="updateIssue(item.oid,item,code)">{{::code}}</a>
+                  </li>
+                </ul>
+              </div>            
+              
+            </div>
+            <div class="col-xs-11 pull-right text-right nopadding" ng-hide="options.showWidget" >
+              <div class="input-group-validate text-right form-group">
+                  <div class="fg-line dropdown" uib-dropdown>
+                      <input type="number" type="number"  
+                            class="form-control input-md input-validate"                             
+                            ng-model="item.finalprice" data-toggle="dropdown">&nbsp;
 
-      </h4>
 
-      <div class="list-group-item-text clearfix">
-        <div class="col-xs-10 col-sm-7  nopadding">
-          <form class="form-inline    " ng-hide="options.showWidget" style="margin:0">
-            <button type="button" class="btn btn-default btn-xs "
-                    ng-class="{'btn-done':['fulfilled','failure'].indexOf(item.fulfillment.status)!==-1}"
-                    ng-click="updateItem(item.oid,item,'failure')"
-                    ><i class="fa fa-thumbs-down"></i> Annulez</button>
+                      <div class="dropdown-menu text-center" style="margin-top:20px;padding:5px">
+                          <h1>{{item.finalprice|number:2}}</h1>
+                      </div>
 
-            <input type="text" type="number"  
-                   class="form-control input-xs" 
-                   ng-class="{'input-done':['fulfilled','failure'].indexOf(item.fulfillment.status)!==-1, 'border-red':(item.fulfillment.status==='failure')}"
-                   style="margin-top: -4px; width: 60px; display: inline;"
-                   ng-model="item.finalprice" >&nbsp;
-            <button type="button" class="btn btn-default btn-xs "
-                    ng-class="{'btn-done':['fulfilled','failure'].indexOf(item.fulfillment.status)!==-1}"
-                    ng-click="updateItem(item.oid,item,'fulfilled')"
-                    ><i class="fa fa-check"></i> Validez</button>
-          </form>
+                      <i class="cp-value" style="background-color: {{ fctrl.color }}"></i>
+                  </div>
+              </div>
 
+
+              <button type="button" class="btn btn-default btn-icon waves-circle waves-float no-shadow-border"
+                      ng-class="{'btn-danger':['failure'].indexOf(item.fulfillment.status)!==-1}"
+                      ng-click="updateItem(item.oid,item,'failure')"
+                      ><i class="fa fa-close"></i> </button>
+                    
+              <button type="button" class="btn btn-default btn-icon waves-circle waves-float no-shadow-border"
+                      ng-class="{'btn-success':['fulfilled'].indexOf(item.fulfillment.status)!==-1}"
+                      ng-click="updateItem(item.oid,item,'fulfilled')"
+                      ><i class="fa fa-check"></i> </button>
+
+
+            </div>
+          </div>        
         </div>
-      </div>
-    </li>
-  </ul>
-  <!-- ITEMS TOTAL -->
-  <p ng-show="(!filters.s||filters.s===shop)" class="gray small">
-    Total commandé :  CHF
-  </p>
+        
+
+        <!--        
+        <div class="col-xs-1 hide nopadding" style="height:90px;">
+          <div class="bag-1 green-2 fa fa-check-circle fa-2x" ng-show="item.fulfillment.status==='fulfilled'"></div>
+          <div class="bag-1 red fa fa-minus-circle fa-2x" ng-show="item.fulfillment.status==='failure'"></div>
+        </div> 
+        -->         
+
+
+   
+      </li>
+    </ul> 
+                     
+        </div>
+    </div>
+
+    
+
+  </div>
+
+
+</div>
+
+
 

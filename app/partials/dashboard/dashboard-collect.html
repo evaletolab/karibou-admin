@@ -1,107 +1,79 @@
-<div class="dashboard" ng-controller="OrderAdminCtrl">
+<div class="dashboard relative container" ng-controller="OrderAdminCtrl">
 
-  <nav  class="navbar navbar-inverse navbar-fixed-top" role="navigation"
-        ng-include="'/partials/dashboard/dashboard-header.html'"></nav>
 
 
   <!-- MAIN CONTENT -->
-  <div class="container-fluid " ng-init="findAllOrders({groupby:'shop'})">
-    <div class="row">
+  <div class="clearfix " ng-init="findAllOrders({groupby:'shop',month:'now'})">
 
-      <!-- LEFT MENU -->
-      <div class="col-xs-8 col-sm-4 col-lg-2 sidebar " 
-           ng-include="'/partials/dashboard/dashboard-sidebar.html'" 
-           ng-class="{'menu-off':!options.showMenu}">
-      </div>
-      <div class="container-content">
-
-        <!-- FILTERS LOGISTIC -->
-        <div class="panel panel-default panel-dashboard" >
-          <div class="panel-heading">
-            <!-- NAV BAR -->
-            <nav class="navbar navbar-default navbar-dashboard">
-              <div class="container-fluid">
-                <div class="navbar-header">
-                  <button type="button" class="navbar-toggle collapsed" 
-                          data-toggle="collapse" 
-                          data-target="#kb-navbar-shipping" ng-click="navbarShipping=!navbarShipping;">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                  </button>
-                  <button class="navbar-btn btn btn-md btn-transparent " title="Détails"
-                          toggle-on-click="#order-filter" ><i class="fa fa-chevron-down"></i></button>
-
-                </div>
-
-                <div class="collapse navbar-collapse" ng-class="{'in':navbarShipping}" id="kb-navbar-shipping">
-                  <p class="pink navbar-text navbar-right" ng-show="filters.s&&dates.length<4">{{filters.s}}</p>
-                  <form class="navbar-form navbar-left" role="options">                
-
-
-                    <!-- DISPLAY ITEMS BY USER -->
-
-                  </form>
-                  <ul class="nav navbar-nav">
+    <div class="card">
+        <div class="card-header navbar">
+          <a class="navbar-brand green" href="" toggle-on-click="#order-filter"><i class="fa fa-tasks fa-fw"></i><span class="">Réglage</span> <i class="fa fa-caret-down"></i></a>
+          <ul class="nav navbar-top-links navbar-right ">
+              <!-- /.dropdown edit shop -->
+              <li class="dropdown" ng-if="dates.length">
+                  <a class="dropdown-toggle green" data-toggle="dropdown" href="#">
+                      <i class="fa fa-calendar fa-fw"></i> {{filters.f|dateLabelShort}}  <i class="fa fa-caret-down"></i>
+                  </a>
+                  <ul class="dropdown-menu dropdown-tasks">
                     <li ng-class="{'active':isSelectedDate(date)}" ng-repeat="date in dates.slice().reverse()|limitTo:8">
                       <a  href="#" ng-click="filters.f=date" >{{date|dateLabelShort}}</a>
                     </li>
                   </ul>
-
-                </div><!-- /.navbar-collapse -->
-              </div>
-            </nav>  
-          </div>
-
-
-          <div class="panel-body bg-gray nopadding" id="order-filter" ng-class="{'hide':orders.length}">
-              <div class="col-xs-12 col-md-3 " ng-if="user.isAdmin()">
-                <span>Filtrer les commandes: </span>                
-                <button class="btn btn-md btn-transparent btn-block" ng-click="toggle({closed:true})" ng-class="getToggleClass('closed',true)">Toutes les fermées</button>
-                <button class="btn btn-md btn-transparent btn-block" 
-                        ng-click="toggle({fulfillments:'fulfilled'})" 
-                        ng-class="getToggleClass('fulfillments','fulfilled')">Seulement les fulfilled</button>
-              </div>
-              <div ng-show="!dates.length" class="col-xs-12 col-md-3 gray text-center ">
-                <i class="fa fa-warning fa-1x"></i><br/> Pas de commande à afficher pour {{months_long[filters.month-1]}}
-              </div>
-              <div ng-show="dates.length" class="col-xs-12 col-md-3 ">
-                <div>Carte: </div>
-                <a class="btn btn-md btn-transparent btn-block" ng-href="/admin/collect/map">
-                  Voir la carte
-                </a>
-
-              </div>
-              <div class="col-xs-12 col-md-3 ">
-                <div>Mois: </div>
-                <span ng-repeat="month in months"><button class="btn btn-xs btn-transparent" ng-click="toggle({month:month})" ng-class="getToggleClass('month',month)">{{months_short[month-1]}}</button> </span>                
-              </div>
-              <div class="col-xs-12 col-md-3 ">
-                <span>Année: </span>
-                <button class="btn btn-md btn-transparent btn-block" 
-                        ng-repeat="year in years"
-                        ng-click="toggle({year:year})" ng-class="getToggleClass('year',year)">{{year}}</button>                 
-                <br/>
-              </div>
-          </div>
-        </div>        
-
-
-        <!-- ORDERS -->
-        <div ng-show="loading" class="text-center gray">
-          <i class="fa fa-refresh fa-2x fa-spin"></i>
+              </li>
+          </ul>
+          
         </div>
+        <div class="card-header ch-alt m-b-20">
+            <h2>
+              La collecte du {{filters.f|dateLabelLong}}
+              <small>Votre tournée de collecte des produits</small>
+            </h2>
+            <ul class="actions ">
+                <li>
+                    <a href="" ><i class="zmdi zmdi-map green"></i></a>
+                    <a href="" ng-click="findAllOrders({groupby:'shop'})"><i class="zmdi zmdi-refresh green"></i></a>
+                </li>
+            </ul>
+            <button class="btn bgm-red btn-float waves-effect"
+                    ><i class="zmdi zmdi-pin"></i></button>
+
+        </div>
+        <div class="card-body card-padding  clearfix " 
+             style="padding-top:0"
+             ng-class="{'hide':shopsSlug.length>0}" 
+             id="order-filter">
+
+            <div  ng-include="'/partials/dashboard/dashboard-header.html'">
+            </div>
+            <table role="grid" class="dp-table" tabindex="0" style="margin:auto;width:280px">
+              <!-- FILTER CLOSED ORDERS -->                  
+              <tr class="">
+                <td colspan="3" class="bg-gray p-t-10">
+                <div class="toggle-switch" data-ts-color="green">
+                    <label for="closed-order" class="ts-label">Commandes archivées</label>
+                    <input id="closed-order" type="checkbox" hidden="hidden"
+                          ng-checked="isClosedOrder()">
+                    <label for="closed-order" class="ts-helper" ng-click="toggle({closed:true})" ></label>
+                </div>                      
+                </td>
+              </tr>    
+            </table>
+
+
+        </div>
+    </div>
+
+    <div class="dashboard-content" >
 
 
         <!-- ORDERS BY SHOP -->
-        <div ng-if="shops" class="col-md-6 col-xs-12 nopadding container-scroll">
-          <div  ng-static-include="'/partials/order/order-collect-shop.html'"></div>
+        <div class="scroll-y"
+             ng-static-include="'/partials/order/order-collect-shop.html'">
         </div>
 
-        <div ng-if="selected.shop"
-             ng-static-include="'/partials/order/order-lists-byshop.html'" 
-             class="order-list-items col-md-6 col-xs-12 container-scroll">          
+        <div ng-include="'/partials/order/order-lists-byshop.html'"
+             ng-class="{'orders-show':selected.shop}" element-scroller="40"             
+             class="order-list-items scroll-y">          
         </div>
 
       </div>
