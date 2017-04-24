@@ -1,7 +1,7 @@
 /node_modules
 /tips
 /build
-/bower_components
+#/bower_components
 /doc
 
 # Compiled source #
