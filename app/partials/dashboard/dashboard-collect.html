@@ -42,34 +42,23 @@
              style="padding-top:0"
              ng-class="{'hide':shopsSlug.length>0}" 
              id="order-filter">
-          <div class="col-xs-12 col-md-3 admin-show" >            
-            <p class="f-500 c-black m-b-15">Filtrer les commandes: </p>                
-            <button class="btn btn-md btn-transparent btn-block" ng-click="toggle({closed:true})" ng-class="getToggleClass('closed',true)">Toutes les fermées</button>
-            <button class="btn btn-md btn-transparent btn-block" 
-                    ng-click="toggle({fulfillments:'fulfilled'})" 
-                    ng-class="getToggleClass('fulfillments','fulfilled')">Seulement les fulfilled</button>
-          </div>
-          <div ng-show="!dates.length" class="col-xs-12 col-md-3 gray text-center ">
-            <i class="fa fa-warning fa-1x"></i><br/> Pas de commande à afficher pour {{months_long[filters.month-1]}}
-          </div>
-          <div ng-show="dates.length" class="col-xs-12 col-md-3 ">
-            <p class="f-500 c-black m-b-15">Carte: </p>
-            <a class="btn btn-md btn-transparent btn-block" ng-href="/admin/collect/map">
-              Voir la carte
-            </a>
 
-          </div>
-          <div class="col-xs-12 col-md-3 ">
-            <p class="f-500 c-black m-b-15">Mois: </p>
-            <span ng-repeat="month in months"><button class="btn btn-xs btn-transparent" ng-click="toggle({month:month})" ng-class="getToggleClass('month',month)">{{months_short[month-1]}}</button> </span>                
-          </div>
-          <div class="col-xs-12 col-md-3 ">
-            <p class="f-500 c-black m-b-15">Année: </p>
-            <button class="btn btn-md btn-transparent btn-block" 
-                    ng-repeat="year in years"
-                    ng-click="toggle({year:year})" ng-class="getToggleClass('year',year)">{{year}}</button>                 
-            <br/>
-          </div>
+            <div  ng-include="'/partials/dashboard/dashboard-header.html'">
+            </div>
+            <table role="grid" class="dp-table" tabindex="0" style="margin:auto;width:280px">
+              <!-- FILTER CLOSED ORDERS -->                  
+              <tr class="">
+                <td colspan="3" class="bg-gray p-t-10">
+                <div class="toggle-switch" data-ts-color="green">
+                    <label for="closed-order" class="ts-label">Commandes archivées</label>
+                    <input id="closed-order" type="checkbox" hidden="hidden"
+                          ng-checked="isClosedOrder()">
+                    <label for="closed-order" class="ts-helper" ng-click="toggle({closed:true})" ></label>
+                </div>                      
+                </td>
+              </tr>    
+            </table>
+
 
         </div>
     </div>

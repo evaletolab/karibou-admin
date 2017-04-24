@@ -6,8 +6,8 @@
 angular.module('app.order.common', ['app.config', 'app.api'])
   .controller('OrderCommonCtrl',OrderCommonCtrl);
 
-OrderCommonCtrl.$inject=['$scope','$routeParams','api','order','user','product','shop','Map','config','$q'];
-function OrderCommonCtrl($scope, $routeParams, api, order, user, product,shop, Map, config, $q) {
+OrderCommonCtrl.$inject=['$scope','$routeParams','$timeout','api','order','user','product','shop','Map','config','$q'];
+function OrderCommonCtrl($scope, $routeParams, $timeout, api, order, user, product,shop, Map, config, $q) {
 
   $scope.map=new Map();
   $scope.user=user;
@@ -21,6 +21,7 @@ function OrderCommonCtrl($scope, $routeParams, api, order, user, product,shop, M
   $scope.months_short="janv._févr._mars_avr._mai_juin_juil._août_sept._oct._nov._déc.".split("_");
   $scope.months_long="janvier_février_mars_avril_mai_juin_juillet_août_septembre_octobre_novembre_décembre".split("_");
 
+  $scope.year=($routeParams.year|0)||(new Date().getFullYear());
   $scope.years=[2014,2015,2016];
   $scope.loading=true;
 
@@ -93,12 +94,27 @@ function OrderCommonCtrl($scope, $routeParams, api, order, user, product,shop, M
   };
 
 
+  //
+  // change year for order selection
+  $scope.prevYear=function(year){
+    $scope.year=year-1;
+    $scope.toggle({year:$scope.year});
+  };
+
+  $scope.nextYear=function(year){
+    $scope.year=year+1;
+    $scope.toggle({year:$scope.year});
+  };
+
+  $scope.isClosedOrder=function(){
+    return ($routeParams['closed']);
+  }
 
   //
   //
   $scope.selectOrderByShop=function(shop){
     if(!shop){
-      $scope.selected.items=false;
+      $scope.selected.items=[];
       $scope.selected.shop=false;        
       angular.element("body").removeClass('noscroll');
       return;

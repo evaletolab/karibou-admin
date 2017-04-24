@@ -39,7 +39,8 @@
       <a class=" text-capitalize" ng-click="modalUserDetails(order.oid)" bs-modal="'/partials/order/order.user.modal.html'">
         <span >{{::order.customer.name.givenName}}</span> 
         {{::order.customer.name.familyName}}</a>  
-        <button class="btn btn-transparent bold red btn-xs" 
+        <button class="btn btn-transparent bold red btn-xs no-shadow"
+                style="position: absolute;right:59px" 
                 ng-show="showCaptureButton(order)" 
                 ng-click="orderCapture(order)"><span class="hidden-xs">{{order.payment.status}}</span> {{order.getTotalPrice()}}CHF
         </button>

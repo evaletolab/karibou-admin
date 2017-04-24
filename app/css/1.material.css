@@ -24,3 +24,9 @@
 .table > tfoot > tr.warning > th {
     background-color: rgba(255,168, 41, 0.28);
 }
+
+
+.pmo-contact ul li {
+    position: relative;
+    padding: 4px 0 4px 25px;
+}

@@ -3,7 +3,7 @@
 //
 // Define the User module (app.user)  for controllers, services and models
 // the app.user module depend on app.config and take resources in account/*.html
-angular.module('app.user')
+angular.module('app.user',[])
   .factory('user',userFactory);
 
 //

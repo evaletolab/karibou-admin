@@ -6,8 +6,8 @@
 angular.module('app.order.manager', ['app.config', 'app.order'])
   .controller('OrderAdminCtrl',OrderAdminCtrl);
 
-OrderAdminCtrl.$inject=['$scope', '$routeParams','$timeout','$http','api','order','user','product','config','$log', '$controller','$q'];
-function OrderAdminCtrl($scope,$routeParams, $timeout, $http, api, order, user, product, config, $log, $controller,$q) {
+OrderAdminCtrl.$inject=['$scope', '$routeParams','$timeout','$http','NgTableParams','api','order','user','product','config','$log', '$controller','$q'];
+function OrderAdminCtrl($scope,$routeParams, $timeout, $http, NgTableParams, api, order, user, product, config, $log, $controller,$q) {
   $controller('OrderCommonCtrl', {$scope: $scope}); 
 
 
@@ -124,6 +124,7 @@ function OrderAdminCtrl($scope,$routeParams, $timeout, $http, api, order, user, 
     product.attributes._discount=product.attributes.discount;
     product.pricing._stock=product.pricing.stock;
     product.pricing._price=product.pricing.price;
+    return product;
   };
 
   $scope.getDetailledOrderUrl=function (when) {
@@ -335,7 +336,11 @@ function OrderAdminCtrl($scope,$routeParams, $timeout, $http, api, order, user, 
   };
 
 
+  var deferVendors=$q.defer(), deferCat=$q.defer();
+  $scope.categories=deferCat.promise;
+  $scope.vendors=deferVendors.promise;    
   $scope.loadAllProducts=function(opts){
+    var vendors=[],cats=[];
     $scope.loading=true;
     $scope.options.orderByField='pricing.stock';
 
@@ -346,12 +351,36 @@ function OrderAdminCtrl($scope,$routeParams, $timeout, $http, api, order, user, 
       // filter with the user shop
       if(!user.isAdmin()){
         params.shopname=_.map(user.shops,'urlpath');
+        $scope.shopsSelect=user.shops;
       }
 
-      $scope.products=product.query(params,function(products){
-        $scope.products=products;
+      $scope.products=product.query(params,function(products){                
+        $scope.products=products.filter($scope.initProductState);
         $scope.loading=false;
+        vendors=products.map(function(prod){
+          if(!prod.vendor)return 'none';
+          return prod.vendor.urlpath;
+        });
+        cats=products.map(function(prod){
+          return prod.categories.name;
+        });
+        $scope.tableParams.settings({
+          dataset: products
+        });        
+        deferVendors.resolve(_.uniq(vendors));
+        deferCat.resolve(_.uniq(cats));
       });
+
+      $scope.tableParams=new NgTableParams({
+        // initial filter
+        // filter: { name: "T" }
+        count:50 
+      }, {
+        // getData:$scope.products
+        dataset:$scope.products
+      });
+      
+
 
     });
   };

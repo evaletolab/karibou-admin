@@ -1,33 +1,62 @@
 
-<!-- MENU -->
-  <div class="container-fluid">
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="fa fa-bar"></span>
-        <span class="fa fa-bar"></span>
-        <span class="fa fa-bar"></span>
-      </button>
-      <a class="navbar-brand" href="" ng-click="options.showMenu=!options.showMenu;"><i class="fa fa-reorder fa fa-2"></i> MENU</a>
-    </div>
-    <div id="navbar" class="navbar-collapse collapse">
-      <ul class="nav navbar-nav navbar-right">
-        <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Boutiques <span class="caret"></span></a>
-          <ul class="dropdown-menu" role="menu">
-            <li ng-repeat="shop in user.shops">
-              <a ng-href="/shop/{{shop.urlpath}}/edit">{{shop.name}} (edit)</a>
-            </li>
-          </ul>
-        </li>        
-        <li><a href="/account">{{::user.display()}} <span  class="label label-danger admin-show">ADMIN</span></a></li>
-        <li ng-if="user.isAuthenticated()"><a href="" ng-click="logout()">logout</a></li>
-      </ul>
-      <!-- FILTER CONTENT -->
-      <form class="navbar-form navbar-left" role="search">
-        <div class="form-group">
-          <input type="text" class="form-control" placeholder="Filter" ng-model="options.filterTxt">
-        </div>
-      </form>        
-    </div>
+<!-- FILTERS -->
+  <div class="col-xs-12 date-picker">
+    <table role="grid" class="dp-table" tabindex="0" style="margin:auto;width:280px">
+      <thead>
+        <tr class="tr-dpnav">
+          <th>
+            <button type="button" class="pull-left btn-dp" ng-click="prevYear(year)" tabindex="-1">
+              <i class="zmdi zmdi-long-arrow-left"></i>
+            </button>
+          </th>
+          <th>
+            <button role="heading" aria-live="assertive" aria-atomic="true" type="button" ng-click="toggle({year:year})"
+                    tabindex="-1" class="w-100 btn-dp">
+                <div class="dp-title ">{{year}}</div>
+            </button>
+          </th>
+          <th>
+            <button type="button" class="pull-right btn-dp" ng-click="nextYear(year)" tabindex="-1">
+              <i class="zmdi zmdi-long-arrow-right"></i>
+            </button>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="" >
+          <td class="text-center " role="gridcell" ng-repeat="month in months|limitTo:3">
+            <button type="button" class="w-100 btn-dp btn-dpbody" ng-class="getToggleClass('month',month,'dp-active')"
+                    ng-click="toggle({month:month})"  tabindex="-1" >
+                    <span class="text-capitalize" >{{months_short[month-1]}}</span>
+            </button>
+          </td>                    
+        </tr>                  
+        <tr class="">
+          <td class="text-center " role="gridcell" ng-repeat="month in months|limitTo:3:3">
+            <button type="button" class="w-100 btn-dp btn-dpbody" 
+                    ng-click="toggle({month:month})" ng-class="getToggleClass('month',month,'dp-active')" tabindex="-1">
+                    <span class="text-capitalize" >{{months_short[month-1]}}</span>
+            </button>
+          </td>                    
+        </tr>                  
+        <tr class="">
+          <td class="text-center " role="gridcell" ng-repeat="month in months|limitTo:3:6">
+            <button type="button" class="w-100 btn-dp btn-dpbody" 
+                    ng-click="toggle({month:month})" ng-class="getToggleClass('month',month,'dp-active')" tabindex="-1">
+              <span class="text-capitalize" >{{months_short[month-1]}}</span>
+            </button>
+          </td>                    
+        </tr>                  
+        <tr class="">
+          <!-- ngRepeat: dt in row track by dt.date -->
+          <td class="text-center " role="gridcell" ng-repeat="month in months|limitTo:3:9">
+            <button type="button" class="w-100 btn-dp btn-dpbody" 
+                    ng-click="toggle({month:month})" ng-class="getToggleClass('month',month,'dp-active')" tabindex="-1">
+              <span class="text-capitalize" >{{months_short[month-1]}}</span>
+            </button>
+          </td>                    
+        </tr>        
+                                    
+      </tbody>
+    </table> 
   </div>

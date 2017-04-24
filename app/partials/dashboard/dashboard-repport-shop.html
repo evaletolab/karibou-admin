@@ -21,26 +21,25 @@
         <div class="card-body card-padding  clearfix "
              ng-class="{'hide':repportShops.length}" 
              style="padding-top:0" id="order-filter">
-          <div class="col-xs-12 col-md-4 ">
-            <p class="f-500 c-black m-b-15">Mois: </p>
-            <span ng-repeat="month in months"><button class="btn btn-xs btn-transparent" ng-click="toggle({month:month})" ng-class="getToggleClass('month',month)">{{months_short[month-1]}}</button> </span>                
-          </div>
-          <div class="col-xs-12 col-md-4 ">
-            <p class="f-500 c-black m-b-15">Année: </p>
-            <button class="btn btn-md btn-transparent btn-block" 
-                    ng-repeat="year in years"
-                    ng-click="toggle({year:year})" ng-class="getToggleClass('year',year)">{{year}}</button>                 
-            <br/>
-          </div>
-          <div class="col-xs-12  col-md-4 select" ng-if="options.isAdmin">
-            <p class="f-500 c-black m-b-15">Par boutique: </p>
-            <select class="form-control " 
-                    ng-change="findAllShopRepport()"
-                    ng-model="filters.shops" 
-                    ng-options="shop.urlpath as shop.name  for shop in shopsSelect| orderBy:'name'">
-                    <option value=""  selected>-- Choisissez une boutique</option>
-            </select>                        
-          </div>
+
+            <div  ng-include="'/partials/dashboard/dashboard-header.html'">
+            </div>
+            <table role="grid" class="dp-table" tabindex="0" style="margin:auto;width:280px">
+              <!-- SELECT SHOPS -->
+              <tr class="">
+                <td colspan="3" class=" p-t-10">
+                  <!-- FILTER ITEMS BY SHOP -->
+                  <div class="select"> 
+                    <select class="form-control " 
+                            ng-change="findAllShopRepport()"
+                            ng-model="filters.shops" 
+                            ng-options="shop.urlpath as shop.name  for shop in shopsSelect| orderBy:'name'">
+                            <option value=""  selected>-- Choisissez une boutique</option>
+                    </select>                        
+                  </div>             
+                </td>
+              </tr>                        
+            </table>
         </div>
     </div>
 

@@ -9,10 +9,11 @@
     "components",
     "bower"
   ],
-
   "overrides": {
-    "uploadcare":{
-      "main": ["uploadcare.js"]
+    "uploadcare": {
+      "main": [
+        "uploadcare.js"
+      ]
     },
     "bootstrap": {
       "main": [
@@ -21,12 +22,10 @@
         "dist/fonts/glyphicons-halflings-regular.svg",
         "dist/fonts/glyphicons-halflings-regular.ttf",
         "dist/fonts/glyphicons-halflings-regular.woff",
-        "dist/fonts/glyphicons-halflings-regular.woff2" 
+        "dist/fonts/glyphicons-halflings-regular.woff2"
       ]
     }
   },
-
-
   "dependencies": {
     "Chart.js": "~1.0.2",
     "angular": "1.5.x",
@@ -45,6 +44,6 @@
     "nprogress": "0.x",
     "underscore": "1.x",
     "uploadcare": "2.x",
-    "remarkable": "1.x"
+    "remarkable": "1.x" 
   }
 }

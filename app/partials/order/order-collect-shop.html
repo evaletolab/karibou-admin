@@ -6,7 +6,6 @@
     <div class="card"   
          style="margin-bottom:15px"
          ng-repeat="shop in shopsSlug"
-         ng-class="{'card-collected':isCollectedShopForDay(shop,filters.f)}"
          ng-show="isCollectableShopForDay(shop,filters.f)" >
         <div class="card-header ch-alt m-b-20">
             <h2>
@@ -15,8 +14,9 @@
             </h2>
 
 
-            <button class="btn bgm-green btn-float waves-effect"
-                    ng-click="updateCollect(shop,true,filters.f)"><i class="zmdi zmdi-plus"></i></button>
+            <button class="btn bgm-default btn-float waves-effect no-shadow"
+                    ng-class="{'bgm-green':isCollectedShopForDay(shop,filters.f)}"
+                    ng-click="updateCollect(shop,true,filters.f)"><i class="zmdi zmdi-check"></i></button>
         </div>
         <div class="card-body card-padding" style="padding-top:0">
             <div class="pmo-contact">        

@@ -3,7 +3,7 @@
 // 
 // chromium-browser --ignore-gpu-blacklist --disable-gpu-sandbox
 // var API_SERVER='http://api.karibou.ch'
-//var API_SERVER='http://localhost:4000';
+// var API_SERVER='http://localhost:4000';
  var API_SERVER='//api.'+window.location.hostname;
 // var API_SERVER='http://192.168.1.35:4000'
 // var API_SERVER='http://karibou-evaletolab.rhcloud.com'
@@ -17,6 +17,7 @@ angular.module('app', [
   'ngRoute',
   'ngSanitize',
   'ngTouch',
+  'ngTable',
 //  'ngAnimate',
   'flash',
   'pascalprecht.translate',
@@ -25,16 +26,16 @@ angular.module('app', [
   'app.templates',
   'app.config',
   'app.storage',
+  'app.uploadcare',
   'app.map',
   'app.modal',
-  'app.stacktrace',
+  'app.user',
   'app.api',
-  'app.uploadcare',
+  'app.feedback',
   'app.document',  
   'app.document.ui',  
-  'app.user',
   'app.root',
-  'app.feedback',
+  'app.user.controller',
   'app.shop',
   'app.product',
   'app.category',

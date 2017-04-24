@@ -3,7 +3,7 @@
 //
 // Define the User module (app.user)  for controllers, services and models
 // the app.user module depend on app.config and take resources in account/*.html
-var User=angular.module('app.user', ['app.config']);
+var User=angular.module('app.user.controller', ['app.config','app.user']);
 
 //
 // define all routes for user api

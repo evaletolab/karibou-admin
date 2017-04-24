@@ -25,10 +25,10 @@
 
   <!--- ITEMS FOR THIS SHOP -->
   <div class="" 
-      ng-repeat="group in selected.items|filterBy:['vendor']|groupBy:'rank' " >
+      ng-repeat="group in selected.items|filter:{when:filters.f}|groupBy:'rank' " >
 
     <!-- USER DETAILS -->
-    <div class="card" ng-if="group[0].when===filters.f">
+    <div class="card" >
         <div class="card-header ch-alt ">
             <h2>
               <span class="text-capitalize">{{group[0].customer.name.givenName}} {{group[0].customer.name.familyName}}</span>
@@ -57,53 +57,27 @@
             </div>   
 
     <!-- ITEMS DETAILS -->
-    <ul class="list-group" ng-if="group[0].when===filters.f" 
+    <ul class="list-group"  
         style="margin-right: -15px;margin-left: -15px;margin-top: 15px;">
       <li class="list-group-item " 
           style="min-height:100px;padding:5px 10px"
-          ng-repeat="item in group|orderBy:['rank','vendor']" 
-          ng-if="item.when===filters.f">
+          ng-repeat="item in group|filter:{when:filters.f}|orderBy:['rank','vendor']" >
 
-        <div class="col-xs-11 nopadding">
+        <div class="col-xs-12 nopadding">
+          <!-- TITLE -->
           <div>
             <h5 class="gray">
               <span ng-class="(item.quantity>1)?'bold red':''">{{::item.quantity}}x</span> 
-              {{::item.title}} ({{::item.part}}) <a ng-href="/products/{{item.sku}}"> [view]</a>
+              <a ng-href="/products/{{item.sku}}">{{::item.title}} ({{::item.part}})</a>
             </h5>
             <!-- VARIANT --> 
             <div ng-if="item.variant.title" class="small" style="margin-top: -8px;margin-left: 1px;">
               <span class="fa fa-warning red">option: </span><span>{{::item.variant.title}}</span>
             </div>
           </div>
+          <!-- ACTIONS -->
           <div style="padding-top:10px">
-            <div class="btn-group  no-shadow  " ng-hide="options.showWidget" style="margin:0;margin-top:5px">
-              <button type="button" class="btn btn-warning btn-md no-shadow"
-                      ng-class="{'btn-done':['fulfilled','failure'].indexOf(item.fulfillment.status)!==-1}"
-                      ng-click="updateItem(item.oid,item,'failure')"
-                      ><i class="fa fa-thumbs-down"></i> Annulez</button>
-
-
-              <div class="input-group input-group-validate form-group">
-                  <div class="fg-line dropdown" uib-dropdown>
-                      <input type="number" type="number"  
-                            class="form-control input-md input-validate" 
-                            ng-class="{'input-done':['fulfilled','failure'].indexOf(item.fulfillment.status)!==-1}"
-                            ng-model="item.finalprice" data-toggle="dropdown">&nbsp;
-
-
-                      <div class="dropdown-menu text-center" style="margin-top:20px;padding:5px">
-                          <h1>{{item.finalprice|number:2}}</h1>
-                      </div>
-
-                      <i class="cp-value" style="background-color: {{ fctrl.color }}"></i>
-                  </div>
-              </div>
-                    
-              <button type="button" class="btn btn-info btn-md no-shadow"
-                      ng-class="{'btn-done':['fulfilled','failure'].indexOf(item.fulfillment.status)!==-1}"
-                      ng-click="updateItem(item.oid,item,'fulfilled')"
-                      ><i class="fa fa-check"></i> Validez</button>
-
+            <div class="col-xs-1 nopadding"> 
               <!-- WRITE QUALITY -->
               <div class="btn-group admin-show-in dropdown" >
                 <button type="button" 
@@ -118,15 +92,47 @@
                   </li>
                 </ul>
               </div>            
+              
+            </div>
+            <div class="col-xs-11 pull-right text-right nopadding" ng-hide="options.showWidget" >
+              <div class="input-group-validate text-right form-group">
+                  <div class="fg-line dropdown" uib-dropdown>
+                      <input type="number" type="number"  
+                            class="form-control input-md input-validate"                             
+                            ng-model="item.finalprice" data-toggle="dropdown">&nbsp;
+
+
+                      <div class="dropdown-menu text-center" style="margin-top:20px;padding:5px">
+                          <h1>{{item.finalprice|number:2}}</h1>
+                      </div>
+
+                      <i class="cp-value" style="background-color: {{ fctrl.color }}"></i>
+                  </div>
+              </div>
+
+
+              <button type="button" class="btn btn-default btn-icon waves-circle waves-float no-shadow-border"
+                      ng-class="{'btn-danger':['failure'].indexOf(item.fulfillment.status)!==-1}"
+                      ng-click="updateItem(item.oid,item,'failure')"
+                      ><i class="fa fa-close"></i> </button>
+                    
+              <button type="button" class="btn btn-default btn-icon waves-circle waves-float no-shadow-border"
+                      ng-class="{'btn-success':['fulfilled'].indexOf(item.fulfillment.status)!==-1}"
+                      ng-click="updateItem(item.oid,item,'fulfilled')"
+                      ><i class="fa fa-check"></i> </button>
+
 
             </div>
           </div>        
         </div>
         
-        <div class="col-xs-1  nopadding" style="height:90px;">
+
+        <!--        
+        <div class="col-xs-1 hide nopadding" style="height:90px;">
           <div class="bag-1 green-2 fa fa-check-circle fa-2x" ng-show="item.fulfillment.status==='fulfilled'"></div>
           <div class="bag-1 red fa fa-minus-circle fa-2x" ng-show="item.fulfillment.status==='failure'"></div>
-        </div>         
+        </div> 
+        -->         
 
 
    

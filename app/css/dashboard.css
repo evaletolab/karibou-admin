@@ -40,11 +40,30 @@
   box-shadow: none;
 }
 
+.dashboard .bag-l-1{
+  width: 36px;
+  color: white;
+  text-align: center;
+  padding-top: 18px;
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  font-size: 120%;
+  font-weight: 900;  
+}
+.dashboard .bag-l-1::after{
+  margin-left: 40px;
+}
 .dashboard .bag-1{
   position: absolute;
   right: 10px;
   top: 10px;
 }
+.dashboard .bag-1.bag-margin{
+  right: 69px;
+}
+
 .dashboard .bag-1.customer{
   padding: 4px;
   top: 0px;
@@ -54,6 +73,20 @@
   position: absolute;
   right: 10px;
   bottom: 12px;  
+}
+
+.dashboard .input-group-validate{
+    float: left;
+    max-width: 70px;
+    box-shadow: none;
+    margin: 0px 3px;
+    position: absolute;
+    right: 120px;
+    margin-top: 7px;  
+}
+.dashboard .input-group-validate  input{
+  font-size: 140%;
+  border: 1px solid #e7e7e7;
 }
 
 .dashboard .input-group-addon{
@@ -205,3 +238,4 @@
     font-size: xx-small;
   }
 }
+

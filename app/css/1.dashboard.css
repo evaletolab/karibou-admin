@@ -2,6 +2,10 @@
 }
 
 
+.dashboard.container{
+    padding-left: 0px;
+    padding-right: 0px;
+}
 
 .dashboard #page-wrapper {
     padding: 0 15px;
@@ -141,6 +145,12 @@
 }
 
 @media(min-width:768px) {
+
+    .dashboard.container{
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+
     .dashboard .sidebar {
         z-index: 1;
         position: absolute;
@@ -153,4 +163,5 @@
     .dashboard .navbar-top-links .dropdown-alerts {
         margin-left: auto;
     }
+
 }

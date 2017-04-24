@@ -36,30 +36,30 @@
              ng-class="{'hide':orders.length}" 
              style="padding-top:0" 
              id="order-filter">
-          <div class="col-xs-12 col-md-3 ">
-            <p class="f-500 c-black m-b-15">Filtrer: </p>                
-            <button class="btn btn-md btn-transparent btn-block" ng-click="toggle({payment:'authorized'})" ng-class="getToggleClass('payment','authorized')">Les commandes réservées</button>
+
+          <div ng-show="!dates.length" class="col-xs-12 gray text-center ">
+            <h4>
+              <i class="fa fa-warning fa-1x"></i>Pas de livraison à proposer pour {{months_long[filters.month-1]}}
+            </h4>
           </div>
-          <div ng-show="!dates.length" class="col-xs-12 col-md-3 gray text-center ">
-            <i class="fa fa-warning fa-1x"></i><br/> Pas de livraison à proposer pour {{months_long[filters.month-1]}}
+
+          <div  ng-include="'/partials/dashboard/dashboard-header.html'">
           </div>
-          <div ng-show="dates.length" class="col-xs-12 col-md-3 ">
-            <p class="f-500 c-black m-b-15">Carte: </p>
-            <a class="btn btn-md btn-transparent btn-block" ng-href="/admin/shipping/map">
-              Voir la carte
-            </a>
-          </div>
-          <div class="col-xs-12 col-md-3 ">
-            <p class="f-500 c-black m-b-15">Mois: </p>
-            <span ng-repeat="month in months"><button class="btn btn-xs btn-transparent" ng-click="toggle({month:month})" ng-class="getToggleClass('month',month)">{{months_short[month-1]}}</button> </span>                
-          </div>
-          <div class="col-xs-12 col-md-3 ">
-            <p class="f-500 c-black m-b-15">Année: </p>
-            <button class="btn btn-md btn-transparent btn-block" 
-                    ng-repeat="year in years"
-                    ng-click="toggle({year:year})" ng-class="getToggleClass('year',year)">{{year}}</button>                 
-            <br/>
-          </div>
+          <table role="grid" class="dp-table" tabindex="0" style="margin:auto;width:280px">
+            <!-- FILTER CLOSED ORDERS -->                  
+            <tr class="">
+              <td colspan="3" class="bg-gray p-t-10">
+              <div class="toggle-switch" data-ts-color="green">
+                  <label for="closed-order" class="ts-label">Les commandes réservées</label>
+                  <input id="closed-order" type="checkbox" hidden="hidden"
+                        ng-checked="isClosedOrder()">
+                  <label for="closed-order" class="ts-helper" ng-click="toggle({payment:'authorized'})" ></label>
+              </div>                      
+              </td>
+            </tr>    
+          </table>
+
+
           <div class="col-xs-12 ">
             <p class="f-500 c-black m-b-15">Vos codes postaux: </p>
 

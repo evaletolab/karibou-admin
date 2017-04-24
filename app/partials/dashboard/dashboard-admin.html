@@ -48,42 +48,53 @@
             </ul>
 
         </div>
-        <div class="card-body card-padding hide clearfix " style="padding-top:0" id="order-filter">
-            <div class="col-xs-12 col-md-4 ">
-              <span>Filtrer les commandes: </span>                
-              <button class="btn btn-md btn-transparent btn-block" ng-click="toggle({closed:true})" ng-class="getToggleClass('closed',true)">Les fermées</button>
-              <button class="btn btn-md btn-transparent btn-block" ng-click="toggle({fulfillments:'fulfilled'})" ng-class="getToggleClass('fulfillments','fulfilled')">Les fulfilled</button>
-
-
+        <div class="card-body card-padding clearfix " 
+             style="padding-top:0"
+             ng-class="{'hide':orders.length>0}"  
+             id="order-filter">
+            <div ng-show="!dates.length" class="col-xs-12 col-md-4 gray text-center hide">
+              <i class="fa fa-warning fa-1x"></i><br/> Pas de commande à afficher pour {{months_long[filters.month-1]}} <br/>
             </div>
-            <div ng-show="!dates.length" class="col-xs-12 col-md-4 gray text-center ">
-              <i class="fa fa-warning fa-1x"></i><br/> Pas de commande à afficher pour {{months_long[filters.month-1]}}
+            <div  ng-include="'/partials/dashboard/dashboard-header.html'">
             </div>
-            <div class="col-xs-12 col-md-4 ">
-              <div>Mois: </div>
-              <span ng-repeat="month in months"><button class="btn btn-xs btn-transparent" ng-click="toggle({month:month})" ng-class="getToggleClass('month',month)">{{months_short[month-1]}}</button> </span>                
-            </div>
-            <div class="col-xs-12 col-md-4 ">
-              <em>Année: </em>
-              <button class="btn btn-md btn-transparent btn-block" 
-                      ng-repeat="year in years"
-                      ng-click="toggle({year:year})" ng-class="getToggleClass('year',year)">{{year}}</button>                 
-              <br/>
-            </div>
-            <div class="col-xs-12" >
-              <button ng-click="informShopToOrders(filters.s,filters.f,filters.fulfillments)" 
-                      type="button" class=" btn btn-md btn-warning">
-                      <span class="hidden-xs">Envoyer par</span> Email
-              </button>                
-
-              <!-- FILTER ITEMS BY SHOP --> 
-              <select class="form-control pull-right " style="width:50%" 
-                      ng-model="filters.s" 
-                      ng-disabled="!isShopSelectionAvailable()"
-                      ng-options="shop as shop for shop in orders|filterBy:['shipping.when']:filters.f|mapOrdersByShop track by shop">
-                      <option value=""  selected>-- Toutes les boutiques</option>
-              </select>                        
-            </div>        </div>
+            <table role="grid" class="dp-table" tabindex="0" style="margin:auto;width:280px">
+              <!-- SELECT SHOPS -->
+              <tr class="">
+                <td colspan="3" class=" p-t-10">
+                  <!-- FILTER ITEMS BY SHOP -->
+                  <div class="select"> 
+                  <select class="form-control " 
+                          ng-model="filters.s" 
+                          ng-disabled="!isShopSelectionAvailable()"
+                          ng-options="shop as shop for shop in orders|filterBy:['shipping.when']:filters.f|mapOrdersByShop track by shop">
+                          <option value=""  selected>-- Toutes les boutiques</option>
+                  </select>           
+                  </div>             
+                </td>
+              </tr>                        
+              <!-- SEND MAIL -->     
+              <tr class="">
+                <td colspan="3" class="bg-gray p-t-10 p-b-10">
+                  <button ng-click="informShopToOrders(filters.s,filters.f,filters.fulfillments)" 
+                          type="button" class=" btn btn-md btn-warning btn-block no-shadow ">
+                          <span class="hidden-xs">Envoyer par</span> Email
+                  </button>                
+                </td>
+              </tr>           
+              <!-- FILTER CLOSED ORDERS -->                  
+              <tr class="">
+                <td colspan="3" class="bg-gray p-t-10">
+                <div class="toggle-switch" data-ts-color="green">
+                    <label for="closed-order" class="ts-label">Commandes archivées</label>
+                    <input id="closed-order" type="checkbox" hidden="hidden"
+                          ng-checked="isClosedOrder()">
+                    <label for="closed-order" class="ts-helper" ng-click="toggle({closed:true})" ></label>
+                </div>                      
+                </td>
+              </tr>    
+            </table>
+            
+          </div>
     </div>
 
 
